@@ -1,0 +1,61 @@
+# Builds a release when a version tag such as v1.2.0 is pushed.
+#
+# Katey is released for Windows only, where Elite Dangerous runs natively. The whole job runs on Linux: the
+# .NET SDK cross-targets win-x64, and publish.sh is the one place the publish settings live, so the release
+# is the same self-contained, compressed katey.exe that publish.bat and publish.sh build locally, zipped
+# with the manual and the legal notices they place beside it. Trimming is off because the window's bindings
+# rely on reflection.
+
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  # Warnings stay warnings here. The runner's SDK can be newer than the one the code was built with and bring an
+  # analyzer rule it has not met; that shows in the log but must not stop a release. Locally every warning is an
+  # error, and every warning is fixed before work is done; see Directory.Build.props.
+  TreatWarningsAsErrors: false
+
+jobs:
+  release:
+    name: Build, test and release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      # The only workflow, so this is the only automated gate: a commit that does not build or pass its tests
+      # cannot become a release. Whitespace formatting is checked hard; the style and analyzer formatting check
+      # reports but does not block, for the same reason warnings do not: a newer SDK may want a change this code
+      # has not seen.
+      - run: dotnet build Katey.slnx --configuration Release
+      - run: dotnet test Katey.slnx --configuration Release --no-build
+      - run: dotnet format whitespace Katey.slnx --verify-no-changes --no-restore
+      - run: dotnet format Katey.slnx --verify-no-changes --no-restore
+        continue-on-error: true
+
+      - name: Publish the Windows executable
+        # The tag v1.2.0 stamps version 1.2.0 into the build.
+        run: KATEY_VERSION="${GITHUB_REF_NAME#v}" bash publish.sh
+
+      - name: Package
+        run: |
+          mkdir -p dist
+          (cd bin && zip "../dist/katey-${{ github.ref_name }}-win-x64.zip" katey.exe MANUAL.md NOTICE.md THIRD-PARTY-NOTICES.txt)
+          ls -la dist
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: Katey ${{ github.ref_name }}
+          generate_release_notes: true
+          files: dist/*

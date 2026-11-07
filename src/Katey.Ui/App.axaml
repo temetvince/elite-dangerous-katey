@@ -1,0 +1,124 @@
+﻿<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="clr-namespace:Katey.Ui"
+             x:Class="Katey.Ui.App"
+             RequestedThemeVariant="Default">
+  <Application.Resources>
+    <ResourceDictionary>
+      <!-- The workbench follows the system theme. The rail does not: it is the cockpit and stays dark. -->
+      <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+          <SolidColorBrush x:Key="KBg" Color="#EDF0F4" />
+          <SolidColorBrush x:Key="KSurface" Color="#FFFFFF" />
+          <SolidColorBrush x:Key="KSurface2" Color="#F5F7FA" />
+          <SolidColorBrush x:Key="KInk" Color="#15202B" />
+          <SolidColorBrush x:Key="KMuted" Color="#5F6D7E" />
+          <SolidColorBrush x:Key="KFaint" Color="#8A97A8" />
+          <SolidColorBrush x:Key="KLine" Color="#D3DAE3" />
+          <!-- The identity colour is the game's own cockpit orange, deepened here so white text reads on it. -->
+          <SolidColorBrush x:Key="KAccent" Color="#C45A00" />
+          <SolidColorBrush x:Key="KAccentInk" Color="#FFFFFF" />
+          <SolidColorBrush x:Key="KAccentSoft" Color="#FBE9DA" />
+          <SolidColorBrush x:Key="KAccentGlow" Color="#33F07B05" />
+          <SolidColorBrush x:Key="KGood" Color="#2E9E6B" />
+          <SolidColorBrush x:Key="KWarn" Color="#B8860B" />
+          <SolidColorBrush x:Key="KBad" Color="#D2563F" />
+          <!-- The fuel the next jump burns, the HUD's blue over its orange. -->
+          <SolidColorBrush x:Key="KBurn" Color="#1F6FD1" />
+          <SolidColorBrush x:Key="KDiscovery" Color="#6F4FBF" />
+          <SolidColorBrush x:Key="KMapping" Color="#128C8C" />
+          <SolidColorBrush x:Key="KFootfall" Color="#2E9E6B" />
+          <SolidColorBrush x:Key="KShadow" Color="#330A1428" />
+          <!-- Colour by meaning. Material grades climb from grey through green, blue and violet to gold. -->
+          <SolidColorBrush x:Key="KG1" Color="#6E7B8C" />
+          <SolidColorBrush x:Key="KG2" Color="#2E9E6B" />
+          <SolidColorBrush x:Key="KG3" Color="#2F7FC9" />
+          <SolidColorBrush x:Key="KG4" Color="#8458D0" />
+          <SolidColorBrush x:Key="KG5" Color="#B8860B" />
+          <!-- The three inventories: copper for what is dug up, steel for what is built, teal for what is read. -->
+          <SolidColorBrush x:Key="KRaw" Color="#B5612A" />
+          <SolidColorBrush x:Key="KManufactured" Color="#3C6FB0" />
+          <SolidColorBrush x:Key="KEncoded" Color="#1C8F8F" />
+          <!-- Where a module fits on the ship. -->
+          <SolidColorBrush x:Key="KCore" Color="#B8860B" />
+          <SolidColorBrush x:Key="KOptional" Color="#2F7FC9" />
+          <SolidColorBrush x:Key="KHardpoint" Color="#D2563F" />
+          <SolidColorBrush x:Key="KUtility" Color="#2E9E6B" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+          <SolidColorBrush x:Key="KBg" Color="#0F141B" />
+          <SolidColorBrush x:Key="KSurface" Color="#161D27" />
+          <SolidColorBrush x:Key="KSurface2" Color="#1B2431" />
+          <SolidColorBrush x:Key="KInk" Color="#E4E9F0" />
+          <SolidColorBrush x:Key="KMuted" Color="#8C99AB" />
+          <SolidColorBrush x:Key="KFaint" Color="#66748A" />
+          <SolidColorBrush x:Key="KLine" Color="#263140" />
+          <SolidColorBrush x:Key="KAccent" Color="#FF8A1F" />
+          <SolidColorBrush x:Key="KAccentInk" Color="#1A0E02" />
+          <SolidColorBrush x:Key="KAccentSoft" Color="#3A2410" />
+          <SolidColorBrush x:Key="KAccentGlow" Color="#40FF8A1F" />
+          <SolidColorBrush x:Key="KGood" Color="#4DBE88" />
+          <SolidColorBrush x:Key="KWarn" Color="#E8C34A" />
+          <SolidColorBrush x:Key="KBad" Color="#E2705B" />
+          <SolidColorBrush x:Key="KBurn" Color="#5FB4FF" />
+          <SolidColorBrush x:Key="KDiscovery" Color="#B39DFF" />
+          <SolidColorBrush x:Key="KMapping" Color="#3FCFCF" />
+          <SolidColorBrush x:Key="KFootfall" Color="#4DBE88" />
+          <SolidColorBrush x:Key="KShadow" Color="#66000000" />
+          <SolidColorBrush x:Key="KG1" Color="#8C99AB" />
+          <SolidColorBrush x:Key="KG2" Color="#4DBE88" />
+          <SolidColorBrush x:Key="KG3" Color="#5BA7F0" />
+          <SolidColorBrush x:Key="KG4" Color="#B088F5" />
+          <SolidColorBrush x:Key="KG5" Color="#E8C34A" />
+          <SolidColorBrush x:Key="KRaw" Color="#E08A4F" />
+          <SolidColorBrush x:Key="KManufactured" Color="#6DA3F0" />
+          <SolidColorBrush x:Key="KEncoded" Color="#4FD1D1" />
+          <SolidColorBrush x:Key="KCore" Color="#E8C34A" />
+          <SolidColorBrush x:Key="KOptional" Color="#5BA7F0" />
+          <SolidColorBrush x:Key="KHardpoint" Color="#E2705B" />
+          <SolidColorBrush x:Key="KUtility" Color="#4DBE88" />
+        </ResourceDictionary>
+      </ResourceDictionary.ThemeDictionaries>
+
+      <SolidColorBrush x:Key="RailBg" Color="#0C121B" />
+      <SolidColorBrush x:Key="RailSurface" Color="#131B27" />
+      <SolidColorBrush x:Key="RailInk" Color="#FFA347" />
+      <SolidColorBrush x:Key="RailMuted" Color="#B06F3C" />
+      <SolidColorBrush x:Key="RailLine" Color="#223042" />
+      <SolidColorBrush x:Key="RailAccent" Color="#FFC97E" />
+      <SolidColorBrush x:Key="RailAccentSoft" Color="#33FF8A1F" />
+      <SolidColorBrush x:Key="RailWarn" Color="#E8C34A" />
+      <SolidColorBrush x:Key="RailGood" Color="#4DBE88" />
+      <SolidColorBrush x:Key="RailBad" Color="#E2705B" />
+      <SolidColorBrush x:Key="RailBurn" Color="#5FB4FF" />
+
+      <!-- Star classes as the galaxy map paints them: blue-white O down to orange-red M, the hazards on their own. Fixed, not themed. -->
+      <SolidColorBrush x:Key="KStarO" Color="#8FA6FF" />
+      <SolidColorBrush x:Key="KStarB" Color="#A9C0FF" />
+      <SolidColorBrush x:Key="KStarA" Color="#CFDBFF" />
+      <SolidColorBrush x:Key="KStarF" Color="#F2F0FF" />
+      <SolidColorBrush x:Key="KStarG" Color="#FFE9B5" />
+      <SolidColorBrush x:Key="KStarK" Color="#FFC56E" />
+      <SolidColorBrush x:Key="KStarM" Color="#FF8A5B" />
+      <SolidColorBrush x:Key="KStarNeutron" Color="#7FE3FF" />
+      <SolidColorBrush x:Key="KStarWhiteDwarf" Color="#E6F3FF" />
+      <SolidColorBrush x:Key="KStarBlackHole" Color="#3B4150" />
+      <SolidColorBrush x:Key="KStarOther" Color="#8C99AB" />
+
+      <!-- The converters every view shares: the main window, the rail view and the rail's own window. -->
+      <ui:BrushFromHex x:Key="BrushFromHex" />
+      <ui:GeometryFromPath x:Key="GeometryFromPath" />
+      <ui:SemanticBrush x:Key="SemanticBrush" />
+      <ui:StarBrush x:Key="StarBrush" />
+      <ui:Scale x:Key="Scale" />
+
+      <FontFamily x:Key="BodyFont">avares://katey/Assets/Fonts#B612, Segoe UI, sans-serif</FontFamily>
+      <FontFamily x:Key="DisplayFont">avares://katey/Assets/Fonts#Barlow Semi Condensed, Segoe UI, sans-serif</FontFamily>
+      <FontFamily x:Key="MonoFont">avares://katey/Assets/Fonts#B612 Mono, Consolas, monospace</FontFamily>
+    </ResourceDictionary>
+  </Application.Resources>
+  <Application.Styles>
+    <FluentTheme />
+    <StyleInclude Source="avares://katey/Styles/Workbench.axaml" />
+  </Application.Styles>
+</Application>

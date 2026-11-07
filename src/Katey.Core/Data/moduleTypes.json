@@ -1,0 +1,3015 @@
+{
+  "am": {
+    "name": "Auto Field-Maintenance Unit",
+    "group": "optional",
+    "itemPatterns": ["^int_repairer_"],
+    "blueprints": {
+      "AFM_Shielded": {
+        "1": ["Bill Turner", "Lori Jameson", "Petra Olmanova"],
+        "2": ["Bill Turner", "Lori Jameson", "Petra Olmanova"],
+        "3": ["Bill Turner", "Lori Jameson", "Petra Olmanova"],
+        "4": ["Lori Jameson", "Petra Olmanova"],
+        "5": ["Petra Olmanova"]
+      }
+    },
+    "experimentals": []
+  },
+  "bh": {
+    "name": "Bulkheads",
+    "group": "core",
+    "itemPatterns": ["_armour_"],
+    "blueprints": {
+      "Armour_Advanced": {
+        "1": ["Liz Ryder", "Selene Jean", "Petra Olmanova"],
+        "2": ["Selene Jean", "Petra Olmanova"],
+        "3": ["Selene Jean", "Petra Olmanova"],
+        "4": ["Selene Jean", "Petra Olmanova"],
+        "5": ["Selene Jean", "Petra Olmanova"]
+      },
+      "Armour_Explosive": {
+        "1": ["Liz Ryder", "Selene Jean", "Petra Olmanova"],
+        "2": ["Selene Jean", "Petra Olmanova"],
+        "3": ["Selene Jean", "Petra Olmanova"],
+        "4": ["Selene Jean", "Petra Olmanova"],
+        "5": ["Selene Jean", "Petra Olmanova"]
+      },
+      "Armour_HeavyDuty": {
+        "1": ["Liz Ryder", "Selene Jean", "Petra Olmanova"],
+        "2": ["Selene Jean", "Petra Olmanova"],
+        "3": ["Selene Jean", "Petra Olmanova"],
+        "4": ["Selene Jean", "Petra Olmanova"],
+        "5": ["Selene Jean", "Petra Olmanova"]
+      },
+      "Armour_Kinetic": {
+        "1": ["Liz Ryder", "Selene Jean", "Petra Olmanova"],
+        "2": ["Selene Jean", "Petra Olmanova"],
+        "3": ["Selene Jean", "Petra Olmanova"],
+        "4": ["Selene Jean", "Petra Olmanova"],
+        "5": ["Selene Jean", "Petra Olmanova"]
+      },
+      "Armour_Thermic": {
+        "1": ["Liz Ryder", "Selene Jean", "Petra Olmanova"],
+        "2": ["Selene Jean", "Petra Olmanova"],
+        "3": ["Selene Jean", "Petra Olmanova"],
+        "4": ["Selene Jean", "Petra Olmanova"],
+        "5": ["Selene Jean", "Petra Olmanova"]
+      }
+    },
+    "experimentals": [
+      "special_armour_kinetic",
+      "special_armour_explosive",
+      "special_armour_chunky",
+      "special_armour_thermic"
+    ]
+  },
+  "bl": {
+    "name": "Beam Laser",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_beamlaser_"],
+    "blueprints": {
+      "Weapon_Efficient": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      },
+      "Weapon_LightWeight": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      },
+      "Weapon_LongRange": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      },
+      "Weapon_Overcharged": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      },
+      "Weapon_ShortRange": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      },
+      "Weapon_Sturdy": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      }
+    },
+    "experimentals": [
+      "special_concordant_sequence",
+      "special_regeneration_sequence",
+      "special_thermal_conduit",
+      "special_thermalshock",
+      "special_thermal_vent",
+      "special_weapon_damage",
+      "special_weapon_efficient",
+      "special_weapon_toughened",
+      "special_weapon_lightweight"
+    ]
+  },
+  "bsg": {
+    "name": "Bi-Weave Shield Generator",
+    "group": "optional",
+    "itemPatterns": ["^int_shieldgenerator_.*_fast$"],
+    "blueprints": {
+      "ShieldGenerator_Kinetic": {
+        "1": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "2": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "3": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "4": ["Lei Cheung", "Mel Brandon"],
+        "5": ["Lei Cheung", "Mel Brandon"]
+      },
+      "ShieldGenerator_Optimised": {
+        "1": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "2": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "3": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "4": ["Lei Cheung", "Mel Brandon"],
+        "5": ["Lei Cheung", "Mel Brandon"]
+      },
+      "ShieldGenerator_Reinforced": {
+        "1": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "2": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "3": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "4": ["Lei Cheung", "Mel Brandon"],
+        "5": ["Lei Cheung", "Mel Brandon"]
+      },
+      "ShieldGenerator_Thermic": {
+        "1": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "2": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "3": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "4": ["Lei Cheung", "Mel Brandon"],
+        "5": ["Lei Cheung", "Mel Brandon"]
+      }
+    },
+    "experimentals": [
+      "special_shield_regenerative",
+      "special_shield_resistive",
+      "special_shield_health",
+      "special_shield_efficient",
+      "special_shield_thermic",
+      "special_shield_kinetic",
+      "special_shield_toughened",
+      "special_shield_lightweight"
+    ]
+  },
+  "c": {
+    "name": "Cannon",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_cannon_"],
+    "blueprints": {
+      "Weapon_Efficient": {
+        "1": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "2": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "3": ["The Sarge", "Marsha Hicks"],
+        "4": ["The Sarge", "Marsha Hicks"],
+        "5": ["The Sarge", "Marsha Hicks"]
+      },
+      "Weapon_HighCapacity": {
+        "1": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "2": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "3": ["The Sarge", "Marsha Hicks"],
+        "4": ["The Sarge", "Marsha Hicks"],
+        "5": ["The Sarge", "Marsha Hicks"]
+      },
+      "Weapon_LightWeight": {
+        "1": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "2": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "3": ["The Sarge", "Marsha Hicks"],
+        "4": ["The Sarge", "Marsha Hicks"],
+        "5": ["The Sarge", "Marsha Hicks"]
+      },
+      "Weapon_LongRange": {
+        "1": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "2": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "3": ["The Sarge", "Marsha Hicks"],
+        "4": ["The Sarge", "Marsha Hicks"],
+        "5": ["The Sarge", "Marsha Hicks"]
+      },
+      "Weapon_Overcharged": {
+        "1": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "2": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "3": ["The Sarge", "Marsha Hicks"],
+        "4": ["The Sarge", "Marsha Hicks"],
+        "5": ["The Sarge", "Marsha Hicks"]
+      },
+      "Weapon_ShortRange": {
+        "1": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "2": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "3": ["The Sarge", "Marsha Hicks"],
+        "4": ["The Sarge", "Marsha Hicks"],
+        "5": ["The Sarge", "Marsha Hicks"]
+      },
+      "Weapon_Sturdy": {
+        "1": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "2": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "3": ["The Sarge", "Marsha Hicks"],
+        "4": ["The Sarge", "Marsha Hicks"],
+        "5": ["The Sarge", "Marsha Hicks"]
+      },
+      "Weapon_RapidFire": {
+        "1": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "2": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "3": ["The Sarge", "Marsha Hicks"],
+        "4": ["The Sarge", "Marsha Hicks"],
+        "5": ["The Sarge", "Marsha Hicks"]
+      }
+    },
+    "experimentals": [
+      "special_auto_loader",
+      "special_dispersal_field",
+      "special_smart_rounds",
+      "special_force_shell",
+      "special_high_yield_shell",
+      "special_thermal_cascade",
+      "special_weapon_damage",
+      "special_weapon_efficient",
+      "special_weapon_rateoffire",
+      "special_weapon_toughened",
+      "special_weapon_lightweight"
+    ]
+  },
+  "cc": {
+    "name": "Collector Limpet Controller",
+    "group": "optional",
+    "itemPatterns": ["^int_dronecontrol_collection_"],
+    "blueprints": {
+      "CollectionLimpet_LightWeight": {
+        "1": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "2": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "3": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "4": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "5": ["Marsha Hicks", "The Sarge", "Tiana Fortune"]
+      },
+      "CollectionLimpet_Reinforced": {
+        "1": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "2": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "3": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "4": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "5": ["Marsha Hicks", "The Sarge", "Tiana Fortune"]
+      },
+      "CollectionLimpet_Shielded": {
+        "1": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "2": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "3": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "4": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "5": ["Marsha Hicks", "The Sarge", "Tiana Fortune"]
+      }
+    },
+    "experimentals": []
+  },
+  "ch": {
+    "name": "Chaff Launcher",
+    "group": "utility",
+    "itemPatterns": ["^hpt_chafflauncher_"],
+    "blueprints": {
+      "Misc_ChaffCapacity": {
+        "1": ["Petra Olmanova", "Ram Tah"]
+      },
+      "Misc_LightWeight": {
+        "1": ["Petra Olmanova", "Ram Tah"],
+        "2": ["Petra Olmanova", "Ram Tah"],
+        "3": ["Petra Olmanova", "Ram Tah"],
+        "4": ["Petra Olmanova", "Ram Tah"],
+        "5": ["Petra Olmanova", "Ram Tah"]
+      },
+      "Misc_Reinforced": {
+        "1": ["Petra Olmanova", "Ram Tah"],
+        "2": ["Petra Olmanova", "Ram Tah"],
+        "3": ["Petra Olmanova", "Ram Tah"],
+        "4": ["Petra Olmanova", "Ram Tah"],
+        "5": ["Petra Olmanova", "Ram Tah"]
+      },
+      "Misc_Shielded": {
+        "1": ["Petra Olmanova", "Ram Tah"],
+        "2": ["Petra Olmanova", "Ram Tah"],
+        "3": ["Petra Olmanova", "Ram Tah"],
+        "4": ["Petra Olmanova", "Ram Tah"],
+        "5": ["Petra Olmanova", "Ram Tah"]
+      }
+    },
+    "experimentals": []
+  },
+  "cr": {
+    "name": "Cargo Rack",
+    "group": "optional",
+    "itemPatterns": ["^int_cargorack_", "^int_corrosionproofcargorack_"],
+    "blueprints": {
+      "CargoRack_IncreasedCapacity": {
+        "5": []
+      }
+    },
+    "experimentals": []
+  },
+  "crl": {
+    "name": "Mk II Cargo Rack",
+    "group": "optional",
+    "itemPatterns": ["^int_largecargorack_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "rpl": {
+    "name": "Repair Limpet Controller",
+    "group": "optional",
+    "itemPatterns": ["^int_dronecontrol_repair_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "cs": {
+    "name": "Manifest Scanner",
+    "group": "utility",
+    "itemPatterns": ["^hpt_cargoscanner_"],
+    "blueprints": {
+      "Sensor_FastScan": {
+        "1": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung",
+          "Felicity Farseer",
+          "Hera Tani"
+        ],
+        "2": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung",
+          "Felicity Farseer",
+          "Hera Tani"
+        ],
+        "3": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung",
+          "Felicity Farseer",
+          "Hera Tani"
+        ],
+        "4": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung"
+        ],
+        "5": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung"
+        ]
+      },
+      "Misc_LightWeight": {
+        "1": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung",
+          "Felicity Farseer",
+          "Hera Tani"
+        ],
+        "2": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung",
+          "Felicity Farseer",
+          "Hera Tani"
+        ],
+        "3": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung",
+          "Felicity Farseer",
+          "Hera Tani"
+        ],
+        "4": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung"
+        ],
+        "5": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung"
+        ]
+      },
+      "Scanner_LongRange": {
+        "1": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung",
+          "Felicity Farseer",
+          "Hera Tani"
+        ],
+        "2": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung",
+          "Felicity Farseer",
+          "Hera Tani"
+        ],
+        "3": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung",
+          "Felicity Farseer",
+          "Hera Tani"
+        ],
+        "4": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung"
+        ],
+        "5": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung"
+        ]
+      },
+      "Misc_Reinforced": {
+        "1": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung",
+          "Felicity Farseer",
+          "Hera Tani"
+        ],
+        "2": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung",
+          "Felicity Farseer",
+          "Hera Tani"
+        ],
+        "3": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung",
+          "Felicity Farseer",
+          "Hera Tani"
+        ],
+        "4": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung"
+        ],
+        "5": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung"
+        ]
+      },
+      "Misc_Shielded": {
+        "1": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung",
+          "Felicity Farseer",
+          "Hera Tani"
+        ],
+        "2": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung",
+          "Felicity Farseer",
+          "Hera Tani"
+        ],
+        "3": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung",
+          "Felicity Farseer",
+          "Hera Tani"
+        ],
+        "4": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung"
+        ],
+        "5": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung"
+        ]
+      },
+      "Scanner_WideAngle": {
+        "1": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung",
+          "Felicity Farseer",
+          "Hera Tani"
+        ],
+        "2": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung",
+          "Felicity Farseer",
+          "Hera Tani"
+        ],
+        "3": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung",
+          "Felicity Farseer",
+          "Hera Tani"
+        ],
+        "4": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung"
+        ],
+        "5": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn",
+          "Lei Cheung"
+        ]
+      }
+    },
+    "experimentals": []
+  },
+  "csl": {
+    "name": "Caustic Sink Launcher",
+    "group": "utility",
+    "itemPatterns": ["^hpt_causticsinklauncher_"],
+    "blueprints": {
+      "Misc_HeatSinkCapacity": {
+        "1": ["Petra Olmanova", "Ram Tah"]
+      },
+      "Misc_LightWeight": {
+        "1": ["Petra Olmanova", "Ram Tah"],
+        "2": ["Petra Olmanova", "Ram Tah"],
+        "3": ["Petra Olmanova", "Ram Tah"],
+        "4": ["Petra Olmanova", "Ram Tah"],
+        "5": ["Petra Olmanova", "Ram Tah"]
+      },
+      "Misc_Reinforced": {
+        "1": ["Petra Olmanova", "Ram Tah"],
+        "2": ["Petra Olmanova", "Ram Tah"],
+        "3": ["Petra Olmanova", "Ram Tah"],
+        "4": ["Petra Olmanova", "Ram Tah"],
+        "5": ["Petra Olmanova", "Ram Tah"]
+      },
+      "Misc_Shielded": {
+        "1": ["Petra Olmanova", "Ram Tah"],
+        "2": ["Petra Olmanova", "Ram Tah"],
+        "3": ["Petra Olmanova", "Ram Tah"],
+        "4": ["Petra Olmanova", "Ram Tah"],
+        "5": ["Petra Olmanova", "Ram Tah"]
+      }
+    },
+    "experimentals": []
+  },
+  "dc": {
+    "name": "Docking Computer",
+    "group": "optional",
+    "itemPatterns": ["^int_dockingcomputer"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "ec": {
+    "name": "Electronic Countermeasure",
+    "group": "utility",
+    "itemPatterns": ["^hpt_electroniccountermeasure_"],
+    "blueprints": {
+      "Misc_LightWeight": {
+        "1": ["Petra Olmanova", "Ram Tah"],
+        "2": ["Petra Olmanova", "Ram Tah"],
+        "3": ["Petra Olmanova", "Ram Tah"],
+        "4": ["Petra Olmanova", "Ram Tah"],
+        "5": ["Petra Olmanova", "Ram Tah"]
+      },
+      "Misc_Reinforced": {
+        "1": ["Petra Olmanova", "Ram Tah"],
+        "2": ["Petra Olmanova", "Ram Tah"],
+        "3": ["Petra Olmanova", "Ram Tah"],
+        "4": ["Petra Olmanova", "Ram Tah"],
+        "5": ["Petra Olmanova", "Ram Tah"]
+      },
+      "Misc_Shielded": {
+        "1": ["Petra Olmanova", "Ram Tah"],
+        "2": ["Petra Olmanova", "Ram Tah"],
+        "3": ["Petra Olmanova", "Ram Tah"],
+        "4": ["Petra Olmanova", "Ram Tah"],
+        "5": ["Petra Olmanova", "Ram Tah"]
+      }
+    },
+    "experimentals": []
+  },
+  "fc": {
+    "name": "Fragment Cannon",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_slugshot_"],
+    "blueprints": {
+      "Weapon_DoubleShot": {
+        "1": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "2": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "3": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "4": ["Marsha Hicks", "Zacariah Nemo"],
+        "5": ["Marsha Hicks", "Zacariah Nemo"]
+      },
+      "Weapon_Efficient": {
+        "1": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "2": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "3": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "4": ["Marsha Hicks", "Zacariah Nemo"],
+        "5": ["Marsha Hicks", "Zacariah Nemo"]
+      },
+      "Weapon_HighCapacity": {
+        "1": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "2": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "3": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "4": ["Marsha Hicks", "Zacariah Nemo"],
+        "5": ["Marsha Hicks", "Zacariah Nemo"]
+      },
+      "Weapon_LightWeight": {
+        "1": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "2": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "3": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "4": ["Marsha Hicks", "Zacariah Nemo"],
+        "5": ["Marsha Hicks", "Zacariah Nemo"]
+      },
+      "Weapon_Overcharged": {
+        "1": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "2": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "3": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "4": ["Marsha Hicks", "Zacariah Nemo"],
+        "5": ["Marsha Hicks", "Zacariah Nemo"]
+      },
+      "Weapon_RapidFire": {
+        "1": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "2": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "3": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "4": ["Marsha Hicks", "Zacariah Nemo"],
+        "5": ["Marsha Hicks", "Zacariah Nemo"]
+      },
+      "Weapon_Sturdy": {
+        "1": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "2": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "3": ["Marsha Hicks", "Tod \"The Blaster\" McQuinn", "Zacariah Nemo"],
+        "4": ["Marsha Hicks", "Zacariah Nemo"],
+        "5": ["Marsha Hicks", "Zacariah Nemo"]
+      }
+    },
+    "experimentals": [
+      "special_corrosive_shell",
+      "special_blinding_shell",
+      "special_incendiary_rounds",
+      "special_drag_munitions",
+      "special_screening_shell",
+      "special_weapon_damage",
+      "special_weapon_efficient",
+      "special_weapon_rateoffire",
+      "special_weapon_toughened",
+      "special_weapon_lightweight"
+    ]
+  },
+  "rfl": {
+    "name": "Remote Release Flak Launcher",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_flakmortar_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "fh": {
+    "name": "Fighter Hangar",
+    "group": "optional",
+    "itemPatterns": ["^int_fighterbay(mk2)?_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "fi": {
+    "name": "Frame Shift Drive Interdictor",
+    "group": "optional",
+    "itemPatterns": ["^int_fsdinterdictor_"],
+    "blueprints": {
+      "FSDinterdictor_Expanded": {
+        "1": [
+          "Colonel Bris Dekker",
+          "Felicity Farseer",
+          "Tiana Fortune",
+          "Mel Brandon"
+        ],
+        "2": ["Colonel Bris Dekker", "Tiana Fortune", "Mel Brandon"],
+        "3": ["Colonel Bris Dekker", "Tiana Fortune", "Mel Brandon"],
+        "4": ["Colonel Bris Dekker", "Mel Brandon"],
+        "5": ["Mel Brandon"]
+      },
+      "FSDinterdictor_LongRange": {
+        "1": [
+          "Colonel Bris Dekker",
+          "Felicity Farseer",
+          "Tiana Fortune",
+          "Mel Brandon"
+        ],
+        "2": ["Colonel Bris Dekker", "Tiana Fortune", "Mel Brandon"],
+        "3": ["Colonel Bris Dekker", "Tiana Fortune", "Mel Brandon"],
+        "4": ["Colonel Bris Dekker", "Mel Brandon"],
+        "5": ["Mel Brandon"]
+      }
+    },
+    "experimentals": []
+  },
+  "fs": {
+    "name": "Fuel Scoop",
+    "group": "optional",
+    "itemPatterns": ["^int_fuelscoop_"],
+    "blueprints": {
+      "FuelScoop_Shielded": {
+        "1": ["Bill Turner", "Lori Jameson", "Marsha Hicks"],
+        "2": ["Bill Turner", "Lori Jameson", "Marsha Hicks"],
+        "3": ["Bill Turner", "Lori Jameson", "Marsha Hicks"],
+        "4": ["Lori Jameson", "Marsha Hicks"],
+        "5": ["Marsha Hicks"]
+      }
+    },
+    "experimentals": []
+  },
+  "fsd": {
+    "name": "Frame Shift Drive",
+    "group": "core",
+    "itemPatterns": ["^int_hyperdrive_"],
+    "blueprints": {
+      "FSD_FastBoot": {
+        "1": [
+          "Colonel Bris Dekker",
+          "Elvira Martuuk",
+          "Felicity Farseer",
+          "Professor Palin",
+          "Chloe Sedesi",
+          "Mel Brandon"
+        ],
+        "2": [
+          "Colonel Bris Dekker",
+          "Elvira Martuuk",
+          "Felicity Farseer",
+          "Professor Palin",
+          "Chloe Sedesi",
+          "Mel Brandon"
+        ],
+        "3": [
+          "Colonel Bris Dekker",
+          "Elvira Martuuk",
+          "Felicity Farseer",
+          "Professor Palin",
+          "Chloe Sedesi",
+          "Mel Brandon"
+        ],
+        "4": ["Elvira Martuuk", "Felicity Farseer", "Mel Brandon"],
+        "5": ["Elvira Martuuk", "Felicity Farseer", "Mel Brandon"]
+      },
+      "FSD_LongRange": {
+        "1": [
+          "Colonel Bris Dekker",
+          "Elvira Martuuk",
+          "Felicity Farseer",
+          "Professor Palin",
+          "Chloe Sedesi",
+          "Mel Brandon"
+        ],
+        "2": [
+          "Colonel Bris Dekker",
+          "Elvira Martuuk",
+          "Felicity Farseer",
+          "Professor Palin",
+          "Chloe Sedesi",
+          "Mel Brandon"
+        ],
+        "3": [
+          "Colonel Bris Dekker",
+          "Elvira Martuuk",
+          "Felicity Farseer",
+          "Professor Palin",
+          "Chloe Sedesi",
+          "Mel Brandon"
+        ],
+        "4": ["Elvira Martuuk", "Felicity Farseer", "Mel Brandon"],
+        "5": ["Elvira Martuuk", "Felicity Farseer", "Mel Brandon"]
+      },
+      "FSD_Shielded": {
+        "1": [
+          "Colonel Bris Dekker",
+          "Elvira Martuuk",
+          "Felicity Farseer",
+          "Professor Palin",
+          "Chloe Sedesi",
+          "Mel Brandon"
+        ],
+        "2": [
+          "Colonel Bris Dekker",
+          "Elvira Martuuk",
+          "Felicity Farseer",
+          "Professor Palin",
+          "Chloe Sedesi",
+          "Mel Brandon"
+        ],
+        "3": [
+          "Colonel Bris Dekker",
+          "Elvira Martuuk",
+          "Felicity Farseer",
+          "Professor Palin",
+          "Chloe Sedesi",
+          "Mel Brandon"
+        ],
+        "4": ["Elvira Martuuk", "Felicity Farseer", "Mel Brandon"],
+        "5": ["Elvira Martuuk", "Felicity Farseer", "Mel Brandon"]
+      }
+    },
+    "experimentals": [
+      "special_fsd_fuelcapacity",
+      "special_fsd_heavy",
+      "special_fsd_toughened",
+      "special_fsd_lightweight",
+      "special_fsd_cooled"
+    ]
+  },
+  "ft": {
+    "name": "Fuel Tank",
+    "group": "core",
+    "itemPatterns": ["^int_fueltank_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "fx": {
+    "name": "Fuel Transfer Limpet Controller",
+    "group": "optional",
+    "itemPatterns": ["^int_dronecontrol_fueltransfer_"],
+    "blueprints": {
+      "FuelTransferLimpet_LightWeight": {
+        "1": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "2": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "3": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "4": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "5": ["Marsha Hicks", "The Sarge", "Tiana Fortune"]
+      },
+      "FuelTransferLimpet_Reinforced": {
+        "1": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "2": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "3": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "4": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "5": ["Marsha Hicks", "The Sarge", "Tiana Fortune"]
+      },
+      "FuelTransferLimpet_Shielded": {
+        "1": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "2": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "3": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "4": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "5": ["Marsha Hicks", "The Sarge", "Tiana Fortune"]
+      }
+    },
+    "experimentals": []
+  },
+  "hb": {
+    "name": "Hatch Breaker Limpet Controller",
+    "group": "optional",
+    "itemPatterns": ["^int_dronecontrol_resourcesiphon_"],
+    "blueprints": {
+      "HatchBreakerLimpet_LightWeight": {
+        "1": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "2": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "3": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "4": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "5": ["Marsha Hicks", "The Sarge", "Tiana Fortune"]
+      },
+      "HatchBreakerLimpet_Reinforced": {
+        "1": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "2": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "3": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "4": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "5": ["Marsha Hicks", "The Sarge", "Tiana Fortune"]
+      },
+      "HatchBreakerLimpet_Shielded": {
+        "1": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "2": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "3": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "4": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "5": ["Marsha Hicks", "The Sarge", "Tiana Fortune"]
+      }
+    },
+    "experimentals": []
+  },
+  "hr": {
+    "name": "Hull Reinforcement Package",
+    "group": "optional",
+    "itemPatterns": ["^int_hullreinforcement_"],
+    "blueprints": {
+      "HullReinforcement_Advanced": {
+        "1": ["Liz Ryder", "Selene Jean", "Petra Olmanova"],
+        "2": ["Selene Jean", "Petra Olmanova"],
+        "3": ["Selene Jean", "Petra Olmanova"],
+        "4": ["Selene Jean", "Petra Olmanova"],
+        "5": ["Selene Jean", "Petra Olmanova"]
+      },
+      "HullReinforcement_Explosive": {
+        "1": ["Liz Ryder", "Selene Jean", "Petra Olmanova"],
+        "2": ["Selene Jean", "Petra Olmanova"],
+        "3": ["Selene Jean", "Petra Olmanova"],
+        "4": ["Selene Jean", "Petra Olmanova"],
+        "5": ["Selene Jean", "Petra Olmanova"]
+      },
+      "HullReinforcement_HeavyDuty": {
+        "1": ["Liz Ryder", "Selene Jean", "Petra Olmanova"],
+        "2": ["Selene Jean", "Petra Olmanova"],
+        "3": ["Selene Jean", "Petra Olmanova"],
+        "4": ["Selene Jean", "Petra Olmanova"],
+        "5": ["Selene Jean", "Petra Olmanova"]
+      },
+      "HullReinforcement_Kinetic": {
+        "1": ["Liz Ryder", "Selene Jean", "Petra Olmanova"],
+        "2": ["Selene Jean", "Petra Olmanova"],
+        "3": ["Selene Jean", "Petra Olmanova"],
+        "4": ["Selene Jean", "Petra Olmanova"],
+        "5": ["Selene Jean", "Petra Olmanova"]
+      },
+      "HullReinforcement_Thermic": {
+        "1": ["Liz Ryder", "Selene Jean", "Petra Olmanova"],
+        "2": ["Selene Jean", "Petra Olmanova"],
+        "3": ["Selene Jean", "Petra Olmanova"],
+        "4": ["Selene Jean", "Petra Olmanova"],
+        "5": ["Selene Jean", "Petra Olmanova"]
+      }
+    },
+    "experimentals": [
+      "special_hullreinforcement_thermic",
+      "special_hullreinforcement_kinetic",
+      "special_hullreinforcement_explosive",
+      "special_hullreinforcement_chunky"
+    ]
+  },
+  "hs": {
+    "name": "Heat Sink Launcher",
+    "group": "utility",
+    "itemPatterns": ["^hpt_heatsinklauncher_"],
+    "blueprints": {
+      "Misc_HeatSinkCapacity": {
+        "1": ["Petra Olmanova", "Ram Tah"]
+      },
+      "Misc_LightWeight": {
+        "1": ["Petra Olmanova", "Ram Tah"],
+        "2": ["Petra Olmanova", "Ram Tah"],
+        "3": ["Petra Olmanova", "Ram Tah"],
+        "4": ["Petra Olmanova", "Ram Tah"],
+        "5": ["Petra Olmanova", "Ram Tah"]
+      },
+      "Misc_Reinforced": {
+        "1": ["Petra Olmanova", "Ram Tah"],
+        "2": ["Petra Olmanova", "Ram Tah"],
+        "3": ["Petra Olmanova", "Ram Tah"],
+        "4": ["Petra Olmanova", "Ram Tah"],
+        "5": ["Petra Olmanova", "Ram Tah"]
+      },
+      "Misc_Shielded": {
+        "1": ["Petra Olmanova", "Ram Tah"],
+        "2": ["Petra Olmanova", "Ram Tah"],
+        "3": ["Petra Olmanova", "Ram Tah"],
+        "4": ["Petra Olmanova", "Ram Tah"],
+        "5": ["Petra Olmanova", "Ram Tah"]
+      }
+    },
+    "experimentals": []
+  },
+  "kw": {
+    "name": "Kill Warrant Scanner",
+    "group": "utility",
+    "itemPatterns": ["^hpt_crimescanner_"],
+    "blueprints": {
+      "Sensor_FastScan": {
+        "1": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "2": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "3": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "4": ["Tiana Fortune", "Etienne Dorn"],
+        "5": ["Tiana Fortune", "Etienne Dorn"]
+      },
+      "Misc_LightWeight": {
+        "1": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "2": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "3": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "4": ["Tiana Fortune", "Etienne Dorn"],
+        "5": ["Tiana Fortune", "Etienne Dorn"]
+      },
+      "Scanner_LongRange": {
+        "1": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "2": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "3": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "4": ["Tiana Fortune", "Etienne Dorn"],
+        "5": ["Tiana Fortune", "Etienne Dorn"]
+      },
+      "Misc_Reinforced": {
+        "1": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "2": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "3": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "4": ["Tiana Fortune", "Etienne Dorn"],
+        "5": ["Tiana Fortune", "Etienne Dorn"]
+      },
+      "Misc_Shielded": {
+        "1": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "2": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "3": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "4": ["Tiana Fortune", "Etienne Dorn"],
+        "5": ["Tiana Fortune", "Etienne Dorn"]
+      },
+      "Scanner_WideAngle": {
+        "1": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "2": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "3": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "4": ["Tiana Fortune", "Etienne Dorn"],
+        "5": ["Tiana Fortune", "Etienne Dorn"]
+      }
+    },
+    "experimentals": []
+  },
+  "ls": {
+    "name": "Life Support",
+    "group": "core",
+    "itemPatterns": ["^int_lifesupport_"],
+    "blueprints": {
+      "LifeSupport_LightWeight": {
+        "1": ["Bill Turner", "Lori Jameson", "Etienne Dorn"],
+        "2": ["Bill Turner", "Lori Jameson", "Etienne Dorn"],
+        "3": ["Bill Turner", "Lori Jameson", "Etienne Dorn"],
+        "4": ["Lori Jameson", "Etienne Dorn"],
+        "5": ["Etienne Dorn"]
+      },
+      "LifeSupport_Reinforced": {
+        "1": ["Bill Turner", "Lori Jameson", "Etienne Dorn"],
+        "2": ["Bill Turner", "Lori Jameson", "Etienne Dorn"],
+        "3": ["Bill Turner", "Lori Jameson", "Etienne Dorn"],
+        "4": ["Lori Jameson", "Etienne Dorn"],
+        "5": ["Etienne Dorn"]
+      },
+      "LifeSupport_Shielded": {
+        "1": ["Bill Turner", "Lori Jameson", "Etienne Dorn"],
+        "2": ["Bill Turner", "Lori Jameson", "Etienne Dorn"],
+        "3": ["Bill Turner", "Lori Jameson", "Etienne Dorn"],
+        "4": ["Lori Jameson", "Etienne Dorn"],
+        "5": ["Etienne Dorn"]
+      }
+    },
+    "experimentals": []
+  },
+  "mc": {
+    "name": "Multi-Cannon",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_multicannon_"],
+    "blueprints": {
+      "Weapon_Efficient": {
+        "1": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "2": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "3": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"]
+      },
+      "Weapon_HighCapacity": {
+        "1": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "2": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "3": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"]
+      },
+      "Weapon_LightWeight": {
+        "1": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "2": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "3": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"]
+      },
+      "Weapon_LongRange": {
+        "1": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "2": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "3": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"]
+      },
+      "Weapon_Overcharged": {
+        "1": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "2": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "3": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"]
+      },
+      "Weapon_RapidFire": {
+        "1": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "2": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "3": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"]
+      },
+      "Weapon_ShortRange": {
+        "1": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "2": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "3": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"]
+      },
+      "Weapon_Sturdy": {
+        "1": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "2": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "3": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"]
+      }
+    },
+    "experimentals": [
+      "special_auto_loader",
+      "special_corrosive_shell",
+      "special_emissive_munitions",
+      "special_incendiary_rounds",
+      "special_smart_rounds",
+      "special_thermalshock",
+      "special_weapon_damage",
+      "special_weapon_efficient",
+      "special_weapon_rateoffire",
+      "special_weapon_toughened",
+      "special_weapon_lightweight"
+    ]
+  },
+  "advmc": {
+    "name": "Advanced Multi-Cannon",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_multicannon_.*_advanced$"],
+    "blueprints": {
+      "Weapon_Efficient": {
+        "1": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "2": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "3": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"]
+      },
+      "Weapon_HighCapacity": {
+        "1": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "2": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "3": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"]
+      },
+      "Weapon_LightWeight": {
+        "1": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "2": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "3": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"]
+      },
+      "Weapon_LongRange": {
+        "1": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "2": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "3": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"]
+      },
+      "Weapon_Overcharged": {
+        "1": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "2": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "3": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"]
+      },
+      "Weapon_RapidFire": {
+        "1": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "2": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "3": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"]
+      },
+      "Weapon_ShortRange": {
+        "1": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "2": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "3": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"]
+      },
+      "Weapon_Sturdy": {
+        "1": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "2": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "3": ["Tod \"The Blaster\" McQuinn", "Zacariah Nemo", "Marsha Hicks"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Marsha Hicks"]
+      }
+    },
+    "experimentals": [
+      "special_auto_loader",
+      "special_corrosive_shell",
+      "special_emissive_munitions",
+      "special_incendiary_rounds",
+      "special_smart_rounds",
+      "special_thermalshock",
+      "special_weapon_damage",
+      "special_weapon_efficient",
+      "special_weapon_rateoffire",
+      "special_weapon_toughened",
+      "special_weapon_lightweight"
+    ]
+  },
+  "axmc": {
+    "name": "AX Multi-Cannon",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_atmulticannon_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "axmce": {
+    "name": "Enhanced AX Multi-Cannon",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_atmulticannon_.*_v2$", "^hpt_atmulticannon_gimbal_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "ml": {
+    "name": "Mining Laser",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_mininglaser_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "mr": {
+    "name": "Seeker Missile Rack",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_basicmissilerack_", "^hpt_drunkmissilerack_"],
+    "blueprints": {
+      "Weapon_HighCapacity": {
+        "1": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "2": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "3": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "4": ["Liz Ryder", "Petra Olmanova"],
+        "5": ["Liz Ryder", "Petra Olmanova"]
+      },
+      "Weapon_LightWeight": {
+        "1": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "2": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "3": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "4": ["Liz Ryder", "Petra Olmanova"],
+        "5": ["Liz Ryder", "Petra Olmanova"]
+      },
+      "Weapon_RapidFire": {
+        "1": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "2": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "3": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "4": ["Liz Ryder", "Petra Olmanova"],
+        "5": ["Liz Ryder", "Petra Olmanova"]
+      },
+      "Weapon_Sturdy": {
+        "1": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "2": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "3": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "4": ["Liz Ryder", "Petra Olmanova"],
+        "5": ["Liz Ryder", "Petra Olmanova"]
+      }
+    },
+    "experimentals": [
+      "special_drag_munitions",
+      "special_emissive_munitions",
+      "special_overload_munitions",
+      "special_thermal_cascade",
+      "special_weapon_damage",
+      "special_weapon_efficient",
+      "special_weapon_rateoffire",
+      "special_weapon_toughened",
+      "special_weapon_lightweight"
+    ]
+  },
+  "dmr": {
+    "name": "Dumbfire Missile Rack",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_dumbfiremissilerack_"],
+    "blueprints": {
+      "Weapon_HighCapacity": {
+        "1": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "2": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "3": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "4": ["Liz Ryder", "Petra Olmanova"],
+        "5": ["Liz Ryder", "Petra Olmanova"]
+      },
+      "Weapon_LightWeight": {
+        "1": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "2": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "3": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "4": ["Liz Ryder", "Petra Olmanova"],
+        "5": ["Liz Ryder", "Petra Olmanova"]
+      },
+      "Weapon_RapidFire": {
+        "1": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "2": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "3": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "4": ["Liz Ryder", "Petra Olmanova"],
+        "5": ["Liz Ryder", "Petra Olmanova"]
+      },
+      "Weapon_Sturdy": {
+        "1": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "2": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "3": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "4": ["Liz Ryder", "Petra Olmanova"],
+        "5": ["Liz Ryder", "Petra Olmanova"]
+      }
+    },
+    "experimentals": [
+      "special_emissive_munitions",
+      "special_fsd_interrupt",
+      "special_overload_munitions",
+      "special_thermal_cascade",
+      "special_weapon_damage",
+      "special_weapon_efficient",
+      "special_weapon_rateoffire",
+      "special_weapon_toughened",
+      "special_weapon_lightweight",
+      "special_penetrator_munitions"
+    ]
+  },
+  "amr": {
+    "name": "Advanced Missile Rack",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_dumbfiremissilerack_.*_advanced$"],
+    "blueprints": {
+      "Weapon_HighCapacity": {
+        "1": ["Juri Ishmaak", "Liz Ryder"],
+        "2": ["Juri Ishmaak", "Liz Ryder"],
+        "3": ["Juri Ishmaak", "Liz Ryder"],
+        "4": ["Liz Ryder"],
+        "5": ["Liz Ryder"]
+      },
+      "Weapon_LightWeight": {
+        "1": ["Juri Ishmaak", "Liz Ryder"],
+        "2": ["Juri Ishmaak", "Liz Ryder"],
+        "3": ["Juri Ishmaak", "Liz Ryder"],
+        "4": ["Liz Ryder"],
+        "5": ["Liz Ryder"]
+      },
+      "Weapon_RapidFire": {
+        "1": ["Juri Ishmaak", "Liz Ryder"],
+        "2": ["Juri Ishmaak", "Liz Ryder"],
+        "3": ["Juri Ishmaak", "Liz Ryder"],
+        "4": ["Liz Ryder"],
+        "5": ["Liz Ryder"]
+      },
+      "Weapon_Sturdy": {
+        "1": ["Juri Ishmaak", "Liz Ryder"],
+        "2": ["Juri Ishmaak", "Liz Ryder"],
+        "3": ["Juri Ishmaak", "Liz Ryder"],
+        "4": ["Liz Ryder"],
+        "5": ["Liz Ryder"]
+      }
+    },
+    "experimentals": [
+      "special_emissive_munitions",
+      "special_fsd_interrupt",
+      "special_overload_munitions",
+      "special_thermal_cascade",
+      "special_weapon_damage",
+      "special_weapon_efficient",
+      "special_weapon_rateoffire",
+      "special_weapon_toughened",
+      "special_weapon_lightweight",
+      "special_penetrator_munitions"
+    ]
+  },
+  "axmr": {
+    "name": "AX Missile Rack",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_atdumbfiremissile_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "axmre": {
+    "name": "Enhanced AX Missile Rack",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_atdumbfiremissile_.*_v2$"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "ews": {
+    "name": "Experimental Weapon Stabiliser",
+    "group": "optional",
+    "itemPatterns": ["^int_expmodulestabiliser_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "mrp": {
+    "name": "Module Reinforcement Package",
+    "group": "optional",
+    "itemPatterns": ["^int_modulereinforcement_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "nl": {
+    "name": "Mine Launcher",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_minelauncher_"],
+    "blueprints": {
+      "Weapon_HighCapacity": {
+        "1": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "2": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "3": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "4": ["Juri Ishmaak", "Petra Olmanova"],
+        "5": ["Juri Ishmaak", "Petra Olmanova"]
+      },
+      "Weapon_LightWeight": {
+        "1": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "2": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "3": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "4": ["Juri Ishmaak", "Petra Olmanova"],
+        "5": ["Juri Ishmaak", "Petra Olmanova"]
+      },
+      "Weapon_RapidFire": {
+        "1": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "2": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "3": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "4": ["Juri Ishmaak", "Petra Olmanova"],
+        "5": ["Juri Ishmaak", "Petra Olmanova"]
+      },
+      "Weapon_Sturdy": {
+        "1": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "2": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "3": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "4": ["Juri Ishmaak", "Petra Olmanova"],
+        "5": ["Juri Ishmaak", "Petra Olmanova"]
+      }
+    },
+    "experimentals": [
+      "special_ion_disruptor",
+      "special_overload_munitions",
+      "special_radiant_canister",
+      "special_reverberating_cascade",
+      "special_shiftlock_canister",
+      "special_emissive_munitions",
+      "special_weapon_damage",
+      "special_weapon_efficient",
+      "special_weapon_rateoffire",
+      "special_weapon_toughened",
+      "special_weapon_lightweight"
+    ]
+  },
+  "gpc": {
+    "name": "Guardian Plasma Charger",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_guardian_plasmalauncher_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "gpl": {
+    "name": "Guardian Power Distributor",
+    "group": "optional",
+    "itemPatterns": ["^int_guardianpowerdistributor_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "gsrp": {
+    "name": "Guardian Shield Reinforcement Package",
+    "group": "optional",
+    "itemPatterns": ["^int_guardianshieldreinforcement_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "gfsb": {
+    "name": "Guardian FSD Booster",
+    "group": "optional",
+    "itemPatterns": ["^int_guardianfsdbooster_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "ghrp": {
+    "name": "Guardian Hull Reinforcement Package",
+    "group": "optional",
+    "itemPatterns": ["^int_guardianhullreinforcement_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "gmrp": {
+    "name": "Guardian Module Reinforcement Package",
+    "group": "optional",
+    "itemPatterns": ["^int_guardianmodulereinforcement_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "tbsc": {
+    "name": "Shock Cannon",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_plasmashockcannon_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "gsc": {
+    "name": "Guardian Shard Cannon",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_guardian_shardcannon_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "gpp": {
+    "name": "Guardian Hybrid Power Plant",
+    "group": "optional",
+    "itemPatterns": ["^int_guardianpowerplant_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "ggc": {
+    "name": "Guardian Gauss Cannon",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_guardian_gausscannon_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "pa": {
+    "name": "Plasma Accelerator",
+    "group": "hardpoint",
+    "itemPatterns": [
+      "^hpt_plasmaaccelerator_",
+      "^hpt_mkiiplasmashockautocannon_"
+    ],
+    "blueprints": {
+      "Weapon_Efficient": {
+        "1": ["Bill Turner", "Zacariah Nemo", "Etienne Dorn"],
+        "2": ["Bill Turner", "Zacariah Nemo", "Etienne Dorn"],
+        "3": ["Bill Turner", "Etienne Dorn"],
+        "4": ["Bill Turner", "Etienne Dorn"],
+        "5": ["Bill Turner", "Etienne Dorn"]
+      },
+      "Weapon_Focused": {
+        "1": ["Bill Turner", "Zacariah Nemo", "Etienne Dorn"],
+        "2": ["Bill Turner", "Zacariah Nemo", "Etienne Dorn"],
+        "3": ["Bill Turner", "Etienne Dorn"],
+        "4": ["Bill Turner", "Etienne Dorn"],
+        "5": ["Bill Turner", "Etienne Dorn"]
+      },
+      "Weapon_LightWeight": {
+        "1": ["Bill Turner", "Zacariah Nemo", "Etienne Dorn"],
+        "2": ["Bill Turner", "Zacariah Nemo", "Etienne Dorn"],
+        "3": ["Bill Turner", "Etienne Dorn"],
+        "4": ["Bill Turner", "Etienne Dorn"],
+        "5": ["Bill Turner", "Etienne Dorn"]
+      },
+      "Weapon_LongRange": {
+        "1": ["Bill Turner", "Zacariah Nemo", "Etienne Dorn"],
+        "2": ["Bill Turner", "Zacariah Nemo", "Etienne Dorn"],
+        "3": ["Bill Turner", "Etienne Dorn"],
+        "4": ["Bill Turner", "Etienne Dorn"],
+        "5": ["Bill Turner", "Etienne Dorn"]
+      },
+      "Weapon_Overcharged": {
+        "1": ["Bill Turner", "Zacariah Nemo", "Etienne Dorn"],
+        "2": ["Bill Turner", "Zacariah Nemo", "Etienne Dorn"],
+        "3": ["Bill Turner", "Etienne Dorn"],
+        "4": ["Bill Turner", "Etienne Dorn"],
+        "5": ["Bill Turner", "Etienne Dorn"]
+      },
+      "Weapon_RapidFire": {
+        "1": ["Bill Turner", "Zacariah Nemo", "Etienne Dorn"],
+        "2": ["Bill Turner", "Zacariah Nemo", "Etienne Dorn"],
+        "3": ["Bill Turner", "Etienne Dorn"],
+        "4": ["Bill Turner", "Etienne Dorn"],
+        "5": ["Bill Turner", "Etienne Dorn"]
+      },
+      "Weapon_ShortRange": {
+        "1": ["Bill Turner", "Zacariah Nemo", "Etienne Dorn"],
+        "2": ["Bill Turner", "Zacariah Nemo", "Etienne Dorn"],
+        "3": ["Bill Turner", "Etienne Dorn"],
+        "4": ["Bill Turner", "Etienne Dorn"],
+        "5": ["Bill Turner", "Etienne Dorn"]
+      },
+      "Weapon_Sturdy": {
+        "1": ["Bill Turner", "Zacariah Nemo", "Etienne Dorn"],
+        "2": ["Bill Turner", "Zacariah Nemo", "Etienne Dorn"],
+        "3": ["Bill Turner", "Etienne Dorn"],
+        "4": ["Bill Turner", "Etienne Dorn"],
+        "5": ["Bill Turner", "Etienne Dorn"]
+      }
+    },
+    "experimentals": [
+      "special_blinding_shell",
+      "special_dispersal_field",
+      "special_phasing_sequence",
+      "special_plasma_slug",
+      "special_plasma_slug_pa",
+      "special_lock_breaker",
+      "special_thermal_conduit",
+      "special_weapon_damage",
+      "special_weapon_efficient",
+      "special_weapon_rateoffire",
+      "special_weapon_toughened",
+      "special_weapon_lightweight"
+    ]
+  },
+  "pas": {
+    "name": "Planetary Approach Suite",
+    "group": "optional",
+    "itemPatterns": ["^int_planetapproachsuite"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "pc": {
+    "name": "Prospector Limpet Controller",
+    "group": "optional",
+    "itemPatterns": ["^int_dronecontrol_prospector_"],
+    "blueprints": {
+      "ProspectingLimpet_LightWeight": {
+        "1": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "2": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "3": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "4": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "5": ["Marsha Hicks", "The Sarge", "Tiana Fortune"]
+      },
+      "ProspectingLimpet_Reinforced": {
+        "1": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "2": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "3": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "4": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "5": ["Marsha Hicks", "The Sarge", "Tiana Fortune"]
+      },
+      "ProspectingLimpet_Shielded": {
+        "1": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "2": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "3": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "4": ["Marsha Hicks", "Ram Tah", "The Sarge", "Tiana Fortune"],
+        "5": ["Marsha Hicks", "The Sarge", "Tiana Fortune"]
+      }
+    },
+    "experimentals": []
+  },
+  "pce": {
+    "name": "Economy Class Passenger Cabin",
+    "group": "optional",
+    "itemPatterns": ["^int_(mkii_)?passengercabin_.*_class1$"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "pci": {
+    "name": "Business Class Passenger Cabin",
+    "group": "optional",
+    "itemPatterns": ["^int_(mkii_)?passengercabin_.*_class2$"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "pcm": {
+    "name": "First Class Passenger Cabin",
+    "group": "optional",
+    "itemPatterns": ["^int_(mkii_)?passengercabin_.*_class3$"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "pcq": {
+    "name": "Luxury Passenger Cabin",
+    "group": "optional",
+    "itemPatterns": ["^int_(mkii_)?passengercabin_.*_class4$"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "pd": {
+    "name": "Power Distributor",
+    "group": "core",
+    "itemPatterns": ["^int_powerdistributor_"],
+    "blueprints": {
+      "PowerDistributor_HighFrequency": {
+        "1": ["Hera Tani", "Marco Qwent", "The Dweller", "Etienne Dorn"],
+        "2": ["Hera Tani", "Marco Qwent", "The Dweller", "Etienne Dorn"],
+        "3": ["Hera Tani", "Marco Qwent", "The Dweller", "Etienne Dorn"],
+        "4": ["The Dweller", "Etienne Dorn"],
+        "5": ["The Dweller", "Etienne Dorn"]
+      },
+      "PowerDistributor_PriorityEngines": {
+        "1": ["Hera Tani", "Marco Qwent", "The Dweller", "Etienne Dorn"],
+        "2": ["Hera Tani", "Marco Qwent", "The Dweller", "Etienne Dorn"],
+        "3": ["Hera Tani", "Marco Qwent", "The Dweller", "Etienne Dorn"],
+        "4": ["The Dweller", "Etienne Dorn"],
+        "5": ["The Dweller", "Etienne Dorn"]
+      },
+      "PowerDistributor_HighCapacity": {
+        "1": ["Hera Tani", "Marco Qwent", "The Dweller", "Etienne Dorn"],
+        "2": ["Hera Tani", "Marco Qwent", "The Dweller", "Etienne Dorn"],
+        "3": ["Hera Tani", "Marco Qwent", "The Dweller", "Etienne Dorn"],
+        "4": ["The Dweller", "Etienne Dorn"],
+        "5": ["The Dweller", "Etienne Dorn"]
+      },
+      "PowerDistributor_Shielded": {
+        "1": ["Hera Tani", "Marco Qwent", "The Dweller", "Etienne Dorn"],
+        "2": ["Hera Tani", "Marco Qwent", "The Dweller", "Etienne Dorn"],
+        "3": ["Hera Tani", "Marco Qwent", "The Dweller", "Etienne Dorn"],
+        "4": ["The Dweller", "Etienne Dorn"],
+        "5": ["The Dweller", "Etienne Dorn"]
+      },
+      "PowerDistributor_PrioritySystems": {
+        "1": ["Hera Tani", "Marco Qwent", "The Dweller", "Etienne Dorn"],
+        "2": ["Hera Tani", "Marco Qwent", "The Dweller", "Etienne Dorn"],
+        "3": ["Hera Tani", "Marco Qwent", "The Dweller", "Etienne Dorn"],
+        "4": ["The Dweller", "Etienne Dorn"],
+        "5": ["The Dweller", "Etienne Dorn"]
+      },
+      "PowerDistributor_PriorityWeapons": {
+        "1": ["Hera Tani", "Marco Qwent", "The Dweller", "Etienne Dorn"],
+        "2": ["Hera Tani", "Marco Qwent", "The Dweller", "Etienne Dorn"],
+        "3": ["Hera Tani", "Marco Qwent", "The Dweller", "Etienne Dorn"],
+        "4": ["The Dweller", "Etienne Dorn"],
+        "5": ["The Dweller", "Etienne Dorn"]
+      }
+    },
+    "experimentals": [
+      "special_powerdistributor_capacity",
+      "special_powerdistributor_fast",
+      "special_powerdistributor_efficient",
+      "special_powerdistributor_toughened",
+      "special_powerdistributor_lightweight"
+    ]
+  },
+  "pl": {
+    "name": "Pulse Laser",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_pulselaser_"],
+    "blueprints": {
+      "Weapon_Efficient": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      },
+      "Weapon_Focused": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      },
+      "Weapon_LightWeight": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      },
+      "Weapon_LongRange": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      },
+      "Weapon_Overcharged": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      },
+      "Weapon_RapidFire": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      },
+      "Weapon_ShortRange": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      },
+      "Weapon_Sturdy": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      }
+    },
+    "experimentals": [
+      "special_concordant_sequence",
+      "special_emissive_munitions",
+      "special_phasing_sequence",
+      "special_scramble_spectrum",
+      "special_thermalshock",
+      "special_weapon_damage",
+      "special_weapon_efficient",
+      "special_weapon_rateoffire",
+      "special_weapon_toughened",
+      "special_weapon_lightweight"
+    ]
+  },
+  "po": {
+    "name": "Point Defence",
+    "group": "utility",
+    "itemPatterns": ["^hpt_plasmapointdefence_"],
+    "blueprints": {
+      "Misc_PointDefenseCapacity": {
+        "1": ["Petra Olmanova", "Ram Tah"]
+      },
+      "Misc_LightWeight": {
+        "1": ["Petra Olmanova", "Ram Tah"],
+        "2": ["Petra Olmanova", "Ram Tah"],
+        "3": ["Petra Olmanova", "Ram Tah"],
+        "4": ["Petra Olmanova", "Ram Tah"],
+        "5": ["Petra Olmanova", "Ram Tah"]
+      },
+      "Misc_Reinforced": {
+        "1": ["Petra Olmanova", "Ram Tah"],
+        "2": ["Petra Olmanova", "Ram Tah"],
+        "3": ["Petra Olmanova", "Ram Tah"],
+        "4": ["Petra Olmanova", "Ram Tah"],
+        "5": ["Petra Olmanova", "Ram Tah"]
+      },
+      "Misc_Shielded": {
+        "1": ["Petra Olmanova", "Ram Tah"],
+        "2": ["Petra Olmanova", "Ram Tah"],
+        "3": ["Petra Olmanova", "Ram Tah"],
+        "4": ["Petra Olmanova", "Ram Tah"],
+        "5": ["Petra Olmanova", "Ram Tah"]
+      }
+    },
+    "experimentals": []
+  },
+  "pp": {
+    "name": "Power Plant",
+    "group": "core",
+    "itemPatterns": ["^int_powerplant_"],
+    "blueprints": {
+      "PowerPlant_Armoured": {
+        "1": ["Felicity Farseer", "Hera Tani", "Marco Qwent", "Etienne Dorn"],
+        "2": ["Hera Tani", "Marco Qwent", "Etienne Dorn"],
+        "3": ["Hera Tani", "Marco Qwent", "Etienne Dorn"],
+        "4": ["Hera Tani", "Marco Qwent", "Etienne Dorn"],
+        "5": ["Hera Tani", "Etienne Dorn"]
+      },
+      "PowerPlant_Stealth": {
+        "1": ["Felicity Farseer", "Hera Tani", "Marco Qwent", "Etienne Dorn"],
+        "2": ["Hera Tani", "Marco Qwent", "Etienne Dorn"],
+        "3": ["Hera Tani", "Marco Qwent", "Etienne Dorn"],
+        "4": ["Hera Tani", "Marco Qwent", "Etienne Dorn"],
+        "5": ["Hera Tani", "Etienne Dorn"]
+      },
+      "PowerPlant_Boosted": {
+        "1": ["Felicity Farseer", "Hera Tani", "Marco Qwent", "Etienne Dorn"],
+        "2": ["Hera Tani", "Marco Qwent", "Etienne Dorn"],
+        "3": ["Hera Tani", "Marco Qwent", "Etienne Dorn"],
+        "4": ["Hera Tani", "Marco Qwent", "Etienne Dorn"],
+        "5": ["Hera Tani", "Etienne Dorn"]
+      }
+    },
+    "experimentals": [
+      "special_powerplant_highcharge",
+      "special_powerplant_cooled",
+      "special_powerplant_toughened",
+      "special_powerplant_lightweight"
+    ]
+  },
+  "psg": {
+    "name": "Prismatic Shield Generator",
+    "group": "optional",
+    "itemPatterns": ["^int_shieldgenerator_.*_strong$"],
+    "blueprints": {
+      "ShieldGenerator_Kinetic": {
+        "1": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "2": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "3": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "4": ["Lei Cheung", "Mel Brandon"],
+        "5": ["Lei Cheung", "Mel Brandon"]
+      },
+      "ShieldGenerator_Optimised": {
+        "1": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "2": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "3": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "4": ["Lei Cheung", "Mel Brandon"],
+        "5": ["Lei Cheung", "Mel Brandon"]
+      },
+      "ShieldGenerator_Reinforced": {
+        "1": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "2": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "3": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "4": ["Lei Cheung", "Mel Brandon"],
+        "5": ["Lei Cheung", "Mel Brandon"]
+      },
+      "ShieldGenerator_Thermic": {
+        "1": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "2": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "3": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "4": ["Lei Cheung", "Mel Brandon"],
+        "5": ["Lei Cheung", "Mel Brandon"]
+      }
+    },
+    "experimentals": [
+      "special_shield_regenerative",
+      "special_shield_resistive",
+      "special_shield_health",
+      "special_shield_efficient",
+      "special_shield_thermic",
+      "special_shield_kinetic",
+      "special_shield_toughened",
+      "special_shield_lightweight"
+    ]
+  },
+  "pv": {
+    "name": "Planetary Vehicle Hangar",
+    "group": "optional",
+    "itemPatterns": ["^int_buggybay_", "^int_largebuggybay_", "^int_mkiilargebuggybay_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "rf": {
+    "name": "Refinery",
+    "group": "optional",
+    "itemPatterns": ["^int_refinery_"],
+    "blueprints": {
+      "Refineries_Shielded": {
+        "1": ["Bill Turner", "Lori Jameson", "Marsha Hicks"],
+        "2": ["Bill Turner", "Lori Jameson", "Marsha Hicks"],
+        "3": ["Bill Turner", "Lori Jameson", "Marsha Hicks"],
+        "4": ["Lori Jameson", "Marsha Hicks"],
+        "5": ["Marsha Hicks"]
+      }
+    },
+    "experimentals": []
+  },
+  "rg": {
+    "name": "Rail Gun",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_railgun_"],
+    "blueprints": {
+      "Weapon_HighCapacity": {
+        "1": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Etienne Dorn"],
+        "2": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Etienne Dorn"],
+        "3": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Etienne Dorn"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Etienne Dorn"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Etienne Dorn"]
+      },
+      "Weapon_LightWeight": {
+        "1": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Etienne Dorn"],
+        "2": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Etienne Dorn"],
+        "3": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Etienne Dorn"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Etienne Dorn"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Etienne Dorn"]
+      },
+      "Weapon_LongRange": {
+        "1": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Etienne Dorn"],
+        "2": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Etienne Dorn"],
+        "3": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Etienne Dorn"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Etienne Dorn"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Etienne Dorn"]
+      },
+      "Weapon_ShortRange": {
+        "1": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Etienne Dorn"],
+        "2": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Etienne Dorn"],
+        "3": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Etienne Dorn"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Etienne Dorn"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Etienne Dorn"]
+      },
+      "Weapon_Sturdy": {
+        "1": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Etienne Dorn"],
+        "2": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Etienne Dorn"],
+        "3": ["The Sarge", "Tod \"The Blaster\" McQuinn", "Etienne Dorn"],
+        "4": ["Tod \"The Blaster\" McQuinn", "Etienne Dorn"],
+        "5": ["Tod \"The Blaster\" McQuinn", "Etienne Dorn"]
+      }
+    },
+    "experimentals": [
+      "special_feedback_cascade",
+      "special_feedback_cascade_cooled",
+      "special_plasma_slug",
+      "special_plasma_slug_cooled",
+      "special_super_penetrator",
+      "special_super_penetrator_cooled",
+      "special_weapon_damage",
+      "special_weapon_efficient",
+      "special_weapon_rateoffire",
+      "special_weapon_toughened",
+      "special_weapon_lightweight"
+    ]
+  },
+  "s": {
+    "name": "Sensors",
+    "group": "core",
+    "itemPatterns": ["^int_sensors_"],
+    "blueprints": {
+      "Sensor_LightWeight": {
+        "1": [
+          "Bill Turner",
+          "Juri Ishmaak",
+          "Lei Cheung",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Felicity Farseer",
+          "Hera Tani",
+          "Etienne Dorn"
+        ],
+        "2": [
+          "Bill Turner",
+          "Juri Ishmaak",
+          "Lei Cheung",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Felicity Farseer",
+          "Hera Tani",
+          "Etienne Dorn"
+        ],
+        "3": [
+          "Bill Turner",
+          "Juri Ishmaak",
+          "Lei Cheung",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Felicity Farseer",
+          "Hera Tani",
+          "Etienne Dorn"
+        ],
+        "4": [
+          "Bill Turner",
+          "Juri Ishmaak",
+          "Lei Cheung",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Etienne Dorn"
+        ],
+        "5": [
+          "Bill Turner",
+          "Juri Ishmaak",
+          "Lei Cheung",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Etienne Dorn"
+        ]
+      },
+      "Sensor_LongRange": {
+        "1": [
+          "Bill Turner",
+          "Juri Ishmaak",
+          "Lei Cheung",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Felicity Farseer",
+          "Hera Tani",
+          "Etienne Dorn"
+        ],
+        "2": [
+          "Bill Turner",
+          "Juri Ishmaak",
+          "Lei Cheung",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Felicity Farseer",
+          "Hera Tani",
+          "Etienne Dorn"
+        ],
+        "3": [
+          "Bill Turner",
+          "Juri Ishmaak",
+          "Lei Cheung",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Felicity Farseer",
+          "Hera Tani",
+          "Etienne Dorn"
+        ],
+        "4": [
+          "Bill Turner",
+          "Juri Ishmaak",
+          "Lei Cheung",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Etienne Dorn"
+        ],
+        "5": [
+          "Bill Turner",
+          "Juri Ishmaak",
+          "Lei Cheung",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Etienne Dorn"
+        ]
+      },
+      "Sensor_WideAngle": {
+        "1": [
+          "Bill Turner",
+          "Juri Ishmaak",
+          "Lei Cheung",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Felicity Farseer",
+          "Hera Tani",
+          "Etienne Dorn"
+        ],
+        "2": [
+          "Bill Turner",
+          "Juri Ishmaak",
+          "Lei Cheung",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Felicity Farseer",
+          "Hera Tani",
+          "Etienne Dorn"
+        ],
+        "3": [
+          "Bill Turner",
+          "Juri Ishmaak",
+          "Lei Cheung",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Felicity Farseer",
+          "Hera Tani",
+          "Etienne Dorn"
+        ],
+        "4": [
+          "Bill Turner",
+          "Juri Ishmaak",
+          "Lei Cheung",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Etienne Dorn"
+        ],
+        "5": [
+          "Bill Turner",
+          "Juri Ishmaak",
+          "Lei Cheung",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Etienne Dorn"
+        ]
+      }
+    },
+    "experimentals": []
+  },
+  "sb": {
+    "name": "Shield Booster",
+    "group": "utility",
+    "itemPatterns": ["^hpt_shieldbooster_"],
+    "blueprints": {
+      "ShieldBooster_Explosive": {
+        "1": [
+          "Didi Vatermann",
+          "Felicity Farseer",
+          "Lei Cheung",
+          "Mel Brandon"
+        ],
+        "2": ["Didi Vatermann", "Lei Cheung", "Mel Brandon"],
+        "3": ["Didi Vatermann", "Lei Cheung", "Mel Brandon"],
+        "4": ["Didi Vatermann", "Mel Brandon"],
+        "5": ["Didi Vatermann", "Mel Brandon"]
+      },
+      "ShieldBooster_HeavyDuty": {
+        "1": [
+          "Didi Vatermann",
+          "Felicity Farseer",
+          "Lei Cheung",
+          "Mel Brandon"
+        ],
+        "2": ["Didi Vatermann", "Lei Cheung", "Mel Brandon"],
+        "3": ["Didi Vatermann", "Lei Cheung", "Mel Brandon"],
+        "4": ["Didi Vatermann", "Mel Brandon"],
+        "5": ["Didi Vatermann", "Mel Brandon"]
+      },
+      "ShieldBooster_Kinetic": {
+        "1": [
+          "Didi Vatermann",
+          "Felicity Farseer",
+          "Lei Cheung",
+          "Mel Brandon"
+        ],
+        "2": ["Didi Vatermann", "Lei Cheung", "Mel Brandon"],
+        "3": ["Didi Vatermann", "Lei Cheung", "Mel Brandon"],
+        "4": ["Didi Vatermann", "Mel Brandon"],
+        "5": ["Didi Vatermann", "Mel Brandon"]
+      },
+      "ShieldBooster_Resistive": {
+        "1": [
+          "Didi Vatermann",
+          "Felicity Farseer",
+          "Lei Cheung",
+          "Mel Brandon"
+        ],
+        "2": ["Didi Vatermann", "Lei Cheung", "Mel Brandon"],
+        "3": ["Didi Vatermann", "Lei Cheung", "Mel Brandon"],
+        "4": ["Didi Vatermann", "Mel Brandon"],
+        "5": ["Didi Vatermann", "Mel Brandon"]
+      },
+      "ShieldBooster_Thermic": {
+        "1": [
+          "Didi Vatermann",
+          "Felicity Farseer",
+          "Lei Cheung",
+          "Mel Brandon"
+        ],
+        "2": ["Didi Vatermann", "Lei Cheung", "Mel Brandon"],
+        "3": ["Didi Vatermann", "Lei Cheung", "Mel Brandon"],
+        "4": ["Didi Vatermann", "Mel Brandon"],
+        "5": ["Didi Vatermann", "Mel Brandon"]
+      }
+    },
+    "experimentals": [
+      "special_shieldbooster_thermic",
+      "special_shieldbooster_kinetic",
+      "special_shieldbooster_explosive",
+      "special_shieldbooster_efficient",
+      "special_shieldbooster_toughened",
+      "special_shieldbooster_chunky"
+    ]
+  },
+  "sfn": {
+    "name": "Shutdown Field Neutraliser",
+    "group": "utility",
+    "itemPatterns": ["^hpt_antiunknownshutdown"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "sc": {
+    "name": "Discovery Scanner",
+    "group": "optional",
+    "itemPatterns": ["^int_stellarbodydiscoveryscanner"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "scb": {
+    "name": "Shield Cell Bank",
+    "group": "optional",
+    "itemPatterns": ["^int_shieldcellbank_"],
+    "blueprints": {
+      "ShieldCellBank_Rapid": {
+        "1": ["Elvira Martuuk", "Lori Jameson", "Mel Brandon"],
+        "2": ["Lori Jameson", "Mel Brandon"],
+        "3": ["Lori Jameson", "Mel Brandon"],
+        "4": ["Mel Brandon"]
+      },
+      "ShieldCellBank_Specialised": {
+        "1": ["Elvira Martuuk", "Lori Jameson", "Mel Brandon"],
+        "2": ["Lori Jameson", "Mel Brandon"],
+        "3": ["Lori Jameson", "Mel Brandon"],
+        "4": ["Mel Brandon"]
+      }
+    },
+    "experimentals": [
+      "special_shieldcell_gradual",
+      "special_shieldcell_oversized",
+      "special_shieldcell_efficient",
+      "special_shieldcell_toughened",
+      "special_shieldcell_lightweight"
+    ]
+  },
+  "sg": {
+    "name": "Shield Generator",
+    "group": "optional",
+    "itemPatterns": ["^int_shieldgenerator_"],
+    "blueprints": {
+      "ShieldGenerator_Kinetic": {
+        "1": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "2": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "3": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "4": ["Lei Cheung", "Mel Brandon"],
+        "5": ["Lei Cheung", "Mel Brandon"]
+      },
+      "ShieldGenerator_Optimised": {
+        "1": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "2": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "3": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "4": ["Lei Cheung", "Mel Brandon"],
+        "5": ["Lei Cheung", "Mel Brandon"]
+      },
+      "ShieldGenerator_Reinforced": {
+        "1": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "2": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "3": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "4": ["Lei Cheung", "Mel Brandon"],
+        "5": ["Lei Cheung", "Mel Brandon"]
+      },
+      "ShieldGenerator_Thermic": {
+        "1": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "2": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "3": ["Didi Vatermann", "Elvira Martuuk", "Lei Cheung", "Mel Brandon"],
+        "4": ["Lei Cheung", "Mel Brandon"],
+        "5": ["Lei Cheung", "Mel Brandon"]
+      }
+    },
+    "experimentals": [
+      "special_shield_regenerative",
+      "special_shield_resistive",
+      "special_shield_health",
+      "special_shield_efficient",
+      "special_shield_thermic",
+      "special_shield_kinetic",
+      "special_shield_toughened",
+      "special_shield_lightweight"
+    ]
+  },
+  "ss": {
+    "name": "Detailed Surface Scanner",
+    "group": "optional",
+    "itemPatterns": ["^int_detailedsurfacescanner_"],
+    "blueprints": {
+      "Sensor_Expanded": {
+        "1": [
+          "Bill Turner",
+          "Felicity Farseer",
+          "Juri Ishmaak",
+          "Lei Cheung",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Etienne Dorn",
+          "Hera Tani"
+        ],
+        "2": [
+          "Bill Turner",
+          "Felicity Farseer",
+          "Juri Ishmaak",
+          "Lei Cheung",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Etienne Dorn",
+          "Hera Tani"
+        ],
+        "3": [
+          "Bill Turner",
+          "Felicity Farseer",
+          "Juri Ishmaak",
+          "Lei Cheung",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Etienne Dorn",
+          "Hera Tani"
+        ],
+        "4": [
+          "Bill Turner",
+          "Juri Ishmaak",
+          "Lei Cheung",
+          "Lori Jameson",
+          "Etienne Dorn",
+          "Hera Tani"
+        ],
+        "5": [
+          "Bill Turner",
+          "Juri Ishmaak",
+          "Lei Cheung",
+          "Lori Jameson",
+          "Etienne Dorn",
+          "Hera Tani"
+        ]
+      }
+    },
+    "experimentals": []
+  },
+  "xs": {
+    "name": "Xeno Scanner",
+    "group": "utility",
+    "itemPatterns": ["^hpt_xenoscanner"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "t": {
+    "name": "Thrusters",
+    "group": "core",
+    "itemPatterns": ["^int_engine_", "^int_mkiiagileboost_engine_"],
+    "blueprints": {
+      "Engine_Dirty": {
+        "1": [
+          "Elvira Martuuk",
+          "Felicity Farseer",
+          "Professor Palin",
+          "Mel Brandon",
+          "Chloe Sedesi"
+        ],
+        "2": [
+          "Elvira Martuuk",
+          "Felicity Farseer",
+          "Professor Palin",
+          "Mel Brandon",
+          "Chloe Sedesi"
+        ],
+        "3": [
+          "Felicity Farseer",
+          "Professor Palin",
+          "Mel Brandon",
+          "Chloe Sedesi"
+        ],
+        "4": ["Professor Palin", "Mel Brandon", "Chloe Sedesi"],
+        "5": ["Professor Palin", "Mel Brandon", "Chloe Sedesi"]
+      },
+      "Engine_Reinforced": {
+        "1": [
+          "Elvira Martuuk",
+          "Felicity Farseer",
+          "Professor Palin",
+          "Mel Brandon",
+          "Chloe Sedesi"
+        ],
+        "2": [
+          "Elvira Martuuk",
+          "Felicity Farseer",
+          "Professor Palin",
+          "Mel Brandon",
+          "Chloe Sedesi"
+        ],
+        "3": [
+          "Felicity Farseer",
+          "Professor Palin",
+          "Mel Brandon",
+          "Chloe Sedesi"
+        ],
+        "4": ["Professor Palin", "Mel Brandon", "Chloe Sedesi"],
+        "5": ["Professor Palin", "Mel Brandon", "Chloe Sedesi"]
+      },
+      "Engine_Tuned": {
+        "1": [
+          "Elvira Martuuk",
+          "Felicity Farseer",
+          "Professor Palin",
+          "Mel Brandon",
+          "Chloe Sedesi"
+        ],
+        "2": [
+          "Elvira Martuuk",
+          "Felicity Farseer",
+          "Professor Palin",
+          "Mel Brandon",
+          "Chloe Sedesi"
+        ],
+        "3": [
+          "Felicity Farseer",
+          "Professor Palin",
+          "Mel Brandon",
+          "Chloe Sedesi"
+        ],
+        "4": ["Professor Palin", "Mel Brandon", "Chloe Sedesi"],
+        "5": ["Professor Palin", "Mel Brandon", "Chloe Sedesi"]
+      }
+    },
+    "experimentals": [
+      "special_engine_cooled",
+      "special_engine_haulage",
+      "special_engine_overloaded",
+      "special_engine_toughened",
+      "special_engine_lightweight"
+    ]
+  },
+  "tp": {
+    "name": "Torpedo Pylon",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_advancedtorppylon_"],
+    "blueprints": {
+      "Weapon_LightWeight": {
+        "1": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "2": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "3": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "4": ["Liz Ryder", "Petra Olmanova"],
+        "5": ["Liz Ryder", "Petra Olmanova"]
+      },
+      "Weapon_Sturdy": {
+        "1": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "2": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "3": ["Juri Ishmaak", "Liz Ryder", "Petra Olmanova"],
+        "4": ["Liz Ryder", "Petra Olmanova"],
+        "5": ["Liz Ryder", "Petra Olmanova"]
+      }
+    },
+    "experimentals": [
+      "special_mass_lock_munition",
+      "special_penetrator_payload",
+      "special_reverberating_cascade",
+      "special_weapon_damage",
+      "special_weapon_efficient",
+      "special_weapon_rateoffire",
+      "special_weapon_toughened",
+      "special_weapon_lightweight",
+      "special_mass_lock"
+    ]
+  },
+  "ntp": {
+    "name": "Nanite Torpedo Pylon",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_atventdisruptorpylon_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "ul": {
+    "name": "Burst Laser",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_pulselaserburst_"],
+    "blueprints": {
+      "Weapon_Efficient": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      },
+      "Weapon_Focused": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      },
+      "Weapon_LightWeight": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      },
+      "Weapon_LongRange": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      },
+      "Weapon_Overcharged": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      },
+      "Weapon_RapidFire": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      },
+      "Weapon_ShortRange": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      },
+      "Weapon_Sturdy": {
+        "1": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "2": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "3": ["Broo Tarquin", "The Dweller", "Mel Brandon"],
+        "4": ["Broo Tarquin", "Mel Brandon"],
+        "5": ["Broo Tarquin", "Mel Brandon"]
+      }
+    },
+    "experimentals": [
+      "special_concordant_sequence",
+      "special_distortion_field",
+      "special_phasing_sequence",
+      "special_scramble_spectrum",
+      "special_thermalshock",
+      "special_weapon_damage",
+      "special_weapon_efficient",
+      "special_weapon_rateoffire",
+      "special_weapon_toughened",
+      "special_weapon_lightweight"
+    ]
+  },
+  "ws": {
+    "name": "Frame Shift Wake Scanner",
+    "group": "utility",
+    "itemPatterns": ["^hpt_cloudscanner_"],
+    "blueprints": {
+      "Sensor_FastScan": {
+        "1": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "2": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "3": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "4": ["Tiana Fortune", "Etienne Dorn"],
+        "5": ["Tiana Fortune", "Etienne Dorn"]
+      },
+      "Misc_LightWeight": {
+        "1": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "2": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "3": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "4": ["Tiana Fortune", "Etienne Dorn"],
+        "5": ["Tiana Fortune", "Etienne Dorn"]
+      },
+      "Scanner_LongRange": {
+        "1": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "2": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "3": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "4": ["Tiana Fortune", "Etienne Dorn"],
+        "5": ["Tiana Fortune", "Etienne Dorn"]
+      },
+      "Misc_Reinforced": {
+        "1": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "2": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "3": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "4": ["Tiana Fortune", "Etienne Dorn"],
+        "5": ["Tiana Fortune", "Etienne Dorn"]
+      },
+      "Misc_Shielded": {
+        "1": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "2": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "3": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "4": ["Tiana Fortune", "Etienne Dorn"],
+        "5": ["Tiana Fortune", "Etienne Dorn"]
+      },
+      "Scanner_WideAngle": {
+        "1": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "2": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "3": [
+          "Bill Turner",
+          "Lori Jameson",
+          "Tiana Fortune",
+          "Juri Ishmaak",
+          "Etienne Dorn"
+        ],
+        "4": ["Tiana Fortune", "Etienne Dorn"],
+        "5": ["Tiana Fortune", "Etienne Dorn"]
+      }
+    },
+    "experimentals": []
+  },
+  "tbem": {
+    "name": "Enzyme Missile Rack",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_causticmissile_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "tbrfl": {
+    "name": "Remote Release Flechette Launcher",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_flechettelauncher_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "dtl": {
+    "name": "Decontamination Limpet Controller",
+    "group": "optional",
+    "itemPatterns": ["^int_dronecontrol_decontamination_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "mahr": {
+    "name": "Meta-Alloy Hull Reinforcement Package",
+    "group": "optional",
+    "itemPatterns": ["^int_metaalloyhullreinforcement_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "pwa": {
+    "name": "Pulse Wave Analyser",
+    "group": "utility",
+    "itemPatterns": ["^hpt_mrascanner"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "scl": {
+    "name": "Seismic Charge Launcher",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_mining_seismchrgwarhd_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "sdm": {
+    "name": "Sub-Surface Displacement Missile",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_mining_subsurfdispmisle_", "^hpt_human_extraction_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "abl": {
+    "name": "Abrasion Blaster",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_mining_abrblstr_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "mh": {
+    "name": "Unrecognised hardpoint or utility",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_missing_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "mm": {
+    "name": "Unrecognised internal module",
+    "group": "optional",
+    "itemPatterns": ["^int_missing_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "mlc": {
+    "name": "Multi-Limpet Controller",
+    "group": "optional",
+    "itemPatterns": ["^int_multidronecontrol_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "rcpl": {
+    "name": "Recon Limpet Controller",
+    "group": "optional",
+    "itemPatterns": ["^int_dronecontrol_recon_"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "rsl": {
+    "name": "Research Limpet Controller",
+    "group": "optional",
+    "itemPatterns": ["^int_dronecontrol_unkvesselresearch"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "sua": {
+    "name": "Supercruise Assist",
+    "group": "optional",
+    "itemPatterns": ["^int_supercruiseassist"],
+    "blueprints": {},
+    "experimentals": []
+  },
+  "mvr": {
+    "name": "Mining Volley Repeater",
+    "group": "hardpoint",
+    "itemPatterns": ["^hpt_miningtoolv2_"],
+    "blueprints": {},
+    "experimentals": []
+  }
+}

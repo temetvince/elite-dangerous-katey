@@ -1,0 +1,852 @@
+{
+  "guardian_fsd_booster": {
+    "name": "Guardian FSD Booster",
+    "broker": "guardian",
+    "category": "modules",
+    "moduleType": "gfsb",
+    "items": [
+      "int_guardianfsdbooster_"
+    ],
+    "materials": {
+      "Guardian Module Blueprint Fragment": 1,
+      "Guardian Power Cell": 21,
+      "Guardian Technology Component": 21,
+      "Focus Crystals": 24
+    },
+    "commodities": {
+      "HN Shock Mount": 8
+    }
+  },
+  "guardian_gauss_cannon_fixed_medium": {
+    "name": "Guardian Gauss Cannon (Fixed, Medium)",
+    "broker": "guardian",
+    "category": "weapons",
+    "moduleType": "ggc",
+    "items": [
+      "hpt_guardian_gausscannon_fixed_medium"
+    ],
+    "materials": {
+      "Guardian Weapon Blueprint Fragment": 1,
+      "Guardian Power Cell": 18,
+      "Guardian Technology Component": 20,
+      "Manganese": 15
+    },
+    "commodities": {
+      "Magnetic Emitter Coil": 6
+    }
+  },
+  "guardian_gauss_cannon_fixed_small": {
+    "name": "Guardian Gauss Cannon (Fixed, Small)",
+    "broker": "guardian",
+    "category": "weapons",
+    "moduleType": "ggc",
+    "items": [
+      "hpt_guardian_gausscannon_fixed_small"
+    ],
+    "materials": {
+      "Guardian Weapon Blueprint Fragment": 1,
+      "Guardian Power Conduit": 12,
+      "Guardian Wreckage Components": 12,
+      "Guardian Sentinel Weapon Parts": 15
+    },
+    "commodities": {}
+  },
+  "guardian_hull_reinforcement": {
+    "name": "Guardian Hull Reinforcement",
+    "broker": "guardian",
+    "category": "modules",
+    "moduleType": "ghrp",
+    "items": [
+      "int_guardianhullreinforcement_"
+    ],
+    "materials": {
+      "Guardian Module Blueprint Fragment": 1,
+      "Guardian Wreckage Components": 21,
+      "Pattern Beta Obelisk Data": 16,
+      "Pattern Gamma Obelisk Data": 16
+    },
+    "commodities": {
+      "Reinforced Mounting Plate": 12
+    }
+  },
+  "guardian_hybrid_power_plant": {
+    "name": "Guardian Hybrid Power Plant",
+    "broker": "guardian",
+    "category": "modules",
+    "moduleType": "gpp",
+    "items": [
+      "int_guardianpowerplant_"
+    ],
+    "materials": {
+      "Guardian Module Blueprint Fragment": 1,
+      "Guardian Power Conduit": 18,
+      "Pattern Epsilon Obelisk Data": 21,
+      "Heat Resistant Ceramics": 15
+    },
+    "commodities": {
+      "Energy Grid Assembly": 10
+    }
+  },
+  "guardian_module_reinforcement": {
+    "name": "Guardian Module Reinforcement",
+    "broker": "guardian",
+    "category": "modules",
+    "moduleType": "gmrp",
+    "items": [
+      "int_guardianmodulereinforcement_"
+    ],
+    "materials": {
+      "Guardian Module Blueprint Fragment": 1,
+      "Guardian Wreckage Components": 18,
+      "Pattern Epsilon Obelisk Data": 15,
+      "Guardian Power Conduit": 20
+    },
+    "commodities": {
+      "Reinforced Mounting Plate": 9
+    }
+  },
+  "guardian_plasma_charger_fixed_large": {
+    "name": "Guardian Plasma Charger (Fixed, Large)",
+    "broker": "guardian",
+    "category": "weapons",
+    "moduleType": "gpc",
+    "items": [
+      "hpt_guardian_plasmalauncher_fixed_large"
+    ],
+    "materials": {
+      "Guardian Weapon Blueprint Fragment": 1,
+      "Guardian Power Conduit": 28,
+      "Guardian Sentinel Weapon Parts": 20,
+      "Chromium": 28
+    },
+    "commodities": {
+      "Micro-Weave Cooling Hoses": 10
+    }
+  },
+  "guardian_plasma_charger_fixed_medium": {
+    "name": "Guardian Plasma Charger (Fixed, Medium)",
+    "broker": "guardian",
+    "category": "weapons",
+    "moduleType": "gpc",
+    "items": [
+      "hpt_guardian_plasmalauncher_fixed_medium"
+    ],
+    "materials": {
+      "Guardian Weapon Blueprint Fragment": 1,
+      "Guardian Power Conduit": 19,
+      "Guardian Sentinel Weapon Parts": 16,
+      "Chromium": 14
+    },
+    "commodities": {
+      "Micro-Weave Cooling Hoses": 8
+    }
+  },
+  "guardian_plasma_charger_fixed_small": {
+    "name": "Guardian Plasma Charger (Fixed, Small)",
+    "broker": "guardian",
+    "category": "weapons",
+    "moduleType": "gpc",
+    "items": [
+      "hpt_guardian_plasmalauncher_fixed_small"
+    ],
+    "materials": {
+      "Guardian Weapon Blueprint Fragment": 1,
+      "Guardian Power Cell": 12,
+      "Guardian Sentinel Weapon Parts": 12,
+      "Guardian Technology Component": 15
+    },
+    "commodities": {}
+  },
+  "guardian_plasma_charger_turreted_large": {
+    "name": "Guardian Plasma Charger (Turreted, Large)",
+    "broker": "guardian",
+    "category": "weapons",
+    "moduleType": "gpc",
+    "items": [
+      "hpt_guardian_plasmalauncher_turret_large"
+    ],
+    "materials": {
+      "Guardian Weapon Blueprint Fragment": 2,
+      "Guardian Power Conduit": 26,
+      "Guardian Sentinel Weapon Parts": 24,
+      "Chromium": 26
+    },
+    "commodities": {
+      "Articulation Motors": 10
+    }
+  },
+  "guardian_plasma_charger_turreted_medium": {
+    "name": "Guardian Plasma Charger (Turreted, Medium)",
+    "broker": "guardian",
+    "category": "weapons",
+    "moduleType": "gpc",
+    "items": [
+      "hpt_guardian_plasmalauncher_turret_medium"
+    ],
+    "materials": {
+      "Guardian Weapon Blueprint Fragment": 2,
+      "Guardian Power Conduit": 21,
+      "Guardian Sentinel Weapon Parts": 20,
+      "Chromium": 16
+    },
+    "commodities": {
+      "Articulation Motors": 8
+    }
+  },
+  "guardian_plasma_charger_turreted_small": {
+    "name": "Guardian Plasma Charger (Turreted, Small)",
+    "broker": "guardian",
+    "category": "weapons",
+    "moduleType": "gpc",
+    "items": [
+      "hpt_guardian_plasmalauncher_turret_small"
+    ],
+    "materials": {
+      "Guardian Weapon Blueprint Fragment": 1,
+      "Guardian Power Cell": 12,
+      "Guardian Technology Component": 12,
+      "Guardian Sentinel Weapon Parts": 15
+    },
+    "commodities": {}
+  },
+  "guardian_power_distributor": {
+    "name": "Guardian Power Distributor",
+    "broker": "guardian",
+    "category": "modules",
+    "moduleType": "gpl",
+    "items": [
+      "int_guardianpowerdistributor_"
+    ],
+    "materials": {
+      "Guardian Module Blueprint Fragment": 1,
+      "Pattern Alpha Obelisk Data": 20,
+      "Guardian Power Cell": 24,
+      "Phase Alloys": 18
+    },
+    "commodities": {
+      "Heatsink Interlink": 6
+    }
+  },
+  "guardian_shard_cannon_fixed_large": {
+    "name": "Guardian Shard Cannon (Fixed, Large)",
+    "broker": "guardian",
+    "category": "weapons",
+    "moduleType": "gsc",
+    "items": [
+      "hpt_guardian_shardcannon_fixed_large"
+    ],
+    "materials": {
+      "Guardian Technology Component": 28,
+      "Guardian Weapon Blueprint Fragment": 1,
+      "Guardian Wreckage Components": 20,
+      "Carbon": 20
+    },
+    "commodities": {
+      "Micro Controllers": 18
+    }
+  },
+  "guardian_shard_cannon_fixed_medium": {
+    "name": "Guardian Shard Cannon (Fixed, Medium)",
+    "broker": "guardian",
+    "category": "weapons",
+    "moduleType": "gsc",
+    "items": [
+      "hpt_guardian_shardcannon_fixed_medium"
+    ],
+    "materials": {
+      "Guardian Technology Component": 18,
+      "Guardian Weapon Blueprint Fragment": 1,
+      "Guardian Wreckage Components": 20,
+      "Carbon": 14
+    },
+    "commodities": {
+      "Power Transfer Bus": 12
+    }
+  },
+  "guardian_shard_cannon_fixed_small": {
+    "name": "Guardian Shard Cannon (Fixed, Small)",
+    "broker": "guardian",
+    "category": "weapons",
+    "moduleType": "gsc",
+    "items": [
+      "hpt_guardian_shardcannon_fixed_small"
+    ],
+    "materials": {
+      "Guardian Weapon Blueprint Fragment": 1,
+      "Guardian Power Conduit": 12,
+      "Guardian Technology Component": 12,
+      "Guardian Sentinel Weapon Parts": 15
+    },
+    "commodities": {}
+  },
+  "guardian_shard_cannon_turreted_large": {
+    "name": "Guardian Shard Cannon (Turreted, Large)",
+    "broker": "guardian",
+    "category": "weapons",
+    "moduleType": "gsc",
+    "items": [
+      "hpt_guardian_shardcannon_turret_large"
+    ],
+    "materials": {
+      "Guardian Weapon Blueprint Fragment": 2,
+      "Guardian Wreckage Components": 20,
+      "Guardian Technology Component": 26,
+      "Carbon": 28
+    },
+    "commodities": {
+      "Micro Controllers": 12
+    }
+  },
+  "guardian_shard_cannon_turreted_medium": {
+    "name": "Guardian Shard Cannon (Turreted, Medium)",
+    "broker": "guardian",
+    "category": "weapons",
+    "moduleType": "gsc",
+    "items": [
+      "hpt_guardian_shardcannon_turret_medium"
+    ],
+    "materials": {
+      "Guardian Weapon Blueprint Fragment": 2,
+      "Guardian Wreckage Components": 16,
+      "Guardian Technology Component": 20,
+      "Carbon": 15
+    },
+    "commodities": {
+      "Micro Controllers": 12
+    }
+  },
+  "guardian_shard_cannon_turreted_small": {
+    "name": "Guardian Shard Cannon (Turreted, Small)",
+    "broker": "guardian",
+    "category": "weapons",
+    "moduleType": "gsc",
+    "items": [
+      "hpt_guardian_shardcannon_turret_small"
+    ],
+    "materials": {
+      "Guardian Weapon Blueprint Fragment": 1,
+      "Guardian Power Conduit": 12,
+      "Guardian Sentinel Weapon Parts": 12,
+      "Guardian Technology Component": 15
+    },
+    "commodities": {}
+  },
+  "guardian_shield_reinforcement": {
+    "name": "Guardian Shield Reinforcement",
+    "broker": "guardian",
+    "category": "modules",
+    "moduleType": "gsrp",
+    "items": [
+      "int_guardianshieldreinforcement_"
+    ],
+    "materials": {
+      "Guardian Module Blueprint Fragment": 1,
+      "Guardian Power Cell": 17,
+      "Guardian Technology Component": 20,
+      "Pattern Delta Obelisk Data": 24
+    },
+    "commodities": {
+      "Hardware Diagnostic Sensor": 8
+    }
+  },
+  "javelin_fighter": {
+    "name": "Javelin fighter",
+    "broker": "guardian",
+    "category": "fighters",
+    "moduleType": null,
+    "items": [
+      "gdn_hybrid_fighter_v2"
+    ],
+    "materials": {
+      "Guardian Power Cell": 25,
+      "Guardian Wreckage Components": 18,
+      "Guardian Vessel Blueprint Fragment": 1,
+      "Pattern Epsilon Obelisk Data": 26,
+      "Guardian Technology Component": 25
+    },
+    "commodities": {}
+  },
+  "lance_fighter": {
+    "name": "Lance fighter",
+    "broker": "guardian",
+    "category": "fighters",
+    "moduleType": null,
+    "items": [
+      "gdn_hybrid_fighter_v3"
+    ],
+    "materials": {
+      "Guardian Power Cell": 25,
+      "Guardian Sentinel Weapon Parts": 18,
+      "Guardian Vessel Blueprint Fragment": 1,
+      "Pattern Epsilon Obelisk Data": 26,
+      "Guardian Technology Component": 25
+    },
+    "commodities": {}
+  },
+  "modified_gauss_cannon_fixed_medium": {
+    "name": "Modified Gauss Cannon (Fixed, Medium)",
+    "broker": "guardian",
+    "category": "modifiedWeapons",
+    "moduleType": "ggc",
+    "items": [],
+    "materials": {
+      "Guardian Weapon Blueprint Fragment": 1,
+      "Guardian Power Cell": 5,
+      "Guardian Technology Component": 5,
+      "Niobium": 4
+    },
+    "commodities": {
+      "Thermal Cooling Units": 2
+    }
+  },
+  "modified_gauss_cannon_fixed_small": {
+    "name": "Modified Gauss Cannon (Fixed, Small)",
+    "broker": "guardian",
+    "category": "modifiedWeapons",
+    "moduleType": "ggc",
+    "items": [],
+    "materials": {
+      "Guardian Weapon Blueprint Fragment": 1,
+      "Guardian Power Conduit": 3,
+      "Guardian Wreckage Components": 3,
+      "Guardian Sentinel Weapon Parts": 4,
+      "Niobium": 2
+    },
+    "commodities": {}
+  },
+  "modified_plasma_charger_fixed_medium": {
+    "name": "Modified Plasma Charger (Fixed, Medium)",
+    "broker": "guardian",
+    "category": "modifiedWeapons",
+    "moduleType": "gpc",
+    "items": [],
+    "materials": {
+      "Guardian Power Conduit": 5,
+      "Guardian Weapon Blueprint Fragment": 1,
+      "Guardian Sentinel Weapon Parts": 5,
+      "Arsenic": 4
+    },
+    "commodities": {
+      "Power Transfer Bus": 2
+    }
+  },
+  "modified_plasma_charger_fixed_small": {
+    "name": "Modified Plasma Charger (Fixed, Small)",
+    "broker": "guardian",
+    "category": "modifiedWeapons",
+    "moduleType": "gpc",
+    "items": [],
+    "materials": {
+      "Guardian Weapon Blueprint Fragment": 1,
+      "Guardian Power Cell": 3,
+      "Guardian Technology Component": 4,
+      "Guardian Sentinel Weapon Parts": 3,
+      "Arsenic": 2
+    },
+    "commodities": {}
+  },
+  "modified_shard_cannon_fixed_medium": {
+    "name": "Modified Shard Cannon (Fixed, Medium)",
+    "broker": "guardian",
+    "category": "modifiedWeapons",
+    "moduleType": "gsc",
+    "items": [],
+    "materials": {
+      "Guardian Technology Component": 5,
+      "Guardian Weapon Blueprint Fragment": 1,
+      "Guardian Wreckage Components": 5,
+      "Germanium": 4
+    },
+    "commodities": {
+      "Power Converter": 2
+    }
+  },
+  "modified_shard_cannon_fixed_small": {
+    "name": "Modified Shard Cannon (Fixed, Small)",
+    "broker": "guardian",
+    "category": "modifiedWeapons",
+    "moduleType": "gsc",
+    "items": [],
+    "materials": {
+      "Guardian Weapon Blueprint Fragment": 1,
+      "Guardian Power Conduit": 3,
+      "Guardian Wreckage Components": 3,
+      "Guardian Sentinel Weapon Parts": 4,
+      "Germanium": 2
+    },
+    "commodities": {}
+  },
+  "trident_fighter": {
+    "name": "Trident fighter",
+    "broker": "guardian",
+    "category": "fighters",
+    "moduleType": null,
+    "items": [
+      "gdn_hybrid_fighter_v1"
+    ],
+    "materials": {
+      "Guardian Power Cell": 25,
+      "Guardian Vessel Blueprint Fragment": 1,
+      "Pattern Epsilon Obelisk Data": 26,
+      "Pattern Beta Obelisk Data": 18,
+      "Guardian Technology Component": 25
+    },
+    "commodities": {}
+  },
+  "corrosion_resistant_cargo_rack": {
+    "name": "Corrosion Resistant Cargo Rack",
+    "broker": "human",
+    "category": "modules",
+    "moduleType": "cr",
+    "items": [
+      "int_corrosionproofcargorack_"
+    ],
+    "materials": {
+      "Iron": 26,
+      "Chemical Manipulators": 18
+    },
+    "commodities": {
+      "Meta-alloys": 16,
+      "Neofabric Insulation": 12,
+      "Radiation Baffle": 22
+    }
+  },
+  "engineered_detailed_surface_scanner_v1": {
+    "name": "Engineered Detailed Surface Scanner V1",
+    "broker": "human",
+    "category": "preEngineered",
+    "moduleType": "ss",
+    "items": [],
+    "materials": {
+      "Mechanical Scrap": 26,
+      "Germanium": 22,
+      "Mechanical Components": 28,
+      "Niobium": 24
+    },
+    "commodities": {}
+  },
+  "engineered_fsd_v1": {
+    "name": "Engineered FSD V1",
+    "broker": "human",
+    "category": "preEngineered",
+    "moduleType": "fsd",
+    "items": [],
+    "materials": {
+      "Tellurium": 26,
+      "Electrochemical Arrays": 26,
+      "Chemical Processors": 28,
+      "Datamined Wake Exceptions": 18
+    },
+    "commodities": {}
+  },
+  "engineered_missile_rack_v1": {
+    "name": "Engineered Missile Rack V1",
+    "broker": "human",
+    "category": "preEngineered",
+    "moduleType": "mr",
+    "items": [],
+    "materials": {
+      "Proto Radiolic Alloys": 16,
+      "Phosphorus": 28,
+      "Conductive Ceramics": 24,
+      "Hybrid Capacitors": 26
+    },
+    "commodities": {
+      "Osmium": 10
+    }
+  },
+  "enzyme_missile_rack": {
+    "name": "Enzyme Missile Rack",
+    "broker": "human",
+    "category": "weapons",
+    "moduleType": "tbem",
+    "items": [
+      "hpt_causticmissile_"
+    ],
+    "materials": {
+      "Tungsten": 15,
+      "Thargoid Energy Cell": 16,
+      "Thargoid Organic Circuitry": 18,
+      "Molybdenum": 16
+    },
+    "commodities": {
+      "Radiation Baffle": 6
+    }
+  },
+  "meta_alloy_hull_reinforcement": {
+    "name": "Meta Alloy Hull Reinforcement",
+    "broker": "human",
+    "category": "modules",
+    "moduleType": "mahr",
+    "items": [
+      "int_metaalloyhullreinforcement_"
+    ],
+    "materials": {
+      "Focus Crystals": 25,
+      "Aberrant Shield Pattern Analysis": 22,
+      "Configurable Components": 20
+    },
+    "commodities": {
+      "Meta-alloys": 16,
+      "Reinforced Mounting Plate": 12
+    }
+  },
+  "modified_mining_laser": {
+    "name": "Modified Mining Laser",
+    "broker": "human",
+    "category": "preEngineered",
+    "moduleType": "ml",
+    "items": [],
+    "materials": {
+      "Arsenic": 20,
+      "Phosphorus": 28,
+      "Rhenium": 24
+    },
+    "commodities": {
+      "Osmium": 16
+    }
+  },
+  "remote_release_flechette_launcher_fixed": {
+    "name": "Remote Release Flechette Launcher (Fixed)",
+    "broker": "human",
+    "category": "weapons",
+    "moduleType": "tbrfl",
+    "items": [
+      "hpt_flechettelauncher_fixed_"
+    ],
+    "materials": {
+      "Rhenium": 22,
+      "Iron": 30,
+      "Molybdenum": 24,
+      "Germanium": 26
+    },
+    "commodities": {
+      "CMM Composite": 8
+    }
+  },
+  "remote_release_flechette_launcher_turreted": {
+    "name": "Remote Release Flechette Launcher (Turreted)",
+    "broker": "human",
+    "category": "weapons",
+    "moduleType": "tbrfl",
+    "items": [
+      "hpt_flechettelauncher_turret_"
+    ],
+    "materials": {
+      "Rhenium": 20,
+      "Iron": 28,
+      "Molybdenum": 28,
+      "Germanium": 24
+    },
+    "commodities": {
+      "Articulation Motors": 10
+    }
+  },
+  "shock_cannon_fixed_large": {
+    "name": "Shock Cannon (Fixed, Large)",
+    "broker": "human",
+    "category": "weapons",
+    "moduleType": "tbsc",
+    "items": [
+      "hpt_plasmashockcannon_fixed_large"
+    ],
+    "materials": {
+      "Vanadium": 28,
+      "Tungsten": 26,
+      "Rhenium": 24,
+      "Technetium": 26
+    },
+    "commodities": {
+      "Power Converter": 8
+    }
+  },
+  "shock_cannon_fixed_medium": {
+    "name": "Shock Cannon (Fixed, Medium)",
+    "broker": "human",
+    "category": "weapons",
+    "moduleType": "tbsc",
+    "items": [
+      "hpt_plasmashockcannon_fixed_medium"
+    ],
+    "materials": {
+      "Vanadium": 24,
+      "Tungsten": 26,
+      "Rhenium": 20,
+      "Technetium": 28
+    },
+    "commodities": {
+      "Ion Distributor": 6
+    }
+  },
+  "shock_cannon_fixed_small": {
+    "name": "Shock Cannon (Fixed, Small)",
+    "broker": "human",
+    "category": "weapons",
+    "moduleType": "tbsc",
+    "items": [
+      "hpt_plasmashockcannon_fixed_small"
+    ],
+    "materials": {
+      "Vanadium": 8,
+      "Tungsten": 10,
+      "Rhenium": 8,
+      "Technetium": 12
+    },
+    "commodities": {
+      "Power Converter": 4
+    }
+  },
+  "shock_cannon_gimballed_large": {
+    "name": "Shock Cannon (Gimballed, Large)",
+    "broker": "human",
+    "category": "weapons",
+    "moduleType": "tbsc",
+    "items": [
+      "hpt_plasmashockcannon_gimbal_large"
+    ],
+    "materials": {
+      "Tungsten": 24,
+      "Rhenium": 24,
+      "Technetium": 22,
+      "Vanadium": 28
+    },
+    "commodities": {
+      "Power Transfer Bus": 12
+    }
+  },
+  "shock_cannon_gimballed_medium": {
+    "name": "Shock Cannon (Gimballed, Medium)",
+    "broker": "human",
+    "category": "weapons",
+    "moduleType": "tbsc",
+    "items": [
+      "hpt_plasmashockcannon_gimbal_medium"
+    ],
+    "materials": {
+      "Tungsten": 22,
+      "Rhenium": 20,
+      "Technetium": 28,
+      "Vanadium": 24
+    },
+    "commodities": {
+      "Power Converter": 10
+    }
+  },
+  "shock_cannon_gimballed_small": {
+    "name": "Shock Cannon (Gimballed, Small)",
+    "broker": "human",
+    "category": "weapons",
+    "moduleType": "tbsc",
+    "items": [
+      "hpt_plasmashockcannon_gimbal_small"
+    ],
+    "materials": {
+      "Vanadium": 10,
+      "Tungsten": 11,
+      "Rhenium": 8,
+      "Technetium": 10
+    },
+    "commodities": {
+      "Power Transfer Bus": 4
+    }
+  },
+  "shock_cannon_turreted_large": {
+    "name": "Shock Cannon (Turreted, Large)",
+    "broker": "human",
+    "category": "weapons",
+    "moduleType": "tbsc",
+    "items": [
+      "hpt_plasmashockcannon_turret_large"
+    ],
+    "materials": {
+      "Vanadium": 26,
+      "Tungsten": 28,
+      "Rhenium": 22,
+      "Technetium": 24
+    },
+    "commodities": {
+      "Ion Distributor": 10
+    }
+  },
+  "shock_cannon_turreted_medium": {
+    "name": "Shock Cannon (Turreted, Medium)",
+    "broker": "human",
+    "category": "weapons",
+    "moduleType": "tbsc",
+    "items": [
+      "hpt_plasmashockcannon_turret_medium"
+    ],
+    "materials": {
+      "Vanadium": 24,
+      "Tungsten": 22,
+      "Rhenium": 20,
+      "Technetium": 28
+    },
+    "commodities": {
+      "Power Transfer Bus": 8
+    }
+  },
+  "shock_cannon_turreted_small": {
+    "name": "Shock Cannon (Turreted, Small)",
+    "broker": "human",
+    "category": "weapons",
+    "moduleType": "tbsc",
+    "items": [
+      "hpt_plasmashockcannon_turret_small"
+    ],
+    "materials": {
+      "Vanadium": 8,
+      "Tungsten": 12,
+      "Rhenium": 10,
+      "Technetium": 10
+    },
+    "commodities": {
+      "Ion Distributor": 4
+    }
+  },
+  "sirius_modified_ax_missile_rack_large": {
+    "name": "Sirius Modified AX Missile Rack (Large)",
+    "broker": "human",
+    "category": "preEngineered",
+    "moduleType": "axmr",
+    "items": [],
+    "materials": {
+      "Heat Dispersion Plate": 9,
+      "High Density Composites": 10,
+      "Mechanical Equipment": 20,
+      "Military Supercapacitors": 10,
+      "Technetium": 3,
+      "Vanadium": 13
+    },
+    "commodities": {}
+  },
+  "sirius_modified_ax_missile_rack_medium": {
+    "name": "Sirius Modified AX Missile Rack (Medium)",
+    "broker": "human",
+    "category": "preEngineered",
+    "moduleType": "axmr",
+    "items": [],
+    "materials": {
+      "Heat Dispersion Plate": 6,
+      "High Density Composites": 5,
+      "Mechanical Equipment": 12,
+      "Military Supercapacitors": 5,
+      "Vanadium": 8
+    },
+    "commodities": {}
+  },
+  "sirius_modified_heat_sink_launcher": {
+    "name": "Sirius Modified Heat Sink Launcher",
+    "broker": "human",
+    "category": "preEngineered",
+    "moduleType": "hs",
+    "items": [],
+    "materials": {
+      "Mechanical Components": 5,
+      "Mechanical Scrap": 8,
+      "Niobium": 6,
+      "Vanadium": 6
+    },
+    "commodities": {}
+  }
+}

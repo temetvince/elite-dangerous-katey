@@ -1,0 +1,6860 @@
+{
+  "hpt_advancedtorppylon_fixed_large": {
+    "symbol": "hpt_advancedtorppylon_fixed_large",
+    "name": "Torpedo Pylon 3I Fixed",
+    "group": "tp",
+    "class": 3,
+    "rating": "I",
+    "mount": "Fixed"
+  },
+  "hpt_advancedtorppylon_fixed_medium": {
+    "symbol": "hpt_advancedtorppylon_fixed_medium",
+    "name": "Torpedo Pylon 2I Fixed",
+    "group": "tp",
+    "class": 2,
+    "rating": "I",
+    "mount": "Fixed"
+  },
+  "hpt_advancedtorppylon_fixed_small": {
+    "symbol": "hpt_advancedtorppylon_fixed_small",
+    "name": "Torpedo Pylon 1I Fixed",
+    "group": "tp",
+    "class": 1,
+    "rating": "I",
+    "mount": "Fixed"
+  },
+  "hpt_antiunknownshutdown_tiny": {
+    "symbol": "hpt_antiunknownshutdown_tiny",
+    "name": "Shutdown Field Neutraliser 0F",
+    "group": "sfn",
+    "class": 0,
+    "rating": "F"
+  },
+  "hpt_antiunknownshutdown_tiny_v2": {
+    "symbol": "hpt_antiunknownshutdown_tiny_v2",
+    "name": "Thargoid Pulse Neutraliser 0E",
+    "group": "sfn",
+    "class": 0,
+    "rating": "E"
+  },
+  "hpt_atdumbfiremissile_fixed_large": {
+    "symbol": "hpt_atdumbfiremissile_fixed_large",
+    "name": "AX Missile Rack 3A Fixed",
+    "group": "axmr",
+    "class": 3,
+    "rating": "A",
+    "mount": "Fixed"
+  },
+  "hpt_atdumbfiremissile_fixed_large_v2": {
+    "symbol": "hpt_atdumbfiremissile_fixed_large_v2",
+    "name": "AX Missile Rack (Enhanced) 3B Fixed",
+    "group": "axmre",
+    "class": 3,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_atdumbfiremissile_fixed_medium": {
+    "symbol": "hpt_atdumbfiremissile_fixed_medium",
+    "name": "AX Missile Rack 2B Fixed",
+    "group": "axmr",
+    "class": 2,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_atdumbfiremissile_fixed_medium_v2": {
+    "symbol": "hpt_atdumbfiremissile_fixed_medium_v2",
+    "name": "AX Missile Rack (Enhanced) 2D Fixed",
+    "group": "axmre",
+    "class": 2,
+    "rating": "D",
+    "mount": "Fixed"
+  },
+  "hpt_atdumbfiremissile_turret_large": {
+    "symbol": "hpt_atdumbfiremissile_turret_large",
+    "name": "AX Missile Rack 3A Turreted",
+    "group": "axmr",
+    "class": 3,
+    "rating": "A",
+    "mount": "Turreted"
+  },
+  "hpt_atdumbfiremissile_turret_large_v2": {
+    "symbol": "hpt_atdumbfiremissile_turret_large_v2",
+    "name": "AX Missile Rack (Enhanced) 3D Turreted",
+    "group": "axmre",
+    "class": 3,
+    "rating": "D",
+    "mount": "Turreted"
+  },
+  "hpt_atdumbfiremissile_turret_medium": {
+    "symbol": "hpt_atdumbfiremissile_turret_medium",
+    "name": "AX Missile Rack 2B Turreted",
+    "group": "axmr",
+    "class": 2,
+    "rating": "B",
+    "mount": "Turreted"
+  },
+  "hpt_atdumbfiremissile_turret_medium_v2": {
+    "symbol": "hpt_atdumbfiremissile_turret_medium_v2",
+    "name": "AX Missile Rack (Enhanced) 2E Turreted",
+    "group": "axmre",
+    "class": 2,
+    "rating": "E",
+    "mount": "Turreted"
+  },
+  "hpt_atmulticannon_fixed_large": {
+    "symbol": "hpt_atmulticannon_fixed_large",
+    "name": "AX Multi-cannon 3C Fixed",
+    "group": "axmc",
+    "class": 3,
+    "rating": "C",
+    "mount": "Fixed"
+  },
+  "hpt_atmulticannon_fixed_large_v2": {
+    "symbol": "hpt_atmulticannon_fixed_large_v2",
+    "name": "AX Multi-cannon (Enhanced) 3B Fixed",
+    "group": "axmce",
+    "class": 3,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_atmulticannon_fixed_medium": {
+    "symbol": "hpt_atmulticannon_fixed_medium",
+    "name": "AX Multi-cannon 2E Fixed",
+    "group": "axmc",
+    "class": 2,
+    "rating": "E",
+    "mount": "Fixed"
+  },
+  "hpt_atmulticannon_fixed_medium_v2": {
+    "symbol": "hpt_atmulticannon_fixed_medium_v2",
+    "name": "AX Multi-cannon (Enhanced) 2D Fixed",
+    "group": "axmce",
+    "class": 2,
+    "rating": "D",
+    "mount": "Fixed"
+  },
+  "hpt_atmulticannon_gimbal_large": {
+    "symbol": "hpt_atmulticannon_gimbal_large",
+    "name": "AX Multi-cannon (Enhanced) 3C Gimballed",
+    "group": "axmce",
+    "class": 3,
+    "rating": "C",
+    "mount": "Gimballed"
+  },
+  "hpt_atmulticannon_gimbal_medium": {
+    "symbol": "hpt_atmulticannon_gimbal_medium",
+    "name": "AX Multi-cannon (Enhanced) 2E Gimballed",
+    "group": "axmce",
+    "class": 2,
+    "rating": "E",
+    "mount": "Gimballed"
+  },
+  "hpt_atmulticannon_turret_large": {
+    "symbol": "hpt_atmulticannon_turret_large",
+    "name": "AX Multi-cannon 3E Turreted",
+    "group": "axmc",
+    "class": 3,
+    "rating": "E",
+    "mount": "Turreted"
+  },
+  "hpt_atmulticannon_turret_large_v2": {
+    "symbol": "hpt_atmulticannon_turret_large_v2",
+    "name": "AX Multi-cannon (Enhanced) 3D Turreted",
+    "group": "axmce",
+    "class": 3,
+    "rating": "D",
+    "mount": "Turreted"
+  },
+  "hpt_atmulticannon_turret_medium": {
+    "symbol": "hpt_atmulticannon_turret_medium",
+    "name": "AX Multi-cannon 2F Turreted",
+    "group": "axmc",
+    "class": 2,
+    "rating": "F",
+    "mount": "Turreted"
+  },
+  "hpt_atmulticannon_turret_medium_v2": {
+    "symbol": "hpt_atmulticannon_turret_medium_v2",
+    "name": "AX Multi-cannon (Enhanced) 2E Turreted",
+    "group": "axmce",
+    "class": 2,
+    "rating": "E",
+    "mount": "Turreted"
+  },
+  "hpt_atventdisruptorpylon_fixed_large": {
+    "symbol": "hpt_atventdisruptorpylon_fixed_large",
+    "name": "ntp 3I Fixed",
+    "group": "ntp",
+    "class": 3,
+    "rating": "I",
+    "mount": "Fixed"
+  },
+  "hpt_atventdisruptorpylon_fixed_medium": {
+    "symbol": "hpt_atventdisruptorpylon_fixed_medium",
+    "name": "ntp 2I Fixed",
+    "group": "ntp",
+    "class": 2,
+    "rating": "I",
+    "mount": "Fixed"
+  },
+  "hpt_basicmissilerack_fixed_large": {
+    "symbol": "hpt_basicmissilerack_fixed_large",
+    "name": "Missile Rack 3A Fixed",
+    "group": "mr",
+    "class": 3,
+    "rating": "A",
+    "mount": "Fixed"
+  },
+  "hpt_basicmissilerack_fixed_medium": {
+    "symbol": "hpt_basicmissilerack_fixed_medium",
+    "name": "Missile Rack 2B Fixed",
+    "group": "mr",
+    "class": 2,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_basicmissilerack_fixed_small": {
+    "symbol": "hpt_basicmissilerack_fixed_small",
+    "name": "Missile Rack 1B Fixed",
+    "group": "mr",
+    "class": 1,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_beamlaser_fixed_huge": {
+    "symbol": "hpt_beamlaser_fixed_huge",
+    "name": "Beam Laser 4A Fixed",
+    "group": "bl",
+    "class": 4,
+    "rating": "A",
+    "mount": "Fixed"
+  },
+  "hpt_beamlaser_fixed_large": {
+    "symbol": "hpt_beamlaser_fixed_large",
+    "name": "Beam Laser 3C Fixed",
+    "group": "bl",
+    "class": 3,
+    "rating": "C",
+    "mount": "Fixed"
+  },
+  "hpt_beamlaser_fixed_medium": {
+    "symbol": "hpt_beamlaser_fixed_medium",
+    "name": "Beam Laser 2D Fixed",
+    "group": "bl",
+    "class": 2,
+    "rating": "D",
+    "mount": "Fixed"
+  },
+  "hpt_beamlaser_fixed_small": {
+    "symbol": "hpt_beamlaser_fixed_small",
+    "name": "Beam Laser 1E Fixed",
+    "group": "bl",
+    "class": 1,
+    "rating": "E",
+    "mount": "Fixed"
+  },
+  "hpt_beamlaser_fixed_small_heat": {
+    "symbol": "hpt_beamlaser_fixed_small_heat",
+    "name": "Retributor 1E Fixed",
+    "group": "bl",
+    "class": 1,
+    "rating": "E",
+    "mount": "Fixed"
+  },
+  "hpt_beamlaser_gimbal_huge": {
+    "symbol": "hpt_beamlaser_gimbal_huge",
+    "name": "Beam Laser 4A Gimballed",
+    "group": "bl",
+    "class": 4,
+    "rating": "A",
+    "mount": "Gimballed"
+  },
+  "hpt_beamlaser_gimbal_large": {
+    "symbol": "hpt_beamlaser_gimbal_large",
+    "name": "Beam Laser 3C Gimballed",
+    "group": "bl",
+    "class": 3,
+    "rating": "C",
+    "mount": "Gimballed"
+  },
+  "hpt_beamlaser_gimbal_medium": {
+    "symbol": "hpt_beamlaser_gimbal_medium",
+    "name": "Beam Laser 2D Gimballed",
+    "group": "bl",
+    "class": 2,
+    "rating": "D",
+    "mount": "Gimballed"
+  },
+  "hpt_beamlaser_gimbal_small": {
+    "symbol": "hpt_beamlaser_gimbal_small",
+    "name": "Beam Laser 1E Gimballed",
+    "group": "bl",
+    "class": 1,
+    "rating": "E",
+    "mount": "Gimballed"
+  },
+  "hpt_beamlaser_turret_large": {
+    "symbol": "hpt_beamlaser_turret_large",
+    "name": "Beam Laser 3D Turreted",
+    "group": "bl",
+    "class": 3,
+    "rating": "D",
+    "mount": "Turreted"
+  },
+  "hpt_beamlaser_turret_medium": {
+    "symbol": "hpt_beamlaser_turret_medium",
+    "name": "Beam Laser 2E Turreted",
+    "group": "bl",
+    "class": 2,
+    "rating": "E",
+    "mount": "Turreted"
+  },
+  "hpt_beamlaser_turret_small": {
+    "symbol": "hpt_beamlaser_turret_small",
+    "name": "Beam Laser 1F Turreted",
+    "group": "bl",
+    "class": 1,
+    "rating": "F",
+    "mount": "Turreted"
+  },
+  "hpt_cannon_fixed_huge": {
+    "symbol": "hpt_cannon_fixed_huge",
+    "name": "Cannon 4B Fixed",
+    "group": "c",
+    "class": 4,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_cannon_fixed_large": {
+    "symbol": "hpt_cannon_fixed_large",
+    "name": "Cannon 3C Fixed",
+    "group": "c",
+    "class": 3,
+    "rating": "C",
+    "mount": "Fixed"
+  },
+  "hpt_cannon_fixed_medium": {
+    "symbol": "hpt_cannon_fixed_medium",
+    "name": "Cannon 2D Fixed",
+    "group": "c",
+    "class": 2,
+    "rating": "D",
+    "mount": "Fixed"
+  },
+  "hpt_cannon_fixed_small": {
+    "symbol": "hpt_cannon_fixed_small",
+    "name": "Cannon 1D Fixed",
+    "group": "c",
+    "class": 1,
+    "rating": "D",
+    "mount": "Fixed"
+  },
+  "hpt_cannon_gimbal_huge": {
+    "symbol": "hpt_cannon_gimbal_huge",
+    "name": "Cannon 4B Gimballed",
+    "group": "c",
+    "class": 4,
+    "rating": "B",
+    "mount": "Gimballed"
+  },
+  "hpt_cannon_gimbal_large": {
+    "symbol": "hpt_cannon_gimbal_large",
+    "name": "Cannon 3C Gimballed",
+    "group": "c",
+    "class": 3,
+    "rating": "C",
+    "mount": "Gimballed"
+  },
+  "hpt_cannon_gimbal_medium": {
+    "symbol": "hpt_cannon_gimbal_medium",
+    "name": "Cannon 2D Gimballed",
+    "group": "c",
+    "class": 2,
+    "rating": "D",
+    "mount": "Gimballed"
+  },
+  "hpt_cannon_gimbal_medium_burst": {
+    "symbol": "hpt_cannon_gimbal_medium_burst",
+    "name": "Concord Cannon 2D Gimballed",
+    "group": "c",
+    "class": 2,
+    "rating": "D",
+    "mount": "Gimballed"
+  },
+  "hpt_cannon_gimbal_small": {
+    "symbol": "hpt_cannon_gimbal_small",
+    "name": "Cannon 1E Gimballed",
+    "group": "c",
+    "class": 1,
+    "rating": "E",
+    "mount": "Gimballed"
+  },
+  "hpt_cannon_turret_large": {
+    "symbol": "hpt_cannon_turret_large",
+    "name": "Cannon 3D Turreted",
+    "group": "c",
+    "class": 3,
+    "rating": "D",
+    "mount": "Turreted"
+  },
+  "hpt_cannon_turret_medium": {
+    "symbol": "hpt_cannon_turret_medium",
+    "name": "Cannon 2E Turreted",
+    "group": "c",
+    "class": 2,
+    "rating": "E",
+    "mount": "Turreted"
+  },
+  "hpt_cannon_turret_small": {
+    "symbol": "hpt_cannon_turret_small",
+    "name": "Cannon 1F Turreted",
+    "group": "c",
+    "class": 1,
+    "rating": "F",
+    "mount": "Turreted"
+  },
+  "hpt_cargoscanner_size0_class1": {
+    "symbol": "hpt_cargoscanner_size0_class1",
+    "name": "Cargo Scanner 0E",
+    "group": "cs",
+    "class": 0,
+    "rating": "E"
+  },
+  "hpt_cargoscanner_size0_class2": {
+    "symbol": "hpt_cargoscanner_size0_class2",
+    "name": "Cargo Scanner 0D",
+    "group": "cs",
+    "class": 0,
+    "rating": "D"
+  },
+  "hpt_cargoscanner_size0_class3": {
+    "symbol": "hpt_cargoscanner_size0_class3",
+    "name": "Cargo Scanner 0C",
+    "group": "cs",
+    "class": 0,
+    "rating": "C"
+  },
+  "hpt_cargoscanner_size0_class4": {
+    "symbol": "hpt_cargoscanner_size0_class4",
+    "name": "Cargo Scanner 0B",
+    "group": "cs",
+    "class": 0,
+    "rating": "B"
+  },
+  "hpt_cargoscanner_size0_class5": {
+    "symbol": "hpt_cargoscanner_size0_class5",
+    "name": "Cargo Scanner 0A",
+    "group": "cs",
+    "class": 0,
+    "rating": "A"
+  },
+  "hpt_causticmissile_fixed_medium": {
+    "symbol": "hpt_causticmissile_fixed_medium",
+    "name": "Enzyme Missile Rack 2B Fixed",
+    "group": "tbem",
+    "class": 2,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_causticsinklauncher_turret_tiny": {
+    "symbol": "hpt_causticsinklauncher_turret_tiny",
+    "name": "Caustic Sink Launcher 0I",
+    "group": "csl",
+    "class": 0,
+    "rating": "I"
+  },
+  "hpt_chafflauncher_tiny": {
+    "symbol": "hpt_chafflauncher_tiny",
+    "name": "Chaff Launcher 0I",
+    "group": "ch",
+    "class": 0,
+    "rating": "I"
+  },
+  "hpt_cloudscanner_size0_class1": {
+    "symbol": "hpt_cloudscanner_size0_class1",
+    "name": "Frame Shift Wake Scanner 0E",
+    "group": "ws",
+    "class": 0,
+    "rating": "E"
+  },
+  "hpt_cloudscanner_size0_class2": {
+    "symbol": "hpt_cloudscanner_size0_class2",
+    "name": "Frame Shift Wake Scanner 0D",
+    "group": "ws",
+    "class": 0,
+    "rating": "D"
+  },
+  "hpt_cloudscanner_size0_class3": {
+    "symbol": "hpt_cloudscanner_size0_class3",
+    "name": "Frame Shift Wake Scanner 0C",
+    "group": "ws",
+    "class": 0,
+    "rating": "C"
+  },
+  "hpt_cloudscanner_size0_class4": {
+    "symbol": "hpt_cloudscanner_size0_class4",
+    "name": "Frame Shift Wake Scanner 0B",
+    "group": "ws",
+    "class": 0,
+    "rating": "B"
+  },
+  "hpt_cloudscanner_size0_class5": {
+    "symbol": "hpt_cloudscanner_size0_class5",
+    "name": "Frame Shift Wake Scanner 0A",
+    "group": "ws",
+    "class": 0,
+    "rating": "A"
+  },
+  "hpt_crimescanner_size0_class1": {
+    "symbol": "hpt_crimescanner_size0_class1",
+    "name": "Kill Warrant Scanner 0E",
+    "group": "kw",
+    "class": 0,
+    "rating": "E"
+  },
+  "hpt_crimescanner_size0_class2": {
+    "symbol": "hpt_crimescanner_size0_class2",
+    "name": "Kill Warrant Scanner 0D",
+    "group": "kw",
+    "class": 0,
+    "rating": "D"
+  },
+  "hpt_crimescanner_size0_class3": {
+    "symbol": "hpt_crimescanner_size0_class3",
+    "name": "Kill Warrant Scanner 0C",
+    "group": "kw",
+    "class": 0,
+    "rating": "C"
+  },
+  "hpt_crimescanner_size0_class4": {
+    "symbol": "hpt_crimescanner_size0_class4",
+    "name": "Kill Warrant Scanner 0B",
+    "group": "kw",
+    "class": 0,
+    "rating": "B"
+  },
+  "hpt_crimescanner_size0_class5": {
+    "symbol": "hpt_crimescanner_size0_class5",
+    "name": "Kill Warrant Scanner 0A",
+    "group": "kw",
+    "class": 0,
+    "rating": "A"
+  },
+  "hpt_drunkmissilerack_fixed_medium": {
+    "symbol": "hpt_drunkmissilerack_fixed_medium",
+    "name": "Pack-Hound 2B Fixed",
+    "group": "mr",
+    "class": 2,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_dumbfiremissilerack_fixed_large": {
+    "symbol": "hpt_dumbfiremissilerack_fixed_large",
+    "name": "Missile Rack 3A Fixed",
+    "group": "mr",
+    "class": 3,
+    "rating": "A",
+    "mount": "Fixed"
+  },
+  "hpt_dumbfiremissilerack_fixed_medium": {
+    "symbol": "hpt_dumbfiremissilerack_fixed_medium",
+    "name": "Missile Rack 2B Fixed",
+    "group": "mr",
+    "class": 2,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_dumbfiremissilerack_fixed_medium_advanced": {
+    "symbol": "hpt_dumbfiremissilerack_fixed_medium_advanced",
+    "name": "Advanced Missile Rack 2B Fixed",
+    "group": "amr",
+    "class": 2,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_dumbfiremissilerack_fixed_medium_lasso": {
+    "symbol": "hpt_dumbfiremissilerack_fixed_medium_lasso",
+    "name": "Rocket Propelled FSD Disruptor 2B Fixed",
+    "group": "mr",
+    "class": 2,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_dumbfiremissilerack_fixed_small": {
+    "symbol": "hpt_dumbfiremissilerack_fixed_small",
+    "name": "Missile Rack 1B Fixed",
+    "group": "mr",
+    "class": 1,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_dumbfiremissilerack_fixed_small_advanced": {
+    "symbol": "hpt_dumbfiremissilerack_fixed_small_advanced",
+    "name": "Advanced Missile Rack 1B Fixed",
+    "group": "amr",
+    "class": 1,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_electroniccountermeasure_tiny": {
+    "symbol": "hpt_electroniccountermeasure_tiny",
+    "name": "Electronic Countermeasure 0F",
+    "group": "ec",
+    "class": 0,
+    "rating": "F"
+  },
+  "hpt_flakmortar_fixed_medium": {
+    "symbol": "hpt_flakmortar_fixed_medium",
+    "name": "Remote Release Flak Launcher 2B Fixed",
+    "group": "rfl",
+    "class": 2,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_flakmortar_turret_medium": {
+    "symbol": "hpt_flakmortar_turret_medium",
+    "name": "Remote Release Flak Launcher 2B Turreted",
+    "group": "rfl",
+    "class": 2,
+    "rating": "B",
+    "mount": "Turreted"
+  },
+  "hpt_flechettelauncher_fixed_medium": {
+    "symbol": "hpt_flechettelauncher_fixed_medium",
+    "name": "Remote Release Flechette Launcher 2B Fixed",
+    "group": "tbrfl",
+    "class": 2,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_flechettelauncher_turret_medium": {
+    "symbol": "hpt_flechettelauncher_turret_medium",
+    "name": "Remote Release Flechette Launcher 2B Turreted",
+    "group": "tbrfl",
+    "class": 2,
+    "rating": "B",
+    "mount": "Turreted"
+  },
+  "hpt_guardian_gausscannon_fixed_medium": {
+    "symbol": "hpt_guardian_gausscannon_fixed_medium",
+    "name": "Guardian Gauss Cannon 2B Fixed",
+    "group": "ggc",
+    "class": 2,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_guardian_gausscannon_fixed_small": {
+    "symbol": "hpt_guardian_gausscannon_fixed_small",
+    "name": "Guardian Gauss Cannon 1D Fixed",
+    "group": "ggc",
+    "class": 1,
+    "rating": "D",
+    "mount": "Fixed"
+  },
+  "hpt_guardian_plasmalauncher_fixed_large": {
+    "symbol": "hpt_guardian_plasmalauncher_fixed_large",
+    "name": "Guardian Plasma Charger 3C Fixed",
+    "group": "gpc",
+    "class": 3,
+    "rating": "C",
+    "mount": "Fixed"
+  },
+  "hpt_guardian_plasmalauncher_fixed_medium": {
+    "symbol": "hpt_guardian_plasmalauncher_fixed_medium",
+    "name": "Guardian Plasma Charger 2B Fixed",
+    "group": "gpc",
+    "class": 2,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_guardian_plasmalauncher_fixed_small": {
+    "symbol": "hpt_guardian_plasmalauncher_fixed_small",
+    "name": "Guardian Plasma Charger 1D Fixed",
+    "group": "gpc",
+    "class": 1,
+    "rating": "D",
+    "mount": "Fixed"
+  },
+  "hpt_guardian_plasmalauncher_turret_large": {
+    "symbol": "hpt_guardian_plasmalauncher_turret_large",
+    "name": "Guardian Plasma Charger 3D Turreted",
+    "group": "gpc",
+    "class": 3,
+    "rating": "D",
+    "mount": "Turreted"
+  },
+  "hpt_guardian_plasmalauncher_turret_medium": {
+    "symbol": "hpt_guardian_plasmalauncher_turret_medium",
+    "name": "Guardian Plasma Charger 2E Turreted",
+    "group": "gpc",
+    "class": 2,
+    "rating": "E",
+    "mount": "Turreted"
+  },
+  "hpt_guardian_plasmalauncher_turret_small": {
+    "symbol": "hpt_guardian_plasmalauncher_turret_small",
+    "name": "Guardian Plasma Charger 1F Turreted",
+    "group": "gpc",
+    "class": 1,
+    "rating": "F",
+    "mount": "Turreted"
+  },
+  "hpt_guardian_shardcannon_fixed_large": {
+    "symbol": "hpt_guardian_shardcannon_fixed_large",
+    "name": "Guardian Shard Cannon 3C Fixed",
+    "group": "gsc",
+    "class": 3,
+    "rating": "C",
+    "mount": "Fixed"
+  },
+  "hpt_guardian_shardcannon_fixed_medium": {
+    "symbol": "hpt_guardian_shardcannon_fixed_medium",
+    "name": "Guardian Shard Cannon 2A Fixed",
+    "group": "gsc",
+    "class": 2,
+    "rating": "A",
+    "mount": "Fixed"
+  },
+  "hpt_guardian_shardcannon_fixed_small": {
+    "symbol": "hpt_guardian_shardcannon_fixed_small",
+    "name": "Guardian Shard Cannon 1D Fixed",
+    "group": "gsc",
+    "class": 1,
+    "rating": "D",
+    "mount": "Fixed"
+  },
+  "hpt_guardian_shardcannon_turret_large": {
+    "symbol": "hpt_guardian_shardcannon_turret_large",
+    "name": "Guardian Shard Cannon 3D Turreted",
+    "group": "gsc",
+    "class": 3,
+    "rating": "D",
+    "mount": "Turreted"
+  },
+  "hpt_guardian_shardcannon_turret_medium": {
+    "symbol": "hpt_guardian_shardcannon_turret_medium",
+    "name": "Guardian Shard Cannon 2D Turreted",
+    "group": "gsc",
+    "class": 2,
+    "rating": "D",
+    "mount": "Turreted"
+  },
+  "hpt_guardian_shardcannon_turret_small": {
+    "symbol": "hpt_guardian_shardcannon_turret_small",
+    "name": "Guardian Shard Cannon 1F Turreted",
+    "group": "gsc",
+    "class": 1,
+    "rating": "F",
+    "mount": "Turreted"
+  },
+  "hpt_heatsinklauncher_turret_tiny": {
+    "symbol": "hpt_heatsinklauncher_turret_tiny",
+    "name": "Heat Sink Launcher 0I",
+    "group": "hs",
+    "class": 0,
+    "rating": "I"
+  },
+  "hpt_human_extraction_fixed_medium": {
+    "symbol": "hpt_human_extraction_fixed_medium",
+    "name": "Extraction Missile 2B Fixed",
+    "group": "sdm",
+    "class": 2,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_minelauncher_fixed_medium": {
+    "symbol": "hpt_minelauncher_fixed_medium",
+    "name": "Mine Launcher 2I Fixed",
+    "group": "nl",
+    "class": 2,
+    "rating": "I",
+    "mount": "Fixed"
+  },
+  "hpt_minelauncher_fixed_small": {
+    "symbol": "hpt_minelauncher_fixed_small",
+    "name": "Mine Launcher 1I Fixed",
+    "group": "nl",
+    "class": 1,
+    "rating": "I",
+    "mount": "Fixed"
+  },
+  "hpt_minelauncher_fixed_small_impulse": {
+    "symbol": "hpt_minelauncher_fixed_small_impulse",
+    "name": "Shock Mine Launcher 1I Fixed",
+    "group": "nl",
+    "class": 1,
+    "rating": "I",
+    "mount": "Fixed"
+  },
+  "hpt_mining_abrblstr_fixed_small": {
+    "symbol": "hpt_mining_abrblstr_fixed_small",
+    "name": "Abrasion Blaster 1D Fixed",
+    "group": "abl",
+    "class": 1,
+    "rating": "D",
+    "mount": "Fixed"
+  },
+  "hpt_mining_abrblstr_turret_small": {
+    "symbol": "hpt_mining_abrblstr_turret_small",
+    "name": "Abrasion Blaster 1D Turreted",
+    "group": "abl",
+    "class": 1,
+    "rating": "D",
+    "mount": "Turreted"
+  },
+  "hpt_mining_seismchrgwarhd_fixed_medium": {
+    "symbol": "hpt_mining_seismchrgwarhd_fixed_medium",
+    "name": "Seismic Charge Launcher 2B Fixed",
+    "group": "scl",
+    "class": 2,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_mining_seismchrgwarhd_turret_medium": {
+    "symbol": "hpt_mining_seismchrgwarhd_turret_medium",
+    "name": "Seismic Charge Launcher 2B Turreted",
+    "group": "scl",
+    "class": 2,
+    "rating": "B",
+    "mount": "Turreted"
+  },
+  "hpt_mining_subsurfdispmisle_fixed_medium": {
+    "symbol": "hpt_mining_subsurfdispmisle_fixed_medium",
+    "name": "Sub-Surface Displacement Missile 2B Fixed",
+    "group": "sdm",
+    "class": 2,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_mining_subsurfdispmisle_fixed_small": {
+    "symbol": "hpt_mining_subsurfdispmisle_fixed_small",
+    "name": "Sub-Surface Displacement Missile 1B Fixed",
+    "group": "sdm",
+    "class": 1,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_mining_subsurfdispmisle_turret_medium": {
+    "symbol": "hpt_mining_subsurfdispmisle_turret_medium",
+    "name": "Sub-Surface Displacement Missile 2B Turreted",
+    "group": "sdm",
+    "class": 2,
+    "rating": "B",
+    "mount": "Turreted"
+  },
+  "hpt_mining_subsurfdispmisle_turret_small": {
+    "symbol": "hpt_mining_subsurfdispmisle_turret_small",
+    "name": "Sub-Surface Displacement Missile 1B Turreted",
+    "group": "sdm",
+    "class": 1,
+    "rating": "B",
+    "mount": "Turreted"
+  },
+  "hpt_mininglaser_fixed_medium": {
+    "symbol": "hpt_mininglaser_fixed_medium",
+    "name": "Mining Laser 2D Fixed",
+    "group": "ml",
+    "class": 2,
+    "rating": "D",
+    "mount": "Fixed"
+  },
+  "hpt_mininglaser_fixed_small": {
+    "symbol": "hpt_mininglaser_fixed_small",
+    "name": "Mining Laser 1D Fixed",
+    "group": "ml",
+    "class": 1,
+    "rating": "D",
+    "mount": "Fixed"
+  },
+  "hpt_mininglaser_fixed_small_advanced": {
+    "symbol": "hpt_mininglaser_fixed_small_advanced",
+    "name": "Mining Lance 1D Fixed",
+    "group": "ml",
+    "class": 1,
+    "rating": "D",
+    "mount": "Fixed"
+  },
+  "hpt_mininglaser_turret_medium": {
+    "symbol": "hpt_mininglaser_turret_medium",
+    "name": "Mining Laser 2D Turreted",
+    "group": "ml",
+    "class": 2,
+    "rating": "D",
+    "mount": "Turreted"
+  },
+  "hpt_mininglaser_turret_small": {
+    "symbol": "hpt_mininglaser_turret_small",
+    "name": "Mining Laser 1D Turreted",
+    "group": "ml",
+    "class": 1,
+    "rating": "D",
+    "mount": "Turreted"
+  },
+  "hpt_miningtoolv2_fixed_large": {
+    "symbol": "hpt_miningtoolv2_fixed_large",
+    "name": "Mining Volley Repeater 3C Fixed",
+    "group": "mvr",
+    "class": 3,
+    "rating": "C",
+    "mount": "Fixed"
+  },
+  "hpt_missing_hardpoint": {
+    "symbol": "hpt_missing_hardpoint",
+    "name": "Unrecognised Weapon 0Z",
+    "group": "mh",
+    "class": 0,
+    "rating": "Z"
+  },
+  "hpt_missing_utility": {
+    "symbol": "hpt_missing_utility",
+    "name": "Unrecognised Utility 0I",
+    "group": "mh",
+    "class": 0,
+    "rating": "I"
+  },
+  "hpt_mkiiplasmashockautocannon_fixed_large": {
+    "symbol": "hpt_mkiiplasmashockautocannon_fixed_large",
+    "name": "Mk II Plasma Shock Accelerator 3B Fixed",
+    "group": "pa",
+    "class": 3,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_mrascanner_size0_class1": {
+    "symbol": "hpt_mrascanner_size0_class1",
+    "name": "Pulse Wave Analyser 0E",
+    "group": "pwa",
+    "class": 0,
+    "rating": "E"
+  },
+  "hpt_mrascanner_size0_class2": {
+    "symbol": "hpt_mrascanner_size0_class2",
+    "name": "Pulse Wave Analyser 0D",
+    "group": "pwa",
+    "class": 0,
+    "rating": "D"
+  },
+  "hpt_mrascanner_size0_class3": {
+    "symbol": "hpt_mrascanner_size0_class3",
+    "name": "Pulse Wave Analyser 0C",
+    "group": "pwa",
+    "class": 0,
+    "rating": "C"
+  },
+  "hpt_mrascanner_size0_class4": {
+    "symbol": "hpt_mrascanner_size0_class4",
+    "name": "Pulse Wave Analyser 0B",
+    "group": "pwa",
+    "class": 0,
+    "rating": "B"
+  },
+  "hpt_mrascanner_size0_class5": {
+    "symbol": "hpt_mrascanner_size0_class5",
+    "name": "Pulse Wave Analyser 0A",
+    "group": "pwa",
+    "class": 0,
+    "rating": "A"
+  },
+  "hpt_multicannon_fixed_huge": {
+    "symbol": "hpt_multicannon_fixed_huge",
+    "name": "Multi-cannon 4A Fixed",
+    "group": "mc",
+    "class": 4,
+    "rating": "A",
+    "mount": "Fixed"
+  },
+  "hpt_multicannon_fixed_large": {
+    "symbol": "hpt_multicannon_fixed_large",
+    "name": "Multi-cannon 3C Fixed",
+    "group": "mc",
+    "class": 3,
+    "rating": "C",
+    "mount": "Fixed"
+  },
+  "hpt_multicannon_fixed_medium": {
+    "symbol": "hpt_multicannon_fixed_medium",
+    "name": "Multi-cannon 2E Fixed",
+    "group": "mc",
+    "class": 2,
+    "rating": "E",
+    "mount": "Fixed"
+  },
+  "hpt_multicannon_fixed_medium_advanced": {
+    "symbol": "hpt_multicannon_fixed_medium_advanced",
+    "name": "Multi-cannon (Advanced) 2E Fixed",
+    "group": "advmc",
+    "class": 2,
+    "rating": "E",
+    "mount": "Fixed"
+  },
+  "hpt_multicannon_fixed_small": {
+    "symbol": "hpt_multicannon_fixed_small",
+    "name": "Multi-cannon 1F Fixed",
+    "group": "mc",
+    "class": 1,
+    "rating": "F",
+    "mount": "Fixed"
+  },
+  "hpt_multicannon_fixed_small_advanced": {
+    "symbol": "hpt_multicannon_fixed_small_advanced",
+    "name": "Multi-cannon (Advanced) 1F Fixed",
+    "group": "advmc",
+    "class": 1,
+    "rating": "F",
+    "mount": "Fixed"
+  },
+  "hpt_multicannon_fixed_small_strong": {
+    "symbol": "hpt_multicannon_fixed_small_strong",
+    "name": "Enforcer 1F Fixed",
+    "group": "mc",
+    "class": 1,
+    "rating": "F",
+    "mount": "Fixed"
+  },
+  "hpt_multicannon_gimbal_huge": {
+    "symbol": "hpt_multicannon_gimbal_huge",
+    "name": "Multi-cannon 4A Gimballed",
+    "group": "mc",
+    "class": 4,
+    "rating": "A",
+    "mount": "Gimballed"
+  },
+  "hpt_multicannon_gimbal_large": {
+    "symbol": "hpt_multicannon_gimbal_large",
+    "name": "Multi-cannon 3C Gimballed",
+    "group": "mc",
+    "class": 3,
+    "rating": "C",
+    "mount": "Gimballed"
+  },
+  "hpt_multicannon_gimbal_medium": {
+    "symbol": "hpt_multicannon_gimbal_medium",
+    "name": "Multi-cannon 2F Gimballed",
+    "group": "mc",
+    "class": 2,
+    "rating": "F",
+    "mount": "Gimballed"
+  },
+  "hpt_multicannon_gimbal_small": {
+    "symbol": "hpt_multicannon_gimbal_small",
+    "name": "Multi-cannon 1G Gimballed",
+    "group": "mc",
+    "class": 1,
+    "rating": "G",
+    "mount": "Gimballed"
+  },
+  "hpt_multicannon_turret_large": {
+    "symbol": "hpt_multicannon_turret_large",
+    "name": "Multi-cannon 3E Turreted",
+    "group": "mc",
+    "class": 3,
+    "rating": "E",
+    "mount": "Turreted"
+  },
+  "hpt_multicannon_turret_medium": {
+    "symbol": "hpt_multicannon_turret_medium",
+    "name": "Multi-cannon 2F Turreted",
+    "group": "mc",
+    "class": 2,
+    "rating": "F",
+    "mount": "Turreted"
+  },
+  "hpt_multicannon_turret_small": {
+    "symbol": "hpt_multicannon_turret_small",
+    "name": "Multi-cannon 1G Turreted",
+    "group": "mc",
+    "class": 1,
+    "rating": "G",
+    "mount": "Turreted"
+  },
+  "hpt_plasmaaccelerator_fixed_huge": {
+    "symbol": "hpt_plasmaaccelerator_fixed_huge",
+    "name": "Plasma Accelerator 4A Fixed",
+    "group": "pa",
+    "class": 4,
+    "rating": "A",
+    "mount": "Fixed"
+  },
+  "hpt_plasmaaccelerator_fixed_large": {
+    "symbol": "hpt_plasmaaccelerator_fixed_large",
+    "name": "Plasma Accelerator 3B Fixed",
+    "group": "pa",
+    "class": 3,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_plasmaaccelerator_fixed_large_advanced": {
+    "symbol": "hpt_plasmaaccelerator_fixed_large_advanced",
+    "name": "Advanced Plasma Acc 3B Fixed",
+    "group": "pa",
+    "class": 3,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_plasmaaccelerator_fixed_medium": {
+    "symbol": "hpt_plasmaaccelerator_fixed_medium",
+    "name": "Plasma Accelerator 2C Fixed",
+    "group": "pa",
+    "class": 2,
+    "rating": "C",
+    "mount": "Fixed"
+  },
+  "hpt_plasmapointdefence_turret_tiny": {
+    "symbol": "hpt_plasmapointdefence_turret_tiny",
+    "name": "Point Defence 0I",
+    "group": "po",
+    "class": 0,
+    "rating": "I"
+  },
+  "hpt_plasmashockcannon_fixed_large": {
+    "symbol": "hpt_plasmashockcannon_fixed_large",
+    "name": "Shock Cannon 3C Fixed",
+    "group": "tbsc",
+    "class": 3,
+    "rating": "C",
+    "mount": "Fixed"
+  },
+  "hpt_plasmashockcannon_fixed_medium": {
+    "symbol": "hpt_plasmashockcannon_fixed_medium",
+    "name": "Shock Cannon 2D Fixed",
+    "group": "tbsc",
+    "class": 2,
+    "rating": "D",
+    "mount": "Fixed"
+  },
+  "hpt_plasmashockcannon_fixed_small": {
+    "symbol": "hpt_plasmashockcannon_fixed_small",
+    "name": "Shock Cannon 1D Fixed",
+    "group": "tbsc",
+    "class": 1,
+    "rating": "D",
+    "mount": "Fixed"
+  },
+  "hpt_plasmashockcannon_gimbal_large": {
+    "symbol": "hpt_plasmashockcannon_gimbal_large",
+    "name": "Shock Cannon 3C Gimballed",
+    "group": "tbsc",
+    "class": 3,
+    "rating": "C",
+    "mount": "Gimballed"
+  },
+  "hpt_plasmashockcannon_gimbal_medium": {
+    "symbol": "hpt_plasmashockcannon_gimbal_medium",
+    "name": "Shock Cannon 2D Gimballed",
+    "group": "tbsc",
+    "class": 2,
+    "rating": "D",
+    "mount": "Gimballed"
+  },
+  "hpt_plasmashockcannon_gimbal_small": {
+    "symbol": "hpt_plasmashockcannon_gimbal_small",
+    "name": "Shock Cannon 1E Gimballed",
+    "group": "tbsc",
+    "class": 1,
+    "rating": "E",
+    "mount": "Gimballed"
+  },
+  "hpt_plasmashockcannon_turret_large": {
+    "symbol": "hpt_plasmashockcannon_turret_large",
+    "name": "Shock Cannon 3D Turreted",
+    "group": "tbsc",
+    "class": 3,
+    "rating": "D",
+    "mount": "Turreted"
+  },
+  "hpt_plasmashockcannon_turret_medium": {
+    "symbol": "hpt_plasmashockcannon_turret_medium",
+    "name": "Shock Cannon 2E Turreted",
+    "group": "tbsc",
+    "class": 2,
+    "rating": "E",
+    "mount": "Turreted"
+  },
+  "hpt_plasmashockcannon_turret_small": {
+    "symbol": "hpt_plasmashockcannon_turret_small",
+    "name": "Shock Cannon 1F Turreted",
+    "group": "tbsc",
+    "class": 1,
+    "rating": "F",
+    "mount": "Turreted"
+  },
+  "hpt_pulselaser_fixed_huge": {
+    "symbol": "hpt_pulselaser_fixed_huge",
+    "name": "Pulse Laser 4A Fixed",
+    "group": "pl",
+    "class": 4,
+    "rating": "A",
+    "mount": "Fixed"
+  },
+  "hpt_pulselaser_fixed_large": {
+    "symbol": "hpt_pulselaser_fixed_large",
+    "name": "Pulse Laser 3D Fixed",
+    "group": "pl",
+    "class": 3,
+    "rating": "D",
+    "mount": "Fixed"
+  },
+  "hpt_pulselaser_fixed_medium": {
+    "symbol": "hpt_pulselaser_fixed_medium",
+    "name": "Pulse Laser 2E Fixed",
+    "group": "pl",
+    "class": 2,
+    "rating": "E",
+    "mount": "Fixed"
+  },
+  "hpt_pulselaser_fixed_medium_disruptor": {
+    "symbol": "hpt_pulselaser_fixed_medium_disruptor",
+    "name": "Disruptor 2E Fixed",
+    "group": "pl",
+    "class": 2,
+    "rating": "E",
+    "mount": "Fixed"
+  },
+  "hpt_pulselaser_fixed_small": {
+    "symbol": "hpt_pulselaser_fixed_small",
+    "name": "Pulse Laser 1F Fixed",
+    "group": "pl",
+    "class": 1,
+    "rating": "F",
+    "mount": "Fixed"
+  },
+  "hpt_pulselaser_gimbal_huge": {
+    "symbol": "hpt_pulselaser_gimbal_huge",
+    "name": "Pulse Laser 4A Gimballed",
+    "group": "pl",
+    "class": 4,
+    "rating": "A",
+    "mount": "Gimballed"
+  },
+  "hpt_pulselaser_gimbal_large": {
+    "symbol": "hpt_pulselaser_gimbal_large",
+    "name": "Pulse Laser 3E Gimballed",
+    "group": "pl",
+    "class": 3,
+    "rating": "E",
+    "mount": "Gimballed"
+  },
+  "hpt_pulselaser_gimbal_medium": {
+    "symbol": "hpt_pulselaser_gimbal_medium",
+    "name": "Pulse Laser 2F Gimballed",
+    "group": "pl",
+    "class": 2,
+    "rating": "F",
+    "mount": "Gimballed"
+  },
+  "hpt_pulselaser_gimbal_small": {
+    "symbol": "hpt_pulselaser_gimbal_small",
+    "name": "Pulse Laser 1G Gimballed",
+    "group": "pl",
+    "class": 1,
+    "rating": "G",
+    "mount": "Gimballed"
+  },
+  "hpt_pulselaser_turret_large": {
+    "symbol": "hpt_pulselaser_turret_large",
+    "name": "Pulse Laser 3F Turreted",
+    "group": "pl",
+    "class": 3,
+    "rating": "F",
+    "mount": "Turreted"
+  },
+  "hpt_pulselaser_turret_medium": {
+    "symbol": "hpt_pulselaser_turret_medium",
+    "name": "Pulse Laser 2F Turreted",
+    "group": "pl",
+    "class": 2,
+    "rating": "F",
+    "mount": "Turreted"
+  },
+  "hpt_pulselaser_turret_small": {
+    "symbol": "hpt_pulselaser_turret_small",
+    "name": "Pulse Laser 1G Turreted",
+    "group": "pl",
+    "class": 1,
+    "rating": "G",
+    "mount": "Turreted"
+  },
+  "hpt_pulselaserburst_fixed_huge": {
+    "symbol": "hpt_pulselaserburst_fixed_huge",
+    "name": "Burst Laser 4E Fixed",
+    "group": "ul",
+    "class": 4,
+    "rating": "E",
+    "mount": "Fixed"
+  },
+  "hpt_pulselaserburst_fixed_large": {
+    "symbol": "hpt_pulselaserburst_fixed_large",
+    "name": "Burst Laser 3D Fixed",
+    "group": "ul",
+    "class": 3,
+    "rating": "D",
+    "mount": "Fixed"
+  },
+  "hpt_pulselaserburst_fixed_medium": {
+    "symbol": "hpt_pulselaserburst_fixed_medium",
+    "name": "Burst Laser 2E Fixed",
+    "group": "ul",
+    "class": 2,
+    "rating": "E",
+    "mount": "Fixed"
+  },
+  "hpt_pulselaserburst_fixed_small": {
+    "symbol": "hpt_pulselaserburst_fixed_small",
+    "name": "Burst Laser 1F Fixed",
+    "group": "ul",
+    "class": 1,
+    "rating": "F",
+    "mount": "Fixed"
+  },
+  "hpt_pulselaserburst_fixed_small_scatter": {
+    "symbol": "hpt_pulselaserburst_fixed_small_scatter",
+    "name": "Cytoscrambler 1F Fixed",
+    "group": "ul",
+    "class": 1,
+    "rating": "F",
+    "mount": "Fixed"
+  },
+  "hpt_pulselaserburst_gimbal_huge": {
+    "symbol": "hpt_pulselaserburst_gimbal_huge",
+    "name": "Burst Laser 4E Gimballed",
+    "group": "ul",
+    "class": 4,
+    "rating": "E",
+    "mount": "Gimballed"
+  },
+  "hpt_pulselaserburst_gimbal_large": {
+    "symbol": "hpt_pulselaserburst_gimbal_large",
+    "name": "Burst Laser 3E Gimballed",
+    "group": "ul",
+    "class": 3,
+    "rating": "E",
+    "mount": "Gimballed"
+  },
+  "hpt_pulselaserburst_gimbal_medium": {
+    "symbol": "hpt_pulselaserburst_gimbal_medium",
+    "name": "Burst Laser 2F Gimballed",
+    "group": "ul",
+    "class": 2,
+    "rating": "F",
+    "mount": "Gimballed"
+  },
+  "hpt_pulselaserburst_gimbal_small": {
+    "symbol": "hpt_pulselaserburst_gimbal_small",
+    "name": "Burst Laser 1G Gimballed",
+    "group": "ul",
+    "class": 1,
+    "rating": "G",
+    "mount": "Gimballed"
+  },
+  "hpt_pulselaserburst_turret_large": {
+    "symbol": "hpt_pulselaserburst_turret_large",
+    "name": "Burst Laser 3E Turreted",
+    "group": "ul",
+    "class": 3,
+    "rating": "E",
+    "mount": "Turreted"
+  },
+  "hpt_pulselaserburst_turret_medium": {
+    "symbol": "hpt_pulselaserburst_turret_medium",
+    "name": "Burst Laser 2F Turreted",
+    "group": "ul",
+    "class": 2,
+    "rating": "F",
+    "mount": "Turreted"
+  },
+  "hpt_pulselaserburst_turret_small": {
+    "symbol": "hpt_pulselaserburst_turret_small",
+    "name": "Burst Laser 1G Turreted",
+    "group": "ul",
+    "class": 1,
+    "rating": "G",
+    "mount": "Turreted"
+  },
+  "hpt_railgun_fixed_medium": {
+    "symbol": "hpt_railgun_fixed_medium",
+    "name": "Rail Gun 2B Fixed",
+    "group": "rg",
+    "class": 2,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_railgun_fixed_medium_burst": {
+    "symbol": "hpt_railgun_fixed_medium_burst",
+    "name": "Imperial Hammer 2B Fixed",
+    "group": "rg",
+    "class": 2,
+    "rating": "B",
+    "mount": "Fixed"
+  },
+  "hpt_railgun_fixed_small": {
+    "symbol": "hpt_railgun_fixed_small",
+    "name": "Rail Gun 1D Fixed",
+    "group": "rg",
+    "class": 1,
+    "rating": "D",
+    "mount": "Fixed"
+  },
+  "hpt_shieldbooster_size0_class1": {
+    "symbol": "hpt_shieldbooster_size0_class1",
+    "name": "Shield Booster 0E",
+    "group": "sb",
+    "class": 0,
+    "rating": "E"
+  },
+  "hpt_shieldbooster_size0_class2": {
+    "symbol": "hpt_shieldbooster_size0_class2",
+    "name": "Shield Booster 0D",
+    "group": "sb",
+    "class": 0,
+    "rating": "D"
+  },
+  "hpt_shieldbooster_size0_class3": {
+    "symbol": "hpt_shieldbooster_size0_class3",
+    "name": "Shield Booster 0C",
+    "group": "sb",
+    "class": 0,
+    "rating": "C"
+  },
+  "hpt_shieldbooster_size0_class4": {
+    "symbol": "hpt_shieldbooster_size0_class4",
+    "name": "Shield Booster 0B",
+    "group": "sb",
+    "class": 0,
+    "rating": "B"
+  },
+  "hpt_shieldbooster_size0_class5": {
+    "symbol": "hpt_shieldbooster_size0_class5",
+    "name": "Shield Booster 0A",
+    "group": "sb",
+    "class": 0,
+    "rating": "A"
+  },
+  "hpt_slugshot_fixed_large": {
+    "symbol": "hpt_slugshot_fixed_large",
+    "name": "Fragment Cannon 3C Fixed",
+    "group": "fc",
+    "class": 3,
+    "rating": "C",
+    "mount": "Fixed"
+  },
+  "hpt_slugshot_fixed_large_range": {
+    "symbol": "hpt_slugshot_fixed_large_range",
+    "name": "Pacifier 3C Fixed",
+    "group": "fc",
+    "class": 3,
+    "rating": "C",
+    "mount": "Fixed"
+  },
+  "hpt_slugshot_fixed_medium": {
+    "symbol": "hpt_slugshot_fixed_medium",
+    "name": "Fragment Cannon 2A Fixed",
+    "group": "fc",
+    "class": 2,
+    "rating": "A",
+    "mount": "Fixed"
+  },
+  "hpt_slugshot_fixed_small": {
+    "symbol": "hpt_slugshot_fixed_small",
+    "name": "Fragment Cannon 1E Fixed",
+    "group": "fc",
+    "class": 1,
+    "rating": "E",
+    "mount": "Fixed"
+  },
+  "hpt_slugshot_gimbal_large": {
+    "symbol": "hpt_slugshot_gimbal_large",
+    "name": "Fragment Cannon 3C Gimballed",
+    "group": "fc",
+    "class": 3,
+    "rating": "C",
+    "mount": "Gimballed"
+  },
+  "hpt_slugshot_gimbal_medium": {
+    "symbol": "hpt_slugshot_gimbal_medium",
+    "name": "Fragment Cannon 2D Gimballed",
+    "group": "fc",
+    "class": 2,
+    "rating": "D",
+    "mount": "Gimballed"
+  },
+  "hpt_slugshot_gimbal_small": {
+    "symbol": "hpt_slugshot_gimbal_small",
+    "name": "Fragment Cannon 1E Gimballed",
+    "group": "fc",
+    "class": 1,
+    "rating": "E",
+    "mount": "Gimballed"
+  },
+  "hpt_slugshot_turret_large": {
+    "symbol": "hpt_slugshot_turret_large",
+    "name": "Fragment Cannon 3C Turreted",
+    "group": "fc",
+    "class": 3,
+    "rating": "C",
+    "mount": "Turreted"
+  },
+  "hpt_slugshot_turret_medium": {
+    "symbol": "hpt_slugshot_turret_medium",
+    "name": "Fragment Cannon 2D Turreted",
+    "group": "fc",
+    "class": 2,
+    "rating": "D",
+    "mount": "Turreted"
+  },
+  "hpt_slugshot_turret_small": {
+    "symbol": "hpt_slugshot_turret_small",
+    "name": "Fragment Cannon 1E Turreted",
+    "group": "fc",
+    "class": 1,
+    "rating": "E",
+    "mount": "Turreted"
+  },
+  "hpt_xenoscanner_advanced_tiny": {
+    "symbol": "hpt_xenoscanner_advanced_tiny",
+    "name": "Pulse Wave Xeno Scanner 0C",
+    "group": "xs",
+    "class": 0,
+    "rating": "C"
+  },
+  "hpt_xenoscanner_basic_tiny": {
+    "symbol": "hpt_xenoscanner_basic_tiny",
+    "name": "Xeno Scanner 0E",
+    "group": "xs",
+    "class": 0,
+    "rating": "E"
+  },
+  "hpt_xenoscannermk2_basic_tiny": {
+    "symbol": "hpt_xenoscannermk2_basic_tiny",
+    "name": "Enhanced Xeno Scanner 0C",
+    "group": "xs",
+    "class": 0,
+    "rating": "C"
+  },
+  "int_buggybay_size2_class1": {
+    "symbol": "int_buggybay_size2_class1",
+    "name": "Planetary Vehicle Hangar 2H",
+    "group": "pv",
+    "class": 2,
+    "rating": "H"
+  },
+  "int_buggybay_size2_class2": {
+    "symbol": "int_buggybay_size2_class2",
+    "name": "Planetary Vehicle Hangar 2G",
+    "group": "pv",
+    "class": 2,
+    "rating": "G"
+  },
+  "int_buggybay_size4_class1": {
+    "symbol": "int_buggybay_size4_class1",
+    "name": "Planetary Vehicle Hangar 4H",
+    "group": "pv",
+    "class": 4,
+    "rating": "H"
+  },
+  "int_buggybay_size4_class2": {
+    "symbol": "int_buggybay_size4_class2",
+    "name": "Planetary Vehicle Hangar 4G",
+    "group": "pv",
+    "class": 4,
+    "rating": "G"
+  },
+  "int_buggybay_size6_class1": {
+    "symbol": "int_buggybay_size6_class1",
+    "name": "Planetary Vehicle Hangar 6H",
+    "group": "pv",
+    "class": 6,
+    "rating": "H"
+  },
+  "int_buggybay_size6_class2": {
+    "symbol": "int_buggybay_size6_class2",
+    "name": "Planetary Vehicle Hangar 6G",
+    "group": "pv",
+    "class": 6,
+    "rating": "G"
+  },
+  "int_cargorack_size1_class1": {
+    "symbol": "int_cargorack_size1_class1",
+    "name": "Cargo Rack 1E",
+    "group": "cr",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_cargorack_size2_class1": {
+    "symbol": "int_cargorack_size2_class1",
+    "name": "Cargo Rack 2E",
+    "group": "cr",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_cargorack_size3_class1": {
+    "symbol": "int_cargorack_size3_class1",
+    "name": "Cargo Rack 3E",
+    "group": "cr",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_cargorack_size4_class1": {
+    "symbol": "int_cargorack_size4_class1",
+    "name": "Cargo Rack 4E",
+    "group": "cr",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_cargorack_size5_class1": {
+    "symbol": "int_cargorack_size5_class1",
+    "name": "Cargo Rack 5E",
+    "group": "cr",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_cargorack_size6_class1": {
+    "symbol": "int_cargorack_size6_class1",
+    "name": "Cargo Rack 6E",
+    "group": "cr",
+    "class": 6,
+    "rating": "E"
+  },
+  "int_cargorack_size7_class1": {
+    "symbol": "int_cargorack_size7_class1",
+    "name": "Cargo Rack 7E",
+    "group": "cr",
+    "class": 7,
+    "rating": "E"
+  },
+  "int_cargorack_size8_class1": {
+    "symbol": "int_cargorack_size8_class1",
+    "name": "Cargo Rack 8E",
+    "group": "cr",
+    "class": 8,
+    "rating": "E"
+  },
+  "int_corrosionproofcargorack_size1_class1": {
+    "symbol": "int_corrosionproofcargorack_size1_class1",
+    "name": "Corrosion Resistant 1E",
+    "group": "cr",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_corrosionproofcargorack_size1_class2": {
+    "symbol": "int_corrosionproofcargorack_size1_class2",
+    "name": "Corrosion Resistant 1F",
+    "group": "cr",
+    "class": 1,
+    "rating": "F"
+  },
+  "int_corrosionproofcargorack_size4_class1": {
+    "symbol": "int_corrosionproofcargorack_size4_class1",
+    "name": "Corrosion Resistant 4E",
+    "group": "cr",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_corrosionproofcargorack_size5_class1": {
+    "symbol": "int_corrosionproofcargorack_size5_class1",
+    "name": "Corrosion Resistant 5E",
+    "group": "cr",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_corrosionproofcargorack_size6_class1": {
+    "symbol": "int_corrosionproofcargorack_size6_class1",
+    "name": "Corrosion Resistant 6E",
+    "group": "cr",
+    "class": 6,
+    "rating": "E"
+  },
+  "int_detailedsurfacescanner_tiny": {
+    "symbol": "int_detailedsurfacescanner_tiny",
+    "name": "Detailed Surface Scanner 1I",
+    "group": "ss",
+    "class": 1,
+    "rating": "I"
+  },
+  "int_dockingcomputer_advanced": {
+    "symbol": "int_dockingcomputer_advanced",
+    "name": "Advanced Docking Computer 1E",
+    "group": "dc",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_dockingcomputer_standard": {
+    "symbol": "int_dockingcomputer_standard",
+    "name": "Standard Docking Computer 1E",
+    "group": "dc",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_dronecontrol_collection_size1_class1": {
+    "symbol": "int_dronecontrol_collection_size1_class1",
+    "name": "Collector 1E",
+    "group": "cc",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_dronecontrol_collection_size1_class2": {
+    "symbol": "int_dronecontrol_collection_size1_class2",
+    "name": "Collector 1D",
+    "group": "cc",
+    "class": 1,
+    "rating": "D"
+  },
+  "int_dronecontrol_collection_size1_class3": {
+    "symbol": "int_dronecontrol_collection_size1_class3",
+    "name": "Collector 1C",
+    "group": "cc",
+    "class": 1,
+    "rating": "C"
+  },
+  "int_dronecontrol_collection_size1_class4": {
+    "symbol": "int_dronecontrol_collection_size1_class4",
+    "name": "Collector 1B",
+    "group": "cc",
+    "class": 1,
+    "rating": "B"
+  },
+  "int_dronecontrol_collection_size1_class5": {
+    "symbol": "int_dronecontrol_collection_size1_class5",
+    "name": "Collector 1A",
+    "group": "cc",
+    "class": 1,
+    "rating": "A"
+  },
+  "int_dronecontrol_collection_size3_class1": {
+    "symbol": "int_dronecontrol_collection_size3_class1",
+    "name": "Collector 3E",
+    "group": "cc",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_dronecontrol_collection_size3_class2": {
+    "symbol": "int_dronecontrol_collection_size3_class2",
+    "name": "Collector 3D",
+    "group": "cc",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_dronecontrol_collection_size3_class3": {
+    "symbol": "int_dronecontrol_collection_size3_class3",
+    "name": "Collector 3C",
+    "group": "cc",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_dronecontrol_collection_size3_class4": {
+    "symbol": "int_dronecontrol_collection_size3_class4",
+    "name": "Collector 3B",
+    "group": "cc",
+    "class": 3,
+    "rating": "B"
+  },
+  "int_dronecontrol_collection_size3_class5": {
+    "symbol": "int_dronecontrol_collection_size3_class5",
+    "name": "Collector 3A",
+    "group": "cc",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_dronecontrol_collection_size5_class1": {
+    "symbol": "int_dronecontrol_collection_size5_class1",
+    "name": "Collector 5E",
+    "group": "cc",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_dronecontrol_collection_size5_class2": {
+    "symbol": "int_dronecontrol_collection_size5_class2",
+    "name": "Collector 5D",
+    "group": "cc",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_dronecontrol_collection_size5_class3": {
+    "symbol": "int_dronecontrol_collection_size5_class3",
+    "name": "Collector 5C",
+    "group": "cc",
+    "class": 5,
+    "rating": "C"
+  },
+  "int_dronecontrol_collection_size5_class4": {
+    "symbol": "int_dronecontrol_collection_size5_class4",
+    "name": "Collector 5B",
+    "group": "cc",
+    "class": 5,
+    "rating": "B"
+  },
+  "int_dronecontrol_collection_size5_class5": {
+    "symbol": "int_dronecontrol_collection_size5_class5",
+    "name": "Collector 5A",
+    "group": "cc",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_dronecontrol_collection_size7_class1": {
+    "symbol": "int_dronecontrol_collection_size7_class1",
+    "name": "Collector 7E",
+    "group": "cc",
+    "class": 7,
+    "rating": "E"
+  },
+  "int_dronecontrol_collection_size7_class2": {
+    "symbol": "int_dronecontrol_collection_size7_class2",
+    "name": "Collector 7D",
+    "group": "cc",
+    "class": 7,
+    "rating": "D"
+  },
+  "int_dronecontrol_collection_size7_class3": {
+    "symbol": "int_dronecontrol_collection_size7_class3",
+    "name": "Collector 7C",
+    "group": "cc",
+    "class": 7,
+    "rating": "C"
+  },
+  "int_dronecontrol_collection_size7_class4": {
+    "symbol": "int_dronecontrol_collection_size7_class4",
+    "name": "Collector 7B",
+    "group": "cc",
+    "class": 7,
+    "rating": "B"
+  },
+  "int_dronecontrol_collection_size7_class5": {
+    "symbol": "int_dronecontrol_collection_size7_class5",
+    "name": "Collector 7A",
+    "group": "cc",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_dronecontrol_decontamination_size1_class1": {
+    "symbol": "int_dronecontrol_decontamination_size1_class1",
+    "name": "Decontamination 1E",
+    "group": "dtl",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_dronecontrol_decontamination_size3_class1": {
+    "symbol": "int_dronecontrol_decontamination_size3_class1",
+    "name": "Decontamination 3E",
+    "group": "dtl",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_dronecontrol_decontamination_size5_class1": {
+    "symbol": "int_dronecontrol_decontamination_size5_class1",
+    "name": "Decontamination 5E",
+    "group": "dtl",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_dronecontrol_decontamination_size7_class1": {
+    "symbol": "int_dronecontrol_decontamination_size7_class1",
+    "name": "Decontamination 7E",
+    "group": "dtl",
+    "class": 7,
+    "rating": "E"
+  },
+  "int_dronecontrol_fueltransfer_size1_class1": {
+    "symbol": "int_dronecontrol_fueltransfer_size1_class1",
+    "name": "Fuel Transfer 1E",
+    "group": "fx",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_dronecontrol_fueltransfer_size1_class2": {
+    "symbol": "int_dronecontrol_fueltransfer_size1_class2",
+    "name": "Fuel Transfer 1D",
+    "group": "fx",
+    "class": 1,
+    "rating": "D"
+  },
+  "int_dronecontrol_fueltransfer_size1_class3": {
+    "symbol": "int_dronecontrol_fueltransfer_size1_class3",
+    "name": "Fuel Transfer 1C",
+    "group": "fx",
+    "class": 1,
+    "rating": "C"
+  },
+  "int_dronecontrol_fueltransfer_size1_class4": {
+    "symbol": "int_dronecontrol_fueltransfer_size1_class4",
+    "name": "Fuel Transfer 1B",
+    "group": "fx",
+    "class": 1,
+    "rating": "B"
+  },
+  "int_dronecontrol_fueltransfer_size1_class5": {
+    "symbol": "int_dronecontrol_fueltransfer_size1_class5",
+    "name": "Fuel Transfer 1A",
+    "group": "fx",
+    "class": 1,
+    "rating": "A"
+  },
+  "int_dronecontrol_fueltransfer_size3_class1": {
+    "symbol": "int_dronecontrol_fueltransfer_size3_class1",
+    "name": "Fuel Transfer 3E",
+    "group": "fx",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_dronecontrol_fueltransfer_size3_class2": {
+    "symbol": "int_dronecontrol_fueltransfer_size3_class2",
+    "name": "Fuel Transfer 3D",
+    "group": "fx",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_dronecontrol_fueltransfer_size3_class3": {
+    "symbol": "int_dronecontrol_fueltransfer_size3_class3",
+    "name": "Fuel Transfer 3C",
+    "group": "fx",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_dronecontrol_fueltransfer_size3_class4": {
+    "symbol": "int_dronecontrol_fueltransfer_size3_class4",
+    "name": "Fuel Transfer 3B",
+    "group": "fx",
+    "class": 3,
+    "rating": "B"
+  },
+  "int_dronecontrol_fueltransfer_size3_class5": {
+    "symbol": "int_dronecontrol_fueltransfer_size3_class5",
+    "name": "Fuel Transfer 3A",
+    "group": "fx",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_dronecontrol_fueltransfer_size5_class1": {
+    "symbol": "int_dronecontrol_fueltransfer_size5_class1",
+    "name": "Fuel Transfer 5E",
+    "group": "fx",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_dronecontrol_fueltransfer_size5_class2": {
+    "symbol": "int_dronecontrol_fueltransfer_size5_class2",
+    "name": "Fuel Transfer 5D",
+    "group": "fx",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_dronecontrol_fueltransfer_size5_class3": {
+    "symbol": "int_dronecontrol_fueltransfer_size5_class3",
+    "name": "Fuel Transfer 5C",
+    "group": "fx",
+    "class": 5,
+    "rating": "C"
+  },
+  "int_dronecontrol_fueltransfer_size5_class4": {
+    "symbol": "int_dronecontrol_fueltransfer_size5_class4",
+    "name": "Fuel Transfer 5B",
+    "group": "fx",
+    "class": 5,
+    "rating": "B"
+  },
+  "int_dronecontrol_fueltransfer_size5_class5": {
+    "symbol": "int_dronecontrol_fueltransfer_size5_class5",
+    "name": "Fuel Transfer 5A",
+    "group": "fx",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_dronecontrol_fueltransfer_size7_class1": {
+    "symbol": "int_dronecontrol_fueltransfer_size7_class1",
+    "name": "Fuel Transfer 7E",
+    "group": "fx",
+    "class": 7,
+    "rating": "E"
+  },
+  "int_dronecontrol_fueltransfer_size7_class2": {
+    "symbol": "int_dronecontrol_fueltransfer_size7_class2",
+    "name": "Fuel Transfer 7D",
+    "group": "fx",
+    "class": 7,
+    "rating": "D"
+  },
+  "int_dronecontrol_fueltransfer_size7_class3": {
+    "symbol": "int_dronecontrol_fueltransfer_size7_class3",
+    "name": "Fuel Transfer 7C",
+    "group": "fx",
+    "class": 7,
+    "rating": "C"
+  },
+  "int_dronecontrol_fueltransfer_size7_class4": {
+    "symbol": "int_dronecontrol_fueltransfer_size7_class4",
+    "name": "Fuel Transfer 7B",
+    "group": "fx",
+    "class": 7,
+    "rating": "B"
+  },
+  "int_dronecontrol_fueltransfer_size7_class5": {
+    "symbol": "int_dronecontrol_fueltransfer_size7_class5",
+    "name": "Fuel Transfer 7A",
+    "group": "fx",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_dronecontrol_prospector_size1_class1": {
+    "symbol": "int_dronecontrol_prospector_size1_class1",
+    "name": "Prospector 1E",
+    "group": "pc",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_dronecontrol_prospector_size1_class2": {
+    "symbol": "int_dronecontrol_prospector_size1_class2",
+    "name": "Prospector 1D",
+    "group": "pc",
+    "class": 1,
+    "rating": "D"
+  },
+  "int_dronecontrol_prospector_size1_class3": {
+    "symbol": "int_dronecontrol_prospector_size1_class3",
+    "name": "Prospector 1C",
+    "group": "pc",
+    "class": 1,
+    "rating": "C"
+  },
+  "int_dronecontrol_prospector_size1_class4": {
+    "symbol": "int_dronecontrol_prospector_size1_class4",
+    "name": "Prospector 1B",
+    "group": "pc",
+    "class": 1,
+    "rating": "B"
+  },
+  "int_dronecontrol_prospector_size1_class5": {
+    "symbol": "int_dronecontrol_prospector_size1_class5",
+    "name": "Prospector 1A",
+    "group": "pc",
+    "class": 1,
+    "rating": "A"
+  },
+  "int_dronecontrol_prospector_size3_class1": {
+    "symbol": "int_dronecontrol_prospector_size3_class1",
+    "name": "Prospector 3E",
+    "group": "pc",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_dronecontrol_prospector_size3_class2": {
+    "symbol": "int_dronecontrol_prospector_size3_class2",
+    "name": "Prospector 3D",
+    "group": "pc",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_dronecontrol_prospector_size3_class3": {
+    "symbol": "int_dronecontrol_prospector_size3_class3",
+    "name": "Prospector 3C",
+    "group": "pc",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_dronecontrol_prospector_size3_class4": {
+    "symbol": "int_dronecontrol_prospector_size3_class4",
+    "name": "Prospector 3B",
+    "group": "pc",
+    "class": 3,
+    "rating": "B"
+  },
+  "int_dronecontrol_prospector_size3_class5": {
+    "symbol": "int_dronecontrol_prospector_size3_class5",
+    "name": "Prospector 3A",
+    "group": "pc",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_dronecontrol_prospector_size5_class1": {
+    "symbol": "int_dronecontrol_prospector_size5_class1",
+    "name": "Prospector 5E",
+    "group": "pc",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_dronecontrol_prospector_size5_class2": {
+    "symbol": "int_dronecontrol_prospector_size5_class2",
+    "name": "Prospector 5D",
+    "group": "pc",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_dronecontrol_prospector_size5_class3": {
+    "symbol": "int_dronecontrol_prospector_size5_class3",
+    "name": "Prospector 5C",
+    "group": "pc",
+    "class": 5,
+    "rating": "C"
+  },
+  "int_dronecontrol_prospector_size5_class4": {
+    "symbol": "int_dronecontrol_prospector_size5_class4",
+    "name": "Prospector 5B",
+    "group": "pc",
+    "class": 5,
+    "rating": "B"
+  },
+  "int_dronecontrol_prospector_size5_class5": {
+    "symbol": "int_dronecontrol_prospector_size5_class5",
+    "name": "Prospector 5A",
+    "group": "pc",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_dronecontrol_prospector_size7_class1": {
+    "symbol": "int_dronecontrol_prospector_size7_class1",
+    "name": "Prospector 7E",
+    "group": "pc",
+    "class": 7,
+    "rating": "E"
+  },
+  "int_dronecontrol_prospector_size7_class2": {
+    "symbol": "int_dronecontrol_prospector_size7_class2",
+    "name": "Prospector 7D",
+    "group": "pc",
+    "class": 7,
+    "rating": "D"
+  },
+  "int_dronecontrol_prospector_size7_class3": {
+    "symbol": "int_dronecontrol_prospector_size7_class3",
+    "name": "Prospector 7C",
+    "group": "pc",
+    "class": 7,
+    "rating": "C"
+  },
+  "int_dronecontrol_prospector_size7_class4": {
+    "symbol": "int_dronecontrol_prospector_size7_class4",
+    "name": "Prospector 7B",
+    "group": "pc",
+    "class": 7,
+    "rating": "B"
+  },
+  "int_dronecontrol_prospector_size7_class5": {
+    "symbol": "int_dronecontrol_prospector_size7_class5",
+    "name": "Prospector 7A",
+    "group": "pc",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_dronecontrol_recon_size1_class1": {
+    "symbol": "int_dronecontrol_recon_size1_class1",
+    "name": "Recon 1E",
+    "group": "rcpl",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_dronecontrol_recon_size3_class1": {
+    "symbol": "int_dronecontrol_recon_size3_class1",
+    "name": "Recon 3E",
+    "group": "rcpl",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_dronecontrol_recon_size5_class1": {
+    "symbol": "int_dronecontrol_recon_size5_class1",
+    "name": "Recon 5E",
+    "group": "rcpl",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_dronecontrol_recon_size7_class1": {
+    "symbol": "int_dronecontrol_recon_size7_class1",
+    "name": "Recon 7E",
+    "group": "rcpl",
+    "class": 7,
+    "rating": "E"
+  },
+  "int_dronecontrol_repair_size1_class1": {
+    "symbol": "int_dronecontrol_repair_size1_class1",
+    "name": "Repair 1E",
+    "group": "rpl",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_dronecontrol_repair_size1_class2": {
+    "symbol": "int_dronecontrol_repair_size1_class2",
+    "name": "Repair 1D",
+    "group": "rpl",
+    "class": 1,
+    "rating": "D"
+  },
+  "int_dronecontrol_repair_size1_class3": {
+    "symbol": "int_dronecontrol_repair_size1_class3",
+    "name": "Repair 1C",
+    "group": "rpl",
+    "class": 1,
+    "rating": "C"
+  },
+  "int_dronecontrol_repair_size1_class4": {
+    "symbol": "int_dronecontrol_repair_size1_class4",
+    "name": "Repair 1B",
+    "group": "rpl",
+    "class": 1,
+    "rating": "B"
+  },
+  "int_dronecontrol_repair_size1_class5": {
+    "symbol": "int_dronecontrol_repair_size1_class5",
+    "name": "Repair 1A",
+    "group": "rpl",
+    "class": 1,
+    "rating": "A"
+  },
+  "int_dronecontrol_repair_size3_class1": {
+    "symbol": "int_dronecontrol_repair_size3_class1",
+    "name": "Repair 3E",
+    "group": "rpl",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_dronecontrol_repair_size3_class2": {
+    "symbol": "int_dronecontrol_repair_size3_class2",
+    "name": "Repair 3D",
+    "group": "rpl",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_dronecontrol_repair_size3_class3": {
+    "symbol": "int_dronecontrol_repair_size3_class3",
+    "name": "Repair 3C",
+    "group": "rpl",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_dronecontrol_repair_size3_class4": {
+    "symbol": "int_dronecontrol_repair_size3_class4",
+    "name": "Repair 3B",
+    "group": "rpl",
+    "class": 3,
+    "rating": "B"
+  },
+  "int_dronecontrol_repair_size3_class5": {
+    "symbol": "int_dronecontrol_repair_size3_class5",
+    "name": "Repair 3A",
+    "group": "rpl",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_dronecontrol_repair_size5_class1": {
+    "symbol": "int_dronecontrol_repair_size5_class1",
+    "name": "Repair 5E",
+    "group": "rpl",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_dronecontrol_repair_size5_class2": {
+    "symbol": "int_dronecontrol_repair_size5_class2",
+    "name": "Repair 5D",
+    "group": "rpl",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_dronecontrol_repair_size5_class3": {
+    "symbol": "int_dronecontrol_repair_size5_class3",
+    "name": "Repair 5C",
+    "group": "rpl",
+    "class": 5,
+    "rating": "C"
+  },
+  "int_dronecontrol_repair_size5_class4": {
+    "symbol": "int_dronecontrol_repair_size5_class4",
+    "name": "Repair 5B",
+    "group": "rpl",
+    "class": 5,
+    "rating": "B"
+  },
+  "int_dronecontrol_repair_size5_class5": {
+    "symbol": "int_dronecontrol_repair_size5_class5",
+    "name": "Repair 5A",
+    "group": "rpl",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_dronecontrol_repair_size7_class1": {
+    "symbol": "int_dronecontrol_repair_size7_class1",
+    "name": "Repair 7E",
+    "group": "rpl",
+    "class": 7,
+    "rating": "E"
+  },
+  "int_dronecontrol_repair_size7_class2": {
+    "symbol": "int_dronecontrol_repair_size7_class2",
+    "name": "Repair 7D",
+    "group": "rpl",
+    "class": 7,
+    "rating": "D"
+  },
+  "int_dronecontrol_repair_size7_class3": {
+    "symbol": "int_dronecontrol_repair_size7_class3",
+    "name": "Repair 7C",
+    "group": "rpl",
+    "class": 7,
+    "rating": "C"
+  },
+  "int_dronecontrol_repair_size7_class4": {
+    "symbol": "int_dronecontrol_repair_size7_class4",
+    "name": "Repair 7B",
+    "group": "rpl",
+    "class": 7,
+    "rating": "B"
+  },
+  "int_dronecontrol_repair_size7_class5": {
+    "symbol": "int_dronecontrol_repair_size7_class5",
+    "name": "Repair 7A",
+    "group": "rpl",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_dronecontrol_resourcesiphon_size1_class1": {
+    "symbol": "int_dronecontrol_resourcesiphon_size1_class1",
+    "name": "Hatch Breaker 1E",
+    "group": "hb",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_dronecontrol_resourcesiphon_size1_class2": {
+    "symbol": "int_dronecontrol_resourcesiphon_size1_class2",
+    "name": "Hatch Breaker 1D",
+    "group": "hb",
+    "class": 1,
+    "rating": "D"
+  },
+  "int_dronecontrol_resourcesiphon_size1_class3": {
+    "symbol": "int_dronecontrol_resourcesiphon_size1_class3",
+    "name": "Hatch Breaker 1C",
+    "group": "hb",
+    "class": 1,
+    "rating": "C"
+  },
+  "int_dronecontrol_resourcesiphon_size1_class4": {
+    "symbol": "int_dronecontrol_resourcesiphon_size1_class4",
+    "name": "Hatch Breaker 1B",
+    "group": "hb",
+    "class": 1,
+    "rating": "B"
+  },
+  "int_dronecontrol_resourcesiphon_size1_class5": {
+    "symbol": "int_dronecontrol_resourcesiphon_size1_class5",
+    "name": "Hatch Breaker 1A",
+    "group": "hb",
+    "class": 1,
+    "rating": "A"
+  },
+  "int_dronecontrol_resourcesiphon_size3_class1": {
+    "symbol": "int_dronecontrol_resourcesiphon_size3_class1",
+    "name": "Hatch Breaker 3E",
+    "group": "hb",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_dronecontrol_resourcesiphon_size3_class2": {
+    "symbol": "int_dronecontrol_resourcesiphon_size3_class2",
+    "name": "Hatch Breaker 3D",
+    "group": "hb",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_dronecontrol_resourcesiphon_size3_class3": {
+    "symbol": "int_dronecontrol_resourcesiphon_size3_class3",
+    "name": "Hatch Breaker 3C",
+    "group": "hb",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_dronecontrol_resourcesiphon_size3_class4": {
+    "symbol": "int_dronecontrol_resourcesiphon_size3_class4",
+    "name": "Hatch Breaker 3B",
+    "group": "hb",
+    "class": 3,
+    "rating": "B"
+  },
+  "int_dronecontrol_resourcesiphon_size3_class5": {
+    "symbol": "int_dronecontrol_resourcesiphon_size3_class5",
+    "name": "Hatch Breaker 3A",
+    "group": "hb",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_dronecontrol_resourcesiphon_size5_class1": {
+    "symbol": "int_dronecontrol_resourcesiphon_size5_class1",
+    "name": "Hatch Breaker 5E",
+    "group": "hb",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_dronecontrol_resourcesiphon_size5_class2": {
+    "symbol": "int_dronecontrol_resourcesiphon_size5_class2",
+    "name": "Hatch Breaker 5D",
+    "group": "hb",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_dronecontrol_resourcesiphon_size5_class3": {
+    "symbol": "int_dronecontrol_resourcesiphon_size5_class3",
+    "name": "Hatch Breaker 5C",
+    "group": "hb",
+    "class": 5,
+    "rating": "C"
+  },
+  "int_dronecontrol_resourcesiphon_size5_class4": {
+    "symbol": "int_dronecontrol_resourcesiphon_size5_class4",
+    "name": "Hatch Breaker 5B",
+    "group": "hb",
+    "class": 5,
+    "rating": "B"
+  },
+  "int_dronecontrol_resourcesiphon_size5_class5": {
+    "symbol": "int_dronecontrol_resourcesiphon_size5_class5",
+    "name": "Hatch Breaker 5A",
+    "group": "hb",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_dronecontrol_resourcesiphon_size7_class1": {
+    "symbol": "int_dronecontrol_resourcesiphon_size7_class1",
+    "name": "Hatch Breaker 7E",
+    "group": "hb",
+    "class": 7,
+    "rating": "E"
+  },
+  "int_dronecontrol_resourcesiphon_size7_class2": {
+    "symbol": "int_dronecontrol_resourcesiphon_size7_class2",
+    "name": "Hatch Breaker 7D",
+    "group": "hb",
+    "class": 7,
+    "rating": "D"
+  },
+  "int_dronecontrol_resourcesiphon_size7_class3": {
+    "symbol": "int_dronecontrol_resourcesiphon_size7_class3",
+    "name": "Hatch Breaker 7C",
+    "group": "hb",
+    "class": 7,
+    "rating": "C"
+  },
+  "int_dronecontrol_resourcesiphon_size7_class4": {
+    "symbol": "int_dronecontrol_resourcesiphon_size7_class4",
+    "name": "Hatch Breaker 7B",
+    "group": "hb",
+    "class": 7,
+    "rating": "B"
+  },
+  "int_dronecontrol_resourcesiphon_size7_class5": {
+    "symbol": "int_dronecontrol_resourcesiphon_size7_class5",
+    "name": "Hatch Breaker 7A",
+    "group": "hb",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_dronecontrol_unkvesselresearch": {
+    "symbol": "int_dronecontrol_unkvesselresearch",
+    "name": "Research Limpet Controller 1E",
+    "group": "rsl",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_engine_size2_class1": {
+    "symbol": "int_engine_size2_class1",
+    "name": "Thrusters 2E",
+    "group": "t",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_engine_size2_class2": {
+    "symbol": "int_engine_size2_class2",
+    "name": "Thrusters 2D",
+    "group": "t",
+    "class": 2,
+    "rating": "D"
+  },
+  "int_engine_size2_class3": {
+    "symbol": "int_engine_size2_class3",
+    "name": "Thrusters 2C",
+    "group": "t",
+    "class": 2,
+    "rating": "C"
+  },
+  "int_engine_size2_class4": {
+    "symbol": "int_engine_size2_class4",
+    "name": "Thrusters 2B",
+    "group": "t",
+    "class": 2,
+    "rating": "B"
+  },
+  "int_engine_size2_class5": {
+    "symbol": "int_engine_size2_class5",
+    "name": "Thrusters 2A",
+    "group": "t",
+    "class": 2,
+    "rating": "A"
+  },
+  "int_engine_size2_class5_fast": {
+    "symbol": "int_engine_size2_class5_fast",
+    "name": "Enhanced Performance 2A",
+    "group": "t",
+    "class": 2,
+    "rating": "A"
+  },
+  "int_engine_size3_class1": {
+    "symbol": "int_engine_size3_class1",
+    "name": "Thrusters 3E",
+    "group": "t",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_engine_size3_class2": {
+    "symbol": "int_engine_size3_class2",
+    "name": "Thrusters 3D",
+    "group": "t",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_engine_size3_class3": {
+    "symbol": "int_engine_size3_class3",
+    "name": "Thrusters 3C",
+    "group": "t",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_engine_size3_class4": {
+    "symbol": "int_engine_size3_class4",
+    "name": "Thrusters 3B",
+    "group": "t",
+    "class": 3,
+    "rating": "B"
+  },
+  "int_engine_size3_class5": {
+    "symbol": "int_engine_size3_class5",
+    "name": "Thrusters 3A",
+    "group": "t",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_engine_size3_class5_fast": {
+    "symbol": "int_engine_size3_class5_fast",
+    "name": "Enhanced Performance 3A",
+    "group": "t",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_engine_size4_class1": {
+    "symbol": "int_engine_size4_class1",
+    "name": "Thrusters 4E",
+    "group": "t",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_engine_size4_class2": {
+    "symbol": "int_engine_size4_class2",
+    "name": "Thrusters 4D",
+    "group": "t",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_engine_size4_class3": {
+    "symbol": "int_engine_size4_class3",
+    "name": "Thrusters 4C",
+    "group": "t",
+    "class": 4,
+    "rating": "C"
+  },
+  "int_engine_size4_class4": {
+    "symbol": "int_engine_size4_class4",
+    "name": "Thrusters 4B",
+    "group": "t",
+    "class": 4,
+    "rating": "B"
+  },
+  "int_engine_size4_class5": {
+    "symbol": "int_engine_size4_class5",
+    "name": "Thrusters 4A",
+    "group": "t",
+    "class": 4,
+    "rating": "A"
+  },
+  "int_engine_size5_class1": {
+    "symbol": "int_engine_size5_class1",
+    "name": "Thrusters 5E",
+    "group": "t",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_engine_size5_class2": {
+    "symbol": "int_engine_size5_class2",
+    "name": "Thrusters 5D",
+    "group": "t",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_engine_size5_class3": {
+    "symbol": "int_engine_size5_class3",
+    "name": "Thrusters 5C",
+    "group": "t",
+    "class": 5,
+    "rating": "C"
+  },
+  "int_engine_size5_class4": {
+    "symbol": "int_engine_size5_class4",
+    "name": "Thrusters 5B",
+    "group": "t",
+    "class": 5,
+    "rating": "B"
+  },
+  "int_engine_size5_class5": {
+    "symbol": "int_engine_size5_class5",
+    "name": "Thrusters 5A",
+    "group": "t",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_engine_size6_class1": {
+    "symbol": "int_engine_size6_class1",
+    "name": "Thrusters 6E",
+    "group": "t",
+    "class": 6,
+    "rating": "E"
+  },
+  "int_engine_size6_class2": {
+    "symbol": "int_engine_size6_class2",
+    "name": "Thrusters 6D",
+    "group": "t",
+    "class": 6,
+    "rating": "D"
+  },
+  "int_engine_size6_class3": {
+    "symbol": "int_engine_size6_class3",
+    "name": "Thrusters 6C",
+    "group": "t",
+    "class": 6,
+    "rating": "C"
+  },
+  "int_engine_size6_class4": {
+    "symbol": "int_engine_size6_class4",
+    "name": "Thrusters 6B",
+    "group": "t",
+    "class": 6,
+    "rating": "B"
+  },
+  "int_engine_size6_class5": {
+    "symbol": "int_engine_size6_class5",
+    "name": "Thrusters 6A",
+    "group": "t",
+    "class": 6,
+    "rating": "A"
+  },
+  "int_engine_size7_class1": {
+    "symbol": "int_engine_size7_class1",
+    "name": "Thrusters 7E",
+    "group": "t",
+    "class": 7,
+    "rating": "E"
+  },
+  "int_engine_size7_class2": {
+    "symbol": "int_engine_size7_class2",
+    "name": "Thrusters 7D",
+    "group": "t",
+    "class": 7,
+    "rating": "D"
+  },
+  "int_engine_size7_class3": {
+    "symbol": "int_engine_size7_class3",
+    "name": "Thrusters 7C",
+    "group": "t",
+    "class": 7,
+    "rating": "C"
+  },
+  "int_engine_size7_class4": {
+    "symbol": "int_engine_size7_class4",
+    "name": "Thrusters 7B",
+    "group": "t",
+    "class": 7,
+    "rating": "B"
+  },
+  "int_engine_size7_class5": {
+    "symbol": "int_engine_size7_class5",
+    "name": "Thrusters 7A",
+    "group": "t",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_engine_size7_class5_gravityoptimised_mkii": {
+    "symbol": "int_engine_size7_class5_gravityoptimised_mkii",
+    "name": "MkII Gravity Optimised Thrusters 7A",
+    "group": "t",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_engine_size8_class1": {
+    "symbol": "int_engine_size8_class1",
+    "name": "Thrusters 8E",
+    "group": "t",
+    "class": 8,
+    "rating": "E"
+  },
+  "int_engine_size8_class2": {
+    "symbol": "int_engine_size8_class2",
+    "name": "Thrusters 8D",
+    "group": "t",
+    "class": 8,
+    "rating": "D"
+  },
+  "int_engine_size8_class3": {
+    "symbol": "int_engine_size8_class3",
+    "name": "Thrusters 8C",
+    "group": "t",
+    "class": 8,
+    "rating": "C"
+  },
+  "int_engine_size8_class4": {
+    "symbol": "int_engine_size8_class4",
+    "name": "Thrusters 8B",
+    "group": "t",
+    "class": 8,
+    "rating": "B"
+  },
+  "int_engine_size8_class5": {
+    "symbol": "int_engine_size8_class5",
+    "name": "Thrusters 8A",
+    "group": "t",
+    "class": 8,
+    "rating": "A"
+  },
+  "int_expmodulestabiliser_size3_class3": {
+    "symbol": "int_expmodulestabiliser_size3_class3",
+    "name": "Experimental Weapon Stabilizer 3F",
+    "group": "ews",
+    "class": 3,
+    "rating": "F"
+  },
+  "int_expmodulestabiliser_size5_class3": {
+    "symbol": "int_expmodulestabiliser_size5_class3",
+    "name": "Experimental Weapon Stabilizer 5F",
+    "group": "ews",
+    "class": 5,
+    "rating": "F"
+  },
+  "int_fighterbay_size5_class1": {
+    "symbol": "int_fighterbay_size5_class1",
+    "name": "Fighter Hangar 5D",
+    "group": "fh",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_fighterbay_size6_class1": {
+    "symbol": "int_fighterbay_size6_class1",
+    "name": "Fighter Hangar 6D",
+    "group": "fh",
+    "class": 6,
+    "rating": "D"
+  },
+  "int_fighterbay_size7_class1": {
+    "symbol": "int_fighterbay_size7_class1",
+    "name": "Fighter Hangar 7D",
+    "group": "fh",
+    "class": 7,
+    "rating": "D"
+  },
+  "int_fighterbaymk2_size5_class1": {
+    "symbol": "int_fighterbaymk2_size5_class1",
+    "name": "MkII Vessel Hangar 5D",
+    "group": "fh",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_fighterbaymk2_size6_class1": {
+    "symbol": "int_fighterbaymk2_size6_class1",
+    "name": "MkII Vessel Hangar 6D",
+    "group": "fh",
+    "class": 6,
+    "rating": "D"
+  },
+  "int_fighterbaymk2_size7_class1": {
+    "symbol": "int_fighterbaymk2_size7_class1",
+    "name": "MkII Vessel Hangar 7D",
+    "group": "fh",
+    "class": 7,
+    "rating": "D"
+  },
+  "int_fsdinterdictor_size1_class1": {
+    "symbol": "int_fsdinterdictor_size1_class1",
+    "name": "FSD Interdictor 1E",
+    "group": "fi",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_fsdinterdictor_size1_class2": {
+    "symbol": "int_fsdinterdictor_size1_class2",
+    "name": "FSD Interdictor 1D",
+    "group": "fi",
+    "class": 1,
+    "rating": "D"
+  },
+  "int_fsdinterdictor_size1_class3": {
+    "symbol": "int_fsdinterdictor_size1_class3",
+    "name": "FSD Interdictor 1C",
+    "group": "fi",
+    "class": 1,
+    "rating": "C"
+  },
+  "int_fsdinterdictor_size1_class4": {
+    "symbol": "int_fsdinterdictor_size1_class4",
+    "name": "FSD Interdictor 1B",
+    "group": "fi",
+    "class": 1,
+    "rating": "B"
+  },
+  "int_fsdinterdictor_size1_class5": {
+    "symbol": "int_fsdinterdictor_size1_class5",
+    "name": "FSD Interdictor 1A",
+    "group": "fi",
+    "class": 1,
+    "rating": "A"
+  },
+  "int_fsdinterdictor_size2_class1": {
+    "symbol": "int_fsdinterdictor_size2_class1",
+    "name": "FSD Interdictor 2E",
+    "group": "fi",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_fsdinterdictor_size2_class2": {
+    "symbol": "int_fsdinterdictor_size2_class2",
+    "name": "FSD Interdictor 2D",
+    "group": "fi",
+    "class": 2,
+    "rating": "D"
+  },
+  "int_fsdinterdictor_size2_class3": {
+    "symbol": "int_fsdinterdictor_size2_class3",
+    "name": "FSD Interdictor 2C",
+    "group": "fi",
+    "class": 2,
+    "rating": "C"
+  },
+  "int_fsdinterdictor_size2_class4": {
+    "symbol": "int_fsdinterdictor_size2_class4",
+    "name": "FSD Interdictor 2B",
+    "group": "fi",
+    "class": 2,
+    "rating": "B"
+  },
+  "int_fsdinterdictor_size2_class5": {
+    "symbol": "int_fsdinterdictor_size2_class5",
+    "name": "FSD Interdictor 2A",
+    "group": "fi",
+    "class": 2,
+    "rating": "A"
+  },
+  "int_fsdinterdictor_size3_class1": {
+    "symbol": "int_fsdinterdictor_size3_class1",
+    "name": "FSD Interdictor 3E",
+    "group": "fi",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_fsdinterdictor_size3_class2": {
+    "symbol": "int_fsdinterdictor_size3_class2",
+    "name": "FSD Interdictor 3D",
+    "group": "fi",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_fsdinterdictor_size3_class3": {
+    "symbol": "int_fsdinterdictor_size3_class3",
+    "name": "FSD Interdictor 3C",
+    "group": "fi",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_fsdinterdictor_size3_class4": {
+    "symbol": "int_fsdinterdictor_size3_class4",
+    "name": "FSD Interdictor 3B",
+    "group": "fi",
+    "class": 3,
+    "rating": "B"
+  },
+  "int_fsdinterdictor_size3_class5": {
+    "symbol": "int_fsdinterdictor_size3_class5",
+    "name": "FSD Interdictor 3A",
+    "group": "fi",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_fsdinterdictor_size4_class1": {
+    "symbol": "int_fsdinterdictor_size4_class1",
+    "name": "FSD Interdictor 4E",
+    "group": "fi",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_fsdinterdictor_size4_class2": {
+    "symbol": "int_fsdinterdictor_size4_class2",
+    "name": "FSD Interdictor 4D",
+    "group": "fi",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_fsdinterdictor_size4_class3": {
+    "symbol": "int_fsdinterdictor_size4_class3",
+    "name": "FSD Interdictor 4C",
+    "group": "fi",
+    "class": 4,
+    "rating": "C"
+  },
+  "int_fsdinterdictor_size4_class4": {
+    "symbol": "int_fsdinterdictor_size4_class4",
+    "name": "FSD Interdictor 4B",
+    "group": "fi",
+    "class": 4,
+    "rating": "B"
+  },
+  "int_fsdinterdictor_size4_class5": {
+    "symbol": "int_fsdinterdictor_size4_class5",
+    "name": "FSD Interdictor 4A",
+    "group": "fi",
+    "class": 4,
+    "rating": "A"
+  },
+  "int_fuelscoop_size1_class1": {
+    "symbol": "int_fuelscoop_size1_class1",
+    "name": "Fuel Scoop 1E",
+    "group": "fs",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_fuelscoop_size1_class2": {
+    "symbol": "int_fuelscoop_size1_class2",
+    "name": "Fuel Scoop 1D",
+    "group": "fs",
+    "class": 1,
+    "rating": "D"
+  },
+  "int_fuelscoop_size1_class3": {
+    "symbol": "int_fuelscoop_size1_class3",
+    "name": "Fuel Scoop 1C",
+    "group": "fs",
+    "class": 1,
+    "rating": "C"
+  },
+  "int_fuelscoop_size1_class4": {
+    "symbol": "int_fuelscoop_size1_class4",
+    "name": "Fuel Scoop 1B",
+    "group": "fs",
+    "class": 1,
+    "rating": "B"
+  },
+  "int_fuelscoop_size1_class5": {
+    "symbol": "int_fuelscoop_size1_class5",
+    "name": "Fuel Scoop 1A",
+    "group": "fs",
+    "class": 1,
+    "rating": "A"
+  },
+  "int_fuelscoop_size2_class1": {
+    "symbol": "int_fuelscoop_size2_class1",
+    "name": "Fuel Scoop 2E",
+    "group": "fs",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_fuelscoop_size2_class2": {
+    "symbol": "int_fuelscoop_size2_class2",
+    "name": "Fuel Scoop 2D",
+    "group": "fs",
+    "class": 2,
+    "rating": "D"
+  },
+  "int_fuelscoop_size2_class3": {
+    "symbol": "int_fuelscoop_size2_class3",
+    "name": "Fuel Scoop 2C",
+    "group": "fs",
+    "class": 2,
+    "rating": "C"
+  },
+  "int_fuelscoop_size2_class4": {
+    "symbol": "int_fuelscoop_size2_class4",
+    "name": "Fuel Scoop 2B",
+    "group": "fs",
+    "class": 2,
+    "rating": "B"
+  },
+  "int_fuelscoop_size2_class5": {
+    "symbol": "int_fuelscoop_size2_class5",
+    "name": "Fuel Scoop 2A",
+    "group": "fs",
+    "class": 2,
+    "rating": "A"
+  },
+  "int_fuelscoop_size3_class1": {
+    "symbol": "int_fuelscoop_size3_class1",
+    "name": "Fuel Scoop 3E",
+    "group": "fs",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_fuelscoop_size3_class2": {
+    "symbol": "int_fuelscoop_size3_class2",
+    "name": "Fuel Scoop 3D",
+    "group": "fs",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_fuelscoop_size3_class3": {
+    "symbol": "int_fuelscoop_size3_class3",
+    "name": "Fuel Scoop 3C",
+    "group": "fs",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_fuelscoop_size3_class4": {
+    "symbol": "int_fuelscoop_size3_class4",
+    "name": "Fuel Scoop 3B",
+    "group": "fs",
+    "class": 3,
+    "rating": "B"
+  },
+  "int_fuelscoop_size3_class5": {
+    "symbol": "int_fuelscoop_size3_class5",
+    "name": "Fuel Scoop 3A",
+    "group": "fs",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_fuelscoop_size4_class1": {
+    "symbol": "int_fuelscoop_size4_class1",
+    "name": "Fuel Scoop 4E",
+    "group": "fs",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_fuelscoop_size4_class2": {
+    "symbol": "int_fuelscoop_size4_class2",
+    "name": "Fuel Scoop 4D",
+    "group": "fs",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_fuelscoop_size4_class3": {
+    "symbol": "int_fuelscoop_size4_class3",
+    "name": "Fuel Scoop 4C",
+    "group": "fs",
+    "class": 4,
+    "rating": "C"
+  },
+  "int_fuelscoop_size4_class4": {
+    "symbol": "int_fuelscoop_size4_class4",
+    "name": "Fuel Scoop 4B",
+    "group": "fs",
+    "class": 4,
+    "rating": "B"
+  },
+  "int_fuelscoop_size4_class5": {
+    "symbol": "int_fuelscoop_size4_class5",
+    "name": "Fuel Scoop 4A",
+    "group": "fs",
+    "class": 4,
+    "rating": "A"
+  },
+  "int_fuelscoop_size5_class1": {
+    "symbol": "int_fuelscoop_size5_class1",
+    "name": "Fuel Scoop 5E",
+    "group": "fs",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_fuelscoop_size5_class2": {
+    "symbol": "int_fuelscoop_size5_class2",
+    "name": "Fuel Scoop 5D",
+    "group": "fs",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_fuelscoop_size5_class3": {
+    "symbol": "int_fuelscoop_size5_class3",
+    "name": "Fuel Scoop 5C",
+    "group": "fs",
+    "class": 5,
+    "rating": "C"
+  },
+  "int_fuelscoop_size5_class4": {
+    "symbol": "int_fuelscoop_size5_class4",
+    "name": "Fuel Scoop 5B",
+    "group": "fs",
+    "class": 5,
+    "rating": "B"
+  },
+  "int_fuelscoop_size5_class5": {
+    "symbol": "int_fuelscoop_size5_class5",
+    "name": "Fuel Scoop 5A",
+    "group": "fs",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_fuelscoop_size6_class1": {
+    "symbol": "int_fuelscoop_size6_class1",
+    "name": "Fuel Scoop 6E",
+    "group": "fs",
+    "class": 6,
+    "rating": "E"
+  },
+  "int_fuelscoop_size6_class2": {
+    "symbol": "int_fuelscoop_size6_class2",
+    "name": "Fuel Scoop 6D",
+    "group": "fs",
+    "class": 6,
+    "rating": "D"
+  },
+  "int_fuelscoop_size6_class3": {
+    "symbol": "int_fuelscoop_size6_class3",
+    "name": "Fuel Scoop 6C",
+    "group": "fs",
+    "class": 6,
+    "rating": "C"
+  },
+  "int_fuelscoop_size6_class4": {
+    "symbol": "int_fuelscoop_size6_class4",
+    "name": "Fuel Scoop 6B",
+    "group": "fs",
+    "class": 6,
+    "rating": "B"
+  },
+  "int_fuelscoop_size6_class5": {
+    "symbol": "int_fuelscoop_size6_class5",
+    "name": "Fuel Scoop 6A",
+    "group": "fs",
+    "class": 6,
+    "rating": "A"
+  },
+  "int_fuelscoop_size7_class1": {
+    "symbol": "int_fuelscoop_size7_class1",
+    "name": "Fuel Scoop 7E",
+    "group": "fs",
+    "class": 7,
+    "rating": "E"
+  },
+  "int_fuelscoop_size7_class2": {
+    "symbol": "int_fuelscoop_size7_class2",
+    "name": "Fuel Scoop 7D",
+    "group": "fs",
+    "class": 7,
+    "rating": "D"
+  },
+  "int_fuelscoop_size7_class3": {
+    "symbol": "int_fuelscoop_size7_class3",
+    "name": "Fuel Scoop 7C",
+    "group": "fs",
+    "class": 7,
+    "rating": "C"
+  },
+  "int_fuelscoop_size7_class4": {
+    "symbol": "int_fuelscoop_size7_class4",
+    "name": "Fuel Scoop 7B",
+    "group": "fs",
+    "class": 7,
+    "rating": "B"
+  },
+  "int_fuelscoop_size7_class5": {
+    "symbol": "int_fuelscoop_size7_class5",
+    "name": "Fuel Scoop 7A",
+    "group": "fs",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_fuelscoop_size8_class1": {
+    "symbol": "int_fuelscoop_size8_class1",
+    "name": "Fuel Scoop 8E",
+    "group": "fs",
+    "class": 8,
+    "rating": "E"
+  },
+  "int_fuelscoop_size8_class2": {
+    "symbol": "int_fuelscoop_size8_class2",
+    "name": "Fuel Scoop 8D",
+    "group": "fs",
+    "class": 8,
+    "rating": "D"
+  },
+  "int_fuelscoop_size8_class3": {
+    "symbol": "int_fuelscoop_size8_class3",
+    "name": "Fuel Scoop 8C",
+    "group": "fs",
+    "class": 8,
+    "rating": "C"
+  },
+  "int_fuelscoop_size8_class4": {
+    "symbol": "int_fuelscoop_size8_class4",
+    "name": "Fuel Scoop 8B",
+    "group": "fs",
+    "class": 8,
+    "rating": "B"
+  },
+  "int_fuelscoop_size8_class5": {
+    "symbol": "int_fuelscoop_size8_class5",
+    "name": "Fuel Scoop 8A",
+    "group": "fs",
+    "class": 8,
+    "rating": "A"
+  },
+  "int_fueltank_size1_class3": {
+    "symbol": "int_fueltank_size1_class3",
+    "name": "Fuel Tank 1C",
+    "group": "ft",
+    "class": 1,
+    "rating": "C"
+  },
+  "int_fueltank_size2_class3": {
+    "symbol": "int_fueltank_size2_class3",
+    "name": "Fuel Tank 2C",
+    "group": "ft",
+    "class": 2,
+    "rating": "C"
+  },
+  "int_fueltank_size3_class3": {
+    "symbol": "int_fueltank_size3_class3",
+    "name": "Fuel Tank 3C",
+    "group": "ft",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_fueltank_size4_class3": {
+    "symbol": "int_fueltank_size4_class3",
+    "name": "Fuel Tank 4C",
+    "group": "ft",
+    "class": 4,
+    "rating": "C"
+  },
+  "int_fueltank_size5_class3": {
+    "symbol": "int_fueltank_size5_class3",
+    "name": "Fuel Tank 5C",
+    "group": "ft",
+    "class": 5,
+    "rating": "C"
+  },
+  "int_fueltank_size6_class3": {
+    "symbol": "int_fueltank_size6_class3",
+    "name": "Fuel Tank 6C",
+    "group": "ft",
+    "class": 6,
+    "rating": "C"
+  },
+  "int_fueltank_size7_class3": {
+    "symbol": "int_fueltank_size7_class3",
+    "name": "Fuel Tank 7C",
+    "group": "ft",
+    "class": 7,
+    "rating": "C"
+  },
+  "int_fueltank_size8_class3": {
+    "symbol": "int_fueltank_size8_class3",
+    "name": "Fuel Tank 8C",
+    "group": "ft",
+    "class": 8,
+    "rating": "C"
+  },
+  "int_guardianfsdbooster_size1": {
+    "symbol": "int_guardianfsdbooster_size1",
+    "name": "Guardian FSD Booster 1H",
+    "group": "gfsb",
+    "class": 1,
+    "rating": "H"
+  },
+  "int_guardianfsdbooster_size2": {
+    "symbol": "int_guardianfsdbooster_size2",
+    "name": "Guardian FSD Booster 2H",
+    "group": "gfsb",
+    "class": 2,
+    "rating": "H"
+  },
+  "int_guardianfsdbooster_size3": {
+    "symbol": "int_guardianfsdbooster_size3",
+    "name": "Guardian FSD Booster 3H",
+    "group": "gfsb",
+    "class": 3,
+    "rating": "H"
+  },
+  "int_guardianfsdbooster_size4": {
+    "symbol": "int_guardianfsdbooster_size4",
+    "name": "Guardian FSD Booster 4H",
+    "group": "gfsb",
+    "class": 4,
+    "rating": "H"
+  },
+  "int_guardianfsdbooster_size5": {
+    "symbol": "int_guardianfsdbooster_size5",
+    "name": "Guardian FSD Booster 5H",
+    "group": "gfsb",
+    "class": 5,
+    "rating": "H"
+  },
+  "int_guardianhullreinforcement_size1_class1": {
+    "symbol": "int_guardianhullreinforcement_size1_class1",
+    "name": "Guardian Hull Reinforcement 1E",
+    "group": "ghrp",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_guardianhullreinforcement_size1_class2": {
+    "symbol": "int_guardianhullreinforcement_size1_class2",
+    "name": "Guardian Hull Reinforcement 1D",
+    "group": "ghrp",
+    "class": 1,
+    "rating": "D"
+  },
+  "int_guardianhullreinforcement_size2_class1": {
+    "symbol": "int_guardianhullreinforcement_size2_class1",
+    "name": "Guardian Hull Reinforcement 2E",
+    "group": "ghrp",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_guardianhullreinforcement_size2_class2": {
+    "symbol": "int_guardianhullreinforcement_size2_class2",
+    "name": "Guardian Hull Reinforcement 2D",
+    "group": "ghrp",
+    "class": 2,
+    "rating": "D"
+  },
+  "int_guardianhullreinforcement_size3_class1": {
+    "symbol": "int_guardianhullreinforcement_size3_class1",
+    "name": "Guardian Hull Reinforcement 3E",
+    "group": "ghrp",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_guardianhullreinforcement_size3_class2": {
+    "symbol": "int_guardianhullreinforcement_size3_class2",
+    "name": "Guardian Hull Reinforcement 3D",
+    "group": "ghrp",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_guardianhullreinforcement_size4_class1": {
+    "symbol": "int_guardianhullreinforcement_size4_class1",
+    "name": "Guardian Hull Reinforcement 4E",
+    "group": "ghrp",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_guardianhullreinforcement_size4_class2": {
+    "symbol": "int_guardianhullreinforcement_size4_class2",
+    "name": "Guardian Hull Reinforcement 4D",
+    "group": "ghrp",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_guardianhullreinforcement_size5_class1": {
+    "symbol": "int_guardianhullreinforcement_size5_class1",
+    "name": "Guardian Hull Reinforcement 5E",
+    "group": "ghrp",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_guardianhullreinforcement_size5_class2": {
+    "symbol": "int_guardianhullreinforcement_size5_class2",
+    "name": "Guardian Hull Reinforcement 5D",
+    "group": "ghrp",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_guardianmodulereinforcement_size1_class1": {
+    "symbol": "int_guardianmodulereinforcement_size1_class1",
+    "name": "Guardian Module Reinforcement 1E",
+    "group": "gmrp",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_guardianmodulereinforcement_size1_class2": {
+    "symbol": "int_guardianmodulereinforcement_size1_class2",
+    "name": "Guardian Module Reinforcement 1D",
+    "group": "gmrp",
+    "class": 1,
+    "rating": "D"
+  },
+  "int_guardianmodulereinforcement_size2_class1": {
+    "symbol": "int_guardianmodulereinforcement_size2_class1",
+    "name": "Guardian Module Reinforcement 2E",
+    "group": "gmrp",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_guardianmodulereinforcement_size2_class2": {
+    "symbol": "int_guardianmodulereinforcement_size2_class2",
+    "name": "Guardian Module Reinforcement 2D",
+    "group": "gmrp",
+    "class": 2,
+    "rating": "D"
+  },
+  "int_guardianmodulereinforcement_size3_class1": {
+    "symbol": "int_guardianmodulereinforcement_size3_class1",
+    "name": "Guardian Module Reinforcement 3E",
+    "group": "gmrp",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_guardianmodulereinforcement_size3_class2": {
+    "symbol": "int_guardianmodulereinforcement_size3_class2",
+    "name": "Guardian Module Reinforcement 3D",
+    "group": "gmrp",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_guardianmodulereinforcement_size4_class1": {
+    "symbol": "int_guardianmodulereinforcement_size4_class1",
+    "name": "Guardian Module Reinforcement 4E",
+    "group": "gmrp",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_guardianmodulereinforcement_size4_class2": {
+    "symbol": "int_guardianmodulereinforcement_size4_class2",
+    "name": "Guardian Module Reinforcement 4D",
+    "group": "gmrp",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_guardianmodulereinforcement_size5_class1": {
+    "symbol": "int_guardianmodulereinforcement_size5_class1",
+    "name": "Guardian Module Reinforcement 5E",
+    "group": "gmrp",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_guardianmodulereinforcement_size5_class2": {
+    "symbol": "int_guardianmodulereinforcement_size5_class2",
+    "name": "Guardian Module Reinforcement 5D",
+    "group": "gmrp",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_guardianpowerdistributor_size1": {
+    "symbol": "int_guardianpowerdistributor_size1",
+    "name": "Guardian Power Distributor 1A",
+    "group": "pd",
+    "class": 1,
+    "rating": "A"
+  },
+  "int_guardianpowerdistributor_size2": {
+    "symbol": "int_guardianpowerdistributor_size2",
+    "name": "Guardian Power Distributor 2A",
+    "group": "pd",
+    "class": 2,
+    "rating": "A"
+  },
+  "int_guardianpowerdistributor_size3": {
+    "symbol": "int_guardianpowerdistributor_size3",
+    "name": "Guardian Power Distributor 3A",
+    "group": "pd",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_guardianpowerdistributor_size4": {
+    "symbol": "int_guardianpowerdistributor_size4",
+    "name": "Guardian Power Distributor 4A",
+    "group": "pd",
+    "class": 4,
+    "rating": "A"
+  },
+  "int_guardianpowerdistributor_size5": {
+    "symbol": "int_guardianpowerdistributor_size5",
+    "name": "Guardian Power Distributor 5A",
+    "group": "pd",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_guardianpowerdistributor_size6": {
+    "symbol": "int_guardianpowerdistributor_size6",
+    "name": "Guardian Power Distributor 6A",
+    "group": "pd",
+    "class": 6,
+    "rating": "A"
+  },
+  "int_guardianpowerdistributor_size7": {
+    "symbol": "int_guardianpowerdistributor_size7",
+    "name": "Guardian Power Distributor 7A",
+    "group": "pd",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_guardianpowerdistributor_size8": {
+    "symbol": "int_guardianpowerdistributor_size8",
+    "name": "Guardian Power Distributor 8A",
+    "group": "pd",
+    "class": 8,
+    "rating": "A"
+  },
+  "int_guardianpowerplant_size2": {
+    "symbol": "int_guardianpowerplant_size2",
+    "name": "Guardian Hybrid Power Plant 2A",
+    "group": "pp",
+    "class": 2,
+    "rating": "A"
+  },
+  "int_guardianpowerplant_size3": {
+    "symbol": "int_guardianpowerplant_size3",
+    "name": "Guardian Hybrid Power Plant 3A",
+    "group": "pp",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_guardianpowerplant_size4": {
+    "symbol": "int_guardianpowerplant_size4",
+    "name": "Guardian Hybrid Power Plant 4A",
+    "group": "pp",
+    "class": 4,
+    "rating": "A"
+  },
+  "int_guardianpowerplant_size5": {
+    "symbol": "int_guardianpowerplant_size5",
+    "name": "Guardian Hybrid Power Plant 5A",
+    "group": "pp",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_guardianpowerplant_size6": {
+    "symbol": "int_guardianpowerplant_size6",
+    "name": "Guardian Hybrid Power Plant 6A",
+    "group": "pp",
+    "class": 6,
+    "rating": "A"
+  },
+  "int_guardianpowerplant_size7": {
+    "symbol": "int_guardianpowerplant_size7",
+    "name": "Guardian Hybrid Power Plant 7A",
+    "group": "pp",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_guardianpowerplant_size8": {
+    "symbol": "int_guardianpowerplant_size8",
+    "name": "Guardian Hybrid Power Plant 8A",
+    "group": "pp",
+    "class": 8,
+    "rating": "A"
+  },
+  "int_guardianshieldreinforcement_size1_class1": {
+    "symbol": "int_guardianshieldreinforcement_size1_class1",
+    "name": "Guardian Shield Reinforcement 1E",
+    "group": "gsrp",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_guardianshieldreinforcement_size1_class2": {
+    "symbol": "int_guardianshieldreinforcement_size1_class2",
+    "name": "Guardian Shield Reinforcement 1D",
+    "group": "gsrp",
+    "class": 1,
+    "rating": "D"
+  },
+  "int_guardianshieldreinforcement_size2_class1": {
+    "symbol": "int_guardianshieldreinforcement_size2_class1",
+    "name": "Guardian Shield Reinforcement 2E",
+    "group": "gsrp",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_guardianshieldreinforcement_size2_class2": {
+    "symbol": "int_guardianshieldreinforcement_size2_class2",
+    "name": "Guardian Shield Reinforcement 2D",
+    "group": "gsrp",
+    "class": 2,
+    "rating": "D"
+  },
+  "int_guardianshieldreinforcement_size3_class1": {
+    "symbol": "int_guardianshieldreinforcement_size3_class1",
+    "name": "Guardian Shield Reinforcement 3E",
+    "group": "gsrp",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_guardianshieldreinforcement_size3_class2": {
+    "symbol": "int_guardianshieldreinforcement_size3_class2",
+    "name": "Guardian Shield Reinforcement 3D",
+    "group": "gsrp",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_guardianshieldreinforcement_size4_class1": {
+    "symbol": "int_guardianshieldreinforcement_size4_class1",
+    "name": "Guardian Shield Reinforcement 4E",
+    "group": "gsrp",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_guardianshieldreinforcement_size4_class2": {
+    "symbol": "int_guardianshieldreinforcement_size4_class2",
+    "name": "Guardian Shield Reinforcement 4D",
+    "group": "gsrp",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_guardianshieldreinforcement_size5_class1": {
+    "symbol": "int_guardianshieldreinforcement_size5_class1",
+    "name": "Guardian Shield Reinforcement 5E",
+    "group": "gsrp",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_guardianshieldreinforcement_size5_class2": {
+    "symbol": "int_guardianshieldreinforcement_size5_class2",
+    "name": "Guardian Shield Reinforcement 5D",
+    "group": "gsrp",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_hullreinforcement_size1_class1": {
+    "symbol": "int_hullreinforcement_size1_class1",
+    "name": "Hull Reinforcement 1E",
+    "group": "hr",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_hullreinforcement_size1_class2": {
+    "symbol": "int_hullreinforcement_size1_class2",
+    "name": "Hull Reinforcement 1D",
+    "group": "hr",
+    "class": 1,
+    "rating": "D"
+  },
+  "int_hullreinforcement_size2_class1": {
+    "symbol": "int_hullreinforcement_size2_class1",
+    "name": "Hull Reinforcement 2E",
+    "group": "hr",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_hullreinforcement_size2_class2": {
+    "symbol": "int_hullreinforcement_size2_class2",
+    "name": "Hull Reinforcement 2D",
+    "group": "hr",
+    "class": 2,
+    "rating": "D"
+  },
+  "int_hullreinforcement_size3_class1": {
+    "symbol": "int_hullreinforcement_size3_class1",
+    "name": "Hull Reinforcement 3E",
+    "group": "hr",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_hullreinforcement_size3_class2": {
+    "symbol": "int_hullreinforcement_size3_class2",
+    "name": "Hull Reinforcement 3D",
+    "group": "hr",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_hullreinforcement_size4_class1": {
+    "symbol": "int_hullreinforcement_size4_class1",
+    "name": "Hull Reinforcement 4E",
+    "group": "hr",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_hullreinforcement_size4_class2": {
+    "symbol": "int_hullreinforcement_size4_class2",
+    "name": "Hull Reinforcement 4D",
+    "group": "hr",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_hullreinforcement_size5_class1": {
+    "symbol": "int_hullreinforcement_size5_class1",
+    "name": "Hull Reinforcement 5E",
+    "group": "hr",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_hullreinforcement_size5_class2": {
+    "symbol": "int_hullreinforcement_size5_class2",
+    "name": "Hull Reinforcement 5D",
+    "group": "hr",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_hyperdrive_overcharge_size2_class1": {
+    "symbol": "int_hyperdrive_overcharge_size2_class1",
+    "name": "Frame Shift Drive (SCO) 2E",
+    "group": "fsd",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_hyperdrive_overcharge_size2_class2": {
+    "symbol": "int_hyperdrive_overcharge_size2_class2",
+    "name": "Frame Shift Drive (SCO) 2D",
+    "group": "fsd",
+    "class": 2,
+    "rating": "D"
+  },
+  "int_hyperdrive_overcharge_size2_class3": {
+    "symbol": "int_hyperdrive_overcharge_size2_class3",
+    "name": "Frame Shift Drive (SCO) 2C",
+    "group": "fsd",
+    "class": 2,
+    "rating": "C"
+  },
+  "int_hyperdrive_overcharge_size2_class4": {
+    "symbol": "int_hyperdrive_overcharge_size2_class4",
+    "name": "Frame Shift Drive (SCO) 2B",
+    "group": "fsd",
+    "class": 2,
+    "rating": "B"
+  },
+  "int_hyperdrive_overcharge_size2_class5": {
+    "symbol": "int_hyperdrive_overcharge_size2_class5",
+    "name": "Frame Shift Drive (SCO) 2A",
+    "group": "fsd",
+    "class": 2,
+    "rating": "A"
+  },
+  "int_hyperdrive_overcharge_size3_class1": {
+    "symbol": "int_hyperdrive_overcharge_size3_class1",
+    "name": "Frame Shift Drive (SCO) 3E",
+    "group": "fsd",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_hyperdrive_overcharge_size3_class2": {
+    "symbol": "int_hyperdrive_overcharge_size3_class2",
+    "name": "Frame Shift Drive (SCO) 3D",
+    "group": "fsd",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_hyperdrive_overcharge_size3_class3": {
+    "symbol": "int_hyperdrive_overcharge_size3_class3",
+    "name": "Frame Shift Drive (SCO) 3C",
+    "group": "fsd",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_hyperdrive_overcharge_size3_class4": {
+    "symbol": "int_hyperdrive_overcharge_size3_class4",
+    "name": "Frame Shift Drive (SCO) 3B",
+    "group": "fsd",
+    "class": 3,
+    "rating": "B"
+  },
+  "int_hyperdrive_overcharge_size3_class5": {
+    "symbol": "int_hyperdrive_overcharge_size3_class5",
+    "name": "Frame Shift Drive (SCO) 3A",
+    "group": "fsd",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_hyperdrive_overcharge_size4_class1": {
+    "symbol": "int_hyperdrive_overcharge_size4_class1",
+    "name": "Frame Shift Drive (SCO) 4E",
+    "group": "fsd",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_hyperdrive_overcharge_size4_class2": {
+    "symbol": "int_hyperdrive_overcharge_size4_class2",
+    "name": "Frame Shift Drive (SCO) 4D",
+    "group": "fsd",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_hyperdrive_overcharge_size4_class3": {
+    "symbol": "int_hyperdrive_overcharge_size4_class3",
+    "name": "Frame Shift Drive (SCO) 4C",
+    "group": "fsd",
+    "class": 4,
+    "rating": "C"
+  },
+  "int_hyperdrive_overcharge_size4_class4": {
+    "symbol": "int_hyperdrive_overcharge_size4_class4",
+    "name": "Frame Shift Drive (SCO) 4B",
+    "group": "fsd",
+    "class": 4,
+    "rating": "B"
+  },
+  "int_hyperdrive_overcharge_size4_class5": {
+    "symbol": "int_hyperdrive_overcharge_size4_class5",
+    "name": "Frame Shift Drive (SCO) 4A",
+    "group": "fsd",
+    "class": 4,
+    "rating": "A"
+  },
+  "int_hyperdrive_overcharge_size5_class1": {
+    "symbol": "int_hyperdrive_overcharge_size5_class1",
+    "name": "Frame Shift Drive (SCO) 5E",
+    "group": "fsd",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_hyperdrive_overcharge_size5_class2": {
+    "symbol": "int_hyperdrive_overcharge_size5_class2",
+    "name": "Frame Shift Drive (SCO) 5D",
+    "group": "fsd",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_hyperdrive_overcharge_size5_class3": {
+    "symbol": "int_hyperdrive_overcharge_size5_class3",
+    "name": "Frame Shift Drive (SCO) 5C",
+    "group": "fsd",
+    "class": 5,
+    "rating": "C"
+  },
+  "int_hyperdrive_overcharge_size5_class4": {
+    "symbol": "int_hyperdrive_overcharge_size5_class4",
+    "name": "Frame Shift Drive (SCO) 5B",
+    "group": "fsd",
+    "class": 5,
+    "rating": "B"
+  },
+  "int_hyperdrive_overcharge_size5_class5": {
+    "symbol": "int_hyperdrive_overcharge_size5_class5",
+    "name": "Frame Shift Drive (SCO) 5A",
+    "group": "fsd",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_hyperdrive_overcharge_size6_class1": {
+    "symbol": "int_hyperdrive_overcharge_size6_class1",
+    "name": "Frame Shift Drive (SCO) 6E",
+    "group": "fsd",
+    "class": 6,
+    "rating": "E"
+  },
+  "int_hyperdrive_overcharge_size6_class2": {
+    "symbol": "int_hyperdrive_overcharge_size6_class2",
+    "name": "Frame Shift Drive (SCO) 6D",
+    "group": "fsd",
+    "class": 6,
+    "rating": "D"
+  },
+  "int_hyperdrive_overcharge_size6_class3": {
+    "symbol": "int_hyperdrive_overcharge_size6_class3",
+    "name": "Frame Shift Drive (SCO) 6C",
+    "group": "fsd",
+    "class": 6,
+    "rating": "C"
+  },
+  "int_hyperdrive_overcharge_size6_class4": {
+    "symbol": "int_hyperdrive_overcharge_size6_class4",
+    "name": "Frame Shift Drive (SCO) 6B",
+    "group": "fsd",
+    "class": 6,
+    "rating": "B"
+  },
+  "int_hyperdrive_overcharge_size6_class5": {
+    "symbol": "int_hyperdrive_overcharge_size6_class5",
+    "name": "Frame Shift Drive (SCO) 6A",
+    "group": "fsd",
+    "class": 6,
+    "rating": "A"
+  },
+  "int_hyperdrive_overcharge_size7_class1": {
+    "symbol": "int_hyperdrive_overcharge_size7_class1",
+    "name": "Frame Shift Drive (SCO) 7E",
+    "group": "fsd",
+    "class": 7,
+    "rating": "E"
+  },
+  "int_hyperdrive_overcharge_size7_class2": {
+    "symbol": "int_hyperdrive_overcharge_size7_class2",
+    "name": "Frame Shift Drive (SCO) 7D",
+    "group": "fsd",
+    "class": 7,
+    "rating": "D"
+  },
+  "int_hyperdrive_overcharge_size7_class3": {
+    "symbol": "int_hyperdrive_overcharge_size7_class3",
+    "name": "Frame Shift Drive (SCO) 7C",
+    "group": "fsd",
+    "class": 7,
+    "rating": "C"
+  },
+  "int_hyperdrive_overcharge_size7_class4": {
+    "symbol": "int_hyperdrive_overcharge_size7_class4",
+    "name": "Frame Shift Drive (SCO) 7B",
+    "group": "fsd",
+    "class": 7,
+    "rating": "B"
+  },
+  "int_hyperdrive_overcharge_size7_class5": {
+    "symbol": "int_hyperdrive_overcharge_size7_class5",
+    "name": "Frame Shift Drive (SCO) 7A",
+    "group": "fsd",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_hyperdrive_overcharge_size8_class1": {
+    "symbol": "int_hyperdrive_overcharge_size8_class1",
+    "name": "Frame Shift Drive (SCO) 8E",
+    "group": "fsd",
+    "class": 8,
+    "rating": "E"
+  },
+  "int_hyperdrive_overcharge_size8_class2": {
+    "symbol": "int_hyperdrive_overcharge_size8_class2",
+    "name": "Frame Shift Drive (SCO) 8D",
+    "group": "fsd",
+    "class": 8,
+    "rating": "D"
+  },
+  "int_hyperdrive_overcharge_size8_class3": {
+    "symbol": "int_hyperdrive_overcharge_size8_class3",
+    "name": "Frame Shift Drive (SCO) 8C",
+    "group": "fsd",
+    "class": 8,
+    "rating": "C"
+  },
+  "int_hyperdrive_overcharge_size8_class4": {
+    "symbol": "int_hyperdrive_overcharge_size8_class4",
+    "name": "Frame Shift Drive (SCO) 8B",
+    "group": "fsd",
+    "class": 8,
+    "rating": "B"
+  },
+  "int_hyperdrive_overcharge_size8_class5": {
+    "symbol": "int_hyperdrive_overcharge_size8_class5",
+    "name": "Frame Shift Drive (SCO) 8A",
+    "group": "fsd",
+    "class": 8,
+    "rating": "A"
+  },
+  "int_hyperdrive_overcharge_size8_class5_overchargebooster_mkii": {
+    "symbol": "int_hyperdrive_overcharge_size8_class5_overchargebooster_mkii",
+    "name": "Frame Shift Drive Mk II (SCO) 8A",
+    "group": "fsd",
+    "class": 8,
+    "rating": "A"
+  },
+  "int_hyperdrive_size2_class1": {
+    "symbol": "int_hyperdrive_size2_class1",
+    "name": "FSD 2E",
+    "group": "fsd",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_hyperdrive_size2_class2": {
+    "symbol": "int_hyperdrive_size2_class2",
+    "name": "FSD 2D",
+    "group": "fsd",
+    "class": 2,
+    "rating": "D"
+  },
+  "int_hyperdrive_size2_class3": {
+    "symbol": "int_hyperdrive_size2_class3",
+    "name": "FSD 2C",
+    "group": "fsd",
+    "class": 2,
+    "rating": "C"
+  },
+  "int_hyperdrive_size2_class4": {
+    "symbol": "int_hyperdrive_size2_class4",
+    "name": "FSD 2B",
+    "group": "fsd",
+    "class": 2,
+    "rating": "B"
+  },
+  "int_hyperdrive_size2_class5": {
+    "symbol": "int_hyperdrive_size2_class5",
+    "name": "FSD 2A",
+    "group": "fsd",
+    "class": 2,
+    "rating": "A"
+  },
+  "int_hyperdrive_size3_class1": {
+    "symbol": "int_hyperdrive_size3_class1",
+    "name": "FSD 3E",
+    "group": "fsd",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_hyperdrive_size3_class2": {
+    "symbol": "int_hyperdrive_size3_class2",
+    "name": "FSD 3D",
+    "group": "fsd",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_hyperdrive_size3_class3": {
+    "symbol": "int_hyperdrive_size3_class3",
+    "name": "FSD 3C",
+    "group": "fsd",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_hyperdrive_size3_class4": {
+    "symbol": "int_hyperdrive_size3_class4",
+    "name": "FSD 3B",
+    "group": "fsd",
+    "class": 3,
+    "rating": "B"
+  },
+  "int_hyperdrive_size3_class5": {
+    "symbol": "int_hyperdrive_size3_class5",
+    "name": "FSD 3A",
+    "group": "fsd",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_hyperdrive_size4_class1": {
+    "symbol": "int_hyperdrive_size4_class1",
+    "name": "FSD 4E",
+    "group": "fsd",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_hyperdrive_size4_class2": {
+    "symbol": "int_hyperdrive_size4_class2",
+    "name": "FSD 4D",
+    "group": "fsd",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_hyperdrive_size4_class3": {
+    "symbol": "int_hyperdrive_size4_class3",
+    "name": "FSD 4C",
+    "group": "fsd",
+    "class": 4,
+    "rating": "C"
+  },
+  "int_hyperdrive_size4_class4": {
+    "symbol": "int_hyperdrive_size4_class4",
+    "name": "FSD 4B",
+    "group": "fsd",
+    "class": 4,
+    "rating": "B"
+  },
+  "int_hyperdrive_size4_class5": {
+    "symbol": "int_hyperdrive_size4_class5",
+    "name": "FSD 4A",
+    "group": "fsd",
+    "class": 4,
+    "rating": "A"
+  },
+  "int_hyperdrive_size5_class1": {
+    "symbol": "int_hyperdrive_size5_class1",
+    "name": "FSD 5E",
+    "group": "fsd",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_hyperdrive_size5_class2": {
+    "symbol": "int_hyperdrive_size5_class2",
+    "name": "FSD 5D",
+    "group": "fsd",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_hyperdrive_size5_class3": {
+    "symbol": "int_hyperdrive_size5_class3",
+    "name": "FSD 5C",
+    "group": "fsd",
+    "class": 5,
+    "rating": "C"
+  },
+  "int_hyperdrive_size5_class4": {
+    "symbol": "int_hyperdrive_size5_class4",
+    "name": "FSD 5B",
+    "group": "fsd",
+    "class": 5,
+    "rating": "B"
+  },
+  "int_hyperdrive_size5_class5": {
+    "symbol": "int_hyperdrive_size5_class5",
+    "name": "FSD 5A",
+    "group": "fsd",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_hyperdrive_size6_class1": {
+    "symbol": "int_hyperdrive_size6_class1",
+    "name": "FSD 6E",
+    "group": "fsd",
+    "class": 6,
+    "rating": "E"
+  },
+  "int_hyperdrive_size6_class2": {
+    "symbol": "int_hyperdrive_size6_class2",
+    "name": "FSD 6D",
+    "group": "fsd",
+    "class": 6,
+    "rating": "D"
+  },
+  "int_hyperdrive_size6_class3": {
+    "symbol": "int_hyperdrive_size6_class3",
+    "name": "FSD 6C",
+    "group": "fsd",
+    "class": 6,
+    "rating": "C"
+  },
+  "int_hyperdrive_size6_class4": {
+    "symbol": "int_hyperdrive_size6_class4",
+    "name": "FSD 6B",
+    "group": "fsd",
+    "class": 6,
+    "rating": "B"
+  },
+  "int_hyperdrive_size6_class5": {
+    "symbol": "int_hyperdrive_size6_class5",
+    "name": "FSD 6A",
+    "group": "fsd",
+    "class": 6,
+    "rating": "A"
+  },
+  "int_hyperdrive_size7_class1": {
+    "symbol": "int_hyperdrive_size7_class1",
+    "name": "FSD 7E",
+    "group": "fsd",
+    "class": 7,
+    "rating": "E"
+  },
+  "int_hyperdrive_size7_class2": {
+    "symbol": "int_hyperdrive_size7_class2",
+    "name": "FSD 7D",
+    "group": "fsd",
+    "class": 7,
+    "rating": "D"
+  },
+  "int_hyperdrive_size7_class3": {
+    "symbol": "int_hyperdrive_size7_class3",
+    "name": "FSD 7C",
+    "group": "fsd",
+    "class": 7,
+    "rating": "C"
+  },
+  "int_hyperdrive_size7_class4": {
+    "symbol": "int_hyperdrive_size7_class4",
+    "name": "FSD 7B",
+    "group": "fsd",
+    "class": 7,
+    "rating": "B"
+  },
+  "int_hyperdrive_size7_class5": {
+    "symbol": "int_hyperdrive_size7_class5",
+    "name": "FSD 7A",
+    "group": "fsd",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_hyperdrive_size8_class1": {
+    "symbol": "int_hyperdrive_size8_class1",
+    "name": "FSD 8E",
+    "group": "fsd",
+    "class": 8,
+    "rating": "E"
+  },
+  "int_hyperdrive_size8_class2": {
+    "symbol": "int_hyperdrive_size8_class2",
+    "name": "FSD 8D",
+    "group": "fsd",
+    "class": 8,
+    "rating": "D"
+  },
+  "int_hyperdrive_size8_class3": {
+    "symbol": "int_hyperdrive_size8_class3",
+    "name": "FSD 8C",
+    "group": "fsd",
+    "class": 8,
+    "rating": "C"
+  },
+  "int_hyperdrive_size8_class4": {
+    "symbol": "int_hyperdrive_size8_class4",
+    "name": "FSD 8B",
+    "group": "fsd",
+    "class": 8,
+    "rating": "B"
+  },
+  "int_hyperdrive_size8_class5": {
+    "symbol": "int_hyperdrive_size8_class5",
+    "name": "FSD 8A",
+    "group": "fsd",
+    "class": 8,
+    "rating": "A"
+  },
+  "int_largebuggybay_size2_class3": {
+    "symbol": "int_largebuggybay_size2_class3",
+    "name": "Large Planetary Vehicle Hangar 2F",
+    "group": "pv",
+    "class": 2,
+    "rating": "F"
+  },
+  "int_largebuggybay_size4_class3": {
+    "symbol": "int_largebuggybay_size4_class3",
+    "name": "Large Planetary Vehicle Hangar 4F",
+    "group": "pv",
+    "class": 4,
+    "rating": "F"
+  },
+  "int_largebuggybay_size6_class3": {
+    "symbol": "int_largebuggybay_size6_class3",
+    "name": "Large Planetary Vehicle Hangar 6F",
+    "group": "pv",
+    "class": 6,
+    "rating": "F"
+  },
+  "int_largecargorack_size6_class1": {
+    "symbol": "int_largecargorack_size6_class1",
+    "name": "MkII Cargo Rack 6D",
+    "group": "crl",
+    "class": 6,
+    "rating": "D"
+  },
+  "int_largecargorack_size7_class1": {
+    "symbol": "int_largecargorack_size7_class1",
+    "name": "MkII Cargo Rack 7D",
+    "group": "crl",
+    "class": 7,
+    "rating": "D"
+  },
+  "int_largecargorack_size8_class1": {
+    "symbol": "int_largecargorack_size8_class1",
+    "name": "MkII Cargo Rack 8D",
+    "group": "crl",
+    "class": 8,
+    "rating": "D"
+  },
+  "int_lifesupport_size1_class1": {
+    "symbol": "int_lifesupport_size1_class1",
+    "name": "Life Support 1E",
+    "group": "ls",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_lifesupport_size1_class2": {
+    "symbol": "int_lifesupport_size1_class2",
+    "name": "Life Support 1D",
+    "group": "ls",
+    "class": 1,
+    "rating": "D"
+  },
+  "int_lifesupport_size1_class3": {
+    "symbol": "int_lifesupport_size1_class3",
+    "name": "Life Support 1C",
+    "group": "ls",
+    "class": 1,
+    "rating": "C"
+  },
+  "int_lifesupport_size1_class4": {
+    "symbol": "int_lifesupport_size1_class4",
+    "name": "Life Support 1B",
+    "group": "ls",
+    "class": 1,
+    "rating": "B"
+  },
+  "int_lifesupport_size1_class5": {
+    "symbol": "int_lifesupport_size1_class5",
+    "name": "Life Support 1A",
+    "group": "ls",
+    "class": 1,
+    "rating": "A"
+  },
+  "int_lifesupport_size2_class1": {
+    "symbol": "int_lifesupport_size2_class1",
+    "name": "Life Support 2E",
+    "group": "ls",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_lifesupport_size2_class2": {
+    "symbol": "int_lifesupport_size2_class2",
+    "name": "Life Support 2D",
+    "group": "ls",
+    "class": 2,
+    "rating": "D"
+  },
+  "int_lifesupport_size2_class3": {
+    "symbol": "int_lifesupport_size2_class3",
+    "name": "Life Support 2C",
+    "group": "ls",
+    "class": 2,
+    "rating": "C"
+  },
+  "int_lifesupport_size2_class4": {
+    "symbol": "int_lifesupport_size2_class4",
+    "name": "Life Support 2B",
+    "group": "ls",
+    "class": 2,
+    "rating": "B"
+  },
+  "int_lifesupport_size2_class5": {
+    "symbol": "int_lifesupport_size2_class5",
+    "name": "Life Support 2A",
+    "group": "ls",
+    "class": 2,
+    "rating": "A"
+  },
+  "int_lifesupport_size3_class1": {
+    "symbol": "int_lifesupport_size3_class1",
+    "name": "Life Support 3E",
+    "group": "ls",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_lifesupport_size3_class2": {
+    "symbol": "int_lifesupport_size3_class2",
+    "name": "Life Support 3D",
+    "group": "ls",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_lifesupport_size3_class3": {
+    "symbol": "int_lifesupport_size3_class3",
+    "name": "Life Support 3C",
+    "group": "ls",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_lifesupport_size3_class4": {
+    "symbol": "int_lifesupport_size3_class4",
+    "name": "Life Support 3B",
+    "group": "ls",
+    "class": 3,
+    "rating": "B"
+  },
+  "int_lifesupport_size3_class5": {
+    "symbol": "int_lifesupport_size3_class5",
+    "name": "Life Support 3A",
+    "group": "ls",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_lifesupport_size4_class1": {
+    "symbol": "int_lifesupport_size4_class1",
+    "name": "Life Support 4E",
+    "group": "ls",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_lifesupport_size4_class2": {
+    "symbol": "int_lifesupport_size4_class2",
+    "name": "Life Support 4D",
+    "group": "ls",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_lifesupport_size4_class3": {
+    "symbol": "int_lifesupport_size4_class3",
+    "name": "Life Support 4C",
+    "group": "ls",
+    "class": 4,
+    "rating": "C"
+  },
+  "int_lifesupport_size4_class4": {
+    "symbol": "int_lifesupport_size4_class4",
+    "name": "Life Support 4B",
+    "group": "ls",
+    "class": 4,
+    "rating": "B"
+  },
+  "int_lifesupport_size4_class5": {
+    "symbol": "int_lifesupport_size4_class5",
+    "name": "Life Support 4A",
+    "group": "ls",
+    "class": 4,
+    "rating": "A"
+  },
+  "int_lifesupport_size5_class1": {
+    "symbol": "int_lifesupport_size5_class1",
+    "name": "Life Support 5E",
+    "group": "ls",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_lifesupport_size5_class2": {
+    "symbol": "int_lifesupport_size5_class2",
+    "name": "Life Support 5D",
+    "group": "ls",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_lifesupport_size5_class3": {
+    "symbol": "int_lifesupport_size5_class3",
+    "name": "Life Support 5C",
+    "group": "ls",
+    "class": 5,
+    "rating": "C"
+  },
+  "int_lifesupport_size5_class4": {
+    "symbol": "int_lifesupport_size5_class4",
+    "name": "Life Support 5B",
+    "group": "ls",
+    "class": 5,
+    "rating": "B"
+  },
+  "int_lifesupport_size5_class5": {
+    "symbol": "int_lifesupport_size5_class5",
+    "name": "Life Support 5A",
+    "group": "ls",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_lifesupport_size6_class1": {
+    "symbol": "int_lifesupport_size6_class1",
+    "name": "Life Support 6E",
+    "group": "ls",
+    "class": 6,
+    "rating": "E"
+  },
+  "int_lifesupport_size6_class2": {
+    "symbol": "int_lifesupport_size6_class2",
+    "name": "Life Support 6D",
+    "group": "ls",
+    "class": 6,
+    "rating": "D"
+  },
+  "int_lifesupport_size6_class3": {
+    "symbol": "int_lifesupport_size6_class3",
+    "name": "Life Support 6C",
+    "group": "ls",
+    "class": 6,
+    "rating": "C"
+  },
+  "int_lifesupport_size6_class4": {
+    "symbol": "int_lifesupport_size6_class4",
+    "name": "Life Support 6B",
+    "group": "ls",
+    "class": 6,
+    "rating": "B"
+  },
+  "int_lifesupport_size6_class5": {
+    "symbol": "int_lifesupport_size6_class5",
+    "name": "Life Support 6A",
+    "group": "ls",
+    "class": 6,
+    "rating": "A"
+  },
+  "int_lifesupport_size7_class1": {
+    "symbol": "int_lifesupport_size7_class1",
+    "name": "Life Support 7E",
+    "group": "ls",
+    "class": 7,
+    "rating": "E"
+  },
+  "int_lifesupport_size7_class2": {
+    "symbol": "int_lifesupport_size7_class2",
+    "name": "Life Support 7D",
+    "group": "ls",
+    "class": 7,
+    "rating": "D"
+  },
+  "int_lifesupport_size7_class3": {
+    "symbol": "int_lifesupport_size7_class3",
+    "name": "Life Support 7C",
+    "group": "ls",
+    "class": 7,
+    "rating": "C"
+  },
+  "int_lifesupport_size7_class4": {
+    "symbol": "int_lifesupport_size7_class4",
+    "name": "Life Support 7B",
+    "group": "ls",
+    "class": 7,
+    "rating": "B"
+  },
+  "int_lifesupport_size7_class5": {
+    "symbol": "int_lifesupport_size7_class5",
+    "name": "Life Support 7A",
+    "group": "ls",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_lifesupport_size8_class1": {
+    "symbol": "int_lifesupport_size8_class1",
+    "name": "Life Support 8E",
+    "group": "ls",
+    "class": 8,
+    "rating": "E"
+  },
+  "int_lifesupport_size8_class2": {
+    "symbol": "int_lifesupport_size8_class2",
+    "name": "Life Support 8D",
+    "group": "ls",
+    "class": 8,
+    "rating": "D"
+  },
+  "int_lifesupport_size8_class3": {
+    "symbol": "int_lifesupport_size8_class3",
+    "name": "Life Support 8C",
+    "group": "ls",
+    "class": 8,
+    "rating": "C"
+  },
+  "int_lifesupport_size8_class4": {
+    "symbol": "int_lifesupport_size8_class4",
+    "name": "Life Support 8B",
+    "group": "ls",
+    "class": 8,
+    "rating": "B"
+  },
+  "int_lifesupport_size8_class5": {
+    "symbol": "int_lifesupport_size8_class5",
+    "name": "Life Support 8A",
+    "group": "ls",
+    "class": 8,
+    "rating": "A"
+  },
+  "int_metaalloyhullreinforcement_size1_class1": {
+    "symbol": "int_metaalloyhullreinforcement_size1_class1",
+    "name": "Meta Alloy Hull Reinforcement 1E",
+    "group": "mahr",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_metaalloyhullreinforcement_size1_class2": {
+    "symbol": "int_metaalloyhullreinforcement_size1_class2",
+    "name": "Meta Alloy Hull Reinforcement 1D",
+    "group": "mahr",
+    "class": 1,
+    "rating": "D"
+  },
+  "int_metaalloyhullreinforcement_size2_class1": {
+    "symbol": "int_metaalloyhullreinforcement_size2_class1",
+    "name": "Meta Alloy Hull Reinforcement 2E",
+    "group": "mahr",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_metaalloyhullreinforcement_size2_class2": {
+    "symbol": "int_metaalloyhullreinforcement_size2_class2",
+    "name": "Meta Alloy Hull Reinforcement 2D",
+    "group": "mahr",
+    "class": 2,
+    "rating": "D"
+  },
+  "int_metaalloyhullreinforcement_size3_class1": {
+    "symbol": "int_metaalloyhullreinforcement_size3_class1",
+    "name": "Meta Alloy Hull Reinforcement 3E",
+    "group": "mahr",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_metaalloyhullreinforcement_size3_class2": {
+    "symbol": "int_metaalloyhullreinforcement_size3_class2",
+    "name": "Meta Alloy Hull Reinforcement 3D",
+    "group": "mahr",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_metaalloyhullreinforcement_size4_class1": {
+    "symbol": "int_metaalloyhullreinforcement_size4_class1",
+    "name": "Meta Alloy Hull Reinforcement 4E",
+    "group": "mahr",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_metaalloyhullreinforcement_size4_class2": {
+    "symbol": "int_metaalloyhullreinforcement_size4_class2",
+    "name": "Meta Alloy Hull Reinforcement 4D",
+    "group": "mahr",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_metaalloyhullreinforcement_size5_class1": {
+    "symbol": "int_metaalloyhullreinforcement_size5_class1",
+    "name": "Meta Alloy Hull Reinforcement 5E",
+    "group": "mahr",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_metaalloyhullreinforcement_size5_class2": {
+    "symbol": "int_metaalloyhullreinforcement_size5_class2",
+    "name": "Meta Alloy Hull Reinforcement 5D",
+    "group": "mahr",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_missing_engine": {
+    "symbol": "int_missing_engine",
+    "name": "Unrecognised Thrusters 2Z",
+    "group": "t",
+    "class": 2,
+    "rating": "Z"
+  },
+  "int_missing_fueltank": {
+    "symbol": "int_missing_fueltank",
+    "name": "Unrecognised Fuel Tank 1Z",
+    "group": "ft",
+    "class": 1,
+    "rating": "Z"
+  },
+  "int_missing_hyperdrive": {
+    "symbol": "int_missing_hyperdrive",
+    "name": "Unrecognised Frame Shift Drive 0Z",
+    "group": "fsd",
+    "class": 0,
+    "rating": "Z"
+  },
+  "int_missing_lifesupport": {
+    "symbol": "int_missing_lifesupport",
+    "name": "Unrecognised Life Support 0Z",
+    "group": "ls",
+    "class": 0,
+    "rating": "Z"
+  },
+  "int_missing_module": {
+    "symbol": "int_missing_module",
+    "name": "Unrecognised Module 0Z",
+    "group": "mm",
+    "class": 0,
+    "rating": "Z"
+  },
+  "int_missing_powerdistributor": {
+    "symbol": "int_missing_powerdistributor",
+    "name": "Unrecognised Power Distributor 0Z",
+    "group": "pd",
+    "class": 0,
+    "rating": "Z"
+  },
+  "int_missing_powerplant": {
+    "symbol": "int_missing_powerplant",
+    "name": "Unrecognised Power Plant 0Z",
+    "group": "pp",
+    "class": 0,
+    "rating": "Z"
+  },
+  "int_missing_sensors": {
+    "symbol": "int_missing_sensors",
+    "name": "Unrecognised Sensors 1Z",
+    "group": "s",
+    "class": 1,
+    "rating": "Z"
+  },
+  "int_mkii_passengercabin_size2_class1": {
+    "symbol": "int_mkii_passengercabin_size2_class1",
+    "name": "MkII EC Passenger Cabin 2D",
+    "group": "pce",
+    "class": 2,
+    "rating": "D"
+  },
+  "int_mkii_passengercabin_size3_class1": {
+    "symbol": "int_mkii_passengercabin_size3_class1",
+    "name": "MkII EC Passenger Cabin 3D",
+    "group": "pce",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_mkii_passengercabin_size3_class2": {
+    "symbol": "int_mkii_passengercabin_size3_class2",
+    "name": "MkII BC Passenger Cabin 3C",
+    "group": "pci",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_mkii_passengercabin_size4_class1": {
+    "symbol": "int_mkii_passengercabin_size4_class1",
+    "name": "MkII EC Passenger Cabin 4D",
+    "group": "pce",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_mkii_passengercabin_size4_class2": {
+    "symbol": "int_mkii_passengercabin_size4_class2",
+    "name": "MkII BC Passenger Cabin 4C",
+    "group": "pci",
+    "class": 4,
+    "rating": "C"
+  },
+  "int_mkii_passengercabin_size5_class1": {
+    "symbol": "int_mkii_passengercabin_size5_class1",
+    "name": "MkII EC Passenger Cabin 5D",
+    "group": "pce",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_mkii_passengercabin_size5_class2": {
+    "symbol": "int_mkii_passengercabin_size5_class2",
+    "name": "MkII BC Passenger Cabin 5C",
+    "group": "pci",
+    "class": 5,
+    "rating": "C"
+  },
+  "int_mkii_passengercabin_size6_class1": {
+    "symbol": "int_mkii_passengercabin_size6_class1",
+    "name": "MkII EC Passenger Cabin 6D",
+    "group": "pce",
+    "class": 6,
+    "rating": "D"
+  },
+  "int_mkii_passengercabin_size6_class2": {
+    "symbol": "int_mkii_passengercabin_size6_class2",
+    "name": "MkII BC Passenger Cabin 6C",
+    "group": "pci",
+    "class": 6,
+    "rating": "C"
+  },
+  "int_mkiiagileboost_engine_size5_class5": {
+    "symbol": "int_mkiiagileboost_engine_size5_class5",
+    "name": "MkII Agile Boost Thrusters 5A",
+    "group": "t",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_mkiilargebuggybay_size2_class3": {
+    "symbol": "int_mkiilargebuggybay_size2_class3",
+    "name": "MkII Large Planetary Vehicle Hangar 2F",
+    "group": "pv",
+    "class": 2,
+    "rating": "F"
+  },
+  "int_mkiilargebuggybay_size4_class3": {
+    "symbol": "int_mkiilargebuggybay_size4_class3",
+    "name": "MkII Large Planetary Vehicle Hangar 4F",
+    "group": "pv",
+    "class": 4,
+    "rating": "F"
+  },
+  "int_mkiilargebuggybay_size6_class3": {
+    "symbol": "int_mkiilargebuggybay_size6_class3",
+    "name": "MkII Large Planetary Vehicle Hangar 6F",
+    "group": "pv",
+    "class": 6,
+    "rating": "F"
+  },
+  "int_modulereinforcement_size1_class1": {
+    "symbol": "int_modulereinforcement_size1_class1",
+    "name": "Module Reinforcement 1E",
+    "group": "mrp",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_modulereinforcement_size1_class2": {
+    "symbol": "int_modulereinforcement_size1_class2",
+    "name": "Module Reinforcement 1D",
+    "group": "mrp",
+    "class": 1,
+    "rating": "D"
+  },
+  "int_modulereinforcement_size2_class1": {
+    "symbol": "int_modulereinforcement_size2_class1",
+    "name": "Module Reinforcement 2E",
+    "group": "mrp",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_modulereinforcement_size2_class2": {
+    "symbol": "int_modulereinforcement_size2_class2",
+    "name": "Module Reinforcement 2D",
+    "group": "mrp",
+    "class": 2,
+    "rating": "D"
+  },
+  "int_modulereinforcement_size3_class1": {
+    "symbol": "int_modulereinforcement_size3_class1",
+    "name": "Module Reinforcement 3E",
+    "group": "mrp",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_modulereinforcement_size3_class2": {
+    "symbol": "int_modulereinforcement_size3_class2",
+    "name": "Module Reinforcement 3D",
+    "group": "mrp",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_modulereinforcement_size4_class1": {
+    "symbol": "int_modulereinforcement_size4_class1",
+    "name": "Module Reinforcement 4E",
+    "group": "mrp",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_modulereinforcement_size4_class2": {
+    "symbol": "int_modulereinforcement_size4_class2",
+    "name": "Module Reinforcement 4D",
+    "group": "mrp",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_modulereinforcement_size5_class1": {
+    "symbol": "int_modulereinforcement_size5_class1",
+    "name": "Module Reinforcement 5E",
+    "group": "mrp",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_modulereinforcement_size5_class2": {
+    "symbol": "int_modulereinforcement_size5_class2",
+    "name": "Module Reinforcement 5D",
+    "group": "mrp",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_multidronecontrol_mining_size3_class1": {
+    "symbol": "int_multidronecontrol_mining_size3_class1",
+    "name": "Mining Multi Limpet Controller 3E",
+    "group": "mlc",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_multidronecontrol_mining_size3_class3": {
+    "symbol": "int_multidronecontrol_mining_size3_class3",
+    "name": "Mining Multi Limpet Controller 3C",
+    "group": "mlc",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_multidronecontrol_miningv2_size5_class5": {
+    "symbol": "int_multidronecontrol_miningv2_size5_class5",
+    "name": "Mk II Mining Multi-Limpet Controller 5A",
+    "group": "mlc",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_multidronecontrol_operations_size3_class3": {
+    "symbol": "int_multidronecontrol_operations_size3_class3",
+    "name": "Operations Multi Limpet Controller 3C",
+    "group": "mlc",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_multidronecontrol_operations_size3_class4": {
+    "symbol": "int_multidronecontrol_operations_size3_class4",
+    "name": "Operations Multi Limpet Controller 3B",
+    "group": "mlc",
+    "class": 3,
+    "rating": "B"
+  },
+  "int_multidronecontrol_rescue_size3_class2": {
+    "symbol": "int_multidronecontrol_rescue_size3_class2",
+    "name": "Rescue Multi Limpet Controller 3D",
+    "group": "mlc",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_multidronecontrol_rescue_size3_class3": {
+    "symbol": "int_multidronecontrol_rescue_size3_class3",
+    "name": "Rescue Multi Limpet Controller 3C",
+    "group": "mlc",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_multidronecontrol_universal_size7_class3": {
+    "symbol": "int_multidronecontrol_universal_size7_class3",
+    "name": "Universal Multi Limpet Controller 7C",
+    "group": "mlc",
+    "class": 7,
+    "rating": "C"
+  },
+  "int_multidronecontrol_universal_size7_class5": {
+    "symbol": "int_multidronecontrol_universal_size7_class5",
+    "name": "Universal Multi Limpet Controller 7A",
+    "group": "mlc",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_multidronecontrol_xeno_size3_class3": {
+    "symbol": "int_multidronecontrol_xeno_size3_class3",
+    "name": "Xeno Multi Limpet Controller 3C",
+    "group": "mlc",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_multidronecontrol_xeno_size3_class4": {
+    "symbol": "int_multidronecontrol_xeno_size3_class4",
+    "name": "Xeno Multi Limpet Controller 3B",
+    "group": "mlc",
+    "class": 3,
+    "rating": "B"
+  },
+  "int_passengercabin_size2_class1": {
+    "symbol": "int_passengercabin_size2_class1",
+    "name": "EC Passenger Cabin 2E",
+    "group": "pce",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_passengercabin_size3_class1": {
+    "symbol": "int_passengercabin_size3_class1",
+    "name": "EC Passenger Cabin 3E",
+    "group": "pce",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_passengercabin_size3_class2": {
+    "symbol": "int_passengercabin_size3_class2",
+    "name": "BC Passenger Cabin 3D",
+    "group": "pci",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_passengercabin_size4_class1": {
+    "symbol": "int_passengercabin_size4_class1",
+    "name": "EC Passenger Cabin 4E",
+    "group": "pce",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_passengercabin_size4_class2": {
+    "symbol": "int_passengercabin_size4_class2",
+    "name": "BC Passenger Cabin 4D",
+    "group": "pci",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_passengercabin_size4_class3": {
+    "symbol": "int_passengercabin_size4_class3",
+    "name": "FC Passenger Cabin 4C",
+    "group": "pcm",
+    "class": 4,
+    "rating": "C"
+  },
+  "int_passengercabin_size5_class1": {
+    "symbol": "int_passengercabin_size5_class1",
+    "name": "EC Passenger Cabin 5E",
+    "group": "pce",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_passengercabin_size5_class2": {
+    "symbol": "int_passengercabin_size5_class2",
+    "name": "BC Passenger Cabin 5D",
+    "group": "pci",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_passengercabin_size5_class3": {
+    "symbol": "int_passengercabin_size5_class3",
+    "name": "FC Passenger Cabin 5C",
+    "group": "pcm",
+    "class": 5,
+    "rating": "C"
+  },
+  "int_passengercabin_size5_class4": {
+    "symbol": "int_passengercabin_size5_class4",
+    "name": "LC Passenger Cabin 5B",
+    "group": "pcq",
+    "class": 5,
+    "rating": "B"
+  },
+  "int_passengercabin_size6_class1": {
+    "symbol": "int_passengercabin_size6_class1",
+    "name": "EC Passenger Cabin 6E",
+    "group": "pce",
+    "class": 6,
+    "rating": "E"
+  },
+  "int_passengercabin_size6_class2": {
+    "symbol": "int_passengercabin_size6_class2",
+    "name": "BC Passenger Cabin 6D",
+    "group": "pci",
+    "class": 6,
+    "rating": "D"
+  },
+  "int_passengercabin_size6_class3": {
+    "symbol": "int_passengercabin_size6_class3",
+    "name": "FC Passenger Cabin 6C",
+    "group": "pcm",
+    "class": 6,
+    "rating": "C"
+  },
+  "int_passengercabin_size6_class4": {
+    "symbol": "int_passengercabin_size6_class4",
+    "name": "LC Passenger Cabin 6B",
+    "group": "pcq",
+    "class": 6,
+    "rating": "B"
+  },
+  "int_planetapproachsuite": {
+    "symbol": "int_planetapproachsuite",
+    "name": "Planetary Approach Suite (Horizons) 1I",
+    "group": "pas",
+    "class": 1,
+    "rating": "I"
+  },
+  "int_planetapproachsuite_advanced": {
+    "symbol": "int_planetapproachsuite_advanced",
+    "name": "Advanced Planetary Approach Suite (Odyssey) 1I",
+    "group": "pas",
+    "class": 1,
+    "rating": "I"
+  },
+  "int_powerdistributor_size1_class1": {
+    "symbol": "int_powerdistributor_size1_class1",
+    "name": "Power Distributor 1E",
+    "group": "pd",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_powerdistributor_size1_class2": {
+    "symbol": "int_powerdistributor_size1_class2",
+    "name": "Power Distributor 1D",
+    "group": "pd",
+    "class": 1,
+    "rating": "D"
+  },
+  "int_powerdistributor_size1_class3": {
+    "symbol": "int_powerdistributor_size1_class3",
+    "name": "Power Distributor 1C",
+    "group": "pd",
+    "class": 1,
+    "rating": "C"
+  },
+  "int_powerdistributor_size1_class4": {
+    "symbol": "int_powerdistributor_size1_class4",
+    "name": "Power Distributor 1B",
+    "group": "pd",
+    "class": 1,
+    "rating": "B"
+  },
+  "int_powerdistributor_size1_class5": {
+    "symbol": "int_powerdistributor_size1_class5",
+    "name": "Power Distributor 1A",
+    "group": "pd",
+    "class": 1,
+    "rating": "A"
+  },
+  "int_powerdistributor_size2_class1": {
+    "symbol": "int_powerdistributor_size2_class1",
+    "name": "Power Distributor 2E",
+    "group": "pd",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_powerdistributor_size2_class2": {
+    "symbol": "int_powerdistributor_size2_class2",
+    "name": "Power Distributor 2D",
+    "group": "pd",
+    "class": 2,
+    "rating": "D"
+  },
+  "int_powerdistributor_size2_class3": {
+    "symbol": "int_powerdistributor_size2_class3",
+    "name": "Power Distributor 2C",
+    "group": "pd",
+    "class": 2,
+    "rating": "C"
+  },
+  "int_powerdistributor_size2_class4": {
+    "symbol": "int_powerdistributor_size2_class4",
+    "name": "Power Distributor 2B",
+    "group": "pd",
+    "class": 2,
+    "rating": "B"
+  },
+  "int_powerdistributor_size2_class5": {
+    "symbol": "int_powerdistributor_size2_class5",
+    "name": "Power Distributor 2A",
+    "group": "pd",
+    "class": 2,
+    "rating": "A"
+  },
+  "int_powerdistributor_size3_class1": {
+    "symbol": "int_powerdistributor_size3_class1",
+    "name": "Power Distributor 3E",
+    "group": "pd",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_powerdistributor_size3_class2": {
+    "symbol": "int_powerdistributor_size3_class2",
+    "name": "Power Distributor 3D",
+    "group": "pd",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_powerdistributor_size3_class3": {
+    "symbol": "int_powerdistributor_size3_class3",
+    "name": "Power Distributor 3C",
+    "group": "pd",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_powerdistributor_size3_class4": {
+    "symbol": "int_powerdistributor_size3_class4",
+    "name": "Power Distributor 3B",
+    "group": "pd",
+    "class": 3,
+    "rating": "B"
+  },
+  "int_powerdistributor_size3_class5": {
+    "symbol": "int_powerdistributor_size3_class5",
+    "name": "Power Distributor 3A",
+    "group": "pd",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_powerdistributor_size4_class1": {
+    "symbol": "int_powerdistributor_size4_class1",
+    "name": "Power Distributor 4E",
+    "group": "pd",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_powerdistributor_size4_class2": {
+    "symbol": "int_powerdistributor_size4_class2",
+    "name": "Power Distributor 4D",
+    "group": "pd",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_powerdistributor_size4_class3": {
+    "symbol": "int_powerdistributor_size4_class3",
+    "name": "Power Distributor 4C",
+    "group": "pd",
+    "class": 4,
+    "rating": "C"
+  },
+  "int_powerdistributor_size4_class4": {
+    "symbol": "int_powerdistributor_size4_class4",
+    "name": "Power Distributor 4B",
+    "group": "pd",
+    "class": 4,
+    "rating": "B"
+  },
+  "int_powerdistributor_size4_class5": {
+    "symbol": "int_powerdistributor_size4_class5",
+    "name": "Power Distributor 4A",
+    "group": "pd",
+    "class": 4,
+    "rating": "A"
+  },
+  "int_powerdistributor_size5_class1": {
+    "symbol": "int_powerdistributor_size5_class1",
+    "name": "Power Distributor 5E",
+    "group": "pd",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_powerdistributor_size5_class2": {
+    "symbol": "int_powerdistributor_size5_class2",
+    "name": "Power Distributor 5D",
+    "group": "pd",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_powerdistributor_size5_class3": {
+    "symbol": "int_powerdistributor_size5_class3",
+    "name": "Power Distributor 5C",
+    "group": "pd",
+    "class": 5,
+    "rating": "C"
+  },
+  "int_powerdistributor_size5_class4": {
+    "symbol": "int_powerdistributor_size5_class4",
+    "name": "Power Distributor 5B",
+    "group": "pd",
+    "class": 5,
+    "rating": "B"
+  },
+  "int_powerdistributor_size5_class5": {
+    "symbol": "int_powerdistributor_size5_class5",
+    "name": "Power Distributor 5A",
+    "group": "pd",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_powerdistributor_size6_class1": {
+    "symbol": "int_powerdistributor_size6_class1",
+    "name": "Power Distributor 6E",
+    "group": "pd",
+    "class": 6,
+    "rating": "E"
+  },
+  "int_powerdistributor_size6_class2": {
+    "symbol": "int_powerdistributor_size6_class2",
+    "name": "Power Distributor 6D",
+    "group": "pd",
+    "class": 6,
+    "rating": "D"
+  },
+  "int_powerdistributor_size6_class3": {
+    "symbol": "int_powerdistributor_size6_class3",
+    "name": "Power Distributor 6C",
+    "group": "pd",
+    "class": 6,
+    "rating": "C"
+  },
+  "int_powerdistributor_size6_class4": {
+    "symbol": "int_powerdistributor_size6_class4",
+    "name": "Power Distributor 6B",
+    "group": "pd",
+    "class": 6,
+    "rating": "B"
+  },
+  "int_powerdistributor_size6_class5": {
+    "symbol": "int_powerdistributor_size6_class5",
+    "name": "Power Distributor 6A",
+    "group": "pd",
+    "class": 6,
+    "rating": "A"
+  },
+  "int_powerdistributor_size7_class1": {
+    "symbol": "int_powerdistributor_size7_class1",
+    "name": "Power Distributor 7E",
+    "group": "pd",
+    "class": 7,
+    "rating": "E"
+  },
+  "int_powerdistributor_size7_class2": {
+    "symbol": "int_powerdistributor_size7_class2",
+    "name": "Power Distributor 7D",
+    "group": "pd",
+    "class": 7,
+    "rating": "D"
+  },
+  "int_powerdistributor_size7_class3": {
+    "symbol": "int_powerdistributor_size7_class3",
+    "name": "Power Distributor 7C",
+    "group": "pd",
+    "class": 7,
+    "rating": "C"
+  },
+  "int_powerdistributor_size7_class4": {
+    "symbol": "int_powerdistributor_size7_class4",
+    "name": "Power Distributor 7B",
+    "group": "pd",
+    "class": 7,
+    "rating": "B"
+  },
+  "int_powerdistributor_size7_class5": {
+    "symbol": "int_powerdistributor_size7_class5",
+    "name": "Power Distributor 7A",
+    "group": "pd",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_powerdistributor_size8_class1": {
+    "symbol": "int_powerdistributor_size8_class1",
+    "name": "Power Distributor 8E",
+    "group": "pd",
+    "class": 8,
+    "rating": "E"
+  },
+  "int_powerdistributor_size8_class2": {
+    "symbol": "int_powerdistributor_size8_class2",
+    "name": "Power Distributor 8D",
+    "group": "pd",
+    "class": 8,
+    "rating": "D"
+  },
+  "int_powerdistributor_size8_class3": {
+    "symbol": "int_powerdistributor_size8_class3",
+    "name": "Power Distributor 8C",
+    "group": "pd",
+    "class": 8,
+    "rating": "C"
+  },
+  "int_powerdistributor_size8_class4": {
+    "symbol": "int_powerdistributor_size8_class4",
+    "name": "Power Distributor 8B",
+    "group": "pd",
+    "class": 8,
+    "rating": "B"
+  },
+  "int_powerdistributor_size8_class5": {
+    "symbol": "int_powerdistributor_size8_class5",
+    "name": "Power Distributor 8A",
+    "group": "pd",
+    "class": 8,
+    "rating": "A"
+  },
+  "int_powerplant_size2_class1": {
+    "symbol": "int_powerplant_size2_class1",
+    "name": "Power Plant 2E",
+    "group": "pp",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_powerplant_size2_class2": {
+    "symbol": "int_powerplant_size2_class2",
+    "name": "Power Plant 2D",
+    "group": "pp",
+    "class": 2,
+    "rating": "D"
+  },
+  "int_powerplant_size2_class3": {
+    "symbol": "int_powerplant_size2_class3",
+    "name": "Power Plant 2C",
+    "group": "pp",
+    "class": 2,
+    "rating": "C"
+  },
+  "int_powerplant_size2_class4": {
+    "symbol": "int_powerplant_size2_class4",
+    "name": "Power Plant 2B",
+    "group": "pp",
+    "class": 2,
+    "rating": "B"
+  },
+  "int_powerplant_size2_class5": {
+    "symbol": "int_powerplant_size2_class5",
+    "name": "Power Plant 2A",
+    "group": "pp",
+    "class": 2,
+    "rating": "A"
+  },
+  "int_powerplant_size3_class1": {
+    "symbol": "int_powerplant_size3_class1",
+    "name": "Power Plant 3E",
+    "group": "pp",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_powerplant_size3_class2": {
+    "symbol": "int_powerplant_size3_class2",
+    "name": "Power Plant 3D",
+    "group": "pp",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_powerplant_size3_class3": {
+    "symbol": "int_powerplant_size3_class3",
+    "name": "Power Plant 3C",
+    "group": "pp",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_powerplant_size3_class4": {
+    "symbol": "int_powerplant_size3_class4",
+    "name": "Power Plant 3B",
+    "group": "pp",
+    "class": 3,
+    "rating": "B"
+  },
+  "int_powerplant_size3_class5": {
+    "symbol": "int_powerplant_size3_class5",
+    "name": "Power Plant 3A",
+    "group": "pp",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_powerplant_size4_class1": {
+    "symbol": "int_powerplant_size4_class1",
+    "name": "Power Plant 4E",
+    "group": "pp",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_powerplant_size4_class2": {
+    "symbol": "int_powerplant_size4_class2",
+    "name": "Power Plant 4D",
+    "group": "pp",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_powerplant_size4_class3": {
+    "symbol": "int_powerplant_size4_class3",
+    "name": "Power Plant 4C",
+    "group": "pp",
+    "class": 4,
+    "rating": "C"
+  },
+  "int_powerplant_size4_class4": {
+    "symbol": "int_powerplant_size4_class4",
+    "name": "Power Plant 4B",
+    "group": "pp",
+    "class": 4,
+    "rating": "B"
+  },
+  "int_powerplant_size4_class5": {
+    "symbol": "int_powerplant_size4_class5",
+    "name": "Power Plant 4A",
+    "group": "pp",
+    "class": 4,
+    "rating": "A"
+  },
+  "int_powerplant_size5_class1": {
+    "symbol": "int_powerplant_size5_class1",
+    "name": "Power Plant 5E",
+    "group": "pp",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_powerplant_size5_class2": {
+    "symbol": "int_powerplant_size5_class2",
+    "name": "Power Plant 5D",
+    "group": "pp",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_powerplant_size5_class3": {
+    "symbol": "int_powerplant_size5_class3",
+    "name": "Power Plant 5C",
+    "group": "pp",
+    "class": 5,
+    "rating": "C"
+  },
+  "int_powerplant_size5_class4": {
+    "symbol": "int_powerplant_size5_class4",
+    "name": "Power Plant 5B",
+    "group": "pp",
+    "class": 5,
+    "rating": "B"
+  },
+  "int_powerplant_size5_class5": {
+    "symbol": "int_powerplant_size5_class5",
+    "name": "Power Plant 5A",
+    "group": "pp",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_powerplant_size6_class1": {
+    "symbol": "int_powerplant_size6_class1",
+    "name": "Power Plant 6E",
+    "group": "pp",
+    "class": 6,
+    "rating": "E"
+  },
+  "int_powerplant_size6_class2": {
+    "symbol": "int_powerplant_size6_class2",
+    "name": "Power Plant 6D",
+    "group": "pp",
+    "class": 6,
+    "rating": "D"
+  },
+  "int_powerplant_size6_class3": {
+    "symbol": "int_powerplant_size6_class3",
+    "name": "Power Plant 6C",
+    "group": "pp",
+    "class": 6,
+    "rating": "C"
+  },
+  "int_powerplant_size6_class4": {
+    "symbol": "int_powerplant_size6_class4",
+    "name": "Power Plant 6B",
+    "group": "pp",
+    "class": 6,
+    "rating": "B"
+  },
+  "int_powerplant_size6_class5": {
+    "symbol": "int_powerplant_size6_class5",
+    "name": "Power Plant 6A",
+    "group": "pp",
+    "class": 6,
+    "rating": "A"
+  },
+  "int_powerplant_size7_class1": {
+    "symbol": "int_powerplant_size7_class1",
+    "name": "Power Plant 7E",
+    "group": "pp",
+    "class": 7,
+    "rating": "E"
+  },
+  "int_powerplant_size7_class2": {
+    "symbol": "int_powerplant_size7_class2",
+    "name": "Power Plant 7D",
+    "group": "pp",
+    "class": 7,
+    "rating": "D"
+  },
+  "int_powerplant_size7_class3": {
+    "symbol": "int_powerplant_size7_class3",
+    "name": "Power Plant 7C",
+    "group": "pp",
+    "class": 7,
+    "rating": "C"
+  },
+  "int_powerplant_size7_class4": {
+    "symbol": "int_powerplant_size7_class4",
+    "name": "Power Plant 7B",
+    "group": "pp",
+    "class": 7,
+    "rating": "B"
+  },
+  "int_powerplant_size7_class5": {
+    "symbol": "int_powerplant_size7_class5",
+    "name": "Power Plant 7A",
+    "group": "pp",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_powerplant_size8_class1": {
+    "symbol": "int_powerplant_size8_class1",
+    "name": "Power Plant 8E",
+    "group": "pp",
+    "class": 8,
+    "rating": "E"
+  },
+  "int_powerplant_size8_class2": {
+    "symbol": "int_powerplant_size8_class2",
+    "name": "Power Plant 8D",
+    "group": "pp",
+    "class": 8,
+    "rating": "D"
+  },
+  "int_powerplant_size8_class3": {
+    "symbol": "int_powerplant_size8_class3",
+    "name": "Power Plant 8C",
+    "group": "pp",
+    "class": 8,
+    "rating": "C"
+  },
+  "int_powerplant_size8_class4": {
+    "symbol": "int_powerplant_size8_class4",
+    "name": "Power Plant 8B",
+    "group": "pp",
+    "class": 8,
+    "rating": "B"
+  },
+  "int_powerplant_size8_class5": {
+    "symbol": "int_powerplant_size8_class5",
+    "name": "Power Plant 8A",
+    "group": "pp",
+    "class": 8,
+    "rating": "A"
+  },
+  "int_refinery_size1_class1": {
+    "symbol": "int_refinery_size1_class1",
+    "name": "Refinery 1E",
+    "group": "rf",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_refinery_size1_class2": {
+    "symbol": "int_refinery_size1_class2",
+    "name": "Refinery 1D",
+    "group": "rf",
+    "class": 1,
+    "rating": "D"
+  },
+  "int_refinery_size1_class3": {
+    "symbol": "int_refinery_size1_class3",
+    "name": "Refinery 1C",
+    "group": "rf",
+    "class": 1,
+    "rating": "C"
+  },
+  "int_refinery_size1_class4": {
+    "symbol": "int_refinery_size1_class4",
+    "name": "Refinery 1B",
+    "group": "rf",
+    "class": 1,
+    "rating": "B"
+  },
+  "int_refinery_size1_class5": {
+    "symbol": "int_refinery_size1_class5",
+    "name": "Refinery 1A",
+    "group": "rf",
+    "class": 1,
+    "rating": "A"
+  },
+  "int_refinery_size2_class1": {
+    "symbol": "int_refinery_size2_class1",
+    "name": "Refinery 2E",
+    "group": "rf",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_refinery_size2_class2": {
+    "symbol": "int_refinery_size2_class2",
+    "name": "Refinery 2D",
+    "group": "rf",
+    "class": 2,
+    "rating": "D"
+  },
+  "int_refinery_size2_class3": {
+    "symbol": "int_refinery_size2_class3",
+    "name": "Refinery 2C",
+    "group": "rf",
+    "class": 2,
+    "rating": "C"
+  },
+  "int_refinery_size2_class4": {
+    "symbol": "int_refinery_size2_class4",
+    "name": "Refinery 2B",
+    "group": "rf",
+    "class": 2,
+    "rating": "B"
+  },
+  "int_refinery_size2_class5": {
+    "symbol": "int_refinery_size2_class5",
+    "name": "Refinery 2A",
+    "group": "rf",
+    "class": 2,
+    "rating": "A"
+  },
+  "int_refinery_size3_class1": {
+    "symbol": "int_refinery_size3_class1",
+    "name": "Refinery 3E",
+    "group": "rf",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_refinery_size3_class2": {
+    "symbol": "int_refinery_size3_class2",
+    "name": "Refinery 3D",
+    "group": "rf",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_refinery_size3_class3": {
+    "symbol": "int_refinery_size3_class3",
+    "name": "Refinery 3C",
+    "group": "rf",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_refinery_size3_class4": {
+    "symbol": "int_refinery_size3_class4",
+    "name": "Refinery 3B",
+    "group": "rf",
+    "class": 3,
+    "rating": "B"
+  },
+  "int_refinery_size3_class5": {
+    "symbol": "int_refinery_size3_class5",
+    "name": "Refinery 3A",
+    "group": "rf",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_refinery_size4_class1": {
+    "symbol": "int_refinery_size4_class1",
+    "name": "Refinery 4E",
+    "group": "rf",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_refinery_size4_class2": {
+    "symbol": "int_refinery_size4_class2",
+    "name": "Refinery 4D",
+    "group": "rf",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_refinery_size4_class3": {
+    "symbol": "int_refinery_size4_class3",
+    "name": "Refinery 4C",
+    "group": "rf",
+    "class": 4,
+    "rating": "C"
+  },
+  "int_refinery_size4_class4": {
+    "symbol": "int_refinery_size4_class4",
+    "name": "Refinery 4B",
+    "group": "rf",
+    "class": 4,
+    "rating": "B"
+  },
+  "int_refinery_size4_class5": {
+    "symbol": "int_refinery_size4_class5",
+    "name": "Refinery 4A",
+    "group": "rf",
+    "class": 4,
+    "rating": "A"
+  },
+  "int_repairer_size1_class1": {
+    "symbol": "int_repairer_size1_class1",
+    "name": "AFM Unit 1E",
+    "group": "am",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_repairer_size1_class2": {
+    "symbol": "int_repairer_size1_class2",
+    "name": "AFM Unit 1D",
+    "group": "am",
+    "class": 1,
+    "rating": "D"
+  },
+  "int_repairer_size1_class3": {
+    "symbol": "int_repairer_size1_class3",
+    "name": "AFM Unit 1C",
+    "group": "am",
+    "class": 1,
+    "rating": "C"
+  },
+  "int_repairer_size1_class4": {
+    "symbol": "int_repairer_size1_class4",
+    "name": "AFM Unit 1B",
+    "group": "am",
+    "class": 1,
+    "rating": "B"
+  },
+  "int_repairer_size1_class5": {
+    "symbol": "int_repairer_size1_class5",
+    "name": "AFM Unit 1A",
+    "group": "am",
+    "class": 1,
+    "rating": "A"
+  },
+  "int_repairer_size2_class1": {
+    "symbol": "int_repairer_size2_class1",
+    "name": "AFM Unit 2E",
+    "group": "am",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_repairer_size2_class2": {
+    "symbol": "int_repairer_size2_class2",
+    "name": "AFM Unit 2D",
+    "group": "am",
+    "class": 2,
+    "rating": "D"
+  },
+  "int_repairer_size2_class3": {
+    "symbol": "int_repairer_size2_class3",
+    "name": "AFM Unit 2C",
+    "group": "am",
+    "class": 2,
+    "rating": "C"
+  },
+  "int_repairer_size2_class4": {
+    "symbol": "int_repairer_size2_class4",
+    "name": "AFM Unit 2B",
+    "group": "am",
+    "class": 2,
+    "rating": "B"
+  },
+  "int_repairer_size2_class5": {
+    "symbol": "int_repairer_size2_class5",
+    "name": "AFM Unit 2A",
+    "group": "am",
+    "class": 2,
+    "rating": "A"
+  },
+  "int_repairer_size3_class1": {
+    "symbol": "int_repairer_size3_class1",
+    "name": "AFM Unit 3E",
+    "group": "am",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_repairer_size3_class2": {
+    "symbol": "int_repairer_size3_class2",
+    "name": "AFM Unit 3D",
+    "group": "am",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_repairer_size3_class3": {
+    "symbol": "int_repairer_size3_class3",
+    "name": "AFM Unit 3C",
+    "group": "am",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_repairer_size3_class4": {
+    "symbol": "int_repairer_size3_class4",
+    "name": "AFM Unit 3B",
+    "group": "am",
+    "class": 3,
+    "rating": "B"
+  },
+  "int_repairer_size3_class5": {
+    "symbol": "int_repairer_size3_class5",
+    "name": "AFM Unit 3A",
+    "group": "am",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_repairer_size4_class1": {
+    "symbol": "int_repairer_size4_class1",
+    "name": "AFM Unit 4E",
+    "group": "am",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_repairer_size4_class2": {
+    "symbol": "int_repairer_size4_class2",
+    "name": "AFM Unit 4D",
+    "group": "am",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_repairer_size4_class3": {
+    "symbol": "int_repairer_size4_class3",
+    "name": "AFM Unit 4C",
+    "group": "am",
+    "class": 4,
+    "rating": "C"
+  },
+  "int_repairer_size4_class4": {
+    "symbol": "int_repairer_size4_class4",
+    "name": "AFM Unit 4B",
+    "group": "am",
+    "class": 4,
+    "rating": "B"
+  },
+  "int_repairer_size4_class5": {
+    "symbol": "int_repairer_size4_class5",
+    "name": "AFM Unit 4A",
+    "group": "am",
+    "class": 4,
+    "rating": "A"
+  },
+  "int_repairer_size5_class1": {
+    "symbol": "int_repairer_size5_class1",
+    "name": "AFM Unit 5E",
+    "group": "am",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_repairer_size5_class2": {
+    "symbol": "int_repairer_size5_class2",
+    "name": "AFM Unit 5D",
+    "group": "am",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_repairer_size5_class3": {
+    "symbol": "int_repairer_size5_class3",
+    "name": "AFM Unit 5C",
+    "group": "am",
+    "class": 5,
+    "rating": "C"
+  },
+  "int_repairer_size5_class4": {
+    "symbol": "int_repairer_size5_class4",
+    "name": "AFM Unit 5B",
+    "group": "am",
+    "class": 5,
+    "rating": "B"
+  },
+  "int_repairer_size5_class5": {
+    "symbol": "int_repairer_size5_class5",
+    "name": "AFM Unit 5A",
+    "group": "am",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_repairer_size6_class1": {
+    "symbol": "int_repairer_size6_class1",
+    "name": "AFM Unit 6E",
+    "group": "am",
+    "class": 6,
+    "rating": "E"
+  },
+  "int_repairer_size6_class2": {
+    "symbol": "int_repairer_size6_class2",
+    "name": "AFM Unit 6D",
+    "group": "am",
+    "class": 6,
+    "rating": "D"
+  },
+  "int_repairer_size6_class3": {
+    "symbol": "int_repairer_size6_class3",
+    "name": "AFM Unit 6C",
+    "group": "am",
+    "class": 6,
+    "rating": "C"
+  },
+  "int_repairer_size6_class4": {
+    "symbol": "int_repairer_size6_class4",
+    "name": "AFM Unit 6B",
+    "group": "am",
+    "class": 6,
+    "rating": "B"
+  },
+  "int_repairer_size6_class5": {
+    "symbol": "int_repairer_size6_class5",
+    "name": "AFM Unit 6A",
+    "group": "am",
+    "class": 6,
+    "rating": "A"
+  },
+  "int_repairer_size7_class1": {
+    "symbol": "int_repairer_size7_class1",
+    "name": "AFM Unit 7E",
+    "group": "am",
+    "class": 7,
+    "rating": "E"
+  },
+  "int_repairer_size7_class2": {
+    "symbol": "int_repairer_size7_class2",
+    "name": "AFM Unit 7D",
+    "group": "am",
+    "class": 7,
+    "rating": "D"
+  },
+  "int_repairer_size7_class3": {
+    "symbol": "int_repairer_size7_class3",
+    "name": "AFM Unit 7C",
+    "group": "am",
+    "class": 7,
+    "rating": "C"
+  },
+  "int_repairer_size7_class4": {
+    "symbol": "int_repairer_size7_class4",
+    "name": "AFM Unit 7B",
+    "group": "am",
+    "class": 7,
+    "rating": "B"
+  },
+  "int_repairer_size7_class5": {
+    "symbol": "int_repairer_size7_class5",
+    "name": "AFM Unit 7A",
+    "group": "am",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_repairer_size8_class1": {
+    "symbol": "int_repairer_size8_class1",
+    "name": "AFM Unit 8E",
+    "group": "am",
+    "class": 8,
+    "rating": "E"
+  },
+  "int_repairer_size8_class2": {
+    "symbol": "int_repairer_size8_class2",
+    "name": "AFM Unit 8D",
+    "group": "am",
+    "class": 8,
+    "rating": "D"
+  },
+  "int_repairer_size8_class3": {
+    "symbol": "int_repairer_size8_class3",
+    "name": "AFM Unit 8C",
+    "group": "am",
+    "class": 8,
+    "rating": "C"
+  },
+  "int_repairer_size8_class4": {
+    "symbol": "int_repairer_size8_class4",
+    "name": "AFM Unit 8B",
+    "group": "am",
+    "class": 8,
+    "rating": "B"
+  },
+  "int_repairer_size8_class5": {
+    "symbol": "int_repairer_size8_class5",
+    "name": "AFM Unit 8A",
+    "group": "am",
+    "class": 8,
+    "rating": "A"
+  },
+  "int_sensors_size1_class1": {
+    "symbol": "int_sensors_size1_class1",
+    "name": "Sensors 1E",
+    "group": "s",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_sensors_size1_class2": {
+    "symbol": "int_sensors_size1_class2",
+    "name": "Sensors 1D",
+    "group": "s",
+    "class": 1,
+    "rating": "D"
+  },
+  "int_sensors_size1_class3": {
+    "symbol": "int_sensors_size1_class3",
+    "name": "Sensors 1C",
+    "group": "s",
+    "class": 1,
+    "rating": "C"
+  },
+  "int_sensors_size1_class4": {
+    "symbol": "int_sensors_size1_class4",
+    "name": "Sensors 1B",
+    "group": "s",
+    "class": 1,
+    "rating": "B"
+  },
+  "int_sensors_size1_class5": {
+    "symbol": "int_sensors_size1_class5",
+    "name": "Sensors 1A",
+    "group": "s",
+    "class": 1,
+    "rating": "A"
+  },
+  "int_sensors_size2_class1": {
+    "symbol": "int_sensors_size2_class1",
+    "name": "Sensors 2E",
+    "group": "s",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_sensors_size2_class2": {
+    "symbol": "int_sensors_size2_class2",
+    "name": "Sensors 2D",
+    "group": "s",
+    "class": 2,
+    "rating": "D"
+  },
+  "int_sensors_size2_class3": {
+    "symbol": "int_sensors_size2_class3",
+    "name": "Sensors 2C",
+    "group": "s",
+    "class": 2,
+    "rating": "C"
+  },
+  "int_sensors_size2_class4": {
+    "symbol": "int_sensors_size2_class4",
+    "name": "Sensors 2B",
+    "group": "s",
+    "class": 2,
+    "rating": "B"
+  },
+  "int_sensors_size2_class5": {
+    "symbol": "int_sensors_size2_class5",
+    "name": "Sensors 2A",
+    "group": "s",
+    "class": 2,
+    "rating": "A"
+  },
+  "int_sensors_size3_class1": {
+    "symbol": "int_sensors_size3_class1",
+    "name": "Sensors 3E",
+    "group": "s",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_sensors_size3_class2": {
+    "symbol": "int_sensors_size3_class2",
+    "name": "Sensors 3D",
+    "group": "s",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_sensors_size3_class3": {
+    "symbol": "int_sensors_size3_class3",
+    "name": "Sensors 3C",
+    "group": "s",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_sensors_size3_class4": {
+    "symbol": "int_sensors_size3_class4",
+    "name": "Sensors 3B",
+    "group": "s",
+    "class": 3,
+    "rating": "B"
+  },
+  "int_sensors_size3_class5": {
+    "symbol": "int_sensors_size3_class5",
+    "name": "Sensors 3A",
+    "group": "s",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_sensors_size4_class1": {
+    "symbol": "int_sensors_size4_class1",
+    "name": "Sensors 4E",
+    "group": "s",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_sensors_size4_class2": {
+    "symbol": "int_sensors_size4_class2",
+    "name": "Sensors 4D",
+    "group": "s",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_sensors_size4_class3": {
+    "symbol": "int_sensors_size4_class3",
+    "name": "Sensors 4C",
+    "group": "s",
+    "class": 4,
+    "rating": "C"
+  },
+  "int_sensors_size4_class4": {
+    "symbol": "int_sensors_size4_class4",
+    "name": "Sensors 4B",
+    "group": "s",
+    "class": 4,
+    "rating": "B"
+  },
+  "int_sensors_size4_class5": {
+    "symbol": "int_sensors_size4_class5",
+    "name": "Sensors 4A",
+    "group": "s",
+    "class": 4,
+    "rating": "A"
+  },
+  "int_sensors_size5_class1": {
+    "symbol": "int_sensors_size5_class1",
+    "name": "Sensors 5E",
+    "group": "s",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_sensors_size5_class2": {
+    "symbol": "int_sensors_size5_class2",
+    "name": "Sensors 5D",
+    "group": "s",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_sensors_size5_class3": {
+    "symbol": "int_sensors_size5_class3",
+    "name": "Sensors 5C",
+    "group": "s",
+    "class": 5,
+    "rating": "C"
+  },
+  "int_sensors_size5_class4": {
+    "symbol": "int_sensors_size5_class4",
+    "name": "Sensors 5B",
+    "group": "s",
+    "class": 5,
+    "rating": "B"
+  },
+  "int_sensors_size5_class5": {
+    "symbol": "int_sensors_size5_class5",
+    "name": "Sensors 5A",
+    "group": "s",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_sensors_size6_class1": {
+    "symbol": "int_sensors_size6_class1",
+    "name": "Sensors 6E",
+    "group": "s",
+    "class": 6,
+    "rating": "E"
+  },
+  "int_sensors_size6_class2": {
+    "symbol": "int_sensors_size6_class2",
+    "name": "Sensors 6D",
+    "group": "s",
+    "class": 6,
+    "rating": "D"
+  },
+  "int_sensors_size6_class3": {
+    "symbol": "int_sensors_size6_class3",
+    "name": "Sensors 6C",
+    "group": "s",
+    "class": 6,
+    "rating": "C"
+  },
+  "int_sensors_size6_class4": {
+    "symbol": "int_sensors_size6_class4",
+    "name": "Sensors 6B",
+    "group": "s",
+    "class": 6,
+    "rating": "B"
+  },
+  "int_sensors_size6_class5": {
+    "symbol": "int_sensors_size6_class5",
+    "name": "Sensors 6A",
+    "group": "s",
+    "class": 6,
+    "rating": "A"
+  },
+  "int_sensors_size7_class1": {
+    "symbol": "int_sensors_size7_class1",
+    "name": "Sensors 7E",
+    "group": "s",
+    "class": 7,
+    "rating": "E"
+  },
+  "int_sensors_size7_class2": {
+    "symbol": "int_sensors_size7_class2",
+    "name": "Sensors 7D",
+    "group": "s",
+    "class": 7,
+    "rating": "D"
+  },
+  "int_sensors_size7_class3": {
+    "symbol": "int_sensors_size7_class3",
+    "name": "Sensors 7C",
+    "group": "s",
+    "class": 7,
+    "rating": "C"
+  },
+  "int_sensors_size7_class4": {
+    "symbol": "int_sensors_size7_class4",
+    "name": "Sensors 7B",
+    "group": "s",
+    "class": 7,
+    "rating": "B"
+  },
+  "int_sensors_size7_class5": {
+    "symbol": "int_sensors_size7_class5",
+    "name": "Sensors 7A",
+    "group": "s",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_sensors_size8_class1": {
+    "symbol": "int_sensors_size8_class1",
+    "name": "Sensors 8E",
+    "group": "s",
+    "class": 8,
+    "rating": "E"
+  },
+  "int_sensors_size8_class2": {
+    "symbol": "int_sensors_size8_class2",
+    "name": "Sensors 8D",
+    "group": "s",
+    "class": 8,
+    "rating": "D"
+  },
+  "int_sensors_size8_class3": {
+    "symbol": "int_sensors_size8_class3",
+    "name": "Sensors 8C",
+    "group": "s",
+    "class": 8,
+    "rating": "C"
+  },
+  "int_sensors_size8_class4": {
+    "symbol": "int_sensors_size8_class4",
+    "name": "Sensors 8B",
+    "group": "s",
+    "class": 8,
+    "rating": "B"
+  },
+  "int_sensors_size8_class5": {
+    "symbol": "int_sensors_size8_class5",
+    "name": "Sensors 8A",
+    "group": "s",
+    "class": 8,
+    "rating": "A"
+  },
+  "int_shieldcellbank_size1_class1": {
+    "symbol": "int_shieldcellbank_size1_class1",
+    "name": "Shield Cell Bank 1E",
+    "group": "scb",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_shieldcellbank_size1_class2": {
+    "symbol": "int_shieldcellbank_size1_class2",
+    "name": "Shield Cell Bank 1D",
+    "group": "scb",
+    "class": 1,
+    "rating": "D"
+  },
+  "int_shieldcellbank_size1_class3": {
+    "symbol": "int_shieldcellbank_size1_class3",
+    "name": "Shield Cell Bank 1C",
+    "group": "scb",
+    "class": 1,
+    "rating": "C"
+  },
+  "int_shieldcellbank_size1_class4": {
+    "symbol": "int_shieldcellbank_size1_class4",
+    "name": "Shield Cell Bank 1B",
+    "group": "scb",
+    "class": 1,
+    "rating": "B"
+  },
+  "int_shieldcellbank_size1_class5": {
+    "symbol": "int_shieldcellbank_size1_class5",
+    "name": "Shield Cell Bank 1A",
+    "group": "scb",
+    "class": 1,
+    "rating": "A"
+  },
+  "int_shieldcellbank_size2_class1": {
+    "symbol": "int_shieldcellbank_size2_class1",
+    "name": "Shield Cell Bank 2E",
+    "group": "scb",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_shieldcellbank_size2_class2": {
+    "symbol": "int_shieldcellbank_size2_class2",
+    "name": "Shield Cell Bank 2D",
+    "group": "scb",
+    "class": 2,
+    "rating": "D"
+  },
+  "int_shieldcellbank_size2_class3": {
+    "symbol": "int_shieldcellbank_size2_class3",
+    "name": "Shield Cell Bank 2C",
+    "group": "scb",
+    "class": 2,
+    "rating": "C"
+  },
+  "int_shieldcellbank_size2_class4": {
+    "symbol": "int_shieldcellbank_size2_class4",
+    "name": "Shield Cell Bank 2B",
+    "group": "scb",
+    "class": 2,
+    "rating": "B"
+  },
+  "int_shieldcellbank_size2_class5": {
+    "symbol": "int_shieldcellbank_size2_class5",
+    "name": "Shield Cell Bank 2A",
+    "group": "scb",
+    "class": 2,
+    "rating": "A"
+  },
+  "int_shieldcellbank_size3_class1": {
+    "symbol": "int_shieldcellbank_size3_class1",
+    "name": "Shield Cell Bank 3E",
+    "group": "scb",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_shieldcellbank_size3_class2": {
+    "symbol": "int_shieldcellbank_size3_class2",
+    "name": "Shield Cell Bank 3D",
+    "group": "scb",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_shieldcellbank_size3_class3": {
+    "symbol": "int_shieldcellbank_size3_class3",
+    "name": "Shield Cell Bank 3C",
+    "group": "scb",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_shieldcellbank_size3_class4": {
+    "symbol": "int_shieldcellbank_size3_class4",
+    "name": "Shield Cell Bank 3B",
+    "group": "scb",
+    "class": 3,
+    "rating": "B"
+  },
+  "int_shieldcellbank_size3_class5": {
+    "symbol": "int_shieldcellbank_size3_class5",
+    "name": "Shield Cell Bank 3A",
+    "group": "scb",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_shieldcellbank_size4_class1": {
+    "symbol": "int_shieldcellbank_size4_class1",
+    "name": "Shield Cell Bank 4E",
+    "group": "scb",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_shieldcellbank_size4_class2": {
+    "symbol": "int_shieldcellbank_size4_class2",
+    "name": "Shield Cell Bank 4D",
+    "group": "scb",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_shieldcellbank_size4_class3": {
+    "symbol": "int_shieldcellbank_size4_class3",
+    "name": "Shield Cell Bank 4C",
+    "group": "scb",
+    "class": 4,
+    "rating": "C"
+  },
+  "int_shieldcellbank_size4_class4": {
+    "symbol": "int_shieldcellbank_size4_class4",
+    "name": "Shield Cell Bank 4B",
+    "group": "scb",
+    "class": 4,
+    "rating": "B"
+  },
+  "int_shieldcellbank_size4_class5": {
+    "symbol": "int_shieldcellbank_size4_class5",
+    "name": "Shield Cell Bank 4A",
+    "group": "scb",
+    "class": 4,
+    "rating": "A"
+  },
+  "int_shieldcellbank_size5_class1": {
+    "symbol": "int_shieldcellbank_size5_class1",
+    "name": "Shield Cell Bank 5E",
+    "group": "scb",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_shieldcellbank_size5_class2": {
+    "symbol": "int_shieldcellbank_size5_class2",
+    "name": "Shield Cell Bank 5D",
+    "group": "scb",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_shieldcellbank_size5_class3": {
+    "symbol": "int_shieldcellbank_size5_class3",
+    "name": "Shield Cell Bank 5C",
+    "group": "scb",
+    "class": 5,
+    "rating": "C"
+  },
+  "int_shieldcellbank_size5_class4": {
+    "symbol": "int_shieldcellbank_size5_class4",
+    "name": "Shield Cell Bank 5B",
+    "group": "scb",
+    "class": 5,
+    "rating": "B"
+  },
+  "int_shieldcellbank_size5_class5": {
+    "symbol": "int_shieldcellbank_size5_class5",
+    "name": "Shield Cell Bank 5A",
+    "group": "scb",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_shieldcellbank_size6_class1": {
+    "symbol": "int_shieldcellbank_size6_class1",
+    "name": "Shield Cell Bank 6E",
+    "group": "scb",
+    "class": 6,
+    "rating": "E"
+  },
+  "int_shieldcellbank_size6_class2": {
+    "symbol": "int_shieldcellbank_size6_class2",
+    "name": "Shield Cell Bank 6D",
+    "group": "scb",
+    "class": 6,
+    "rating": "D"
+  },
+  "int_shieldcellbank_size6_class3": {
+    "symbol": "int_shieldcellbank_size6_class3",
+    "name": "Shield Cell Bank 6C",
+    "group": "scb",
+    "class": 6,
+    "rating": "C"
+  },
+  "int_shieldcellbank_size6_class4": {
+    "symbol": "int_shieldcellbank_size6_class4",
+    "name": "Shield Cell Bank 6B",
+    "group": "scb",
+    "class": 6,
+    "rating": "B"
+  },
+  "int_shieldcellbank_size6_class5": {
+    "symbol": "int_shieldcellbank_size6_class5",
+    "name": "Shield Cell Bank 6A",
+    "group": "scb",
+    "class": 6,
+    "rating": "A"
+  },
+  "int_shieldcellbank_size7_class1": {
+    "symbol": "int_shieldcellbank_size7_class1",
+    "name": "Shield Cell Bank 7E",
+    "group": "scb",
+    "class": 7,
+    "rating": "E"
+  },
+  "int_shieldcellbank_size7_class2": {
+    "symbol": "int_shieldcellbank_size7_class2",
+    "name": "Shield Cell Bank 7D",
+    "group": "scb",
+    "class": 7,
+    "rating": "D"
+  },
+  "int_shieldcellbank_size7_class3": {
+    "symbol": "int_shieldcellbank_size7_class3",
+    "name": "Shield Cell Bank 7C",
+    "group": "scb",
+    "class": 7,
+    "rating": "C"
+  },
+  "int_shieldcellbank_size7_class4": {
+    "symbol": "int_shieldcellbank_size7_class4",
+    "name": "Shield Cell Bank 7B",
+    "group": "scb",
+    "class": 7,
+    "rating": "B"
+  },
+  "int_shieldcellbank_size7_class5": {
+    "symbol": "int_shieldcellbank_size7_class5",
+    "name": "Shield Cell Bank 7A",
+    "group": "scb",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_shieldcellbank_size8_class1": {
+    "symbol": "int_shieldcellbank_size8_class1",
+    "name": "Shield Cell Bank 8E",
+    "group": "scb",
+    "class": 8,
+    "rating": "E"
+  },
+  "int_shieldcellbank_size8_class2": {
+    "symbol": "int_shieldcellbank_size8_class2",
+    "name": "Shield Cell Bank 8D",
+    "group": "scb",
+    "class": 8,
+    "rating": "D"
+  },
+  "int_shieldcellbank_size8_class3": {
+    "symbol": "int_shieldcellbank_size8_class3",
+    "name": "Shield Cell Bank 8C",
+    "group": "scb",
+    "class": 8,
+    "rating": "C"
+  },
+  "int_shieldcellbank_size8_class4": {
+    "symbol": "int_shieldcellbank_size8_class4",
+    "name": "Shield Cell Bank 8B",
+    "group": "scb",
+    "class": 8,
+    "rating": "B"
+  },
+  "int_shieldcellbank_size8_class5": {
+    "symbol": "int_shieldcellbank_size8_class5",
+    "name": "Shield Cell Bank 8A",
+    "group": "scb",
+    "class": 8,
+    "rating": "A"
+  },
+  "int_shieldgenerator_size1_class1": {
+    "symbol": "int_shieldgenerator_size1_class1",
+    "name": "Shield Generator 1E",
+    "group": "sg",
+    "class": 1,
+    "rating": "E"
+  },
+  "int_shieldgenerator_size1_class2": {
+    "symbol": "int_shieldgenerator_size1_class2",
+    "name": "Shield Generator 1D",
+    "group": "sg",
+    "class": 1,
+    "rating": "D"
+  },
+  "int_shieldgenerator_size1_class3": {
+    "symbol": "int_shieldgenerator_size1_class3",
+    "name": "Shield Generator 1C",
+    "group": "sg",
+    "class": 1,
+    "rating": "C"
+  },
+  "int_shieldgenerator_size1_class3_fast": {
+    "symbol": "int_shieldgenerator_size1_class3_fast",
+    "name": "Bi-Weave Shield 1C",
+    "group": "bsg",
+    "class": 1,
+    "rating": "C"
+  },
+  "int_shieldgenerator_size1_class5": {
+    "symbol": "int_shieldgenerator_size1_class5",
+    "name": "Shield Generator 1A",
+    "group": "sg",
+    "class": 1,
+    "rating": "A"
+  },
+  "int_shieldgenerator_size1_class5_strong": {
+    "symbol": "int_shieldgenerator_size1_class5_strong",
+    "name": "Prismatic Shield 1A",
+    "group": "psg",
+    "class": 1,
+    "rating": "A"
+  },
+  "int_shieldgenerator_size2_class1": {
+    "symbol": "int_shieldgenerator_size2_class1",
+    "name": "Shield Generator 2E",
+    "group": "sg",
+    "class": 2,
+    "rating": "E"
+  },
+  "int_shieldgenerator_size2_class2": {
+    "symbol": "int_shieldgenerator_size2_class2",
+    "name": "Shield Generator 2D",
+    "group": "sg",
+    "class": 2,
+    "rating": "D"
+  },
+  "int_shieldgenerator_size2_class3": {
+    "symbol": "int_shieldgenerator_size2_class3",
+    "name": "Shield Generator 2C",
+    "group": "sg",
+    "class": 2,
+    "rating": "C"
+  },
+  "int_shieldgenerator_size2_class3_fast": {
+    "symbol": "int_shieldgenerator_size2_class3_fast",
+    "name": "Bi-Weave Shield 2C",
+    "group": "bsg",
+    "class": 2,
+    "rating": "C"
+  },
+  "int_shieldgenerator_size2_class4": {
+    "symbol": "int_shieldgenerator_size2_class4",
+    "name": "Shield Generator 2B",
+    "group": "sg",
+    "class": 2,
+    "rating": "B"
+  },
+  "int_shieldgenerator_size2_class5": {
+    "symbol": "int_shieldgenerator_size2_class5",
+    "name": "Shield Generator 2A",
+    "group": "sg",
+    "class": 2,
+    "rating": "A"
+  },
+  "int_shieldgenerator_size2_class5_strong": {
+    "symbol": "int_shieldgenerator_size2_class5_strong",
+    "name": "Prismatic Shield 2A",
+    "group": "psg",
+    "class": 2,
+    "rating": "A"
+  },
+  "int_shieldgenerator_size3_class1": {
+    "symbol": "int_shieldgenerator_size3_class1",
+    "name": "Shield Generator 3E",
+    "group": "sg",
+    "class": 3,
+    "rating": "E"
+  },
+  "int_shieldgenerator_size3_class2": {
+    "symbol": "int_shieldgenerator_size3_class2",
+    "name": "Shield Generator 3D",
+    "group": "sg",
+    "class": 3,
+    "rating": "D"
+  },
+  "int_shieldgenerator_size3_class3": {
+    "symbol": "int_shieldgenerator_size3_class3",
+    "name": "Shield Generator 3C",
+    "group": "sg",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_shieldgenerator_size3_class3_fast": {
+    "symbol": "int_shieldgenerator_size3_class3_fast",
+    "name": "Bi-Weave Shield 3C",
+    "group": "bsg",
+    "class": 3,
+    "rating": "C"
+  },
+  "int_shieldgenerator_size3_class4": {
+    "symbol": "int_shieldgenerator_size3_class4",
+    "name": "Shield Generator 3B",
+    "group": "sg",
+    "class": 3,
+    "rating": "B"
+  },
+  "int_shieldgenerator_size3_class5": {
+    "symbol": "int_shieldgenerator_size3_class5",
+    "name": "Shield Generator 3A",
+    "group": "sg",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_shieldgenerator_size3_class5_strong": {
+    "symbol": "int_shieldgenerator_size3_class5_strong",
+    "name": "Prismatic Shield 3A",
+    "group": "psg",
+    "class": 3,
+    "rating": "A"
+  },
+  "int_shieldgenerator_size4_class1": {
+    "symbol": "int_shieldgenerator_size4_class1",
+    "name": "Shield Generator 4E",
+    "group": "sg",
+    "class": 4,
+    "rating": "E"
+  },
+  "int_shieldgenerator_size4_class2": {
+    "symbol": "int_shieldgenerator_size4_class2",
+    "name": "Shield Generator 4D",
+    "group": "sg",
+    "class": 4,
+    "rating": "D"
+  },
+  "int_shieldgenerator_size4_class3": {
+    "symbol": "int_shieldgenerator_size4_class3",
+    "name": "Shield Generator 4C",
+    "group": "sg",
+    "class": 4,
+    "rating": "C"
+  },
+  "int_shieldgenerator_size4_class3_fast": {
+    "symbol": "int_shieldgenerator_size4_class3_fast",
+    "name": "Bi-Weave Shield 4C",
+    "group": "bsg",
+    "class": 4,
+    "rating": "C"
+  },
+  "int_shieldgenerator_size4_class4": {
+    "symbol": "int_shieldgenerator_size4_class4",
+    "name": "Shield Generator 4B",
+    "group": "sg",
+    "class": 4,
+    "rating": "B"
+  },
+  "int_shieldgenerator_size4_class5": {
+    "symbol": "int_shieldgenerator_size4_class5",
+    "name": "Shield Generator 4A",
+    "group": "sg",
+    "class": 4,
+    "rating": "A"
+  },
+  "int_shieldgenerator_size4_class5_strong": {
+    "symbol": "int_shieldgenerator_size4_class5_strong",
+    "name": "Prismatic Shield 4A",
+    "group": "psg",
+    "class": 4,
+    "rating": "A"
+  },
+  "int_shieldgenerator_size5_class1": {
+    "symbol": "int_shieldgenerator_size5_class1",
+    "name": "Shield Generator 5E",
+    "group": "sg",
+    "class": 5,
+    "rating": "E"
+  },
+  "int_shieldgenerator_size5_class2": {
+    "symbol": "int_shieldgenerator_size5_class2",
+    "name": "Shield Generator 5D",
+    "group": "sg",
+    "class": 5,
+    "rating": "D"
+  },
+  "int_shieldgenerator_size5_class3": {
+    "symbol": "int_shieldgenerator_size5_class3",
+    "name": "Shield Generator 5C",
+    "group": "sg",
+    "class": 5,
+    "rating": "C"
+  },
+  "int_shieldgenerator_size5_class3_fast": {
+    "symbol": "int_shieldgenerator_size5_class3_fast",
+    "name": "Bi-Weave Shield 5C",
+    "group": "bsg",
+    "class": 5,
+    "rating": "C"
+  },
+  "int_shieldgenerator_size5_class4": {
+    "symbol": "int_shieldgenerator_size5_class4",
+    "name": "Shield Generator 5B",
+    "group": "sg",
+    "class": 5,
+    "rating": "B"
+  },
+  "int_shieldgenerator_size5_class5": {
+    "symbol": "int_shieldgenerator_size5_class5",
+    "name": "Shield Generator 5A",
+    "group": "sg",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_shieldgenerator_size5_class5_strong": {
+    "symbol": "int_shieldgenerator_size5_class5_strong",
+    "name": "Prismatic Shield 5A",
+    "group": "psg",
+    "class": 5,
+    "rating": "A"
+  },
+  "int_shieldgenerator_size6_class1": {
+    "symbol": "int_shieldgenerator_size6_class1",
+    "name": "Shield Generator 6E",
+    "group": "sg",
+    "class": 6,
+    "rating": "E"
+  },
+  "int_shieldgenerator_size6_class2": {
+    "symbol": "int_shieldgenerator_size6_class2",
+    "name": "Shield Generator 6D",
+    "group": "sg",
+    "class": 6,
+    "rating": "D"
+  },
+  "int_shieldgenerator_size6_class3": {
+    "symbol": "int_shieldgenerator_size6_class3",
+    "name": "Shield Generator 6C",
+    "group": "sg",
+    "class": 6,
+    "rating": "C"
+  },
+  "int_shieldgenerator_size6_class3_fast": {
+    "symbol": "int_shieldgenerator_size6_class3_fast",
+    "name": "Bi-Weave Shield 6C",
+    "group": "bsg",
+    "class": 6,
+    "rating": "C"
+  },
+  "int_shieldgenerator_size6_class4": {
+    "symbol": "int_shieldgenerator_size6_class4",
+    "name": "Shield Generator 6B",
+    "group": "sg",
+    "class": 6,
+    "rating": "B"
+  },
+  "int_shieldgenerator_size6_class5": {
+    "symbol": "int_shieldgenerator_size6_class5",
+    "name": "Shield Generator 6A",
+    "group": "sg",
+    "class": 6,
+    "rating": "A"
+  },
+  "int_shieldgenerator_size6_class5_strong": {
+    "symbol": "int_shieldgenerator_size6_class5_strong",
+    "name": "Prismatic Shield 6A",
+    "group": "psg",
+    "class": 6,
+    "rating": "A"
+  },
+  "int_shieldgenerator_size7_class1": {
+    "symbol": "int_shieldgenerator_size7_class1",
+    "name": "Shield Generator 7E",
+    "group": "sg",
+    "class": 7,
+    "rating": "E"
+  },
+  "int_shieldgenerator_size7_class2": {
+    "symbol": "int_shieldgenerator_size7_class2",
+    "name": "Shield Generator 7D",
+    "group": "sg",
+    "class": 7,
+    "rating": "D"
+  },
+  "int_shieldgenerator_size7_class3": {
+    "symbol": "int_shieldgenerator_size7_class3",
+    "name": "Shield Generator 7C",
+    "group": "sg",
+    "class": 7,
+    "rating": "C"
+  },
+  "int_shieldgenerator_size7_class3_fast": {
+    "symbol": "int_shieldgenerator_size7_class3_fast",
+    "name": "Bi-Weave Shield 7C",
+    "group": "bsg",
+    "class": 7,
+    "rating": "C"
+  },
+  "int_shieldgenerator_size7_class4": {
+    "symbol": "int_shieldgenerator_size7_class4",
+    "name": "Shield Generator 7B",
+    "group": "sg",
+    "class": 7,
+    "rating": "B"
+  },
+  "int_shieldgenerator_size7_class5": {
+    "symbol": "int_shieldgenerator_size7_class5",
+    "name": "Shield Generator 7A",
+    "group": "sg",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_shieldgenerator_size7_class5_strong": {
+    "symbol": "int_shieldgenerator_size7_class5_strong",
+    "name": "Prismatic Shield 7A",
+    "group": "psg",
+    "class": 7,
+    "rating": "A"
+  },
+  "int_shieldgenerator_size8_class1": {
+    "symbol": "int_shieldgenerator_size8_class1",
+    "name": "Shield Generator 8E",
+    "group": "sg",
+    "class": 8,
+    "rating": "E"
+  },
+  "int_shieldgenerator_size8_class2": {
+    "symbol": "int_shieldgenerator_size8_class2",
+    "name": "Shield Generator 8D",
+    "group": "sg",
+    "class": 8,
+    "rating": "D"
+  },
+  "int_shieldgenerator_size8_class3": {
+    "symbol": "int_shieldgenerator_size8_class3",
+    "name": "Shield Generator 8C",
+    "group": "sg",
+    "class": 8,
+    "rating": "C"
+  },
+  "int_shieldgenerator_size8_class3_fast": {
+    "symbol": "int_shieldgenerator_size8_class3_fast",
+    "name": "Bi-Weave Shield 8C",
+    "group": "bsg",
+    "class": 8,
+    "rating": "C"
+  },
+  "int_shieldgenerator_size8_class4": {
+    "symbol": "int_shieldgenerator_size8_class4",
+    "name": "Shield Generator 8B",
+    "group": "sg",
+    "class": 8,
+    "rating": "B"
+  },
+  "int_shieldgenerator_size8_class5": {
+    "symbol": "int_shieldgenerator_size8_class5",
+    "name": "Shield Generator 8A",
+    "group": "sg",
+    "class": 8,
+    "rating": "A"
+  },
+  "int_shieldgenerator_size8_class5_strong": {
+    "symbol": "int_shieldgenerator_size8_class5_strong",
+    "name": "Prismatic Shield 8A",
+    "group": "psg",
+    "class": 8,
+    "rating": "A"
+  },
+  "int_supercruiseassist": {
+    "symbol": "int_supercruiseassist",
+    "name": "Supercruise Assist 1E",
+    "group": "sua",
+    "class": 1,
+    "rating": "E"
+  }
+}

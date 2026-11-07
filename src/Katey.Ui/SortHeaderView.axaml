@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Katey.Ui.SortHeaderView">
+  <!-- DataContext is a SortHeader: a column heading that sorts the table when clicked. -->
+  <Button Classes="col" Classes.active="{Binding IsActive}" Command="{Binding Command}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
+    <StackPanel Orientation="Horizontal" Spacing="4">
+      <TextBlock Classes="col" Text="{Binding Label}" />
+      <TextBlock Classes="col" Text="{Binding Indicator}" />
+    </StackPanel>
+  </Button>
+</UserControl>

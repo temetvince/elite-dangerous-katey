@@ -1,0 +1,13 @@
+<Solution>
+	<Folder Name="/src/">
+		<Project Path="src/Katey.App/Katey.App.csproj" />
+		<Project Path="src/Katey.Core/Katey.Core.csproj" />
+		<Project Path="src/Katey.Journal/Katey.Journal.csproj" />
+		<Project Path="src/Katey.Ui/Katey.Ui.csproj" />
+	</Folder>
+	<Folder Name="/tests/">
+		<Project Path="tests/Katey.App.Tests/Katey.App.Tests.csproj" />
+		<Project Path="tests/Katey.Core.Tests/Katey.Core.Tests.csproj" />
+		<Project Path="tests/Katey.Journal.Tests/Katey.Journal.Tests.csproj" />
+	</Folder>
+</Solution>

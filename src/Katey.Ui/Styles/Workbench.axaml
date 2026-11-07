@@ -1,0 +1,788 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- ===== Window chrome: the caption buttons the windows draw in place of the system's ===== -->
+  <Style Selector="Button.caption">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="CornerRadius" Value="6" />
+    <Setter Property="Width" Value="44" />
+    <Setter Property="Height" Value="34" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Button.caption Path.glyph">
+    <Setter Property="Stroke" Value="{DynamicResource KInk}" />
+    <Setter Property="StrokeThickness" Value="1.2" />
+    <Setter Property="Width" Value="10" />
+    <Setter Property="Height" Value="10" />
+    <Setter Property="Stretch" Value="None" />
+  </Style>
+  <Style Selector="Button.caption.rail Path.glyph">
+    <Setter Property="Stroke" Value="{StaticResource RailInk}" />
+  </Style>
+  <Style Selector="Button.caption:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource KAccentSoft}" />
+  </Style>
+  <Style Selector="Button.caption.rail:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{StaticResource RailSurface}" />
+  </Style>
+  <Style Selector="Button.caption.close:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource KBad}" />
+  </Style>
+  <Style Selector="Button.caption.close:pointerover Path.glyph">
+    <Setter Property="Stroke" Value="White" />
+  </Style>
+
+  <!-- ===== Text roles ===== -->
+  <Style Selector="TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource KInk}" />
+    <Setter Property="FontSize" Value="13" />
+  </Style>
+  <Style Selector="TextBlock.kicker">
+    <Setter Property="FontFamily" Value="{StaticResource DisplayFont}" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="FontSize" Value="11" />
+    <Setter Property="LetterSpacing" Value="1.4" />
+    <Setter Property="Foreground" Value="{DynamicResource KMuted}" />
+  </Style>
+  <Style Selector="TextBlock.title">
+    <Setter Property="FontFamily" Value="{StaticResource DisplayFont}" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="FontSize" Value="30" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
+  <Style Selector="TextBlock.h3">
+    <Setter Property="FontFamily" Value="{StaticResource DisplayFont}" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="FontSize" Value="17" />
+  </Style>
+  <Style Selector="TextBlock.col">
+    <Setter Property="FontFamily" Value="{StaticResource DisplayFont}" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="FontSize" Value="11" />
+    <Setter Property="LetterSpacing" Value="1.2" />
+    <Setter Property="Foreground" Value="{DynamicResource KMuted}" />
+  </Style>
+  <Style Selector="TextBlock.body">
+    <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
+  <Style Selector="TextBlock.strong">
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
+  <Style Selector="TextBlock.muted">
+    <Setter Property="Foreground" Value="{DynamicResource KMuted}" />
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
+  <Style Selector="TextBlock.faint">
+    <Setter Property="Foreground" Value="{DynamicResource KFaint}" />
+    <Setter Property="FontSize" Value="11" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
+  <Style Selector="TextBlock.lede">
+    <Setter Property="Foreground" Value="{DynamicResource KMuted}" />
+    <Setter Property="FontSize" Value="13" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+    <Setter Property="MaxWidth" Value="720" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+  </Style>
+  <Style Selector="TextBlock.mono">
+    <Setter Property="FontFamily" Value="{StaticResource MonoFont}" />
+  </Style>
+  <Style Selector="TextBlock.good">
+    <Setter Property="Foreground" Value="{DynamicResource KGood}" />
+  </Style>
+  <Style Selector="TextBlock.warn">
+    <Setter Property="Foreground" Value="{DynamicResource KWarn}" />
+  </Style>
+  <Style Selector="TextBlock.burn">
+    <Setter Property="Foreground" Value="{DynamicResource KBurn}" />
+  </Style>
+  <Style Selector="TextBlock.bad">
+    <Setter Property="Foreground" Value="{DynamicResource KBad}" />
+  </Style>
+  <Style Selector="TextBlock.accent">
+    <Setter Property="Foreground" Value="{DynamicResource KAccent}" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+  <!-- A figure that reads from across the room: the number on a stat tile. -->
+  <Style Selector="TextBlock.stat">
+    <Setter Property="FontFamily" Value="{StaticResource MonoFont}" />
+    <Setter Property="FontSize" Value="28" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Foreground" Value="{DynamicResource KAccent}" />
+  </Style>
+  <Style Selector="TextBlock.stat.good">
+    <Setter Property="Foreground" Value="{DynamicResource KGood}" />
+  </Style>
+  <Style Selector="TextBlock.stat.warn">
+    <Setter Property="Foreground" Value="{DynamicResource KWarn}" />
+  </Style>
+  <Style Selector="TextBlock.stat.bad">
+    <Setter Property="Foreground" Value="{DynamicResource KBad}" />
+  </Style>
+  <Style Selector="TextBlock.stat.muted">
+    <Setter Property="Foreground" Value="{DynamicResource KMuted}" />
+  </Style>
+
+  <!-- ===== Surfaces ===== -->
+  <Style Selector="Border.panel">
+    <Setter Property="Background" Value="{DynamicResource KSurface}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource KLine}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="8" />
+    <Setter Property="Padding" Value="16,12,16,14" />
+  </Style>
+  <!-- A body card's frame says what it holds: blue for surface materials, green for life, orange for a star. Later wins, so life beats materials and a star beats both. -->
+  <Style Selector="Border.panel.minerals">
+    <Setter Property="BorderBrush" Value="{DynamicResource KBurn}" />
+    <Setter Property="BorderThickness" Value="2" />
+  </Style>
+  <Style Selector="Border.panel.biology">
+    <Setter Property="BorderBrush" Value="{DynamicResource KGood}" />
+    <Setter Property="BorderThickness" Value="2" />
+  </Style>
+  <Style Selector="Border.panel.star">
+    <Setter Property="BorderBrush" Value="{DynamicResource KAccent}" />
+    <Setter Property="BorderThickness" Value="2" />
+  </Style>
+  <Style Selector="Border.row">
+    <Setter Property="BorderBrush" Value="{DynamicResource KLine}" />
+    <Setter Property="BorderThickness" Value="0,0,0,1" />
+    <Setter Property="Padding" Value="0,8" />
+  </Style>
+  <!-- A row that is out of reach for now: dimmed as a whole, but still live, so it can be ticked. -->
+  <Style Selector="Border.row.dim">
+    <Setter Property="Opacity" Value="0.55" />
+  </Style>
+  <!-- The row a page landed on, such as a material opened from a trade. -->
+  <Style Selector="Border.row.highlight">
+    <Setter Property="Background" Value="{DynamicResource KAccentSoft}" />
+    <Setter Property="CornerRadius" Value="4" />
+  </Style>
+  <Style Selector="Border.chip">
+    <Setter Property="Background" Value="{DynamicResource KSurface2}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource KLine}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="999" />
+    <Setter Property="Padding" Value="9,2" />
+    <Setter Property="Margin" Value="0,0,6,6" />
+  </Style>
+  <Style Selector="Border.chip.owned">
+    <Setter Property="BorderBrush" Value="{DynamicResource KGood}" />
+  </Style>
+  <Style Selector="Border.chip TextBlock">
+    <Setter Property="FontSize" Value="12" />
+  </Style>
+  <Style Selector="Border.grade">
+    <Setter Property="Background" Value="{DynamicResource KSurface2}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource KLine}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="4" />
+    <Setter Property="Padding" Value="6,1" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Border.grade TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource MonoFont}" />
+    <Setter Property="FontSize" Value="12" />
+  </Style>
+  <!-- A verdict in a word: ready, partial, missing, prebuilt, flying. The tone classes set its colour. -->
+  <Style Selector="Border.badge">
+    <Setter Property="Background" Value="{DynamicResource KSurface2}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource KLine}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="4" />
+    <Setter Property="Padding" Value="7,1" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+  </Style>
+  <Style Selector="Border.badge TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource DisplayFont}" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="FontSize" Value="11" />
+    <Setter Property="LetterSpacing" Value="0.8" />
+    <Setter Property="Foreground" Value="{DynamicResource KMuted}" />
+  </Style>
+  <Style Selector="Border.badge.good">
+    <Setter Property="Background" Value="#1A2E9E6B" />
+    <Setter Property="BorderBrush" Value="{DynamicResource KGood}" />
+  </Style>
+  <Style Selector="Border.badge.good TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource KGood}" />
+  </Style>
+  <Style Selector="Border.badge.warn">
+    <Setter Property="Background" Value="#1AE0B25A" />
+    <Setter Property="BorderBrush" Value="{DynamicResource KWarn}" />
+  </Style>
+  <Style Selector="Border.badge.warn TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource KWarn}" />
+  </Style>
+  <Style Selector="Border.badge.bad">
+    <Setter Property="Background" Value="#1AD2563F" />
+    <Setter Property="BorderBrush" Value="{DynamicResource KBad}" />
+  </Style>
+  <Style Selector="Border.badge.bad TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource KBad}" />
+  </Style>
+  <Style Selector="Border.badge.accent">
+    <Setter Property="Background" Value="{DynamicResource KAccentSoft}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource KAccent}" />
+  </Style>
+  <Style Selector="Border.badge.accent TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource KAccent}" />
+  </Style>
+  <Style Selector="Border.badge.burn">
+    <Setter Property="Background" Value="#1A3F8FE0" />
+    <Setter Property="BorderBrush" Value="{DynamicResource KBurn}" />
+  </Style>
+  <Style Selector="Border.badge.burn TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource KBurn}" />
+  </Style>
+  <!-- A body's three status slots, always in the same order: discovery, mapping, footfall. A taken status is a hollow pill
+       with grey text inside the slot's outline; an open one is solid in the slot's colour with a thicker line beneath, so a
+       fresh body is three solid pills and a worked one three hollow. -->
+  <Style Selector="Border.badge.status">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Padding" Value="7,1,7,1" />
+  </Style>
+  <Style Selector="Border.badge.status.discovery">
+    <Setter Property="BorderBrush" Value="{DynamicResource KDiscovery}" />
+  </Style>
+  <Style Selector="Border.badge.status.mapping">
+    <Setter Property="BorderBrush" Value="{DynamicResource KMapping}" />
+  </Style>
+  <Style Selector="Border.badge.status.footfall">
+    <Setter Property="BorderBrush" Value="{DynamicResource KFootfall}" />
+  </Style>
+  <Style Selector="Border.badge.status.open">
+    <Setter Property="BorderThickness" Value="1,1,1,3" />
+    <Setter Property="Padding" Value="7,1,7,0" />
+  </Style>
+  <Style Selector="Border.badge.status.open TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource KAccentInk}" />
+  </Style>
+  <Style Selector="Border.badge.status.discovery.open">
+    <Setter Property="Background" Value="{DynamicResource KDiscovery}" />
+  </Style>
+  <Style Selector="Border.badge.status.mapping.open">
+    <Setter Property="Background" Value="{DynamicResource KMapping}" />
+  </Style>
+  <Style Selector="Border.badge.status.footfall.open">
+    <Setter Property="Background" Value="{DynamicResource KFootfall}" />
+  </Style>
+  <!-- A small square of meaning colour beside a label, such as a module group or an inventory. -->
+  <Style Selector="Border.swatch">
+    <Setter Property="Width" Value="10" />
+    <Setter Property="Height" Value="10" />
+    <Setter Property="CornerRadius" Value="3" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+  <!-- A star, painted by its class. The thin line keeps a pale star visible on a pale ground. -->
+  <Style Selector="Ellipse.star">
+    <Setter Property="Width" Value="11" />
+    <Setter Property="Height" Value="11" />
+    <Setter Property="Stroke" Value="{DynamicResource KLine}" />
+    <Setter Property="StrokeThickness" Value="1" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+  <!-- A thin bar under a figure: have against need, or fuel against the tank. -->
+  <Style Selector="ProgressBar.meter">
+    <Setter Property="MinHeight" Value="4" />
+    <Setter Property="Height" Value="4" />
+    <Setter Property="CornerRadius" Value="2" />
+    <Setter Property="Background" Value="{DynamicResource KLine}" />
+    <Setter Property="Foreground" Value="{DynamicResource KAccent}" />
+    <Setter Property="Minimum" Value="0" />
+    <Setter Property="Maximum" Value="1" />
+  </Style>
+  <Style Selector="ProgressBar.meter.good">
+    <Setter Property="Foreground" Value="{DynamicResource KGood}" />
+  </Style>
+  <Style Selector="ProgressBar.meter.warn">
+    <Setter Property="Foreground" Value="{DynamicResource KWarn}" />
+  </Style>
+  <Style Selector="ProgressBar.meter.bad">
+    <Setter Property="Foreground" Value="{DynamicResource KBad}" />
+  </Style>
+  <!-- The fuel tank is two meters in one place: a blue burn bar to the tank's level, under an over bar with no track to the level after the next jump. -->
+  <Style Selector="ProgressBar.meter.burn">
+    <Setter Property="Foreground" Value="{DynamicResource KBurn}" />
+  </Style>
+  <Style Selector="ProgressBar.meter.over">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+  <Style Selector="ProgressBar.meter.tall">
+    <Setter Property="MinHeight" Value="8" />
+    <Setter Property="Height" Value="8" />
+    <Setter Property="CornerRadius" Value="4" />
+  </Style>
+  <!-- The journal replay: a bar that fills file by file, easing into each step, and breathes while it runs. -->
+  <Style Selector="ProgressBar.meter.catchup">
+    <Setter Property="MinHeight" Value="6" />
+    <Setter Property="Height" Value="6" />
+    <Setter Property="CornerRadius" Value="3" />
+    <Setter Property="Transitions">
+      <Transitions>
+        <DoubleTransition Property="Value" Duration="0:0:0.35" Easing="CubicEaseOut" />
+      </Transitions>
+    </Setter>
+  </Style>
+  <Style Selector="ProgressBar.meter.catchup /template/ Border#PART_Indicator">
+    <Style.Animations>
+      <Animation Duration="0:0:1.6" IterationCount="Infinite" Easing="SineEaseInOut">
+        <KeyFrame Cue="0%"><Setter Property="Opacity" Value="1" /></KeyFrame>
+        <KeyFrame Cue="50%"><Setter Property="Opacity" Value="0.45" /></KeyFrame>
+        <KeyFrame Cue="100%"><Setter Property="Opacity" Value="1" /></KeyFrame>
+      </Animation>
+    </Style.Animations>
+  </Style>
+  <Style Selector="Border.grade.reach">
+    <Setter Property="Background" Value="{DynamicResource KAccentSoft}" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+  </Style>
+  <Style Selector="Border.grade.reach TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource KAccent}" />
+    <Setter Property="FontWeight" Value="Medium" />
+  </Style>
+  <Style Selector="Border.tile">
+    <Setter Property="Background" Value="{DynamicResource KSurface}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource KLine}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="8" />
+    <Setter Property="Padding" Value="14,12" />
+    <Setter Property="Margin" Value="0,0,10,10" />
+    <Setter Property="MinWidth" Value="200" />
+  </Style>
+  <!-- Tiles laid out in a WrapPanel take one width, so each row's tiles line up in columns. -->
+  <Style Selector="Border.tile.grid">
+    <Setter Property="Width" Value="250" />
+  </Style>
+
+  <!-- ===== Controls ===== -->
+  <Style Selector="Button">
+    <Setter Property="CornerRadius" Value="6" />
+    <Setter Property="Padding" Value="12,6" />
+    <Setter Property="Background" Value="{DynamicResource KSurface}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource KLine}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Foreground" Value="{DynamicResource KInk}" />
+  </Style>
+  <Style Selector="Button.primary">
+    <Setter Property="Background" Value="{DynamicResource KAccent}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource KAccent}" />
+    <Setter Property="Foreground" Value="{DynamicResource KAccentInk}" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+  <Style Selector="Button.primary /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="BoxShadow" Value="0 2 12 0 #40F07B05" />
+  </Style>
+  <Style Selector="Button.primary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource KAccent}" />
+    <Setter Property="Foreground" Value="{DynamicResource KAccentInk}" />
+    <Setter Property="Opacity" Value="0.9" />
+  </Style>
+  <Style Selector="Button.danger">
+    <Setter Property="BorderBrush" Value="{DynamicResource KBad}" />
+    <Setter Property="Foreground" Value="{DynamicResource KBad}" />
+  </Style>
+  <Style Selector="Button.small">
+    <Setter Property="Padding" Value="9,3" />
+    <Setter Property="FontSize" Value="12" />
+  </Style>
+  <Style Selector="Button.add">
+    <Setter Property="Padding" Value="9,3" />
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Foreground" Value="{DynamicResource KAccent}" />
+  </Style>
+  <Style Selector="Button.link">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Foreground" Value="{DynamicResource KAccent}" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Button.link:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource KAccent}" />
+    <Setter Property="TextBlock.TextDecorations" Value="Underline" />
+  </Style>
+  <Style Selector="Button.link:pressed /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource KAccent}" />
+  </Style>
+  <Style Selector="Button.link.strong">
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+  <Style Selector="Button.link.quiet">
+    <Setter Property="Foreground" Value="{DynamicResource KInk}" />
+  </Style>
+  <Style Selector="Button.link.quiet:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Foreground" Value="{DynamicResource KAccent}" />
+  </Style>
+  <Style Selector="Button.link.wordmark">
+    <Setter Property="FontFamily" Value="{StaticResource DisplayFont}" />
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="FontSize" Value="22" />
+    <Setter Property="LetterSpacing" Value="2" />
+    <Setter Property="Foreground" Value="{DynamicResource KAccent}" />
+  </Style>
+  <Style Selector="Button.link.wordmark:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Foreground" Value="{DynamicResource KInk}" />
+    <Setter Property="TextBlock.TextDecorations" Value="{x:Null}" />
+  </Style>
+  <Style Selector="Button.navlink">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0,0,0,2" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="Padding" Value="10,6" />
+    <Setter Property="FontFamily" Value="{StaticResource DisplayFont}" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="LetterSpacing" Value="0.6" />
+    <Setter Property="Foreground" Value="{DynamicResource KMuted}" />
+  </Style>
+  <Style Selector="Button.navlink:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource KInk}" />
+  </Style>
+  <Style Selector="Button.section">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0,0,0,2" />
+    <Setter Property="BorderBrush" Value="{DynamicResource KLine}" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="Padding" Value="12,6" />
+    <Setter Property="FontFamily" Value="{StaticResource DisplayFont}" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="Foreground" Value="{DynamicResource KMuted}" />
+  </Style>
+  <Style Selector="Button.section:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource KInk}" />
+  </Style>
+  <Style Selector="Button.section.current">
+    <Setter Property="Foreground" Value="{DynamicResource KInk}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource KAccent}" />
+  </Style>
+  <Style Selector="Button.navlink.current">
+    <Setter Property="Foreground" Value="{DynamicResource KInk}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource KAccent}" />
+  </Style>
+  <Style Selector="Button.col">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="0,2" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="Cursor" Value="Hand" />
+  </Style>
+  <Style Selector="Button.col:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+  <Style Selector="Button.col:pointerover TextBlock.col">
+    <Setter Property="Foreground" Value="{DynamicResource KInk}" />
+  </Style>
+  <Style Selector="Button.col.active TextBlock.col">
+    <Setter Property="Foreground" Value="{DynamicResource KAccent}" />
+  </Style>
+  <Style Selector="Button.link.crumb">
+    <Setter Property="FontFamily" Value="{StaticResource DisplayFont}" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="FontSize" Value="11" />
+    <Setter Property="LetterSpacing" Value="1.4" />
+    <Setter Property="Foreground" Value="{DynamicResource KMuted}" />
+  </Style>
+  <Style Selector="Button.link.crumb:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Foreground" Value="{DynamicResource KAccent}" />
+  </Style>
+  <Style Selector="Expander.group">
+    <Setter Property="Background" Value="{DynamicResource KSurface}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource KLine}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="8" />
+    <Setter Property="Padding" Value="14,10" />
+    <Setter Property="Margin" Value="0,0,0,10" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+  </Style>
+  <Style Selector="Border.thead">
+    <Setter Property="BorderBrush" Value="{DynamicResource KLine}" />
+    <Setter Property="BorderThickness" Value="0,0,0,1" />
+    <Setter Property="Padding" Value="0,4,0,6" />
+  </Style>
+  <Style Selector="Button.nav">
+    <Setter Property="Padding" Value="8,4" />
+    <Setter Property="MinWidth" Value="34" />
+  </Style>
+  <Style Selector="Button.nav.big">
+    <Setter Property="Padding" Value="14,6" />
+    <Setter Property="MinWidth" Value="48" />
+    <Setter Property="FontSize" Value="15" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+  <Style Selector="Button.result">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="Padding" Value="12,8" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+  </Style>
+  <Style Selector="Button.result:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource KAccentSoft}" />
+  </Style>
+  <Style Selector="TextBox, ComboBox, NumericUpDown">
+    <Setter Property="Background" Value="{DynamicResource KSurface2}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource KLine}" />
+    <Setter Property="CornerRadius" Value="6" />
+    <Setter Property="Foreground" Value="{DynamicResource KInk}" />
+  </Style>
+  <Style Selector="TextBox.omni">
+    <Setter Property="MinHeight" Value="36" />
+    <Setter Property="FontSize" Value="14" />
+  </Style>
+  <Style Selector="CheckBox">
+    <Setter Property="Foreground" Value="{DynamicResource KInk}" />
+  </Style>
+  <Style Selector="ToggleSwitch">
+    <Setter Property="Foreground" Value="{DynamicResource KInk}" />
+  </Style>
+
+  <!-- ===== Rail (fixed dark palette) ===== -->
+  <Style Selector="Border.rail">
+    <Setter Property="Background" Value="{StaticResource RailBg}" />
+  </Style>
+  <Style Selector="Border.rail TextBlock">
+    <Setter Property="Foreground" Value="{StaticResource RailInk}" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+    <Setter Property="FontSize" Value="12" />
+  </Style>
+  <Style Selector="Border.rail TextBlock.live">
+    <Setter Property="FontFamily" Value="{StaticResource DisplayFont}" />
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="LetterSpacing" Value="2" />
+    <Setter Property="Foreground" Value="{StaticResource RailAccent}" />
+  </Style>
+  <Style Selector="Border.rail TextBlock.eyebrow">
+    <Setter Property="FontFamily" Value="{StaticResource DisplayFont}" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="FontSize" Value="11" />
+    <Setter Property="LetterSpacing" Value="1.4" />
+    <Setter Property="Foreground" Value="{StaticResource RailMuted}" />
+  </Style>
+  <!-- The system name: warm white, so it stands off the orange around it. -->
+  <Style Selector="Border.rail TextBlock.big">
+    <Setter Property="FontFamily" Value="{StaticResource DisplayFont}" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="FontSize" Value="26" />
+    <Setter Property="Foreground" Value="#FFF4E8" />
+  </Style>
+  <Style Selector="Border.rail TextBlock.sub">
+    <Setter Property="Foreground" Value="{StaticResource RailMuted}" />
+  </Style>
+  <Style Selector="Border.rail TextBlock.burn">
+    <Setter Property="Foreground" Value="{StaticResource RailBurn}" />
+  </Style>
+  <Style Selector="Border.rail TextBlock.mono">
+    <Setter Property="FontFamily" Value="{StaticResource MonoFont}" />
+  </Style>
+  <Style Selector="Border.rail TextBlock.accent">
+    <Setter Property="Foreground" Value="{StaticResource RailAccent}" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+  <Style Selector="Border.rail TextBlock.eyebrow.accent">
+    <Setter Property="Foreground" Value="{StaticResource RailAccent}" />
+  </Style>
+  <Style Selector="Border.rail TextBlock.bad">
+    <Setter Property="Foreground" Value="{StaticResource RailBad}" />
+  </Style>
+  <!-- The live mark breathes while the journal is being followed. -->
+  <Style Selector="Border.rail Ellipse.pulse">
+    <Style.Animations>
+      <Animation Duration="0:0:2.4" IterationCount="Infinite" Easing="SineEaseInOut">
+        <KeyFrame Cue="0%"><Setter Property="Opacity" Value="1" /></KeyFrame>
+        <KeyFrame Cue="50%"><Setter Property="Opacity" Value="0.25" /></KeyFrame>
+        <KeyFrame Cue="100%"><Setter Property="Opacity" Value="1" /></KeyFrame>
+      </Animation>
+    </Style.Animations>
+  </Style>
+  <Style Selector="Border.rail ProgressBar.meter">
+    <Setter Property="Background" Value="{StaticResource RailLine}" />
+    <Setter Property="Foreground" Value="{StaticResource RailAccent}" />
+  </Style>
+  <Style Selector="Border.rail ProgressBar.meter.warn">
+    <Setter Property="Foreground" Value="{StaticResource RailWarn}" />
+  </Style>
+  <Style Selector="Border.rail ProgressBar.meter.bad">
+    <Setter Property="Foreground" Value="{StaticResource RailBad}" />
+  </Style>
+  <Style Selector="Border.rail ProgressBar.meter.burn">
+    <Setter Property="Foreground" Value="{StaticResource RailBurn}" />
+  </Style>
+  <Style Selector="Border.rail ProgressBar.meter.over">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+  <Style Selector="Border.rail Arc.scan">
+    <Setter Property="Stroke" Value="{StaticResource RailAccent}" />
+    <Setter Property="StrokeThickness" Value="3" />
+    <Setter Property="Width" Value="22" />
+    <Setter Property="Height" Value="22" />
+    <Setter Property="StartAngle" Value="-90" />
+  </Style>
+  <Style Selector="Border.rail Arc.scan.track">
+    <Setter Property="Stroke" Value="{StaticResource RailLine}" />
+    <Setter Property="SweepAngle" Value="360" />
+  </Style>
+  <Style Selector="Border.rail Arc.scan.good">
+    <Setter Property="Stroke" Value="{StaticResource RailGood}" />
+  </Style>
+  <Style Selector="Border.rail TextBlock.warn">
+    <Setter Property="Foreground" Value="{StaticResource RailWarn}" />
+  </Style>
+  <Style Selector="Border.rail TextBlock.good">
+    <Setter Property="Foreground" Value="{StaticResource RailGood}" />
+  </Style>
+  <!-- Overlay: the ground mostly transparent so the game shows through, the text full strength and brighter. -->
+  <Style Selector="Window.overlay Border.rail">
+    <Setter Property="Background" Value="#330C121B" />
+  </Style>
+  <Style Selector="Window.overlay Border.rail TextBlock">
+    <Setter Property="Foreground" Value="#FFFFB866" />
+  </Style>
+  <Style Selector="Window.overlay Border.rail TextBlock.big">
+    <Setter Property="Foreground" Value="#FFFFFFFF" />
+  </Style>
+  <Style Selector="Window.overlay Border.rail TextBlock.sub">
+    <Setter Property="Foreground" Value="#FFD9955A" />
+  </Style>
+  <Style Selector="Window.overlay Border.rail TextBlock.accent">
+    <Setter Property="Foreground" Value="#FFFFDDAA" />
+  </Style>
+  <Style Selector="Window.overlay Border.rail TextBlock.eyebrow.accent">
+    <Setter Property="Foreground" Value="#FFFFDDAA" />
+  </Style>
+  <Style Selector="Window.overlay Border.rail TextBlock.warn">
+    <Setter Property="Foreground" Value="#FFF2C76A" />
+  </Style>
+  <Style Selector="Window.overlay Border.rail TextBlock.good">
+    <Setter Property="Foreground" Value="#FF6CD49C" />
+  </Style>
+  <Style Selector="Window.overlay Border.rail TextBlock.burn">
+    <Setter Property="Foreground" Value="{StaticResource RailBurn}" />
+  </Style>
+  <Style Selector="Window.overlay Border.rail Border.rsec">
+    <Setter Property="BorderBrush" Value="#40FFFFFF" />
+  </Style>
+  <Style Selector="Window.overlay Border.rail Border.short">
+    <Setter Property="Background" Value="#66131B27" />
+  </Style>
+  <Style Selector="Window.overlay Border.rail Button">
+    <Setter Property="Background" Value="#CC131B27" />
+    <Setter Property="Foreground" Value="#FFFFB866" />
+  </Style>
+  <Style Selector="Window.overlay Border.rail Button.link">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="#FFFFDDAA" />
+  </Style>
+  <Style Selector="Border.rail Border.rsec">
+    <Setter Property="BorderBrush" Value="{StaticResource RailLine}" />
+    <Setter Property="BorderThickness" Value="0,0,0,1" />
+    <Setter Property="Padding" Value="14,12,14,14" />
+  </Style>
+  <Style Selector="Border.rail Border.short">
+    <Setter Property="Background" Value="{StaticResource RailSurface}" />
+    <Setter Property="BorderBrush" Value="{StaticResource RailWarn}" />
+    <Setter Property="BorderThickness" Value="3,0,0,0" />
+    <Setter Property="CornerRadius" Value="4" />
+    <Setter Property="Padding" Value="10,8" />
+    <Setter Property="Margin" Value="0,0,0,6" />
+  </Style>
+  <Style Selector="Border.rail Border.tag">
+    <Setter Property="BorderBrush" Value="{StaticResource RailWarn}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="3" />
+    <Setter Property="Padding" Value="4,0" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Border.rail Border.tag TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource MonoFont}" />
+    <Setter Property="FontSize" Value="10" />
+    <Setter Property="Foreground" Value="{StaticResource RailWarn}" />
+  </Style>
+  <Style Selector="Border.rail Border.tag.good">
+    <Setter Property="BorderBrush" Value="{StaticResource RailGood}" />
+  </Style>
+  <Style Selector="Border.rail Border.tag.good TextBlock">
+    <Setter Property="Foreground" Value="{StaticResource RailGood}" />
+  </Style>
+  <Style Selector="Border.rail Border.tag.bad">
+    <Setter Property="BorderBrush" Value="{StaticResource RailBad}" />
+  </Style>
+  <Style Selector="Border.rail Border.tag.accent">
+    <Setter Property="BorderBrush" Value="{StaticResource RailAccent}" />
+  </Style>
+  <Style Selector="Border.rail Border.tag.accent TextBlock">
+    <Setter Property="Foreground" Value="{StaticResource RailAccent}" />
+  </Style>
+  <Style Selector="Border.rail Border.tag.bad TextBlock">
+    <Setter Property="Foreground" Value="{StaticResource RailBad}" />
+  </Style>
+  <Style Selector="Border.rail Button">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="{StaticResource RailLine}" />
+    <Setter Property="Foreground" Value="{StaticResource RailMuted}" />
+    <Setter Property="FontSize" Value="11" />
+    <Setter Property="Padding" Value="8,3" />
+    <Setter Property="CornerRadius" Value="4" />
+  </Style>
+  <Style Selector="Border.rail Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{StaticResource RailSurface}" />
+    <Setter Property="Foreground" Value="{StaticResource RailInk}" />
+  </Style>
+  <Style Selector="Border.rail Button.link">
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Foreground" Value="{StaticResource RailAccent}" />
+    <Setter Property="FontSize" Value="12" />
+  </Style>
+  <Style Selector="Border.rail Button.link:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{StaticResource RailAccent}" />
+    <Setter Property="TextBlock.TextDecorations" Value="Underline" />
+  </Style>
+  <Style Selector="Border.rail Button.link.ink">
+    <Setter Property="Foreground" Value="{StaticResource RailInk}" />
+  </Style>
+  <Style Selector="Border.rail Ellipse.dot">
+    <Setter Property="Width" Value="9" />
+    <Setter Property="Height" Value="9" />
+    <Setter Property="Stroke" Value="{StaticResource RailMuted}" />
+    <Setter Property="StrokeThickness" Value="2" />
+    <Setter Property="Fill" Value="Transparent" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Border.rail Ellipse.dot.here">
+    <Setter Property="Stroke" Value="{StaticResource RailAccent}" />
+    <Setter Property="Fill" Value="{StaticResource RailAccent}" />
+  </Style>
+  <Style Selector="Border.rail Ellipse.dot.scoop">
+    <Setter Property="Stroke" Value="{StaticResource RailWarn}" />
+  </Style>
+  <Style Selector="Border.rail Ellipse.dot.engineer">
+    <Setter Property="Stroke" Value="{StaticResource RailGood}" />
+    <Setter Property="Fill" Value="{StaticResource RailGood}" />
+  </Style>
+  <Style Selector="Border.rail ToggleSwitch">
+    <Setter Property="Foreground" Value="{StaticResource RailMuted}" />
+    <Setter Property="FontSize" Value="11" />
+  </Style>
+  <Style Selector="Border.rail ToggleSwitch /template/ TextBlock">
+    <Setter Property="Foreground" Value="{StaticResource RailMuted}" />
+  </Style>
+</Styles>

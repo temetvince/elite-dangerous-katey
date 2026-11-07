@@ -1,0 +1,110 @@
+# Katey
+
+A desktop companion for Elite Dangerous that reads the game's own journal files and keeps up with you as
+you play. It plans engineering against your live material inventory, follows your plotted route and the
+system you are in, and checks your saved ship fits against the ships and modules you actually own.
+
+It runs on Windows and on Linux, where Elite Dangerous runs through Proton. Nothing is sent anywhere
+unless you allow it in Settings, where outgoing connections are off until you say otherwise.
+
+## Quick start
+
+```sh
+dotnet build Katey.slnx
+dotnet run --project src/Katey.Ui
+```
+
+Or download a release: each one is a self-contained single-file executable, so nothing else needs
+installing. On first run Katey finds the journal folder in its usual place, replays your journal history
+once, and then follows the newest file while the game writes it. The [manual](MANUAL.md) walks through
+every page and switch, starting with a quick start for players.
+
+## How the journal is read
+
+Katey polls the journal folder about once a second. On start it replays every journal file, oldest first, into
+nine trackers: material counts, route position and visited systems, the current system, the fleet, recent
+activity, the statistics (the game's lifetime figures, an income ledger, the income shared with wings and
+crews, and the Powerplay standing), the technology broker purchases, the engineering rolls, which move the
+plan on as you engineer, and the exploration and organic data aboard and unsold. A line is only parsed when a
+tracker wants its event, which is what keeps a multi-year history to a few seconds.
+
+While that replay runs the window shows its progress and nothing else that is live, so you never see a
+position or a figure from partway through the history; everything appears together when it finishes. It then
+follows the newest file for new lines and re-reads `NavRoute.json` and `Status.json` whenever the game
+rewrites them. The [journal library reference](src/Katey.Journal/README.md) lists the events each tracker uses
+and what the game does and does not write.
+
+Three limits follow from what the game writes:
+
+- Whether someone else has discovered a system is only known once you scan a body in it. Ahead of
+  arrival, Katey can only say whether *you* have been there.
+- The fleet list and the stored-module list are rewritten when you dock somewhere with a shipyard or
+  outfitting, so they are as fresh as your last such visit. A stored module's blueprint and grade are
+  recorded but not its experimental effect, which the fit checker reports as uncertain.
+- A prebuilt ship you have never deployed does not exist to the game, so it cannot appear in the fleet.
+
+## How it is put together
+
+Four projects, each one layer more specific than the last. Dependencies only ever point from specific to
+general.
+
+| Project | Role |
+| --- | --- |
+| [`src/Katey.Core`](src/Katey.Core/README.md) | The domain: the data catalogs, a name index, engineering plans and totals, the technology broker unlocks and their budget, engineer coverage, EDSY import, star classes and positions, cartographics and exobiology estimates, the fit matcher, the fuel model and the route plotting types. |
+| [`src/Katey.Journal`](src/Katey.Journal/README.md) | Reading journal files and the live files, the seven trackers, and the folder backup. Knows nothing about engineering. |
+| [`src/Katey.App`](src/Katey.App/README.md) | The pages, the rail, the plan drawer, the search, the Spansh client and the saved state. No UI toolkit dependency, so it is unit-tested as plain objects. |
+| [`src/Katey.Ui`](src/Katey.Ui/README.md) | The Avalonia window and the rail's own window over `Katey.App`. |
+
+Core and Journal do not reference each other; `Katey.App` joins them. The data tables, their provenance
+and their licensing are described in the [Core reference](src/Katey.Core/README.md#the-data-tables) and
+in [NOTICE.md](NOTICE.md).
+
+## Releases
+
+`publish.bat` at the root builds one Windows executable, `katey.exe`, into `bin/`: self-contained and
+compressed, so nothing needs installing on the machine it runs on. `bash publish.sh` does the same from a
+Linux machine, still producing the Windows executable. Beside the executable it places the manual,
+`NOTICE.md` and `THIRD-PARTY-NOTICES.txt`; those files are part of every release. Debug symbols and
+documentation files never ship.
+
+Pushing a tag that starts with `v` builds a release. The workflow in `.github/workflows/release.yml` runs on
+Linux: it builds and tests the solution, checks its whitespace formatting, runs `publish.sh`, and attaches the
+resulting `katey.exe`, with the manual and the notices, as a zip archive to a GitHub release named after the
+tag. On the runner, compiler and analyzer warnings stay warnings rather than failing the build, since the
+runner's SDK can be newer than the one the code was developed with; a local build still treats every warning
+as an error, which is where they are fixed. It is the only workflow, so an ordinary push is not checked; the
+gate runs when a tag is pushed, before anything is published. Releases are Windows only; on Linux, build from
+source with the quick start above.
+
+```sh
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+The tag's number becomes the build's version, which Katey reports to Spansh in its requests. The publish
+scripts take the same number from `KATEY_VERSION` and use 1.0.0 without it.
+
+Trimming is left off on purpose: the window's bindings use reflection.
+
+## Tests
+
+```sh
+dotnet test Katey.slnx
+```
+
+The suites are described in [tests/README.md](tests/README.md).
+
+## Repository layout
+
+| Path | Contents |
+| --- | --- |
+| `src/` | The four projects above. |
+| `tests/` | Three test projects. |
+| `Directory.Build.props` | Repo-wide build settings, including the warnings-as-errors gate. |
+| `.github/workflows/` | The release workflow, triggered by version tags. |
+| `.editorconfig` | Analyzer rules, code style and naming. The source of truth for both. |
+| `AGENTS.md` | The working agreement for changes made here. |
+| `MANUAL.md` | The user manual for players, with a quick start first. Shipped beside the executable. |
+| `NOTICE.md` | Katey's licence, every licence of the software compiled into it, and the credits and terms of the game data. Shipped beside the executable. |
+| `THIRD-PARTY-NOTICES.txt` | The long third-party notices of the .NET runtime and of SkiaSharp and HarfBuzzSharp, as their publishers ship them. Shipped beside the executable. |
+| `NOTICE.md` | Who owns the data and where it came from, and the font licences. |

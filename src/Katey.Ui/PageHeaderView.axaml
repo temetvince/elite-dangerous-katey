@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Katey.Ui.PageHeaderView">
+  <!-- DataContext is a Page: the breadcrumb links, the kicker and the title. -->
+  <StackPanel Spacing="4">
+    <StackPanel Orientation="Horizontal" Spacing="6">
+      <ItemsControl ItemsSource="{Binding Breadcrumbs}">
+        <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel Orientation="Horizontal" Spacing="6" /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <Button Classes="link crumb" Content="{Binding Label}" Command="{Binding OpenCommand}" />
+              <TextBlock Classes="kicker" Text="·" />
+            </StackPanel>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+      <TextBlock Classes="kicker" Text="{Binding Kicker}" IsVisible="{Binding HasKicker}" />
+    </StackPanel>
+    <TextBlock Classes="title" Text="{Binding Title}" />
+  </StackPanel>
+</UserControl>

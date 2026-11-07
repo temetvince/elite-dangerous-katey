@@ -1,0 +1,344 @@
+﻿# AGENTS.md — working agreement for C# work
+
+Standing instructions for any AI assistant making changes in this repository. This file is committed
+to git so it travels with the code and is loaded automatically at the start of every session in this folder.
+**Follow every rule below on every change, without being reminded**, wherever you are running.
+
+This is a general-purpose working agreement for a C#/.NET codebase. Where a rule references tooling
+(`dotnet build`, `.editorconfig`, project layout), adapt the specifics to what this repository actually uses;
+the principle behind the rule always holds. The **Project specifics** section at the bottom holds this
+repo's real solution name, run/test commands, and layout.
+
+## The rules
+
+Apply all of these to every non-trivial change, as part of "done" — not optional polish.
+
+### 1. Modularity — decompose every addition; separate the reusable core from the specifics
+
+**Split every non-trivial addition into its reusable core and its local specifics.** Before writing a feature,
+separate its **invariant** — the part that would be the same in any application of this kind (a mechanism, an
+algorithm, a lifecycle, a data shape, a base type) — from its **variant** — *this* application's specific
+rules, content, UX, and configuration. Push the invariant as far down as it will go, into the most reusable
+place it belongs (a shared library or core project), and leave the calling code only the variant, plugged in
+through interfaces, hooks, or generic parameters. Done consistently, the shared core grows more capable with
+every feature and stays reusable for the next consumer, while the outer layers stay thin — the specifics,
+never the machinery. This is a primary design goal; weigh it on every change.
+
+**Where the invariant goes — most reusable first: core/shared library, then the consuming project.** Put a
+neutral, unopinionated mechanism (a utility, a data structure, an algorithm) in the lowest reusable layer even
+if only one caller uses it today. Put an opinionated convention that removes recurring boilerplate (a base
+class, a pipeline, a lifecycle host) in the framework/shared layer that owns that convention, and let each
+consumer plug in its specifics through hooks. Only what is genuinely specific to one consumer stays in that
+consumer's project.
+
+**Extract the invariant, not the variant.** "As much logic as possible in the shared core" means as much of
+the *genuinely reusable* part as possible — never cram application-specific UX, content, or rules into a
+shared library just to make it bigger. When a thing is mostly application-flavoured (one screen's layout and
+strings, one feature's business rules), keep it in the consuming project and lift only the reusable kernel it
+rests on. When the invariant/variant line is genuinely unclear, that is a rule-7 trade-off — surface it rather
+than guess.
+
+**Structural constraints (always).** Keep dependencies flowing one way, from specific to general — a shared
+core never references its consumers, and sibling consumers never reference each other. Keep concerns that must
+stay decoupled in separate assemblies (e.g. a pure logic layer free of UI/IO so it can be referenced and
+tested in isolation). A framework/base type takes generic or already-prepared values, not a consumer's raw
+concrete types.
+
+### 2. Refactor, don't bolt on
+
+Favor refactoring toward the right design even when it is a lot of work — including **creating new
+projects/assemblies** when that is what modularity (rule 1) calls for. Match the surrounding patterns and
+naming. Do not paper over a design problem with a local patch when the clean fix is a refactor.
+
+### 3. Tests
+
+Write tests wherever they add regression value; **mock where possible**. **All tests must pass** — do not
+delete or skip a failing test to go green unless it is genuinely obsolete, and if so, say why. Put pure,
+deterministic behaviour in fast unit tests; reserve slower end-to-end / integration tests for behaviour that
+genuinely spans components.
+
+**Unit tests are the priority; integration tests must never ossify the code.** Favor fast, focused unit
+tests. And **never keep production code worse — a suboptimal structure, a misplaced type, a leaked concept —
+just to avoid changing an integration test.** When the right design breaks an integration test, change the
+code to be as good as it can be, then adapt, rewrite, move, replace, or remove the integration test to fit the
+new design. The integration test serves the code, never the reverse.
+
+### 4. Zero warnings — no analyzer squiggles
+
+Leave **no** compiler warnings and **no** analyzer "this could be improved" suggestions (the yellow
+squiggles). Analyzer rules and severities live in [`.editorconfig`](.editorconfig) (portable, read by the
+build and every editor) — that is the source of truth, not editor-only settings. Verify with a warning-free
+`dotnet build` and `dotnet format` (which applies the whitespace, style, **and** analyzer fixers per
+`.editorconfig`). If a warning is truly a false positive, suppress it narrowly with justification rather than
+leaving it visible. Prefer a build that treats warnings as errors so a squiggle fails the local build, not just
+the editor. The release workflow is the one place warnings stay warnings, so that a newer SDK on the runner
+cannot block a release with a rule this code has not met; that is not licence to leave one, and a warning seen
+in a release log is fixed next.
+
+### 5. Docs — update them with the change (if relevant)
+
+Docs ship with the change, never as a follow-up. The structure and its **single-source rule**:
+
+| Surface | Role | Style |
+| --- | --- | --- |
+| Per-project `README.md` | the **reference** for that project (types, API, file map); travels with the code | technical |
+| Solution `README.md` | the **guide** for the solution as a whole | instructional |
+
+A guide links *down* to the project READMEs; it never restates them. Every fact lives in exactly one place.
+Markdown must pass the repo's markdown lint rules (compact tables — never hand-align pipes — sensible line
+length, etc.) and any doc link-check.
+
+**Write docs to be read, not decoded — clarity beats brevity.** The goal is prose an engineer new to the code
+can follow on the first pass, not the fewest possible words. Concision is a virtue only up to the point where
+it starts hiding meaning; past it, a "dense" sentence is a defect, not a flourish. Specifically:
+
+- **One thought per sentence.** If a sentence chains a whole pipeline, lifecycle, or decision tree through
+  arrows, semicolons, em-dashes, and stacked parentheticals, it is doing too much — break it into several
+  short sentences. As a rule of thumb, more than one nested parenthetical or more than ~35 words is a smell.
+- **Use structure for structured content.** A sequence of steps is an ordered list; a set of independent
+  things (config knobs, message kinds, options) is a bullet list or a table — not a run-on sentence with
+  `→`/`;` separators. Reserve inline prose for genuine narrative ("why", "how it fits").
+- **Parentheticals are the exception, not the sentence.** A clause important enough to keep belongs in its own
+  sentence; if it is not important enough for that, cut it. Never nest them.
+- **Keep the facts, drop the compression.** Rewriting for clarity must not delete technical content or move a
+  fact to a second location (single-source still holds) — it re-shapes the *same* information into readable
+  form. Expanding a wall of text into a list or a few sentences is always the right trade here.
+
+**Document the present, not the past.** Docs describe what the code does *now* — never what it used to do, how
+it changed, or how to migrate from an older design. No "breaking changes", "previously", "the old behavior",
+"changed from", before/after narration, or migration/changelog sections in a README or XML doc; that history
+lives in git, not in the reference. Write every behavioural caveat as a present-tense fact about how the code
+works today.
+
+Apply this when you write new docs and when you touch an existing dense passage: leave the prose clearer than
+you found it.
+
+### 6. Format the whole solution
+
+Before finishing, run `dotnet format` over the **entire** solution, then rebuild and run the tests. The result
+must be green with zero warnings.
+
+### 7. Ask the user on trade-off decisions
+
+When a task involves a genuine choice — an architecture or design decision with real trade-offs, an ambiguous
+requirement, or more than one reasonable approach — **ask the user before committing to a direction** rather
+than guessing. Lay out the options and their trade-offs concisely (a recommendation plus the alternatives) and
+let them decide. This matters most for choices that are expensive to reverse: project/solution structure,
+public APIs, data or wire formats, dependencies, and cross-cutting patterns. For low-stakes or clearly
+conventional choices, pick the sensible default, state it, and move on — do not stall on trivia.
+
+### 8. Add logging where appropriate
+
+Instrument new code through the project's logging abstraction (e.g. `Microsoft.Extensions.Logging` — a
+per-class `ILogger<T>`, then `LogDebug/LogInformation/LogWarning/LogError/LogCritical`) so a running process
+can be understood from its logs without a debugger. Log the things worth knowing: lifecycle and state
+transitions (startup/shutdown, connect/disconnect, mode changes), decisions worth an audit trail (rejected
+input, retries, fallbacks), and failures — errors with the exception. Pick the level by audience and match the
+surrounding code: `Information` for milestones a human watches, `Debug` for the fine-grained trail,
+`Warning`/`Error`/`Critical` for trouble. **Do not log inside a hot path or tight inner loop** (it floods the
+log and stalls the process); if a repeating condition must be logged, throttle it (log the first, then every
+Nth). Never log secrets, credentials, or personal data.
+
+### 9. Document by contract
+
+Every public type, method, and property carries an XML doc comment — a `<summary>`, plus a `<param>` for each
+parameter, a `<returns>`, and a `<typeparam>` for each type parameter — unless `<inheritdoc/>` genuinely
+covers it (an override or interface implementation that adds nothing new). Write them **by contract**, not as
+narration: state the **preconditions** a caller must satisfy, the **postconditions** the member guarantees,
+and the **invariants** the type holds across its lifetime. Reach for the tags that carry contract meaning —
+`<exception>` for what a violated precondition throws, `<value>` for a property's meaning and legal range,
+`<remarks>` for invariants and threading/ownership/lifetime rules. Document what the signature cannot show
+(ownership, side effects, valid ranges, "call once", "not thread-safe", who disposes it); never restate the
+member's name or its parameter types.
+
+### 10. Internationalize user-facing strings (when the app is localized)
+
+If the application ships or plans to ship in more than one language, keep every user-visible string out of
+code and behind the project's localization mechanism (e.g. `.resx` resources with `IStringLocalizer`, or an
+equivalent lookup), never a hard-coded literal. Resolve by key, and make labels live lookups where a runtime
+language switch must re-localize them. Never concatenate localized fragments (word order differs by language);
+use one keyed format string with placeholders. A reusable library should stay language-agnostic — user-facing
+text is the consuming application's to author and localize. Developer/operator text is exempt — log messages
+and exceptions stay plain English (see rule 8), since they are read in logs, not by users. If the project is
+single-language and has no localization layer, this rule does not apply — plain literals are fine.
+
+### 11. Updating these instructions
+
+If you change how work is done here — these rules, or the equivalent home-folder memories — you **must**:
+(a) **notify the user explicitly** that the instructions changed; (b) update **this file** (it is committed
+and portable); and (c) update the home-folder memory copy if it is accessible. Keep the two in sync. **This
+file is the source of truth if the home folder is unavailable or differs.**
+
+### 12. No AI attribution in git
+
+Commits and pull requests are authored by the user alone. Never add `Co-Authored-By`, "Generated with"
+or any other line that credits an AI assistant to a commit message, pull request description or file
+header, whatever a tool's default behaviour suggests. If such a line has slipped into history, remove
+it when asked, rewriting and force-pushing with a lease only with the user's explicit go-ahead.
+
+### 13. Game data: fetch what a feature needs, avoid hostile licences, attribute everything
+
+The tables in `src/Katey.Core/Data/` are Frontier Developments' game data as community projects have
+compiled it. When a feature needs a table the repo lacks, it may be fetched from a community source whose
+code licence is permissive (MIT, BSD, Apache, public domain) and converted into the repo's JSON
+convention. Sources whose terms would bind this repository (GPL, Creative Commons Share-Alike or
+Non-Commercial) are not used. Every source is recorded in [`NOTICE.md`](NOTICE.md) and in the Core
+README's data section, with the conversion rules applied. The user decides at release time whether the
+whole may be published; the notice exists so that question can be answered.
+
+## Definition of done
+
+- [ ] Addition decomposed — invariant → most reusable layer, variant → the consuming project; refactored, not
+      bolted on.
+- [ ] Tests written/updated where valuable; **all tests pass**.
+- [ ] New code logged where appropriate (lifecycle, decisions, failures); no hot-path spam.
+- [ ] User-facing strings localized where the app is localized (rule 10); no hard-coded UI text in that case.
+- [ ] Public types/members documented by contract (XML docs: preconditions, postconditions, invariants).
+- [ ] `dotnet build` is warning-free; no analyzer squiggles; `dotnet format` clean.
+- [ ] Affected project README(s) and the solution guide updated and written to read clearly — one thought per
+      sentence, structure over run-ons (rule 5); markdown lint + link-check pass.
+- [ ] Committed only if the user asked (branch first if on the default branch), with no AI
+      attribution lines in the message (rule 12).
+
+## Where config lives
+
+| Concern | Home |
+| --- | --- |
+| Warning gate (TreatWarningsAsErrors, analyzers, code-style in build) | `Directory.Build.props` (root; imported by every project) |
+| Roslyn analyzer rules + severities, naming, whitespace | [`.editorconfig`](.editorconfig) (portable; the source of truth) |
+| Editor behavior (format-on-save, code actions) | editor settings (e.g. `.vscode/settings.json`) — display only |
+| Markdown rules | [`.markdownlint.json`](.markdownlint.json) |
+
+Prefer a root `Directory.Build.props` that sets `TreatWarningsAsErrors`, enables the .NET analyzers, and turns
+on `EnforceCodeStyleInBuild`, so a squiggle fails `dotnet build`/CI rather than only showing in the editor.
+Scope any deliberate exceptions in [`.editorconfig`](.editorconfig) with a justification comment; prefer
+fixing the code over adding more.
+
+## Project specifics
+
+- **Solution:** `Katey.slnx` (.NET 10). The app is called Katey; the repository is `ed-katey`.
+- **Build:** `dotnet build Katey.slnx`.
+- **Run:** `dotnet run --project src/Katey.Ui`.
+- **Test:** `dotnet test Katey.slnx`.
+- **Publish locally:** `publish.bat` on Windows, or `bash publish.sh` on Linux, writes one self-contained,
+  compressed Windows `katey.exe` into `bin/`, with `MANUAL.md`, `NOTICE.md` and `THIRD-PARTY-NOTICES.txt`
+  beside it; the release zip carries the same files. `KATEY_VERSION` stamps the build's version, which
+  the release workflow takes from the tag. `NOTICE.md` is generated content in spirit:
+  when a package, a font or a data source changes, update its section and copyright lines there. Each
+  passes `-p:PublishDocumentationFile=false -p:PublishReferencesDocumentationFiles=false` to keep the XML
+  out of the output, never `GenerateDocumentationFile=false`. If a framework-dependent build is ever
+  wanted, use `--no-self-contained`, not `--self-contained false`, which the SDK ignores, and leave
+  ReadyToRun off: a framework-dependent ReadyToRun single file starts and never shows its window.
+- **Release:** push a `v*` tag; `.github/workflows/release.yml` runs on Linux, builds and tests with
+  warnings kept as warnings, checks whitespace formatting, reports the full format check without blocking,
+  runs `publish.sh` and attaches the Windows `katey.exe` as a zip to a GitHub release. Windows
+  is the only release target; keep the publish flags in `publish.sh` and `publish.bat`, never in the
+  workflow. It is the only workflow: ordinary pushes are not checked, so run the build, tests and
+  `dotnet format` locally before pushing. Do not pass `GenerateDocumentationFile=false` to publish: the
+  analyzer gate needs it on.
+- **Layout:**
+  - `src/Katey.Core` — the domain: the engineering catalog loaded from the embedded JSON tables and
+    validated, a text index, galactic positions, plan entries, material totals and shortfall, engineer
+    coverage, EDSY import, star classes, the cartographics and exobiology estimates, the module catalog,
+    the fit matcher, the fuel model, the route plotting types, the material trader and the technology
+    broker unlocks with their budget. No UI, no file IO beyond its embedded resources, no network.
+  - `src/Katey.Journal` — reads Elite Dangerous journal files and the live `NavRoute.json` and
+    `Status.json`, keeps nine trackers current: materials, route and visited systems, system, fleet,
+    activity, statistics, technology broker purchases, engineering rolls, data aboard; and mirrors the
+    journal folder into a backup folder. Knows nothing about engineering. Does not reference Core.
+  - `src/Katey.App` — the shell: a `Workspace` of shared state, a `Navigator` over entity pages
+    (`Pages/`), the live `RailViewModel`, the `PlanDrawerViewModel`, the `SearchViewModel`, the Spansh
+    client behind `IRoutePlotter` (`Routing/`), the backup state (`Backup/`), the material reserves
+    (`Trading/`), and the saved state. No UI
+    toolkit dependency. References both.
+  - `src/Katey.Ui` — the Avalonia main window and the rail's own window over Katey.App. Code-behind holds
+    only platform concerns: opening and closing the rail window, the caption buttons and the title-bar
+    drag, the folder picker, the clipboard and the search box's keys.
+  - `tests/Katey.Core.Tests`, `tests/Katey.Journal.Tests`, `tests/Katey.App.Tests` — xUnit, with hand-written
+    fakes rather than a mocking library.
+- **Non-obvious:**
+  - The data tables are JSON with widened types, so `Catalog.FromRows` runs `CatalogValidator` and throws
+    `CatalogException` listing every problem. `CatalogTests` loads the embedded tables, which is what makes
+    a data typo fail the test run.
+  - `ItemResolver` matches EDSY item symbols against each module type's regular expressions; when several
+    match, the longest pattern wins. That is how a bi-weave shield generator beats the plain one.
+  - `JournalMonitor` polls rather than using `FileSystemWatcher`: the game appends to its journal without
+    signalling, and a notification would still have to be followed by a read. It replays the whole history
+    into every `IJournalSink`, parsing a line only when a sink wants its event, which is what keeps a
+    multi-year history to seconds.
+  - `Workspace` receives a dispatcher delegate; the monitor raises events on a background thread and the
+    workspace marshals every event it raises through it. While the monitor is catching up, every
+    snapshot the workspace hands out is empty, which is what keeps the replay off the screen; read
+    trackers through the workspace, never through `Sinks` directly, in anything that shows live state.
+    Trackers lock internally and hand out immutable snapshots. Pages do not subscribe to anything: the
+    navigator rebuilds a page on `Open` and calls `Refresh` on the current one whenever the shell sees a
+    change.
+  - Every mention of an entity on a page is a `Link` carrying a `PageKey`; `PageFactory` turns a key into
+    a page, or a `NotFoundPage` when the id names nothing. Add a new page kind in `PageKind`, the factory,
+    and a data template in `MainWindow.axaml`.
+  - The rail's `IsDetached` is view-model state; the main window reacts to it by opening or closing
+    `RailWindow` over the same `RailViewModel`. The window's overlay, click-through and remembered place
+    are preferences on the view model too; `RailWindow` applies them, dropping the system border while
+    clicks fall through, and click-through is a Win32 extended style (`WS_EX_TRANSPARENT`) set from its
+    code-behind, a no-op elsewhere. On open, `RailWindow` applies the decorations before the remembered
+    bounds: changing `WindowDecorations` resizes the client area at once and Avalonia writes that size into
+    `Width` and `Height`, so a size set before it is lost. `RailView` paints its ground only as far as its
+    content, so the overlay is clear below the last line.
+  - Colour by meaning is a resource pair in `App.axaml`, one per theme, reached from XAML through the
+    `SemanticBrush` converter with a key prefix (`KG` + grade, `K` + `MaterialCategory`, `K` +
+    `ModuleGroup`) or `StarBrush` for a star class. A new meaning gets a resource pair and a `README`
+    line in `Katey.Ui`, never a hex literal in a page template. Verdicts are `Border.badge` with a tone
+    class; figures are `TextBlock.stat` and `ProgressBar.meter`.
+  - Tables sort through `TableSort<T>`, long pages switch sections through `SectionSwitch`, collapsible
+    groups open through `GroupExpansion`, and all three remember themselves through `UiPreferences`,
+    which is saved with the state. A new table gets a sort with a preference key; a new multi-section
+    page gets a switch; a new grouped page gets an expansion.
+  - The saved data file can be moved: `Katey/location.txt` beside the default `state.json` holds the
+    path of a moved file, and `JsonFileStateStore.Configured` reads it on start. Moving saves to the old
+    place first, then loads a file already in the new folder or writes the current data there.
+  - `LangVersion` is pinned in `Directory.Build.props`, not `latest`: the IDE's compiler can be newer than
+    the SDK's and would otherwise offer syntax such as `[with(comparer), …]` that the command-line build
+    rejects. Do not accept an IDE "simplify" that introduces a feature the pinned version lacks.
+  - `PlanEntry` is two things in one record: a module to engineer (blueprint, grade, rolls, experimental)
+    or a technology broker unlock (`Unlock` set, blueprint empty, grade 0). `IsUnlock` tells them apart
+    and every consumer must branch on it before touching the blueprint; the material calculator, the
+    engineer coverage and the plan view models already do. `UnlockBudget` subtracts the whole enabled plan
+    from the inventory before judging an unlock, which is what makes ticking one dim another.
+  - The plan follows the game's engineering: `PlanProgress` applies each `EngineerCraft` to the first
+    module entry of its blueprint and type, counting rolls down and retiring the entry at its target with
+    its effect. `PlanEntry.CraftsAfter` is the anchor that keeps the replayed history off an entry and
+    stops a roll being applied twice; `Create` sets it to now, `PlanViewModel.Load` anchors an entry saved
+    without one, and tests that feed dated rolls set it explicitly.
+  - `FitMatcher` matches within one fit first (a module is used once per fit) and then applies the sharing
+    policy across fits: pooled never reserves, same-hull reserves against other hulls, none reserves
+    against everyone. Among equal matches it takes a module fitted to the fit's own hull, then a stored
+    one, then one on another hull, so a fit is met by its own ship before it borrows; match quality
+    decides before place, and wasted engineering after it. It and `FitComparer` compare items through
+    `ModuleSymbolNames.Canonical`: the game writes `_free` on a bundled module and a hull code on some
+    cargo hatches (`modularcargobaydoorfdl`), EDSY writes neither. A new spelling the game invents belongs
+    there, not in a page.
+  - `ExobiologyPredictor` canonicalises the journal's and Bioforge's spellings of atmospheres, body types
+    and volcanism to one key before comparing; a new category name that slips past that shows up as a
+    uniformly low score, not an error.
+  - `.editorconfig` is the template's, unchanged in substance: every analyzer reports at warning, and
+    `TreatWarningsAsErrors` turns each into a build failure locally. `Directory.Build.props` sets it only when
+    nothing else has, and the release workflow sets it to false in its environment, so the runner's SDK, which
+    can be newer than the one here, reports its new rules as warnings instead of failing the release. The
+    workflow checks whitespace formatting hard and the full `dotnet format` check as a report only.
+  - The main window's minimum width is the pages' minimum, 960, plus the docked rail's 340 while the rail
+    is docked; `MainWindow` applies it when the rail docks or pops out. Fit a narrower screen by popping
+    the rail out, not by shrinking the pages.
+  - The main window has two bars: the top one carries the wordmark, back and forward, the page links and
+    the caption buttons and is the drag strip; the bottom one carries the settings link, the search box
+    and the plan button, with the search results rising above the box.
+  - The windows draw their own title bars: `WindowDecorations="BorderOnly"` with
+    `ExtendClientAreaToDecorationsHint`, caption buttons with plain `Click` handlers, and `WindowDrag` on
+    pointer press. Avalonia 12's `WindowDecorationProperties.ElementRole` does nothing for a Win32 window
+    in this mode, so none of the chrome relies on it. The drawn title bar Avalonia adds under
+    `WindowDecorations="Full"` overlaps the content until the first resize, which is why Full is not used.
+    `WindowDecorations="None"` with hand-drawn resize grips was tried and dropped: a window with no system
+    frame could not be resized through `BeginResizeDrag` or by moving its own bounds from a pointer drag.
+  - Nothing leaves the machine unless `NetworkAccess` allows it: a Spansh plot behind `IRoutePlotter`
+    and a Spansh system lookup behind `ISystemCatalog`, each on its own switch, both off by default. A new
+    kind of request gets its own switch there, its own interface, and a line in the settings text and the
+    manual, and keeps the README's promise true.

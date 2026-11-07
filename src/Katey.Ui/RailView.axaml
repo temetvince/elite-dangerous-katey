@@ -1,0 +1,162 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Katey.Ui.RailView">
+  <!-- DataContext is a RailViewModel. The same instance backs the docked rail and the detached window.
+       The ground is painted only as far as the content reaches, so in overlay mode the window below the last line is clear. -->
+  <ScrollViewer HorizontalScrollBarVisibility="Disabled" Background="Transparent">
+    <Border Classes="rail" VerticalAlignment="Top">
+      <StackPanel>
+        <!-- Docked only: the rail's own window carries the live mark in its drag strip instead. -->
+        <Border Classes="rsec" Padding="14,10,140,10" IsVisible="{Binding !IsDetached}">
+          <Grid ColumnDefinitions="*,Auto">
+            <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+              <Ellipse Classes="pulse" Width="8" Height="8" Fill="{StaticResource RailAccent}" IsVisible="{Binding IsLive}" />
+              <Ellipse Width="8" Height="8" Fill="{StaticResource RailMuted}" IsVisible="{Binding !IsLive}" />
+              <TextBlock Classes="live" Text="LIVE" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" IsVisible="{Binding ShowsControls}">
+              <Button Content="Pop out" Command="{Binding DetachCommand}" IsVisible="{Binding !IsDetached}" />
+              <Button Content="Bring back" Command="{Binding AttachCommand}" IsVisible="{Binding IsDetached}" />
+            </StackPanel>
+          </Grid>
+        </Border>
+
+        <Border Classes="rsec" IsVisible="{Binding !IsLive}">
+          <TextBlock Classes="warn" Text="{Binding NotLiveText}" />
+        </Border>
+
+        <!-- While the history replays, only its progress shows: nothing below is the latest state yet. -->
+        <Border Classes="rsec" IsVisible="{Binding IsCatchingUp}">
+          <StackPanel Spacing="6">
+            <TextBlock Classes="sub" TextWrapping="Wrap" Text="{Binding CatchUpText}" />
+            <ProgressBar Classes="meter catchup" Value="{Binding CatchUpFraction}" IsIndeterminate="{Binding IsCatchUpIndeterminate}" />
+          </StackPanel>
+        </Border>
+
+        <StackPanel IsVisible="{Binding !IsCatchingUp}">
+        <!-- Position -->
+        <Border Classes="rsec">
+          <StackPanel Spacing="6">
+            <TextBlock Classes="eyebrow accent" Text="POSITION" />
+            <Button Classes="link quiet" Command="{Binding SystemLink.OpenCommand}" IsVisible="{Binding ShowsControls}" ToolTip.Tip="Open this system"><TextBlock Classes="big" Text="{Binding SystemName}" /></Button>
+            <TextBlock Classes="big" Text="{Binding SystemName}" IsVisible="{Binding !ShowsControls}" />
+            <TextBlock Classes="sub" Text="{Binding PositionDetail}" />
+            <Button Classes="link" Content="{Binding SystemLink.Label}" Command="{Binding SystemLink.OpenCommand}" IsVisible="{Binding ShowsControls}" />
+          </StackPanel>
+        </Border>
+
+        <!-- The route and the plot show while the next jump is targeted or this system is unsurveyed; the bodies otherwise. -->
+        <StackPanel IsVisible="{Binding ShowsRoute}">
+        <!-- Route -->
+        <Border Classes="rsec">
+          <StackPanel Spacing="8">
+            <Grid ColumnDefinitions="*,Auto">
+              <TextBlock Classes="eyebrow" Text="{Binding RouteHeading}" />
+              <StackPanel Grid.Column="1" IsVisible="{Binding ShowsControls}">
+                <Button Classes="link" Content="{Binding RouteLink.Label}" Command="{Binding RouteLink.OpenCommand}" IsVisible="{Binding HasRoute}" />
+              </StackPanel>
+            </Grid>
+            <ItemsControl ItemsSource="{Binding RouteStops}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Grid ColumnDefinitions="18,42,*,Auto" Margin="0,2">
+                    <Ellipse Classes="dot" Classes.here="{Binding IsHere}" Classes.scoop="{Binding IsScoopable}" Classes.engineer="{Binding HasEngineer}" Fill="{Binding StarClass, Converter={StaticResource StarBrush}}" />
+                    <TextBlock Grid.Column="1" Classes="mono sub" Text="{Binding Marker}" VerticalAlignment="Center" />
+                    <StackPanel Grid.Column="2">
+                      <Button Classes="link ink" Content="{Binding Link.Label}" Command="{Binding Link.OpenCommand}" IsVisible="{Binding $parent[ItemsControl].DataContext.ShowsControls}" />
+                      <TextBlock Text="{Binding Link.Label}" IsVisible="{Binding !$parent[ItemsControl].DataContext.ShowsControls}" />
+                      <TextBlock Classes="sub" Text="{Binding StarText}" />
+                      <StackPanel IsVisible="{Binding HasEngineer}">
+                        <Button Classes="link" Content="{Binding Engineer.Label}" Command="{Binding Engineer.OpenCommand}" IsVisible="{Binding $parent[ItemsControl].DataContext.ShowsControls}" />
+                        <TextBlock Classes="accent" Text="{Binding Engineer.Label}" IsVisible="{Binding !$parent[ItemsControl].DataContext.ShowsControls}" />
+                      </StackPanel>
+                    </StackPanel>
+                    <Border Grid.Column="3" Classes="tag" IsVisible="{Binding IsScoopable}"><TextBlock Text="scoop" /></Border>
+                  </Grid>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <TextBlock Classes="sub" Text="{Binding RouteRest}" />
+            <TextBlock Classes="sub" Text="{Binding TravelledText}" />
+            <!-- The tank: label and figures on one line, the bar full width beneath. The bar is drawn as the HUD draws it: blue to the tank's level under orange to the level after the next jump, so the blue that shows is the jump's burn. -->
+            <StackPanel Spacing="4" IsVisible="{Binding Fuel.HasTank}">
+              <Grid ColumnDefinitions="Auto,*,Auto,Auto" ColumnSpacing="8">
+                <TextBlock Classes="eyebrow" Text="TANK" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="2" Classes="mono sub" Text="{Binding Fuel.TankText}" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="3" Classes="mono burn" Text="{Binding Fuel.NextJumpText}" IsVisible="{Binding Fuel.HasNextJump}" VerticalAlignment="Center" />
+              </Grid>
+              <Panel>
+                <ProgressBar Classes="meter tall burn" Value="{Binding Fuel.TankFraction}" />
+                <ProgressBar Classes="meter tall over" Classes.warn="{Binding Fuel.TankIsLow}" Value="{Binding Fuel.TankAfterJumpFraction}" />
+              </Panel>
+            </StackPanel>
+            <TextBlock Classes="sub" Text="{Binding FuelText}" />
+            <TextBlock Classes="warn" Text="{Binding Fuel.Summary}" IsVisible="{Binding !!Fuel.Summary.Length}" />
+          </StackPanel>
+        </Border>
+
+        <!-- Spansh plot -->
+        <Border Classes="rsec" IsVisible="{Binding HasPlot}">
+          <StackPanel Spacing="6">
+            <Grid ColumnDefinitions="*,Auto">
+              <TextBlock Classes="eyebrow" Text="SPANSH PLOT" />
+              <Button Grid.Column="1" Classes="link" Content="Full plot" Command="{Binding PlotLink.OpenCommand}" IsVisible="{Binding ShowsControls}" />
+            </Grid>
+            <TextBlock Classes="sub" TextWrapping="Wrap" Text="{Binding PlotText}" />
+            <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding HasNextWaypoint}">
+              <Button Content="Copy next waypoint" Click="CopyNextWaypoint" IsVisible="{Binding ShowsControls}" ToolTip.Tip="Copies the system name to paste into the galaxy map" />
+              <TextBlock Name="PlotCopyStatus" Classes="sub" VerticalAlignment="Center" />
+            </StackPanel>
+          </StackPanel>
+        </Border>
+
+        </StackPanel>
+        <StackPanel IsVisible="{Binding ShowsBodies}">
+        <!-- This system -->
+        <Border Classes="rsec">
+          <StackPanel Spacing="8">
+            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+              <Panel Width="22" Height="22" VerticalAlignment="Center">
+                <Arc Classes="scan track" />
+                <Arc Classes="scan" Classes.good="{Binding IsFullyScanned}" SweepAngle="{Binding ScanFraction, Converter={StaticResource Scale}, ConverterParameter=360}" />
+              </Panel>
+              <TextBlock Grid.Column="1" Classes="eyebrow" Classes.accent="{Binding !IsFullyScanned}" Classes.good="{Binding IsFullyScanned}" Text="{Binding SystemHeading}" VerticalAlignment="Center" />
+            </Grid>
+            <TextBlock Classes="sub" Text="{Binding ValueText}" />
+            <StackPanel Spacing="6" IsVisible="{Binding ShowsControls}">
+              <ToggleSwitch IsChecked="{Binding HideBacteriaOnly, Mode=TwoWay}" OnContent="Hiding bacteria-only bodies" OffContent="Showing bacteria-only bodies" />
+              <ToggleSwitch IsChecked="{Binding BiologyFirst, Mode=TwoWay}" OnContent="Biology first" OffContent="Nearest first" />
+            </StackPanel>
+            <ItemsControl ItemsSource="{Binding Bodies}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Border BorderBrush="{StaticResource RailLine}" BorderThickness="0,0,0,1" Padding="0,6">
+                    <StackPanel Spacing="2">
+                      <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Classes="mono" Text="{Binding Name}" />
+                        <TextBlock Classes="accent" Text="{Binding ValueText}" IsVisible="{Binding !!ValueText.Length}" />
+                        <Border Classes="tag accent" IsVisible="{Binding HasBiology}"><TextBlock Text="{Binding BiologyTag}" /></Border>
+                        <Border Classes="tag good" IsVisible="{Binding Landable}"><TextBlock Text="landable" /></Border>
+                        <Border Classes="tag" IsVisible="{Binding IsHighGravity}"><TextBlock Text="{Binding Gravity}" /></Border>
+                        <Border Classes="tag bad" IsVisible="{Binding IsExtremeGravity}"><TextBlock Text="{Binding Gravity}" /></Border>
+                        <Border Classes="tag" IsVisible="{Binding HasShortMaterial}"><TextBlock Text="needed" /></Border>
+                        <Border Classes="tag" IsVisible="{Binding IsLanded}"><TextBlock Text="landed" /></Border>
+                      </StackPanel>
+                      <TextBlock Classes="sub" Text="{Binding Signals}" IsVisible="{Binding Signals.Length}" />
+                      <TextBlock Text="{Binding Life}" IsVisible="{Binding HasLife}" />
+                      <TextBlock Classes="sub" Text="{Binding Materials}" IsVisible="{Binding HasMaterials}" />
+                    </StackPanel>
+                  </Border>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <TextBlock Classes="sub" Text="{Binding BodiesNote}" IsVisible="{Binding BodiesNote.Length}" />
+          </StackPanel>
+        </Border>
+
+        </StackPanel>
+        </StackPanel>
+      </StackPanel>
+    </Border>
+  </ScrollViewer>
+</UserControl>

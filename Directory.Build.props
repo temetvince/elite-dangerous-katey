@@ -1,0 +1,47 @@
+<Project>
+
+  <!-- Repo-wide build settings for every project (the libraries, the CLI, and the tests). The point
+       is a hard "no warnings, no squiggles" gate: analyzer and code-style diagnostics become build
+       ERRORS, so what would otherwise be a yellow squiggle in the editor fails the build (and CI)
+       instead of being ignored. The rule severities themselves live in .editorconfig.
+
+       This is the only Directory.Build.props in the repo; every project sits under it, so no project
+       can escape the gate. -->
+
+  <!-- Language and platform baseline shared by every project. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <!-- Pinned, not "latest": the IDE's compiler may be newer than the SDK's and would otherwise offer
+         preview syntax the command-line build cannot compile. -->
+    <LangVersion>14</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Every compiler/analyzer warning is an error, unless the caller says otherwise. The release workflow
+         sets TreatWarningsAsErrors=false in its environment, because the runner's SDK can be newer than the
+         one used here and bring a rule this code has not met yet; a release must not fail on that. The rule
+         for development stands: every warning is fixed before the work is done, and a local build enforces it. -->
+    <TreatWarningsAsErrors Condition="'$(TreatWarningsAsErrors)' == ''">true</TreatWarningsAsErrors>
+
+    <!-- Run the .NET code-quality (CAxxxx) analyzers at the Recommended set, newest rules. -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisMode>Recommended</AnalysisMode>
+
+    <!-- Also run the IDE code-style (IDExxxx) rules during build, not just in the editor — this is
+         what turns "this could be improved" editor squiggles into build diagnostics on the CLI. -->
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+    <!-- IDE0005 (remove unnecessary usings) only runs at build with the XML doc file generated. The
+         libraries are XML-documented anyway, so this is a bonus (consumers get IntelliSense docs). We
+         do NOT mandate doc-completeness, though: CS1591 (missing XML comment on a public member) is a
+         documentation policy, not a code-quality squiggle, and would nag every test/DTO/entry point —
+         so it is the one diagnostic we opt out of. -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+</Project>

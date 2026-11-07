@@ -1,0 +1,1024 @@
+{
+  "Carbon": {
+    "symbol": "Carbon",
+    "name": "Carbon",
+    "category": "raw",
+    "grade": 1,
+    "line": "Carbon"
+  },
+  "Vanadium": {
+    "symbol": "Vanadium",
+    "name": "Vanadium",
+    "category": "raw",
+    "grade": 2,
+    "line": "Carbon"
+  },
+  "Niobium": {
+    "symbol": "Niobium",
+    "name": "Niobium",
+    "category": "raw",
+    "grade": 3,
+    "line": "Carbon"
+  },
+  "Yttrium": {
+    "symbol": "Yttrium",
+    "name": "Yttrium",
+    "category": "raw",
+    "grade": 4,
+    "line": "Carbon"
+  },
+  "Iron": {
+    "symbol": "Iron",
+    "name": "Iron",
+    "category": "raw",
+    "grade": 1,
+    "line": "Iron"
+  },
+  "Zinc": {
+    "symbol": "Zinc",
+    "name": "Zinc",
+    "category": "raw",
+    "grade": 2,
+    "line": "Iron"
+  },
+  "Tin": {
+    "symbol": "Tin",
+    "name": "Tin",
+    "category": "raw",
+    "grade": 3,
+    "line": "Iron"
+  },
+  "Selenium": {
+    "symbol": "Selenium",
+    "name": "Selenium",
+    "category": "raw",
+    "grade": 4,
+    "line": "Iron"
+  },
+  "Lead": {
+    "symbol": "Lead",
+    "name": "Lead",
+    "category": "raw",
+    "grade": 1,
+    "line": "Lead"
+  },
+  "Zirconium": {
+    "symbol": "Zirconium",
+    "name": "Zirconium",
+    "category": "raw",
+    "grade": 2,
+    "line": "Lead"
+  },
+  "Boron": {
+    "symbol": "Boron",
+    "name": "Boron",
+    "category": "raw",
+    "grade": 3,
+    "line": "Lead"
+  },
+  "Antimony": {
+    "symbol": "Antimony",
+    "name": "Antimony",
+    "category": "raw",
+    "grade": 4,
+    "line": "Lead"
+  },
+  "Nickel": {
+    "symbol": "Nickel",
+    "name": "Nickel",
+    "category": "raw",
+    "grade": 1,
+    "line": "Nickel"
+  },
+  "Germanium": {
+    "symbol": "Germanium",
+    "name": "Germanium",
+    "category": "raw",
+    "grade": 2,
+    "line": "Nickel"
+  },
+  "Tungsten": {
+    "symbol": "Tungsten",
+    "name": "Tungsten",
+    "category": "raw",
+    "grade": 3,
+    "line": "Nickel"
+  },
+  "Tellurium": {
+    "symbol": "Tellurium",
+    "name": "Tellurium",
+    "category": "raw",
+    "grade": 4,
+    "line": "Nickel"
+  },
+  "Phosphorus": {
+    "symbol": "Phosphorus",
+    "name": "Phosphorus",
+    "category": "raw",
+    "grade": 1,
+    "line": "Phosphorus"
+  },
+  "Chromium": {
+    "symbol": "Chromium",
+    "name": "Chromium",
+    "category": "raw",
+    "grade": 2,
+    "line": "Phosphorus"
+  },
+  "Molybdenum": {
+    "symbol": "Molybdenum",
+    "name": "Molybdenum",
+    "category": "raw",
+    "grade": 3,
+    "line": "Phosphorus"
+  },
+  "Technetium": {
+    "symbol": "Technetium",
+    "name": "Technetium",
+    "category": "raw",
+    "grade": 4,
+    "line": "Phosphorus"
+  },
+  "Rhenium": {
+    "symbol": "Rhenium",
+    "name": "Rhenium",
+    "category": "raw",
+    "grade": 1,
+    "line": "Rhenium"
+  },
+  "Arsenic": {
+    "symbol": "Arsenic",
+    "name": "Arsenic",
+    "category": "raw",
+    "grade": 2,
+    "line": "Rhenium"
+  },
+  "Mercury": {
+    "symbol": "Mercury",
+    "name": "Mercury",
+    "category": "raw",
+    "grade": 3,
+    "line": "Rhenium"
+  },
+  "Polonium": {
+    "symbol": "Polonium",
+    "name": "Polonium",
+    "category": "raw",
+    "grade": 4,
+    "line": "Rhenium"
+  },
+  "Sulphur": {
+    "symbol": "Sulphur",
+    "name": "Sulphur",
+    "category": "raw",
+    "grade": 1,
+    "line": "Sulphur"
+  },
+  "Manganese": {
+    "symbol": "Manganese",
+    "name": "Manganese",
+    "category": "raw",
+    "grade": 2,
+    "line": "Sulphur"
+  },
+  "Cadmium": {
+    "symbol": "Cadmium",
+    "name": "Cadmium",
+    "category": "raw",
+    "grade": 3,
+    "line": "Sulphur"
+  },
+  "Ruthenium": {
+    "symbol": "Ruthenium",
+    "name": "Ruthenium",
+    "category": "raw",
+    "grade": 4,
+    "line": "Sulphur"
+  },
+  "Salvaged Alloys": {
+    "symbol": "SalvagedAlloys",
+    "name": "Salvaged Alloys",
+    "category": "manufactured",
+    "grade": 1,
+    "line": "Alloys"
+  },
+  "Galvanising Alloys": {
+    "symbol": "GalvanisingAlloys",
+    "name": "Galvanising Alloys",
+    "category": "manufactured",
+    "grade": 2,
+    "line": "Alloys"
+  },
+  "Phase Alloys": {
+    "symbol": "PhaseAlloys",
+    "name": "Phase Alloys",
+    "category": "manufactured",
+    "grade": 3,
+    "line": "Alloys"
+  },
+  "Proto Light Alloys": {
+    "symbol": "ProtoLightAlloys",
+    "name": "Proto Light Alloys",
+    "category": "manufactured",
+    "grade": 4,
+    "line": "Alloys"
+  },
+  "Proto Radiolic Alloys": {
+    "symbol": "ProtoRadiolicAlloys",
+    "name": "Proto Radiolic Alloys",
+    "category": "manufactured",
+    "grade": 5,
+    "line": "Alloys"
+  },
+  "Grid Resistors": {
+    "symbol": "GridResistors",
+    "name": "Grid Resistors",
+    "category": "manufactured",
+    "grade": 1,
+    "line": "Capacitors"
+  },
+  "Hybrid Capacitors": {
+    "symbol": "HybridCapacitors",
+    "name": "Hybrid Capacitors",
+    "category": "manufactured",
+    "grade": 2,
+    "line": "Capacitors"
+  },
+  "Electrochemical Arrays": {
+    "symbol": "ElectrochemicalArrays",
+    "name": "Electrochemical Arrays",
+    "category": "manufactured",
+    "grade": 3,
+    "line": "Capacitors"
+  },
+  "Polymer Capacitors": {
+    "symbol": "PolymerCapacitors",
+    "name": "Polymer Capacitors",
+    "category": "manufactured",
+    "grade": 4,
+    "line": "Capacitors"
+  },
+  "Military Supercapacitors": {
+    "symbol": "MilitarySupercapacitors",
+    "name": "Military Supercapacitors",
+    "category": "manufactured",
+    "grade": 5,
+    "line": "Capacitors"
+  },
+  "Chemical Storage Units": {
+    "symbol": "ChemicalStorageUnits",
+    "name": "Chemical Storage Units",
+    "category": "manufactured",
+    "grade": 1,
+    "line": "Chemical"
+  },
+  "Chemical Processors": {
+    "symbol": "ChemicalProcessors",
+    "name": "Chemical Processors",
+    "category": "manufactured",
+    "grade": 2,
+    "line": "Chemical"
+  },
+  "Chemical Distillery": {
+    "symbol": "ChemicalDistillery",
+    "name": "Chemical Distillery",
+    "category": "manufactured",
+    "grade": 3,
+    "line": "Chemical"
+  },
+  "Chemical Manipulators": {
+    "symbol": "ChemicalManipulators",
+    "name": "Chemical Manipulators",
+    "category": "manufactured",
+    "grade": 4,
+    "line": "Chemical"
+  },
+  "Pharmaceutical Isolators": {
+    "symbol": "PharmaceuticalIsolators",
+    "name": "Pharmaceutical Isolators",
+    "category": "manufactured",
+    "grade": 5,
+    "line": "Chemical"
+  },
+  "Compact Composites": {
+    "symbol": "CompactComposites",
+    "name": "Compact Composites",
+    "category": "manufactured",
+    "grade": 1,
+    "line": "Composite"
+  },
+  "Filament Composites": {
+    "symbol": "FilamentComposites",
+    "name": "Filament Composites",
+    "category": "manufactured",
+    "grade": 2,
+    "line": "Composite"
+  },
+  "High Density Composites": {
+    "symbol": "HighDensityComposites",
+    "name": "High Density Composites",
+    "category": "manufactured",
+    "grade": 3,
+    "line": "Composite"
+  },
+  "Proprietary Composites": {
+    "symbol": "FedProprietaryComposites",
+    "name": "Proprietary Composites",
+    "category": "manufactured",
+    "grade": 4,
+    "line": "Composite"
+  },
+  "Core Dynamics Composites": {
+    "symbol": "FedCoreComposites",
+    "name": "Core Dynamics Composites",
+    "category": "manufactured",
+    "grade": 5,
+    "line": "Composite"
+  },
+  "Basic Conductors": {
+    "symbol": "BasicConductors",
+    "name": "Basic Conductors",
+    "category": "manufactured",
+    "grade": 1,
+    "line": "Conductive"
+  },
+  "Conductive Components": {
+    "symbol": "ConductiveComponents",
+    "name": "Conductive Components",
+    "category": "manufactured",
+    "grade": 2,
+    "line": "Conductive"
+  },
+  "Conductive Ceramics": {
+    "symbol": "ConductiveCeramics",
+    "name": "Conductive Ceramics",
+    "category": "manufactured",
+    "grade": 3,
+    "line": "Conductive"
+  },
+  "Conductive Polymers": {
+    "symbol": "ConductivePolymers",
+    "name": "Conductive Polymers",
+    "category": "manufactured",
+    "grade": 4,
+    "line": "Conductive"
+  },
+  "Biotech Conductors": {
+    "symbol": "BiotechConductors",
+    "name": "Biotech Conductors",
+    "category": "manufactured",
+    "grade": 5,
+    "line": "Conductive"
+  },
+  "Crystal Shards": {
+    "symbol": "CrystalShards",
+    "name": "Crystal Shards",
+    "category": "manufactured",
+    "grade": 1,
+    "line": "Crystals"
+  },
+  "Flawed Focus Crystals": {
+    "symbol": "UncutFocusCrystals",
+    "name": "Flawed Focus Crystals",
+    "category": "manufactured",
+    "grade": 2,
+    "line": "Crystals"
+  },
+  "Focus Crystals": {
+    "symbol": "FocusCrystals",
+    "name": "Focus Crystals",
+    "category": "manufactured",
+    "grade": 3,
+    "line": "Crystals"
+  },
+  "Refined Focus Crystals": {
+    "symbol": "RefinedFocusCrystals",
+    "name": "Refined Focus Crystals",
+    "category": "manufactured",
+    "grade": 4,
+    "line": "Crystals"
+  },
+  "Exquisite Focus Crystals": {
+    "symbol": "ExquisiteFocusCrystals",
+    "name": "Exquisite Focus Crystals",
+    "category": "manufactured",
+    "grade": 5,
+    "line": "Crystals"
+  },
+  "Guardian Power Cell": {
+    "symbol": "Guardian_PowerCell",
+    "name": "Guardian Power Cell",
+    "category": "manufactured",
+    "grade": 1,
+    "line": "Guardian"
+  },
+  "Guardian Wreckage Components": {
+    "symbol": "Guardian_Sentinel_WreckageComponents",
+    "name": "Guardian Wreckage Components",
+    "category": "manufactured",
+    "grade": 1,
+    "line": "Guardian"
+  },
+  "Guardian Power Conduit": {
+    "symbol": "Guardian_PowerConduit",
+    "name": "Guardian Power Conduit",
+    "category": "manufactured",
+    "grade": 2,
+    "line": "Guardian"
+  },
+  "Guardian Sentinel Weapon Parts": {
+    "symbol": "Guardian_Sentinel_WeaponParts",
+    "name": "Guardian Sentinel Weapon Parts",
+    "category": "manufactured",
+    "grade": 3,
+    "line": "Guardian"
+  },
+  "Guardian Technology Component": {
+    "symbol": "Guardian_TechComponent",
+    "name": "Guardian Technology Component",
+    "category": "manufactured",
+    "grade": 3,
+    "line": "Guardian"
+  },
+  "Heat Conduction Wiring": {
+    "symbol": "HeatConductionWiring",
+    "name": "Heat Conduction Wiring",
+    "category": "manufactured",
+    "grade": 1,
+    "line": "Heat"
+  },
+  "Heat Dispersion Plate": {
+    "symbol": "HeatDispersionPlate",
+    "name": "Heat Dispersion Plate",
+    "category": "manufactured",
+    "grade": 2,
+    "line": "Heat"
+  },
+  "Heat Exchangers": {
+    "symbol": "HeatExchangers",
+    "name": "Heat Exchangers",
+    "category": "manufactured",
+    "grade": 3,
+    "line": "Heat"
+  },
+  "Heat Vanes": {
+    "symbol": "HeatVanes",
+    "name": "Heat Vanes",
+    "category": "manufactured",
+    "grade": 4,
+    "line": "Heat"
+  },
+  "Proto Heat Radiators": {
+    "symbol": "ProtoHeatRadiators",
+    "name": "Proto Heat Radiators",
+    "category": "manufactured",
+    "grade": 5,
+    "line": "Heat"
+  },
+  "Mechanical Scrap": {
+    "symbol": "MechanicalScrap",
+    "name": "Mechanical Scrap",
+    "category": "manufactured",
+    "grade": 1,
+    "line": "Mechanical Components"
+  },
+  "Mechanical Equipment": {
+    "symbol": "MechanicalEquipment",
+    "name": "Mechanical Equipment",
+    "category": "manufactured",
+    "grade": 2,
+    "line": "Mechanical Components"
+  },
+  "Mechanical Components": {
+    "symbol": "MechanicalComponents",
+    "name": "Mechanical Components",
+    "category": "manufactured",
+    "grade": 3,
+    "line": "Mechanical Components"
+  },
+  "Configurable Components": {
+    "symbol": "ConfigurableComponents",
+    "name": "Configurable Components",
+    "category": "manufactured",
+    "grade": 4,
+    "line": "Mechanical Components"
+  },
+  "Improvised Components": {
+    "symbol": "ImprovisedComponents",
+    "name": "Improvised Components",
+    "category": "manufactured",
+    "grade": 5,
+    "line": "Mechanical Components"
+  },
+  "Worn Shield Emitters": {
+    "symbol": "WornShieldEmitters",
+    "name": "Worn Shield Emitters",
+    "category": "manufactured",
+    "grade": 1,
+    "line": "Shielding"
+  },
+  "Shield Emitters": {
+    "symbol": "ShieldEmitters",
+    "name": "Shield Emitters",
+    "category": "manufactured",
+    "grade": 2,
+    "line": "Shielding"
+  },
+  "Shielding Sensors": {
+    "symbol": "ShieldingSensors",
+    "name": "Shielding Sensors",
+    "category": "manufactured",
+    "grade": 3,
+    "line": "Shielding"
+  },
+  "Compound Shielding": {
+    "symbol": "CompoundShielding",
+    "name": "Compound Shielding",
+    "category": "manufactured",
+    "grade": 4,
+    "line": "Shielding"
+  },
+  "Imperial Shielding": {
+    "symbol": "ImperialShielding",
+    "name": "Imperial Shielding",
+    "category": "manufactured",
+    "grade": 5,
+    "line": "Shielding"
+  },
+  "Hardened Surface Fragments": {
+    "symbol": "tg_abrasion03",
+    "name": "Hardened Surface Fragments",
+    "category": "manufactured",
+    "grade": 1,
+    "line": "Thargoid"
+  },
+  "Caustic Shard": {
+    "symbol": "tg_causticshard",
+    "name": "Caustic Shard",
+    "category": "manufactured",
+    "grade": 2,
+    "line": "Thargoid"
+  },
+  "Tactical Core Chip": {
+    "symbol": "unknowncorechip",
+    "name": "Tactical Core Chip",
+    "category": "manufactured",
+    "grade": 2,
+    "line": "Thargoid"
+  },
+  "Thargoid Carapace": {
+    "symbol": "UnknownCarapace",
+    "name": "Thargoid Carapace",
+    "category": "manufactured",
+    "grade": 2,
+    "line": "Thargoid"
+  },
+  "Bio-Mechanical Conduits": {
+    "symbol": "TG_BioMechanicalConduits",
+    "name": "Bio-Mechanical Conduits",
+    "category": "manufactured",
+    "grade": 3,
+    "line": "Thargoid"
+  },
+  "Corrosive Mechanisms": {
+    "symbol": "tg_causticgeneratorparts",
+    "name": "Corrosive Mechanisms",
+    "category": "manufactured",
+    "grade": 3,
+    "line": "Thargoid"
+  },
+  "Phasing Membrane Residue": {
+    "symbol": "tg_abrasion02",
+    "name": "Phasing Membrane Residue",
+    "category": "manufactured",
+    "grade": 3,
+    "line": "Thargoid"
+  },
+  "Thargoid Energy Cell": {
+    "symbol": "UnknownEnergyCell",
+    "name": "Thargoid Energy Cell",
+    "category": "manufactured",
+    "grade": 3,
+    "line": "Thargoid"
+  },
+  "Wreckage Components": {
+    "symbol": "TG_WreckageComponents",
+    "name": "Wreckage Components",
+    "category": "manufactured",
+    "grade": 3,
+    "line": "Thargoid"
+  },
+  "Caustic Crystal": {
+    "symbol": "tg_causticcrystal",
+    "name": "Caustic Crystal",
+    "category": "manufactured",
+    "grade": 4,
+    "line": "Thargoid"
+  },
+  "Thargoid Technological Components": {
+    "symbol": "UnknownTechnologyComponents",
+    "name": "Thargoid Technological Components",
+    "category": "manufactured",
+    "grade": 4,
+    "line": "Thargoid"
+  },
+  "Weapon Parts": {
+    "symbol": "TG_WeaponParts",
+    "name": "Weapon Parts",
+    "category": "manufactured",
+    "grade": 4,
+    "line": "Thargoid"
+  },
+  "Heat Exposure Specimen": {
+    "symbol": "tg_abrasion01",
+    "name": "Heat Exposure Specimen",
+    "category": "manufactured",
+    "grade": 5,
+    "line": "Thargoid"
+  },
+  "Propulsion Elements": {
+    "symbol": "TG_PropulsionElement",
+    "name": "Propulsion Elements",
+    "category": "manufactured",
+    "grade": 5,
+    "line": "Thargoid"
+  },
+  "Sensor Fragment": {
+    "symbol": "UnknownEnergySource",
+    "name": "Sensor Fragment",
+    "category": "manufactured",
+    "grade": 5,
+    "line": "Thargoid"
+  },
+  "Thargoid Organic Circuitry": {
+    "symbol": "UnknownOrganicCircuitry",
+    "name": "Thargoid Organic Circuitry",
+    "category": "manufactured",
+    "grade": 5,
+    "line": "Thargoid"
+  },
+  "Tempered Alloys": {
+    "symbol": "TemperedAlloys",
+    "name": "Tempered Alloys",
+    "category": "manufactured",
+    "grade": 1,
+    "line": "Thermic"
+  },
+  "Heat Resistant Ceramics": {
+    "symbol": "HeatResistantCeramics",
+    "name": "Heat Resistant Ceramics",
+    "category": "manufactured",
+    "grade": 2,
+    "line": "Thermic"
+  },
+  "Precipitated Alloys": {
+    "symbol": "PrecipitatedAlloys",
+    "name": "Precipitated Alloys",
+    "category": "manufactured",
+    "grade": 3,
+    "line": "Thermic"
+  },
+  "Thermic Alloys": {
+    "symbol": "ThermicAlloys",
+    "name": "Thermic Alloys",
+    "category": "manufactured",
+    "grade": 4,
+    "line": "Thermic"
+  },
+  "Military Grade Alloys": {
+    "symbol": "MilitaryGradeAlloys",
+    "name": "Military Grade Alloys",
+    "category": "manufactured",
+    "grade": 5,
+    "line": "Thermic"
+  },
+  "Anomalous Bulk Scan Data": {
+    "symbol": "BulkScanData",
+    "name": "Anomalous Bulk Scan Data",
+    "category": "encoded",
+    "grade": 1,
+    "line": "Data Archives"
+  },
+  "Unidentified Scan Archives": {
+    "symbol": "ScanArchives",
+    "name": "Unidentified Scan Archives",
+    "category": "encoded",
+    "grade": 2,
+    "line": "Data Archives"
+  },
+  "Classified Scan Databanks": {
+    "symbol": "ScanDatabanks",
+    "name": "Classified Scan Databanks",
+    "category": "encoded",
+    "grade": 3,
+    "line": "Data Archives"
+  },
+  "Divergent Scan Data": {
+    "symbol": "EncodedScanData",
+    "name": "Divergent Scan Data",
+    "category": "encoded",
+    "grade": 4,
+    "line": "Data Archives"
+  },
+  "Classified Scan Fragment": {
+    "symbol": "ClassifiedScanData",
+    "name": "Classified Scan Fragment",
+    "category": "encoded",
+    "grade": 5,
+    "line": "Data Archives"
+  },
+  "Exceptional Scrambled Emission Data": {
+    "symbol": "ScrambledEmissionData",
+    "name": "Exceptional Scrambled Emission Data",
+    "category": "encoded",
+    "grade": 1,
+    "line": "Emission Data"
+  },
+  "Irregular Emission Data": {
+    "symbol": "ArchivedEmissionData",
+    "name": "Irregular Emission Data",
+    "category": "encoded",
+    "grade": 2,
+    "line": "Emission Data"
+  },
+  "Unexpected Emission Data": {
+    "symbol": "EmissionData",
+    "name": "Unexpected Emission Data",
+    "category": "encoded",
+    "grade": 3,
+    "line": "Emission Data"
+  },
+  "Decoded Emission Data": {
+    "symbol": "DecodedEmissionData",
+    "name": "Decoded Emission Data",
+    "category": "encoded",
+    "grade": 4,
+    "line": "Emission Data"
+  },
+  "Abnormal Compact Emissions Data": {
+    "symbol": "CompactEmissionsData",
+    "name": "Abnormal Compact Emissions Data",
+    "category": "encoded",
+    "grade": 5,
+    "line": "Emission Data"
+  },
+  "Specialised Legacy Firmware": {
+    "symbol": "LegacyFirmware",
+    "name": "Specialised Legacy Firmware",
+    "category": "encoded",
+    "grade": 1,
+    "line": "Encoded Firmware"
+  },
+  "Modified Consumer Firmware": {
+    "symbol": "ConsumerFirmware",
+    "name": "Modified Consumer Firmware",
+    "category": "encoded",
+    "grade": 2,
+    "line": "Encoded Firmware"
+  },
+  "Cracked Industrial Firmware": {
+    "symbol": "IndustrialFirmware",
+    "name": "Cracked Industrial Firmware",
+    "category": "encoded",
+    "grade": 3,
+    "line": "Encoded Firmware"
+  },
+  "Security Firmware Patch": {
+    "symbol": "SecurityFirmware",
+    "name": "Security Firmware Patch",
+    "category": "encoded",
+    "grade": 4,
+    "line": "Encoded Firmware"
+  },
+  "Modified Embedded Firmware": {
+    "symbol": "EmbeddedFirmware",
+    "name": "Modified Embedded Firmware",
+    "category": "encoded",
+    "grade": 5,
+    "line": "Encoded Firmware"
+  },
+  "Unusual Encrypted Files": {
+    "symbol": "EncryptedFiles",
+    "name": "Unusual Encrypted Files",
+    "category": "encoded",
+    "grade": 1,
+    "line": "Encryption Files"
+  },
+  "Tagged Encryption Codes": {
+    "symbol": "EncryptionCodes",
+    "name": "Tagged Encryption Codes",
+    "category": "encoded",
+    "grade": 2,
+    "line": "Encryption Files"
+  },
+  "Open Symmetric Keys": {
+    "symbol": "SymmetricKeys",
+    "name": "Open Symmetric Keys",
+    "category": "encoded",
+    "grade": 3,
+    "line": "Encryption Files"
+  },
+  "Atypical Encryption Archives": {
+    "symbol": "EncryptionArchives",
+    "name": "Atypical Encryption Archives",
+    "category": "encoded",
+    "grade": 4,
+    "line": "Encryption Files"
+  },
+  "Adaptive Encryptors Capture": {
+    "symbol": "AdaptiveEncryptors",
+    "name": "Adaptive Encryptors Capture",
+    "category": "encoded",
+    "grade": 5,
+    "line": "Encryption Files"
+  },
+  "Guardian Module Blueprint Fragment": {
+    "symbol": "Guardian_ModuleBlueprint",
+    "name": "Guardian Module Blueprint Fragment",
+    "category": "encoded",
+    "grade": 4,
+    "line": "Guardian"
+  },
+  "Guardian Weapon Blueprint Fragment": {
+    "symbol": "Guardian_WeaponBlueprint",
+    "name": "Guardian Weapon Blueprint Fragment",
+    "category": "encoded",
+    "grade": 4,
+    "line": "Guardian"
+  },
+  "Pattern Alpha Obelisk Data": {
+    "symbol": "AncientBiologicalData",
+    "name": "Pattern Alpha Obelisk Data",
+    "category": "encoded",
+    "grade": 4,
+    "line": "Guardian"
+  },
+  "Pattern Beta Obelisk Data": {
+    "symbol": "AncientCulturalData",
+    "name": "Pattern Beta Obelisk Data",
+    "category": "encoded",
+    "grade": 4,
+    "line": "Guardian"
+  },
+  "Pattern Delta Obelisk Data": {
+    "symbol": "AncientLanguageData",
+    "name": "Pattern Delta Obelisk Data",
+    "category": "encoded",
+    "grade": 4,
+    "line": "Guardian"
+  },
+  "Pattern Epsilon Obelisk Data": {
+    "symbol": "AncientTechnologicalData",
+    "name": "Pattern Epsilon Obelisk Data",
+    "category": "encoded",
+    "grade": 4,
+    "line": "Guardian"
+  },
+  "Pattern Gamma Obelisk Data": {
+    "symbol": "AncientHistoricalData",
+    "name": "Pattern Gamma Obelisk Data",
+    "category": "encoded",
+    "grade": 4,
+    "line": "Guardian"
+  },
+  "Guardian Vessel Blueprint Fragment": {
+    "symbol": "Guardian_VesselBlueprint",
+    "name": "Guardian Vessel Blueprint Fragment",
+    "category": "encoded",
+    "grade": 5,
+    "line": "Guardian"
+  },
+  "Distorted Shield Cycle Recordings": {
+    "symbol": "ShieldCycleRecordings",
+    "name": "Distorted Shield Cycle Recordings",
+    "category": "encoded",
+    "grade": 1,
+    "line": "Shield Data"
+  },
+  "Inconsistent Shield Soak Analysis": {
+    "symbol": "ShieldSoakAnalysis",
+    "name": "Inconsistent Shield Soak Analysis",
+    "category": "encoded",
+    "grade": 2,
+    "line": "Shield Data"
+  },
+  "Untypical Shield Scans": {
+    "symbol": "ShieldDensityReports",
+    "name": "Untypical Shield Scans",
+    "category": "encoded",
+    "grade": 3,
+    "line": "Shield Data"
+  },
+  "Aberrant Shield Pattern Analysis": {
+    "symbol": "ShieldPatternAnalysis",
+    "name": "Aberrant Shield Pattern Analysis",
+    "category": "encoded",
+    "grade": 4,
+    "line": "Shield Data"
+  },
+  "Peculiar Shield Frequency Data": {
+    "symbol": "ShieldFrequencyData",
+    "name": "Peculiar Shield Frequency Data",
+    "category": "encoded",
+    "grade": 5,
+    "line": "Shield Data"
+  },
+  "Thargoid Structural Data": {
+    "symbol": "TG_StructuralData",
+    "name": "Thargoid Structural Data",
+    "category": "encoded",
+    "grade": 2,
+    "line": "Thargoid"
+  },
+  "Massive Energy Surge Analytics": {
+    "symbol": "tg_shutdowndata",
+    "name": "Massive Energy Surge Analytics",
+    "category": "encoded",
+    "grade": 3,
+    "line": "Thargoid"
+  },
+  "Ship Flight Data": {
+    "symbol": "TG_ShipFlightData",
+    "name": "Ship Flight Data",
+    "category": "encoded",
+    "grade": 3,
+    "line": "Thargoid"
+  },
+  "Thargoid Interdiction Telemetry": {
+    "symbol": "tg_interdictiondata",
+    "name": "Thargoid Interdiction Telemetry",
+    "category": "encoded",
+    "grade": 3,
+    "line": "Thargoid"
+  },
+  "Thargoid Material Composition Data": {
+    "symbol": "TG_CompositionData",
+    "name": "Thargoid Material Composition Data",
+    "category": "encoded",
+    "grade": 3,
+    "line": "Thargoid"
+  },
+  "Thargoid Ship Signature": {
+    "symbol": "UnknownShipSignature",
+    "name": "Thargoid Ship Signature",
+    "category": "encoded",
+    "grade": 3,
+    "line": "Thargoid"
+  },
+  "Ship Systems Data": {
+    "symbol": "TG_ShipSystemsData",
+    "name": "Ship Systems Data",
+    "category": "encoded",
+    "grade": 4,
+    "line": "Thargoid"
+  },
+  "Thargoid Residue Data": {
+    "symbol": "TG_ResidueData",
+    "name": "Thargoid Residue Data",
+    "category": "encoded",
+    "grade": 4,
+    "line": "Thargoid"
+  },
+  "Thargoid Wake Data": {
+    "symbol": "UnknownWakeData",
+    "name": "Thargoid Wake Data",
+    "category": "encoded",
+    "grade": 4,
+    "line": "Thargoid"
+  },
+  "Atypical Disrupted Wake Echoes": {
+    "symbol": "DisruptedWakeEchoes",
+    "name": "Atypical Disrupted Wake Echoes",
+    "category": "encoded",
+    "grade": 1,
+    "line": "Wake Scans"
+  },
+  "Anomalous FSD Telemetry": {
+    "symbol": "FSDTelemetry",
+    "name": "Anomalous FSD Telemetry",
+    "category": "encoded",
+    "grade": 2,
+    "line": "Wake Scans"
+  },
+  "Strange Wake Solutions": {
+    "symbol": "WakeSolutions",
+    "name": "Strange Wake Solutions",
+    "category": "encoded",
+    "grade": 3,
+    "line": "Wake Scans"
+  },
+  "Eccentric Hyperspace Trajectories": {
+    "symbol": "HyperspaceTrajectories",
+    "name": "Eccentric Hyperspace Trajectories",
+    "category": "encoded",
+    "grade": 4,
+    "line": "Wake Scans"
+  },
+  "Datamined Wake Exceptions": {
+    "symbol": "DataminedWake",
+    "name": "Datamined Wake Exceptions",
+    "category": "encoded",
+    "grade": 5,
+    "line": "Wake Scans"
+  }
+}

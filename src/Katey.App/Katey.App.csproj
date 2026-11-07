@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Katey.App</RootNamespace>
+    <Description>Framework-neutral application layer for the desktop front end: view models, the saved plan, and the glue between the catalog and the live journal inventory.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Katey.Core\Katey.Core.csproj" />
+    <ProjectReference Include="..\Katey.Journal\Katey.Journal.csproj" />
+  </ItemGroup>
+
+</Project>
