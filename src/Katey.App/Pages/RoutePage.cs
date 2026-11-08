@@ -631,7 +631,11 @@ public sealed class RoutePage : Page
         return new PlotProgressLine($"Next waypoint {next.Name}, {Display.Plural(remaining, "jump")} to {plot.Destination}.", next.Name, hereIndex);
     }
 
-    /// <summary>The plot waypoint the ship reached most recently, or -1 when it has never been at any of them.</summary>
+    /// <summary>
+    /// The plot waypoint the ship reached most recently since the plot was made, or -1 when it has reached none
+    /// since then. A visit from before the plot does not count: a plot made from somewhere the ship is not has
+    /// not been followed at all, whatever the ship saw of those systems in the past.
+    /// </summary>
     private static int LastKnownIndex(PlottedRoute plot, RouteProgress progress)
     {
         var lastKnown = -1;
@@ -640,7 +644,7 @@ public sealed class RoutePage : Page
         {
             var stop = plot.Stops[index];
             var visited = (stop.Id64 != 0 && progress.KnownSystems.TryGetValue(stop.Id64, out var byId) ? byId : null) ?? progress.FindByName(stop.Name);
-            if (visited is not null && visited.LastVisit >= latest)
+            if (visited is not null && visited.LastVisit >= plot.PlottedAt && visited.LastVisit >= latest)
             {
                 latest = visited.LastVisit;
                 lastKnown = index;

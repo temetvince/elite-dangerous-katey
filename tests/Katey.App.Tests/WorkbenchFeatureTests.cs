@@ -974,7 +974,7 @@ public sealed class WorkbenchFeatureTests
     {
         var plotter = new FakeRoutePlotter
         {
-            Route = new PlottedRoute("Jackson's Lighthouse", "Sol", DateTimeOffset.UtcNow,
+            Route = new PlottedRoute("Jackson's Lighthouse", "Sol", new DateTimeOffset(2026, 11, 1, 0, 0, 0, TimeSpan.Zero),
             [
                 new("Jackson's Lighthouse", 5532807773, 157, -27, -70, 0, 100, 0, 64, true, false, false),
                 new("Sol", 1, 0, 0, 0, 100, 0, 9, 52, false, true, true),
@@ -1008,7 +1008,7 @@ public sealed class WorkbenchFeatureTests
     [Fact]
     public void SpanshPlot_IsOffUntilAllowed_ThenPlotsFromTheShip_AndFollowsTheJumps()
     {
-        var plotted = new PlottedRoute("Deciat", "Sol", DateTimeOffset.UtcNow,
+        var plotted = new PlottedRoute("Deciat", "Sol", new DateTimeOffset(2026, 11, 5, 20, 5, 0, TimeSpan.Zero),
         [
             new("Deciat", 3, 122.625, -0.8125, -47.28125, 0, 130, 0, 64, false, true, false),
             new("Kamarada", 5, 100, -5, -30, 30, 100, 3, 61, true, false, false),
@@ -1148,6 +1148,14 @@ public sealed class WorkbenchFeatureTests
         Assert.Equal("Off the plot. Last known waypoint Kamarada, next Sol. ~1 jump to Sol.", route.PlotProgressText);
         Assert.Equal(["done", "last known", "next"], route.PlotStops.Select(stop => stop.StageText));
         Assert.Equal("Sol", shell.Rail.NextWaypoint);
+
+        // A plot made later, from somewhere the ship is not: nothing is done or last known, however many of its
+        // waypoints the ship saw before the plot existed.
+        shell.Workspace.Plot.Restore(new PlottedRoute("Deciat", "Sol", new DateTimeOffset(2026, 11, 5, 20, 20, 0, TimeSpan.Zero), plotted.Stops));
+        route = Open<RoutePage>(shell, PageKind.Route);
+        Assert.Equal("Off the plot. First waypoint Deciat, 2 jumps to Sol.", route.PlotProgressText);
+        Assert.Equal(["", "", ""], route.PlotStops.Select(stop => stop.StageText));
+        Assert.Equal("Deciat", route.NextWaypoint);
 
         monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-05T20:20:00Z","event":"FSDJump","StarSystem":"Sol","SystemAddress":1,"StarPos":[0,0,0],"JumpDist":100,"FuelUsed":9,"FuelLevel":52}""");
         route = Assert.IsType<RoutePage>(shell.Navigator.Current);

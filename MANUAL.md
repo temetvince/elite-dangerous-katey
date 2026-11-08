@@ -492,8 +492,10 @@ Two sections:
   - The plot lists every waypoint with its jump, the distance left, the fuel the plotter expects on arrival
     and whether it is a neutron star or a refuel stop. It follows your jumps to say which waypoint is next,
     copies that name for the galaxy map, and is kept between runs.
-  - Leave the plot for a detour, to scoop say, and the last waypoint you reached is marked **last known**
-    while the one after it stays the next waypoint, so **Copy** still gives you the neutron star to aim for.
+  - Leave the plot for a detour, to scoop say, and the last waypoint you reached since the plot was made is
+    marked **last known** while the one after it stays the next waypoint, so **Copy** still gives you the
+    neutron star to aim for. A plot made from somewhere you are not has no last known waypoint until you
+    reach one of its stops, even if you passed through some of them before.
 
 ### Stats
 

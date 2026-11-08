@@ -446,7 +446,7 @@ public sealed class ShellViewModelTests
         Assert.Equal("", route.DetourText);
 
         // The journal has no position for Deciat, but the Spansh plot does, so the jump has its distance and its fuel.
-        shell.Workspace.Plot.Restore(new PlottedRoute("Koine", "Deciat", DateTimeOffset.UtcNow,
+        shell.Workspace.Plot.Restore(new PlottedRoute("Koine", "Deciat", new DateTimeOffset(2026, 11, 1, 0, 0, 0, TimeSpan.Zero),
         [
             new("Koine", 9, 107.40625, -40.59375, -71.5625, 0, 49, 0, 32, false, true, false),
             new("Deciat", 3, 122.625, -0.8125, -47.28125, 49, 0, 3, 29, false, true, false),
