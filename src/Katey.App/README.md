@@ -112,6 +112,7 @@ plot section asks Spansh's galaxy plotter for a route through `PlotState` and an
 | `Persistence/StateStore.cs` | `PersistedState`, `IStateStore`, `JsonFileStateStore` | The saved plan, engineer selection, fits, sharing policy, journal folder, bacteria filter, rail placement, view preferences, Spansh switch, last plot, backup folder and switch, and material reserves; where it lives, and moving it. |
 | `Mvvm/` | `ObservableObject`, `RelayCommand` | The two binding primitives the view models need. |
 | `Log.cs` | `Log` | Source-generated log messages. |
+| `Logging/FileLoggerProvider.cs` | `FileLoggerProvider` | A logger provider that appends to one text file, Information and above, rolling the file over past a size and writing a crash at Critical. |
 
 ## How the pieces connect
 

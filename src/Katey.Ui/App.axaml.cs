@@ -34,7 +34,7 @@ public sealed partial class App : Application
 
             // The monitor and the logger factory live exactly as long as the desktop lifetime; its Exit
             // event is the one place they are disposed.
-            var loggerFactory = LoggerFactory.Create(builder => builder.AddDebug().SetMinimumLevel(LogLevel.Debug));
+            var loggerFactory = LoggerFactory.Create(builder => builder.AddDebug().AddProvider(Program.FileLog).SetMinimumLevel(LogLevel.Debug));
             var sinks = new JournalSinks();
             var monitor = new JournalMonitor(loggerFactory.CreateLogger<JournalMonitor>(), sinks.All);
             var http = new HttpClient { Timeout = TimeSpan.FromSeconds(30) };

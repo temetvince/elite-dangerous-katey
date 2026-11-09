@@ -266,6 +266,9 @@ fixing the code over adding more.
     signalling, and a notification would still have to be followed by a read. It replays the whole history
     into every `IJournalSink`, parsing a line only when a sink wants its event, which is what keeps a
     multi-year history to seconds.
+  - Logs go to the Debug output and to `katey.log` beside the default `state.json`, Information and above,
+    through `FileLoggerProvider`; `Program.Main` writes an unhandled exception there before the process ends,
+    so a crash report starts with that file, not with the Windows event log.
   - `Workspace` receives a dispatcher delegate; the monitor raises events on a background thread and the
     workspace marshals every event it raises through it. While the monitor is catching up, every
     snapshot the workspace hands out is empty, which is what keeps the replay off the screen; read

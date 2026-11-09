@@ -620,6 +620,12 @@ figures; and, on arriving in a system, that system's id, which brings back the b
 Every request names Katey, its version and the project's address, as Spansh asks of tools that use its
 service. The journal backup copies files only to the folder you choose.
 
+Katey also keeps a log, `katey.log` beside the default `state.json` under your local application data folder,
+of what it did and what went wrong: starting and stopping, the journal folder it watched, requests it made and
+failures it met, and the reason if it ever closes on its own. It holds system and ship names from your journal
+and nothing else about you. If Katey closes unexpectedly, that file says why, and is the thing to send with a
+bug report. It is rolled over past a megabyte, so it stays small.
+
 If the day's journal file goes missing while the game runs, the game writes it again from the start, and
 everything it held is lost to the game and to Katey. The backup keeps its earlier copy of such a file beside
 the new one, named with a `rewritten` suffix. Until your next jump Katey takes your position from the game's

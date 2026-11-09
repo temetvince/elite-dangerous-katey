@@ -92,6 +92,11 @@ public sealed class SearchViewModel : ObservableObject
         {
             var name = system.Name;
             var last = system.LastVisit;
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                continue;
+            }
+
             index.Add(name, () => new SearchResult(Link(name, PageKind.System, name), "System", string.Create(CultureInfo.CurrentCulture, $"last visited {last.ToLocalTime():g}")));
         }
 
@@ -101,6 +106,11 @@ public sealed class SearchViewModel : ObservableObject
             var title = ship.Name.Length > 0 ? ship.Name : hull;
             var id = ship.ShipId.ToString(CultureInfo.InvariantCulture);
             var subtitle = ship.Name.Length > 0 ? hull + (ship.Ident.Length > 0 ? " · " + ship.Ident : "") : "unnamed";
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                continue;
+            }
+
             index.Add(title, () => new SearchResult(Link(title, PageKind.Ship, id), "Ship", subtitle), hull + " " + ship.Ident);
         }
 
@@ -108,6 +118,11 @@ public sealed class SearchViewModel : ObservableObject
         {
             var fitting = fit;
             var hullName = Core.Fleet.ShipNames.Display(fitting.Hull);
+            if (string.IsNullOrWhiteSpace(fitting.Name))
+            {
+                continue;
+            }
+
             index.Add(fitting.Name, () => new SearchResult(Link(fitting.Name, PageKind.Fit, fitting.Id), "Fit", hullName), hullName);
         }
 
