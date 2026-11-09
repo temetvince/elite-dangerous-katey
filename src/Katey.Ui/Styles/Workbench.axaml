@@ -785,4 +785,13 @@
   <Style Selector="Border.rail ToggleSwitch /template/ TextBlock">
     <Setter Property="Foreground" Value="{StaticResource RailMuted}" />
   </Style>
+  <Style Selector="Border.rail RadioButton">
+    <Setter Property="Foreground" Value="{StaticResource RailMuted}" />
+    <Setter Property="FontSize" Value="11" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Padding" Value="4,0,0,0" />
+  </Style>
+  <Style Selector="Border.rail RadioButton:checked">
+    <Setter Property="Foreground" Value="{StaticResource RailInk}" />
+  </Style>
 </Styles>

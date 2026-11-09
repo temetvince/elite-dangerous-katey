@@ -25,6 +25,7 @@ embedded in the assembly, so everything in it is tested as plain objects.
 | `Edsy/EdsyImport.cs` | `EdsyImport`, `ParsedLoadout`, `ImportedModule`, `LoadoutModule`, `EdsyParseResult` | Parses an EDSY journal Loadout export, jump profile included when the export carries the masses. |
 | `Exploration/StarClasses.cs` | `StarClasses`, `StarKind` | Scoopable, neutron, white dwarf, black hole, or other, from a star class string. |
 | `Exploration/BodyValue.cs` | `BodyValue` | The cartographics payout estimate. |
+| `Exploration/SamplingTime.cs` | `SamplingTime` | How long a landing takes by the species to sample, what it pays a minute, the best landing among them, and the odds of one worth the stop. |
 | `Exploration/SurfaceGravity.cs` | `SurfaceGravity`, `GravityBand` | Light, high or extreme surface gravity, for a landing warning. |
 | `Exploration/ExobiologyPredictor.cs` | `ExobiologyPredictor`, `BodyConditions`, `GenusPrediction`, `SpeciesPrediction`, `GenusLikelihood` | Which species a genus signal is likely to be, what it pays, and which genera have ever been found under a body's conditions. |
 | `Fleet/ModuleCatalog.cs` | `ModuleCatalog`, `ModuleInfo` | Every purchasable module by item symbol, for naming, and the modules of one module type. `NameOf` falls back to `ModuleSymbolNames` for a symbol the table lacks. Rows whose symbol contains `_missing_` are coriolis's placeholders for unrecognised items; `ModuleInfo.IsPlaceholder` marks them and `OfType` leaves them out. `IsCosmetic` names the paint jobs, decals, nameplates, bobbleheads, ship kits, colour packs, voice packs and cockpit entries the journal lists among a ship's modules. `IsFixture` names the cargo hatch and the planetary approach suite, which every ship carries. |
@@ -346,7 +347,8 @@ The conversion from upstream applies these rules:
   symbols. A row taken from FDevIDs is named the same way, "MkII Vessel Hangar 5D", under the module type
   code its symbol pattern resolves to; the `_free` rows are not copied, since `NameOf` reads a free
   module as its bought twin.
-- `exobiology.json` keeps, per variant, the reward, the find count and six of Bioforge's histograms; the
+- `exobiology.json` takes every species file in the mirror's `species` folder, fifteen genera from Aleoida to
+  Tussock, and keeps, per variant, the reward, the find count and six of Bioforge's histograms; the
   surface-material, distance, primary-star and system-body histograms are dropped. Species and genus
   symbols are derived from the variant symbol, so `$Codex_Ent_Bacterial_01_O_Name;` belongs to species
   `$Codex_Ent_Bacterial_01_Name;` and genus `$Codex_Ent_Bacterial_Genus_Name;`, which is how the journal

@@ -1,6 +1,7 @@
 ﻿using Katey.App.Navigation;
 using Katey.App.Pages;
 using Katey.App.Persistence;
+using Katey.App.Rail;
 using Katey.App.ViewModels;
 using Katey.Core;
 using Katey.Core.Exploration;
@@ -782,6 +783,8 @@ public sealed class WorkbenchFeatureTests
         Assert.Equal("2 bio", living.BiologyCountText);
         Assert.StartsWith("Exobiology likely about ", living.ExobiologyText, StringComparison.Ordinal);
         Assert.Contains(" with the first-logged bonus; map it to know.", living.ExobiologyText, StringComparison.Ordinal);
+        Assert.True(living.GroundMinutes > SamplingTime.ApproachMinutes);
+        Assert.True(living.ExobiologyCreditsPerMinute > 0);
         Assert.DoesNotContain("nobody", living.ExobiologyText, StringComparison.Ordinal);
         Assert.Equal(2, living.ExobiologyRuns.Count(run => run.IsFigure));
         // The rail keeps it to one line before the scanner names the genera, and shows no separate value.
@@ -1491,14 +1494,14 @@ public sealed class WorkbenchFeatureTests
         Assert.Equal(savesBefore, store.Saves);
 
         var entry = PlanEntry.Create(Catalog, "fsd", "FSD_LongRange", 5, null, PlanSource.Manual);
-        store.AtFolders[@"E:\Other"] = PersistedState.Empty with { Engineers = ["Felicity Farseer"], Plan = [entry], AllowSpansh = true, HideBacteriaOnly = true };
+        store.AtFolders[@"E:\Other"] = PersistedState.Empty with { Engineers = ["Felicity Farseer"], Plan = [entry], AllowSpansh = true, Preferences = new Dictionary<string, string> { ["rail.bodyFilter"] = "bacteria" } };
         settings = Assert.IsType<SettingsPage>(shell.Navigator.Current);
         settings.DataFolder = @"E:\Other";
         Assert.StartsWith("Loaded the Katey data already in", settings.DataStatus, StringComparison.Ordinal);
         Assert.True(shell.Workspace.Engineers.Contains("Felicity Farseer"));
         Assert.Equal("FSD_LongRange", Assert.Single(shell.Workspace.Plan.Entries).Entry.Blueprint);
         Assert.True(shell.Workspace.Plot.Enabled);
-        Assert.True(shell.Workspace.HideBacteriaOnly);
+        Assert.Equal(BodyFilter.SkipBacteria, shell.Rail.Filter);
         Assert.Equal(["Felicity Farseer"], store.State.Engineers);
         Assert.Equal(@"E:\Other", Assert.IsType<SettingsPage>(shell.Navigator.Current).DataFolder);
     }

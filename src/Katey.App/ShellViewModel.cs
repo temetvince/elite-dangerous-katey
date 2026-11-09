@@ -82,7 +82,6 @@ public sealed class ShellViewModel : ObservableObject
         var reserves = new ReserveState(saved.Reserves);
         Workspace = new Workspace(catalog, modules, predictor, monitor, sinks, dispatch, plan, engineers, fleet, preferences, plot, backupState, reserves, store, network, systemBodies)
         {
-            HideBacteriaOnly = saved.HideBacteriaOnly,
             JournalFolder = saved.JournalFolder ?? "",
         };
         Navigator = new Navigator(key => PageFactory.Build(key, Workspace));
@@ -235,7 +234,6 @@ public sealed class ShellViewModel : ObservableObject
         Workspace.Fleet.Replace(saved.Fittings, saved.Policy);
         Workspace.Reserves.Replace(saved.Reserves);
         Workspace.Plan.Load(saved.Plan);
-        Workspace.HideBacteriaOnly = saved.HideBacteriaOnly;
         var folder = saved.JournalFolder ?? "";
         if (!string.Equals(folder, Workspace.JournalFolder, StringComparison.Ordinal))
         {
@@ -357,7 +355,6 @@ public sealed class ShellViewModel : ObservableObject
             Workspace.JournalFolder.Length == 0 ? null : Workspace.JournalFolder,
             Workspace.Fleet.Fittings,
             Workspace.Fleet.Policy,
-            Workspace.HideBacteriaOnly,
             Rail.IsDetached,
             Workspace.Preferences.Snapshot(),
             Workspace.Network.AllowRoutes,

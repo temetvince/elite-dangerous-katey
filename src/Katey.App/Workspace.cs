@@ -163,20 +163,6 @@ public sealed class Workspace
     /// <exception cref="InvalidOperationException">No navigator is attached yet.</exception>
     public Navigator Navigator => _navigator ?? throw new InvalidOperationException("The workspace has no navigator yet.");
 
-    /// <summary>Gets or sets whether the rail's body list hides bodies whose only likely life is bacteria.</summary>
-    public bool HideBacteriaOnly
-    {
-        get;
-        set
-        {
-            if (field != value)
-            {
-                field = value;
-                SettingsChanged?.Invoke(this, EventArgs.Empty);
-            }
-        }
-    }
-
     /// <summary>Gets or sets the journal folder to watch. Empty means none chosen.</summary>
     public string JournalFolder
     {

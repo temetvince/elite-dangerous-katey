@@ -2,6 +2,7 @@
 using Katey.App.Pages;
 using Katey.App.Persistence;
 using Katey.App.Rail;
+using Katey.App.ViewModels;
 using Katey.Core;
 using Katey.Core.Exploration;
 using Katey.Core.Fleet;
@@ -45,7 +46,7 @@ public sealed class ShellViewModelTests
         var dropped = kept with { Id = "x", Blueprint = "Gone_Blueprint" };
         var store = new FakeStateStore
         {
-            State = new PersistedState([kept, dropped], ["Felicity Farseer", "Nobody"], @"C:\journals", [], SharingPolicy.SameHull, HideBacteriaOnly: true, RailDetached: true),
+            State = new PersistedState([kept, dropped], ["Felicity Farseer", "Nobody"], @"C:\journals", [], SharingPolicy.SameHull, RailDetached: true, Preferences: new Dictionary<string, string> { ["rail.bodyFilter"] = "bacteria" }),
         };
 
         var (shell, _) = Create(store);
@@ -54,7 +55,7 @@ public sealed class ShellViewModelTests
         Assert.Equal(["Felicity Farseer"], shell.Workspace.Engineers.Selected);
         Assert.Equal(@"C:\journals", shell.Workspace.JournalFolder);
         Assert.Equal(SharingPolicy.SameHull, shell.Workspace.Fleet.Policy);
-        Assert.True(shell.Workspace.HideBacteriaOnly);
+        Assert.Equal(BodyFilter.SkipBacteria, shell.Rail.Filter);
         Assert.True(shell.Rail.IsDetached);
         Assert.IsType<HomePage>(shell.Navigator.Current);
         Assert.Equal("Elite Dangerous - Katey", ShellViewModel.Title);
@@ -595,6 +596,18 @@ public sealed class ShellViewModelTests
         // Nearest first by default; the switch puts biology first and is remembered.
         Assert.False(rail.BiologyFirst);
         Assert.Equal(["1", "2"], rail.Bodies.Select(body => body.Name));
+        // Koine 2 is probed: its genus is a row with the likeliest species, the genus word dropped, and the pace beneath.
+        var probed = rail.Bodies.Single(body => body.Name == "2");
+        Assert.Equal("", probed.Life);
+        var genus = Assert.Single(probed.GenusRows);
+        Assert.Equal("Bacterium", genus.Name);
+        Assert.DoesNotContain("Bacterium", genus.Species, StringComparison.Ordinal);
+        Assert.Matches(@"^\S+ \d+%$", genus.Species);
+        Assert.EndsWith(" Cr", genus.ValueText, StringComparison.Ordinal);
+        Assert.False(genus.IsSampled);
+        Assert.Equal("", probed.MoreText);
+        Assert.Equal("Vesicula", GenusRow.ShortSpecies("Bacterium Vesicula", "Bacterium"));
+        Assert.Equal("Tectonicas", GenusRow.ShortSpecies("Stratum Tectonicas", "Stratum"));
         rail.BiologyFirst = true;
         Assert.Equal("biology", store.State.Preferences!["rail.bodySort"]);
         Assert.Equal(["2", "1"], rail.Bodies.Select(body => body.Name));
@@ -602,10 +615,22 @@ public sealed class ShellViewModelTests
         Assert.EndsWith(" Cr", rail.Bodies[0].ValueText, StringComparison.Ordinal);
         Assert.Equal("", rail.BodiesNote);
 
-        rail.HideBacteriaOnly = true;
+        // One choice of three, remembered: skip bacteria hides Koine 2; min/max hides it too, since bacteria cannot
+        // reach 10M, with its own note; all life brings it back.
+        Assert.True(rail.ShowsAll);
+        rail.SkipsBacteria = true;
+        Assert.Equal(BodyFilter.SkipBacteria, rail.Filter);
         Assert.Equal(["1"], rail.Bodies.Select(body => body.Name));
         Assert.Equal("1 body with only bacteria hidden.", rail.BodiesNote);
-        Assert.True(store.State.HideBacteriaOnly);
+        Assert.Equal("bacteria", store.State.Preferences!["rail.bodyFilter"]);
+        rail.IsMinMax = true;
+        Assert.False(rail.SkipsBacteria);
+        Assert.Equal(["1"], rail.Bodies.Select(body => body.Name));
+        Assert.Equal("1 body hidden under min/max: 1 probed and below 8.0M Cr a minute on the ground.", rail.BodiesNote);
+        Assert.Equal("minmax", store.State.Preferences!["rail.bodyFilter"]);
+        rail.ShowsAll = true;
+        Assert.Equal(["2", "1"], rail.Bodies.Select(body => body.Name));
+        Assert.Equal("", rail.BodiesNote);
 
         Assert.True(rail.ShowsControls);
         rail.IsClickThrough = true;
@@ -702,7 +727,7 @@ public sealed class ShellViewModelTests
 
             var entry = PlanEntry.Create(Catalog, "fsd", "FSD_LongRange", 5, "special_fsd_heavy", new PlanSource("Ship", "FrameShiftDrive", "int_hyperdrive_size5_class5")).WithRolls(3, 2);
             var fitting = new Fitting("fit-1", "mandalay", "Dream", [new FitModule("FrameShiftDrive", "int_hyperdrive_size5_class5", new Engineering("FSD_LongRange", 5, "special_fsd_heavy"))]);
-            store.Save(new PersistedState([entry], ["Felicity Farseer"], @"C:\journals", [fitting], SharingPolicy.None, HideBacteriaOnly: true, RailDetached: true));
+            store.Save(new PersistedState([entry], ["Felicity Farseer"], @"C:\journals", [fitting], SharingPolicy.None, RailDetached: true, Preferences: new Dictionary<string, string> { ["rail.bodyFilter"] = "minmax" }));
 
             var loaded = new JsonFileStateStore(path, NullLogger<JsonFileStateStore>.Instance).Load();
             var restored = Assert.Single(loaded.Plan);
@@ -711,7 +736,7 @@ public sealed class ShellViewModelTests
             Assert.Equal(["Felicity Farseer"], loaded.Engineers);
             Assert.Equal(SharingPolicy.None, loaded.Policy);
             Assert.Equal("fit-1", Assert.Single(loaded.Fittings).Id);
-            Assert.True(loaded.HideBacteriaOnly);
+            Assert.Equal("minmax", loaded.Preferences!["rail.bodyFilter"]);
             Assert.True(loaded.RailDetached);
         }
         finally

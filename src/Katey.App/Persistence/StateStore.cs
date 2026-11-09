@@ -13,7 +13,6 @@ namespace Katey.App.Persistence;
 /// <param name="JournalFolder">The journal folder to watch, or <see langword="null"/> to detect it.</param>
 /// <param name="Fittings">Saved fits in priority order.</param>
 /// <param name="Policy">How fits share owned modules.</param>
-/// <param name="HideBacteriaOnly">Whether the rail hides bodies whose only likely life is bacteria.</param>
 /// <param name="RailDetached">Whether the live rail was in its own window when the app last closed.</param>
 /// <param name="Preferences">Remembered view choices by name: sort orders, open groups, filters. <see langword="null"/> reads as none.</param>
 /// <param name="AllowSpansh">Whether Katey may ask Spansh for routes.</param>
@@ -28,7 +27,6 @@ public sealed record PersistedState(
     string? JournalFolder,
     IReadOnlyList<Fitting> Fittings,
     SharingPolicy Policy,
-    bool HideBacteriaOnly = false,
     bool RailDetached = false,
     IReadOnlyDictionary<string, string>? Preferences = null,
     bool AllowSpansh = false,

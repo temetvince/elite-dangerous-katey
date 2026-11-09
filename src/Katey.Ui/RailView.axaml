@@ -124,8 +124,13 @@
             </Grid>
             <TextBlock Classes="sub" Text="{Binding ValueText}" />
             <StackPanel Spacing="6" IsVisible="{Binding ShowsControls}">
-              <ToggleSwitch IsChecked="{Binding HideBacteriaOnly, Mode=TwoWay}" OnContent="Hiding bacteria-only bodies" OffContent="Showing bacteria-only bodies" />
               <ToggleSwitch IsChecked="{Binding BiologyFirst, Mode=TwoWay}" OnContent="Biology first" OffContent="Nearest first" />
+              <!-- Which bodies with life to leave out: one choice of three, remembered. -->
+              <StackPanel Orientation="Horizontal" Spacing="12">
+                <RadioButton GroupName="bodyFilter" Content="All life" IsChecked="{Binding ShowsAll, Mode=TwoWay}" ToolTip.Tip="Every body with life or materials." />
+                <RadioButton GroupName="bodyFilter" Content="Skip bacteria" IsChecked="{Binding SkipsBacteria, Mode=TwoWay}" ToolTip.Tip="Leaves out bodies whose life is bacteria alone: by the scanner's genera once mapped, or a single signal four in five likely to be bacteria before that." />
+                <RadioButton GroupName="bodyFilter" Content="Min/max" IsChecked="{Binding IsMinMax, Mode=TwoWay}" ToolTip.Tip="Before probing: only bodies with a one in four chance or better of a species worth the trip on its own. Once probed: only bodies whose best landing pays 8M a minute on the ground, bonus included. A body with a material your plan is short of stays." />
+              </StackPanel>
             </StackPanel>
             <ItemsControl ItemsSource="{Binding Bodies}">
               <ItemsControl.ItemTemplate>
@@ -144,6 +149,19 @@
                       </StackPanel>
                       <TextBlock Classes="sub" Text="{Binding Signals}" IsVisible="{Binding Signals.Length}" />
                       <TextBlock Text="{Binding Life}" IsVisible="{Binding HasLife}" />
+                      <!-- Once probed: the genera richest first, the likeliest species beside each, the pay with the bonus at the right. -->
+                      <ItemsControl ItemsSource="{Binding GenusRows}" IsVisible="{Binding HasGenera}" Margin="0,2,0,0">
+                        <ItemsControl.ItemTemplate>
+                          <DataTemplate>
+                            <Grid ColumnDefinitions="80,*,Auto" ColumnSpacing="8">
+                              <TextBlock Text="{Binding Name}" Classes.accent="{Binding IsSampled}" />
+                              <TextBlock Grid.Column="1" Classes="sub" Text="{Binding Species}" TextTrimming="CharacterEllipsis" />
+                              <TextBlock Grid.Column="2" Classes="mono" Text="{Binding ValueText}" />
+                            </Grid>
+                          </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                      </ItemsControl>
+                      <TextBlock Classes="sub" Text="{Binding MoreText}" IsVisible="{Binding MoreText.Length}" />
                       <TextBlock Classes="sub" Text="{Binding Materials}" IsVisible="{Binding HasMaterials}" />
                     </StackPanel>
                   </Border>

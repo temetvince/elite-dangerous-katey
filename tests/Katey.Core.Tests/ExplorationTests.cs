@@ -41,6 +41,45 @@ public sealed class ExplorationTests
     public void StarClasses_DescribeAStarForAReader(string? starClass, string expected)
         => Assert.Equal(expected, StarClasses.Describe(starClass));
 
+    [Fact]
+    public void SamplingTime_CostsALandingByItsSpeciesCount()
+    {
+        Assert.Equal(SamplingTime.ApproachMinutes, SamplingTime.GroundMinutes(0));
+        Assert.Equal(SamplingTime.ApproachMinutes, SamplingTime.GroundMinutes(-3));
+        // One species: four minutes down and back up, three for the samples, whatever the genus. Each further species
+        // adds its samples and a minute to find it.
+        Assert.Equal(7, SamplingTime.GroundMinutes(1));
+        Assert.Equal(11, SamplingTime.GroundMinutes(2));
+        Assert.Equal(15, SamplingTime.GroundMinutes(3));
+        Assert.Equal(35, SamplingTime.GroundMinutes(8));
+        Assert.Equal(95_000_000 / 7.0, SamplingTime.CreditsPerMinute(95_000_000, 7), 1e-6);
+        Assert.Equal(0, SamplingTime.CreditsPerMinute(0, 7));
+        // Eight cheap species pay more in total but less a minute than one Stratum with the bonus.
+        Assert.True(SamplingTime.CreditsPerMinute(217_000_000, SamplingTime.GroundMinutes(8)) < SamplingTime.CreditsPerMinute(95_000_000, SamplingTime.GroundMinutes(1)));
+    }
+
+    [Fact]
+    public void SamplingTime_PacesTheBestLanding_AndTheOddsOfAJackpot()
+    {
+        // A Stratum beside seven cheap species: the best landing takes the Stratum and leaves, so its pace is the Stratum's own.
+        var best = SamplingTime.BestCreditsPerMinute([95_000_000, .. Enumerable.Repeat(7_500_000L, 7)]);
+        Assert.Equal(95_000_000 / 7.0, best, 1e-6);
+        // Two good species beat one: the second raises the average, so it is taken.
+        Assert.True(SamplingTime.BestCreditsPerMinute([95_000_000, 95_000_000]) > best);
+        Assert.Equal(0, SamplingTime.BestCreditsPerMinute([]));
+        Assert.Equal(0, SamplingTime.BestCreditsPerMinute([0, -5]));
+
+        Assert.True(SamplingTime.KeepsPaceAlone(95_000_000, 8_000_000));
+        Assert.False(SamplingTime.KeepsPaceAlone(19_000_000, 8_000_000));
+        Assert.False(SamplingTime.KeepsPaceAlone(51_500_000, 8_000_000));
+        Assert.True(SamplingTime.KeepsPaceAlone(59_500_000, 8_000_000));
+
+        // Eight signals at one chance in ten each is better than even odds of at least one.
+        Assert.Equal(0, SamplingTime.ChanceOfAny([]));
+        Assert.Equal(0.57, SamplingTime.ChanceOfAny(Enumerable.Repeat(0.1, 8)), 0.01);
+        Assert.Equal(1, SamplingTime.ChanceOfAny([0.2, 1.0]));
+    }
+
     [Theory]
     [InlineData(null, GravityBand.Light)]
     [InlineData(0.3, GravityBand.Light)]
@@ -68,10 +107,12 @@ public sealed class ExplorationTests
     }
 
     [Fact]
-    public void Predictor_KnowsTheFourteenGenera_AndNamesSpecies()
+    public void Predictor_KnowsTheFifteenGenera_AndNamesSpecies()
     {
-        Assert.Equal(14, Predictor.Genera.Count);
+        Assert.Equal(15, Predictor.Genera.Count);
         Assert.Contains("$Codex_Ent_Bacterial_Genus_Name;", Predictor.Genera);
+        Assert.Contains("$Codex_Ent_Tussocks_Genus_Name;", Predictor.Genera);
+        Assert.Equal("Tussock Stigmasis", Predictor.SpeciesName("$Codex_Ent_Tussocks_13_Name;"));
         Assert.Equal("Bacterium Aurasus", Predictor.SpeciesName("$Codex_Ent_Bacterial_01_Name;"));
         Assert.Null(Predictor.SpeciesName("nope"));
     }

@@ -147,14 +147,29 @@ The rail follows the game along the right edge of the window. It shows:
 - **This system**: the scan progress and payout estimates, with every scanned body that carries surface
   materials or biological signals. The heading and the ring turn green once every body is scanned.
   - Before a body is mapped, its life is one line: how many genera could live there and what they are likely
-    worth, with and without the first-logged bonus. Once mapped, each genus shows with its likeliest species.
+    worth, with and without the first-logged bonus. Once probed, the body lists its genera richest first:
+    the genus, its likeliest species with the odds or its sampling stage, and what it pays with the bonus
+    where that applies; beyond five genera one line sums the rest.
   - Gravity shows as a tag from 1.0 g, red from 1.5 g.
   - A switch orders the bodies **nearest first**, by distance from arrival, or **biology first**: every body
-    with life at the top, the most valuable first, then by signal count, with a body you have landed on at the
-    bottom. The value is the scanner's genera once mapped, or the life the conditions allow before that.
-  - A second switch hides bodies whose life is bacteria alone: by the scanner's genera once mapped, or before
-    that a single signal at least four in five likely to be bacteria. A body carrying a material your plan is
-    short of stays listed either way.
+    with life at the top, the most valuable first, then by signal count. The value is the scanner's genera
+    once mapped, or the life the conditions allow before that.
+  - A choice of three says which bodies with life to leave out. **All life** lists every one. **Skip
+    bacteria** leaves out bodies whose life is bacteria alone: by the scanner's genera once mapped, or
+    before that a single signal at least four in five likely to be bacteria. **Min/max** asks a different
+    question before and after the probes. Before you probe a body, the question is whether it is worth
+    flying over to probe: it stays while the chance that at least one of its signals is a species worth the
+    stop on its own is one in four or better, by the odds of the genera its conditions allow, so a body with
+    many signals is kept until the probes say what is there. Once probed, the question is whether it is
+    worth landing: it stays while its best landing pays 8M a minute on the ground, bonus included. The best
+    landing takes the species worth the time in order of their own pace and leaves the rest, since nothing
+    makes you sample everything. The minutes are medians from a practised commander's journal: four for the
+    glide down and the climb back to supercruise, three per species from its first sample to its analysis,
+    and one between one species and the next. The distance between samples does not count: you drive or
+    repark the ship. A lone Stratum Tectonicas with the bonus runs about 14M a minute; eight cheap species
+    on one body pay more in total but about 6M a minute, so min/max skips them once probed and Skip bacteria
+    keeps them. Conditions Katey has no record of are never hidden. The choice is remembered, and a body
+    carrying a material your plan is short of stays listed whatever it is.
 
 The rail picks the route or the bodies by itself. It shows the route while another system is your targeted
 destination, while the drive is charging to jump and while you are in hyperspace, until the moment you arrive
@@ -397,11 +412,11 @@ history holds, with a **scanned** badge giving the day when it was an earlier vi
 is allowed in Settings, the bodies Spansh knows and you have not scanned join the list with a **from
 Spansh** badge: their classes, conditions, signals and known genera, valued like your own, but saying
 nothing about discovery, mapping or landing, so no first-mapping or first-logged bonus is assumed for them.
-Each body shows with its signals, surface materials, species
-predictions and payout estimates, and a line on how many bodies nobody had discovered or mapped before you
-and how many you have landed on. Bodies are listed star by star: each star, named by its class and whether
-you can scoop it, is followed by the bodies that orbit it, nearest first. Sorting by a column puts the whole
-list in that order instead. For a system you visited earlier: where it is and when you were there.
+Each body shows with its signals, surface materials, its genera most valuable first with their species
+predictions and payout estimates, and a line on how many bodies nobody had discovered or mapped before you and
+how many you have landed on. Bodies are listed star by star: each star, named by its class and whether you can
+scoop it, is followed by the bodies that orbit it, nearest first. Sorting by a column puts the whole list in
+that order instead. For a system you visited earlier: where it is and when you were there.
 
 Each body's card and badges call out what matters before you commit to it.
 

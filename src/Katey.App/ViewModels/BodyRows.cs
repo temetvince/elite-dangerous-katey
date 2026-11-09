@@ -11,8 +11,22 @@ namespace Katey.App.ViewModels;
 /// <param name="Candidates">Likely species as text, most likely first, such as "Bacterium Aurasus 62%".</param>
 /// <param name="ExpectedCredits">Probability-weighted payout, or 0 when unknown.</param>
 /// <param name="Confirmed">The species already sampled here, or empty.</param>
-public sealed record GenusRow(string Genus, string Name, string Candidates, long ExpectedCredits, string Confirmed)
+/// <param name="TopSpecies">The sampled species, else the likeliest, without the genus word: "Tectonicas" for Stratum Tectonicas. Empty with no prediction.</param>
+/// <param name="TopProbability">The chance of <paramref name="TopSpecies"/>, 0 to 1; 1 once sampled.</param>
+/// <param name="Stage">Samples taken of the species so far, 1 to 3, or 0 before the first.</param>
+public sealed record GenusRow(string Genus, string Name, string Candidates, long ExpectedCredits, string Confirmed, string TopSpecies = "", double TopProbability = 0, int Stage = 0)
 {
+    /// <summary>A species name without its genus word, since the genus is named beside it.</summary>
+    /// <param name="species">The species name as the game spells it, such as "Bacterium Vesicula".</param>
+    /// <param name="genus">The genus name, such as "Bacterium".</param>
+    /// <returns>The name after the genus word, or the whole name when it does not start with it.</returns>
+    public static string ShortSpecies(string species, string genus)
+    {
+        ArgumentNullException.ThrowIfNull(species);
+        ArgumentNullException.ThrowIfNull(genus);
+        return genus.Length > 0 && species.StartsWith(genus + " ", StringComparison.OrdinalIgnoreCase) ? species[(genus.Length + 1)..] : species;
+    }
+
     /// <summary>The bacteria genus, the one most bodies with life have and the least valuable.</summary>
     public const string BacteriaGenus = "$Codex_Ent_Bacterial_Genus_Name;";
 
@@ -46,7 +60,11 @@ public sealed record TextRun(string Text, bool IsFigure);
 /// <param name="LandedByYou">Whether the player has ever landed here.</param>
 /// <param name="Signals">Signal counts as text, or empty.</param>
 /// <param name="BiologicalSignals">Number of biological signals.</param>
-/// <param name="Genera">Genera found, with predictions.</param>
+/// <param name="Genera">Genera found, with predictions, the most valuable first.</param>
+/// <param name="GroundMinutes">Minutes a landing here is estimated to take: the approach plus every species to sample, by the scanner's genera once mapped or the genera the conditions allow before that. 0 for a body without life.</param>
+/// <param name="PaceKnown">Whether <paramref name="GroundMinutes"/> rests on anything: false when the conditions give no prediction, so the unknown is never hidden as too slow.</param>
+/// <param name="PaceCreditsPerMinute">What the best landing here pays a minute on the ground, bonus included: on a probed body the species worth the time and no others, on an unprobed one the odds-weighted whole.</param>
+/// <param name="PaceChance">The chance that at least one species here is worth the stop on its own at the min/max pace: by the scanner's genera and their likely species once probed, by the odds of each signal before that.</param>
 /// <param name="BacteriaOnlyByPrediction">Whether, with signals but no genus list yet, bacteria is the only genus ever found under the body's conditions.</param>
 /// <param name="Materials">Surface materials, highest share first, as text, or empty.</param>
 /// <param name="MaterialNames">Display names of every surface material.</param>
@@ -87,6 +105,10 @@ public sealed record BodyRow(
     int BiologicalSignals,
     IReadOnlyList<GenusRow> Genera,
     bool BacteriaOnlyByPrediction,
+    double GroundMinutes,
+    bool PaceKnown,
+    double PaceCreditsPerMinute,
+    double PaceChance,
     string Materials,
     IReadOnlyList<string> MaterialNames,
     string ScanValue,
@@ -224,6 +246,20 @@ public sealed record BodyRow(
     /// <summary>Gets whether the exobiology figure is a prediction from conditions rather than from the scanner's genera.</summary>
     public bool IsExobiologyPredicted => ExobiologyCredits == 0 && PredictedExobiologyCredits > 0;
 
+    /// <summary>Gets what the best landing here pays per minute on the ground, bonus included where it applies; 0 without life.</summary>
+    public double ExobiologyCreditsPerMinute => PaceCreditsPerMinute;
+
+    /// <summary>
+    /// Gets whether the body stays under min/max. Before the probes the question is whether it is worth flying over
+    /// to probe: it stays while the chance of a species worth the stop on its own is <see cref="BodyRowBuilder.MinMaxChance"/>
+    /// or better. Once probed the question is whether it is worth landing: the best landing must keep
+    /// <see cref="BodyRowBuilder.MinMaxCreditsPerMinute"/>. A body whose pace cannot be judged passes.
+    /// </summary>
+    public bool KeepsMinMaxPace => !PaceKnown || (IsProbed ? PaceCreditsPerMinute >= BodyRowBuilder.MinMaxCreditsPerMinute : PaceChance >= BodyRowBuilder.MinMaxChance);
+
+    /// <summary>Gets whether the scanner has named the body's genera: the probes have been fired.</summary>
+    public bool IsProbed => Genera.Count > 0;
+
     /// <summary>Gets the biological signal count as a short badge, such as "3 bio", or empty with none.</summary>
     public string BiologyCountText => BiologicalSignals > 0 ? string.Create(CultureInfo.InvariantCulture, $"{BiologicalSignals} bio") : "";
 
@@ -352,6 +388,17 @@ public sealed class BodyRowBuilder
     /// <summary>How likely bacteria must be, 0 to 1, for a single unmapped signal to count as bacteria alone.</summary>
     public const double BacteriaOnlyLikelihood = 0.8;
 
+    /// <summary>
+    /// The pace, in credits per minute on the ground with the bonus where it applies, from which a body is worth
+    /// landing on under the min/max choice: a lone Stratum Tectonicas with the first-logged bonus runs about
+    /// fourteen million a minute, a Clypeus about twelve, an Aleoida Gravis, an Osseus Discus or a Tubus Cavas
+    /// alone about nine, a body of eight cheap species about six, a lone bacterium about one.
+    /// </summary>
+    public const double MinMaxCreditsPerMinute = 8_000_000;
+
+    /// <summary>The chance of a species worth the stop on its own from which an unprobed body stays under min/max: one in four, so many signals are not thrown away on an average.</summary>
+    public const double MinMaxChance = 0.25;
+
     /// <summary>"Stratum (likely Tectonicas) 20%, 9.4M Cr expected": a genus named by its likeliest species, split at the species name's first space, with its odds.</summary>
     private static string GenusLine(string species, double probability, long expected)
     {
@@ -368,6 +415,11 @@ public sealed class BodyRowBuilder
     {
         var genera = new List<GenusRow>();
         long bio = 0;
+        var groundMinutes = 0.0;
+        var paceKnown = true;
+        var bonus = !body.IsStar && !body.WasFootfalled && !snapshot.Populated ? BodyRow.FirstLogMultiplier : 1;
+        var landing = new List<long>();
+        var paceChances = new List<double>();
         var conditions = new BodyConditions(
             body.Class ?? "",
             body.Atmosphere,
@@ -392,13 +444,27 @@ public sealed class BodyRowBuilder
             {
                 expected = prediction.ExpectedReward;
                 candidates = prediction.Candidates.Count == 0
-                    ? "no prediction for these conditions"
+                    ? "No prediction for these conditions"
                     : string.Join(" · ", prediction.Candidates.Take(3).Select(candidate =>
                         string.Create(CultureInfo.InvariantCulture, $"{candidate.Name} {candidate.Probability * 100:0}% ({Display.Credits(candidate.Reward)})")));
             }
 
+            paceKnown &= confirmed is not null || prediction.Candidates.Count > 0;
+            landing.Add(expected * bonus);
+            paceChances.Add(confirmed is not null
+                ? (SamplingTime.KeepsPaceAlone(expected * bonus, MinMaxCreditsPerMinute) ? 1 : 0)
+                : prediction.Candidates.Where(candidate => SamplingTime.KeepsPaceAlone(candidate.Reward * bonus, MinMaxCreditsPerMinute)).Sum(candidate => candidate.Probability));
             bio += expected;
-            genera.Add(new GenusRow(genus.Genus, genus.Name, candidates, expected, confirmed?.SpeciesName ?? ""));
+            var top = prediction.Candidates.Count > 0 ? prediction.Candidates[0] : null;
+            genera.Add(new GenusRow(
+                genus.Genus,
+                genus.Name,
+                candidates,
+                expected,
+                confirmed?.SpeciesName ?? "",
+                GenusRow.ShortSpecies(confirmed?.SpeciesName ?? top?.Name ?? "", genus.Name),
+                confirmed is not null ? 1 : top?.Probability ?? 0,
+                confirmed?.Stage ?? 0));
         }
 
         var bacteriaOnlyByPrediction = false;
@@ -409,6 +475,7 @@ public sealed class BodyRowBuilder
         {
             var possible = _predictor.PossibleGenera(conditions);
             var likely = _predictor.LikelyGenera(conditions);
+            paceKnown = likely.Count > 0;
             var onlyBacteria = possible.Count > 0 && possible.All(genus => string.Equals(genus, GenusRow.BacteriaGenus, StringComparison.OrdinalIgnoreCase));
             var bacteriaLikely = likely.Count > 0 && string.Equals(likely[0].Genus, GenusRow.BacteriaGenus, StringComparison.OrdinalIgnoreCase) && likely[0].Probability >= BacteriaOnlyLikelihood;
             bacteriaOnlyByPrediction = body.BiologicalSignals == 1 && (onlyBacteria || bacteriaLikely);
@@ -420,6 +487,28 @@ public sealed class BodyRowBuilder
                 possibleLife = $"{Display.Plural(likely.Count, "genus", "genera")} could live here; the likeliest: {string.Join(" · ", top)}";
             }
         }
+
+        var pace = 0.0;
+        if (body.Genuses.Count > 0)
+        {
+            groundMinutes = SamplingTime.GroundMinutes(body.Genuses.Count);
+            pace = SamplingTime.BestCreditsPerMinute(landing);
+        }
+        else if (body.BiologicalSignals > 0)
+        {
+            // Unprobed: each signal is one draw from the genera the conditions allow, and the chance of a species
+            // worth the stop compounds over the signals.
+            var likely = _predictor.LikelyGenera(conditions);
+            var weight = likely.Sum(genus => genus.Probability);
+            groundMinutes = SamplingTime.GroundMinutes(body.BiologicalSignals);
+            pace = SamplingTime.CreditsPerMinute(predicted * bonus, groundMinutes);
+            var perSignal = weight > 0
+                ? likely.Sum(genus => genus.Probability * genus.Prediction.Candidates.Where(candidate => SamplingTime.KeepsPaceAlone(candidate.Reward * bonus, MinMaxCreditsPerMinute)).Sum(candidate => candidate.Probability)) / weight
+                : 0;
+            paceChances.AddRange(Enumerable.Repeat(perSignal, body.BiologicalSignals));
+        }
+
+        var paceChance = SamplingTime.ChanceOfAny(paceChances);
 
         var signals = new List<string>();
         if (body.BiologicalSignals > 0)
@@ -479,8 +568,12 @@ public sealed class BodyRowBuilder
             body.LandedByYou,
             signals.Count > 0 ? string.Join(", ", signals) : "",
             body.BiologicalSignals,
-            genera,
+            [.. genera.OrderByDescending(genus => genus.ExpectedCredits).ThenBy(genus => genus.Name, StringComparer.Ordinal)],
             bacteriaOnlyByPrediction,
+            groundMinutes,
+            paceKnown,
+            pace,
+            paceChance,
             string.Join(", ", materials.Take(6).Select(material => string.Create(CultureInfo.InvariantCulture, $"{material.Name} {material.Share:0.0}%"))),
             [.. materials.Select(material => material.Name)],
             scanValue,

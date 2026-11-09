@@ -38,6 +38,19 @@ public sealed record RailStopRow(int Index, Link Link, string StarText, StopStag
     public bool HasEngineer => Engineer is not null;
 }
 
+/// <summary>Which bodies with life the rail leaves out.</summary>
+public enum BodyFilter
+{
+    /// <summary>Every body with life or materials is listed.</summary>
+    All,
+
+    /// <summary>Bodies whose life is bacteria alone are left out.</summary>
+    SkipBacteria,
+
+    /// <summary>Only bodies that keep the min/max pace, <see cref="BodyRowBuilder.MinMaxCreditsPerMinute"/> on the ground, are listed.</summary>
+    MinMax,
+}
+
 /// <summary>One body in the rail's list: a body with surface materials or biological signals.</summary>
 /// <param name="Name">Short body name.</param>
 /// <param name="Signals">Signal counts, or empty.</param>
@@ -48,7 +61,7 @@ public sealed record RailStopRow(int Index, Link Link, string StarText, StopStag
 /// <param name="IsBacteriaOnly">Whether its only known life is bacteria.</param>
 /// <param name="ExobiologyCredits">The expected exobiology payout still to collect: the prediction's figure, or zero once you have landed there.</param>
 /// <param name="MaterialCount">How many surface materials it carries.</param>
-/// <param name="IsLanded">Whether you have landed there since the journal began, which counts its biology as collected.</param>
+/// <param name="IsLanded">Whether you have landed there since the journal began.</param>
 /// <param name="Gravity">Surface gravity as text, such as "1.60 g", or empty when unknown.</param>
 /// <param name="IsHighGravity">Whether the gravity is high but not extreme, from 1.0 g.</param>
 /// <param name="IsExtremeGravity">Whether the gravity is extreme, from 1.5 g, where a heavy ship may not arrest its descent.</param>
@@ -59,9 +72,18 @@ public sealed record RailStopRow(int Index, Link Link, string StarText, StopStag
 /// <param name="ShortMaterialCount">How many surface materials the plan is short of.</param>
 /// <param name="TopMaterialGrade">The highest grade among the surface materials, 1 to 5, or 0 with none.</param>
 /// <param name="HasFirstLogBonus">Whether <paramref name="ExobiologyCredits"/> includes the first-logged bonus, five times the base, because nobody had mapped the body.</param>
-/// <param name="BaseCredits">The payout before that bonus, credits, or 0 once you have landed there.</param>
-public sealed record RailBodyRow(string Name, string Signals, string Life, string Materials, bool Landable, bool HasShortMaterial, bool IsBacteriaOnly, long ExobiologyCredits, int MaterialCount, bool IsLanded, string Gravity, bool IsHighGravity, bool IsExtremeGravity, bool HasBiology, double DistanceLs, bool IsValuePredicted, int BiologicalSignals, int ShortMaterialCount, int TopMaterialGrade, bool HasFirstLogBonus, long BaseCredits)
+/// <param name="BaseCredits">The payout before that bonus, credits.</param>
+/// <param name="IsLowValue">Whether the body has life but falls below the min/max pace, <see cref="BodyRowBuilder.MinMaxCreditsPerMinute"/>.</param>
+/// <param name="Genera">Once probed, the body's genera richest first, at most <see cref="RailViewModel.GenusRows"/> of them; <see langword="null"/> before the probes.</param>
+/// <param name="MoreText">One line summing the genera beyond those listed, or empty.</param>
+public sealed record RailBodyRow(string Name, string Signals, string Life, string Materials, bool Landable, bool HasShortMaterial, bool IsBacteriaOnly, long ExobiologyCredits, int MaterialCount, bool IsLanded, string Gravity, bool IsHighGravity, bool IsExtremeGravity, bool HasBiology, double DistanceLs, bool IsValuePredicted, int BiologicalSignals, int ShortMaterialCount, int TopMaterialGrade, bool HasFirstLogBonus, long BaseCredits, bool IsLowValue = false, IReadOnlyList<RailGenusRow>? Genera = null, string MoreText = "")
 {
+    /// <summary>Gets the genus rows to show, none before the probes.</summary>
+    public IReadOnlyList<RailGenusRow> GenusRows => Genera ?? [];
+
+    /// <summary>Gets whether there are genus rows to show.</summary>
+    public bool HasGenera => Genera is { Count: > 0 };
+
     /// <summary>Gets the biological signal count as a short tag, such as "3 bio", or empty with none.</summary>
     public string BiologyTag => BiologicalSignals > 0 ? string.Create(CultureInfo.InvariantCulture, $"{BiologicalSignals} bio") : "";
 
@@ -82,10 +104,21 @@ public sealed record RailBodyRow(string Name, string Signals, string Life, strin
 /// what nearby covers a shortfall, and what the journal just said. Shown docked in the window or in a
 /// window of its own, over the same instance.
 /// </summary>
+/// <summary>One genus on a probed body, as the rail lists it.</summary>
+/// <param name="Name">The genus, such as "Stratum".</param>
+/// <param name="Species">The sampled species with its stage, else the likeliest with its odds, without the genus word; "no prediction" when the conditions give none.</param>
+/// <param name="ValueText">What the species pays, bonus included where it applies, or "value unknown".</param>
+/// <param name="IsSampled">Whether a sample of it has been taken here.</param>
+public sealed record RailGenusRow(string Name, string Species, string ValueText, bool IsSampled);
+
 public sealed class RailViewModel : ObservableObject
 {
+    /// <summary>How many genera a probed body lists before the rest are summed in one line.</summary>
+    public const int GenusRows = 5;
+
     private const int RouteWindow = 4;
     private const string BodySortKey = "rail.bodySort";
+    private const string BodyFilterKey = "rail.bodyFilter";
     private const string BiologySort = "biology";
     private const string DistanceSort = "distance";
     private const string OverlayKey = "rail.overlay";
@@ -310,7 +343,7 @@ public sealed class RailViewModel : ObservableObject
     /// <summary>
     /// Gets or sets whether the bodies are ordered biology first: every body with life at the top, the most
     /// valuable first by the scanner's genera or, before mapping, by the life its conditions allow, then by
-    /// signal count, with a body you have landed on at the bottom since its biology counts as collected. Off,
+    /// signal count. Off,
     /// the bodies are nearest first by distance from arrival. Off by default. Remembered.
     /// </summary>
     public bool BiologyFirst
@@ -333,17 +366,71 @@ public sealed class RailViewModel : ObservableObject
     /// <summary>Gets a note on what the list leaves out, or empty.</summary>
     public string BodiesNote { get; private set => SetProperty(ref field, value); } = "";
 
-    /// <summary>Gets or sets whether bodies whose life is bacteria alone are hidden, by <see cref="BodyRow.IsBacteriaOnly"/>. A hidden body carrying a material the plan is short of stays listed.</summary>
-    public bool HideBacteriaOnly
+    /// <summary>
+    /// Gets or sets which bodies with life the list leaves out: none, the bacteria-only ones, or every one below
+    /// the min/max pace of <see cref="BodyRowBuilder.MinMaxCreditsPerMinute"/> on the ground. A body carrying a
+    /// material the plan is short of stays listed whatever the choice. Remembered.
+    /// </summary>
+    public BodyFilter Filter
     {
-        get => _workspace.HideBacteriaOnly;
+        get => _workspace.Preferences.Get(BodyFilterKey) switch
+        {
+            "bacteria" => BodyFilter.SkipBacteria,
+            "minmax" => BodyFilter.MinMax,
+            _ => BodyFilter.All,
+        };
         set
         {
-            if (_workspace.HideBacteriaOnly != value)
+            if (Filter != value)
             {
-                _workspace.HideBacteriaOnly = value;
+                _workspace.Preferences.Set(BodyFilterKey, value switch
+                {
+                    BodyFilter.SkipBacteria => "bacteria",
+                    BodyFilter.MinMax => "minmax",
+                    BodyFilter.All => "all",
+                    _ => "all",
+                });
                 OnPropertyChanged();
-                Refresh();
+                RefreshSystem();
+            }
+        }
+    }
+
+    /// <summary>Gets or sets whether every body with life is listed; setting it true picks that choice.</summary>
+    public bool ShowsAll
+    {
+        get => Filter == BodyFilter.All;
+        set
+        {
+            if (value)
+            {
+                Filter = BodyFilter.All;
+            }
+        }
+    }
+
+    /// <summary>Gets or sets whether bacteria-only bodies are left out; setting it true picks that choice.</summary>
+    public bool SkipsBacteria
+    {
+        get => Filter == BodyFilter.SkipBacteria;
+        set
+        {
+            if (value)
+            {
+                Filter = BodyFilter.SkipBacteria;
+            }
+        }
+    }
+
+    /// <summary>Gets or sets whether only bodies that keep the min/max pace are listed; setting it true picks that choice.</summary>
+    public bool IsMinMax
+    {
+        get => Filter == BodyFilter.MinMax;
+        set
+        {
+            if (value)
+            {
+                Filter = BodyFilter.MinMax;
             }
         }
     }
@@ -527,13 +614,16 @@ public sealed class RailViewModel : ObservableObject
 
         var shortMaterials = _workspace.ShortMaterials();
         var interesting = rows.Where(row => row.HasBiology || row.HasMaterials).ToList();
-        var shown = interesting.Where(row => !_workspace.HideBacteriaOnly || !row.IsBacteriaOnly || row.HasShortMaterial(shortMaterials)).ToList();
+        var shown = interesting.Where(row => row.HasShortMaterial(shortMaterials) || !Hidden(row)).ToList();
+        OnPropertyChanged(nameof(ShowsAll));
+        OnPropertyChanged(nameof(SkipsBacteria));
+        OnPropertyChanged(nameof(IsMinMax));
         var ordered = shown.Select(row => RailRow(row, shortMaterials));
-        // Biology first: every body with life, by what the life is worth, known or predicted from the conditions, then by how much of it there is; a body you have landed on last.
+        // Biology first: every body with life, by what the life is worth, known or predicted from the conditions, then by how much of it there is.
         Bodies = BiologyFirst
             ? [
                 .. ordered
-                    .OrderBy(row => row.IsLanded ? 2 : row.HasBiology ? 0 : 1)
+                    .OrderBy(row => row.HasBiology ? 0 : 1)
                     .ThenByDescending(row => row.ExobiologyCredits)
                     .ThenByDescending(row => row.BiologicalSignals)
                     .ThenByDescending(row => row.HasShortMaterial)
@@ -541,28 +631,71 @@ public sealed class RailViewModel : ObservableObject
             ]
             : [.. ordered.OrderBy(row => row.DistanceLs)];
         var hiddenRows = interesting.Except(shown).ToList();
-        var byPrediction = hiddenRows.Count(row => row.IsBacteriaOnlyByPrediction);
         var earlier = ScanProgress.EarlierNote(snapshot);
         BodiesNote = rows.Count == 0
             ? earlier.Length > 0 ? earlier : "Nothing scanned yet."
             : interesting.Count == 0
                 ? "No scanned body has materials or life."
-                : hiddenRows.Count > 0
-                    ? $"{Display.Plural(hiddenRows.Count, "body", "bodies")} with only bacteria hidden{(byPrediction > 0 ? $", {byPrediction} of them unmapped but with conditions only bacteria has been found under" : "")}."
-                    : "";
+                : HiddenNote(hiddenRows);
+    }
 
+    /// <summary>Whether the filter hides the body: bacteria alone under <see cref="BodyFilter.SkipBacteria"/>, life without a real chance of a species worth landing for under <see cref="BodyFilter.MinMax"/>.</summary>
+    private bool Hidden(BodyRow row) => Filter switch
+    {
+        BodyFilter.SkipBacteria => row.IsBacteriaOnly,
+        BodyFilter.MinMax => row.HasBiology && !row.KeepsMinMaxPace,
+        BodyFilter.All => false,
+        _ => false,
+    };
+
+    /// <summary>One line on what the filter hid, or empty.</summary>
+    private string HiddenNote(List<BodyRow> hiddenRows)
+    {
+        if (hiddenRows.Count == 0)
+        {
+            return "";
+        }
+
+        if (Filter == BodyFilter.MinMax)
+        {
+            var unprobed = hiddenRows.Count(row => !row.IsProbed);
+            var probed = hiddenRows.Count - unprobed;
+            var reasons = new List<string>();
+            if (unprobed > 0)
+            {
+                reasons.Add($"{unprobed} unprobed and unlikely to hold a species worth the trip");
+            }
+
+            if (probed > 0)
+            {
+                reasons.Add($"{probed} probed and below {Display.Credits((long)BodyRowBuilder.MinMaxCreditsPerMinute)} a minute on the ground");
+            }
+
+            return $"{Display.Plural(hiddenRows.Count, "body", "bodies")} hidden under min/max: {string.Join(", ", reasons)}.";
+        }
+
+        var byPrediction = hiddenRows.Count(row => row.IsBacteriaOnlyByPrediction);
+        return $"{Display.Plural(hiddenRows.Count, "body", "bodies")} with only bacteria hidden{(byPrediction > 0 ? $", {byPrediction} of them unmapped but with conditions only bacteria has been found under" : "")}.";
     }
 
     private static RailBodyRow RailRow(BodyRow row, IReadOnlySet<string> shortMaterials)
     {
         // Before the scanner names the genera, one short line: what could live here and what it is likely worth.
-        var life = row.Genera.Count > 0
-            ? string.Join("; ", row.Genera.Select(genus => genus.Confirmed.Length > 0
-                ? $"{genus.Name}: {genus.Confirmed}"
-                : $"{genus.Name}: {FirstCandidate(genus.Candidates)}"))
-            : row.PredictedExobiologyCredits > 0
-                ? $"{Display.Plural(row.PossibleGenera, "genus", "genera")} could live here, likely about {Display.Credits(row.PredictedExobiologyCredits)}{(row.FirstLogLikely ? $", {Display.Credits(row.ExobiologyRank)} with the first-logged bonus" : "")}."
-                : "";
+        // Once it has, a list: each genus richest first with its likeliest species, and the pace under it.
+        var life = row.Genera.Count == 0 && row.PredictedExobiologyCredits > 0
+            ? $"{Display.Plural(row.PossibleGenera, "genus", "genera")} could live here, likely about {Display.Credits(row.PredictedExobiologyCredits)}{(row.FirstLogLikely ? $", {Display.Credits(row.ExobiologyRank)} with the first-logged bonus" : "")}."
+            : "";
+        var bonus = row.FirstLogLikely ? BodyRow.FirstLogMultiplier : 1;
+        var ordered = row.Genera.OrderByDescending(genus => genus.ExpectedCredits).ThenBy(genus => genus.Name, StringComparer.Ordinal).ToList();
+        var listed = ordered.Take(GenusRows).Select(genus => new RailGenusRow(
+            genus.Name,
+            genus.Stage > 0
+                ? string.Create(CultureInfo.InvariantCulture, $"{genus.TopSpecies}, {genus.Stage} of 3 sampled")
+                : genus.TopSpecies.Length == 0 ? "No prediction" : string.Create(CultureInfo.InvariantCulture, $"{genus.TopSpecies} {genus.TopProbability * 100:0}%"),
+            genus.ExpectedCredits > 0 ? Display.Credits(genus.ExpectedCredits * bonus) : "value unknown",
+            genus.Stage > 0)).ToList();
+        var rest = ordered.Skip(GenusRows).ToList();
+        var more = rest.Count == 0 ? "" : $"+{rest.Count} more, {Display.Credits(rest.Sum(genus => genus.ExpectedCredits) * bonus)} together";
         var shortHere = row.MaterialNames.Where(shortMaterials.Contains).ToList();
         var others = row.MaterialNames.Where(name => !shortMaterials.Contains(name)).ToList();
         var materials = string.Join(", ", shortHere.Select(name => name + " (needed)").Concat(others));
@@ -574,7 +707,7 @@ public sealed class RailViewModel : ObservableObject
             row.Landable,
             shortHere.Count > 0,
             row.IsBacteriaOnly,
-            row.LandedByYou ? 0 : row.ExobiologyRank,
+            row.ExobiologyRank,
             row.MaterialNames.Count,
             row.LandedByYou,
             row.GravityText,
@@ -587,12 +720,9 @@ public sealed class RailViewModel : ObservableObject
             shortHere.Count,
             row.TopMaterialGrade,
             row.FirstLogLikely,
-            row.LandedByYou ? 0 : row.ExobiologyBaseCredits);
-    }
-
-    private static string FirstCandidate(string candidates)
-    {
-        var separator = candidates.IndexOf(" · ", StringComparison.Ordinal);
-        return separator < 0 ? candidates : candidates[..separator];
+            row.ExobiologyBaseCredits,
+            row.HasBiology && !row.KeepsMinMaxPace,
+            row.Genera.Count > 0 ? listed : null,
+            more);
     }
 }
