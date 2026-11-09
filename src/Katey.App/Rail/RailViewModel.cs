@@ -619,7 +619,7 @@ public sealed class RailViewModel : ObservableObject
 
             foreach (var stop in rest.Where(stop => stop.HasEngineer))
             {
-                notes.Add(Phrase.Of(stop.Engineer!, $" is at stop {stop.Index}, ", System(stop.System), "."));
+                notes.Add(Phrase.Of(stop.Engineer, $" is at stop {stop.Index}, ", System(stop.System), "."));
             }
         }
 
