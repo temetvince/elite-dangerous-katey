@@ -14,10 +14,12 @@ dotnet build Katey.slnx
 dotnet run --project src/Katey.Ui
 ```
 
-Or download a release: each one is a self-contained single-file executable, so nothing else needs
-installing. On first run Katey finds the journal folder in its usual place, replays your journal history
-once, and then follows the newest file while the game writes it. The [manual](MANUAL.md) walks through
-every page and switch, starting with a quick start for players.
+Or download a release: each one is a self-contained single-file executable, so nothing else needs installing.
+On first run Katey finds the journal folder in its usual place, replays your journal history once, and then
+follows the newest file while the game writes it. The [manual](MANUAL.md) walks through every page and switch,
+starting with a quick start for players. Katey writes `katey.log` beside its saved data, with folder paths and
+account names left out; start it with `--verbose`, or `--log-level <level>`, for a fuller log when chasing a
+bug. The manual's Your data section says what the log holds.
 
 ## How the journal is read
 

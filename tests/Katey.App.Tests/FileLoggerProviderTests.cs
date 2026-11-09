@@ -12,7 +12,8 @@ public sealed class FileLoggerProviderTests
         var path = Path.Combine(folder, "katey.log");
         try
         {
-            using var provider = new FileLoggerProvider(path, LogLevel.Information, rollOverBytes: 1024);
+            using var provider = new FileLoggerProvider(path, LogLevel.Information, rollOverBytes: 1024, scrub: text => text.Replace("secret", "~", StringComparison.Ordinal));
+            Assert.Equal(LogLevel.Information, provider.Minimum);
             var logger = provider.CreateLogger("Katey.Tests");
             Assert.False(logger.IsEnabled(LogLevel.Debug));
             Assert.True(logger.IsEnabled(LogLevel.Warning));
@@ -20,8 +21,10 @@ public sealed class FileLoggerProviderTests
 
             logger.Log(LogLevel.Debug, default, "not written", null, (state, _) => state);
             logger.Log(LogLevel.Information, default, "started 3 things", null, (state, _) => state);
-            logger.Log(LogLevel.Error, default, "failed", new InvalidOperationException("boom"), (state, _) => state);
+            logger.Log(LogLevel.Error, default, "failed", new InvalidOperationException("boom in secret"), (state, _) => state);
             var text = File.ReadAllText(path);
+            Assert.DoesNotContain("secret", text, StringComparison.Ordinal);
+            Assert.Contains("boom in ~", text, StringComparison.Ordinal);
             Assert.DoesNotContain("not written", text, StringComparison.Ordinal);
             Assert.Contains("[Information] Katey.Tests: started 3 things", text, StringComparison.Ordinal);
             Assert.Contains("[Error] Katey.Tests: failed", text, StringComparison.Ordinal);

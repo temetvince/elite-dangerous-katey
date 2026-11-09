@@ -80,7 +80,7 @@ public sealed class ShellViewModel : ObservableObject
         var systemBodies = new SystemBodiesState(systems, dispatch, logger, network);
         var backupState = new BackupState(backup, dispatch, logger, saved.BackupFolder ?? "", saved.BackupOnClose);
         var reserves = new ReserveState(saved.Reserves);
-        Workspace = new Workspace(catalog, modules, predictor, monitor, sinks, dispatch, plan, engineers, fleet, preferences, plot, backupState, reserves, store, network, systemBodies)
+        Workspace = new Workspace(catalog, modules, predictor, monitor, sinks, dispatch, plan, engineers, fleet, preferences, plot, backupState, reserves, store, network, systemBodies, logger)
         {
             JournalFolder = saved.JournalFolder ?? "",
         };
@@ -204,7 +204,7 @@ public sealed class ShellViewModel : ObservableObject
 
         if (Workspace.JournalFolder.Length > 0)
         {
-            Log.JournalFolderChosen(_logger, Workspace.JournalFolder);
+            Log.JournalFolderChosen(_logger);
             Workspace.Monitor.Start(Workspace.JournalFolder);
         }
     }
@@ -214,7 +214,7 @@ public sealed class ShellViewModel : ObservableObject
         // The data at the old location is left current, so it can be picked up again later.
         Save();
         var found = _store.Relocate(folder);
-        Log.StateMoved(_logger, _store.Location, found);
+        Log.StateMoved(_logger, found);
         if (found)
         {
             Apply(_store.Load());

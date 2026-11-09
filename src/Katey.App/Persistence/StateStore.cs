@@ -129,7 +129,7 @@ public sealed class JsonFileStateStore : IStateStore
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
         {
-            Log.StateLoadFailed(logger, pointerPath, exception);
+            Log.StateLoadFailed(logger, exception);
         }
 
         return new JsonFileStateStore(path, logger, pointerPath);
@@ -158,7 +158,7 @@ public sealed class JsonFileStateStore : IStateStore
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or JsonException)
         {
-            Log.StateLoadFailed(_logger, Location, exception);
+            Log.StateLoadFailed(_logger, exception);
             return PersistedState.Empty;
         }
     }
@@ -176,7 +176,7 @@ public sealed class JsonFileStateStore : IStateStore
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
         {
-            Log.StateSaveFailed(_logger, Location, exception);
+            Log.StateSaveFailed(_logger, exception);
         }
     }
 
@@ -194,7 +194,7 @@ public sealed class JsonFileStateStore : IStateStore
             }
             catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
             {
-                Log.StateSaveFailed(_logger, _pointerPath, exception);
+                Log.StateSaveFailed(_logger, exception);
             }
         }
 

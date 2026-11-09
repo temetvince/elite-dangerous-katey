@@ -27,6 +27,8 @@ public sealed partial class App : Application
         {
             if (!SingleInstance.TryClaim())
             {
+                var hostLogger = Program.FileLog.CreateLogger(nameof(App));
+                Log.AlreadyRunning(hostLogger);
                 desktop.MainWindow = SingleInstance.AlreadyRunningWindow();
                 base.OnFrameworkInitializationCompleted();
                 return;
@@ -34,7 +36,20 @@ public sealed partial class App : Application
 
             // The monitor and the logger factory live exactly as long as the desktop lifetime; its Exit
             // event is the one place they are disposed.
-            var loggerFactory = LoggerFactory.Create(builder => builder.AddDebug().AddProvider(Program.FileLog).SetMinimumLevel(LogLevel.Debug));
+            // The debugger output costs a formatted line per message whether or not anything listens, so it is
+            // attached only when a debugger is; otherwise the factory runs at the file's own floor.
+            var loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder.AddProvider(Program.FileLog);
+                if (System.Diagnostics.Debugger.IsAttached)
+                {
+                    builder.AddDebug().SetMinimumLevel(LogLevel.Debug);
+                }
+                else
+                {
+                    builder.SetMinimumLevel(Program.FileLog.Minimum);
+                }
+            });
             var sinks = new JournalSinks();
             var monitor = new JournalMonitor(loggerFactory.CreateLogger<JournalMonitor>(), sinks.All);
             var http = new HttpClient { Timeout = TimeSpan.FromSeconds(30) };

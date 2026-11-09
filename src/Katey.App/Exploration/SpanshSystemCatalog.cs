@@ -34,12 +34,13 @@ public sealed class SpanshSystemCatalog : ISystemCatalog
     /// <inheritdoc/>
     public async Task<IReadOnlyList<CataloguedBody>> BodiesAsync(long systemAddress, CancellationToken cancellationToken)
     {
+        var started = System.Diagnostics.Stopwatch.StartNew();
         try
         {
             using var response = await _http.GetAsync(new Uri(DumpUrl + systemAddress.ToString(CultureInfo.InvariantCulture)), cancellationToken).ConfigureAwait(false);
             if (response.StatusCode == HttpStatusCode.NotFound)
             {
-                Log.SystemLookedUp(_logger, systemAddress, 0);
+                Log.SystemLookedUp(_logger, systemAddress, 0, started.ElapsedMilliseconds);
                 return [];
             }
 
@@ -50,7 +51,7 @@ public sealed class SpanshSystemCatalog : ISystemCatalog
 
             var text = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
             var bodies = SpanshBodiesJson.Read(text);
-            Log.SystemLookedUp(_logger, systemAddress, bodies.Count);
+            Log.SystemLookedUp(_logger, systemAddress, bodies.Count, started.ElapsedMilliseconds);
             return bodies;
         }
         catch (HttpRequestException exception)

@@ -87,7 +87,8 @@ everything below the last line is clear and the game shows through untinted ther
 
 | File | Purpose |
 | --- | --- |
-| `Program.cs` | Entry point and Avalonia configuration. Opens `katey.log` beside the default saved data, which every logger writes to at Information and above, and writes an exception that ends the process there before it dies. |
+| `Log.cs` | Source-generated log messages for the host. |
+| `Program.cs` | Entry point and Avalonia configuration. Opens `katey.log` beside the default saved data, which every logger writes to at Information and above, or at the floor `--log-level <level>` or `--verbose` names, every line scrubbed of folder paths and of the account and machine names; writes an exception that ends the process there before it dies. |
 | `SingleInstance.cs` | One Katey per user: a named mutex claimed at start, and the notice a second copy shows instead of a main window. |
 | `App.axaml`, `App.axaml.cs` | The theme palettes with the meaning colours, the rail palette, the star colours, the shared converters, the font resources, the style include; builds the catalogs, the predictor, the state store, the trackers, the journal monitor, the HTTP client with the Spansh plotter, the journal backup and the `ShellViewModel`; on exit runs the shell's shutdown, which backs the journals up when asked, then disposes the monitor and the client. |
 | `Styles/Workbench.axaml` | Every style: text roles, panels, chips, grade badges, buttons including the link style, and the rail's fixed-palette styles. |

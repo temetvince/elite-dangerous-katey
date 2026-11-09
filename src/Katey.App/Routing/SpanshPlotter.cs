@@ -119,7 +119,7 @@ public sealed class SpanshPlotter : IRoutePlotter
             throw new RoutePlotException(job.Error ?? "Spansh could not plot that route.");
         }
 
-        Log.PlotReceived(_logger, request.Source, request.Destination, job.Route.Jumps);
+        Log.PlotReceived(_logger, request.Source, request.Destination, job.Route.Jumps, (long)(DateTimeOffset.UtcNow - startedAt).TotalMilliseconds);
         return job.Route;
     }
 

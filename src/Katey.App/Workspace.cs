@@ -12,6 +12,7 @@ using Katey.Core.Fleet;
 using Katey.Core.Planning;
 using Katey.Core.Trading;
 using Katey.Journal;
+using Microsoft.Extensions.Logging;
 
 namespace Katey.App;
 
@@ -26,6 +27,7 @@ namespace Katey.App;
 /// </remarks>
 public sealed class Workspace
 {
+    private readonly HashSet<string> _unknownNoted = new(StringComparer.Ordinal);
     private Navigator? _navigator;
     private ItemResolver? _resolver;
     private Func<string, bool>? _stateMover;
@@ -47,6 +49,7 @@ public sealed class Workspace
     /// <param name="store">Where the saved data lives.</param>
     /// <param name="network">What may leave the machine.</param>
     /// <param name="systemBodies">The bodies a catalogue knows for the systems visited this run.</param>
+    /// <param name="logger">Where the view models log decisions and what the tables lack.</param>
     public Workspace(
         Catalog catalog,
         ModuleCatalog modules,
@@ -63,7 +66,8 @@ public sealed class Workspace
         ReserveState reserves,
         IStateStore store,
         NetworkAccess network,
-        SystemBodiesState systemBodies)
+        SystemBodiesState systemBodies,
+        ILogger logger)
     {
         ArgumentNullException.ThrowIfNull(catalog);
         ArgumentNullException.ThrowIfNull(modules);
@@ -81,6 +85,8 @@ public sealed class Workspace
         ArgumentNullException.ThrowIfNull(store);
         ArgumentNullException.ThrowIfNull(network);
         ArgumentNullException.ThrowIfNull(systemBodies);
+        ArgumentNullException.ThrowIfNull(logger);
+        Logger = logger;
 
         Network = network;
         SystemBodies = systemBodies;
@@ -141,8 +147,24 @@ public sealed class Workspace
     /// <summary>Gets what the indexes and pickers may offer: everything, or only what the selected engineers can roll while the remembered switch is on.</summary>
     public EngineerScope Scope => field ??= new EngineerScope(Catalog, Engineers, Preferences);
 
+    /// <summary>Gets the logger the view models write decisions to.</summary>
+    public ILogger Logger { get; }
+
     /// <summary>Gets what the player allows to leave the machine.</summary>
     public NetworkAccess Network { get; }
+
+    /// <summary>Logs a symbol the tables do not know, once per symbol for the run, so a bug report shows what the catalog lacks without flooding the log.</summary>
+    /// <param name="kind">What kind of thing it is, such as "material".</param>
+    /// <param name="symbol">The symbol as the journal spells it.</param>
+    public void NoteUnknown(string kind, string symbol)
+    {
+        ArgumentNullException.ThrowIfNull(kind);
+        ArgumentNullException.ThrowIfNull(symbol);
+        if (_unknownNoted.Add(kind + ":" + symbol))
+        {
+            Log.UnknownSymbol(Logger, kind, symbol);
+        }
+    }
 
     /// <summary>Gets the bodies a catalogue knows for the systems visited this run.</summary>
     public SystemBodiesState SystemBodies { get; }

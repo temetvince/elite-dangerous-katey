@@ -1220,7 +1220,7 @@ public sealed class WorkbenchFeatureTests
 
         backup.Result = new BackupResult(0, 5, 0, ["Journal.log: in use"]);
         settings.BackupNowCommand.Execute(null);
-        SpinWait.SpinUntil(() => !shell.Workspace.Backup.IsBusy, TimeSpan.FromSeconds(10));
+        SpinWait.SpinUntil(() => Assert.IsType<SettingsPage>(shell.Navigator.Current).BackupStatus.Contains("failed", StringComparison.Ordinal), TimeSpan.FromSeconds(10));
         settings = Assert.IsType<SettingsPage>(shell.Navigator.Current);
         Assert.Contains("1 file failed: Journal.log: in use", settings.BackupStatus, StringComparison.Ordinal);
     }

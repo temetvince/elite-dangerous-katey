@@ -622,9 +622,15 @@ service. The journal backup copies files only to the folder you choose.
 
 Katey also keeps a log, `katey.log` beside the default `state.json` under your local application data folder,
 of what it did and what went wrong: starting and stopping, the journal folder it watched, requests it made and
-failures it met, and the reason if it ever closes on its own. It holds system and ship names from your journal
-and nothing else about you. If Katey closes unexpectedly, that file says why, and is the thing to send with a
-bug report. It is rolled over past a megabyte, so it stays small.
+failures it met, and the reason if it ever closes on its own. It holds star system and ship names from your
+journal and nothing else about you: no commander name, no credits, no positions, and no folder names: Katey's
+own messages never carry a path, and anything else that reaches the log, an error from Windows say, keeps only
+a file name, with your account and machine names replaced, so the file can be shared as it is. If Katey closes
+unexpectedly, that file says why, and is the thing to send with a bug report. It is rolled over past a
+megabyte, so it stays small. For a bug that needs more detail, start Katey as `katey.exe --verbose`, or
+`katey.exe --log-level debug`, and the log also records the pages opened, the rail's decisions and the lookups
+made; `--log-level warning` keeps only trouble. It is back to normal the next time you start without the
+option.
 
 If the day's journal file goes missing while the game runs, the game writes it again from the start, and
 everything it held is lost to the game and to Katey. The backup keeps its earlier copy of such a file beside

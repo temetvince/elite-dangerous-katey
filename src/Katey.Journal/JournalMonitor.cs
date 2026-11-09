@@ -29,6 +29,10 @@ public sealed class JournalMonitor : IJournalMonitor
     private CancellationTokenSource? _cancellation;
     private Task? _loop;
     private string? _currentFile;
+    private int _linesRead;
+    private int _linesSkipped;
+    private int _routeUnreadable;
+    private int _statusUnreadable;
     private long _offset;
     private DateTime _routeWritten;
     private DateTime _statusWritten;
@@ -152,12 +156,12 @@ public sealed class JournalMonitor : IJournalMonitor
         Folder = folder;
         if (!Directory.Exists(folder))
         {
-            Log.FolderMissing(_logger, folder);
+            Log.FolderMissing(_logger);
             SetState(MonitorState.FolderMissing, CatchUpProgress.None);
             return;
         }
 
-        Log.Started(_logger, folder);
+        Log.Started(_logger);
         var cancellation = new CancellationTokenSource();
         _cancellation = cancellation;
         SetState(MonitorState.CatchingUp, CatchUpProgress.None);
@@ -265,9 +269,12 @@ public sealed class JournalMonitor : IJournalMonitor
         var files = JournalFolder.JournalFiles(folder);
         if (files.Count == 0)
         {
-            Log.NoJournals(_logger, folder);
+            Log.NoJournals(_logger);
         }
 
+        var started = System.Diagnostics.Stopwatch.StartNew();
+        _linesRead = 0;
+        _linesSkipped = 0;
         var changed = false;
         for (var index = 0; index < files.Count; index++)
         {
@@ -279,7 +286,8 @@ public sealed class JournalMonitor : IJournalMonitor
         }
 
         changed |= ReadLiveFiles(folder);
-        Log.CaughtUp(_logger, files.Count);
+        var seconds = Math.Round(started.Elapsed.TotalSeconds, 1);
+        Log.CaughtUp(_logger, files.Count, _linesRead, _linesSkipped, seconds);
         if (changed)
         {
             Updated?.Invoke(this, EventArgs.Empty);
@@ -298,7 +306,8 @@ public sealed class JournalMonitor : IJournalMonitor
             var currentIndex = IndexOf(files, _currentFile);
             foreach (var file in files.Skip(currentIndex + 1))
             {
-                Log.SwitchedJournal(_logger, file);
+                var switchedTo = Path.GetFileName(file);
+                Log.SwitchedJournal(_logger, switchedTo);
                 _currentFile = file;
                 _offset = 0;
                 changed |= ReadNewLines();
@@ -306,7 +315,8 @@ public sealed class JournalMonitor : IJournalMonitor
         }
         else if (_currentFile is null && newest is not null)
         {
-            Log.SwitchedJournal(_logger, newest);
+            var newestName = Path.GetFileName(newest);
+            Log.SwitchedJournal(_logger, newestName);
             _currentFile = newest;
             _offset = 0;
             changed |= ReadNewLines();
@@ -330,6 +340,11 @@ public sealed class JournalMonitor : IJournalMonitor
         if (ReadIfChanged(routePath, ref _routeWritten) is { } routeText)
         {
             Route = NavRoute.Parse(routeText);
+            if (Route is null && !string.IsNullOrWhiteSpace(routeText))
+            {
+                NoteUnreadableLiveFile(routePath, ref _routeUnreadable);
+            }
+
             changed = true;
         }
 
@@ -342,9 +357,33 @@ public sealed class JournalMonitor : IJournalMonitor
                 Status = status;
                 changed = true;
             }
+            else if (!string.IsNullOrWhiteSpace(statusText))
+            {
+                NoteUnreadableLiveFile(statusPath, ref _statusUnreadable);
+            }
         }
 
         return changed;
+    }
+
+    /// <summary>Logs one unreadable journal line at Debug, computing the file name only when Debug is on, since this sits in the replay loop.</summary>
+    private void NoteUnreadableLine()
+    {
+        if (_logger.IsEnabled(LogLevel.Debug))
+        {
+            var file = Path.GetFileName(_currentFile) ?? "";
+            Log.UnreadableLine(_logger, file);
+        }
+    }
+
+    /// <summary>Logs a live file the game wrote unreadably: the first time, then every hundredth, since the game rewrites these files many times a minute and a half-written one is read now and then.</summary>
+    private void NoteUnreadableLiveFile(string path, ref int count)
+    {
+        count++;
+        if (count == 1 || count % 100 == 0)
+        {
+            Log.LiveFileUnreadable(_logger, Path.GetFileName(path), count);
+        }
     }
 
     private static string? ReadIfChanged(string path, ref DateTime lastWritten)
@@ -379,7 +418,7 @@ public sealed class JournalMonitor : IJournalMonitor
         {
             // The game relaunched from a launcher left open reuses the file name and writes it again from the
             // start. What it held is gone; what it writes now is new and must not be waited for at the old offset.
-            Log.JournalRewritten(_logger, _currentFile, _offset, stream.Length);
+            Log.JournalRewritten(_logger, Path.GetFileName(_currentFile), _offset, stream.Length);
             _offset = 0;
         }
 
@@ -403,14 +442,17 @@ public sealed class JournalMonitor : IJournalMonitor
         var changed = false;
         foreach (var line in text.Split('\n', StringSplitOptions.RemoveEmptyEntries))
         {
+            if (string.IsNullOrWhiteSpace(line))
+            {
+                continue;
+            }
+
+            _linesRead++;
             var name = PeekEventName(line);
             if (name is null)
             {
-                if (!string.IsNullOrWhiteSpace(line))
-                {
-                    Log.UnreadableLine(_logger, _currentFile);
-                }
-
+                _linesSkipped++;
+                NoteUnreadableLine();
                 continue;
             }
 
@@ -421,7 +463,8 @@ public sealed class JournalMonitor : IJournalMonitor
 
             if (JournalEvent.Parse(line) is not { } journalEvent)
             {
-                Log.UnreadableLine(_logger, _currentFile);
+                _linesSkipped++;
+                NoteUnreadableLine();
                 continue;
             }
 

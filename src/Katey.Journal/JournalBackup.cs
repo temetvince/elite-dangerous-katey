@@ -111,7 +111,7 @@ public sealed class JournalBackup : IJournalBackup
             }
         }
 
-        Log.BackedUp(_logger, source, destination, copied, skipped, failures.Count);
+        Log.BackedUp(_logger, copied, skipped, failures.Count);
         return new BackupResult(copied, skipped, bytes, failures, preserved);
     }
 

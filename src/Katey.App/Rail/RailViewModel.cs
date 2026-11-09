@@ -354,6 +354,7 @@ public sealed class RailViewModel : ObservableObject
             if (BiologyFirst != value)
             {
                 _workspace.Preferences.Set(BodySortKey, value ? BiologySort : DistanceSort);
+                Log.RailSortChanged(_workspace.Logger, value ? "biology first" : "nearest first");
                 OnPropertyChanged();
                 Refresh();
             }
@@ -390,6 +391,8 @@ public sealed class RailViewModel : ObservableObject
                     BodyFilter.All => "all",
                     _ => "all",
                 });
+                var chosen = value.ToString();
+                Log.RailFilterChanged(_workspace.Logger, chosen);
                 OnPropertyChanged();
                 RefreshSystem();
             }
@@ -475,8 +478,14 @@ public sealed class RailViewModel : ObservableObject
 
         var charging = status is { IsFsdCharging: true, IsDocked: false, IsLanded: false };
         var jumping = status is { IsInHyperspace: true } || progress.InHyperspace;
+        var before = ShowsRoute;
         ShowsRoute = HasRoute && (targetsAnotherSystem || charging || jumping);
         ShowsBodies = !ShowsRoute;
+        if (ShowsRoute != before)
+        {
+            var reason = !HasRoute ? "no route" : targetsAnotherSystem ? "another system is the destination" : charging ? "the drive is charging" : jumping ? "in hyperspace" : "nothing beyond this system is targeted";
+            Log.RailSectionChanged(_workspace.Logger, ShowsRoute ? "route" : "bodies", reason);
+        }
     }
 
     private void RefreshPosition()

@@ -48,6 +48,7 @@ public sealed class BackupState
             if (!string.Equals(field, next, StringComparison.Ordinal))
             {
                 field = next;
+                Log.BackupFolderSet(_logger, next.Length == 0 ? "cleared" : "set");
                 Changed?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -95,8 +96,9 @@ public sealed class BackupState
             var status = Run(sourceFolder, destination);
             _dispatch(() =>
             {
-                IsBusy = false;
+                // The status lands before the busy flag drops, so anything waiting on the flag reads the finished status.
                 Status = status;
+                IsBusy = false;
                 Changed?.Invoke(this, EventArgs.Empty);
             });
         });
@@ -119,7 +121,7 @@ public sealed class BackupState
         }
         catch (Exception exception) when (exception is ArgumentException or IOException or UnauthorizedAccessException)
         {
-            Log.BackupFailed(_logger, Folder, exception);
+            Log.BackupFailed(_logger, exception);
             return null;
         }
     }
@@ -146,7 +148,7 @@ public sealed class BackupState
         }
         catch (Exception exception) when (exception is ArgumentException or IOException or UnauthorizedAccessException)
         {
-            Log.BackupFailed(_logger, destination, exception);
+            Log.BackupFailed(_logger, exception);
             return $"Backup failed: {exception.Message}";
         }
     }

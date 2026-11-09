@@ -317,6 +317,11 @@ public sealed class MaterialsPage : Page
             ? "No inventory yet. Counts appear once the journal watch has read a Materials snapshot, which the game writes on every load."
             : $"Inventory of {inventory.Commander ?? "the commander"} as of {inventory.AsOf?.ToLocalTime().ToString("g", CultureInfo.CurrentCulture)}.";
         var unknown = counts is null ? [] : counts.Keys.Where(symbol => !catalog.MaterialsBySymbol.ContainsKey(symbol)).Order(StringComparer.OrdinalIgnoreCase).ToList();
+        foreach (var symbol in unknown)
+        {
+            Workspace.NoteUnknown("material", symbol);
+        }
+
         UnknownText = unknown.Count == 0 ? "" : "Not in the tables: " + string.Join(", ", unknown) + ".";
         RefreshTrades();
     }
