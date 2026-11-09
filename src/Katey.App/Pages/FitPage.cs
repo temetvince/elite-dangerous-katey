@@ -3,7 +3,6 @@ using Katey.App.Mvvm;
 using Katey.App.Navigation;
 using Katey.App.ViewModels;
 using Katey.Core;
-using Katey.Core.Edsy;
 using Katey.Core.Fleet;
 using Katey.Core.Planning;
 using Katey.Journal;
@@ -67,7 +66,7 @@ public sealed record FitLineRow(string Slot, string Required, Link? Link, string
 /// <param name="NeedsEngineering">Whether closing it is engineering work the plan can hold.</param>
 /// <param name="NeedsPurchase">Whether closing it means buying the module.</param>
 /// <param name="IsUncertain">Whether the ship's experimental is unknown, so the slot may already be fine.</param>
-/// <param name="EngineersText">Who can do the engineering, with your selection marked, or empty when none is needed.</param>
+/// <param name="EngineersParts">Who can do the engineering, each engineer a link in the tone the tick and the engineers switch give it, or empty when none is needed.</param>
 /// <param name="CoveredBySelection">Whether your selected engineers can do all of the engineering. False with no selection.</param>
 /// <param name="OwnedText">A module you already own elsewhere that satisfies the slot, and where it is, or empty.</param>
 /// <param name="OwnedCovers">Whether an owned module satisfies the slot for certain, so no engineering is planned.</param>
@@ -80,7 +79,7 @@ public sealed record DifferenceRow(
     bool NeedsEngineering,
     bool NeedsPurchase,
     bool IsUncertain,
-    string EngineersText,
+    IReadOnlyList<PhrasePart> EngineersParts,
     bool CoveredBySelection,
     string OwnedText,
     bool OwnedCovers,
@@ -99,7 +98,7 @@ public sealed record DifferenceRow(
     public string SlotText => SlotNames.Display(Slot);
 
     /// <summary>Gets whether there is an engineers line to show.</summary>
-    public bool HasEngineers => EngineersText.Length > 0;
+    public bool HasEngineers => EngineersParts.Count > 0;
 
     /// <summary>Gets whether there is an owned-module line to show.</summary>
     public bool HasOwned => OwnedText.Length > 0;
@@ -307,7 +306,7 @@ public sealed class FitPage : Page, IEdsyExportable
         var fleet = Workspace.FleetSnapshot;
         var report = Workspace.Fleet.Match(fleet, Workspace.Farness).Fits.First(fit => fit.Fitting.Id == _id);
         Title = fitting.Name;
-        EdsyJson = fitting.LoadoutJson ?? EdsyExport.LoadoutJson(fitting.Hull, fitting.Name, "", fitting.Modules);
+        EdsyJson = fitting.LoadoutJson ?? "";
         HullName = FleetPage.HullName(fleet, fitting.Hull);
         HullOwned = report.HullOwned;
         Summary = FleetPage.Summary(report);
@@ -423,7 +422,7 @@ public sealed class FitPage : Page, IEdsyExportable
                 }
             }
 
-            var engineersText = "";
+            var engineersParts = Phrase.Empty;
             var coveredBySelection = false;
             if (difference.NeedsEngineering && !ownedCover && TentativeEntry(resolver, _comparedShipTitle, difference) is { } entry)
             {
@@ -432,11 +431,11 @@ public sealed class FitPage : Page, IEdsyExportable
                 coveredBySelection = selected.Count > 0
                     && (entry.IsExperimentalOnly || service.SelectedCanRoll.Count > 0)
                     && (entry.Experimental is null || service.SelectedCanApplyExperimental.Count > 0);
-                engineersText = selected.Count == 0
-                    ? Display.Names(able, "No engineer in the data offers this.")
+                engineersParts = selected.Count == 0
+                    ? EngineerLink.Names(able.Select(Workspace.EngineerLinkFor), "No engineer in the data offers this.")
                     : coveredBySelection
-                        ? "Your engineers: " + Display.Names(able.Where(selected.Contains), "")
-                        : "None of your engineers. Offered by " + Display.Names(able, "nobody in the data") + ".";
+                        ? Phrase.Join("", [Phrase.Text("Your engineers: "), EngineerLink.Names(able.Where(selected.Contains).Select(Workspace.EngineerLinkFor), "")])
+                        : Phrase.Join("", [Phrase.Text("None of your engineers. Offered by "), EngineerLink.Names(able.Select(Workspace.EngineerLinkFor), "nobody in the data"), Phrase.Text(".")]);
                 if (coveredBySelection)
                 {
                     covered++;
@@ -453,7 +452,7 @@ public sealed class FitPage : Page, IEdsyExportable
                 difference.NeedsEngineering && !ownedCover,
                 difference.NeedsPurchase && !ownedCover,
                 difference.Kind == DifferenceKind.ExperimentalUnknown,
-                engineersText,
+                engineersParts,
                 coveredBySelection,
                 ownedText,
                 ownedCover,

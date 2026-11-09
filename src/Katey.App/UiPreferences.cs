@@ -5,11 +5,13 @@
 /// open, which filters are on. Keyed by a dotted name such as <c>sort.engineers</c>, with string values.
 /// </summary>
 /// <remarks>Not thread-safe. Raises <see cref="Changed"/> after any value changes, so the state can be saved.</remarks>
-/// <remarks>Creates the preferences from saved values.</remarks>
+/// <remarks>Creates the preferences from saved values, keeping only the keys Katey writes today; see <see cref="PreferenceKeys"/>.</remarks>
 /// <param name="values">Saved key → value pairs, or <see langword="null"/> for none.</param>
 public sealed class UiPreferences(IReadOnlyDictionary<string, string>? values)
 {
-    private readonly Dictionary<string, string> _values = values is null ? new Dictionary<string, string>(StringComparer.Ordinal) : new Dictionary<string, string>(values, StringComparer.Ordinal);
+    private readonly Dictionary<string, string> _values = values is null
+        ? new Dictionary<string, string>(StringComparer.Ordinal)
+        : values.Where(pair => PreferenceKeys.IsCurrent(pair.Key)).ToDictionary(pair => pair.Key, pair => pair.Value, StringComparer.Ordinal);
 
     /// <summary>Raised after a value changes.</summary>
     public event EventHandler? Changed;
@@ -78,14 +80,14 @@ public sealed class UiPreferences(IReadOnlyDictionary<string, string>? values)
         Set(key, string.Join(',', values.Order(StringComparer.Ordinal)));
     }
 
-    /// <summary>Replaces every value.</summary>
+    /// <summary>Replaces every value, keeping only the keys Katey writes today.</summary>
     /// <param name="values">The new values, or <see langword="null"/> for none.</param>
     public void Replace(IReadOnlyDictionary<string, string>? values)
     {
         _values.Clear();
         if (values is not null)
         {
-            foreach (var pair in values)
+            foreach (var pair in values.Where(pair => PreferenceKeys.IsCurrent(pair.Key)))
             {
                 _values[pair.Key] = pair.Value;
             }

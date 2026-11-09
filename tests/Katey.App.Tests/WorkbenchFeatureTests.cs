@@ -1,4 +1,5 @@
-﻿using Katey.App.Navigation;
+﻿using Katey.App.Mvvm;
+using Katey.App.Navigation;
 using Katey.App.Pages;
 using Katey.App.Persistence;
 using Katey.App.Rail;
@@ -98,7 +99,7 @@ public sealed class WorkbenchFeatureTests
         engineers.Sort["name"].Command.Execute(null);
         Assert.Equal("▼", engineers.Sort["name"].Indicator);
         Assert.Equal(names.OrderDescending(StringComparer.OrdinalIgnoreCase), engineers.Engineers.Select(row => row.Name));
-        Assert.Equal("name:desc", store.State.Preferences!["sort.engineers"]);
+        Assert.StartsWith("name:desc;", store.State.Preferences!["sort.engineers"], StringComparison.Ordinal);
 
         engineers.Filter = "deciat";
         Assert.Equal(["Felicity Farseer"], engineers.Engineers.Select(row => row.Name));
@@ -282,7 +283,7 @@ public sealed class WorkbenchFeatureTests
         Assert.True(row.Entry.IsExperimentalOnly);
         Assert.Empty(row.Rolls);
         Assert.Equal(Catalog.Experimentals["special_fsd_heavy"].Components.Count, row.Materials.Count);
-        Assert.StartsWith("Experimental only:", row.CanRollText, StringComparison.Ordinal);
+        Assert.StartsWith("Experimental only:", Phrase.Plain(row.CanRollParts), StringComparison.Ordinal);
         Assert.False(row.HasWarning);
 
         row.TargetGrade = 3;
@@ -335,9 +336,12 @@ public sealed class WorkbenchFeatureTests
         var fsd = fit.Differences.Single(row => row.Slot == "FrameShiftDrive");
         Assert.True(fsd.NeedsEngineering);
         Assert.True(fsd.CoveredBySelection);
-        Assert.StartsWith("Your engineers: Felicity Farseer", fsd.EngineersText, StringComparison.Ordinal);
+        Assert.StartsWith("Your engineers: Felicity Farseer", Phrase.Plain(fsd.EngineersParts), StringComparison.Ordinal);
+        // The name is a link, and the engineer is ticked, so it reads in the HUD blue only while the switch narrows the lists.
+        var farseer = fsd.EngineersParts.Single(part => part.IsLink);
+        Assert.Equal(shell.Workspace.Scope.IsNarrowed ? LinkTone.Hud : LinkTone.Ink, farseer.Tone);
         Assert.False(engines.CoveredBySelection);
-        Assert.Contains("None of your engineers", engines.EngineersText, StringComparison.Ordinal);
+        Assert.Contains("None of your engineers", Phrase.Plain(engines.EngineersParts), StringComparison.Ordinal);
         Assert.Equal(2, fit.EngineeringCount);
         Assert.Equal(2, fit.UnplannedDifferences);
         Assert.Equal("Plan the 2 engineering changes for this ship", fit.PlanDifferencesText);
@@ -558,6 +562,7 @@ public sealed class WorkbenchFeatureTests
 
         Assert.Contains("Fuel for 1 more jump without scooping.", route.Fuel.Summary, StringComparison.Ordinal);
         Assert.Contains("Scoop by Deciat, stop 2.", route.Fuel.Summary, StringComparison.Ordinal);
+        Assert.Equal("Deciat", route.Fuel.SummaryParts.Single(part => part.IsLink).Text);
         Assert.Equal("", route.Stops[0].FuelText);
         Assert.Equal("5.4 t", route.Stops[1].FuelText);
         Assert.True(route.Stops[1].ScoopHere);
@@ -718,13 +723,20 @@ public sealed class WorkbenchFeatureTests
         Assert.Equal("No journal details for 7 bodies scanned on an earlier visit.", shell.Rail.BodiesNote);
 
         var systemPage = Open<SystemPage>(shell, PageKind.System);
-        Assert.Equal("7 of 7 bodies scanned. No journal details for 7 bodies scanned on an earlier visit.", systemPage.Progress);
+        Assert.Equal("You are here. 7 of 7 bodies scanned.", Phrase.Plain(systemPage.WhereParts));
+        Assert.Equal("No journal details for 7 bodies scanned on an earlier visit.", systemPage.Progress);
 
         var home = Open<HomePage>(shell, PageKind.Home);
         var scanned = home.Stats.Single(stat => stat.Label == "BODIES SCANNED");
         Assert.Equal("7/7", scanned.Value);
         Assert.Equal(StatTone.Good, scanned.Tone);
-        Assert.Equal("in Jackson's Lighthouse.", scanned.Detail);
+        Assert.Equal("in this system.", scanned.Detail);
+        // The system's name is the link under the figure, and the browse tile's detail is the same link.
+        Assert.Equal("Jackson's Lighthouse", scanned.Link.Label);
+        var tile = home.Browse.Single(tile => tile.Link.Label == "This system");
+        Assert.Equal("Jackson's Lighthouse", tile.Detail);
+        Assert.True(tile.HasDetailLink);
+        Assert.Equal("Jackson's Lighthouse", tile.DetailLink!.Label);
 
         // A fresh system counts what this visit scans; the partial honk figure is weighted and counts for nothing.
         monitor.Feed(
@@ -732,7 +744,7 @@ public sealed class WorkbenchFeatureTests
             /*lang=json,strict*/ """{"timestamp":"2026-11-08T16:00:01Z","event":"Scan","ScanType":"AutoScan","BodyName":"Fresh","BodyID":0,"StarType":"K","DistanceFromArrivalLS":0,"SystemAddress":77}""",
             /*lang=json,strict*/ """{"timestamp":"2026-11-08T16:00:10Z","event":"FSSDiscoveryScan","Progress":0.639665,"BodyCount":8,"NonBodyCount":0,"SystemName":"Fresh","SystemAddress":77}""");
         Assert.Equal("1 of 8 scanned", shell.Rail.ScanText);
-        Assert.Equal("1 of 8 bodies scanned.", Open<SystemPage>(shell, PageKind.System).Progress);
+        Assert.Equal("You are here. 1 of 8 bodies scanned.", Phrase.Plain(Open<SystemPage>(shell, PageKind.System).WhereParts));
 
         // Bodies list star by star: each star with its class in words, then what orbits it by distance; a star has no mapping note.
         monitor.Feed(
@@ -751,21 +763,22 @@ public sealed class WorkbenchFeatureTests
         Assert.Equal("", bodies[0].FootfallStatus);
         Assert.True(bodies[1].FirstMappingOpen);
         Assert.Equal("unmapped", bodies[1].MappingStatus);
-        Assert.True(bodies[1].MappingOpen);
-        Assert.Equal("undiscovered", bodies[1].DiscoveryStatus);
-        Assert.True(bodies[1].DiscoveryOpen);
+        Assert.True(bodies[1].MappingYours);
+        Assert.Equal("discovered by you", bodies[1].DiscoveryStatus);
+        Assert.True(bodies[1].DiscoveryYours);
         Assert.Equal("no footfall", bodies[1].FootfallStatus);
         Assert.True(bodies[1].FootfallOpen);
-        Assert.Equal("First discovered by you.", bodies[1].StatusDetail);
+        Assert.True(bodies[1].FootfallYours);
+        Assert.Equal("", bodies[1].StatusDetail);
         Assert.True(bodies[1].FirstLogLikely);
         Assert.Equal("4 of 8 scanned", shell.Rail.ScanText);
 
         // Gravity is banded for the landing: 1.60 g is extreme, 1.07 g high, and a star has none.
         Assert.Equal("", bodies[0].GravityText);
-        Assert.Equal("1.60 g", bodies[1].GravityText);
+        Assert.Equal("1.60g", bodies[1].GravityText);
         Assert.True(bodies[1].IsExtremeGravity);
         Assert.Equal("extreme gravity", bodies[1].GravityWarning);
-        Assert.Equal("1.07 g", bodies[3].GravityText);
+        Assert.Equal("1.07g", bodies[3].GravityText);
         Assert.True(bodies[3].IsHighGravity);
         Assert.False(bodies[3].IsExtremeGravity);
 
@@ -782,7 +795,7 @@ public sealed class WorkbenchFeatureTests
         Assert.NotEmpty(living.PossibleLife);
         Assert.Equal("2 bio", living.BiologyCountText);
         Assert.StartsWith("Exobiology likely about ", living.ExobiologyText, StringComparison.Ordinal);
-        Assert.Contains(" with the first-logged bonus; map it to know.", living.ExobiologyText, StringComparison.Ordinal);
+        Assert.Contains($"{Display.Credits(living.PredictedExobiologyCredits)}, {Display.Credits(living.ExobiologyRank)} with the first-logged bonus by the life these conditions allow; map it to know.", living.ExobiologyText, StringComparison.Ordinal);
         Assert.True(living.GroundMinutes > SamplingTime.ApproachMinutes);
         Assert.True(living.ExobiologyCreditsPerMinute > 0);
         Assert.DoesNotContain("nobody", living.ExobiologyText, StringComparison.Ordinal);
@@ -790,9 +803,10 @@ public sealed class WorkbenchFeatureTests
         // The rail keeps it to one line before the scanner names the genera, and shows no separate value.
         var railRow = shell.Rail.Bodies.Single(body => body.Name == "2");
         Assert.Equal("", railRow.ValueText);
-        Assert.Matches(@"^\d+ gen(us|era) could live here, likely about [\d.]+[kM]? Cr, [\d.]+[kM]? Cr with the first-logged bonus\.$", railRow.Life);
+        Assert.Matches(@"^\d+ gen(us|era) could live here, likely about [\d.]+[kM]? Cr x5 = [\d.]+[kM]? Cr with the first-logged bonus\.$", railRow.Life);
         Assert.Equal("2 bio", railRow.BiologyTag);
-        Assert.Equal("2", shell.Rail.Bodies[0].Name);
+        // The Landable view lists every landable body, the predicted one among them.
+        Assert.All(shell.Rail.Bodies, body => Assert.True(body.Landable));
 
         // The system page's Landable column puts landable bodies first and then sorts by the same metric, so the predicted body leads there too.
         var page = Open<SystemPage>(shell, PageKind.System);
@@ -900,6 +914,149 @@ public sealed class WorkbenchFeatureTests
         Assert.Equal("1", stats.ExplorationGroups[0].Rows.Single(row => row.Label == "Bodies scanned").Value);
         Assert.Equal("Aboard, unsold", stats.ExobiologyGroups[0].Title);
         Assert.Equal("0", stats.ExobiologyGroups[0].Rows.Single(row => row.Label == "Samples").Value);
+    }
+
+    [Fact]
+    public void TableSort_RemembersEachColumnsDirection_AcrossColumnsAndRestarts()
+    {
+        var preferences = new UiPreferences(null);
+        var columns = new List<SortColumn<int>>
+        {
+            new("value", "Value", row => row, DescendingFirst: true),
+            new("name", "Name", row => row),
+        };
+        var sort = new TableSort<int>(columns, "name", preferences, "sort.test");
+        Assert.Equal("name", sort.ActiveKey);
+        Assert.False(sort.Descending);
+
+        // Flip name to descending, go to value, come back: name is still descending.
+        sort.SortBy("name");
+        Assert.True(sort.Descending);
+        sort.SortBy("value");
+        Assert.True(sort.Descending);
+        sort.SortBy("name");
+        Assert.Equal("name", sort.ActiveKey);
+        Assert.True(sort.Descending);
+        Assert.Equal([3, 2, 1], sort.Apply([1, 3, 2]));
+
+        // Value, flipped to ascending, stays ascending after a round trip through name, and across a restart.
+        sort.SortBy("value");
+        sort.SortBy("value");
+        Assert.False(sort.Descending);
+        sort.SortBy("name");
+        var restored = new TableSort<int>(columns, "name", preferences, "sort.test");
+        Assert.Equal("name", restored.ActiveKey);
+        Assert.True(restored.Descending);
+        restored.SortBy("value");
+        Assert.False(restored.Descending);
+
+        // A saved value in any other form, an older one say, is ignored and the defaults stand.
+        preferences.Set("sort.old", "value:asc");
+        var older = new TableSort<int>(columns, "name", preferences, "sort.old");
+        Assert.Equal("name", older.ActiveKey);
+        Assert.False(older.Descending);
+    }
+
+    [Fact]
+    public void Preferences_DropKeysKateyNoLongerWrites_OnLoadAndOnReplace()
+    {
+        var saved = new Dictionary<string, string>
+        {
+            ["rail.bodyView"] = "minerals",
+            ["sort.anything"] = "name:asc;name=asc",
+            ["section.route"] = "plot",
+            ["rail.bodySort"] = "biology",
+            ["plot.margin"] = "2",
+        };
+        var preferences = new UiPreferences(saved);
+        Assert.Equal(["rail.bodyView", "section.route", "sort.anything"], preferences.Snapshot().Keys.Order(StringComparer.Ordinal));
+        preferences.Replace(saved);
+        Assert.Equal(["rail.bodyView", "section.route", "sort.anything"], preferences.Snapshot().Keys.Order(StringComparer.Ordinal));
+        Assert.True(PreferenceKeys.IsCurrent("sort.ships"));
+        Assert.False(PreferenceKeys.IsCurrent("sort."));
+        Assert.False(PreferenceKeys.IsCurrent("rail.bodySort"));
+    }
+
+    [Fact]
+    public void SystemValue_ShowsBaseAndBonusFigures_AndWhatIsGatheredOnceASpeciesIsComplete()
+    {
+        var (shell, monitor, _) = Create();
+        monitor.Feed(
+            /*lang=json,strict*/ """{"timestamp":"2026-11-09T10:00:00Z","event":"FSDJump","StarSystem":"Fresh","SystemAddress":77,"StarPos":[0,0,0],"Population":0}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-09T10:00:01Z","event":"Scan","ScanType":"AutoScan","BodyName":"Fresh","BodyID":0,"StarType":"K","StellarMass":0.8,"DistanceFromArrivalLS":0,"WasDiscovered":false,"WasMapped":false,"SystemAddress":77}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-09T10:00:02Z","event":"Scan","ScanType":"Detailed","BodyName":"Fresh 1","BodyID":1,"Parents":[{"Star":0}],"PlanetClass":"High metal content body","DistanceFromArrivalLS":500,"Landable":true,"Atmosphere":"thin sulphur dioxide atmosphere","SurfaceGravity":2.9,"SurfaceTemperature":300,"MassEM":0.3,"WasDiscovered":false,"WasMapped":false,"WasFootfalled":false,"SystemAddress":77}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-09T10:00:03Z","event":"SAASignalsFound","BodyName":"Fresh 1","BodyID":1,"SystemAddress":77,"Signals":[{"Type":"$SAA_SignalType_Biological;","Count":1}],"Genuses":[{"Genus":"$Codex_Ent_Stratum_Genus_Name;","Genus_Localised":"Stratum"}]}""");
+
+        // Probed but not sampled: the exobiology is an estimate, so "about", and the bonus figure follows it.
+        var page = Open<SystemPage>(shell, PageKind.System);
+        Assert.StartsWith("Cartographics about ", page.ValueSummary, StringComparison.Ordinal);
+        Assert.Contains(" with the first-discovery bonus; exobiology about ", page.ValueSummary, StringComparison.Ordinal);
+        Assert.Contains(" with the first-logged bonus.", page.ValueSummary, StringComparison.Ordinal);
+        // Unsold is what is aboard: the scans with their discovery bonus and no species yet; nothing is sold.
+        var cartographics = page.Bodies.Sum(row => row.ScanCredits);
+        Assert.True(cartographics > 0);
+        Assert.Equal($"Exploration data unsold: {Display.Credits(cartographics)}", shell.Rail.ValueText);
+        Assert.StartsWith($"Exploration data unsold: {Display.Credits(cartographics)}, ", page.UnsoldSummary, StringComparison.Ordinal);
+        Assert.Contains(" of it for being first.", page.UnsoldSummary, StringComparison.Ordinal);
+        Assert.DoesNotContain("; sold:", page.UnsoldSummary, StringComparison.Ordinal);
+        var body = page.Bodies.Single(row => row.Name == "1");
+        Assert.StartsWith("Exobiology about ", body.ExobiologyText, StringComparison.Ordinal);
+        Assert.False(body.IsExobiologyKnown);
+        Assert.False(body.HasGathered);
+
+        // One species fully sampled: the exobiology is exact, and the gathered line shows it in hand, times five.
+        monitor.Feed(
+            /*lang=json,strict*/ """{"timestamp":"2026-11-09T10:10:00Z","event":"Touchdown","PlayerControlled":true,"StarSystem":"Fresh","SystemAddress":77,"Body":"Fresh 1","BodyID":1,"OnPlanet":true}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-09T10:11:00Z","event":"ScanOrganic","ScanType":"Log","Genus":"$Codex_Ent_Stratum_Genus_Name;","Genus_Localised":"Stratum","Species":"$Codex_Ent_Stratum_07_Name;","Species_Localised":"Stratum Tectonicas","Body":1,"SystemAddress":77}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-09T10:12:00Z","event":"ScanOrganic","ScanType":"Sample","Genus":"$Codex_Ent_Stratum_Genus_Name;","Genus_Localised":"Stratum","Species":"$Codex_Ent_Stratum_07_Name;","Species_Localised":"Stratum Tectonicas","Body":1,"SystemAddress":77}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-09T10:13:00Z","event":"ScanOrganic","ScanType":"Analyse","Genus":"$Codex_Ent_Stratum_Genus_Name;","Genus_Localised":"Stratum","Species":"$Codex_Ent_Stratum_07_Name;","Species_Localised":"Stratum Tectonicas","Body":1,"SystemAddress":77}""");
+        page = Open<SystemPage>(shell, PageKind.System);
+        var reward = Predictor.Reward("$Codex_Ent_Stratum_07_Name;")!.Value;
+        Assert.Contains($"; exobiology {Display.Credits(reward)}, {Display.Credits(reward * 5)} with the first-logged bonus.", page.ValueSummary, StringComparison.Ordinal);
+        Assert.DoesNotContain("exobiology about", page.ValueSummary, StringComparison.Ordinal);
+        // The species sampled in full joins the unsold figure, with the bonus the game said nobody had logged it.
+        Assert.Equal($"Exploration data unsold: {Display.Credits(cartographics + (reward * 5))}", shell.Rail.ValueText);
+        Assert.StartsWith($"Exploration data unsold: {Display.Credits(cartographics + (reward * 5))}, ", page.UnsoldSummary, StringComparison.Ordinal);
+        // The body's own sentence drops "about" too, and its gathered line follows it, the figures marked as earned.
+        body = page.Bodies.Single(row => row.Name == "1");
+        Assert.True(body.IsExobiologyKnown);
+        Assert.Equal($"Exobiology {Display.Credits(reward)}, {Display.Credits(reward * 5)} with the first-logged bonus.", body.ExobiologyText);
+        Assert.True(body.HasGathered);
+        Assert.Equal($"You've gathered {Display.Credits(reward)}, {Display.Credits(reward * 5)} with the first-logged bonus.", string.Concat(body.GatheredRuns.Select(run => run.Text)));
+        Assert.Equal([false, true, false, true, false, false], body.GatheredRuns.Select(run => run.IsEarned));
+        var genus = Assert.Single(body.Genera);
+        Assert.True(genus.IsComplete);
+        // The genus row shows the figure with the bonus figure in brackets, each in a fixed width so a column of them lines up.
+        Assert.True(genus.HasFirstLogBonus);
+        Assert.Equal($"{Display.Millions(reward),6} {$"({Display.Millions(reward * 5)})",8} Cr", genus.ExpectedText);
+        Assert.Equal(Display.CreditsMillions(reward), (genus with { HasFirstLogBonus = false }).ExpectedText);
+        Assert.Equal("0.8M Cr", Display.CreditsMillions(812_345));
+        Assert.Equal("  2.1M  (10.5M) Cr", (genus with { ExpectedCredits = 2_100_000 }).ExpectedText);
+
+        // Selling both kinds of data: the sold figure is the sale's own earnings plus what the species paid.
+        monitor.Feed(
+            /*lang=json,strict*/ """{"timestamp":"2026-11-09T12:00:00Z","event":"MultiSellExplorationData","Discovered":[{"SystemName":"Fresh","NumBodies":2}],"BaseValue":200000,"Bonus":100000,"TotalEarnings":300000}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-09T12:00:01Z","event":"SellOrganicData","MarketID":1,"BioData":[{"Genus":"$Codex_Ent_Stratum_Genus_Name;","Species":"$Codex_Ent_Stratum_07_Name;","Value":19010800,"Bonus":76043200}]}""");
+        page = Open<SystemPage>(shell, PageKind.System);
+        var soldCredits = 300000 + 19010800 + 76043200;
+        Assert.Equal($"Exploration data unsold: 0 Cr; sold: {Display.Credits(soldCredits)}.", page.UnsoldSummary);
+        Assert.Equal("Exploration data unsold: 0 Cr", shell.Rail.ValueText);
+        Assert.True(Assert.Single(page.Bodies.Single(row => row.Name == "1").Genera).IsSold);
+
+        // Coming back after the sale, the game's flags report your own record; Katey keeps the firsts yours.
+        monitor.Feed(
+            /*lang=json,strict*/ """{"timestamp":"2026-11-10T10:00:00Z","event":"FSDJump","StarSystem":"Elsewhere","SystemAddress":78,"StarPos":[5,0,0],"Population":0}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-10T11:00:00Z","event":"FSDJump","StarSystem":"Fresh","SystemAddress":77,"StarPos":[0,0,0],"Population":0}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-10T11:00:02Z","event":"Scan","ScanType":"Detailed","BodyName":"Fresh 1","BodyID":1,"Parents":[{"Star":0}],"PlanetClass":"High metal content body","DistanceFromArrivalLS":500,"Landable":true,"Atmosphere":"thin sulphur dioxide atmosphere","SurfaceGravity":2.9,"SurfaceTemperature":300,"MassEM":0.3,"WasDiscovered":true,"WasMapped":true,"WasFootfalled":true,"SystemAddress":77}""");
+        page = Open<SystemPage>(shell, PageKind.System);
+        body = page.Bodies.Single(row => row.Name == "1");
+        Assert.Equal("discovered by you", body.DiscoveryStatus);
+        Assert.Equal("footfall by you", body.FootfallStatus);
+        // This body's exobiology has been sold, so nothing is assumed for a species not yet sampled; the sampled one keeps the game's word.
+        Assert.True(body.ExobiologySold);
+        Assert.False(body.FirstLogLikely);
+        Assert.True(Assert.Single(body.Genera).HasFirstLogBonus);
+        Assert.Equal($"Exploration data unsold: 0 Cr; sold: {Display.Credits(soldCredits)}.", page.UnsoldSummary);
     }
 
     [Fact]
@@ -1039,7 +1196,7 @@ public sealed class WorkbenchFeatureTests
         var mandalayFit = new Fitting("mandalay-fit", "mandalay", "Dream fit", [], /*lang=json,strict*/ """{"event":"Loadout","Ship":"mandalay","ShipName":"Dream fit","UnladenMass":400.5,"FuelCapacity":{"Main":32,"Reserve":0.5},"Modules":[{"Slot":"FrameShiftDrive","Item":"int_hyperdrive_size5_class5","Engineering":{"BlueprintName":"FSD_LongRange","Level":5,"Modifiers":[{"Label":"FSDOptimalMass","Value":1692.6},{"Label":"MaxFuelPerJump","Value":5.2}]}}]}""");
         shell.Workspace.Fleet.Add(mandalayFit);
         shell.Workspace.Fleet.Add(condaFit);
-        shell.Workspace.Fleet.Add(new Fitting("no-masses", "mandalay", "Old paste", []));
+        shell.Workspace.Fleet.Add(new Fitting("no-masses", "mandalay", "Matching only", []));
 
         route = Open<RoutePage>(shell, PageKind.Route, RoutePage.PlotSection);
         Assert.True(route.PlotEnabled);
@@ -1049,7 +1206,6 @@ public sealed class WorkbenchFeatureTests
         Assert.Contains("Ironic", route.SelectedPlotTarget.Label, StringComparison.Ordinal);
         Assert.All(route.PlotTargets.Where(target => target.Key != "ship:3"), target => Assert.False(target.IsFlown));
         Assert.Equal(["ship:3", "fit:conda-fit", "fit:mandalay-fit"], route.PlotTargets.Select(target => target.Key));
-        Assert.Equal("1 saved fit has no masses: paste it again from EDSY to plot for it.", route.PlotTargetsNote);
 
         // Choosing the Mandalay fit puts it first and the ship being flown second; choosing the ship puts its hull's fits right after it again.
         route.SelectedPlotTarget = route.PlotTargets[2];
@@ -1132,7 +1288,8 @@ public sealed class WorkbenchFeatureTests
         Assert.Contains("Plotted 2 jumps from Deciat to Sol.", route.PlotStatus, StringComparison.Ordinal);
         Assert.Equal(["here", "next", ""], route.PlotStops.Select(stop => stop.StageText));
         Assert.Equal("Kamarada", route.NextWaypoint);
-        Assert.Equal("Next waypoint Kamarada, 2 jumps to Sol.", route.PlotProgressText);
+        Assert.Equal("Next waypoint Kamarada, 2 jumps to Sol.", Phrase.Plain(route.PlotProgressParts));
+        Assert.Equal(["Kamarada", "Sol"], route.PlotProgressParts.Where(part => part.IsLink).Select(part => part.Text));
         Assert.Equal("neutron", route.PlotStops[1].NotesText);
         Assert.Equal("refuel here", route.PlotStops[2].NotesText);
         Assert.True(shell.Rail.HasPlot);
@@ -1148,7 +1305,7 @@ public sealed class WorkbenchFeatureTests
         monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-05T20:15:00Z","event":"FSDJump","StarSystem":"Scoop Stop","SystemAddress":77,"StarPos":[90,-5,-30],"JumpDist":10,"FuelUsed":1,"FuelLevel":60}""");
         route = Assert.IsType<RoutePage>(shell.Navigator.Current);
         Assert.Equal("Sol", route.NextWaypoint);
-        Assert.Equal("Off the plot. Last known waypoint Kamarada, next Sol. ~1 jump to Sol.", route.PlotProgressText);
+        Assert.Equal("Off the plot. Last known waypoint Kamarada, next Sol. ~1 jump to Sol.", Phrase.Plain(route.PlotProgressParts));
         Assert.Equal(["done", "last known", "next"], route.PlotStops.Select(stop => stop.StageText));
         Assert.Equal("Sol", shell.Rail.NextWaypoint);
 
@@ -1156,13 +1313,13 @@ public sealed class WorkbenchFeatureTests
         // waypoints the ship saw before the plot existed.
         shell.Workspace.Plot.Restore(new PlottedRoute("Deciat", "Sol", new DateTimeOffset(2026, 11, 5, 20, 20, 0, TimeSpan.Zero), plotted.Stops));
         route = Open<RoutePage>(shell, PageKind.Route);
-        Assert.Equal("Off the plot. First waypoint Deciat, 2 jumps to Sol.", route.PlotProgressText);
+        Assert.Equal("Off the plot. First waypoint Deciat, 2 jumps to Sol.", Phrase.Plain(route.PlotProgressParts));
         Assert.Equal(["", "", ""], route.PlotStops.Select(stop => stop.StageText));
         Assert.Equal("Deciat", route.NextWaypoint);
 
         monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-05T20:20:00Z","event":"FSDJump","StarSystem":"Sol","SystemAddress":1,"StarPos":[0,0,0],"JumpDist":100,"FuelUsed":9,"FuelLevel":52}""");
         route = Assert.IsType<RoutePage>(shell.Navigator.Current);
-        Assert.Equal("Arrived at Sol.", route.PlotProgressText);
+        Assert.Equal("Arrived at Sol.", Phrase.Plain(route.PlotProgressParts));
         Assert.False(route.HasNextWaypoint);
         Assert.False(shell.Rail.HasNextWaypoint);
 

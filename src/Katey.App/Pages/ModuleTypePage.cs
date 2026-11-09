@@ -72,12 +72,14 @@ public sealed class BlueprintRow : ObservableObject
 }
 
 /// <summary>One engineer who offers a blueprint on a module type.</summary>
-/// <param name="Link">Their page.</param>
+/// <param name="Engineer">Their name as Katey shows it everywhere.</param>
 /// <param name="MaxGrade">The grade they stop at.</param>
-/// <param name="Selected">Whether you will visit them.</param>
 /// <param name="DistanceLy">Distance from the ship, or <see langword="null"/>.</param>
-public sealed record BlueprintEngineer(Link Link, int MaxGrade, bool Selected, double? DistanceLy)
+public sealed record BlueprintEngineer(EngineerLink Engineer, int MaxGrade, double? DistanceLy)
 {
+    /// <summary>Gets whether you will visit them.</summary>
+    public bool Selected => Engineer.Selected;
+
     /// <summary>Gets "to Gn".</summary>
     public string GradeText => "to " + Display.Grade(MaxGrade);
 
@@ -241,7 +243,7 @@ public sealed class ModuleTypePage : Page
     public IReadOnlyList<MaterialChip> ExperimentalMaterials { get; private set => SetProperty(ref field, value); } = [];
 
     /// <summary>Gets a line on experimentals and who applies them.</summary>
-    public string ExperimentalsText { get; private set => SetProperty(ref field, value); } = "";
+    public IReadOnlyList<PhrasePart> ExperimentalsParts { get; private set => SetProperty(ref field, value); } = Phrase.Empty;
 
     /// <summary>Gets the variants the game sells, by class then name.</summary>
     public IReadOnlyList<VariantRow> Variants { get; private set => SetProperty(ref field, value); } = [];
@@ -306,9 +308,8 @@ public sealed class ModuleTypePage : Page
             var grades = _type.Blueprints[blueprint.Key];
             var engineers = grades.Values.SelectMany(names => names).Distinct(StringComparer.Ordinal)
                 .Select(name => new BlueprintEngineer(
-                    LinkTo(name, PageKind.Engineer, name),
+                    Workspace.EngineerLinkFor(name),
                     grades.Where(grade => grade.Value.Contains(name, StringComparer.Ordinal)).Max(grade => grade.Key),
-                    selected.Contains(name),
                     Workspace.DistanceFromHere(Workspace.PositionOf(catalog.Engineers[name]))))
                 .OrderByDescending(engineer => engineer.Selected)
                 .ThenByDescending(engineer => engineer.MaxGrade)
@@ -330,13 +331,13 @@ public sealed class ModuleTypePage : Page
 
         var appliers = catalog.EngineersForModuleType(_type.Code);
         var selectedAppliers = appliers.Where(selected.Contains).ToList();
-        ExperimentalsText = _type.Experimentals.Count == 0
-            ? "This module type has no experimental effects."
+        ExperimentalsParts = _type.Experimentals.Count == 0
+            ? Phrase.Text("This module type has no experimental effects.")
             : selected.Count == 0
-                ? $"{Display.Plural(_type.Experimentals.Count, "experimental effect")}. Any engineer who offers a blueprint here can apply all of them."
+                ? Phrase.Text($"{Display.Plural(_type.Experimentals.Count, "experimental effect")}. Any engineer who offers a blueprint here can apply all of them.")
                 : selectedAppliers.Count == 0
-                    ? $"{Display.Plural(_type.Experimentals.Count, "experimental effect")}. None of your selected engineers can apply them."
-                    : $"{Display.Plural(_type.Experimentals.Count, "experimental effect")}, any of which {Display.Names(selectedAppliers, "")} can apply.";
+                    ? Phrase.Text($"{Display.Plural(_type.Experimentals.Count, "experimental effect")}. None of your selected engineers can apply them.")
+                    : Phrase.Join("", [Phrase.Text($"{Display.Plural(_type.Experimentals.Count, "experimental effect")}, any of which "), EngineerLink.Names(selectedAppliers.Select(Workspace.EngineerLinkFor), ""), Phrase.Text(" can apply.")]);
 
         var fleet = Workspace.FleetSnapshot;
         var owned = FleetState.OwnedModules(fleet).Where(module => string.Equals(Workspace.Modules.Find(module.Item)?.Group, _type.Code, StringComparison.OrdinalIgnoreCase)).ToList();

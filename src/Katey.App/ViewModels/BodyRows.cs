@@ -14,8 +14,23 @@ namespace Katey.App.ViewModels;
 /// <param name="TopSpecies">The sampled species, else the likeliest, without the genus word: "Tectonicas" for Stratum Tectonicas. Empty with no prediction.</param>
 /// <param name="TopProbability">The chance of <paramref name="TopSpecies"/>, 0 to 1; 1 once sampled.</param>
 /// <param name="Stage">Samples taken of the species so far, 1 to 3, or 0 before the first.</param>
-public sealed record GenusRow(string Genus, string Name, string Candidates, long ExpectedCredits, string Confirmed, string TopSpecies = "", double TopProbability = 0, int Stage = 0)
+/// <param name="HasFirstLogBonus">
+/// Whether the first-logged bonus, <see cref="BodyRow.FirstLogMultiplier"/> times the payout, applies: once
+/// sampled, the game's own word that nobody had logged the species here; before that, the body's
+/// <see cref="BodyRow.FirstLogLikely"/>.
+/// </param>
+/// <param name="IsSold">Whether the species has been sampled in full and sold.</param>
+public sealed record GenusRow(string Genus, string Name, string Candidates, long ExpectedCredits, string Confirmed, string TopSpecies = "", double TopProbability = 0, int Stage = 0, bool HasFirstLogBonus = false, bool IsSold = false)
 {
+    /// <summary>Gets the payout with the first-logged bonus where it applies, credits.</summary>
+    public long CreditsWithBonus => ExpectedCredits * (HasFirstLogBonus ? BodyRow.FirstLogMultiplier : 1);
+
+    /// <summary>The width the figure in <see cref="ExpectedText"/> is padded to, "999.9M", so the figures of one body's genera line up in a monospaced face.</summary>
+    private const int FigureWidth = 6;
+
+    /// <summary>The width the bracketed bonus figure in <see cref="ExpectedText"/> is padded to, "(999.9M)".</summary>
+    private const int BonusWidth = 8;
+
     /// <summary>A species name without its genus word, since the genus is named beside it.</summary>
     /// <param name="species">The species name as the game spells it, such as "Bacterium Vesicula".</param>
     /// <param name="genus">The genus name, such as "Bacterium".</param>
@@ -30,17 +45,48 @@ public sealed record GenusRow(string Genus, string Name, string Candidates, long
     /// <summary>The bacteria genus, the one most bodies with life have and the least valuable.</summary>
     public const string BacteriaGenus = "$Codex_Ent_Bacterial_Genus_Name;";
 
-    /// <summary>Gets the expected payout as text.</summary>
-    public string ExpectedText => ExpectedCredits > 0 ? Display.Credits(ExpectedCredits) : "value unknown";
+    /// <summary>
+    /// Gets the expected payout as text: the figure in millions, with the figure with the first-logged bonus in
+    /// brackets after it when that is likely, such as "  2.1M  (10.5M) Cr". Each figure is padded to a fixed
+    /// width, so the figures of one body's genera line up when right-aligned in a monospaced face.
+    /// </summary>
+    public string ExpectedText
+    {
+        get
+        {
+            if (ExpectedCredits == 0)
+            {
+                return "value unknown";
+            }
+
+            if (!HasFirstLogBonus)
+            {
+                return Display.CreditsMillions(ExpectedCredits);
+            }
+
+            var bonus = $"({Display.Millions(ExpectedCredits * BodyRow.FirstLogMultiplier)})";
+            return $"{Display.Millions(ExpectedCredits),FigureWidth} {bonus,BonusWidth} Cr";
+        }
+    }
 
     /// <summary>Gets whether this is the bacteria genus.</summary>
     public bool IsBacteria => string.Equals(Genus, BacteriaGenus, StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>Gets whether exactly one of the three samples is taken: the species is named, the work has begun.</summary>
+    public bool IsFirstSample => Stage == 1;
+
+    /// <summary>Gets whether two of the three samples are taken: one more and it is logged.</summary>
+    public bool IsSecondSample => Stage == 2;
+
+    /// <summary>Gets whether all three samples are taken, so the species is logged and ready to sell.</summary>
+    public bool IsComplete => Stage >= 3;
 }
 
 /// <summary>One run of a sentence: plain text, or a figure to be coloured.</summary>
 /// <param name="Text">The run's text, spaces included.</param>
 /// <param name="IsFigure">Whether the run is a figure, drawn in the figure colour.</param>
-public sealed record TextRun(string Text, bool IsFigure);
+/// <param name="IsEarned">Whether the figure is money already in hand, drawn in the good colour instead.</param>
+public sealed record TextRun(string Text, bool IsFigure, bool IsEarned = false);
 
 /// <summary>One body in the current system, ready to print.</summary>
 /// <param name="Name">Short body name, without the system name.</param>
@@ -49,7 +95,8 @@ public sealed record TextRun(string Text, bool IsFigure);
 /// <param name="Class">For a star, its class in words with whether it can be scooped; otherwise the planet class, or "Belt cluster".</param>
 /// <param name="DistanceLs">Distance from arrival in light seconds.</param>
 /// <param name="GravityG">Surface gravity in g, or <see langword="null"/> for a star or an unknown.</param>
-/// <param name="Surface">Temperature and notes, or solar masses for a star.</param>
+/// <param name="Surface">Notes on the surface, terraformable and rings, or solar masses for a star; empty for none.</param>
+/// <param name="TemperatureText">The surface temperature, such as "300K", or empty when unknown or for a star.</param>
 /// <param name="Atmosphere">Atmosphere, or "no atmosphere", or empty for a star.</param>
 /// <param name="Volcanism">Volcanism, or empty.</param>
 /// <param name="Landable">Whether a ship can land.</param>
@@ -64,7 +111,7 @@ public sealed record TextRun(string Text, bool IsFigure);
 /// <param name="GroundMinutes">Minutes a landing here is estimated to take: the approach plus every species to sample, by the scanner's genera once mapped or the genera the conditions allow before that. 0 for a body without life.</param>
 /// <param name="PaceKnown">Whether <paramref name="GroundMinutes"/> rests on anything: false when the conditions give no prediction, so the unknown is never hidden as too slow.</param>
 /// <param name="PaceCreditsPerMinute">What the best landing here pays a minute on the ground, bonus included: on a probed body the species worth the time and no others, on an unprobed one the odds-weighted whole.</param>
-/// <param name="PaceChance">The chance that at least one species here is worth the stop on its own at the min/max pace: by the scanner's genera and their likely species once probed, by the odds of each signal before that.</param>
+/// <param name="PaceChance">The chance that at least one species here is worth the stop on its own at the pace a valuable body keeps: by the scanner's genera and their likely species once probed, by the odds of each signal before that.</param>
 /// <param name="BacteriaOnlyByPrediction">Whether, with signals but no genus list yet, bacteria is the only genus ever found under the body's conditions.</param>
 /// <param name="Materials">Surface materials, highest share first, as text, or empty.</param>
 /// <param name="MaterialNames">Display names of every surface material.</param>
@@ -85,6 +132,8 @@ public sealed record TextRun(string Text, bool IsFigure);
 /// <param name="TopMaterialGrade">The highest grade among the surface materials, 1 to 5, or 0 with none.</param>
 /// <param name="EarlierVisit">The day the body was scanned when that was an earlier visit than this one, such as "scanned 3 Nov", or empty.</param>
 /// <param name="FromCatalogue">Whether the body comes from a catalogue rather than the player's own scan.</param>
+/// <param name="Sold">Whether the scan has been sold, so its cartographics are no longer aboard.</param>
+/// <param name="ExobiologySold">Whether you have sold exobiology data from this body.</param>
 public sealed record BodyRow(
     string Name,
     bool IsStar,
@@ -93,6 +142,7 @@ public sealed record BodyRow(
     double DistanceLs,
     double? GravityG,
     string Surface,
+    string TemperatureText,
     string Atmosphere,
     string Volcanism,
     bool Landable,
@@ -119,19 +169,24 @@ public sealed record BodyRow(
     int PossibleGenera,
     int TopMaterialGrade,
     string EarlierVisit,
-    bool FromCatalogue)
+    bool FromCatalogue,
+    bool Sold = false,
+    bool ExobiologySold = false)
 {
     /// <summary>Gets whether <see cref="EarlierVisit"/> has anything to say.</summary>
     public bool IsEarlierVisit => EarlierVisit.Length > 0;
 
+    /// <summary>Gets the cartographics value with no first-discovery bonus, credits; set by the builder.</summary>
+    public long ScanBaseCredits { get; init; }
+
     /// <summary>Gets the distance from arrival as text.</summary>
-    public string Distance => string.Create(CultureInfo.InvariantCulture, $"{DistanceLs:0} ls");
+    public string Distance => string.Create(CultureInfo.InvariantCulture, $"{DistanceLs:0}ls");
 
     /// <summary>Gets whether it is a star the drive cannot refuel from, which deserves a warning of its own.</summary>
     public bool IsUnscoopableStar => IsStar && !IsScoopable;
 
-    /// <summary>Gets the surface gravity as text, such as "1.60 g", or empty when unknown.</summary>
-    public string GravityText => GravityG is { } g ? string.Create(CultureInfo.InvariantCulture, $"{g:0.00} g") : "";
+    /// <summary>Gets the surface gravity as text, such as "1.60g", or empty when unknown.</summary>
+    public string GravityText => GravityG is { } g ? string.Create(CultureInfo.InvariantCulture, $"{g:0.00}g") : "";
 
     /// <summary>Gets the landing band of the gravity.</summary>
     public GravityBand Gravity => SurfaceGravity.Band(GravityG);
@@ -157,47 +212,51 @@ public sealed record BodyRow(
     /// <summary>Gets whether you were the first to map it.</summary>
     public bool MappedByYouFirst => !IsStar && FirstMapping && MappedByYou;
 
-    /// <summary>Gets the discovery slot: "undiscovered" when nobody had discovered it before, else "discovered".</summary>
-    public string DiscoveryStatus => FirstDiscovery ? "undiscovered" : "discovered";
+    /// <summary>Gets the discovery slot: "discovered by you" when nobody had discovered it before your scan, else "discovered"; "discovery unknown" for a body a catalogue described, which says nothing of who found it.</summary>
+    public string DiscoveryStatus => FromCatalogue ? "discovery unknown" : DiscoveryYours ? "discovered by you" : "discovered";
 
-    /// <summary>Gets whether the discovery is still open: nobody had discovered it before you.</summary>
-    public bool DiscoveryOpen => FirstDiscovery;
+    /// <summary>Gets whether the first discovery is yours: nobody had discovered it before you scanned it. The game credits it when the data is sold. False for a body a catalogue described.</summary>
+    public bool DiscoveryYours => !FromCatalogue && FirstDiscovery;
 
-    /// <summary>Gets the mapping slot: "unmapped" or "mapped"; empty for a star, which cannot be mapped, and "mapping unknown" for a body a catalogue described.</summary>
-    public string MappingStatus => IsStar ? "" : FromCatalogue ? "mapping unknown" : FirstMappingOpen ? "unmapped" : "mapped";
+    /// <summary>
+    /// Gets the mapping slot: "unmapped" while nobody has mapped it, "mapped by you" when you were the first, else
+    /// "mapped"; empty for a star, which cannot be mapped, and "mapping unknown" for a body a catalogue described.
+    /// </summary>
+    public string MappingStatus => IsStar ? "" : FromCatalogue ? "mapping unknown" : MappedByYouFirst ? "mapped by you" : FirstMappingOpen ? "unmapped" : "mapped";
 
-    /// <summary>Gets whether the mapping is still open: nobody has mapped it, you included.</summary>
-    public bool MappingOpen => FirstMappingOpen;
+    /// <summary>Gets whether the first mapping is yours: still open, or taken by you. False for a star and for a body a catalogue described.</summary>
+    public bool MappingYours => !IsStar && !FromCatalogue && FirstMapping;
 
-    /// <summary>Gets the footfall slot for a landable body: "no footfall" or "footfall"; empty where nobody can land, and "footfall unknown" for a body a catalogue described.</summary>
-    public string FootfallStatus => !Landable ? "" : FromCatalogue ? "footfall unknown" : FootfallOpen ? "no footfall" : "footfall";
+    /// <summary>
+    /// Gets the footfall slot for a landable body: "no footfall" while nobody has set foot on it, "footfall by you"
+    /// when you were the first, else "footfall"; empty where nobody can land, and "footfall unknown" for a body a
+    /// catalogue described.
+    /// </summary>
+    public string FootfallStatus => !Landable ? "" : FromCatalogue ? "footfall unknown" : FootfallOpen ? "no footfall" : FootfallYours ? "footfall by you" : "footfall";
+
+    /// <summary>Gets whether the first footfall is yours: still open, or taken by you. False where nobody can land and for a body a catalogue described.</summary>
+    public bool FootfallYours => Landable && !FromCatalogue && FirstFootfall;
 
     /// <summary>Gets whether the footfall is still open: nobody has set foot on it, you included.</summary>
-    public bool FootfallOpen => Landable && !FromCatalogue && FirstFootfall && !LandedByYou;
+    public bool FootfallOpen => FootfallYours && !LandedByYou;
 
-    /// <summary>Gets the quiet line on your own part in the statuses, such as "Mapped first by you, landed by you.", or empty.</summary>
+    /// <summary>
+    /// Gets the quiet line on your part the slots do not tell: "Mapped by you." or "Landed by you." where someone
+    /// else was first, or empty. Your firsts are in the slots themselves.
+    /// </summary>
     public string StatusDetail
     {
         get
         {
             var parts = new List<string>();
-            if (FirstDiscovery)
-            {
-                parts.Add("first discovered by you");
-            }
-
-            if (MappedByYouFirst)
-            {
-                parts.Add("mapped first by you");
-            }
-            else if (!IsStar && MappedByYou)
+            if (!IsStar && MappedByYou && !FirstMapping)
             {
                 parts.Add("mapped by you");
             }
 
-            if (LandedByYou)
+            if (LandedByYou && !FirstFootfall)
             {
-                parts.Add(FirstFootfall ? "first footfall by you" : "landed by you");
+                parts.Add("landed by you");
             }
 
             if (parts.Count == 0)
@@ -232,16 +291,35 @@ public sealed record BodyRow(
     public const int FirstLogMultiplier = 5;
 
     /// <summary>
-    /// Gets whether the first-logged bonus is likely: nobody has set foot on the body, so nobody can have
-    /// logged its life, which is done on foot. Someone can still land and sell before you, so it is a likelihood.
+    /// Gets whether the first-logged bonus is likely for a species not yet sampled here: nobody but you has set
+    /// foot on the body, so nobody else can have logged its life, which is done on foot. Once you have sold
+    /// exobiology data from the body, nothing more is assumed for what you left unsampled, since another
+    /// commander may have landed since. Someone can still sell before you, so it is a likelihood. A sampled
+    /// species has the game's own word instead, on its <see cref="GenusRow.HasFirstLogBonus"/>.
     /// </summary>
-    public bool FirstLogLikely => !IsStar && FirstFootfall;
+    public bool FirstLogLikely => !IsStar && FirstFootfall && !ExobiologySold;
 
     /// <summary>Gets the base exobiology figure: the scanner's genera when named, else the prediction from the body's conditions.</summary>
     public long ExobiologyBaseCredits => ExobiologyCredits > 0 ? ExobiologyCredits : PredictedExobiologyCredits;
 
-    /// <summary>Gets the exobiology figure to rank and show: the base, times <see cref="FirstLogMultiplier"/> when <see cref="FirstLogLikely"/>.</summary>
-    public long ExobiologyRank => ExobiologyBaseCredits * (FirstLogLikely ? FirstLogMultiplier : 1);
+    /// <summary>
+    /// Gets the exobiology figure to rank and show, the first-logged bonus counted where it applies: genus by
+    /// genus once the scanner has named them, else the prediction times <see cref="FirstLogMultiplier"/> when
+    /// <see cref="FirstLogLikely"/>.
+    /// </summary>
+    public long ExobiologyRank => Genera.Count > 0 ? Genera.Sum(genus => genus.CreditsWithBonus) : ExobiologyBaseCredits * (FirstLogLikely ? FirstLogMultiplier : 1);
+
+    /// <summary>Gets whether the first-logged bonus applies to every genus, so <see cref="ExobiologyRank"/> is exactly <see cref="FirstLogMultiplier"/> times the base.</summary>
+    public bool HasFirstLogBonusThroughout => ExobiologyBaseCredits > 0 && ExobiologyRank == ExobiologyBaseCredits * FirstLogMultiplier;
+
+    /// <summary>
+    /// Gets what this body's data still aboard would pay, credits: its cartographics unless sold, plus every
+    /// species sampled in full and not yet sold, with the first-logged bonus where the game says it applies.
+    /// </summary>
+    public long UnsoldCredits => (Sold ? 0 : ScanCredits) + Genera.Where(genus => genus.IsComplete && !genus.IsSold).Sum(genus => genus.CreditsWithBonus);
+
+    /// <summary>Gets what of <see cref="UnsoldCredits"/> is for being first: the discovery bonus on an unsold scan and the first-logged bonus on unsold species.</summary>
+    public long UnsoldFirstBonus => (Sold ? 0 : ScanCredits - ScanBaseCredits) + Genera.Where(genus => genus.IsComplete && !genus.IsSold).Sum(genus => genus.CreditsWithBonus - genus.ExpectedCredits);
 
     /// <summary>Gets whether the exobiology figure is a prediction from conditions rather than from the scanner's genera.</summary>
     public bool IsExobiologyPredicted => ExobiologyCredits == 0 && PredictedExobiologyCredits > 0;
@@ -250,12 +328,12 @@ public sealed record BodyRow(
     public double ExobiologyCreditsPerMinute => PaceCreditsPerMinute;
 
     /// <summary>
-    /// Gets whether the body stays under min/max. Before the probes the question is whether it is worth flying over
-    /// to probe: it stays while the chance of a species worth the stop on its own is <see cref="BodyRowBuilder.MinMaxChance"/>
+    /// Gets whether the body is worth the stop, the Valuable only choice. Before the probes the question is whether it is worth flying over
+    /// to probe: it stays while the chance of a species worth the stop on its own is <see cref="BodyRowBuilder.ValuableChance"/>
     /// or better. Once probed the question is whether it is worth landing: the best landing must keep
-    /// <see cref="BodyRowBuilder.MinMaxCreditsPerMinute"/>. A body whose pace cannot be judged passes.
+    /// <see cref="BodyRowBuilder.ValuableCreditsPerMinute"/>. A body whose pace cannot be judged passes.
     /// </summary>
-    public bool KeepsMinMaxPace => !PaceKnown || (IsProbed ? PaceCreditsPerMinute >= BodyRowBuilder.MinMaxCreditsPerMinute : PaceChance >= BodyRowBuilder.MinMaxChance);
+    public bool KeepsValuablePace => !PaceKnown || (IsProbed ? PaceCreditsPerMinute >= BodyRowBuilder.ValuableCreditsPerMinute : PaceChance >= BodyRowBuilder.ValuableChance);
 
     /// <summary>Gets whether the scanner has named the body's genera: the probes have been fired.</summary>
     public bool IsProbed => Genera.Count > 0;
@@ -264,8 +342,9 @@ public sealed record BodyRow(
     public string BiologyCountText => BiologicalSignals > 0 ? string.Create(CultureInfo.InvariantCulture, $"{BiologicalSignals} bio") : "";
 
     /// <summary>
-    /// Gets the expected exobiology payout as a sentence in runs, the figures marked: the scanner's figure, or the
-    /// prediction with how it was made, then the first-logged figure when the bonus is likely. Empty with no life.
+    /// Gets the expected exobiology payout as a sentence in runs, the figures marked: the scanner's figure, exact
+    /// once every genus is sampled, or the prediction with how it was made; when the first-logged bonus is likely
+    /// the figure with the bonus follows after a comma. Empty with no life.
     /// </summary>
     public IReadOnlyList<TextRun> ExobiologyRuns
     {
@@ -276,33 +355,65 @@ public sealed record BodyRow(
                 return [];
             }
 
-            var runs = new List<TextRun>();
-            if (ExobiologyCredits > 0)
+            var known = ExobiologyCredits > 0;
+            var runs = new List<TextRun>
             {
-                runs.Add(new("Exobiology about ", false));
-                runs.Add(new(Display.Credits(ExobiologyCredits), true));
-            }
-            else
-            {
-                runs.Add(new("Exobiology likely about ", false));
-                runs.Add(new(Display.Credits(PredictedExobiologyCredits), true));
-                runs.Add(new(" by the life these conditions allow", false));
-            }
-
-            if (FirstLogLikely)
+                new(known ? IsExobiologyKnown ? "Exobiology " : "Exobiology about " : "Exobiology likely about ", false),
+                new(Display.Credits(ExobiologyBaseCredits), true),
+            };
+            if (ExobiologyRank > ExobiologyBaseCredits)
             {
                 runs.Add(new(", ", false));
                 runs.Add(new(Display.Credits(ExobiologyRank), true));
                 runs.Add(new(" with the first-logged bonus", false));
             }
 
-            runs.Add(new(ExobiologyCredits > 0 ? "." : "; map it to know.", false));
+            runs.Add(new(known ? "." : " by the life these conditions allow; map it to know.", false));
             return runs;
         }
     }
 
     /// <summary>Gets <see cref="ExobiologyRuns"/> as one plain sentence, or empty.</summary>
     public string ExobiologyText => string.Concat(ExobiologyRuns.Select(run => run.Text));
+
+    /// <summary>
+    /// Gets whether the exobiology figure is exact: the scanner has listed the genera and every one has a species
+    /// sampled, so nothing is left to the prediction.
+    /// </summary>
+    public bool IsExobiologyKnown => Genera.Count > 0 && Genera.All(genus => genus.Stage >= 1);
+
+    /// <summary>
+    /// Gets the line on the exobiology already in hand on this body: the species with all three samples taken,
+    /// their payout in the good colour, and the payout with the first-logged bonus when it applies here. Empty
+    /// until one species is complete.
+    /// </summary>
+    public IReadOnlyList<TextRun> GatheredRuns
+    {
+        get
+        {
+            var complete = Genera.Where(genus => genus.IsComplete).ToList();
+            var gathered = complete.Sum(genus => genus.ExpectedCredits);
+            if (gathered == 0)
+            {
+                return [];
+            }
+
+            var withBonus = complete.Sum(genus => genus.CreditsWithBonus);
+            var runs = new List<TextRun> { new("You've gathered ", false), new(Display.Credits(gathered), true, true) };
+            if (withBonus > gathered)
+            {
+                runs.Add(new(", ", false));
+                runs.Add(new(Display.Credits(withBonus), true, true));
+                runs.Add(new(" with the first-logged bonus", false));
+            }
+
+            runs.Add(new(".", false));
+            return runs;
+        }
+    }
+
+    /// <summary>Gets whether <see cref="GatheredRuns"/> has anything to say.</summary>
+    public bool HasGathered => GatheredRuns.Count > 0;
 
     /// <summary>
     /// Gets whether the body's life is bacteria alone: the surface scanner has reported its genera and every
@@ -350,6 +461,19 @@ public sealed class BodyRowBuilder
             : BodyValue.Planet(body.Class, body.Terraformable, body.MassEarths ?? 1, !body.WasDiscovered, body.MappedByYou, !body.WasMapped);
     }
 
+    /// <summary>The cartographics a scan of the body pays with no bonus at all: not first discovered, not mapped.</summary>
+    /// <param name="body">The body.</param>
+    /// <returns>Credits, 0 for a body from a nav beacon or a catalogue.</returns>
+    public static long ScanBaseCredits(ScannedBody body)
+    {
+        ArgumentNullException.ThrowIfNull(body);
+        return body.FromNavBeacon || body.FromCatalogue
+            ? 0
+            : body.IsStar
+            ? BodyValue.Star(body.Class, body.MassEarths ?? 1, firstDiscovered: false)
+            : BodyValue.Planet(body.Class, body.Terraformable, body.MassEarths ?? 1, firstDiscovered: false, mapped: false, firstMapped: false);
+    }
+
     /// <summary>A body's short name: the full name without the system's.</summary>
     /// <param name="bodyName">Full body name.</param>
     /// <param name="systemName">System name, or <see langword="null"/>.</param>
@@ -390,14 +514,14 @@ public sealed class BodyRowBuilder
 
     /// <summary>
     /// The pace, in credits per minute on the ground with the bonus where it applies, from which a body is worth
-    /// landing on under the min/max choice: a lone Stratum Tectonicas with the first-logged bonus runs about
+    /// landing on under the Valuable only choice: a lone Stratum Tectonicas with the first-logged bonus runs about
     /// fourteen million a minute, a Clypeus about twelve, an Aleoida Gravis, an Osseus Discus or a Tubus Cavas
     /// alone about nine, a body of eight cheap species about six, a lone bacterium about one.
     /// </summary>
-    public const double MinMaxCreditsPerMinute = 8_000_000;
+    public const double ValuableCreditsPerMinute = 8_000_000;
 
-    /// <summary>The chance of a species worth the stop on its own from which an unprobed body stays under min/max: one in four, so many signals are not thrown away on an average.</summary>
-    public const double MinMaxChance = 0.25;
+    /// <summary>The chance of a species worth the stop on its own from which an unprobed body counts as worth the stop: one in four, so many signals are not thrown away on an average.</summary>
+    public const double ValuableChance = 0.25;
 
     /// <summary>"Stratum (likely Tectonicas) 20%, 9.4M Cr expected": a genus named by its likeliest species, split at the species name's first space, with its odds.</summary>
     private static string GenusLine(string species, double probability, long expected)
@@ -417,7 +541,9 @@ public sealed class BodyRowBuilder
         long bio = 0;
         var groundMinutes = 0.0;
         var paceKnown = true;
-        var bonus = !body.IsStar && !body.WasFootfalled && !snapshot.Populated ? BodyRow.FirstLogMultiplier : 1;
+        // The bonus for a species not yet sampled: nobody but you has set foot here, and you have not sold this body's exobiology yet.
+        var firstLogLikely = !body.IsStar && !body.WasFootfalled && !snapshot.Populated && !body.ExobiologySold;
+        var bonus = firstLogLikely ? BodyRow.FirstLogMultiplier : 1;
         var landing = new List<long>();
         var paceChances = new List<double>();
         var conditions = new BodyConditions(
@@ -449,11 +575,13 @@ public sealed class BodyRowBuilder
                         string.Create(CultureInfo.InvariantCulture, $"{candidate.Name} {candidate.Probability * 100:0}% ({Display.Credits(candidate.Reward)})")));
             }
 
+            // A sampled species has the game's word on the bonus; one not yet sampled takes the body's likelihood.
+            var genusBonus = confirmed is not null ? (confirmed.WasLogged ? 1 : BodyRow.FirstLogMultiplier) : bonus;
             paceKnown &= confirmed is not null || prediction.Candidates.Count > 0;
-            landing.Add(expected * bonus);
+            landing.Add(expected * genusBonus);
             paceChances.Add(confirmed is not null
-                ? (SamplingTime.KeepsPaceAlone(expected * bonus, MinMaxCreditsPerMinute) ? 1 : 0)
-                : prediction.Candidates.Where(candidate => SamplingTime.KeepsPaceAlone(candidate.Reward * bonus, MinMaxCreditsPerMinute)).Sum(candidate => candidate.Probability));
+                ? (SamplingTime.KeepsPaceAlone(expected * genusBonus, ValuableCreditsPerMinute) ? 1 : 0)
+                : prediction.Candidates.Where(candidate => SamplingTime.KeepsPaceAlone(candidate.Reward * bonus, ValuableCreditsPerMinute)).Sum(candidate => candidate.Probability));
             bio += expected;
             var top = prediction.Candidates.Count > 0 ? prediction.Candidates[0] : null;
             genera.Add(new GenusRow(
@@ -464,7 +592,9 @@ public sealed class BodyRowBuilder
                 confirmed?.SpeciesName ?? "",
                 GenusRow.ShortSpecies(confirmed?.SpeciesName ?? top?.Name ?? "", genus.Name),
                 confirmed is not null ? 1 : top?.Probability ?? 0,
-                confirmed?.Stage ?? 0));
+                confirmed?.Stage ?? 0,
+                genusBonus > 1,
+                confirmed?.Sold ?? false));
         }
 
         var bacteriaOnlyByPrediction = false;
@@ -503,7 +633,7 @@ public sealed class BodyRowBuilder
             groundMinutes = SamplingTime.GroundMinutes(body.BiologicalSignals);
             pace = SamplingTime.CreditsPerMinute(predicted * bonus, groundMinutes);
             var perSignal = weight > 0
-                ? likely.Sum(genus => genus.Probability * genus.Prediction.Candidates.Where(candidate => SamplingTime.KeepsPaceAlone(candidate.Reward * bonus, MinMaxCreditsPerMinute)).Sum(candidate => candidate.Probability)) / weight
+                ? likely.Sum(genus => genus.Probability * genus.Prediction.Candidates.Where(candidate => SamplingTime.KeepsPaceAlone(candidate.Reward * bonus, ValuableCreditsPerMinute)).Sum(candidate => candidate.Probability)) / weight
                 : 0;
             paceChances.AddRange(Enumerable.Repeat(perSignal, body.BiologicalSignals));
         }
@@ -534,10 +664,10 @@ public sealed class BodyRowBuilder
             ? (body.MassEarths is { } solar ? string.Create(CultureInfo.InvariantCulture, $"{solar:0.00} solar masses") : "")
             : string.Join(" · ", new[]
             {
-                body.SurfaceTemperatureK is { } k ? string.Create(CultureInfo.InvariantCulture, $"{k:0} K") : "",
                 body.Terraformable ? "terraformable" : "",
                 body.HasRings ? "rings" : "",
             }.Where(part => part.Length > 0));
+        var temperature = !body.IsStar && body.SurfaceTemperatureK is { } kelvin ? string.Create(CultureInfo.InvariantCulture, $"{kelvin:0}K") : "";
 
         var scanCredits = ScanCredits(body);
         var scanValue = body.FromNavBeacon
@@ -558,6 +688,7 @@ public sealed class BodyRowBuilder
             body.DistanceLs,
             body.IsStar ? null : body.SurfaceGravityG,
             surface,
+            temperature,
             body.Atmosphere.Length > 0 ? body.Atmosphere : (body.IsStar ? "" : "no atmosphere"),
             body.Volcanism,
             body.Landable,
@@ -586,6 +717,11 @@ public sealed class BodyRowBuilder
             !body.FromCatalogue && snapshot.ArrivedAt is { } arrived && body.ScannedAt != default && body.ScannedAt < arrived
                 ? string.Create(CultureInfo.InvariantCulture, $"scanned {body.ScannedAt.ToLocalTime():d MMM}")
                 : "",
-            body.FromCatalogue);
+            body.FromCatalogue,
+            body.Sold,
+            body.ExobiologySold)
+        {
+            ScanBaseCredits = ScanBaseCredits(body),
+        };
     }
 }

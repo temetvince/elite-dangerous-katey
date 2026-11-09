@@ -11,7 +11,7 @@ namespace Katey.App.Pages;
 /// <param name="Materials">What one roll costs, with your inventory.</param>
 /// <param name="Engineers">Everyone who offers this grade on some module type, selected ones first.</param>
 /// <param name="AddCommand">Adds the blueprint at this grade, on the page's chosen module type and experimental, to the plan.</param>
-public sealed record BlueprintGradeRow(int Grade, IReadOnlyList<MaterialChip> Materials, IReadOnlyList<Link> Engineers, RelayCommand AddCommand)
+public sealed record BlueprintGradeRow(int Grade, IReadOnlyList<MaterialChip> Materials, IReadOnlyList<EngineerLink> Engineers, RelayCommand AddCommand)
 {
     /// <summary>Gets "Gn".</summary>
     public string Label => Display.Grade(Grade);
@@ -179,7 +179,7 @@ public sealed class BlueprintPage : Page
                         .Distinct(StringComparer.Ordinal)
                         .OrderByDescending(selected.Contains)
                         .ThenBy(name => name, StringComparer.Ordinal)
-                        .Select(name => LinkTo(selected.Contains(name) ? name + " ✓" : name, PageKind.Engineer, name)),
+                        .Select(Workspace.EngineerLinkFor),
                 ],
                 new RelayCommand(() => Add(grade), () => CanAdd(grade)))),
         ];

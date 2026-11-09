@@ -26,7 +26,7 @@ public sealed record FitModule(string Slot, string Item, Engineering? Engineerin
 /// <param name="Hull">Ship type symbol, compared case-insensitively, such as <c>anaconda</c>.</param>
 /// <param name="Name">The fit's name.</param>
 /// <param name="Modules">Every module slot the fit fills, cargo hatch included.</param>
-/// <param name="LoadoutJson">The export text the fit was pasted from, exactly as given, so it can be handed back to EDSY unchanged and its masses read; <see langword="null"/> on a fit saved without it.</param>
+/// <param name="LoadoutJson">The export text the fit was pasted from, exactly as given, so it can be handed back to EDSY unchanged and its masses read; <see langword="null"/> for a fit built for matching alone, with no export.</param>
 public sealed record Fitting(string Id, string Hull, string Name, IReadOnlyList<FitModule> Modules, string? LoadoutJson = null);
 
 /// <summary>Where an owned module is.</summary>

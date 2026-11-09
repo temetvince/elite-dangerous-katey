@@ -53,7 +53,7 @@ public enum StopStage
 /// <param name="CumulativeLy">Distance from the route's start to this stop in light years.</param>
 /// <param name="Engineer">An engineer based here, or <see langword="null"/>.</param>
 /// <param name="Fuel">Projected fuel on arrival, or <see langword="null"/> when there is no estimate or the stop is behind the ship.</param>
-public sealed record RouteStopRow(int Index, Link Link, string StarClass, StarKind Kind, VisitState Visit, StopStage Stage, double JumpLy, double CumulativeLy, Link? Engineer, StopFuel? Fuel)
+public sealed record RouteStopRow(int Index, Link Link, string StarClass, StarKind Kind, VisitState Visit, StopStage Stage, double JumpLy, double CumulativeLy, EngineerLink? Engineer, StopFuel? Fuel)
 {
     /// <summary>Gets the fuel on arrival as text, or empty.</summary>
     public string FuelText => Fuel?.Text ?? "";
@@ -196,11 +196,15 @@ public sealed record PlotStopRow(int Index, Link Link, StopStage Stage, VisitSta
 }
 
 /// <summary>Where the ship stands on the Spansh plot.</summary>
-/// <param name="Text">One line: the next waypoint and how many remain, or that the ship has arrived or is off the plot.</param>
+/// <param name="Parts">One line, the systems in it as links: the next waypoint and how many remain, or that the ship has arrived or is off the plot.</param>
 /// <param name="NextWaypoint">The next waypoint's name, or empty at the destination. Off the plot, the waypoint after the last one reached, so a detour still has its target.</param>
 /// <param name="HereIndex">The ship's index on the plot, or -1 when it is not on it.</param>
 /// <param name="LastKnownIndex">Off the plot, the index of the waypoint the ship reached most recently, or -1 on the plot or when it has reached none.</param>
-public sealed record PlotProgressLine(string Text, string NextWaypoint, int HereIndex, int LastKnownIndex = -1);
+public sealed record PlotProgressLine(IReadOnlyList<PhrasePart> Parts, string NextWaypoint, int HereIndex, int LastKnownIndex = -1)
+{
+    /// <summary>Gets the line as plain text.</summary>
+    public string Text => Phrase.Plain(Parts);
+}
 
 /// <summary>
 /// The route: the game's own plot from the galaxy map with the ship's progress along it, and the plot
@@ -301,13 +305,13 @@ public sealed class RoutePage : Page
     public string Summary { get; private set => SetProperty(ref field, value); } = "";
 
     /// <summary>Gets a line on fuel and the next scoopable star, or empty.</summary>
-    public string FuelText { get; private set => SetProperty(ref field, value); } = "";
+    public IReadOnlyList<PhrasePart> FuelParts { get; private set => SetProperty(ref field, value); } = Phrase.Empty;
 
     /// <summary>Gets how far along the route the ship is, such as "4,002 ly of 7,320 ly travelled".</summary>
     public string TravelledText { get; private set => SetProperty(ref field, value); } = "";
 
     /// <summary>Gets the line on the plotted route a targeted detour leaves behind, as <see cref="DetourLine"/> words it, or empty.</summary>
-    public string DetourText { get; private set => SetProperty(ref field, value); } = "";
+    public IReadOnlyList<PhrasePart> DetourParts { get; private set => SetProperty(ref field, value); } = Phrase.Empty;
 
     /// <summary>Gets the fuel picture: the tank, what the next jump burns, and how far the route gets without a scoop. <see cref="FuelEstimate.None"/> until a refresh.</summary>
     public FuelEstimate Fuel { get; private set => SetProperty(ref field, value); } = FuelEstimate.None;
@@ -440,7 +444,7 @@ public sealed class RoutePage : Page
     /// being flown, then the saved fits for the chosen target's hull, then the owned ships whose loadout
     /// the journal has read, then the other saved fits, each with its range. <see cref="PlotFilter"/>
     /// narrows the list to the entries whose line contains the text; the chosen target always stays in
-    /// it. Fits saved without their masses are left out.
+    /// it. A fit whose export gives no jump figures is left out.
     /// </summary>
     public IReadOnlyList<PlotTarget> PlotTargets { get; private set => SetProperty(ref field, value); } = [];
 
@@ -476,9 +480,6 @@ public sealed class RoutePage : Page
         }
     } = "";
 
-    /// <summary>Gets a note on saved fits the plot cannot use, such as "2 saved fits have no masses: paste them again from EDSY to plot for them.", or empty.</summary>
-    public string PlotTargetsNote { get; private set => SetProperty(ref field, value); } = "";
-
     /// <summary>Gets the chosen ship's range with the cargo typed, or why there is none.</summary>
     public string PlotRangeText { get; private set => SetProperty(ref field, value); } = "";
 
@@ -501,10 +502,10 @@ public sealed class RoutePage : Page
     public bool HasPlot { get; private set => SetProperty(ref field, value); }
 
     /// <summary>Gets one line on the plot: ends, jumps, length, neutron and refuel stops, and when it was made.</summary>
-    public string PlotSummary { get; private set => SetProperty(ref field, value); } = "";
+    public IReadOnlyList<PhrasePart> PlotSummaryParts { get; private set => SetProperty(ref field, value); } = Phrase.Empty;
 
     /// <summary>Gets where the ship stands on the plot.</summary>
-    public string PlotProgressText { get; private set => SetProperty(ref field, value); } = "";
+    public IReadOnlyList<PhrasePart> PlotProgressParts { get; private set => SetProperty(ref field, value); } = Phrase.Empty;
 
     /// <summary>Gets the next waypoint's name, for the clipboard, or empty.</summary>
     public string NextWaypoint { get; private set => SetProperty(ref field, value); } = "";
@@ -603,32 +604,34 @@ public sealed class RoutePage : Page
         var progress = workspace.Route;
         var hereIndex = plot.IndexOf(progress.CurrentSystemAddress, progress.CurrentSystem);
         var last = plot.Stops.Count - 1;
+        Link System(string name) => workspace.Navigator.LinkTo(name, PageKind.System, name);
+        var destination = System(plot.Destination);
         if (hereIndex < 0)
         {
             var lastKnown = LastKnownIndex(plot, progress);
             if (lastKnown < 0)
             {
-                return new PlotProgressLine($"Off the plot. First waypoint {plot.Stops[0].Name}, {Display.Plural(plot.Jumps, "jump")} to {plot.Destination}.", plot.Stops[0].Name, -1);
+                return new PlotProgressLine(Phrase.Of("Off the plot. First waypoint ", System(plot.Stops[0].Name), $", {Display.Plural(plot.Jumps, "jump")} to ", destination, "."), plot.Stops[0].Name, -1);
             }
 
             if (lastKnown >= last)
             {
-                return new PlotProgressLine($"Arrived at {plot.Destination}, now off the plot.", "", -1, lastKnown);
+                return new PlotProgressLine(Phrase.Of("Arrived at ", destination, ", now off the plot."), "", -1, lastKnown);
             }
 
             var resume = plot.Stops[lastKnown + 1];
             // One jump back to the next waypoint, then the plot's own count from there.
-            return new PlotProgressLine($"Off the plot. Last known waypoint {plot.Stops[lastKnown].Name}, next {resume.Name}. ~{Display.Plural(last - lastKnown, "jump")} to {plot.Destination}.", resume.Name, -1, lastKnown);
+            return new PlotProgressLine(Phrase.Of("Off the plot. Last known waypoint ", System(plot.Stops[lastKnown].Name), ", next ", System(resume.Name), $". ~{Display.Plural(last - lastKnown, "jump")} to ", destination, "."), resume.Name, -1, lastKnown);
         }
 
         if (hereIndex >= last)
         {
-            return new PlotProgressLine($"Arrived at {plot.Destination}.", "", hereIndex);
+            return new PlotProgressLine(Phrase.Of("Arrived at ", destination, "."), "", hereIndex);
         }
 
         var next = plot.Stops[hereIndex + 1];
         var remaining = last - hereIndex;
-        return new PlotProgressLine($"Next waypoint {next.Name}, {Display.Plural(remaining, "jump")} to {plot.Destination}.", next.Name, hereIndex);
+        return new PlotProgressLine(Phrase.Of("Next waypoint ", System(next.Name), $", {Display.Plural(remaining, "jump")} to ", destination, "."), next.Name, hereIndex);
     }
 
     /// <summary>
@@ -654,18 +657,18 @@ public sealed class RoutePage : Page
         return lastKnown;
     }
 
-    /// <summary>A line on fuel and the next scoopable star.</summary>
+    /// <summary>A line on fuel and the next scoopable star, the star's system as a link.</summary>
     /// <param name="workspace">The shared state.</param>
     /// <param name="stops">The stop rows, in route order.</param>
-    /// <returns>Text, or empty with neither fuel nor a route.</returns>
-    public static string FuelLine(Workspace workspace, IReadOnlyList<RouteStopRow> stops)
+    /// <returns>The sentence, or empty with neither fuel nor a route.</returns>
+    public static IReadOnlyList<PhrasePart> FuelLine(Workspace workspace, IReadOnlyList<RouteStopRow> stops)
     {
         ArgumentNullException.ThrowIfNull(workspace);
         ArgumentNullException.ThrowIfNull(stops);
         var fuel = workspace.Monitor.Status?.FuelMain;
         if (stops.Count == 0)
         {
-            return fuel is { } alone ? string.Create(CultureInfo.InvariantCulture, $"Fuel {alone:0.0} t.") : "";
+            return fuel is { } alone ? Phrase.Text(string.Create(CultureInfo.InvariantCulture, $"Fuel {alone:0.0} t.")) : Phrase.Empty;
         }
 
         var hereIndex = HereIndex(workspace);
@@ -676,14 +679,15 @@ public sealed class RoutePage : Page
         // Stop indexes are one-based. With the ship's place on the route unknown, the stops count from its start.
         var jumpsOn = nextScoop is null ? 0 : nextScoop.Index - Math.Max(hereIndex + 1, 1);
         var ahead = nextScoop is null
-            ? scoopHere ? "no scoopable star further on this route." : "No scoopable star ahead on this route."
+            ? Phrase.Text(scoopHere ? "no scoopable star further on this route." : "No scoopable star ahead on this route.")
             : jumpsOn <= 1
-                ? scoopHere ? "the next star is scoopable too." : "Next star is scoopable."
-                : scoopHere
-                    ? $"the next scoopable star after it is {nextScoop.System}, {Display.Plural(jumpsOn, "jump")} on."
-                    : $"Next scoopable star is {nextScoop.System}, {Display.Plural(jumpsOn, "jump")} on.";
-        var scoopText = scoopHere ? $"This system's arrival star is scoopable; {ahead}" : ahead;
-        return fuel is { } now ? string.Create(CultureInfo.InvariantCulture, $"Fuel {now:0.0} t. {scoopText}") : scoopText;
+                ? Phrase.Text(scoopHere ? "the next star is scoopable too." : "Next star is scoopable.")
+                : Phrase.Of(
+                    scoopHere ? "the next scoopable star after it is " : "Next scoopable star is ",
+                    workspace.Navigator.LinkTo(nextScoop.System, PageKind.System, nextScoop.System),
+                    $", {Display.Plural(jumpsOn, "jump")} on.");
+        var scoopText = scoopHere ? Phrase.Join("", [Phrase.Text("This system's arrival star is scoopable; "), ahead]) : ahead;
+        return fuel is { } now ? Phrase.Join("", [Phrase.Text(string.Create(CultureInfo.InvariantCulture, $"Fuel {now:0.0} t. ")), scoopText]) : scoopText;
     }
 
     /// <summary>How far along the route the ship is.</summary>
@@ -771,17 +775,23 @@ public sealed class RoutePage : Page
     /// </summary>
     /// <param name="workspace">The shared state.</param>
     /// <returns>The line, or empty when the target is on the plotted route or there is no plotted route.</returns>
-    public static string DetourLine(Workspace workspace)
+    public static IReadOnlyList<PhrasePart> DetourLine(Workspace workspace)
     {
         ArgumentNullException.ThrowIfNull(workspace);
         var progress = workspace.Route;
         if (workspace.Monitor.Route is not { Stops.Count: > 1 } live || TargetElsewhere(progress) is not { } target || IndexOfName(live, target) >= 0)
         {
-            return "";
+            return Phrase.Empty;
         }
 
         var remaining = live.Stops.Count - 1 - Math.Max(IndexOfCurrent(live, progress), 0);
-        return $"Detour to {target}. The plotted route to {live.Stops[^1].StarSystem} resumes after it, {Display.Plural(remaining, "jump")}.";
+        var end = live.Stops[^1].StarSystem;
+        return Phrase.Of(
+            "Detour to ",
+            workspace.Navigator.LinkTo(target, PageKind.System, target),
+            ". The plotted route to ",
+            workspace.Navigator.LinkTo(end, PageKind.System, end),
+            $" resumes after it, {Display.Plural(remaining, "jump")}.");
     }
 
     /// <summary>The targeted system when it is not the one the ship is in, else <see langword="null"/>.</summary>
@@ -860,7 +870,7 @@ public sealed class RoutePage : Page
                 stage,
                 jump,
                 cumulative,
-                engineer is null ? null : workspace.Navigator.LinkTo(engineer.Name, PageKind.Engineer, engineer.Name),
+                engineer is null ? null : workspace.EngineerLinkFor(engineer.Name),
                 null));
         }
 
@@ -889,10 +899,10 @@ public sealed class RoutePage : Page
         var stops = BuildStops(Workspace);
         Stops = Sort.Apply(stops);
         HasRoute = stops.Count > 0;
-        FuelText = FuelLine(Workspace, stops);
+        FuelParts = FuelLine(Workspace, stops);
         var hereIndex = HereIndex(Workspace);
         TravelledText = TravelledLine(stops, hereIndex);
-        DetourText = DetourLine(Workspace);
+        DetourParts = DetourLine(Workspace);
         Fuel = FuelEstimate.For(Workspace, stops);
         if (stops.Count == 0)
         {
@@ -948,8 +958,6 @@ public sealed class RoutePage : Page
             .Select(pair => new PlotTarget(PlotTarget.FitKey(pair.Fitting.Id), PlotTarget.FitKind, pair.Fitting.Name, pair.Fitting.Hull, FleetPage.HullName(fleet, pair.Fitting.Hull), pair.Profile!.Range()));
         _plotTargets = [.. ships, .. fits];
         _currentShipKey = fleet.CurrentShipId is { } currentShipId ? PlotTarget.ShipKey(currentShipId) : null;
-        var withoutMasses = Workspace.Fleet.Fittings.Count(fitting => Workspace.Fleet.ProfileOf(fitting) is null);
-        PlotTargetsNote = withoutMasses == 0 ? "" : $"{Display.Plural(withoutMasses, "saved fit")} {(withoutMasses == 1 ? "has" : "have")} no masses: paste {(withoutMasses == 1 ? "it" : "them")} again from EDSY to plot for {(withoutMasses == 1 ? "it" : "them")}.";
         OnPropertyChanged(nameof(HasPlotTargets));
         var wanted = _selectedPlotTarget?.Key ?? Workspace.Preferences.Get(TargetKey);
         var keep = wanted is null ? null : _plotTargets.FirstOrDefault(target => target.Key == wanted);
@@ -1026,8 +1034,8 @@ public sealed class RoutePage : Page
         if (state.Route is not { } plot)
         {
             HasPlot = false;
-            PlotSummary = "";
-            PlotProgressText = "";
+            PlotSummaryParts = Phrase.Empty;
+            PlotProgressParts = Phrase.Empty;
             NextWaypoint = "";
             OnPropertyChanged(nameof(HasNextWaypoint));
             PlotStops = [];
@@ -1036,16 +1044,16 @@ public sealed class RoutePage : Page
 
         var progress = PlotProgress(Workspace)!;
         HasPlot = true;
-        PlotSummary = string.Join(" · ",
+        PlotSummaryParts = Phrase.Join(" · ",
         [
-            $"{plot.Source} to {plot.Destination}",
-            Display.Plural(plot.Jumps, "jump"),
-            Display.LightYears(plot.TotalLy),
-            Display.Plural(plot.NeutronStops, "neutron stop"),
-            Display.Plural(plot.RefuelStops, "refuel stop"),
-            $"plotted {plot.PlottedAt.ToLocalTime().ToString("g", CultureInfo.CurrentCulture)}",
+            Phrase.Of(LinkTo(plot.Source, PageKind.System, plot.Source), " to ", LinkTo(plot.Destination, PageKind.System, plot.Destination)),
+            Phrase.Text(Display.Plural(plot.Jumps, "jump")),
+            Phrase.Text(Display.LightYears(plot.TotalLy)),
+            Phrase.Text(Display.Plural(plot.NeutronStops, "neutron stop")),
+            Phrase.Text(Display.Plural(plot.RefuelStops, "refuel stop")),
+            Phrase.Text($"plotted {plot.PlottedAt.ToLocalTime().ToString("g", CultureInfo.CurrentCulture)}"),
         ]);
-        PlotProgressText = progress.Text;
+        PlotProgressParts = progress.Parts;
         NextWaypoint = progress.NextWaypoint;
         OnPropertyChanged(nameof(HasNextWaypoint));
         var visited = Workspace.Route;

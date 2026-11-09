@@ -54,7 +54,7 @@ public sealed class PlanDrawerViewModel : ObservableObject
     public string Badge { get; private set => SetProperty(ref field, value); } = "";
 
     /// <summary>Gets the drawer's subtitle.</summary>
-    public string Summary { get; private set => SetProperty(ref field, value); } = "";
+    public IReadOnlyList<PhrasePart> SummaryParts { get; private set => SetProperty(ref field, value); } = Phrase.Empty;
 
     /// <summary>Gets what to trade at the material traders to cover the shortfalls and restore the reserves.</summary>
     public TradeView Trades { get; private set => SetProperty(ref field, value); } = TradeView.From(null);
@@ -81,6 +81,11 @@ public sealed class PlanDrawerViewModel : ObservableObject
                 ? (Totals.ShortCount == 0 ? $"{enabled} · covered" : $"{enabled} · {Totals.ShortCount} short")
                 : enabled.ToString(System.Globalization.CultureInfo.InvariantCulture);
         var engineers = _workspace.Engineers.Selected.Order(StringComparer.Ordinal).ToList();
-        Summary = $"{Display.Plural(entries.Count, "entry", "entries")}, {enabled} counted. {Totals.Summary} Engineers: {Display.Names(engineers, "none selected")}.";
+        SummaryParts = Phrase.Join("",
+        [
+            Phrase.Text($"{Display.Plural(entries.Count, "entry", "entries")}, {enabled} counted. {Totals.Summary} Engineers: "),
+            EngineerLink.Names(engineers.Select(_workspace.EngineerLinkFor), "none selected"),
+            Phrase.Text("."),
+        ]);
     }
 }

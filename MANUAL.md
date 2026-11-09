@@ -1,8 +1,8 @@
 # Katey manual
 
 Katey is a desktop companion for Elite Dangerous. It reads the journal files the game writes on your own
-machine and keeps up with you as you play: it plans engineering against the materials you actually hold,
-checks your saved ship builds against the ships and modules you own, follows your route and the system you
+machine and keeps up with you as you play. It plans engineering against the materials you actually hold. It
+checks your saved ship builds against the ships and modules you own. It follows your route and the system you
 are in, and reads your history as a ledger. Nothing leaves your machine unless you turn the Spansh route
 plotter on, and then only when you press Plot.
 
@@ -110,8 +110,8 @@ and holds:
   - a grade picker and, for a type that takes experimental effects, an experimental picker and the
     **experimental only** switch; a type with none shows neither;
   - the rolls expected per grade;
-  - the engineers who can roll it, with the ones you ticked marked. An entry nobody you ticked can roll
-    carries a warning.
+  - the engineers who can roll it, each a link coloured by your ticks as everywhere in Katey. An entry nobody
+    you ticked can roll carries a warning.
 
   The **experimental only** switch turns an entry into one that costs only the experimental's materials, for a
   module that already has its blueprint. A technology broker unlock you ticked on the [Unlocks](#unlocks) page
@@ -139,41 +139,50 @@ and holds:
 The rail follows the game along the right edge of the window. It shows:
 
 - **Where you are** and what the ship is doing: docked, in supercruise, landed, and so on.
-- **The route**, as the stop you are at and the next few, with the rest summarised, the next scoopable
-  star and any engineer stop called out, the distance travelled against the whole and as a percentage,
-  the tank bar as the [route page](#route) draws it, and the fuel picture: how many jumps you can make
-  before you must scoop, and which star to scoop by. When a Spansh plot is held, the next waypoint shows
-  with a **Copy** button for the galaxy map.
+- **The route**: the stop you are at and the next few, with the rest summarised. The next scoopable star and
+  any engineer stop are called out. The distance travelled shows against the whole and as a percentage, with
+  the tank bar as the [route page](#route) draws it. The fuel picture says how many jumps you can make before
+  you must scoop, and which star to scoop by. When a Spansh plot is held, the next waypoint shows with a
+  **Copy** button for the galaxy map.
 - **This system**: the scan progress and payout estimates, with every scanned body that carries surface
-  materials or biological signals. The heading and the ring turn green once every body is scanned.
+  materials or biological signals. **Exploration data unsold** is what this system's data still aboard would
+  pay. That is the scans you have not sold, with the first-discovery bonus where a body was yours to discover,
+  and the species you have sampled in full and not sold, with the first-logged bonus where the game said
+  nobody had logged them. The system page adds what you have already been paid. The heading and the ring turn
+  green once every body is scanned.
   - Before a body is mapped, its life is one line: how many genera could live there and what they are likely
-    worth, with and without the first-logged bonus. Once probed, the body lists its genera richest first:
-    the genus, its likeliest species with the odds or its sampling stage, and what it pays with the bonus
-    where that applies; beyond five genera one line sums the rest.
+    worth, with and without the first-logged bonus. Once probed, the body lists its genera richest first. Each
+    row is the genus, its likeliest species with the odds or its sampling stage, and what it pays with the
+    bonus where that applies. The row is violet after the first sample, blue after the second and green once
+    all three are taken.
   - Gravity shows as a tag from 1.0 g, red from 1.5 g.
-  - A switch orders the bodies **nearest first**, by distance from arrival, or **biology first**: every body
-    with life at the top, the most valuable first, then by signal count. The value is the scanner's genera
-    once mapped, or the life the conditions allow before that.
-  - A choice of three says which bodies with life to leave out. **All life** lists every one. **Skip
-    bacteria** leaves out bodies whose life is bacteria alone: by the scanner's genera once mapped, or
-    before that a single signal at least four in five likely to be bacteria. **Min/max** asks a different
-    question before and after the probes. Before you probe a body, the question is whether it is worth
-    flying over to probe: it stays while the chance that at least one of its signals is a species worth the
-    stop on its own is one in four or better, by the odds of the genera its conditions allow, so a body with
-    many signals is kept until the probes say what is there. Once probed, the question is whether it is
-    worth landing: it stays while its best landing pays 8M a minute on the ground, bonus included. The best
-    landing takes the species worth the time in order of their own pace and leaves the rest, since nothing
-    makes you sample everything. The minutes are medians from a practised commander's journal: four for the
-    glide down and the climb back to supercruise, three per species from its first sample to its analysis,
-    and one between one species and the next. The distance between samples does not count: you drive or
-    repark the ship. A lone Stratum Tectonicas with the bonus runs about 14M a minute; eight cheap species
-    on one body pay more in total but about 6M a minute, so min/max skips them once probed and Skip bacteria
-    keeps them. Conditions Katey has no record of are never hidden. The choice is remembered, and a body
-    carrying a material your plan is short of stays listed whatever it is.
+  - A choice of three says what the list is for, each nearest first by distance from arrival. **Landable**
+    lists every landable body with its life and its materials. **Biology** lists the bodies with life and
+    shows their life only, so a landable body with materials alone does not appear. **Minerals** lists the
+    bodies with surface materials and shows their materials only; a body with both life and materials is
+    listed, its biology count still in the title, its genera not. Landable is the default. The choice is
+    remembered.
+  - In the Biology view, a second choice of three says which bodies with life to leave out. The choice is
+    remembered. Conditions Katey has no record of are never hidden.
+  - **All life** lists every one.
+  - **Skip bacteria** leaves out bodies whose life is bacteria alone: by the scanner's genera once mapped, or
+    before that a single signal at least four in five likely to be bacteria.
+  - **Valuable only** asks a different question before and after the probes. Before you probe a body, the
+    question is whether it is worth flying over to probe. It stays while the chance that at least one of its
+    signals is a species worth the stop on its own is one in four or better, by the odds of the genera its
+    conditions allow. A body with many signals is therefore kept until the probes say what is there. Once
+    probed, the question is whether it is worth landing. It stays while its best landing pays 8M a minute on
+    the ground, bonus included. The best landing takes the species worth the time in order of their own pace
+    and leaves the rest, since nothing makes you sample everything.
+  - The minutes behind that pace are medians from a practised commander's journal: four for the glide down and
+    the climb back to supercruise, three per species from its first sample to its analysis, and one between
+    one species and the next. The distance between samples does not count: you drive or repark the ship. A
+    lone Stratum Tectonicas with the bonus runs about 14M a minute. Eight cheap species on one body pay more
+    in total but about 6M a minute, so Valuable only skips them once probed and Skip bacteria keeps them.
 
 The rail picks the route or the bodies by itself. It shows the route while another system is your targeted
-destination, while the drive is charging to jump and while you are in hyperspace, until the moment you arrive
-at the next star: the game clears a route in the middle of its last jump, and the rail keeps showing that jump
+destination, while the drive is charging to jump, and while you are in hyperspace, until the moment you arrive
+at the next star. The game clears a route in the middle of its last jump, and the rail keeps showing that jump
 until it is made. With nothing targeted, or a body or station in this system targeted, it shows the bodies.
 The useful section is up without a click.
 
@@ -205,12 +214,18 @@ and whether the journal is being watched. Five figures run across the top:
 - **Bodies scanned**: this system's scan progress.
 - **Data aboard**: what the scans and samples you have not sold yet are worth, counted from your last sale and
   reset by a death. Bodies a nav beacon handed you are not counted: the game pays nothing for data it gave
-  away, and the system page prices them at nothing too. When you complete a sample the journal says whether
-  anyone had logged that species on that body; when nobody had, Katey counts the first-logged bonus, five
-  times the base, as likely. Another commander
-  can still sell it first, so the figure is a likelihood, not a promise. Before any sample, the scan's footfall
-  flag stands in: life is logged on foot, so a body nobody has set foot on cannot have been logged by anyone,
-  and Katey counts the bonus as likely there and not where someone has already landed.
+  away, and the system page prices them at nothing too.
+  - When you complete a sample the journal says whether anyone had logged that species on that body. When
+    nobody had, Katey counts the first-logged bonus, five times the base, as likely. Another commander can
+    still sell it first, so the figure is a likelihood, not a promise.
+  - Before any sample, the scan's footfall flag stands in. Life is logged on foot, so a body nobody has set
+    foot on cannot have been logged by anyone. Katey counts the bonus as likely there and not where someone
+    else has landed.
+  - Your own landing does not take it away. On a body where yours was the first footfall, a species you have
+    not sampled is still counted at five times, until you sell that body's exobiology data. After that sale
+    Katey assumes nothing for what you left unsampled there, since another commander may have landed since. A
+    species you did sample has the game's own word, given with the sample, and keeps or loses the bonus by
+    that.
 
 Colour means something everywhere: material grades, the three inventories, the four places a module fits, star
 classes as the galaxy map paints them, and the verdicts ready, partial and missing. Have-against-need bars sit
@@ -229,13 +244,17 @@ each grade picker starts at the grade they reach. Off, everything is offered and
 top grade. Either way, the plan still warns about an entry nobody you ticked can roll. The switch is
 remembered.
 
+Wherever Katey names an engineer, the name is a link to their page. With the switch off every name is in plain
+text. With it on, an engineer you ticked is in the HUD's blue and one you have not is dimmed, so any list of
+engineers reads at a glance.
+
 A search box filters the list by name, and the columns sort.
 
 ### An engineer
 
-One engineer: where they are and how far that is from you, every blueprint they offer with the grade they
-stop at and an **Add** button that plans it, which of your plan entries they can roll, how many of your
-modules are stored in their system, and whether they are a stop on your route.
+One engineer: where they are and how far that is from you, and whether they are a stop on your route. Every
+blueprint they offer is listed with the grade they stop at and an **Add** button that plans it. The page also
+says which of your plan entries they can roll and how many of your modules are stored in their system.
 
 ### Modules
 
@@ -248,8 +267,8 @@ roll a blueprint on. The open groups are remembered.
 
 One kind of module, such as the frame shift drive or a beam laser. Its sections:
 
-- **Blueprints.** Each blueprint with the grade your selected engineers reach, everyone who offers it and
-  how far away they are, a grade picker and an **Add** button. The pickers follow the engineers switch.
+- **Blueprints.** Each blueprint with the grade your selected engineers reach, everyone who offers it and how
+  far away they are, a grade picker and an **Add** button. The pickers follow the engineers switch.
 - **Experimentals.** The experimental effects the type takes and what each costs. Grade 0 on a blueprint
   row plans the experimental alone, for a module that already has its blueprint.
 - **Variants.** Every size and class the game sells, with the ones you own marked.
@@ -260,9 +279,9 @@ One kind of module, such as the frame shift drive or a beam laser. Its sections:
 ### A blueprint
 
 One blueprint across every module type it applies to: what one roll costs at each grade, who offers it on
-which types, and a bar that adds it to the plan. Pick the module type, the grade and an experimental and
-press **Add**, or press **Add** on a grade's row. If your selected engineers cannot reach the blueprint
-while the engineers switch is on, the bar says so instead of offering a grade you cannot roll.
+which types, and a bar that adds it to the plan. Pick the module type, the grade and an experimental and press
+**Add**, or press **Add** on a grade's row. If your selected engineers cannot reach the blueprint while the
+engineers switch is on, the bar says so instead of offering a grade you cannot roll.
 
 ### Materials
 
@@ -400,42 +419,77 @@ One saved build compared with what you have. Its sections:
   above does for one ship, and stands down the same way. The two counts differ on purpose: a slot can be a
   change for this ship while a module you own elsewhere already covers it.
 
-A module is matched wherever it sits in a slot of the same kind, so a module moved to another optional bay
-or hardpoint still counts. **Copy for EDSY** puts the fit on the clipboard in the form EDSY imports: the
-export you pasted, exactly as you pasted it, so nothing EDSY wrote is lost on the way back; a fit saved
-before exports were kept is rebuilt from its modules instead.
+A module is matched wherever it sits in a slot of the same kind, so a module moved to another optional bay or
+hardpoint still counts. **Copy for EDSY** puts the fit on the clipboard in the form EDSY imports: the export
+you pasted, exactly as you pasted it, so nothing EDSY wrote is lost on the way back.
 
 ### System
 
-For the system you are in: every body you have scanned, on this visit or an earlier one your journal
-history holds, with a **scanned** badge giving the day when it was an earlier visit. When the system lookup
-is allowed in Settings, the bodies Spansh knows and you have not scanned join the list with a **from
-Spansh** badge: their classes, conditions, signals and known genera, valued like your own, but saying
-nothing about discovery, mapping or landing, so no first-mapping or first-logged bonus is assumed for them.
-Each body shows with its signals, surface materials, its genera most valuable first with their species
-predictions and payout estimates, and a line on how many bodies nobody had discovered or mapped before you and
-how many you have landed on. Bodies are listed star by star: each star, named by its class and whether you can
-scoop it, is followed by the bodies that orbit it, nearest first. Sorting by a column puts the whole list in
-that order instead. For a system you visited earlier: where it is and when you were there.
+For the system you are in: every body you have scanned, on this visit or an earlier one your journal history
+holds, with a **scanned** badge giving the day when it was an earlier visit. When the system lookup is allowed
+in Settings, the bodies Spansh knows and you have not scanned join the list with a **from Spansh** badge. They
+come with their classes, conditions, signals and known genera. Their life is valued like your own; their
+cartographics are worth nothing to you until you scan them yourself. They say nothing about discovery, mapping
+or landing, so no first bonus of any kind is assumed for them. For a system you visited earlier, the page says
+where it is and when you were there.
+
+Above the bodies, three lines sum the system.
+
+- **Exploration data unsold** is what this system's data still aboard would pay, bonuses counted where they
+  apply, then how much of it is for being first. Once any of this system's data has been sold, the line ends
+  with what you were paid for it. A sale of one system is taken as the game reported it; a sale of several is
+  shared among them by Katey's estimate of each.
+- The second line breaks the figure down. Cartographics shows as scanned with no bonus, then with the
+  first-discovery bonus where a body was yours to discover. Exobiology shows by the scanner's genera, "about"
+  until every genus has a sampled species, then with the first-logged bonus where nobody had set foot.
+- The third says how many bodies nobody had discovered before you, how many you have landed on, and how many
+  landable bodies nobody has set foot on yet, you included.
+
+Bodies are listed star by star: each star, named by its class and whether you can scoop it, is followed by the
+bodies that orbit it, nearest first. Sorting by a column puts the whole list in that order instead. Every
+column remembers its own direction, so coming back to one finds it as you left it; that holds for every table
+in Katey.
+
+Each body shows its signals and surface materials, then its genera most valuable first with their species
+predictions and payout estimates. Where nobody has set foot on the body, each estimate carries the figure with
+the first-logged bonus in brackets, as "2.1M (10.5M) Cr". A genus is violet after its first sample, blue after
+the second and green once all three are taken. The stage is remembered when you come back to the system and
+after you sell, as the game keeps it. Starting a different species before the third sample loses the partial
+one, as the sampler does. Under the genera is the body's own exobiology figure, "about" until every genus on
+it has a sampled species. Once a species there has all three samples, a line in green under that figure says
+what you have gathered on the body, and what it becomes with the first-logged bonus.
 
 Each body's card and badges call out what matters before you commit to it.
 
 - The card's frame says what the body holds: green for life, blue for surface materials; a body with both
   takes green. A star's card is framed in orange and carries a **star** badge, with **scoopable** in green or
   **not scoopable** in yellow beside it.
-- Three status slots, always in the same order, each a yes or no from the flags the game writes with every
-  scan: violet for discovery, teal for mapping, green for footfall. A status still open is a solid pill with
-  a line beneath: **undiscovered**, **unmapped**, which is where the mapping bonus is, or **no footfall**. A
-  status someone has taken is hollow: **discovered**, **mapped**, **footfall**. So a fresh body is three
-  solid pills and a worked one three hollow, and you read which is which without reading the words. A star
-  has no mapping or footfall slot, and a body nobody can land on has no footfall slot. Your own part, such
-  as **Mapped first by you, landed by you.**, is a quiet line under the card. In a populated system footfall
-  cannot be claimed and the game's flag says nothing, so Katey treats every body there as trodden. A body
-  that came from Spansh says **mapping unknown** and **footfall unknown**.
+- Three status slots, always in the same order, each from the flags the game writes with every scan: violet
+  for discovery, teal for mapping, green for footfall. A pill has three looks, so a fresh body is solid pills,
+  a body you worked is coloured words, and a body others worked is grey, and you read which is which without
+  reading the words.
+  - Solid with a line beneath, the bonus is still open: **unmapped**, which is where the mapping bonus is, or
+    **no footfall**.
+  - Outlined with its words in the slot's colour, the bonus is yours: **discovered by you**, **mapped by you**
+    or **footfall by you**.
+  - Outlined with grey words, someone else took it: **discovered**, **mapped**, **footfall**.
+- Discovery is never open, since you have scanned the body. The game credits a first discovery when the data
+  is sold, so **discovered by you** stays until then and after.
+- A first stays yours when you come back. Once you have sold a system's data the game's flags report your own
+  record, so Katey keeps a body you discovered or mapped first as yours, however a later scan reads. A body
+  you set foot on first is yours from the landing on. A body you scanned but never sold takes the later flags
+  as they come, since someone else selling first is what they then mean.
+- A star has no mapping or footfall slot, and a body nobody can land on has no footfall slot. Where someone
+  else was first but you mapped or landed too, a quiet line under the card says **Mapped by you.** or **Landed
+  by you.**
+- In a populated system footfall cannot be claimed and the game's flag says nothing, so Katey treats every
+  body there as trodden. A body that came from Spansh says **discovery unknown**, **mapping unknown** and
+  **footfall unknown**.
 - Green **landable** badge: a ship can land there.
-- Gravity shows beside the distance. It turns yellow from 1.0 g with a **high gravity** badge, and red from
-  1.5 g with **extreme gravity**: at that pull a heavy ship may not be able to stop its descent, so approach
-  slowly and level early.
+- Gravity, temperature, atmosphere and the surface notes show on the title line beside the distance, which
+  wraps as it needs to, so a card stays short. Gravity turns yellow from 1.0 g with a **high gravity**
+  badge, and red from 1.5 g with **extreme gravity**: at that pull a heavy ship may not be able to stop its
+  descent, so approach slowly and level early.
 
 **Copy name** puts the system's name on the clipboard for the galaxy map. Every system name anywhere in Katey
 is a link to this page.
@@ -485,16 +539,14 @@ Two sections:
   - Once you have jumped, the game takes the fuel at once and the tank shows it, so during the jump the stop
     you are arriving at shows the tank reading and the blue bar moves to the jump after.
 - **The Spansh plot.** With the plotter turned on in [Settings](#settings), this asks Spansh's galaxy plotter
-  for a route from where you are to any system, for a ship you own or a saved fit, from its own masses, tanks
-  and drive figures: the journal's for a ship, the EDSY export's for a fit. Neutron boosts, FSD injections,
-  secondary star scoops and refuelling at every scoopable star are options.
+  for a route from where you are to any system, for a ship you own or a saved fit. The plot uses the ship's
+  own masses, tanks and drive figures: the journal's for a ship, the EDSY export's for a fit. Neutron boosts,
+  FSD injections, secondary star scoops and refuelling at every scoopable star are options.
   - The picker starts on the ship you are flying. Clicking it opens a panel with an empty search box and the
-    list: the ship or fit you had chosen first, the ship you are flying second, then the saved fits for the
-    chosen hull, your ships and the other fits, each with its full-tank range, the ship you are flying in the
-    accent colour. Type to narrow the list by name or hull; click an entry, or press Enter for the first one,
-    to choose it. Nothing else changes the choice.
-  - A fit saved before its export was kept has no masses to plot with, so it is left out and a note says to
-    paste it again from EDSY.
+    list, in this order: the ship or fit you had chosen first, the ship you are flying second, then the saved
+    fits for the chosen hull, your ships and the other fits. Each shows its full-tank range, with the ship you
+    are flying in the accent colour. Type to narrow the list by name or hull. Click an entry, or press Enter
+    for the first one, to choose it. Nothing else changes the choice.
   - The plotter is told the drive is supercharged when you have taken a jet-cone boost since your last jump,
     or when you sit at a neutron star with neutron boosts switched on, so the first jump is planned as a
     boosted one.
@@ -502,7 +554,7 @@ Two sections:
     so a plan asked for through Katey matches one made by pasting the build on the site.
   - The destination, the routing and the options are saved as you change them. The ship or fit and the cargo
     stay as you set them while the plot is held, across pages and restarts, until you press **Forget the
-    plot**; then the page opens again on the ship you are flying, with the cargo it carries filled in, which
+    plot**. Then the page opens again on the ship you are flying, with the cargo it carries filled in, which
     you can type over. Switching ships or fits leaves the cargo alone.
   - The plot lists every waypoint with its jump, the distance left, the fuel the plotter expects on arrival
     and whether it is a neutron star or a refuel stop. It follows your jumps to say which waypoint is next,
@@ -525,10 +577,10 @@ Your journal history read as a ledger. Its sections:
   cartographics value. Then the period's sales next to the game's lifetime figures.
 - **Combat, trading and mining, missions, Powerplay.** Each activity's own figures for the period, next to
   the game's lifetime figures for it.
-- **Wings and crews.** Time flown with others, what the game marked as shared by kind, every commander you
-  have flown with, with the time together and what was shared while they were present, and every wing
-  mission accepted, with who was in the wing at the time and how it stands. Flying in a wing while you
-  explore alone shares nothing, so it counts for nothing here. The journal does not say whether a wing
+- **Wings and crews.** Time flown with others and what the game marked as shared, by kind. Every commander you
+  have flown with is listed with the time together and what was shared while they were present. Every wing
+  mission accepted is listed with who was in the wing at the time and how it stands. Flying in a wing while
+  you explore alone shares nothing, so it counts for nothing here. The journal does not say whether a wing
   mission came from the board or from a wingmate, so both are listed.
 - **Lifetime figures.** Every running total the game reports, time played included. A remembered switch
   also lists the figures at zero; it is off by default. The period picker hides here, since these are the
@@ -598,7 +650,7 @@ Katey knows only what the game writes. A few limits follow:
 - A body you scanned on an earlier visit is already in your data, so the game writes nothing when the honk
   finds it again. Katey remembers every body you scanned on any visit within your journal history and lists it
   again when you return, marked with the day it was scanned. A body scanned before your oldest journal file
-  cannot be recovered that way: when the honk reports the whole system already known, Katey counts every body
+  cannot be recovered that way. When the honk reports the whole system already known, Katey counts every body
   as scanned but can list only the ones it has, or the ones Spansh knows when that switch is on.
 - The bodies marked **from Spansh** are what Spansh knows, which can be older than the system is: a survey
   from years ago, or only part of a system. Katey asks about a system once, when you arrive in it, and keeps
@@ -608,10 +660,11 @@ Katey knows only what the game writes. A few limits follow:
 ## Your data
 
 Katey keeps one file: the plan, the engineer selection, the saved fits, the material reserves, the journal
-folder, the backup folder and switch, the outgoing connections switches and the last plot, the rail's placement and
-settings, and every remembered view choice. By default it lives under your local application data folder,
-in `Katey\state.json`. The **Saved data** box in [Settings](#settings) moves it anywhere, a synced folder
-included.
+folder, the backup folder and switch, the outgoing connections switches and the last plot, the rail's
+placement and settings, and every remembered view choice. By default it lives under your local application
+data folder, in `Katey\state.json`. The **Saved data** box in [Settings](#settings) moves it anywhere, a
+synced folder included. When an update retires or renames a setting, Katey drops the old value and starts from
+the default, so the file never carries settings that nothing reads.
 
 Katey reads the journal files locally and sends nothing anywhere unless you allow it under **Outgoing
 connections** in [Settings](#settings), where everything is off to begin with. Two kinds of request exist,
@@ -620,17 +673,20 @@ figures; and, on arriving in a system, that system's id, which brings back the b
 Every request names Katey, its version and the project's address, as Spansh asks of tools that use its
 service. The journal backup copies files only to the folder you choose.
 
-Katey also keeps a log, `katey.log` beside the default `state.json` under your local application data folder,
-of what it did and what went wrong: starting and stopping, the journal folder it watched, requests it made and
-failures it met, and the reason if it ever closes on its own. It holds star system and ship names from your
-journal and nothing else about you: no commander name, no credits, no positions, and no folder names: Katey's
-own messages never carry a path, and anything else that reaches the log, an error from Windows say, keeps only
-a file name, with your account and machine names replaced, so the file can be shared as it is. If Katey closes
-unexpectedly, that file says why, and is the thing to send with a bug report. It is rolled over past a
-megabyte, so it stays small. For a bug that needs more detail, start Katey as `katey.exe --verbose`, or
-`katey.exe --log-level debug`, and the log also records the pages opened, the rail's decisions and the lookups
-made; `--log-level warning` keeps only trouble. It is back to normal the next time you start without the
-option.
+Katey also keeps a log, `katey.log` beside the default `state.json` under your local application data folder.
+It records what Katey did and what went wrong: starting and stopping, the journal folder it watched, requests
+it made and failures it met, and the reason if it ever closes on its own. If Katey closes unexpectedly, that
+file says why, and is the thing to send with a bug report. It is rolled over past a megabyte, so it stays
+small.
+
+The log holds star system and ship names from your journal and nothing else about you: no commander name, no
+credits, no positions, and no folder names. Katey's own messages never carry a path. Anything else that
+reaches the log, an error from Windows say, keeps only a file name, with your account and machine names
+replaced, so the file can be shared as it is.
+
+For a bug that needs more detail, start Katey as `katey.exe --verbose`, or `katey.exe --log-level debug`. The
+log then also records the pages opened, the rail's decisions and the lookups made; `--log-level warning` keeps
+only trouble. It is back to normal the next time you start without the option.
 
 If the day's journal file goes missing while the game runs, the game writes it again from the start, and
 everything it held is lost to the game and to Katey. The backup keeps its earlier copy of such a file beside

@@ -18,7 +18,8 @@ public sealed class EngineerListRow : ObservableObject
     /// <param name="distanceLy">Distance from the ship, or <see langword="null"/>.</param>
     /// <param name="offerCount">How many blueprint-on-module-type pairs they offer.</param>
     /// <param name="selection">The selection the tick edits.</param>
-    public EngineerListRow(EngineerProfile profile, Link link, Link systemLink, double? distanceLy, int offerCount, EngineerSelection selection)
+    /// <param name="narrowed">Whether the engineers switch narrows the lists to the ones you ticked, which colours the name.</param>
+    public EngineerListRow(EngineerProfile profile, Link link, Link systemLink, double? distanceLy, int offerCount, EngineerSelection selection, bool narrowed)
     {
         ArgumentNullException.ThrowIfNull(profile);
         ArgumentNullException.ThrowIfNull(link);
@@ -37,7 +38,17 @@ public sealed class EngineerListRow : ObservableObject
         OffersText = Display.Plural(offerCount, "blueprint");
         _selection = selection;
         _selected = selection.Contains(profile.Name);
+        Narrowed = narrowed;
     }
+
+    /// <summary>Gets whether the engineers switch narrows the lists to the ones you ticked.</summary>
+    public bool Narrowed { get; }
+
+    /// <summary>Gets whether the name takes the link colour: ticked while the switch is on.</summary>
+    public bool Highlighted => Narrowed && Selected;
+
+    /// <summary>Gets whether the name is set back: not ticked while the switch is on.</summary>
+    public bool Dimmed => Narrowed && !Selected;
 
     /// <summary>Gets the engineer's name.</summary>
     public string Name { get; }
@@ -78,6 +89,8 @@ public sealed class EngineerListRow : ObservableObject
             if (SetProperty(ref _selected, value))
             {
                 _selection.Set(Name, value);
+                OnPropertyChanged(nameof(Highlighted));
+                OnPropertyChanged(nameof(Dimmed));
             }
         }
     }
@@ -158,8 +171,8 @@ public sealed class EngineersPage : Page
     /// <summary>Gets a line on the selection.</summary>
     public string SelectionText { get; private set => SetProperty(ref field, value); } = "";
 
-    /// <summary>Gets a line on where distances are measured from.</summary>
-    public string FromText { get; private set => SetProperty(ref field, value); } = "";
+    /// <summary>Gets where the distances are measured from, the system as a link; or that they wait for a position.</summary>
+    public IReadOnlyList<PhrasePart> FromParts { get; private set => SetProperty(ref field, value); } = Phrase.Empty;
 
     /// <summary>Gets the command that selects every engineer.</summary>
     public RelayCommand SelectAllCommand { get; }
@@ -185,11 +198,12 @@ public sealed class EngineersPage : Page
                 LinkTo(profile.System, PageKind.System, profile.System),
                 Workspace.DistanceFromHere(Workspace.PositionOf(profile)),
                 catalog.OffersOf(profile.Name).Count,
-                Workspace.Engineers)));
+                Workspace.Engineers,
+                Workspace.Scope.IsNarrowed)));
         SelectionText = Workspace.Engineers.Count == 0
             ? "Nobody selected. Tick the engineers you are willing to travel to; the plan marks who can roll each entry."
             : $"{Display.Plural(Workspace.Engineers.Count, "engineer")} selected. The modules page can narrow itself to what they can roll.";
-        FromText = here is null ? "Distances appear once the journal reports where you are." : $"Distances from {here}.";
+        FromParts = here is null ? Phrase.Text("Distances appear once the journal reports where you are.") : Phrase.Of("Distances from ", LinkTo(here, PageKind.System, here), ".");
         OnPropertyChanged(nameof(OnlyMyEngineers));
         ScopeStatus = !OnlyMyEngineers
             ? "Off: every blueprint, grade and experimental is offered, and grade pickers start at the top."

@@ -312,9 +312,112 @@ public sealed class TrackerTests
         Assert.Equal(["Beta"], aboard.Systems.Select(system => system.Name));
         Assert.Empty(aboard.Samples);
 
-        // Death loses the rest.
+        // Both sales are in the ledger: the system sold with its bodies and the sale's total, the species matched to its sample.
+        var sold = tracker.Sold();
+        var exploration = Assert.Single(sold.Exploration);
+        Assert.Equal("Alpha", Assert.Single(exploration.Systems).Name);
+        Assert.Equal(2, exploration.Systems[0].Bodies.Count);
+        Assert.Equal(1500, exploration.TotalEarnings);
+        Assert.Equal(500, exploration.Bonus);
+        var organic = Assert.Single(sold.Organic);
+        Assert.Equal("Alpha 1", organic.Sample.BodyName);
+        Assert.Equal("Alpha", organic.Sample.SystemName);
+        Assert.Equal(19010800 + 76043200, organic.Credits);
+
+        // A species sold with no sample aboard is kept, with no system to credit it to.
+        Feed(tracker, /*lang=json,strict*/ """{"timestamp":"2026-11-08T12:30:00Z","event":"SellOrganicData","MarketID":1,"BioData":[{"Genus":"$Codex_Ent_Bacterial_Genus_Name;","Species":"$Codex_Ent_Bacterial_01_Name;","Value":1000000,"Bonus":0}]}""");
+        Assert.Equal("", tracker.Sold().Organic[1].Sample.SystemName);
+
+        // Death loses the rest aboard; the ledger stands.
         Feed(tracker, /*lang=json,strict*/ """{"timestamp":"2026-11-08T13:00:00Z","event":"Died"}""");
         Assert.True(tracker.Snapshot().IsEmpty);
+        Assert.Equal(2, tracker.Sold().Organic.Count);
+    }
+
+    [Fact]
+    public void ExplorationTracker_ForgetsAPartialSample_WhenAnotherSpeciesIsStarted_AndKeepsStagesAcrossVisitsAndSales()
+    {
+        var tracker = new ExplorationTracker();
+        Feed(tracker,
+            /*lang=json,strict*/ """{"timestamp":"2026-11-08T10:00:00Z","event":"FSDJump","StarSystem":"Garden","SystemAddress":41,"StarPos":[0,0,0],"Population":0}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-08T10:00:05Z","event":"Scan","ScanType":"Detailed","BodyName":"Garden 1","BodyID":1,"PlanetClass":"Rocky body","DistanceFromArrivalLS":300,"Landable":true,"WasDiscovered":false,"WasMapped":false,"WasFootfalled":false,"SystemAddress":41}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-08T10:00:06Z","event":"Scan","ScanType":"Detailed","BodyName":"Garden 2","BodyID":2,"PlanetClass":"Icy body","DistanceFromArrivalLS":600,"Landable":true,"WasDiscovered":false,"WasMapped":false,"WasFootfalled":false,"SystemAddress":41}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-08T10:10:00Z","event":"ScanOrganic","ScanType":"Log","Genus":"$Codex_Ent_Stratum_Genus_Name;","Genus_Localised":"Stratum","Species":"$Codex_Ent_Stratum_07_Name;","Species_Localised":"Stratum Tectonicas","Body":1,"SystemAddress":41,"WasLogged":false}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-08T10:12:00Z","event":"ScanOrganic","ScanType":"Sample","Genus":"$Codex_Ent_Stratum_Genus_Name;","Genus_Localised":"Stratum","Species":"$Codex_Ent_Stratum_07_Name;","Species_Localised":"Stratum Tectonicas","Body":1,"SystemAddress":41,"WasLogged":false}""");
+        Assert.Equal(2, tracker.Snapshot().Bodies.Single(body => body.Name == "Garden 1").Organics.Single().Stage);
+
+        // Starting a bacterium on the next body throws the two Stratum samples away, as the sampler does.
+        Feed(tracker, /*lang=json,strict*/ """{"timestamp":"2026-11-08T10:30:00Z","event":"ScanOrganic","ScanType":"Log","Genus":"$Codex_Ent_Bacterial_Genus_Name;","Genus_Localised":"Bacterium","Species":"$Codex_Ent_Bacterial_01_Name;","Species_Localised":"Bacterium Aurasus","Body":2,"SystemAddress":41,"WasLogged":false}""");
+        var garden = tracker.Snapshot();
+        Assert.Empty(garden.Bodies.Single(body => body.Name == "Garden 1").Organics);
+        Assert.Equal(1, garden.Bodies.Single(body => body.Name == "Garden 2").Organics.Single().Stage);
+
+        // A species sampled in full is kept when another is started, and the stages survive a sale and a return.
+        Feed(tracker,
+            /*lang=json,strict*/ """{"timestamp":"2026-11-08T10:32:00Z","event":"ScanOrganic","ScanType":"Sample","Genus":"$Codex_Ent_Bacterial_Genus_Name;","Genus_Localised":"Bacterium","Species":"$Codex_Ent_Bacterial_01_Name;","Species_Localised":"Bacterium Aurasus","Body":2,"SystemAddress":41,"WasLogged":false}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-08T10:34:00Z","event":"ScanOrganic","ScanType":"Analyse","Genus":"$Codex_Ent_Bacterial_Genus_Name;","Genus_Localised":"Bacterium","Species":"$Codex_Ent_Bacterial_01_Name;","Species_Localised":"Bacterium Aurasus","Body":2,"SystemAddress":41,"WasLogged":false}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-08T10:40:00Z","event":"ScanOrganic","ScanType":"Log","Genus":"$Codex_Ent_Stratum_Genus_Name;","Genus_Localised":"Stratum","Species":"$Codex_Ent_Stratum_07_Name;","Species_Localised":"Stratum Tectonicas","Body":1,"SystemAddress":41,"WasLogged":false}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-08T11:00:00Z","event":"FSDJump","StarSystem":"Port","SystemAddress":42,"StarPos":[10,0,0],"Population":5000}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-08T11:30:00Z","event":"SellOrganicData","MarketID":1,"BioData":[{"Genus":"$Codex_Ent_Bacterial_Genus_Name;","Species":"$Codex_Ent_Bacterial_01_Name;","Value":1000000,"Bonus":4000000}]}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-08T12:00:00Z","event":"FSDJump","StarSystem":"Garden","SystemAddress":41,"StarPos":[0,0,0],"Population":0}""");
+        garden = tracker.Snapshot();
+        var sold = garden.Bodies.Single(body => body.Name == "Garden 2");
+        Assert.Equal(3, sold.Organics.Single().Stage);
+        Assert.True(sold.Organics.Single().Sold);
+        Assert.True(sold.ExobiologySold);
+        var partial = garden.Bodies.Single(body => body.Name == "Garden 1");
+        Assert.Equal(1, partial.Organics.Single().Stage);
+        Assert.False(partial.Organics.Single().Sold);
+        Assert.False(partial.ExobiologySold);
+    }
+
+    [Fact]
+    public void ExplorationTracker_KeepsAFirstOnceYours_WhenALaterScanSaysOtherwise()
+    {
+        var tracker = new ExplorationTracker();
+        Feed(tracker,
+            /*lang=json,strict*/ """{"timestamp":"2026-11-08T10:00:00Z","event":"FSDJump","StarSystem":"Mine","SystemAddress":31,"StarPos":[0,0,0],"Population":0}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-08T10:00:05Z","event":"Scan","ScanType":"Detailed","BodyName":"Mine 1","BodyID":1,"PlanetClass":"Rocky body","DistanceFromArrivalLS":300,"Landable":true,"WasDiscovered":false,"WasMapped":false,"WasFootfalled":false,"SystemAddress":31}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-08T10:00:06Z","event":"Scan","ScanType":"Detailed","BodyName":"Mine 2","BodyID":2,"PlanetClass":"Icy body","DistanceFromArrivalLS":600,"Landable":true,"WasDiscovered":false,"WasMapped":false,"WasFootfalled":false,"SystemAddress":31}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-08T10:05:00Z","event":"SAAScanComplete","BodyName":"Mine 1","BodyID":1,"SystemAddress":31,"ProbesUsed":4,"EfficiencyTarget":6}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-08T10:10:00Z","event":"Touchdown","PlayerControlled":true,"StarSystem":"Mine","SystemAddress":31,"Body":"Mine 1","BodyID":1,"OnPlanet":true}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-08T11:00:00Z","event":"FSDJump","StarSystem":"Theirs","SystemAddress":32,"StarPos":[10,0,0],"Population":0}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-08T11:00:05Z","event":"Scan","ScanType":"Detailed","BodyName":"Theirs 1","BodyID":1,"PlanetClass":"Rocky body","DistanceFromArrivalLS":300,"Landable":true,"WasDiscovered":false,"WasMapped":false,"WasFootfalled":false,"SystemAddress":32}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-08T12:00:00Z","event":"FSDJump","StarSystem":"Port","SystemAddress":33,"StarPos":[20,0,0],"Population":5000}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-08T12:30:00Z","event":"MultiSellExplorationData","Discovered":[{"SystemName":"Mine","NumBodies":2}],"BaseValue":1000,"Bonus":500,"TotalEarnings":1500}""");
+
+        // Back in Mine after the sale, the game's flags report your own record. Mine 1 stays yours in every slot;
+        // Mine 2 was never mapped by you, so its mapping is whoever's the flag says, and nobody landed, so a footfall is theirs.
+        Feed(tracker,
+            /*lang=json,strict*/ """{"timestamp":"2026-11-09T10:00:00Z","event":"FSDJump","StarSystem":"Mine","SystemAddress":31,"StarPos":[0,0,0],"Population":0}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-09T10:00:05Z","event":"Scan","ScanType":"Detailed","BodyName":"Mine 1","BodyID":1,"PlanetClass":"Rocky body","DistanceFromArrivalLS":300,"Landable":true,"WasDiscovered":true,"WasMapped":true,"WasFootfalled":true,"SystemAddress":31}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-09T10:00:06Z","event":"Scan","ScanType":"Detailed","BodyName":"Mine 2","BodyID":2,"PlanetClass":"Icy body","DistanceFromArrivalLS":600,"Landable":true,"WasDiscovered":true,"WasMapped":true,"WasFootfalled":true,"SystemAddress":31}""");
+        var mine = tracker.Snapshot();
+        var first = mine.Bodies.Single(body => body.Name == "Mine 1");
+        Assert.False(first.WasDiscovered);
+        Assert.False(first.WasMapped);
+        Assert.False(first.WasFootfalled);
+        Assert.True(first.LandedByYou);
+        Assert.True(first.Sold);
+        var second = mine.Bodies.Single(body => body.Name == "Mine 2");
+        Assert.False(second.WasDiscovered);
+        Assert.True(second.WasMapped);
+        Assert.True(second.WasFootfalled);
+
+        // A sample carries the game's word on who logged it.
+        Feed(tracker,
+            /*lang=json,strict*/ """{"timestamp":"2026-11-09T10:10:00Z","event":"Touchdown","PlayerControlled":true,"StarSystem":"Mine","SystemAddress":31,"Body":"Mine 2","BodyID":2,"OnPlanet":true}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-09T10:11:00Z","event":"ScanOrganic","ScanType":"Log","Genus":"$Codex_Ent_Bacterial_Genus_Name;","Genus_Localised":"Bacterium","Species":"$Codex_Ent_Bacterial_01_Name;","Species_Localised":"Bacterium Aurasus","Body":2,"SystemAddress":31,"WasLogged":true}""");
+        second = tracker.Snapshot().Bodies.Single(body => body.Name == "Mine 2");
+        Assert.True(second.LandedByYou);
+        Assert.True(Assert.Single(second.Organics).WasLogged);
+        Assert.False(second.ExobiologySold);
+
+        // Theirs was never sold, so a later scan saying discovered means someone else sold it first.
+        Feed(tracker,
+            /*lang=json,strict*/ """{"timestamp":"2026-11-09T11:00:00Z","event":"FSDJump","StarSystem":"Theirs","SystemAddress":32,"StarPos":[10,0,0],"Population":0}""",
+            /*lang=json,strict*/ """{"timestamp":"2026-11-09T11:00:05Z","event":"Scan","ScanType":"Detailed","BodyName":"Theirs 1","BodyID":1,"PlanetClass":"Rocky body","DistanceFromArrivalLS":300,"Landable":true,"WasDiscovered":true,"WasMapped":false,"WasFootfalled":false,"SystemAddress":32}""");
+        Assert.True(tracker.Snapshot().Bodies.Single().WasDiscovered);
     }
 
     [Fact]

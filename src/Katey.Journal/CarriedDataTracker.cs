@@ -51,11 +51,39 @@ public sealed record CarriedData(IReadOnlyList<CarriedSystem> Systems, IReadOnly
     public bool IsEmpty => Systems.Count == 0 && Samples.Count == 0;
 }
 
+/// <summary>One sale at Universal Cartographics.</summary>
+/// <param name="At">When it was sold.</param>
+/// <param name="Systems">The systems sold that were aboard, with the bodies scanned in each; a system the journal history never saw scanned is not listed.</param>
+/// <param name="BaseValue">What the data was worth before bonuses, credits, as the game reported for the whole sale.</param>
+/// <param name="Bonus">The bonuses paid on the whole sale, credits.</param>
+/// <param name="TotalEarnings">What the whole sale paid, credits. The game does not say how much each system earned.</param>
+public sealed record ExplorationSale(DateTimeOffset At, IReadOnlyList<CarriedSystem> Systems, long BaseValue, long Bonus, long TotalEarnings);
+
+/// <summary>One species sold at Vista Genomics, matched to the sample it came from.</summary>
+/// <param name="At">When it was sold.</param>
+/// <param name="Sample">The sample, or one with an empty system and body when no sample aboard matched the species.</param>
+/// <param name="Value">The base payout, credits.</param>
+/// <param name="Bonus">The first-logged bonus paid, credits, 0 when none.</param>
+public sealed record OrganicSale(DateTimeOffset At, CarriedSample Sample, long Value, long Bonus)
+{
+    /// <summary>Gets what the species paid in all, credits.</summary>
+    public long Credits => Value + Bonus;
+}
+
+/// <summary>Everything sold across the journal history, which a death does not touch.</summary>
+/// <param name="Exploration">The cartographics sales, oldest first.</param>
+/// <param name="Organic">The species sold, oldest first.</param>
+public sealed record SoldData(IReadOnlyList<ExplorationSale> Exploration, IReadOnlyList<OrganicSale> Organic)
+{
+    /// <summary>Gets nothing sold.</summary>
+    public static SoldData Empty { get; } = new([], []);
+}
+
 /// <summary>
 /// Follows the exploration and organic data the player carries: every scanned body until its system is
 /// sold at Universal Cartographics, every completed sample until Vista Genomics buys them, all of it lost
 /// on death. The game writes a scan only for a body new to the player's data, so a body is never counted
-/// twice.
+/// twice. What is sold moves to a ledger, <see cref="Sold"/>, with what each sale paid.
 /// </summary>
 public sealed class CarriedDataTracker : IJournalSink
 {
@@ -69,6 +97,8 @@ public sealed class CarriedDataTracker : IJournalSink
     private readonly Dictionary<long, MutableSystem> _systems = [];
     private readonly List<CarriedSample> _samples = [];
     private readonly HashSet<string> _sampled = new(StringComparer.Ordinal);
+    private readonly List<ExplorationSale> _explorationSales = [];
+    private readonly List<OrganicSale> _organicSales = [];
     private long _currentAddress;
     private string _currentName = "";
 
@@ -83,6 +113,8 @@ public sealed class CarriedDataTracker : IJournalSink
             _systems.Clear();
             _samples.Clear();
             _sampled.Clear();
+            _explorationSales.Clear();
+            _organicSales.Clear();
             _currentAddress = 0;
             _currentName = "";
         }
@@ -106,15 +138,13 @@ public sealed class CarriedDataTracker : IJournalSink
                 case "SAAScanComplete":
                     return ApplyMapped(payload);
                 case "SellExplorationData":
-                    return Sell(JsonRead.Items(payload, "Systems").Select(item => item.ValueKind == JsonValueKind.String ? item.GetString() : null));
+                    return Sell(payload, journalEvent.Timestamp, JsonRead.Items(payload, "Systems").Select(item => item.ValueKind == JsonValueKind.String ? item.GetString() : null));
                 case "MultiSellExplorationData":
-                    return Sell(JsonRead.Items(payload, "Discovered").Select(item => JsonRead.Text(item, "SystemName")));
+                    return Sell(payload, journalEvent.Timestamp, JsonRead.Items(payload, "Discovered").Select(item => JsonRead.Text(item, "SystemName")));
                 case "ScanOrganic":
                     return ApplySample(payload);
                 case "SellOrganicData":
-                    _samples.Clear();
-                    _sampled.Clear();
-                    return true;
+                    return SellOrganic(payload, journalEvent.Timestamp);
                 case "Died":
                     _systems.Clear();
                     _samples.Clear();
@@ -135,6 +165,16 @@ public sealed class CarriedDataTracker : IJournalSink
             return new CarriedData(
                 [.. _systems.Values.Select(system => new CarriedSystem(system.Name, system.Address, [.. system.Bodies.Values]))],
                 [.. _samples]);
+        }
+    }
+
+    /// <summary>Copies the sales ledger.</summary>
+    /// <returns>Every sale across the history, oldest first; a snapshot no later <see cref="Apply"/> changes.</returns>
+    public SoldData Sold()
+    {
+        lock (_gate)
+        {
+            return new SoldData([.. _explorationSales], [.. _organicSales]);
         }
     }
 
@@ -214,16 +254,51 @@ public sealed class CarriedDataTracker : IJournalSink
     internal static bool IsNavBeaconScan(JsonElement payload)
         => JsonRead.Text(payload, "ScanType") is { } type && type.StartsWith("NavBeacon", StringComparison.OrdinalIgnoreCase);
 
-    private bool Sell(IEnumerable<string?> systemNames)
+    private bool Sell(JsonElement payload, DateTimeOffset at, IEnumerable<string?> systemNames)
     {
         var sold = new HashSet<string>(systemNames.Where(name => name is not null)!, StringComparer.OrdinalIgnoreCase);
         var removed = _systems.Where(pair => sold.Contains(pair.Value.Name)).Select(pair => pair.Key).ToList();
+        var systems = new List<CarriedSystem>();
         foreach (var key in removed)
         {
+            var system = _systems[key];
+            systems.Add(new CarriedSystem(system.Name, system.Address, [.. system.Bodies.Values]));
             _systems.Remove(key);
         }
 
-        return removed.Count > 0;
+        _explorationSales.Add(new ExplorationSale(
+            at,
+            systems,
+            JsonRead.Identifier(payload, "BaseValue"),
+            JsonRead.Identifier(payload, "Bonus"),
+            JsonRead.Identifier(payload, "TotalEarnings")));
+        return true;
+    }
+
+    /// <summary>
+    /// Vista Genomics buys every sample at once. Each species sold is matched to the oldest unmatched sample of
+    /// that species aboard, which is how a sale is attributed to a system and a body; a species with no sample
+    /// aboard, from before the journal history say, is kept with neither.
+    /// </summary>
+    private bool SellOrganic(JsonElement payload, DateTimeOffset at)
+    {
+        var unmatched = new List<CarriedSample>(_samples);
+        foreach (var item in JsonRead.Items(payload, "BioData"))
+        {
+            var species = JsonRead.Text(item, "Species") ?? "";
+            var index = unmatched.FindIndex(sample => string.Equals(sample.Species, species, StringComparison.Ordinal));
+            var sample = index >= 0 ? unmatched[index] : new CarriedSample(JsonRead.Text(item, "Genus") ?? "", JsonRead.Localised(item, "Genus") ?? "", species, JsonRead.Localised(item, "Species") ?? species, "", "", true);
+            if (index >= 0)
+            {
+                unmatched.RemoveAt(index);
+            }
+
+            _organicSales.Add(new OrganicSale(at, sample, JsonRead.Identifier(item, "Value"), JsonRead.Identifier(item, "Bonus")));
+        }
+
+        _samples.Clear();
+        _sampled.Clear();
+        return true;
     }
 
     private MutableSystem SystemFor(long address, string? name)

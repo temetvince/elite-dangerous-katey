@@ -34,13 +34,7 @@ public sealed record CarriedDataSummary(int Systems, int Bodies, int Mapped, lon
     {
         ArgumentNullException.ThrowIfNull(carried);
         ArgumentNullException.ThrowIfNull(predictor);
-        long cartographics = 0;
-        foreach (var body in carried.Systems.SelectMany(system => system.Bodies))
-        {
-            cartographics += body.IsStar
-                ? BodyValue.Star(body.Class, body.Mass ?? 1, !body.WasDiscovered)
-                : BodyValue.Planet(body.Class, body.Terraformable, body.Mass ?? 1, !body.WasDiscovered, body.Mapped, !body.WasMapped);
-        }
+        var cartographics = carried.Systems.SelectMany(system => system.Bodies).Sum(Cartographics);
 
         long baseCredits = 0;
         long withBonus = 0;
@@ -54,5 +48,16 @@ public sealed record CarriedDataSummary(int Systems, int Bodies, int Mapped, lon
         }
 
         return new CarriedDataSummary(carried.Systems.Count, carried.BodyCount, carried.MappedCount, cartographics, carried.Samples.Count, firstLogged, baseCredits, withBonus);
+    }
+
+    /// <summary>Values one scanned body's cartographics, the first-discovery and first-mapping bonuses included where its scan flags show them.</summary>
+    /// <param name="body">The body.</param>
+    /// <returns>Credits.</returns>
+    public static long Cartographics(CarriedBody body)
+    {
+        ArgumentNullException.ThrowIfNull(body);
+        return body.IsStar
+            ? BodyValue.Star(body.Class, body.Mass ?? 1, !body.WasDiscovered)
+            : BodyValue.Planet(body.Class, body.Terraformable, body.Mass ?? 1, !body.WasDiscovered, body.Mapped, !body.WasMapped);
     }
 }

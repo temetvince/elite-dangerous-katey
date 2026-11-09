@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Katey.App.Navigation;
 using Katey.App.Pages;
 using Katey.App.Routing;
 using Katey.App.ViewModels;
@@ -19,17 +20,20 @@ public sealed record StopFuel(string Text, bool Reachable, bool ScoopHere);
 /// tank figures are what the fuel meter draws: the whole reading, and the reading less the next jump, so
 /// the difference reads as the jump's cost.
 /// </summary>
-/// <param name="Summary">One line: jumps left without scooping, and the last scoopable star in reach, or why there is no estimate.</param>
+/// <param name="SummaryParts">One line: jumps left without scooping, and the last scoopable star in reach as a link to its system, or why there is no estimate.</param>
 /// <param name="Stops">Fuel at each route stop by stop index, or empty without an estimate.</param>
 /// <param name="HasEstimate">Whether a model could be built.</param>
 /// <param name="TankTonnes">The main tank's reading, tonnes, or <see langword="null"/> before the game reports the ship and the tank.</param>
 /// <param name="TankCapacity">The main tank's size, tonnes, positive, or <see langword="null"/> with <paramref name="TankTonnes"/>.</param>
 /// <param name="JumpsWithoutScooping">How many jumps ahead the tank covers before a scoop, or <see langword="null"/> without an estimate.</param>
 /// <param name="NextJumpTonnes">Tonnes the next jump still to be made burns, positive, or <see langword="null"/> without an estimate or a jump ahead. During a jump that is the jump after arrival, since the tank already shows the one under way.</param>
-public sealed record FuelEstimate(string Summary, IReadOnlyDictionary<int, StopFuel> Stops, bool HasEstimate, double? TankTonnes = null, double? TankCapacity = null, int? JumpsWithoutScooping = null, double? NextJumpTonnes = null)
+public sealed record FuelEstimate(IReadOnlyList<PhrasePart> SummaryParts, IReadOnlyDictionary<int, StopFuel> Stops, bool HasEstimate, double? TankTonnes = null, double? TankCapacity = null, int? JumpsWithoutScooping = null, double? NextJumpTonnes = null)
 {
     /// <summary>Gets the estimate before anything is known: no summary, no stops, no tank.</summary>
-    public static FuelEstimate None { get; } = new("", new Dictionary<int, StopFuel>(), false);
+    public static FuelEstimate None { get; } = new(Phrase.Empty, new Dictionary<int, StopFuel>(), false);
+
+    /// <summary>Gets <see cref="SummaryParts"/> as plain text.</summary>
+    public string Summary => Phrase.Plain(SummaryParts);
 
     /// <summary>Gets whether the tank reading is known.</summary>
     public bool HasTank => TankTonnes is not null && TankCapacity is not null;
@@ -71,13 +75,13 @@ public sealed record FuelEstimate(string Summary, IReadOnlyDictionary<int, StopF
         if (stops.Count == 0)
         {
             return ship is not null && fuelNow is { } reading
-                ? new FuelEstimate("", none, false, reading, ship.FuelCapacity ?? Math.Max(reading, 1))
+                ? new FuelEstimate(Phrase.Empty, none, false, reading, ship.FuelCapacity ?? Math.Max(reading, 1))
                 : None;
         }
 
         if (ship is null || fuelNow is null)
         {
-            return new FuelEstimate("Fuel estimate appears once the game reports your ship and tank.", none, false);
+            return new FuelEstimate(Phrase.Text("Fuel estimate appears once the game reports your ship and tank."), none, false);
         }
 
         var capacity = ship.FuelCapacity ?? Math.Max(fuelNow.Value, 1);
@@ -85,7 +89,7 @@ public sealed record FuelEstimate(string Summary, IReadOnlyDictionary<int, StopF
         var driveModule = ship.Modules.FirstOrDefault(module => FrameShiftDrives.Figures(module.Item) is not null);
         if (driveModule is null)
         {
-            return new FuelEstimate("Fuel estimate needs the ship's frame shift drive in its loadout.", none, false, fuelNow, capacity);
+            return new FuelEstimate(Phrase.Text("Fuel estimate needs the ship's frame shift drive in its loadout."), none, false, fuelNow, capacity);
         }
 
         // The game's own equation from the loadout's masses and drive figures needs no jump first, and is asked again before each
@@ -107,7 +111,7 @@ public sealed record FuelEstimate(string Summary, IReadOnlyDictionary<int, StopF
 
         if (modelAt is null)
         {
-            return new FuelEstimate("Fuel estimate needs the ship's mass from the game, or one jump in this ship to learn its burn.", none, false, fuelNow, capacity);
+            return new FuelEstimate(Phrase.Text("Fuel estimate needs the ship's mass from the game, or one jump in this ship to learn its burn."), none, false, fuelNow, capacity);
         }
 
         var hereIndex = RoutePage.HereIndex(workspace);
@@ -128,7 +132,7 @@ public sealed record FuelEstimate(string Summary, IReadOnlyDictionary<int, StopF
 
         if (ahead.Count == 0)
         {
-            return new FuelEstimate("", byIndex, true, fuelNow, capacity);
+            return new FuelEstimate(Phrase.Empty, byIndex, true, fuelNow, capacity);
         }
 
         var legs = new List<FuelLeg>();
@@ -148,27 +152,27 @@ public sealed record FuelEstimate(string Summary, IReadOnlyDictionary<int, StopF
                 fuel.ScoopHere);
         }
 
-        var parts = new List<string>
+        var parts = new List<IReadOnlyList<PhrasePart>>
         {
-            projection.JumpsWithoutScooping >= ahead.Count
+            Phrase.Text(projection.JumpsWithoutScooping >= ahead.Count
                 ? "Fuel for the whole route without scooping."
                 : projection.JumpsWithoutScooping == 0
                     ? "Not enough fuel for the next jump."
-                    : $"Fuel for {Display.Plural(projection.JumpsWithoutScooping, "more jump")} without scooping.",
+                    : $"Fuel for {Display.Plural(projection.JumpsWithoutScooping, "more jump")} without scooping."),
         };
         if (projection.JumpsWithoutScooping < ahead.Count)
         {
             parts.Add(projection.MustScoopBy is { } must
-                ? $"Scoop by {ahead[must].System}, stop {ahead[must].Index}."
-                : "No scoopable star within reach: refuel before leaving.");
+                ? Phrase.Of("Scoop by ", workspace.Navigator.LinkTo(ahead[must].System, PageKind.System, ahead[must].System), $", stop {ahead[must].Index}.")
+                : Phrase.Text("No scoopable star within reach: refuel before leaving."));
         }
 
         if (projection.RunsDry)
         {
-            parts.Add("Even scooping at every star you pass, the route runs dry.");
+            parts.Add(Phrase.Text("Even scooping at every star you pass, the route runs dry."));
         }
 
         var nextJump = projection.Stops[0].Cost;
-        return new FuelEstimate(string.Join(" ", parts), byIndex, true, fuelNow, capacity, projection.JumpsWithoutScooping, nextJump > 0 ? nextJump : null);
+        return new FuelEstimate(Phrase.Join(" ", parts), byIndex, true, fuelNow, capacity, projection.JumpsWithoutScooping, nextJump > 0 ? nextJump : null);
     }
 }

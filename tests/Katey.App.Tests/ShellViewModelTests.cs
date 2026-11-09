@@ -40,6 +40,27 @@ public sealed class ShellViewModelTests
     }
 
     [Fact]
+    public void Rail_TellsItsChoiceButtons_BeforeAnySystemIsKnown()
+    {
+        // A choice restored at start, before the journal is read, must reach the radios: the notifications do not wait for a system.
+        var (shell, _) = Create(new FakeStateStore());
+        var rail = shell.Rail;
+        var raised = new List<string>();
+        rail.PropertyChanged += (_, args) => raised.Add(args.PropertyName ?? "");
+        rail.ShowViewCommand.Execute(RailBodyView.Biology);
+        Assert.True(rail.ShowsBiology);
+        Assert.False(rail.ShowsLandable);
+        Assert.Contains(nameof(RailViewModel.ShowsBiology), raised);
+        Assert.Contains(nameof(RailViewModel.ShowsLandable), raised);
+        Assert.Contains(nameof(RailViewModel.IsBiologyView), raised);
+        raised.Clear();
+        rail.FilterCommand.Execute(BodyFilter.SkipBacteria);
+        Assert.True(rail.SkipsBacteria);
+        Assert.Contains(nameof(RailViewModel.SkipsBacteria), raised);
+        Assert.Contains(nameof(RailViewModel.ShowsAll), raised);
+    }
+
+    [Fact]
     public void Construction_RestoresTheSavedState_AndDropsEntriesTheCatalogLacks()
     {
         var kept = PlanEntry.Create(Catalog, "fsd", "FSD_LongRange", 5, "special_fsd_heavy", PlanSource.Manual);
@@ -444,7 +465,7 @@ public sealed class ShellViewModelTests
         Assert.Equal(2, route.Stops.Count);
         Assert.Equal(StopStage.Here, route.Stops[0].Stage);
         Assert.Equal("M", route.Stops[0].StarClass);
-        Assert.Equal("", route.DetourText);
+        Assert.Empty(route.DetourParts);
 
         // The journal has no position for Deciat, but the Spansh plot does, so the jump has its distance and its fuel.
         shell.Workspace.Plot.Restore(new PlottedRoute("Koine", "Deciat", new DateTimeOffset(2026, 11, 1, 0, 0, 0, TimeSpan.Zero),
@@ -466,13 +487,14 @@ public sealed class ShellViewModelTests
         monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-08T18:23:00Z","event":"FSDTarget","Name":"Sol","SystemAddress":1,"StarClass":"G"}""");
         route = Open<RoutePage>(shell, PageKind.Route);
         Assert.Equal(["Koine", "Sol"], route.Stops.Select(stop => stop.System));
-        Assert.Equal("", route.DetourText);
+        Assert.Empty(route.DetourParts);
         monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-08T18:24:00Z","event":"FSDTarget","Name":"Praea","SystemAddress":77,"StarClass":"K"}""");
         route = Open<RoutePage>(shell, PageKind.Route);
         Assert.Equal(["Koine", "Praea"], route.Stops.Select(stop => stop.System));
-        Assert.Equal("Detour to Praea. The plotted route to Sol resumes after it, 2 jumps.", route.DetourText);
+        Assert.Equal("Detour to Praea. The plotted route to Sol resumes after it, 2 jumps.", Phrase.Plain(route.DetourParts));
+        Assert.Equal(["Praea", "Sol"], route.DetourParts.Where(part => part.IsLink).Select(part => part.Text));
         shell.Rail.Refresh();
-        Assert.StartsWith("Detour to Praea.", shell.Rail.RouteRest, StringComparison.Ordinal);
+        Assert.StartsWith("Detour to Praea.", Phrase.Plain(shell.Rail.RouteRestParts), StringComparison.Ordinal);
     }
 
     [Fact]
@@ -539,9 +561,9 @@ public sealed class ShellViewModelTests
         Assert.Equal("Route · 2 jumps left", rail.RouteHeading);
         Assert.Equal(["here", "next", "3"], rail.RouteStops.Select(stop => stop.Marker));
         Assert.True(rail.RouteStops[1].IsScoopable);
-        Assert.Equal("Felicity Farseer", rail.RouteStops[1].Engineer?.Label);
+        Assert.Equal("Felicity Farseer", rail.RouteStops[1].Engineer?.Name);
         // Koine's M star is scoopable, and so is Deciat's K star next.
-        Assert.Contains("This system's arrival star is scoopable; the next star is scoopable too.", rail.FuelText, StringComparison.Ordinal);
+        Assert.Contains("This system's arrival star is scoopable; the next star is scoopable too.", Phrase.Plain(rail.FuelParts), StringComparison.Ordinal);
         Assert.Equal("This system · 3 of 3 scanned", rail.SystemHeading);
         Assert.Equal("3 of 3 scanned", rail.ScanText);
         Assert.Equal(1.0, rail.ScanFraction);
@@ -549,6 +571,16 @@ public sealed class ShellViewModelTests
         Assert.Contains("scanned bodies", systemPage.DiscoveryText, StringComparison.Ordinal);
         Assert.Contains("was discovered before you", systemPage.DiscoveryText, StringComparison.Ordinal);
         Assert.EndsWith("nobody has set foot on any of its 2 landable bodies.", systemPage.DiscoveryText, StringComparison.Ordinal);
+        // Landing on Koine 1 counts as a landing, and the untrodden count comes down by one; the first footfall is the body card's to tell.
+        monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-05T20:00:07Z","event":"Touchdown","PlayerControlled":true,"StarSystem":"Koine","SystemAddress":9,"Body":"Koine 1","BodyID":1,"OnStation":false,"OnPlanet":true}""");
+        systemPage = Open<SystemPage>(shell, PageKind.System);
+        Assert.EndsWith("you have landed on 1 body; nobody has set foot on 1 of its 2 landable bodies.", systemPage.DiscoveryText, StringComparison.Ordinal);
+        Assert.DoesNotContain("first", systemPage.DiscoveryText, StringComparison.Ordinal);
+        var trodden = systemPage.Bodies.Single(row => row.Name == "1");
+        Assert.Equal("footfall by you", trodden.FootfallStatus);
+        Assert.True(trodden.FootfallYours);
+        Assert.False(trodden.FootfallOpen);
+        Assert.Equal("", trodden.StatusDetail);
         var routePage = Open<RoutePage>(shell, PageKind.Route);
         var here = routePage.Stops.Single(stop => stop.Stage == StopStage.Here);
         Assert.Equal("Koine", here.Link.Label);
@@ -561,7 +593,7 @@ public sealed class ShellViewModelTests
         Assert.True(rail.ShowsRoute);
         Assert.Equal(["here", "next"], rail.RouteStops.Select(stop => stop.Marker));
         Assert.Equal("Sol", rail.RouteStops[1].Link.Label);
-        Assert.DoesNotContain("Detour", rail.RouteRest, StringComparison.Ordinal);
+        Assert.DoesNotContain("Detour", Phrase.Plain(rail.RouteRestParts), StringComparison.Ordinal);
         // A target the game reports as on the route counts even when the route file has not caught up with a replot.
         monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-05T20:00:09Z","event":"FSDTarget","Name":"Birpinovit","StarClass":"K","RemainingJumpsInRoute":2}""");
         Assert.True(rail.ShowsRoute);
@@ -593,10 +625,13 @@ public sealed class ShellViewModelTests
         monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-05T20:00:11Z","event":"FSDTarget","Name":"Deciat","StarClass":"K","RemainingJumpsInRoute":1}""");
         Assert.True(rail.ShowsRoute);
 
-        // Nearest first by default; the switch puts biology first and is remembered.
-        Assert.False(rail.BiologyFirst);
+        // The Landable view by default, nearest first: every landable body with both its life and its materials.
+        Assert.True(rail.ShowsLandable);
+        Assert.False(rail.IsBiologyView);
         Assert.Equal(["1", "2"], rail.Bodies.Select(body => body.Name));
-        // Koine 2 is probed: its genus is a row with the likeliest species, the genus word dropped, and the pace beneath.
+        Assert.True(rail.Bodies[0].MaterialsVisible);
+        Assert.True(rail.Bodies[1].GeneraVisible);
+        // Koine 2 is probed: its genus is a row with the likeliest species, the genus word dropped.
         var probed = rail.Bodies.Single(body => body.Name == "2");
         Assert.Equal("", probed.Life);
         var genus = Assert.Single(probed.GenusRows);
@@ -604,32 +639,45 @@ public sealed class ShellViewModelTests
         Assert.DoesNotContain("Bacterium", genus.Species, StringComparison.Ordinal);
         Assert.Matches(@"^\S+ \d+%$", genus.Species);
         Assert.EndsWith(" Cr", genus.ValueText, StringComparison.Ordinal);
-        Assert.False(genus.IsSampled);
-        Assert.Equal("", probed.MoreText);
+        Assert.Equal(0, genus.Stage);
+        Assert.False(genus.IsFirstSample);
+        Assert.False(genus.IsSecondSample);
+        Assert.False(genus.IsComplete);
         Assert.Equal("Vesicula", GenusRow.ShortSpecies("Bacterium Vesicula", "Bacterium"));
         Assert.Equal("Tectonicas", GenusRow.ShortSpecies("Stratum Tectonicas", "Stratum"));
-        rail.BiologyFirst = true;
-        Assert.Equal("biology", store.State.Preferences!["rail.bodySort"]);
-        Assert.Equal(["2", "1"], rail.Bodies.Select(body => body.Name));
+
+        // Biology lists only bodies with life, their life only; Minerals only those with materials, their life hidden.
+        rail.View = RailBodyView.Biology;
+        Assert.Equal("biology", store.State.Preferences!["rail.bodyView"]);
+        Assert.True(rail.IsBiologyView);
+        Assert.Equal(["2"], rail.Bodies.Select(body => body.Name));
+        Assert.True(rail.Bodies[0].GeneraVisible);
+        Assert.False(rail.Bodies[0].MaterialsVisible);
         Assert.True(rail.Bodies[0].ExobiologyCredits > 0);
         Assert.EndsWith(" Cr", rail.Bodies[0].ValueText, StringComparison.Ordinal);
         Assert.Equal("", rail.BodiesNote);
+        rail.View = RailBodyView.Minerals;
+        Assert.Equal(["1"], rail.Bodies.Select(body => body.Name));
+        Assert.False(rail.Bodies[0].LifeVisible);
+        Assert.True(rail.Bodies[0].MaterialsVisible);
+        rail.View = RailBodyView.Biology;
+        Assert.Equal(["2"], rail.Bodies.Select(body => body.Name));
 
-        // One choice of three, remembered: skip bacteria hides Koine 2; min/max hides it too, since bacteria cannot
+        // One choice of three, remembered: skip bacteria hides Koine 2; valuable only hides it too, since bacteria cannot
         // reach 10M, with its own note; all life brings it back.
         Assert.True(rail.ShowsAll);
-        rail.SkipsBacteria = true;
+        rail.Filter = BodyFilter.SkipBacteria;
         Assert.Equal(BodyFilter.SkipBacteria, rail.Filter);
-        Assert.Equal(["1"], rail.Bodies.Select(body => body.Name));
+        Assert.Empty(rail.Bodies);
         Assert.Equal("1 body with only bacteria hidden.", rail.BodiesNote);
         Assert.Equal("bacteria", store.State.Preferences!["rail.bodyFilter"]);
-        rail.IsMinMax = true;
+        rail.Filter = BodyFilter.ValuableOnly;
         Assert.False(rail.SkipsBacteria);
-        Assert.Equal(["1"], rail.Bodies.Select(body => body.Name));
-        Assert.Equal("1 body hidden under min/max: 1 probed and below 8.0M Cr a minute on the ground.", rail.BodiesNote);
-        Assert.Equal("minmax", store.State.Preferences!["rail.bodyFilter"]);
-        rail.ShowsAll = true;
-        Assert.Equal(["2", "1"], rail.Bodies.Select(body => body.Name));
+        Assert.Empty(rail.Bodies);
+        Assert.Equal("1 body hidden as not worth the stop: 1 probed and below 8.0M Cr a minute on the ground.", rail.BodiesNote);
+        Assert.Equal("valuable", store.State.Preferences!["rail.bodyFilter"]);
+        rail.Filter = BodyFilter.All;
+        Assert.Equal(["2"], rail.Bodies.Select(body => body.Name));
         Assert.Equal("", rail.BodiesNote);
 
         Assert.True(rail.ShowsControls);
@@ -658,14 +706,19 @@ public sealed class ShellViewModelTests
         Assert.Equal("Ram Tah", engineers.Engineers[0].Name);
         Assert.Equal("49.0 ly", engineers.Engineers.Single(row => row.Name == "Felicity Farseer").DistanceText);
         Assert.Equal(engineers.Engineers.Select(row => row.DistanceLy).Order(), engineers.Engineers.Select(row => row.DistanceLy));
-        Assert.Equal("Distances from Koine.", engineers.FromText);
+        Assert.Equal("Distances from Koine.", Phrase.Plain(engineers.FromParts));
+        Assert.Equal("Koine", engineers.FromParts.Single(part => part.IsLink).Link!.Label);
 
         var system = Open<SystemPage>(shell, PageKind.System);
         Assert.True(system.IsCurrent);
         Assert.Equal(3, system.Bodies.Count);
         var deciat = Open<SystemPage>(shell, PageKind.System, "Deciat");
         Assert.False(deciat.IsCurrent);
-        Assert.StartsWith("49.0 ly from Koine.", deciat.WhereText, StringComparison.Ordinal);
+        Assert.StartsWith("49.0 ly from Koine.", Phrase.Plain(deciat.WhereParts), StringComparison.Ordinal);
+        Assert.Equal("Koine", deciat.WhereParts.Single(part => part.IsLink).Link!.Label);
+        var farseerPage = Open<EngineerPage>(shell, PageKind.Engineer, "Felicity Farseer");
+        Assert.Equal("49.0 ly from Koine", Phrase.Plain(farseerPage.DistanceParts));
+        Assert.True(farseerPage.DistanceParts[^1].IsLink);
         Assert.Single(deciat.Engineers);
 
         rail.IsDetached = true;
@@ -727,7 +780,7 @@ public sealed class ShellViewModelTests
 
             var entry = PlanEntry.Create(Catalog, "fsd", "FSD_LongRange", 5, "special_fsd_heavy", new PlanSource("Ship", "FrameShiftDrive", "int_hyperdrive_size5_class5")).WithRolls(3, 2);
             var fitting = new Fitting("fit-1", "mandalay", "Dream", [new FitModule("FrameShiftDrive", "int_hyperdrive_size5_class5", new Engineering("FSD_LongRange", 5, "special_fsd_heavy"))]);
-            store.Save(new PersistedState([entry], ["Felicity Farseer"], @"C:\journals", [fitting], SharingPolicy.None, RailDetached: true, Preferences: new Dictionary<string, string> { ["rail.bodyFilter"] = "minmax" }));
+            store.Save(new PersistedState([entry], ["Felicity Farseer"], @"C:\journals", [fitting], SharingPolicy.None, RailDetached: true, Preferences: new Dictionary<string, string> { ["rail.bodyFilter"] = "valuable" }));
 
             var loaded = new JsonFileStateStore(path, NullLogger<JsonFileStateStore>.Instance).Load();
             var restored = Assert.Single(loaded.Plan);
@@ -736,7 +789,7 @@ public sealed class ShellViewModelTests
             Assert.Equal(["Felicity Farseer"], loaded.Engineers);
             Assert.Equal(SharingPolicy.None, loaded.Policy);
             Assert.Equal("fit-1", Assert.Single(loaded.Fittings).Id);
-            Assert.Equal("minmax", loaded.Preferences!["rail.bodyFilter"]);
+            Assert.Equal("valuable", loaded.Preferences!["rail.bodyFilter"]);
             Assert.True(loaded.RailDetached);
         }
         finally

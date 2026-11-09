@@ -26,7 +26,9 @@ The window has three surfaces and a search box, and this project holds the state
 Three mechanisms keep the pages consistent:
 
 - **Sorting.** Every table has a `TableSort<T>`: its columns, the active one and the direction, and a
-  `SortHeader` per column the view binds a heading to. Clicking the active heading flips the direction.
+  `SortHeader` per column the view binds a heading to. Clicking the active heading flips the direction;
+  clicking another sorts by it in the direction it was last in, so coming back to a column finds it as you
+  left it. Every column's direction is remembered with the active one.
 - **Sections.** A page with several tables shows one at a time through a `SectionSwitch`: tabs the view
   binds to, and an `IsCurrent` per section that drives visibility.
 - **Groups.** A page whose content rolls up by place on the ship, the modules index, builds one
@@ -75,12 +77,13 @@ plot section asks Spansh's galaxy plotter for a route through `PlotState` and an
 | `Exploration/SystemBodiesState.cs` | `SystemBodiesState` | The catalogued bodies of the systems visited this run: one request per system on arrival when allowed, kept for the run, a failed lookup not retried for five minutes; raises on the UI thread. |
 | `Routing/JumpProfiles.cs` | `JumpProfiles` | A ship's jump numbers from its journal loadout, through `JumpProfile.Build`. |
 | `Mvvm/TableSort.cs` | `TableSort<T>`, `SortColumn<T>`, `SortHeader` | A table's sort state and the headings a view binds to. |
+| `PreferenceKeys.cs` | `PreferenceKeys` | The preference keys Katey writes today; the saved preferences are pruned to them on load. |
 | `Mvvm/SectionSwitch.cs` | `SectionSwitch`, `SectionItem` | A page's sections, one showing at a time. |
 | `Mvvm/GroupExpansion.cs` | `GroupExpansion`, `ExpandableGroup` | A page's collapsible groups: which are open, remembered, with expand-all and collapse-all. |
 | `Pages/Page.cs` | `Page` | The base: key, title, kicker, breadcrumb links, `Refresh`. |
 | `Pages/IEdsyExportable.cs` | `IEdsyExportable` | A page whose subject copies to the clipboard as a journal `Loadout` for EDSY: ships and fits. |
 | `Pages/PageFactory.cs` | `PageFactory` | Builds the page for a key, or a not-found page. |
-| `Pages/HomePage.cs` | `HomePage`, `HomeStat`, `StatTone`, `HomeTile`, `NotFoundPage` | The start page: four figures that matter today, each with a tone, then the browse tiles; and the page for an id the data lacks. |
+| `Pages/HomePage.cs` | `HomePage`, `HomeStat`, `StatTone`, `HomeTile`, `NotFoundPage` | The start page: four figures that matter today, each with a tone, then the browse tiles, a tile's detail a link when it names a page, as the current system does; and the page for an id the data lacks. |
 | `Pages/EngineersPage.cs` | `EngineersPage`, `EngineerListRow` | Every engineer with a search box, sortable columns and the visit tick, and the app-wide "Only my engineers" switch. |
 | `Pages/EngineerPage.cs` | `EngineerPage`, `EngineerOfferGroup`, `EngineerOfferRow`, `EngineerPlanRow` | One engineer: distance, offers with add buttons, plan entries they can serve, stored modules and route stop. |
 | `Pages/ModulesPage.cs` | `ModulesPage`, `ModuleGroupRow`, `ModuleTypeRow` | Every engineerable module type in one collapsible group per place, with expand-all and collapse-all; the engineers page's "Only my engineers" switch narrows the page to the types the selected engineers can roll a blueprint on. Open groups are remembered. |
@@ -105,9 +108,13 @@ plot section asks Spansh's galaxy plotter for a route through `PlotState` and an
 | `ViewModels/ImportViewModel.cs` | `ImportViewModel`, `ImportedModuleViewModel` | Paste, read, tick, add. |
 | `ViewModels/BodyRows.cs` | `BodyRowBuilder`, `BodyRow`, `GenusRow` | Scanned bodies ready to print, star by star with each star's class and scoopability in words, shared by the system page and the rail. |
 | `ViewModels/CarriedDataSummary.cs` | `CarriedDataSummary` | What the unsold data aboard is worth: the cartographics estimate per scanned body, the species table per sample with the first-logged bonus where the journal says nobody had logged it; shown on the home page and the stats page. |
+| `ViewModels/SystemValue.cs` | `SystemValue` | The current system's worth: cartographics and exobiology, each as scanned and with its first bonus where it likely applies, what of it is still aboard and what has sold; as the system page's two sentences and the rail's unsold line. |
+| `ViewModels/SystemSales.cs` | `SystemSales` | What one system's data has sold for: a sale of several systems shared by Katey's estimate of their bodies, a species sale credited to the system its sample came from. |
 | `ViewModels/ScanProgress.cs` | `ScanProgress` | The current system's scan progress in words, as a figure and as a share, from the snapshot's `BodiesKnown`, shared by the home page, the system page and the rail. |
 | `ViewModels/Display.cs` | `Choice`, `MaterialChip`, `MaterialRow`, `Display` | Pick-list options, display records and shared formatting. |
 | `ViewModels/Place.cs` | `Place` | Somewhere in the galaxy as a system link plus a detail, so every system name on a page opens its page. |
+| `ViewModels/Phrase.cs` | `PhrasePart`, `LinkTone`, `Phrase` | A sentence that carries links in its running text, so a system or an engineer named mid-sentence opens its page; a link has a tone: accent, the HUD blue, ink or dim. `Phrase.Of` builds one from strings, links and engineer links, `Plain` reads the words alone. |
+| `ViewModels/EngineerLink.cs` | `EngineerLink` | An engineer's name as Katey shows it everywhere, made by `Workspace.EngineerLinkFor`: their page, whether you ticked them and whether the engineers switch narrows the lists, from which the name is highlighted, dimmed or plain; `Names` lists several in a sentence. |
 | `ViewModels/TradeRows.cs` | `TradeView`, `TraderGroupRow`, `TradeRow`, `UnmetRow` | A trade plan laid out for a page: a headline, one group per trader with its trades and what stays short, each material a link to the materials page landing on it, each trade naming the two materials' in-game families, and a note on which targets are reserves. Shared by the materials page and the drawer. |
 | `Persistence/StateStore.cs` | `PersistedState`, `IStateStore`, `JsonFileStateStore` | The saved plan, engineer selection, fits, sharing policy, journal folder, bacteria filter, rail placement, view preferences, Spansh switch, last plot, backup folder and switch, and material reserves; where it lives, and moving it. |
 | `Mvvm/` | `ObservableObject`, `RelayCommand` | The two binding primitives the view models need. |
@@ -166,19 +173,23 @@ thread, so it finishes before the process ends.
 
 ## Saved state
 
-`JsonFileStateStore` keeps one JSON file at `Katey/state.json` under the user's local application data
-folder. It holds the plan entries, the selected engineer names, the saved fits, the sharing policy, the
-journal folder, whether the rail hides bacteria-only bodies, whether the rail was in its own window, the view
-preferences, whether Katey may ask Spansh for routes, the last plot, the backup folder and whether the
-backup runs on close.
-Read failures log a warning and start the app empty; write failures log an error and leave the app running.
-On load, entries whose blueprint or experimental the catalog no longer knows are dropped, and a file from
-before a setting existed loads with that setting's default.
+`JsonFileStateStore` keeps one JSON file at `Katey/state.json` under the user's local application data folder.
+It holds:
 
-The user can keep the saved data in a folder of their own. `JsonFileStateStore.Relocate` points the store
-at `katey-state.json` in that folder and writes the full path to a pointer file, `Katey/location.txt`
-beside the default state file, which `Configured` reads on the next start. The shell's move saves the
-current data to the old place first, then relocates; when the folder already holds a saved state the
-shell loads it and applies every part of it to the running workspace through the `Replace` and `Restore`
-methods on the selection, the fleet, the preferences and the plot, and rebuilds the current page. When it
-holds none, the current data is written there. Nothing is deleted at the old place.
+- the plan entries and the selected engineer names;
+- the saved fits and the sharing policy;
+- the journal folder, the backup folder and whether the backup runs on close;
+- whether the rail was in its own window, and the view preferences;
+- whether Katey may ask Spansh for routes and for system bodies, and the last plot.
+
+Read failures log a warning and start the app empty; write failures log an error and leave the app running. On
+load, entries whose blueprint or experimental the catalog no longer knows are dropped, and a file from before
+a setting existed loads with that setting's default.
+
+The user can keep the saved data in a folder of their own. `JsonFileStateStore.Relocate` points the store at
+`katey-state.json` in that folder and writes the full path to a pointer file, `Katey/location.txt` beside the
+default state file, which `Configured` reads on the next start. The shell's move saves the current data to the
+old place first, then relocates. When the folder already holds a saved state, the shell loads it and applies
+every part of it to the running workspace through the `Replace` and `Restore` methods on the selection, the
+fleet, the preferences and the plot, and rebuilds the current page. When it holds none, the current data is
+written there. Nothing is deleted at the old place.

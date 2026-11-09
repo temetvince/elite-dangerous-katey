@@ -150,6 +150,19 @@ public static class Display
             ? string.Create(CultureInfo.InvariantCulture, $"{credits / 1_000.0:0}k Cr")
             : string.Create(CultureInfo.InvariantCulture, $"{credits} Cr");
 
+    /// <summary>
+    /// Credits in millions with one decimal whatever the amount, "0.8M Cr" or "12.3M Cr", for a column of figures
+    /// whose decimals must line up in a monospaced face.
+    /// </summary>
+    /// <param name="credits">Credits.</param>
+    /// <returns>Text.</returns>
+    public static string CreditsMillions(long credits) => $"{Millions(credits)} Cr";
+
+    /// <summary>Credits in millions with one decimal and no unit, "0.8M" or "12.3M", for a figure that shares its unit with another.</summary>
+    /// <param name="credits">Credits.</param>
+    /// <returns>Text.</returns>
+    public static string Millions(long credits) => string.Create(CultureInfo.InvariantCulture, $"{credits / 1_000_000.0:0.0}M");
+
     /// <summary>Credits in full, with a thousands separator.</summary>
     /// <param name="credits">Credits.</param>
     /// <returns>Text such as "1,234,567 Cr".</returns>
@@ -217,17 +230,5 @@ public static class Display
         ArgumentNullException.ThrowIfNull(names);
         var list = names.ToList();
         return list.Count == 0 ? fallback : string.Join(", ", list);
-    }
-
-    /// <summary>Marks the selected engineers with a check.</summary>
-    /// <param name="names">Names in order.</param>
-    /// <param name="selected">The selection.</param>
-    /// <param name="fallback">Shown when <paramref name="names"/> is empty.</param>
-    /// <returns>The text, each selected name followed by " ✓".</returns>
-    public static string MarkedNames(IEnumerable<string> names, IReadOnlySet<string> selected, string fallback)
-    {
-        ArgumentNullException.ThrowIfNull(names);
-        ArgumentNullException.ThrowIfNull(selected);
-        return Names(names.Select(name => selected.Contains(name) ? name + " ✓" : name), fallback);
     }
 }

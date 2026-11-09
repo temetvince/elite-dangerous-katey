@@ -53,8 +53,8 @@ public sealed class EngineerPage : Page
     /// <summary>Gets where they are: the system's link and the base.</summary>
     public Place Where { get; }
 
-    /// <summary>Gets the distance from the ship as text.</summary>
-    public string DistanceText { get; private set => SetProperty(ref field, value); } = "";
+    /// <summary>Gets the distance from the ship, with the system you are in as a link; or why the distance is unknown.</summary>
+    public IReadOnlyList<PhrasePart> DistanceParts { get; private set => SetProperty(ref field, value); } = Phrase.Empty;
 
     /// <summary>Gets or sets whether the commander will visit this engineer.</summary>
     public bool Selected
@@ -79,8 +79,8 @@ public sealed class EngineerPage : Page
     /// <summary>Gets whether the plan has anything for this engineer.</summary>
     public bool HasPlanRows => PlanRows.Count > 0;
 
-    /// <summary>Gets a line on your modules stored in this engineer's system.</summary>
-    public string StoredText { get; private set => SetProperty(ref field, value); } = "";
+    /// <summary>Gets how many of your modules are stored in the engineer's system, the system as a link; empty with none.</summary>
+    public IReadOnlyList<PhrasePart> StoredParts { get; private set => SetProperty(ref field, value); } = Phrase.Empty;
 
     /// <summary>Gets a line on whether the engineer's system is on your route.</summary>
     public string RouteText { get; private set => SetProperty(ref field, value); } = "";
@@ -89,9 +89,9 @@ public sealed class EngineerPage : Page
     public override void Refresh()
     {
         var catalog = Workspace.Catalog;
-        DistanceText = Workspace.DistanceFromHere(Workspace.PositionOf(_profile)) is { } ly
-            ? $"{Display.LightYears(ly)} from {Workspace.Route.CurrentSystem}"
-            : "Distance unknown until the journal reports your position.";
+        DistanceParts = Workspace.DistanceFromHere(Workspace.PositionOf(_profile)) is { } ly && Workspace.Route.CurrentSystem is { } here
+            ? Phrase.Of($"{Display.LightYears(ly)} from ", LinkTo(here, PageKind.System, here))
+            : Phrase.Text("Distance unknown until the journal reports your position.");
         OnPropertyChanged(nameof(Selected));
 
         Offers =
@@ -137,7 +137,7 @@ public sealed class EngineerPage : Page
         OnPropertyChanged(nameof(HasPlanRows));
 
         var stored = Workspace.FleetSnapshot.StoredModules.Count(module => string.Equals(module.System, _profile.System, StringComparison.OrdinalIgnoreCase));
-        StoredText = stored == 0 ? "" : $"You have {Display.Plural(stored, "module")} stored in {_profile.System}.";
+        StoredParts = stored == 0 ? Phrase.Empty : Phrase.Of($"You have {Display.Plural(stored, "module")} stored in ", LinkTo(_profile.System, PageKind.System, _profile.System), ".");
 
         var stops = Workspace.Monitor.Route?.Stops ?? [];
         var index = stops.ToList().FindIndex(stop => string.Equals(stop.StarSystem, _profile.System, StringComparison.OrdinalIgnoreCase));

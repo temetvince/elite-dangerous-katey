@@ -241,7 +241,7 @@ public sealed class FleetState
     /// kept until the fit changes.
     /// </summary>
     /// <param name="fitting">A fit in the list.</param>
-    /// <returns>The profile, or <see langword="null"/> when the fit was saved without its export or the export lacks the masses or a frame shift drive.</returns>
+    /// <returns>The profile, or <see langword="null"/> when the fit has no export or the export lacks the masses or a frame shift drive.</returns>
     public JumpProfile? ProfileOf(Fitting fitting)
     {
         ArgumentNullException.ThrowIfNull(fitting);

@@ -9,7 +9,9 @@ namespace Katey.Journal;
 /// <param name="SpeciesName">Localised species name.</param>
 /// <param name="VariantName">Localised variant name, or <see langword="null"/>.</param>
 /// <param name="Stage">1 after the first sample, 2 after the second, 3 when analysed.</param>
-public sealed record OrganicScan(string Genus, string Species, string SpeciesName, string? VariantName, int Stage);
+/// <param name="WasLogged">Whether someone had logged the species on this body before the player sampled it, as the game says with each sample; <see langword="false"/> means the first-logged bonus is the player's at the sale.</param>
+/// <param name="Sold">Whether the player has sold it: sampled in full and then included in a sale at Vista Genomics.</param>
+public sealed record OrganicScan(string Genus, string Species, string SpeciesName, string? VariantName, int Stage, bool WasLogged = false, bool Sold = false);
 
 /// <summary>A genus the surface scanner reports on a body.</summary>
 /// <param name="Genus">Genus symbol.</param>
@@ -50,6 +52,7 @@ public sealed record GenusSignal(string Genus, string Name);
 /// <param name="ScannedAt">When the player scanned it, on the visit that did.</param>
 /// <param name="FromCatalogue">Whether the body comes from a catalogue rather than the player's own scan, so its discovery and mapping flags say nothing about the player.</param>
 /// <param name="FromNavBeacon">Whether the body's last scan came from a nav beacon rather than the player's scanner: the body is known, but the data is worth nothing to sell.</param>
+/// <param name="Sold">Whether the player sold the system's exploration data after scanning this body, so the scan is no longer aboard.</param>
 public sealed record ScannedBody(
     int BodyId,
     string Name,
@@ -80,7 +83,12 @@ public sealed record ScannedBody(
     IReadOnlyList<OrganicScan> Organics,
     DateTimeOffset ScannedAt = default,
     bool FromCatalogue = false,
-    bool FromNavBeacon = false);
+    bool FromNavBeacon = false,
+    bool Sold = false)
+{
+    /// <summary>Gets whether the player has sold exobiology data from this body: any species sampled here in full has been through a sale.</summary>
+    public bool ExobiologySold => Organics.Any(organic => organic.Sold);
+}
 
 /// <summary>What the player has learned about a species from selling it.</summary>
 /// <param name="Species">Species symbol.</param>
@@ -138,7 +146,11 @@ public sealed record SystemSnapshot(
 /// <summary>
 /// Follows the current system's bodies as the player scans them, and remembers across the whole history
 /// every system's scanned bodies, which bodies the player has landed on, and what each species sold for.
-/// Returning to a system brings its bodies back, since the game writes no scan for a body already known.
+/// Returning to a system brings its bodies back, since the game writes no scan for a body already known,
+/// their sampling stages with them; a sale leaves the stages as they are, as the game does.
+/// A first, once the player's, stays theirs: a scan after the player sold the system's data keeps a body
+/// undiscovered or unmapped when the earlier scan said so, and a scan after the player landed keeps it
+/// unfootfalled, whatever the later flags say, since by then the flags report the player's own record.
 /// </summary>
 public sealed class ExplorationTracker : IJournalSink
 {
@@ -148,15 +160,17 @@ public sealed class ExplorationTracker : IJournalSink
     {
         "Location", "FSDJump", "CarrierJump", "FSSDiscoveryScan", "FSSAllBodiesFound", "Scan",
         "FSSBodySignals", "SAASignalsFound", "SAAScanComplete", "Touchdown", "Liftoff", "ApproachBody",
-        "LeaveBody", "ScanOrganic", "SellOrganicData",
+        "LeaveBody", "ScanOrganic", "SellOrganicData", "SellExplorationData", "MultiSellExplorationData",
     };
 
     private readonly Lock _gate = new();
     private readonly Dictionary<long, SystemMemory> _systems = [];
+    private readonly Dictionary<string, long> _addressesByName = new(StringComparer.OrdinalIgnoreCase);
     private Dictionary<int, MutableBody> _bodies = [];
     private DateTimeOffset? _arrivedAt;
     private bool _populated;
     private readonly HashSet<string> _landed = new(StringComparer.OrdinalIgnoreCase);
+    private (long Address, int BodyId, string Species)? _sampling;
     private readonly Dictionary<string, LearnedSpeciesValue> _learned = new(StringComparer.Ordinal);
     private string? _systemName;
     private long _systemAddress;
@@ -175,9 +189,11 @@ public sealed class ExplorationTracker : IJournalSink
         lock (_gate)
         {
             _systems.Clear();
+            _addressesByName.Clear();
             _bodies = [];
             _arrivedAt = null;
             _landed.Clear();
+            _sampling = null;
             _learned.Clear();
             _systemName = null;
             _systemAddress = 0;
@@ -211,6 +227,8 @@ public sealed class ExplorationTracker : IJournalSink
                 "LeaveBody" => SetCurrentBody(null),
                 "ScanOrganic" => ApplyOrganic(payload),
                 "SellOrganicData" => ApplySale(payload),
+                "SellExplorationData" => MarkSold(JsonRead.Items(payload, "Systems").Select(item => item.ValueKind == JsonValueKind.String ? item.GetString() : null)),
+                "MultiSellExplorationData" => MarkSold(JsonRead.Items(payload, "Discovered").Select(item => JsonRead.Text(item, "SystemName"))),
                 _ => false,
             };
         }
@@ -282,7 +300,37 @@ public sealed class ExplorationTracker : IJournalSink
         _arrivedAt ??= timestamp;
         _systemAddress = address;
         _systemName = name;
+        if (name is not null && address != 0)
+        {
+            _addressesByName[name] = address;
+        }
+
         return true;
+    }
+
+    /// <summary>
+    /// An exploration sale: every scanned body in each named system is marked sold, so a later scan of it
+    /// cannot take a first discovery or first mapping away from the player.
+    /// </summary>
+    private bool MarkSold(IEnumerable<string?> systemNames)
+    {
+        var changed = false;
+        foreach (var name in systemNames)
+        {
+            if (name is null || !_addressesByName.TryGetValue(name, out var address))
+            {
+                continue;
+            }
+
+            var bodies = address == _systemAddress ? _bodies : _systems.GetValueOrDefault(address)?.Bodies;
+            foreach (var body in bodies?.Values.Where(body => body.Scanned && !body.Sold) ?? [])
+            {
+                body.Sold = true;
+                changed = true;
+            }
+        }
+
+        return changed;
     }
 
     private bool Honk(JsonElement payload)
@@ -346,9 +394,22 @@ public sealed class ExplorationTracker : IJournalSink
             .Select(material => (Name: JsonRead.Text(material, "Name"), Percent: JsonRead.Measure(material, "Percent") ?? 0))
             .Where(material => material.Name is not null)
             .ToDictionary(material => material.Name!, material => material.Percent, StringComparer.OrdinalIgnoreCase);
-        body.WasDiscovered = JsonRead.Flag(payload, "WasDiscovered");
-        body.WasMapped = JsonRead.Flag(payload, "WasMapped");
-        body.WasFootfalled = JsonRead.Flag(payload, "WasFootfalled");
+        var wasDiscovered = JsonRead.Flag(payload, "WasDiscovered");
+        var wasMapped = JsonRead.Flag(payload, "WasMapped");
+        var wasFootfalled = JsonRead.Flag(payload, "WasFootfalled");
+        if (body.Scanned)
+        {
+            // A first, once the player's, stays theirs: after the sale the flags report the player's own record,
+            // and a footfall is the player's from the landing on.
+            wasDiscovered = wasDiscovered && (body.WasDiscovered || !body.Sold);
+            wasMapped = wasMapped && (body.WasMapped || !body.Sold || !body.MappedByYou);
+            wasFootfalled = wasFootfalled && (body.WasFootfalled || !_landed.Contains(LandingKey(_systemAddress, body.Name)));
+        }
+
+        body.WasDiscovered = wasDiscovered;
+        body.WasMapped = wasMapped;
+        body.WasFootfalled = wasFootfalled;
+        body.Scanned = true;
         return true;
     }
 
@@ -450,19 +511,56 @@ public sealed class ExplorationTracker : IJournalSink
             "Analyse" => 3,
             _ => 1,
         };
+        DropPartialSample(species);
+        _sampling = stage >= 3 ? null : (_systemAddress, bodyId, species);
         var existing = body.Organics.GetValueOrDefault(species);
         body.Organics[species] = new OrganicScan(
             JsonRead.Text(payload, "Genus") ?? "",
             species,
             JsonRead.Localised(payload, "Species") ?? species,
             JsonRead.Localised(payload, "Variant") ?? existing?.VariantName,
-            Math.Max(existing?.Stage ?? 0, stage));
+            Math.Max(existing?.Stage ?? 0, stage),
+            (existing?.WasLogged ?? false) || JsonRead.Flag(payload, "WasLogged"),
+            existing?.Sold ?? false);
         return true;
     }
 
+    /// <summary>
+    /// The genetic sampler holds one species at a time: starting another before the third sample throws the
+    /// partial one away, so a species left at stage 1 or 2 is forgotten when a different species is sampled.
+    /// </summary>
+    private void DropPartialSample(string species)
+    {
+        if (_sampling is not { } held || string.Equals(held.Species, species, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        var bodies = held.Address == _systemAddress ? _bodies : _systems.GetValueOrDefault(held.Address)?.Bodies;
+        if (bodies?.GetValueOrDefault(held.BodyId) is { } body && body.Organics.GetValueOrDefault(held.Species) is { Stage: < 3 })
+        {
+            body.Organics.Remove(held.Species);
+        }
+
+        _sampling = null;
+    }
+
+    /// <summary>
+    /// Vista Genomics buys every sample aboard at once, so every species sampled in full anywhere in the history
+    /// and not yet sold is marked sold; what each species paid is learned as well.
+    /// </summary>
     private bool ApplySale(JsonElement payload)
     {
         var changed = false;
+        foreach (var body in _systems.Values.SelectMany(system => system.Bodies.Values).Concat(_bodies.Values))
+        {
+            foreach (var organic in body.Organics.Values.Where(organic => organic.Stage >= 3 && !organic.Sold).ToList())
+            {
+                body.Organics[organic.Species] = organic with { Sold = true };
+                changed = true;
+            }
+        }
+
         foreach (var item in JsonRead.Items(payload, "BioData"))
         {
             var species = JsonRead.Text(item, "Species");
@@ -536,6 +634,12 @@ public sealed class ExplorationTracker : IJournalSink
 
         public bool FromNavBeacon { get; set; }
 
+        /// <summary>Whether a <c>Scan</c> has described it; a body can exist from its signals or an organic scan alone.</summary>
+        public bool Scanned { get; set; }
+
+        /// <summary>Whether the player sold the system's exploration data after scanning it.</summary>
+        public bool Sold { get; set; }
+
         public bool MappedByYou { get; set; }
 
         public int BiologicalSignals { get; set; }
@@ -577,6 +681,7 @@ public sealed class ExplorationTracker : IJournalSink
             [.. Genuses],
             [.. Organics.Values.OrderBy(organic => organic.SpeciesName, StringComparer.Ordinal)],
             ScannedAt,
-            FromNavBeacon: FromNavBeacon);
+            FromNavBeacon: FromNavBeacon,
+            Sold: Sold);
     }
 }

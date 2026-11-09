@@ -35,7 +35,7 @@ public sealed record PlanSource(string? Ship, string? Slot, string? Item)
 /// Engineering the game reported at or before this instant does not count toward the entry; only later
 /// rolls advance it. Set to the moment of creation, and moved forward to each roll applied, so a roll
 /// is never applied twice and the history before the entry existed is never applied at all.
-/// <see langword="null"/> on an entry saved before this was recorded; the application anchors it when it loads.
+/// <see langword="null"/> on a saved entry that carries none; the application anchors it to the moment it loads.
 /// </param>
 public sealed record PlanEntry(
     string Id,

@@ -52,7 +52,8 @@ public sealed record SortColumn<T>(string Key, string Label, Func<T, IComparable
 
 /// <summary>
 /// The sort state of one table: which column, which direction, and the headers a view binds to. Clicking
-/// the active header flips the direction; clicking another sorts by it. The state is remembered through
+/// the active header flips the direction; clicking another sorts by it in the direction that column was last
+/// in, or its default the first time. Every column's direction and the active column are remembered through
 /// <see cref="UiPreferences"/> when a preference key is given.
 /// </summary>
 /// <typeparam name="T">The row type.</typeparam>
@@ -60,6 +61,7 @@ public sealed class TableSort<T> : ObservableObject
 {
     private readonly IReadOnlyList<SortColumn<T>> _columns;
     private readonly Dictionary<string, SortHeader> _headers;
+    private readonly Dictionary<string, bool> _descendingByKey;
     private readonly UiPreferences? _preferences;
     private readonly string? _preferenceKey;
 
@@ -78,21 +80,17 @@ public sealed class TableSort<T> : ObservableObject
         _preferences = preferences;
         _preferenceKey = preferenceKey;
         _headers = columns.ToDictionary(column => column.Key, column => new SortHeader(column.Key, column.Label, SortBy), StringComparer.Ordinal);
+        _descendingByKey = columns.ToDictionary(column => column.Key, column => column.DescendingFirst, StringComparer.Ordinal);
         Headers = [.. columns.Select(column => _headers[column.Key])];
 
         var start = columns.First(column => column.Key == defaultKey);
         ActiveKey = start.Key;
-        Descending = start.DescendingFirst;
         if (preferences is not null && preferenceKey is not null && preferences.Get(preferenceKey) is { } saved)
         {
-            var parts = saved.Split(':');
-            if (parts.Length == 2 && _headers.ContainsKey(parts[0]))
-            {
-                ActiveKey = parts[0];
-                Descending = parts[1] == "desc";
-            }
+            Restore(saved);
         }
 
+        Descending = _descendingByKey[ActiveKey];
         UpdateHeaders();
     }
 
@@ -114,7 +112,7 @@ public sealed class TableSort<T> : ObservableObject
     /// <exception cref="KeyNotFoundException">No column has the key.</exception>
     public SortHeader this[string key] => _headers[key];
 
-    /// <summary>Sorts by a column: flips the direction when it is already active, else starts on its default direction.</summary>
+    /// <summary>Sorts by a column: flips the direction when it is already active, else sorts in the direction that column was last in, its default the first time.</summary>
     /// <param name="key">A column key. Unknown keys are ignored.</param>
     public void SortBy(string key)
     {
@@ -127,17 +125,47 @@ public sealed class TableSort<T> : ObservableObject
 
         if (ActiveKey == key)
         {
-            Descending = !Descending;
-        }
-        else
-        {
-            ActiveKey = key;
-            Descending = column.DescendingFirst;
+            _descendingByKey[key] = !Descending;
         }
 
+        ActiveKey = key;
+        Descending = _descendingByKey[key];
         UpdateHeaders();
-        _preferences?.Set(_preferenceKey!, $"{ActiveKey}:{(Descending ? "desc" : "asc")}");
+        _preferences?.Set(_preferenceKey!, Remembered());
         Changed?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <summary>The saved form: the active column and its direction, then every column's direction, such as <c>name:asc;name=asc,grade=desc</c>.</summary>
+    private string Remembered()
+    {
+        var directions = string.Join(",", _columns.Select(column => $"{column.Key}={(_descendingByKey[column.Key] ? "desc" : "asc")}"));
+        return $"{ActiveKey}:{(Descending ? "desc" : "asc")};{directions}";
+    }
+
+    /// <summary>Reads the saved form, taking only the columns that still exist. Anything else, an older form included, leaves the defaults in place.</summary>
+    private void Restore(string saved)
+    {
+        var sections = saved.Split(';', 2);
+        if (sections.Length < 2)
+        {
+            return;
+        }
+
+        var active = sections[0].Split(':');
+        if (active.Length == 2 && _headers.ContainsKey(active[0]))
+        {
+            ActiveKey = active[0];
+            _descendingByKey[active[0]] = active[1] == "desc";
+        }
+
+        foreach (var entry in sections[1].Split(',', StringSplitOptions.RemoveEmptyEntries))
+        {
+            var pair = entry.Split('=');
+            if (pair.Length == 2 && _descendingByKey.ContainsKey(pair[0]))
+            {
+                _descendingByKey[pair[0]] = pair[1] == "desc";
+            }
+        }
     }
 
     /// <summary>Orders rows by the active column and direction. Ties keep their incoming order.</summary>

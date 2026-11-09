@@ -62,8 +62,8 @@ internal static partial class Log
     [LoggerMessage(EventId = 3019, Level = LogLevel.Information, Message = "Backup folder {State}.")]
     internal static partial void BackupFolderSet(ILogger logger, string state);
 
-    [LoggerMessage(EventId = 3020, Level = LogLevel.Information, Message = "Rail bodies ordered {Order}.")]
-    internal static partial void RailSortChanged(ILogger logger, string order);
+    [LoggerMessage(EventId = 3020, Level = LogLevel.Information, Message = "Rail body view set to {View}.")]
+    internal static partial void RailViewChanged(ILogger logger, string view);
 
     [LoggerMessage(EventId = 3021, Level = LogLevel.Information, Message = "Rail body filter set to {Filter}.")]
     internal static partial void RailFilterChanged(ILogger logger, string filter);

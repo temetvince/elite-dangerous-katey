@@ -54,28 +54,33 @@ public sealed class PlanEntryViewModel : ObservableObject
     private readonly Catalog _catalog;
     private readonly Action<PlanEntryViewModel> _changed;
     private readonly Action<PlanEntryViewModel> _remove;
+    private readonly Func<string, EngineerLink> _engineerLink;
     private IReadOnlySet<string> _selected = new HashSet<string>(StringComparer.Ordinal);
 
     /// <summary>Creates the row.</summary>
     /// <param name="catalog">The catalog.</param>
     /// <param name="entry">The entry. Its blueprint, or its unlock, must exist in <paramref name="catalog"/>.</param>
     /// <param name="selected">The current engineer selection.</param>
+    /// <param name="engineerLink">Makes an engineer's name as Katey shows it everywhere; see <see cref="Workspace.EngineerLinkFor"/>.</param>
     /// <param name="changed">Called after any edit, with this row.</param>
     /// <param name="remove">Called when the user removes the row.</param>
     public PlanEntryViewModel(
         Catalog catalog,
         PlanEntry entry,
         IReadOnlySet<string> selected,
+        Func<string, EngineerLink> engineerLink,
         Action<PlanEntryViewModel> changed,
         Action<PlanEntryViewModel> remove)
     {
         ArgumentNullException.ThrowIfNull(catalog);
         ArgumentNullException.ThrowIfNull(entry);
         ArgumentNullException.ThrowIfNull(selected);
+        ArgumentNullException.ThrowIfNull(engineerLink);
         ArgumentNullException.ThrowIfNull(changed);
         ArgumentNullException.ThrowIfNull(remove);
 
         _catalog = catalog;
+        _engineerLink = engineerLink;
         _changed = changed;
         _remove = remove;
         Entry = entry;
@@ -230,11 +235,11 @@ public sealed class PlanEntryViewModel : ObservableObject
     /// <summary>Gets the materials this entry costs at its current settings.</summary>
     public IReadOnlyList<MaterialChip> Materials { get; private set => SetProperty(ref field, value); } = [];
 
-    /// <summary>Gets who offers the target grade, with selected engineers marked.</summary>
-    public string CanRollText { get; private set => SetProperty(ref field, value); } = "";
+    /// <summary>Gets who offers the target grade, each engineer a link in the tone the tick and the engineers switch give it; for an unlock, how it is bought.</summary>
+    public IReadOnlyList<PhrasePart> CanRollParts { get; private set => SetProperty(ref field, value); } = Phrase.Empty;
 
-    /// <summary>Gets who can apply the experimental, with selected engineers marked.</summary>
-    public string CanApplyText { get; private set => SetProperty(ref field, value); } = "";
+    /// <summary>Gets who can apply the experimental, each engineer a link in their tone; empty for an unlock.</summary>
+    public IReadOnlyList<PhrasePart> CanApplyParts { get; private set => SetProperty(ref field, value); } = Phrase.Empty;
 
     /// <summary>Gets whether an experimental is chosen.</summary>
     public bool HasExperimental => Entry.Experimental is not null;
@@ -268,8 +273,8 @@ public sealed class PlanEntryViewModel : ObservableObject
         var service = EngineerCoverage.ServiceFor(_catalog, Entry, selected);
         if (IsUnlock)
         {
-            CanRollText = "Bought once at a " + SourceLabel.ToLowerInvariant() + ", with the materials below" + (HasCommodities ? " and the commodities above." : ".");
-            CanApplyText = "";
+            CanRollParts = Phrase.Text("Bought once at a " + SourceLabel.ToLowerInvariant() + ", with the materials below" + (HasCommodities ? " and the commodities above." : "."));
+            CanApplyParts = Phrase.Empty;
             Warning = "";
             Rolls = [];
             Materials = MaterialChip.From(_catalog, MaterialCalculator.ForEntry(_catalog, Entry));
@@ -278,10 +283,12 @@ public sealed class PlanEntryViewModel : ObservableObject
             return;
         }
 
-        CanRollText = Entry.IsExperimentalOnly
-            ? (Entry.Experimental is null ? "Experimental only, with no effect chosen." : "Experimental only: " + Display.MarkedNames(service.CanRoll, selected, "no engineer in the data can apply it."))
-            : Display.MarkedNames(service.CanRoll, selected, "No engineer in the data offers this grade for this module.");
-        CanApplyText = Display.MarkedNames(service.CanApplyExperimental, selected, "No engineer in the data can apply an effect to this module.");
+        CanRollParts = Entry.IsExperimentalOnly
+            ? Entry.Experimental is null
+                ? Phrase.Text("Experimental only, with no effect chosen.")
+                : Phrase.Join("", [Phrase.Text("Experimental only: "), EngineerLink.Names(service.CanRoll.Select(_engineerLink), "no engineer in the data can apply it.")])
+            : EngineerLink.Names(service.CanRoll.Select(_engineerLink), "No engineer in the data offers this grade for this module.");
+        CanApplyParts = EngineerLink.Names(service.CanApplyExperimental.Select(_engineerLink), "No engineer in the data can apply an effect to this module.");
         Warning = WarningFor(service, selected);
         Rolls = [.. Entry.RolledGrades(_catalog).Select(grade => new RollViewModel(grade, Entry.RollsAt(grade), SetRolls))];
         Materials = MaterialChip.From(_catalog, MaterialCalculator.ForEntry(_catalog, Entry));

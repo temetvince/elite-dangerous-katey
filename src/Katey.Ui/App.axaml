@@ -1,6 +1,7 @@
 ﻿<Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ui="clr-namespace:Katey.Ui"
+             xmlns:vm="using:Katey.App.ViewModels"
              x:Class="Katey.Ui.App"
              RequestedThemeVariant="Default">
   <Application.Resources>
@@ -26,6 +27,7 @@
           <!-- The fuel the next jump burns, the HUD's blue over its orange. -->
           <SolidColorBrush x:Key="KBurn" Color="#1F6FD1" />
           <SolidColorBrush x:Key="KDiscovery" Color="#6F4FBF" />
+          <SolidColorBrush x:Key="KFirstSample" Color="#7A55D6" />
           <SolidColorBrush x:Key="KMapping" Color="#128C8C" />
           <SolidColorBrush x:Key="KFootfall" Color="#2E9E6B" />
           <SolidColorBrush x:Key="KShadow" Color="#330A1428" />
@@ -62,6 +64,7 @@
           <SolidColorBrush x:Key="KBad" Color="#E2705B" />
           <SolidColorBrush x:Key="KBurn" Color="#5FB4FF" />
           <SolidColorBrush x:Key="KDiscovery" Color="#B39DFF" />
+          <SolidColorBrush x:Key="KFirstSample" Color="#C4A8FF" />
           <SolidColorBrush x:Key="KMapping" Color="#3FCFCF" />
           <SolidColorBrush x:Key="KFootfall" Color="#4DBE88" />
           <SolidColorBrush x:Key="KShadow" Color="#66000000" />
@@ -91,6 +94,7 @@
       <SolidColorBrush x:Key="RailGood" Color="#4DBE88" />
       <SolidColorBrush x:Key="RailBad" Color="#E2705B" />
       <SolidColorBrush x:Key="RailBurn" Color="#5FB4FF" />
+      <SolidColorBrush x:Key="RailFirstSample" Color="#C4A8FF" />
 
       <!-- Star classes as the galaxy map paints them: blue-white O down to orange-red M, the hazards on their own. Fixed, not themed. -->
       <SolidColorBrush x:Key="KStarO" Color="#8FA6FF" />
@@ -117,6 +121,12 @@
       <FontFamily x:Key="MonoFont">avares://katey/Assets/Fonts#B612 Mono, Consolas, monospace</FontFamily>
     </ResourceDictionary>
   </Application.Resources>
+  <Application.DataTemplates>
+    <!-- An engineer's name wherever Katey shows one, in every window: plain ink; while the engineers switch narrows the lists, the HUD blue when ticked and dimmed when not. -->
+    <DataTemplate DataType="vm:EngineerLink">
+      <Button Classes="link" Classes.quiet="{Binding !Highlighted}" Classes.hud="{Binding Highlighted}" Classes.dim="{Binding Dimmed}" Content="{Binding Name}" Command="{Binding Link.OpenCommand}" VerticalAlignment="Center" />
+    </DataTemplate>
+  </Application.DataTemplates>
   <Application.Styles>
     <FluentTheme />
     <StyleInclude Source="avares://katey/Styles/Workbench.axaml" />

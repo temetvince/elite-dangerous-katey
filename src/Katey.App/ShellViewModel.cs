@@ -72,7 +72,8 @@ public sealed class ShellViewModel : ObservableObject
         Log.StateLoaded(logger, saved.Plan.Count, saved.Engineers.Count);
 
         var engineers = new EngineerSelection(catalog, saved.Engineers);
-        var plan = new PlanViewModel(catalog, () => engineers.Selected);
+        // The plan asks for an engineer's link only when it refreshes, by which time the workspace below exists.
+        var plan = new PlanViewModel(catalog, () => engineers.Selected, name => Workspace!.EngineerLinkFor(name));
         var preferences = new UiPreferences(saved.Preferences);
         var fleet = new FleetState(saved.Fittings, saved.Policy, preferences);
         var network = new NetworkAccess(saved, logger);

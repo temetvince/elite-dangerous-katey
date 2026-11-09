@@ -1,5 +1,6 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="using:Katey.Ui">
 
   <!-- ===== Window chrome: the caption buttons the windows draw in place of the system's ===== -->
   <Style Selector="Button.caption">
@@ -97,6 +98,10 @@
   </Style>
   <Style Selector="TextBlock.warn">
     <Setter Property="Foreground" Value="{DynamicResource KWarn}" />
+  </Style>
+  <!-- A genus with one of its three samples taken: violet, so it reads apart from the two later stages and from every other meaning. -->
+  <Style Selector="TextBlock.first">
+    <Setter Property="Foreground" Value="{DynamicResource KFirstSample}" />
   </Style>
   <Style Selector="TextBlock.burn">
     <Setter Property="Foreground" Value="{DynamicResource KBurn}" />
@@ -257,15 +262,23 @@
   <Style Selector="Border.badge.status.footfall">
     <Setter Property="BorderBrush" Value="{DynamicResource KFootfall}" />
   </Style>
+  <!-- A bonus that is yours: the pill stays hollow and its words take the slot's colour. -->
+  <Style Selector="Border.badge.status.discovery.yours TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource KDiscovery}" />
+  </Style>
+  <Style Selector="Border.badge.status.mapping.yours TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource KMapping}" />
+  </Style>
+  <Style Selector="Border.badge.status.footfall.yours TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource KFootfall}" />
+  </Style>
+  <!-- A bonus still open: the pill fills in its colour with a thick bottom edge. Declared after "yours", so it wins where both apply. -->
   <Style Selector="Border.badge.status.open">
     <Setter Property="BorderThickness" Value="1,1,1,3" />
     <Setter Property="Padding" Value="7,1,7,0" />
   </Style>
   <Style Selector="Border.badge.status.open TextBlock">
     <Setter Property="Foreground" Value="{DynamicResource KAccentInk}" />
-  </Style>
-  <Style Selector="Border.badge.status.discovery.open">
-    <Setter Property="Background" Value="{DynamicResource KDiscovery}" />
   </Style>
   <Style Selector="Border.badge.status.mapping.open">
     <Setter Property="Background" Value="{DynamicResource KMapping}" />
@@ -424,6 +437,24 @@
   </Style>
   <Style Selector="Button.link.quiet:pointerover /template/ ContentPresenter#PART_ContentPresenter">
     <Setter Property="Foreground" Value="{DynamicResource KAccent}" />
+  </Style>
+  <!-- A link set back, such as an engineer you have not ticked while the engineers switch is on: the ink colour, a little dimmed, still clickable. -->
+  <Style Selector="Button.link.dim">
+    <Setter Property="Foreground" Value="{DynamicResource KInk}" />
+    <Setter Property="Opacity" Value="0.7" />
+  </Style>
+  <Style Selector="Button.link.dim:pointerover">
+    <Setter Property="Opacity" Value="1" />
+  </Style>
+  <Style Selector="Button.link.dim:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Foreground" Value="{DynamicResource KAccent}" />
+  </Style>
+  <!-- A link in the HUD blue, as a ticked engineer reads while the engineers switch is on. -->
+  <Style Selector="Button.link.hud">
+    <Setter Property="Foreground" Value="{DynamicResource KBurn}" />
+  </Style>
+  <Style Selector="Button.link.hud:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Foreground" Value="{DynamicResource KBurn}" />
   </Style>
   <Style Selector="Button.link.wordmark">
     <Setter Property="FontFamily" Value="{StaticResource DisplayFont}" />
@@ -586,6 +617,9 @@
   <Style Selector="Border.rail TextBlock.sub">
     <Setter Property="Foreground" Value="{StaticResource RailMuted}" />
   </Style>
+  <Style Selector="Border.rail TextBlock.first">
+    <Setter Property="Foreground" Value="{StaticResource RailFirstSample}" />
+  </Style>
   <Style Selector="Border.rail TextBlock.burn">
     <Setter Property="Foreground" Value="{StaticResource RailBurn}" />
   </Style>
@@ -676,6 +710,9 @@
   <Style Selector="Window.overlay Border.rail TextBlock.burn">
     <Setter Property="Foreground" Value="{StaticResource RailBurn}" />
   </Style>
+  <Style Selector="Window.overlay Border.rail TextBlock.first">
+    <Setter Property="Foreground" Value="#FFD4BEFF" />
+  </Style>
   <Style Selector="Window.overlay Border.rail Border.rsec">
     <Setter Property="BorderBrush" Value="#40FFFFFF" />
   </Style>
@@ -758,6 +795,25 @@
   </Style>
   <Style Selector="Border.rail Button.link.ink">
     <Setter Property="Foreground" Value="{StaticResource RailInk}" />
+  </Style>
+  <!-- Engineer names in the rail follow the same rule as everywhere, in the rail's palette. -->
+  <Style Selector="Border.rail Button.link.quiet">
+    <Setter Property="Foreground" Value="{StaticResource RailInk}" />
+  </Style>
+  <Style Selector="Border.rail Button.link.dim">
+    <Setter Property="Foreground" Value="{StaticResource RailInk}" />
+    <Setter Property="Opacity" Value="0.7" />
+  </Style>
+  <Style Selector="Border.rail Button.link.hud">
+    <Setter Property="Foreground" Value="{StaticResource RailBurn}" />
+  </Style>
+  <Style Selector="Border.rail Button.link.hud:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Foreground" Value="{StaticResource RailBurn}" />
+  </Style>
+  <Style Selector="Border.rail ui|PhraseBlock">
+    <Setter Property="LinkBrush" Value="{StaticResource RailAccent}" />
+    <Setter Property="InkBrush" Value="{StaticResource RailInk}" />
+    <Setter Property="HudBrush" Value="{StaticResource RailBurn}" />
   </Style>
   <Style Selector="Border.rail Ellipse.dot">
     <Setter Property="Width" Value="9" />

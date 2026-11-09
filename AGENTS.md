@@ -186,6 +186,16 @@ Non-Commercial) are not used. Every source is recorded in [`NOTICE.md`](NOTICE.m
 README's data section, with the conversion rules applied. The user decides at release time whether the
 whole may be published; the notice exists so that question can be answered.
 
+### 14. Saved data has one current form; stale values are dropped, never read
+
+A setting, a preference or a saved field has exactly one spelling and one shape: the one the code writes today.
+When a change renames a value, reshapes it or retires it, the reader takes the new form only and treats
+anything else as absent, so the default applies. No alternate spellings, no "also accept the old value", no
+migration branches. A retired preference key is removed from `PreferenceKeys`, so the next load drops it from
+the file; a retired saved-state field is simply removed from `PersistedState`, and the serializer ignores it on
+read. Losing a remembered choice across an upgrade is acceptable when a reasonable default exists; carrying
+stale values and the code to understand them is not.
+
 ## Definition of done
 
 - [ ] Addition decomposed — invariant → most reusable layer, variant → the consuming project; refactored, not
@@ -244,7 +254,7 @@ fixing the code over adding more.
     broker unlocks with their budget. No UI, no file IO beyond its embedded resources, no network.
   - `src/Katey.Journal` — reads Elite Dangerous journal files and the live `NavRoute.json` and
     `Status.json`, keeps nine trackers current: materials, route and visited systems, system, fleet,
-    activity, statistics, technology broker purchases, engineering rolls, data aboard; and mirrors the
+    activity, statistics, technology broker purchases, engineering rolls, data aboard and sold; and mirrors the
     journal folder into a backup folder. Knows nothing about engineering. Does not reference Core.
   - `src/Katey.App` — the shell: a `Workspace` of shared state, a `Navigator` over entity pages
     (`Pages/`), the live `RailViewModel`, the `PlanDrawerViewModel`, the `SearchViewModel`, the Spansh
@@ -283,6 +293,12 @@ fixing the code over adding more.
   - Every mention of an entity on a page is a `Link` carrying a `PageKey`; `PageFactory` turns a key into
     a page, or a `NotFoundPage` when the id names nothing. Add a new page kind in `PageKind`, the factory,
     and a data template in `MainWindow.axaml`.
+  - A system named inside a sentence goes through `Phrase.Of` with a `Link` and is shown by
+    `PhraseBlock`, never an interpolated string, so every system name in Katey opens its page; a
+    structured place is a `Place`. A new sentence that names a system follows the same rule.
+  - An engineer named anywhere is an `EngineerLink` from `Workspace.EngineerLinkFor`, shown through
+    the application's data template or as a toned `PhrasePart`, so the tick and the engineers switch
+    colour every name alike: plain, the HUD blue when ticked while the switch is on, dimmed when not.
   - The rail's `IsDetached` is view-model state; the main window reacts to it by opening or closing
     `RailWindow` over the same `RailViewModel`. The window's overlay, click-through and remembered place
     are preferences on the view model too; `RailWindow` applies them, dropping the system border while
@@ -296,6 +312,9 @@ fixing the code over adding more.
     `ModuleGroup`) or `StarBrush` for a star class. A new meaning gets a resource pair and a `README`
     line in `Katey.Ui`, never a hex literal in a page template. Verdicts are `Border.badge` with a tone
     class; figures are `TextBlock.stat` and `ProgressBar.meter`.
+  - `UiPreferences` keeps only the keys `PreferenceKeys` lists, on load and on reload, so a key no longer
+    written leaves the saved file at the next start. A new preference key is added to that registry with
+    the code that uses it; `sort.` and `section.` are open prefixes, every other key is exact.
   - Tables sort through `TableSort<T>`, long pages switch sections through `SectionSwitch`, collapsible
     groups open through `GroupExpansion`, and all three remember themselves through `UiPreferences`,
     which is saved with the state. A new table gets a sort with a preference key; a new multi-section

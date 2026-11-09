@@ -42,22 +42,31 @@ headings. Every other colour means something, and the meanings live as resource 
   A body card's frame says what it holds: `Border.panel.minerals` is blue for surface
   materials, `Border.panel.biology` green for life, which wins over materials, and `Border.panel.star` the
   accent for a star. The rail's `Border.tag` does the same in its fixed palette.
-- **Exploration statuses** `KDiscovery`, `KMapping` and `KFootfall` are violet, teal and green: a body
-  card's three status slots, `Border.badge.status` with `.discovery`, `.mapping` or `.footfall`, one per
-  flag the game writes with a scan. The `open` class fills the pill in its colour and thickens its bottom
-  edge; without it the pill is hollow with grey text, so open against taken reads by shape, not by
-  brightness.
+- **Exploration statuses** `KDiscovery`, `KMapping` and `KFootfall` are violet, teal and green: a body card's
+  three status slots, `Border.badge.status` with `.discovery`, `.mapping` or `.footfall`, one per flag the
+  game writes with a scan. The `open` class fills the pill in its colour and thickens its bottom edge, for a
+  bonus nobody has taken. The `yours` class keeps the pill hollow and colours its words, for a bonus you took.
+  With neither, the pill is hollow with grey text, for one someone else took. `open` is declared after
+  `yours`, so it wins where both apply.
+- **Sampling stages** `KFirstSample`, and `RailFirstSample` in the rail's palette, is a violet for a genus
+  with one of its three samples taken, as `TextBlock.first`. The second sample takes the burn blue and the
+  third the good green, in the rail and on the system page alike.
+- **Engineer names** everywhere are an `EngineerLink` shown through the application's data template, or a
+  toned run in a `PhraseBlock`: `Button.link.quiet`, the ink colour, with the accent on hover. While the
+  engineers switch narrows the lists, a ticked engineer takes `Button.link.hud`, the HUD blue `KBurn`, and an
+  unticked one `Button.link.dim`, the ink at seven tenths. The rail restates the classes and the block's
+  `LinkBrush`, `InkBrush` and `HudBrush` in its own palette. Every name still opens.
 - **The next jump's burn** `KBurn` is the HUD's blue: the part of the fuel bar the next jump will take,
   and the figure beside the reading that says the same in tonnes.
 
 The view reaches a meaning colour through `SemanticBrush`, whose converter parameter is the key prefix and
 whose value is the suffix, so a grade of 3 with `KG` finds `KG3`. The brush is the one in force when the
-binding evaluates; a page rebuilt after a theme change picks up the other theme. `StarBrush` does the same
-for a star class string. Figures that matter get room: `TextBlock.stat` is the big number on a start-page
-tile, `ProgressBar.meter` the thin bar under a have-against-need figure, and the rail's scan ring is an
-`Arc` driven by the scanned fraction through `Scale`. The fuel tank is two meters in one place, as the
-game's own gauge draws it: a blue `burn` meter to the tank's level under an `over` meter with no track to
-the level after the next jump, so the blue that shows is what the jump burns.
+binding evaluates; a page rebuilt after a theme change picks up the other theme. `StarBrush` does the same for
+a star class string. Figures that matter get room: `TextBlock.stat` is the big number on a start-page tile,
+`ProgressBar.meter` the thin bar under a have-against-need figure, and the rail's scan ring is an `Arc` driven
+by the scanned fraction through `Scale`. The fuel tank is two meters in one place, as the game's own gauge
+draws it: a blue `burn` meter to the tank's level under an `over` meter with no track to the level after the
+next jump. The blue that shows is what the jump burns.
 
 The fonts ship inside the executable. B612, the typeface Airbus commissioned for cockpit displays, sets
 the body text; B612 Mono sets every figure that lines up in a column; Barlow Semi Condensed sets headings
@@ -97,7 +106,8 @@ everything below the last line is clear and the game shows through untinted ther
 | `Converters.cs` | `BrushFromHex` and `GeometryFromPath`, which let the statistics page's chart bind colours and sector outlines from plain strings; `SemanticBrush` and `StarBrush`, which look a grade, an inventory, a module place or a star class up in the palette; and `Scale`, which turns a fraction into an angle or a width. |
 | `WindowDrag.cs` | Moves a window by its own title bar and maximises on a double click. |
 | `ClipboardText.cs` | Puts text on the clipboard for whichever window a control is in. |
-| `PageHeaderView.axaml` | A page's breadcrumb links, kicker and title. |
+| `PageHeaderView.axaml` | A page's breadcrumb links, kicker and title, with a `Beside` slot to the right of the title for a page's own control, such as the system page's copy button. |
+| `PhraseBlock.cs` | A `TextBlock` that sets a `Phrase`: every part a run of one paragraph, a link in its tone from `LinkBrush`, `InkBrush` or `HudBrush`, underlined under the pointer and opened on a click by hit-testing the text layout, so nothing is templated while the block is drawn. Takes every `TextBlock` style. |
 | `SortHeaderView.axaml` | A table column heading that sorts on click, with the direction mark. |
 | `RailView.axaml`, `RailView.axaml.cs` | The rail, used docked and detached; copies the next Spansh waypoint. |
 | `RailWindow.axaml`, `RailWindow.axaml.cs` | The rail's own window, with a drag strip that carries the live mark, and a close button. Closing it docks the rail. It remembers its place and size through the view model, applying them after the decorations because a frame change rewrites the size, becomes an overlay with a mostly transparent ground, and lets clicks through with a Win32 extended style, dropping the system's resize border while it does. |

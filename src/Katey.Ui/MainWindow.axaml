@@ -185,7 +185,8 @@
                             <StackPanel Spacing="2">
                               <TextBlock Classes="col" Text="{Binding Label}" />
                               <TextBlock Classes="stat" Classes.good="{Binding IsGood}" Classes.warn="{Binding IsWarn}" Classes.bad="{Binding IsBad}" Classes.muted="{Binding IsMuted}" Text="{Binding Value}" />
-                              <TextBlock Classes="muted" Text="{Binding Detail}" TextWrapping="Wrap" />
+                              <TextBlock Classes="muted" Text="{Binding Detail}" TextWrapping="Wrap" IsVisible="{Binding !HasDetailParts}" />
+                              <ui:PhraseBlock Classes="muted" Parts="{Binding DetailParts}" IsVisible="{Binding HasDetailParts}" />
                               <Button Classes="link" Content="{Binding Link.Label}" Command="{Binding Link.OpenCommand}" FontSize="12" Margin="0,4,0,0" />
                             </StackPanel>
                           </Border>
@@ -200,7 +201,8 @@
                           <Border Classes="tile grid">
                             <StackPanel Spacing="4">
                               <Button Classes="link strong" Command="{Binding Link.OpenCommand}" FontSize="16"><TextBlock Text="{Binding Link.Label}" TextWrapping="Wrap" /></Button>
-                              <TextBlock Classes="muted" Text="{Binding Detail}" TextWrapping="Wrap" />
+                              <TextBlock Classes="muted" Text="{Binding Detail}" TextWrapping="Wrap" IsVisible="{Binding !HasDetailLink}" />
+                              <Button Classes="link" Command="{Binding DetailLink.OpenCommand}" IsVisible="{Binding HasDetailLink}" HorizontalAlignment="Left"><TextBlock Text="{Binding Detail}" TextWrapping="Wrap" /></Button>
                             </StackPanel>
                           </Border>
                         </DataTemplate>
@@ -244,7 +246,7 @@
                           <TextBox Text="{Binding Filter, Mode=TwoWay}" PlaceholderText="Find an engineer, system or base" MinWidth="260" />
                           <Button Classes="small" Content="Select all" Command="{Binding SelectAllCommand}" />
                           <Button Classes="small" Content="Select none" Command="{Binding SelectNoneCommand}" />
-                          <TextBlock Classes="muted" Text="{Binding FromText}" VerticalAlignment="Center" />
+                          <ui:PhraseBlock Classes="muted" Parts="{Binding FromParts}" VerticalAlignment="Center" />
                         </StackPanel>
                         <Border Classes="panel" Padding="16,6,16,4">
                           <StackPanel>
@@ -264,7 +266,7 @@
                                   <Border Classes="row">
                                     <Grid ColumnDefinitions="52,2*,*,90,100,110" ColumnSpacing="10">
                                       <CheckBox IsChecked="{Binding Selected, Mode=TwoWay}" VerticalAlignment="Center" ToolTip.Tip="You will visit this engineer" />
-                                      <Button Grid.Column="1" Classes="link strong" Content="{Binding Link.Label}" Command="{Binding Link.OpenCommand}" />
+                                      <Button Grid.Column="1" Classes="link strong" Classes.quiet="{Binding !Highlighted}" Classes.hud="{Binding Highlighted}" Classes.dim="{Binding Dimmed}" Content="{Binding Link.Label}" Command="{Binding Link.OpenCommand}" />
                                       <ContentControl Grid.Column="2" Content="{Binding Where}" VerticalAlignment="Center" />
                                       <TextBlock Grid.Column="3" Classes="muted" Text="{Binding Region}" VerticalAlignment="Center" />
                                       <TextBlock Grid.Column="4" Classes="muted" Text="{Binding OffersText}" VerticalAlignment="Center" />
@@ -287,11 +289,11 @@
                       <ui:PageHeaderView />
                       <StackPanel Orientation="Horizontal" Spacing="12">
                         <ContentControl Content="{Binding Where}" VerticalAlignment="Center" />
-                        <TextBlock Classes="muted" Text="{Binding DistanceText}" VerticalAlignment="Center" />
+                        <ui:PhraseBlock Classes="muted" Parts="{Binding DistanceParts}" VerticalAlignment="Center" />
                       </StackPanel>
                       <CheckBox Content="You will visit this engineer" IsChecked="{Binding Selected, Mode=TwoWay}" />
                       <TextBlock Classes="muted" Text="{Binding RouteText}" IsVisible="{Binding !!RouteText.Length}" />
-                      <TextBlock Classes="muted" Text="{Binding StoredText}" IsVisible="{Binding !!StoredText.Length}" />
+                      <ui:PhraseBlock Classes="muted" Parts="{Binding StoredParts}" IsVisible="{Binding !!StoredParts.Count}" />
                     </StackPanel>
                     <Grid ColumnDefinitions="3*,2*" ColumnSpacing="18">
                       <ItemsControl Grid.Column="0" ItemsSource="{Binding Offers}">
@@ -446,8 +448,7 @@
                                       <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                           <StackPanel Orientation="Horizontal" Spacing="4" Margin="0,2,14,0">
-                                            <Button Classes="link" Content="{Binding Link.Label}" Command="{Binding Link.OpenCommand}" FontSize="12" />
-                                            <TextBlock Classes="good" Text="✓" FontSize="12" IsVisible="{Binding Selected}" VerticalAlignment="Center" />
+                                            <ContentControl Content="{Binding Engineer}" FontSize="12" />
                                             <TextBlock Classes="faint" Text="{Binding GradeText}" VerticalAlignment="Center" />
                                             <TextBlock Classes="faint mono" Text="{Binding DistanceText}" VerticalAlignment="Center" />
                                           </StackPanel>
@@ -463,7 +464,7 @@
                             </DataTemplate>
                           </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <TextBlock Classes="muted" Text="{Binding ExperimentalsText}" Margin="0,8,0,4" />
+                        <ui:PhraseBlock Classes="muted" Parts="{Binding ExperimentalsParts}" Margin="0,8,0,4" />
                       </StackPanel>
                     </Border>
 
@@ -597,7 +598,7 @@
                               <ItemsControl Grid.Column="2" ItemsSource="{Binding Engineers}">
                                 <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
-                                  <DataTemplate><Button Classes="link" Content="{Binding Label}" Command="{Binding OpenCommand}" Margin="0,0,12,4" FontSize="12" /></DataTemplate>
+                                  <DataTemplate><ContentControl Content="{Binding}" Margin="0,0,12,4" FontSize="12" /></DataTemplate>
                                 </ItemsControl.ItemTemplate>
                               </ItemsControl>
                             </Grid>
@@ -881,9 +882,9 @@
                     </Border>
                     <Border Classes="panel" IsVisible="{Binding Sections[sources].IsCurrent}">
                       <StackPanel Spacing="4">
-                        <TextBlock Classes="muted" Text="Only raw materials lie on planet surfaces. Manufactured and encoded materials come from ships, settlements, signal sources and traders." IsVisible="{Binding !SourcesText.Length}" />
-                        <TextBlock Classes="h3" Text="{Binding SourcesText}" IsVisible="{Binding !!SourcesText.Length}" />
-                        <Border Classes="thead" IsVisible="{Binding !!SourcesText.Length}">
+                        <TextBlock Classes="muted" Text="Only raw materials lie on planet surfaces. Manufactured and encoded materials come from ships, settlements, signal sources and traders." IsVisible="{Binding !SourcesParts.Count}" />
+                        <ui:PhraseBlock Classes="h3" Parts="{Binding SourcesParts}" IsVisible="{Binding !!SourcesParts.Count}" />
+                        <Border Classes="thead" IsVisible="{Binding !!SourcesParts.Count}">
                           <Grid ColumnDefinitions="*,70,80" ColumnSpacing="10">
                             <TextBlock Classes="col" Text="BODY" />
                             <TextBlock Grid.Column="1" Classes="col" Text="SHARE" />
@@ -938,7 +939,7 @@
                                 <Grid ColumnDefinitions="2*,*,2*" ColumnSpacing="12">
                                   <StackPanel>
                                     <WrapPanel>
-                                      <Button Classes="link strong" Content="{Binding Link.Label}" Command="{Binding Link.OpenCommand}" Margin="0,0,8,0" />
+                                      <Button Classes="link strong quiet" Content="{Binding Link.Label}" Command="{Binding Link.OpenCommand}" Margin="0,0,8,0" />
                                       <Border Classes="badge good" IsVisible="{Binding IsCurrent}" Margin="0,0,8,0"><TextBlock Text="FLYING" /></Border>
                                       <Border Classes="badge warn" IsVisible="{Binding IsPrebuilt}" ToolTip.Tip="Redeemed from a bundle. Open the ship to see whether it is still as it came."><TextBlock Text="PREBUILT" /></Border>
                                     </WrapPanel>
@@ -971,7 +972,7 @@
                               <Border Classes="row">
                                 <Grid ColumnDefinitions="2*,*,2*,80" ColumnSpacing="12">
                                   <StackPanel Orientation="Horizontal" Spacing="8">
-                                    <Button Classes="link strong" Content="{Binding Link.Label}" Command="{Binding Link.OpenCommand}" />
+                                    <Button Classes="link strong quiet" Content="{Binding Link.Label}" Command="{Binding Link.OpenCommand}" />
                                     <Border Classes="badge" Classes.good="{Binding AllOwned}" Classes.warn="{Binding IsWarn}" Classes.bad="{Binding IsBad}" ToolTip.Tip="Whether you own every module the fit wants, anywhere in your fleet or storage under the sharing policy. Open the fit to compare it with one ship."><TextBlock Text="{Binding Verdict}" /></Border>
                                   </StackPanel>
                                   <TextBlock Grid.Column="1" Classes="muted" Text="{Binding HullName}" VerticalAlignment="Center" />
@@ -1192,7 +1193,7 @@
                                   </StackPanel>
                                   <StackPanel Grid.Column="1">
                                     <TextBlock Classes="body" Text="{Binding Required}" />
-                                    <TextBlock Classes="muted" Classes.good="{Binding CoveredBySelection}" Text="{Binding EngineersText}" IsVisible="{Binding HasEngineers}" />
+                                    <ui:PhraseBlock Classes="muted" Classes.good="{Binding CoveredBySelection}" Parts="{Binding EngineersParts}" IsVisible="{Binding HasEngineers}" />
                                     <TextBlock Classes="muted" Classes.good="{Binding OwnedCovers}" Text="{Binding OwnedText}" IsVisible="{Binding HasOwned}" />
                                   </StackPanel>
                                   <StackPanel Grid.Column="2" VerticalAlignment="Top">
@@ -1252,13 +1253,17 @@
                 <DataTemplate DataType="pages:SystemPage">
                   <StackPanel Spacing="16">
                     <StackPanel Spacing="4">
-                      <ui:PageHeaderView />
-                      <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding HasName}">
-                        <Button Classes="small" Content="Copy name" Click="CopySystemName" ToolTip.Tip="Copies the system's name, for the galaxy map's search box." />
-                        <TextBlock Classes="muted" Text="{Binding CopyStatus}" IsVisible="{Binding !!CopyStatus.Length}" VerticalAlignment="Center" />
-                      </StackPanel>
-                      <TextBlock Classes="muted" Text="{Binding WhereText}" />
+                      <ui:PageHeaderView>
+                        <ui:PageHeaderView.Beside>
+                          <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding HasName}">
+                            <Button Classes="small" Content="Copy name" Click="CopySystemName" ToolTip.Tip="Copies the system's name, for the galaxy map's search box." />
+                            <TextBlock Classes="muted" Text="{Binding CopyStatus}" IsVisible="{Binding !!CopyStatus.Length}" VerticalAlignment="Center" />
+                          </StackPanel>
+                        </ui:PageHeaderView.Beside>
+                      </ui:PageHeaderView>
+                      <ui:PhraseBlock Classes="muted" Parts="{Binding WhereParts}" />
                       <TextBlock Classes="muted" Text="{Binding Progress}" IsVisible="{Binding !!Progress.Length}" />
+                      <TextBlock Classes="muted" Text="{Binding UnsoldSummary}" IsVisible="{Binding !!UnsoldSummary.Length}" />
                       <TextBlock Classes="muted" Text="{Binding ValueSummary}" IsVisible="{Binding !!ValueSummary.Length}" />
                       <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding DiscoveryText}" IsVisible="{Binding !!DiscoveryText.Length}" />
                       <TextBlock Classes="muted" Text="{Binding FleetText}" IsVisible="{Binding !!FleetText.Length}" />
@@ -1267,7 +1272,7 @@
                         <ItemsControl ItemsSource="{Binding Engineers}">
                           <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                           <ItemsControl.ItemTemplate>
-                            <DataTemplate><Button Classes="link" Content="{Binding Label}" Command="{Binding OpenCommand}" Margin="0,0,10,0" /></DataTemplate>
+                            <DataTemplate><ContentControl Content="{Binding}" Margin="0,0,10,0" /></DataTemplate>
                           </ItemsControl.ItemTemplate>
                         </ItemsControl>
                       </StackPanel>
@@ -1287,8 +1292,9 @@
                         <DataTemplate>
                           <Border Classes="panel" Classes.minerals="{Binding HasMaterials}" Classes.biology="{Binding HasBiology}" Classes.star="{Binding IsStar}" Margin="0,0,0,10">
                             <StackPanel Spacing="4">
-                              <StackPanel Orientation="Horizontal" Spacing="10">
-                                <TextBlock Classes="h3" Text="{Binding Name}" />
+                              <!-- One wide title line that wraps: name, class, distance, gravity, temperature, atmosphere, surface notes, then the badges. -->
+                              <WrapPanel ItemSpacing="10" LineSpacing="4">
+                                <TextBlock Classes="h3" Text="{Binding Name}" VerticalAlignment="Center" />
                                 <Border Classes="badge accent" IsVisible="{Binding IsStar}"><TextBlock Text="star" /></Border>
                                 <Border Classes="badge" IsVisible="{Binding IsEarlierVisit}"><TextBlock Text="{Binding EarlierVisit}" /></Border>
                                 <Border Classes="badge burn" IsVisible="{Binding FromCatalogue}"><TextBlock Text="from Spansh" /></Border>
@@ -1299,30 +1305,36 @@
                                 <TextBlock Classes="mono muted" Classes.warn="{Binding IsHighGravity}" Classes.bad="{Binding IsExtremeGravity}" Text="{Binding GravityText}" IsVisible="{Binding !!GravityText.Length}" VerticalAlignment="Center" />
                                 <Border Classes="badge warn" IsVisible="{Binding IsHighGravity}"><TextBlock Text="{Binding GravityWarning}" /></Border>
                                 <Border Classes="badge bad" IsVisible="{Binding IsExtremeGravity}"><TextBlock Text="{Binding GravityWarning}" /></Border>
+                                <TextBlock Classes="mono muted" Text="{Binding TemperatureText}" IsVisible="{Binding !!TemperatureText.Length}" VerticalAlignment="Center" />
+                                <TextBlock Classes="muted" Text="{Binding Atmosphere}" IsVisible="{Binding !!Atmosphere.Length}" VerticalAlignment="Center" />
+                                <TextBlock Classes="muted" Text="{Binding Surface}" IsVisible="{Binding !!Surface.Length}" VerticalAlignment="Center" />
                                 <Border Classes="badge accent" IsVisible="{Binding HasBiology}"><TextBlock Text="{Binding BiologyCountText}" /></Border>
                                 <Border Classes="badge good" IsVisible="{Binding Landable}"><TextBlock Text="landable" /></Border>
                                 <!-- Three yes/no slots in a fixed order: discovery, mapping, footfall. Open is solid in the slot's colour; taken is hollow. -->
-                                <Border Classes="badge status discovery" Classes.open="{Binding DiscoveryOpen}"><TextBlock Text="{Binding DiscoveryStatus}" /></Border>
-                                <Border Classes="badge status mapping" Classes.open="{Binding MappingOpen}" IsVisible="{Binding !!MappingStatus.Length}"><TextBlock Text="{Binding MappingStatus}" /></Border>
-                                <Border Classes="badge status footfall" Classes.open="{Binding FootfallOpen}" IsVisible="{Binding !!FootfallStatus.Length}"><TextBlock Text="{Binding FootfallStatus}" /></Border>
-                              </StackPanel>
-                              <TextBlock Classes="muted" Text="{Binding Surface}" IsVisible="{Binding !!Surface.Length}" />
-                              <StackPanel Orientation="Horizontal" Spacing="10">
-                                <TextBlock Classes="muted" Text="{Binding Atmosphere}" IsVisible="{Binding !!Atmosphere.Length}" />
-                                <TextBlock Classes="muted" Text="{Binding Volcanism}" IsVisible="{Binding !!Volcanism.Length}" />
-                              </StackPanel>
+                                <Border Classes="badge status discovery" Classes.yours="{Binding DiscoveryYours}"><TextBlock Text="{Binding DiscoveryStatus}" /></Border>
+                                <Border Classes="badge status mapping" Classes.yours="{Binding MappingYours}" Classes.open="{Binding FirstMappingOpen}" IsVisible="{Binding !!MappingStatus.Length}"><TextBlock Text="{Binding MappingStatus}" /></Border>
+                                <Border Classes="badge status footfall" Classes.yours="{Binding FootfallYours}" Classes.open="{Binding FootfallOpen}" IsVisible="{Binding !!FootfallStatus.Length}"><TextBlock Text="{Binding FootfallStatus}" /></Border>
+                              </WrapPanel>
+                              <TextBlock Classes="muted" Text="{Binding Volcanism}" IsVisible="{Binding !!Volcanism.Length}" />
                               <StackPanel Orientation="Horizontal" Spacing="10">
                                 <TextBlock Classes="muted" Text="{Binding StatusDetail}" IsVisible="{Binding !!StatusDetail.Length}" />
                                 <TextBlock Classes="mono muted" Text="{Binding ScanValue}" />
                               </StackPanel>
                               <TextBlock Classes="body" Text="{Binding Signals}" IsVisible="{Binding !!Signals.Length}" />
-                              <ItemsControl ItemsSource="{Binding Genera}" IsVisible="{Binding HasGenera}">
+                              <!-- The species and value columns share their widths across the card's rows, so the figures sit just past the longest species text rather than at the card's far edge. -->
+                              <ItemsControl ItemsSource="{Binding Genera}" IsVisible="{Binding HasGenera}" Grid.IsSharedSizeScope="True">
                                 <ItemsControl.ItemTemplate>
                                   <DataTemplate>
-                                    <Grid ColumnDefinitions="140,*,90" ColumnSpacing="10" Margin="0,1">
-                                      <TextBlock Classes="strong" Text="{Binding Name}" />
-                                      <TextBlock Grid.Column="1" Classes="muted" Text="{Binding Candidates}" />
-                                      <TextBlock Grid.Column="2" Classes="mono" Text="{Binding ExpectedText}" TextAlignment="Right" />
+                                    <Grid ColumnSpacing="10" Margin="0,1">
+                                      <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="140" />
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="species" />
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="value" />
+                                      </Grid.ColumnDefinitions>
+                                      <!-- Violet after the first sample, blue after the second, green once all three are taken. -->
+                                      <TextBlock Classes="strong" Classes.first="{Binding IsFirstSample}" Classes.burn="{Binding IsSecondSample}" Classes.good="{Binding IsComplete}" Text="{Binding Name}" />
+                                      <TextBlock Grid.Column="1" Classes="muted" Classes.first="{Binding IsFirstSample}" Classes.burn="{Binding IsSecondSample}" Classes.good="{Binding IsComplete}" Text="{Binding Candidates}" MaxWidth="420" TextTrimming="CharacterEllipsis" />
+                                      <TextBlock Grid.Column="2" Classes="mono" Classes.first="{Binding IsFirstSample}" Classes.burn="{Binding IsSecondSample}" Classes.good="{Binding IsComplete}" Text="{Binding ExpectedText}" TextAlignment="Right" />
                                     </Grid>
                                   </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -1337,6 +1349,19 @@
                                 <ItemsControl.ItemTemplate>
                                   <DataTemplate>
                                     <TextBlock Classes.accent="{Binding !IsFigure}" Classes.burn="{Binding IsFigure}" FontWeight="SemiBold" Text="{Binding Text}" />
+                                  </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                              </ItemsControl>
+                              <!-- What is already in hand on this body: the figures in green. -->
+                              <ItemsControl ItemsSource="{Binding GatheredRuns}" IsVisible="{Binding HasGathered}">
+                                <ItemsControl.ItemsPanel>
+                                  <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                  </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                  <DataTemplate>
+                                    <TextBlock Classes.muted="{Binding !IsFigure}" Classes.good="{Binding IsEarned}" FontWeight="SemiBold" Text="{Binding Text}" />
                                   </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                               </ItemsControl>
@@ -1364,7 +1389,7 @@
                     <StackPanel Spacing="16" IsVisible="{Binding Sections[game].IsCurrent}">
                     <StackPanel Spacing="4">
                       <TextBlock Classes="lede" Text="{Binding Summary}" />
-                      <TextBlock Classes="accent" TextWrapping="Wrap" Text="{Binding DetourText}" IsVisible="{Binding !!DetourText.Length}" />
+                      <ui:PhraseBlock Classes="accent" TextWrapping="Wrap" Parts="{Binding DetourParts}" IsVisible="{Binding !!DetourParts.Count}" />
                       <TextBlock Classes="muted" Text="{Binding TravelledText}" IsVisible="{Binding !!TravelledText.Length}" />
                       <Grid ColumnDefinitions="Auto,220,Auto" ColumnSpacing="10" IsVisible="{Binding Fuel.HasTank}" Margin="0,4,0,0">
                         <TextBlock Classes="col" Text="TANK" VerticalAlignment="Center" />
@@ -1378,8 +1403,8 @@
                           <TextBlock Classes="mono burn" Text="{Binding Fuel.NextJumpText}" IsVisible="{Binding Fuel.HasNextJump}" />
                         </StackPanel>
                       </Grid>
-                      <TextBlock Classes="muted" Text="{Binding FuelText}" IsVisible="{Binding !!FuelText.Length}" />
-                      <TextBlock Classes="body warn" Text="{Binding Fuel.Summary}" IsVisible="{Binding !!Fuel.Summary.Length}" />
+                      <ui:PhraseBlock Classes="muted" Parts="{Binding FuelParts}" IsVisible="{Binding !!FuelParts.Count}" />
+                      <ui:PhraseBlock Classes="body warn" Parts="{Binding Fuel.SummaryParts}" IsVisible="{Binding !!Fuel.SummaryParts.Count}" />
                     </StackPanel>
                     <Border Classes="panel" IsVisible="{Binding HasRoute}" Padding="16,6,16,4">
                       <StackPanel>
@@ -1404,7 +1429,7 @@
                                   <TextBlock Grid.Column="1" Classes="mono muted" Text="{Binding Index}" VerticalAlignment="Center" />
                                   <StackPanel Grid.Column="2" VerticalAlignment="Center">
                                     <Button Classes="link quiet strong" Content="{Binding Link.Label}" Command="{Binding Link.OpenCommand}" />
-                                    <Button Classes="link" Content="{Binding Engineer.Label}" Command="{Binding Engineer.OpenCommand}" IsVisible="{Binding HasEngineer}" FontSize="12" />
+                                    <ContentControl Content="{Binding Engineer}" IsVisible="{Binding HasEngineer}" FontSize="12" HorizontalAlignment="Left" />
                                   </StackPanel>
                                   <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
                                     <Ellipse Classes="star" Fill="{Binding StarClass, Converter={StaticResource StarBrush}}" />
@@ -1467,7 +1492,6 @@
                                   <TextBlock Grid.Column="2" Classes="muted" Text="▾" VerticalAlignment="Center" />
                                 </Grid>
                               </Button>
-                              <TextBlock Classes="muted" Text="{Binding PlotTargetsNote}" IsVisible="{Binding !!PlotTargetsNote.Length}" />
                             </StackPanel>
                             <StackPanel Grid.Column="2"><TextBlock Classes="col" Text="CARGO, T" Margin="0,0,0,4" /><TextBox Text="{Binding PlotCargo, Mode=TwoWay}" PlaceholderText="0" /></StackPanel>
                             <StackPanel Grid.Column="4"><TextBlock Classes="col" Text="ROUTING" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Algorithms}" SelectedItem="{Binding SelectedAlgorithm}" HorizontalAlignment="Stretch" /></StackPanel>
@@ -1488,9 +1512,9 @@
                         </StackPanel>
                       </Border>
                       <StackPanel Spacing="6" IsVisible="{Binding HasPlot}">
-                        <TextBlock Classes="lede" TextWrapping="Wrap" Text="{Binding PlotSummary}" />
+                        <ui:PhraseBlock Classes="lede" TextWrapping="Wrap" Parts="{Binding PlotSummaryParts}" />
                         <StackPanel Orientation="Horizontal" Spacing="10">
-                          <TextBlock Classes="body" Text="{Binding PlotProgressText}" VerticalAlignment="Center" />
+                          <ui:PhraseBlock Classes="body" Parts="{Binding PlotProgressParts}" VerticalAlignment="Center" />
                           <Button Content="Copy next waypoint" Click="CopyNextWaypoint" IsVisible="{Binding HasNextWaypoint}" ToolTip.Tip="Copies the system name to paste into the galaxy map" />
                           <TextBlock Name="WaypointStatus" Classes="muted" VerticalAlignment="Center" />
                         </StackPanel>
@@ -1832,7 +1856,7 @@
             <Grid ColumnDefinitions="*,Auto">
               <StackPanel Spacing="2">
                 <TextBlock Classes="h3" Text="Plan" FontSize="20" />
-                <TextBlock Classes="muted" Text="{Binding Summary}" />
+                <ui:PhraseBlock Classes="muted" Parts="{Binding SummaryParts}" />
               </StackPanel>
               <Button Grid.Column="1" Classes="nav" Content="✕" Command="{Binding CloseCommand}" VerticalAlignment="Top" />
             </Grid>
@@ -1908,7 +1932,7 @@
                               </ItemsControl.ItemTemplate>
                             </ItemsControl>
                           </Grid>
-                          <TextBlock Classes="muted" Text="{Binding CanRollText}" />
+                          <ui:PhraseBlock Classes="muted" Parts="{Binding CanRollParts}" />
                           <TextBlock Classes="warn" Text="{Binding Warning}" IsVisible="{Binding HasWarning}" />
                           <ItemsControl ItemsSource="{Binding Materials}">
                             <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>

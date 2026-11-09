@@ -44,7 +44,7 @@ public sealed class SystemPage : Page
     /// <summary>Gets whether this is the system the ship is in, which is the only one with body data.</summary>
     public bool IsCurrent { get; private set => SetProperty(ref field, value); }
 
-    /// <summary>Gets one line on scan progress.</summary>
+    /// <summary>Gets the note on scans the journal holds no details for, or that it has not said where you are; empty otherwise. The scan count itself is on <see cref="WhereParts"/>.</summary>
     public string Progress { get; private set => SetProperty(ref field, value); } = "";
 
     /// <summary>Gets the body the ship is at, or empty.</summary>
@@ -53,7 +53,10 @@ public sealed class SystemPage : Page
     /// <summary>Gets the bodies, stars first then by distance.</summary>
     public IReadOnlyList<BodyRow> Bodies { get; private set => SetProperty(ref field, value); } = [];
 
-    /// <summary>Gets a line summing the estimated scan and exobiology value, or empty.</summary>
+    /// <summary>Gets the line on what of this system's data is still aboard, what of it is for being first and what has sold, or empty; see <see cref="SystemValue.UnsoldLine"/>.</summary>
+    public string UnsoldSummary { get; private set => SetProperty(ref field, value); } = "";
+
+    /// <summary>Gets a line summing the estimated scan and exobiology value, or empty; see <see cref="SystemValue.Line"/>.</summary>
     public string ValueSummary { get; private set => SetProperty(ref field, value); } = "";
 
     /// <summary>Gets the system's name, for the copy button, or empty before the journal has reported a position.</summary>
@@ -67,15 +70,16 @@ public sealed class SystemPage : Page
 
     /// <summary>
     /// Gets a line on discovery in this system: how many scanned bodies nobody had discovered before you, how
-    /// many you were first to map, and how many you have landed on. Empty away from the current system.
+    /// many you have landed on, and how many landable bodies nobody has set foot on yet. Empty away from the
+    /// current system.
     /// </summary>
     public string DiscoveryText { get; private set => SetProperty(ref field, value); } = "";
 
-    /// <summary>Gets a line on where the system is relative to the ship and when you were last there.</summary>
-    public string WhereText { get; private set => SetProperty(ref field, value); } = "";
+    /// <summary>Gets a line on where the system is relative to the ship, the system you are in as a link, and when you were last there; for the system you are in, "You are here." and the scan count.</summary>
+    public IReadOnlyList<PhrasePart> WhereParts { get; private set => SetProperty(ref field, value); } = Phrase.Empty;
 
     /// <summary>Gets engineers based in this system.</summary>
-    public IReadOnlyList<Link> Engineers { get; private set => SetProperty(ref field, value); } = [];
+    public IReadOnlyList<EngineerLink> Engineers { get; private set => SetProperty(ref field, value); } = [];
 
     /// <summary>Gets whether any engineer is based here.</summary>
     public bool HasEngineers => Engineers.Count > 0;
@@ -83,7 +87,11 @@ public sealed class SystemPage : Page
     /// <summary>Gets your ships and stored modules here, as text, or empty.</summary>
     public string FleetText { get; private set => SetProperty(ref field, value); } = "";
 
-    /// <summary>One line on discovery across the scanned bodies.</summary>
+    /// <summary>
+    /// One line on discovery across the scanned bodies: how many nobody had discovered before you, how many you
+    /// have landed on, and how many landable bodies nobody has set foot on, you included. Your own firsts are
+    /// each body's to tell, in its status detail.
+    /// </summary>
     /// <param name="rows">The scanned bodies.</param>
     /// <returns>The line, or empty when nothing is scanned.</returns>
     public static string DiscoveryLine(IReadOnlyList<BodyRow> rows)
@@ -95,7 +103,6 @@ public sealed class SystemPage : Page
         }
 
         var undiscovered = rows.Count(row => row.FirstDiscovery);
-        var firstMapped = rows.Count(row => row.MappedByYou && row.FirstMapping);
         var landed = rows.Count(row => row.LandedByYou);
         var parts = new List<string>
         {
@@ -105,18 +112,13 @@ public sealed class SystemPage : Page
                     ? $"Every one of the {Display.Plural(rows.Count, "scanned body", "scanned bodies")} was discovered before you"
                     : $"{undiscovered} of the {Display.Plural(rows.Count, "scanned body", "scanned bodies")} had never been discovered before you",
         };
-        if (firstMapped > 0)
-        {
-            parts.Add($"you were first to map {firstMapped}");
-        }
-
         if (landed > 0)
         {
-            parts.Add($"you have landed on {landed}");
+            parts.Add($"you have landed on {Display.Plural(landed, "body", "bodies")}");
         }
 
         var landable = rows.Count(row => row.Landable && !row.FromCatalogue);
-        var untrodden = rows.Count(row => row.Landable && !row.FromCatalogue && row.FirstFootfall);
+        var untrodden = rows.Count(row => row.FootfallOpen);
         if (untrodden > 0)
         {
             parts.Add(untrodden == landable
@@ -142,9 +144,10 @@ public sealed class SystemPage : Page
         {
             Progress = "The journal has not reported where you are.";
             Bodies = [];
+            UnsoldSummary = "";
             ValueSummary = "";
             DiscoveryText = "";
-            WhereText = "";
+            WhereParts = Phrase.Empty;
             Engineers = [];
             FleetText = "";
             OnPropertyChanged(nameof(HasEngineers));
@@ -154,40 +157,40 @@ public sealed class SystemPage : Page
         if (IsCurrent)
         {
             CurrentBody = snapshot.CurrentBody is { } body ? BodyRowBuilder.ShortName(body, snapshot.SystemName) : "";
-            var earlier = ScanProgress.EarlierNote(snapshot);
-            Progress = earlier.Length > 0 ? $"{ScanProgress.Sentence(snapshot)}. {earlier}" : $"{ScanProgress.Sentence(snapshot)}.";
+            Progress = ScanProgress.EarlierNote(snapshot);
             var rows = new BodyRowBuilder(Workspace.Catalog, Workspace.Predictor).Build(snapshot);
             Bodies = Sort.ActiveKey == "distance" && !Sort.Descending ? rows : Sort.Apply(rows);
-            var scan = rows.Sum(row => row.ScanCredits);
-            var bio = rows.Sum(row => row.ExobiologyCredits);
-            ValueSummary = rows.Count == 0 ? "" : $"Cartographics about {Display.Credits(scan)} as scanned{(bio > 0 ? $", exobiology about {Display.Credits(bio)}" : "")}.";
+            var value = rows.Count == 0 ? null : SystemValue.From(snapshot, rows, Workspace.Sold);
+            UnsoldSummary = value?.UnsoldLine() ?? "";
+            ValueSummary = value?.Line() ?? "";
             DiscoveryText = DiscoveryLine(rows);
-            WhereText = "You are here.";
+            WhereParts = Phrase.Text($"You are here. {ScanProgress.Sentence(snapshot).TrimEnd('.')}.");
         }
         else
         {
             CurrentBody = "";
             Progress = "";
             Bodies = [];
+            UnsoldSummary = "";
             ValueSummary = "";
             DiscoveryText = "";
             var known = route.FindByName(name);
             var engineerHere = Workspace.Catalog.Engineers.Values.FirstOrDefault(engineer => string.Equals(engineer.System, name, StringComparison.OrdinalIgnoreCase));
             var position = known?.Position is { } visited ? new GalacticPosition(visited.X, visited.Y, visited.Z) : engineerHere?.Position;
             var distance = position is { } point ? Workspace.DistanceFromHere(point) : null;
-            var parts = new List<string>();
-            if (distance is { } ly)
+            var parts = new List<IReadOnlyList<PhrasePart>>();
+            if (distance is { } ly && route.CurrentSystem is { } here)
             {
-                parts.Add($"{Display.LightYears(ly)} from {route.CurrentSystem}.");
+                parts.Add(Phrase.Of($"{Display.LightYears(ly)} from ", LinkTo(here, PageKind.System, here), "."));
             }
 
-            parts.Add(known is null
+            parts.Add(Phrase.Text(known is null
                 ? "You have not been here since the journal began."
-                : string.Create(CultureInfo.CurrentCulture, $"Last there {known.LastVisit.ToLocalTime():g}, {Display.Plural(known.Visits, "visit")} in all."));
-            WhereText = string.Join(" ", parts);
+                : string.Create(CultureInfo.CurrentCulture, $"Last there {known.LastVisit.ToLocalTime():g}, {Display.Plural(known.Visits, "visit")} in all.")));
+            WhereParts = Phrase.Join(" ", parts);
         }
 
-        Engineers = [.. Workspace.Catalog.Engineers.Values.Where(engineer => string.Equals(engineer.System, name, StringComparison.OrdinalIgnoreCase)).Select(engineer => LinkTo(engineer.Name, PageKind.Engineer, engineer.Name))];
+        Engineers = [.. Workspace.Catalog.Engineers.Values.Where(engineer => string.Equals(engineer.System, name, StringComparison.OrdinalIgnoreCase)).Select(engineer => Workspace.EngineerLinkFor(engineer.Name))];
         OnPropertyChanged(nameof(HasEngineers));
 
         var fleet = Workspace.FleetSnapshot;

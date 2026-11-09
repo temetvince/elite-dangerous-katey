@@ -24,11 +24,21 @@ bug. The manual's Your data section says what the log holds.
 ## How the journal is read
 
 Katey polls the journal folder about once a second. On start it replays every journal file, oldest first, into
-nine trackers: material counts, route position and visited systems, the current system, the fleet, recent
-activity, the statistics (the game's lifetime figures, an income ledger, the income shared with wings and
-crews, and the Powerplay standing), the technology broker purchases, the engineering rolls, which move the
-plan on as you engineer, and the exploration and organic data aboard and unsold. A line is only parsed when a
-tracker wants its event, which is what keeps a multi-year history to a few seconds.
+nine trackers:
+
+- material counts;
+- route position and visited systems;
+- the current system;
+- the fleet;
+- recent activity;
+- the statistics: the game's lifetime figures, an income ledger, the income shared with wings and crews, and
+  the Powerplay standing;
+- the technology broker purchases;
+- the engineering rolls, which move the plan on as you engineer;
+- the exploration and organic data aboard and unsold, and what each sale paid.
+
+A line is only parsed when a tracker wants its event, which is what keeps a multi-year history to a few
+seconds.
 
 While that replay runs the window shows its progress and nothing else that is live, so you never see a
 position or a figure from partway through the history; everything appears together when it finishes. It then

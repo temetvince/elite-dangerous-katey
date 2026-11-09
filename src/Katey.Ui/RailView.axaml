@@ -1,5 +1,7 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="using:Katey.Ui"
+             xmlns:rail="using:Katey.App.Rail"
              x:Class="Katey.Ui.RailView">
   <!-- DataContext is a RailViewModel. The same instance backs the docked rail and the detached window.
        The ground is painted only as far as the content reaches, so in overlay mode the window below the last line is clear. -->
@@ -41,7 +43,6 @@
             <Button Classes="link quiet" Command="{Binding SystemLink.OpenCommand}" IsVisible="{Binding ShowsControls}" ToolTip.Tip="Open this system"><TextBlock Classes="big" Text="{Binding SystemName}" /></Button>
             <TextBlock Classes="big" Text="{Binding SystemName}" IsVisible="{Binding !ShowsControls}" />
             <TextBlock Classes="sub" Text="{Binding PositionDetail}" />
-            <Button Classes="link" Content="{Binding SystemLink.Label}" Command="{Binding SystemLink.OpenCommand}" IsVisible="{Binding ShowsControls}" />
           </StackPanel>
         </Border>
 
@@ -67,8 +68,8 @@
                       <TextBlock Text="{Binding Link.Label}" IsVisible="{Binding !$parent[ItemsControl].DataContext.ShowsControls}" />
                       <TextBlock Classes="sub" Text="{Binding StarText}" />
                       <StackPanel IsVisible="{Binding HasEngineer}">
-                        <Button Classes="link" Content="{Binding Engineer.Label}" Command="{Binding Engineer.OpenCommand}" IsVisible="{Binding $parent[ItemsControl].DataContext.ShowsControls}" />
-                        <TextBlock Classes="accent" Text="{Binding Engineer.Label}" IsVisible="{Binding !$parent[ItemsControl].DataContext.ShowsControls}" />
+                        <ContentControl Content="{Binding Engineer}" IsVisible="{Binding $parent[ItemsControl].DataContext.ShowsControls}" HorizontalAlignment="Left" />
+                        <TextBlock Classes="accent" Text="{Binding Engineer.Name}" IsVisible="{Binding !$parent[ItemsControl].DataContext.ShowsControls}" />
                       </StackPanel>
                     </StackPanel>
                     <Border Grid.Column="3" Classes="tag" IsVisible="{Binding IsScoopable}"><TextBlock Text="scoop" /></Border>
@@ -76,7 +77,7 @@
                 </DataTemplate>
               </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <TextBlock Classes="sub" Text="{Binding RouteRest}" />
+            <ui:PhraseBlock Classes="sub" Parts="{Binding RouteRestParts}" />
             <TextBlock Classes="sub" Text="{Binding TravelledText}" />
             <!-- The tank: label and figures on one line, the bar full width beneath. The bar is drawn as the HUD draws it: blue to the tank's level under orange to the level after the next jump, so the blue that shows is the jump's burn. -->
             <StackPanel Spacing="4" IsVisible="{Binding Fuel.HasTank}">
@@ -90,8 +91,8 @@
                 <ProgressBar Classes="meter tall over" Classes.warn="{Binding Fuel.TankIsLow}" Value="{Binding Fuel.TankAfterJumpFraction}" />
               </Panel>
             </StackPanel>
-            <TextBlock Classes="sub" Text="{Binding FuelText}" />
-            <TextBlock Classes="warn" Text="{Binding Fuel.Summary}" IsVisible="{Binding !!Fuel.Summary.Length}" />
+            <ui:PhraseBlock Classes="sub" Parts="{Binding FuelParts}" />
+            <ui:PhraseBlock Classes="warn" Parts="{Binding Fuel.SummaryParts}" IsVisible="{Binding !!Fuel.SummaryParts.Count}" />
           </StackPanel>
         </Border>
 
@@ -122,14 +123,19 @@
               </Panel>
               <TextBlock Grid.Column="1" Classes="eyebrow" Classes.accent="{Binding !IsFullyScanned}" Classes.good="{Binding IsFullyScanned}" Text="{Binding SystemHeading}" VerticalAlignment="Center" />
             </Grid>
-            <TextBlock Classes="sub" Text="{Binding ValueText}" />
+            <TextBlock Classes="sub" TextWrapping="Wrap" Text="{Binding ValueText}" />
             <StackPanel Spacing="6" IsVisible="{Binding ShowsControls}">
-              <ToggleSwitch IsChecked="{Binding BiologyFirst, Mode=TwoWay}" OnContent="Biology first" OffContent="Nearest first" />
-              <!-- Which bodies with life to leave out: one choice of three, remembered. -->
+              <!-- What the list is for: every landable body, the bodies with life, or the bodies with materials; nearest first in each. -->
               <StackPanel Orientation="Horizontal" Spacing="12">
-                <RadioButton GroupName="bodyFilter" Content="All life" IsChecked="{Binding ShowsAll, Mode=TwoWay}" ToolTip.Tip="Every body with life or materials." />
-                <RadioButton GroupName="bodyFilter" Content="Skip bacteria" IsChecked="{Binding SkipsBacteria, Mode=TwoWay}" ToolTip.Tip="Leaves out bodies whose life is bacteria alone: by the scanner's genera once mapped, or a single signal four in five likely to be bacteria before that." />
-                <RadioButton GroupName="bodyFilter" Content="Min/max" IsChecked="{Binding IsMinMax, Mode=TwoWay}" ToolTip.Tip="Before probing: only bodies with a one in four chance or better of a species worth the trip on its own. Once probed: only bodies whose best landing pays 8M a minute on the ground, bonus included. A body with a material your plan is short of stays." />
+                <RadioButton GroupName="bodyView" Content="Landable" IsChecked="{Binding ShowsLandable, Mode=OneWay}" Command="{Binding ShowViewCommand}" CommandParameter="{x:Static rail:RailBodyView.Landable}" ToolTip.Tip="Every landable body, nearest first, with its life and its materials." />
+                <RadioButton GroupName="bodyView" Content="Biology" IsChecked="{Binding ShowsBiology, Mode=OneWay}" Command="{Binding ShowViewCommand}" CommandParameter="{x:Static rail:RailBodyView.Biology}" ToolTip.Tip="Bodies with life, nearest first, their life only." />
+                <RadioButton GroupName="bodyView" Content="Minerals" IsChecked="{Binding ShowsMinerals, Mode=OneWay}" Command="{Binding ShowViewCommand}" CommandParameter="{x:Static rail:RailBodyView.Minerals}" ToolTip.Tip="Bodies with surface materials, nearest first, their materials only." />
+              </StackPanel>
+              <!-- Which bodies with life to leave out: one choice of three, remembered; only the Biology view asks. -->
+              <StackPanel Orientation="Horizontal" Spacing="12" IsVisible="{Binding IsBiologyView}">
+                <RadioButton GroupName="bodyFilter" Content="All life" IsChecked="{Binding ShowsAll, Mode=OneWay}" Command="{Binding FilterCommand}" CommandParameter="{x:Static rail:BodyFilter.All}" ToolTip.Tip="Every body with life." />
+                <RadioButton GroupName="bodyFilter" Content="Skip bacteria" IsChecked="{Binding SkipsBacteria, Mode=OneWay}" Command="{Binding FilterCommand}" CommandParameter="{x:Static rail:BodyFilter.SkipBacteria}" ToolTip.Tip="Leaves out bodies whose life is bacteria alone: by the scanner's genera once mapped, or a single signal four in five likely to be bacteria before that." />
+                <RadioButton GroupName="bodyFilter" Content="Valuable only" IsChecked="{Binding IsValuableOnly, Mode=OneWay}" Command="{Binding FilterCommand}" CommandParameter="{x:Static rail:BodyFilter.ValuableOnly}" ToolTip.Tip="Before probing: only bodies with a one in four chance or better of a species worth the trip on its own. Once probed: only bodies whose best landing pays 8M a minute on the ground, bonus included. A body with a material your plan is short of stays." />
               </StackPanel>
             </StackPanel>
             <ItemsControl ItemsSource="{Binding Bodies}">
@@ -148,21 +154,21 @@
                         <Border Classes="tag" IsVisible="{Binding IsLanded}"><TextBlock Text="landed" /></Border>
                       </StackPanel>
                       <TextBlock Classes="sub" Text="{Binding Signals}" IsVisible="{Binding Signals.Length}" />
-                      <TextBlock Text="{Binding Life}" IsVisible="{Binding HasLife}" />
+                      <TextBlock Text="{Binding Life}" IsVisible="{Binding LifeVisible}" />
                       <!-- Once probed: the genera richest first, the likeliest species beside each, the pay with the bonus at the right. -->
-                      <ItemsControl ItemsSource="{Binding GenusRows}" IsVisible="{Binding HasGenera}" Margin="0,2,0,0">
+                      <ItemsControl ItemsSource="{Binding GenusRows}" IsVisible="{Binding GeneraVisible}" Margin="0,2,0,0">
                         <ItemsControl.ItemTemplate>
                           <DataTemplate>
                             <Grid ColumnDefinitions="80,*,Auto" ColumnSpacing="8">
-                              <TextBlock Text="{Binding Name}" Classes.accent="{Binding IsSampled}" />
-                              <TextBlock Grid.Column="1" Classes="sub" Text="{Binding Species}" TextTrimming="CharacterEllipsis" />
-                              <TextBlock Grid.Column="2" Classes="mono" Text="{Binding ValueText}" />
+                              <!-- Violet after the first sample, blue after the second, green once all three are taken. -->
+                              <TextBlock Text="{Binding Name}" Classes.first="{Binding IsFirstSample}" Classes.burn="{Binding IsSecondSample}" Classes.good="{Binding IsComplete}" />
+                              <TextBlock Grid.Column="1" Classes="sub" Classes.first="{Binding IsFirstSample}" Classes.burn="{Binding IsSecondSample}" Classes.good="{Binding IsComplete}" Text="{Binding Species}" TextTrimming="CharacterEllipsis" />
+                              <TextBlock Grid.Column="2" Classes="mono" Classes.first="{Binding IsFirstSample}" Classes.burn="{Binding IsSecondSample}" Classes.good="{Binding IsComplete}" Text="{Binding ValueText}" />
                             </Grid>
                           </DataTemplate>
                         </ItemsControl.ItemTemplate>
                       </ItemsControl>
-                      <TextBlock Classes="sub" Text="{Binding MoreText}" IsVisible="{Binding MoreText.Length}" />
-                      <TextBlock Classes="sub" Text="{Binding Materials}" IsVisible="{Binding HasMaterials}" />
+                      <TextBlock Classes="sub" Text="{Binding Materials}" IsVisible="{Binding MaterialsVisible}" />
                     </StackPanel>
                   </Border>
                 </DataTemplate>

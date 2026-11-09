@@ -6,8 +6,13 @@ namespace Katey.App.Pages;
 
 /// <summary>One shortcut on the start page.</summary>
 /// <param name="Link">Where it goes.</param>
-/// <param name="Detail">What is there right now, such as a count.</param>
-public sealed record HomeTile(Link Link, string Detail);
+/// <param name="Detail">What is there right now, such as a count; shown as text unless <paramref name="DetailLink"/> is given.</param>
+/// <param name="DetailLink">The detail as a link, when what is there is itself a page, such as the system the ship is in; <see langword="null"/> for plain text.</param>
+public sealed record HomeTile(Link Link, string Detail, Link? DetailLink = null)
+{
+    /// <summary>Gets whether the detail opens a page.</summary>
+    public bool HasDetailLink => DetailLink is not null;
+}
 
 /// <summary>How a figure on the start page reads: the colour it takes.</summary>
 public enum StatTone
@@ -34,8 +39,12 @@ public enum StatTone
 /// <param name="Detail">One line under it.</param>
 /// <param name="Tone">The colour it takes.</param>
 /// <param name="Link">The page that explains it.</param>
-public sealed record HomeStat(string Label, string Value, string Detail, StatTone Tone, Link Link)
+/// <param name="DetailParts">The detail with a link in it, when a system is named; <see langword="null"/> to show <paramref name="Detail"/> as text.</param>
+public sealed record HomeStat(string Label, string Value, string Detail, StatTone Tone, Link Link, IReadOnlyList<PhrasePart>? DetailParts = null)
 {
+    /// <summary>Gets whether the detail carries a link.</summary>
+    public bool HasDetailParts => DetailParts is not null;
+
     /// <summary>Gets whether the figure reads as all well.</summary>
     public bool IsGood => Tone == StatTone.Good;
 
@@ -94,7 +103,7 @@ public sealed class HomePage : Page
             new(LinkTo("Unlocks", PageKind.Unlocks), UnlocksTile()),
             new(LinkTo("Fleet", PageKind.Fleet), fleet.Ships.Count == 0 ? "no ships seen yet" : $"{Display.Plural(fleet.Ships.Count, "ship")}, {Display.Plural(Workspace.Fleet.Fittings.Count, "saved fit")}"),
             new(LinkTo("Stats", PageKind.Statistics), Workspace.Statistics.Figure("Exploration", "Time_Played") is { } played ? Display.Duration(TimeSpan.FromSeconds(played)) + " played" : "waiting for the game's figures"),
-            new(LinkTo("This system", PageKind.System), route.CurrentSystem ?? "position unknown"),
+            new(LinkTo("This system", PageKind.System), route.CurrentSystem ?? "position unknown", route.CurrentSystem is { } here ? LinkTo(here, PageKind.System) : null),
             new(LinkTo("Route", PageKind.Route), Workspace.Monitor.Route is { Stops.Count: > 1 } navRoute ? Display.Plural(navRoute.Stops.Count - 1, "jump") + " plotted" : "no route plotted"),
             new(LinkTo("Settings", PageKind.Settings), Workspace.JournalFolder.Length == 0 ? "journal folder not set" : "journal folder set"),
         ];
@@ -171,17 +180,18 @@ public sealed class HomePage : Page
         var remaining = hereIndex < 0 ? stops.Count - 1 : stops.Count - 1 - hereIndex;
         if (remaining == 0)
         {
-            return new HomeStat("JUMPS LEFT", "0", $"Arrived at {stops[^1].System}.", StatTone.Good, link);
+            var arrived = Phrase.Of("Arrived at ", LinkTo(stops[^1].System, PageKind.System, stops[^1].System), ".");
+            return new HomeStat("JUMPS LEFT", "0", Phrase.Plain(arrived), StatTone.Good, link, arrived);
         }
 
         var fuel = FuelEstimate.For(Workspace, stops);
         var detail = fuel.HasEstimate && fuel.JumpsWithoutScooping is { } jumps
-            ? jumps >= remaining ? "Fuel for the whole route without scooping." : jumps == 0 ? "Not enough fuel for the next jump." : $"Fuel for {Display.Plural(jumps, "jump")} before you must scoop."
-            : $"to {stops[^1].System}.";
+            ? Phrase.Text(jumps >= remaining ? "Fuel for the whole route without scooping." : jumps == 0 ? "Not enough fuel for the next jump." : $"Fuel for {Display.Plural(jumps, "jump")} before you must scoop.")
+            : Phrase.Of("to ", LinkTo(stops[^1].System, PageKind.System, stops[^1].System), ".");
         var tone = fuel.HasEstimate && fuel.JumpsWithoutScooping is { } left
             ? left == 0 ? StatTone.Bad : left < remaining ? StatTone.Warn : StatTone.Good
             : StatTone.Accent;
-        return new HomeStat("JUMPS LEFT", remaining.ToString(CultureInfo.InvariantCulture), detail, tone, link);
+        return new HomeStat("JUMPS LEFT", remaining.ToString(CultureInfo.InvariantCulture), Phrase.Plain(detail), tone, link, detail);
     }
 
     /// <summary>What the unsold exploration and organic data aboard is worth, the first-logged bonus taken as likely where the journal says nobody had logged the species.</summary>
@@ -210,24 +220,25 @@ public sealed class HomePage : Page
 
     private HomeStat SystemStat()
     {
-        var link = LinkTo("This system", PageKind.System);
         var system = Workspace.System;
         if (system.SystemName is null)
         {
-            return new HomeStat("BODIES SCANNED", "—", "No position yet.", StatTone.Muted, link);
+            return new HomeStat("BODIES SCANNED", "—", "No position yet.", StatTone.Muted, LinkTo("This system", PageKind.System));
         }
 
+        // The link under the figure is the system's own name, so the name opens the system wherever it is shown.
+        var link = LinkTo(system.SystemName, PageKind.System);
         var scanned = system.BodiesScanned;
         if (system.BodyCount is { } total && total > 0)
         {
             var known = system.BodiesKnown ?? scanned;
             var tone = known >= total ? StatTone.Good : StatTone.Accent;
-            return new HomeStat("BODIES SCANNED", ScanProgress.Figure(system), $"in {system.SystemName}.", tone, link);
+            return new HomeStat("BODIES SCANNED", ScanProgress.Figure(system), "in this system.", tone, link);
         }
 
         return scanned == 0
-            ? new HomeStat("BODIES SCANNED", "0", $"in {system.SystemName}. Honk to count the bodies.", StatTone.Muted, link)
-            : new HomeStat("BODIES SCANNED", scanned.ToString(CultureInfo.InvariantCulture), $"in {system.SystemName}, before a honk.", StatTone.Accent, link);
+            ? new HomeStat("BODIES SCANNED", "0", "in this system. Honk to count the bodies.", StatTone.Muted, link)
+            : new HomeStat("BODIES SCANNED", scanned.ToString(CultureInfo.InvariantCulture), "in this system, before a honk.", StatTone.Accent, link);
     }
 }
 

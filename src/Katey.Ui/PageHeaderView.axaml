@@ -1,7 +1,8 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="Katey.Ui.PageHeaderView">
-  <!-- DataContext is a Page: the breadcrumb links, the kicker and the title. -->
+             x:Class="Katey.Ui.PageHeaderView"
+             x:Name="Root">
+  <!-- DataContext is a Page: the breadcrumb links, the kicker and the title, with whatever the page puts Beside the title. -->
   <StackPanel Spacing="4">
     <StackPanel Orientation="Horizontal" Spacing="6">
       <ItemsControl ItemsSource="{Binding Breadcrumbs}">
@@ -17,6 +18,9 @@
       </ItemsControl>
       <TextBlock Classes="kicker" Text="{Binding Kicker}" IsVisible="{Binding HasKicker}" />
     </StackPanel>
-    <TextBlock Classes="title" Text="{Binding Title}" />
+    <StackPanel Orientation="Horizontal" Spacing="12">
+      <TextBlock Classes="title" Text="{Binding Title}" VerticalAlignment="Center" />
+      <ContentPresenter Content="{Binding #Root.Beside}" VerticalAlignment="Center" />
+    </StackPanel>
   </StackPanel>
 </UserControl>

@@ -54,17 +54,20 @@ them separately, since they are bought at a market rather than collected.
 
 `PlanProgress.Apply` moves a plan on by the rolls the game reported, each a `Craft` in the catalog's terms:
 module type, blueprint, grade, the grade's progress after the roll and the experimental effect then on the
-module. A roll finds the first module entry for its blueprint and module type that it is later than, by
-the entry's `CraftsAfter`; an entry whose module type is unknown takes any module of its blueprint. The
-roll zeroes the rolls still planned at every grade below the one rolled, since the module is past them,
-takes one roll off the grade rolled, or all of them when the grade's progress reached 1, drops the
-entry's experimental effect once the module carries it, so its materials stop counting, and moves the
-entry's `CraftsAfter` to its time so it is never applied twice. The entry is done, and leaves the plan,
-when every planned grade is rolled out, the module stands at the target grade or above, and no effect is
-still wanted; an experimental-only entry is done when the effect is. Unlock entries are never touched,
-nor is an experimental-only entry with no effect chosen. `PlanProgress.Floor` is the earliest
-`CraftsAfter` among module entries, so a caller can skip the rolls before it. The rule cannot tell which
-ship was rolled: a roll on any module of the blueprint and type advances the entry.
+module. A roll finds the first module entry for its blueprint and module type that it is later than, by the
+entry's `CraftsAfter`; an entry whose module type is unknown takes any module of its blueprint. The roll then:
+
+1. zeroes the rolls still planned at every grade below the one rolled, since the module is past them;
+2. takes one roll off the grade rolled, or all of them when the grade's progress reached 1;
+3. drops the entry's experimental effect once the module carries it, so its materials stop counting;
+4. moves the entry's `CraftsAfter` to its time, so it is never applied twice.
+
+The entry is done, and leaves the plan, when every planned grade is rolled out, the module stands at the
+target grade or above, and no effect is still wanted; an experimental-only entry is done when the effect is.
+Unlock entries are never touched, nor is an experimental-only entry with no effect chosen.
+`PlanProgress.Floor` is the earliest `CraftsAfter` among module entries, so a caller can skip the rolls before
+it. The rule cannot tell which ship was rolled: a roll on any module of the blueprint and type advances the
+entry.
 
 `UnlockBudget` answers whether an unlock can be afforded out of what the plan leaves: `Remaining` takes
 the inventory and subtracts every enabled entry's materials, floor zero, and `CanAfford` checks one
@@ -110,11 +113,16 @@ For each target the planner scores a trade from every spare material in the same
 - Ties go to the trade that hands back the least beyond what is wanted, then to the one that hands over
   the fewest units.
 
-The lowest score wins. When it leaves a remainder the planner goes again for the rest, and when nothing
-can be traded it records a `TradeShortfall` with the reason: the only spare materials are never-trade
-ones, nothing is held above its floor, nothing else in the inventory is held, or every whole batch would
-overfill the target's stack. Batches are whole and never overfill a stack, so a trade down a grade can
-hand back a few more than wanted; each `MaterialTrade` reports that surplus.
+The lowest score wins. When it leaves a remainder the planner goes again for the rest. When nothing can be
+traded it records a `TradeShortfall` with the reason:
+
+- the only spare materials are never-trade ones;
+- nothing is held above its floor;
+- nothing else in the inventory is held;
+- every whole batch would overfill the target's stack.
+
+Batches are whole and never overfill a stack, so a trade down a grade can hand back a few more than wanted;
+each `MaterialTrade` reports that surplus.
 
 ## Who can do the work
 
@@ -125,34 +133,42 @@ An engineer appears against an entry when the tables list them for that module t
 Experimental effects follow the game's rule: any engineer who offers any grade of any blueprint for a module
 type can apply any of that type's experimental effects. `EngineerCoverage.For` applies the same two rules to
 every blueprint for a selection of engineers. `EngineerCoverage.Reach` gives the highest grade a selection
-reaches on one blueprint for one module type, and `StartingGrade` is that grade, or the blueprint's top
-grade when nobody selected offers it. `Blueprints`, `Grades`, `ModuleTypes` and `OffersAny` narrow the
-catalog's lists to what the selection can roll: the blueprints of a type, the grades of a blueprint up to
-the reach, the types a blueprint can be rolled on, and whether the selection can apply a type's experimental
-effects at all.
+reaches on one blueprint for one module type, and `StartingGrade` is that grade, or the blueprint's top grade
+when nobody selected offers it. Four more narrow the catalog's lists to what the selection can roll:
+
+- `Blueprints`, the blueprints of a type;
+- `Grades`, the grades of a blueprint up to the reach;
+- `ModuleTypes`, the types a blueprint can be rolled on;
+- `OffersAny`, whether the selection can apply a type's experimental effects at all.
 
 ## What the EDSY import reads
 
-`EdsyImport.Parse` accepts an EDSY "Export to journal Loadout" in any of the shapes EDSY and the game
-journal produce: an array of `{ header, data }` objects, one such object, or a bare Loadout. Every module
-with an item goes into `AllModules`, for fits. Only modules with an `Engineering` block go into `Modules`,
-for the plan: `BlueprintName` must be a blueprint key and `Level` must be 1–5, or the module is skipped
-with a warning; an `ExperimentalEffect` the tables do not know is dropped with a warning while the module is
-still imported. The module type comes from `ItemResolver`; an item no pattern matches is imported with its
-materials but with no module type, so no engineers can be listed for it. When the export carries
-`UnladenMass` and `FuelCapacity`, which EDSY writes as the game does, `Profile` is the loadout's
-`JumpProfile`, built from those and each module's `Engineering.Modifiers`; without them it is
-`null`. `EdsyImport.ProfileOf` reads that profile alone from an export text, without a catalog, and
-answers `null` for anything that is not a Loadout with the masses and a drive.
+`EdsyImport.Parse` accepts an EDSY "Export to journal Loadout" in any of the shapes EDSY and the game journal
+produce: an array of `{ header, data }` objects, one such object, or a bare Loadout. Every module with an item
+goes into `AllModules`, for fits. Only modules with an `Engineering` block go into `Modules`, for the plan.
+There `BlueprintName` must be a blueprint key and `Level` must be 1–5, or the module is skipped with a
+warning; an `ExperimentalEffect` the tables do not know is dropped with a warning while the module is still
+imported. The module type comes from `ItemResolver`; an item no pattern matches is imported with its materials
+but with no module type, so no engineers can be listed for it.
+
+When the export carries `UnladenMass` and `FuelCapacity`, which EDSY writes as the game does, `Profile` is the
+loadout's `JumpProfile`, built from those and each module's `Engineering.Modifiers`; without them it is
+`null`. `EdsyImport.ProfileOf` reads that profile alone from an export text, without a catalog, and answers
+`null` for anything that is not a Loadout with the masses and a drive.
 
 ## Exploration
 
-`StarClasses.Classify` reads the class strings the journal and `NavRoute.json` use: O, B, A, F, G, K and M
-are scoopable, and so is a giant of one of those classes, which the game spells with a suffix such as
-`M_RedGiant` or `A_BlueWhiteSuperGiant`; N is a neutron star; any class starting with D is a white dwarf;
-H and `SupermassiveBlackHole` are black holes; everything else is other. `Describe` and `Brief` put a class
-in a reader's words, "Class M red giant star" and "M red giant", and `Spectral` gives a scoopable
-star's letter, which is how a giant takes its class's colour.
+`StarClasses.Classify` reads the class strings the journal and `NavRoute.json` use:
+
+- O, B, A, F, G, K and M are scoopable, and so is a giant of one of those classes, which the game spells with
+  a suffix such as `M_RedGiant` or `A_BlueWhiteSuperGiant`;
+- N is a neutron star;
+- any class starting with D is a white dwarf;
+- H and `SupermassiveBlackHole` are black holes;
+- everything else is other.
+
+`Describe` and `Brief` put a class in a reader's words, "Class M red giant star" and "M red giant". `Spectral`
+gives a scoopable star's letter, which is how a giant takes its class's colour.
 
 `SurfaceGravity.Band` reads a surface gravity in g: from 1.0 g a landing is high, from 1.5 g extreme, where a
 heavy ship may not arrest its descent. The thresholds are the two constants on the class.
@@ -196,55 +212,64 @@ sharing policy decides whether a module one fit used is still available to a lat
 | `None` | Every fit needs its own copy. |
 
 Items are compared through `ModuleSymbolNames.Canonical`, so a module that came free with a bundled ship,
-which the game writes with a `_free` suffix, or a ship-specific cargo hatch such as `modularcargobaydoorfdl`
-is the item the fit names. An engineered requirement needs the same blueprint at the required grade or
-higher, and the same experimental effect when one is required. `Engineering.Quality` is the game's
-progress within the grade; a module at the required grade with that below 1 is partial, since the grade
-is not rolled to its full effect, while a module engineered before the game kept the figure, which it
-reports as 0, counts as complete. `FitComparer` reports that case as `UnfinishedGrade`. Station storage
-records blueprint and grade but not the effect, so such a match is reported as `ExperimentalUnknown`. A
-stock requirement accepts any module of the item,
-and among modules that match equally well, one already fitted to a ship of the fit's hull is taken first,
-then one in storage, then one fitted to a ship of another hull, which would have to give it up. So a fit
-is met by its own ship's modules before it borrows, whatever order the fits or the modules come in.
-Within a place the nearer module wins when the caller says how far each is, with the player's own system
-nearest and an unknown place last. A module flagged `IsPrebuilt` cannot leave its ship, so it is offered
-only to fits of its own hull, and never to `Find`, which has no hull in play. Only then does the least
-wasteful module win, a stock one for a stock need, so engineered modules are kept for the fits that need
-them. Fits for hulls the player does not own are reported as such with nothing assigned. The report ends
-with every owned module no fit claimed.
-`FitMatcher.Find` answers the same question for one requirement against any set of owned modules, with no
-fit or policy in play.
+which the game writes with a `_free` suffix, or a ship-specific cargo hatch such as `modularcargobaydoorfdl`,
+is the item the fit names. A stock requirement accepts any module of the item. An engineered requirement needs
+the same blueprint at the required grade or higher, and the same experimental effect when one is required.
+`Engineering.Quality` is the game's progress within the grade. A module at the required grade with that below
+1 is partial, since the grade is not rolled to its full effect; `FitComparer` reports that case as
+`UnfinishedGrade`. A module engineered before the game kept the figure, which it reports as 0, counts as
+complete. Station storage records blueprint and grade but not the effect, so such a match is reported as
+`ExperimentalUnknown`.
 
-`FitComparer.Compare` lays a fit against the modules actually fitted to one ship. A required item is
-looked for in the slot the fit names first, then in any other slot of the same kind, nearest in size
-first, so a module the ship carries in a different optional bay or hardpoint still counts. `SlotNames.Parse`
-reads the kind and size from a slot name: core, hardpoint, utility, optional, military or other. Each
-fitted module satisfies at most one requirement. A stock requirement is satisfied by any module of the
-item. An engineered requirement is satisfied by the same item with the same blueprint at the required
-grade or higher and, when the fit names an experimental effect, the same effect. Every other case is a
-`FitDifference` with a `DifferenceKind`: the slot is empty or its module is spoken for, holds a different
-item, is not engineered, has a different blueprint, a lower grade, a different or missing experimental, or
-an experimental the journal does not know. A difference knows whether closing it means buying,
-engineering, or only applying the experimental, and whether the module it judged sits in another slot.
+Among modules that match equally well, the order is:
+
+1. one already fitted to a ship of the fit's hull, then one in storage, then one fitted to a ship of another
+   hull, which would have to give it up. So a fit is met by its own ship's modules before it borrows, whatever
+   order the fits or the modules come in;
+2. within a place, the nearer module when the caller says how far each is, with the player's own system
+   nearest and an unknown place last;
+3. the least wasteful module, a stock one for a stock need, so engineered modules are kept for the fits that
+   need them.
+
+A module flagged `IsPrebuilt` cannot leave its ship, so it is offered only to fits of its own hull, and never
+to `Find`, which has no hull in play. Fits for hulls the player does not own are reported as such with nothing
+assigned. The report ends with every owned module no fit claimed. `FitMatcher.Find` answers the same question
+for one requirement against any set of owned modules, with no fit or policy in play.
+
+`FitComparer.Compare` lays a fit against the modules actually fitted to one ship. A required item is looked
+for in the slot the fit names first, then in any other slot of the same kind, nearest in size first, so a
+module the ship carries in a different optional bay or hardpoint still counts. `SlotNames.Parse` reads the
+kind and size from a slot name: core, hardpoint, utility, optional, military or other. Each fitted module
+satisfies at most one requirement. A stock requirement is satisfied by any module of the item. An engineered
+requirement is satisfied by the same item with the same blueprint at the required grade or higher and, when
+the fit names an experimental effect, the same effect. Every other case is a `FitDifference` with a
+`DifferenceKind`:
+
+- the slot is empty, or its module is spoken for;
+- it holds a different item;
+- it is not engineered, has a different blueprint, or a lower grade;
+- it has a different or missing experimental, or one the journal does not know.
+
+A difference knows whether closing it means buying, engineering, or only applying the experimental, and
+whether the module it judged sits in another slot.
 
 ## Fuel
 
 `FrameShiftDrives` answers for a drive by its item symbol from `drives.json`: the exponent and the multiplier
-of the fuel equation, the most fuel one jump may burn, the optimal mass of the unmodified drive, and the
-neutron multiplier, 6 for the size 8 Mk II and 4 for every other. The table is the one Spansh's own plotter
-works from, so a plan asked for through Katey matches one asked for on the site. The class also holds the
-range a Guardian booster adds by size and the range multipliers of a neutron star and a white dwarf.
+of the fuel equation, the most fuel one jump may burn, and the optimal mass of the unmodified drive. It also
+gives the neutron multiplier, 6 for the size 8 Mk II and 4 for every other. The table is the one Spansh's own
+plotter works from, so a plan asked for through Katey matches one asked for on the site. The class also holds
+the range a Guardian booster adds by size and the range multipliers of a neutron star and a white dwarf.
 
 `JumpFuelModel` is `fuel = k × effective^power`, capped at the drive's maximum. The effective distance is the
-jump divided by the departure star's boost and then scaled by the drive's own range over its range with the
-Guardian booster, so the booster stretches every jump by the same factor; the game charges for it that way,
+jump divided by the departure star's boost, then scaled by the drive's own range over its range with the
+Guardian booster. The booster thus stretches every jump by the same factor; the game charges for it that way,
 not as a flat slice off the distance. The scale `k` comes one of two ways. `JumpProfile.FuelModel` computes it
 as the game does, from the loadout's masses and the drive's optimal mass: the multiplier times the ratio of
 the mass aboard to the optimal mass, raised to the power. `JumpFuelModel.Calibrate` fits it instead to the
-jumps the ship has actually made, as the median of the per-jump fits settled over a few rounds since the
-booster's share depends on the range, which folds the ship's mass and the drive's engineering into one number
-without knowing either, for a loadout the journal has not given the figures for.
+jumps the ship has actually made, for a loadout the journal has not given the figures for. The fit is the
+median of the per-jump fits, settled over a few rounds since the booster's share depends on the range, and it
+folds the ship's mass and the drive's engineering into one number without knowing either.
 
 `FuelPlanner.Project` runs the model along the legs ahead from the tank reading, refilling to capacity at
 every scoopable stop. It asks for the model before each jump with the fuel then aboard, so a model built
@@ -258,16 +283,16 @@ runs dry even when scooping wherever it can.
 `JumpProfile` is what a route plotter needs to know about a ship: the drive's exponent and multiplier, its
 optimal mass and most fuel per jump with engineering applied, the base mass, the main and reserve tanks, a
 Guardian booster's range and the neutron multiplier. `Range` gives the full-tank jump range with a given
-cargo, `MaxRange` the range with one jump's fuel aboard, which is the figure the game calls the maximum jump
-range, and `FuelModel` the fuel equation at a given load, so the burn is known before a jump is made.
+cargo. `MaxRange` gives the range with one jump's fuel aboard, which is the figure the game calls the maximum
+jump range. `FuelModel` gives the fuel equation at a given load, so the burn is known before a jump is made.
 
-`Build` makes one from a loadout's figures, the same for the game's `Loadout` event and EDSY's export of one:
-the first module that is a frame shift drive sets the drive figures, with `MaxFuelPerJump` and
+`Build` makes one from a loadout's figures, the same for the game's `Loadout` event and EDSY's export of one.
+The first module that is a frame shift drive sets the drive figures, with `MaxFuelPerJump` and
 `FSDOptimalMass` from its modifiers replacing the stock ones, and a Guardian booster anywhere adds its range.
 When the loadout carries the game's own `MaxJumpRange`, the fuel cap is solved from it so that `MaxRange` with
 no cargo equals the game's figure; the game's number is the authority over the table. A saved `Fitting` keeps
 the export text it was pasted from as `LoadoutJson`, so the same text goes back to EDSY unchanged and
-`EdsyImport.ProfileOf` reads its profile, which is how a route can be plotted for a fit as well as for a ship.
+`EdsyImport.ProfileOf` reads its profile. That is how a route can be plotted for a fit as well as for a ship.
 
 `PlotRequest` is one ask of Spansh's galaxy plotter: the two ends, the profile, the cargo and the options.
 `FormFields` writes it in the field names the service takes. `SpanshJson.Read` turns a reply into a
@@ -364,13 +389,19 @@ The conversion from upstream applies these rules:
 ### Validation
 
 `Catalog.FromRows` runs `CatalogValidator` and throws `CatalogException` listing every problem. The rules:
-every grade is 1–5; every category, group and region is one of its allowed values; every material a
-blueprint or experimental names exists; every blueprint and experimental a module type names exists; every
-grade a module type lists exists on that blueprint; every engineer named in a grade list exists and offers
-at least one blueprint; every `itemPattern` compiles and is unique; material symbols are unique.
-`ModuleCatalog` and `ExobiologyPredictor` throw `CatalogException` when their tables are missing or
-malformed. The `CatalogTests`, `FleetTests` and `ExplorationTests` suites load all three, so a data typo
-fails the test run.
+
+- every grade is 1–5;
+- every category, group and region is one of its allowed values;
+- every material a blueprint or experimental names exists;
+- every blueprint and experimental a module type names exists;
+- every grade a module type lists exists on that blueprint;
+- every engineer named in a grade list exists and offers at least one blueprint;
+- every `itemPattern` compiles and is unique;
+- material symbols are unique.
+
+`ModuleCatalog` and `ExobiologyPredictor` throw `CatalogException` when their tables are missing or malformed.
+The `CatalogTests`, `FleetTests` and `ExplorationTests` suites load all three, so a data typo fails the test
+run.
 
 ### Refreshing the data
 

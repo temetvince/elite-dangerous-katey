@@ -13,17 +13,21 @@ public sealed class PlanViewModel : ObservableObject
 {
     private readonly Catalog _catalog;
     private readonly Func<IReadOnlySet<string>> _selectedEngineers;
+    private readonly Func<string, EngineerLink> _engineerLink;
 
     /// <summary>Creates an empty plan.</summary>
     /// <param name="catalog">The catalog.</param>
     /// <param name="selectedEngineers">Reads the current engineer selection.</param>
-    public PlanViewModel(Catalog catalog, Func<IReadOnlySet<string>> selectedEngineers)
+    /// <param name="engineerLink">Makes an engineer's name as Katey shows it everywhere; see <see cref="Workspace.EngineerLinkFor"/>.</param>
+    public PlanViewModel(Catalog catalog, Func<IReadOnlySet<string>> selectedEngineers, Func<string, EngineerLink> engineerLink)
     {
         ArgumentNullException.ThrowIfNull(catalog);
         ArgumentNullException.ThrowIfNull(selectedEngineers);
+        ArgumentNullException.ThrowIfNull(engineerLink);
 
         _catalog = catalog;
         _selectedEngineers = selectedEngineers;
+        _engineerLink = engineerLink;
         ArmClearCommand = new RelayCommand(() => IsConfirmingClear = true, () => Entries.Count > 0);
         CancelClearCommand = new RelayCommand(() => IsConfirmingClear = false);
         ConfirmClearCommand = new RelayCommand(Clear);
@@ -78,7 +82,7 @@ public sealed class PlanViewModel : ObservableObject
 
         foreach (var entry in entries)
         {
-            Entries.Add(new PlanEntryViewModel(_catalog, entry, _selectedEngineers(), _ => RaiseChanged(), Remove));
+            Entries.Add(new PlanEntryViewModel(_catalog, entry, _selectedEngineers(), _engineerLink, _ => RaiseChanged(), Remove));
         }
 
         RaiseChanged();

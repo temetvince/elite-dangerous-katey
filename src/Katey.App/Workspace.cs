@@ -147,6 +147,15 @@ public sealed class Workspace
     /// <summary>Gets what the indexes and pickers may offer: everything, or only what the selected engineers can roll while the remembered switch is on.</summary>
     public EngineerScope Scope => field ??= new EngineerScope(Catalog, Engineers, Preferences);
 
+    /// <summary>An engineer's name as Katey shows it everywhere: their page, whether you ticked them, and whether the engineers switch narrows the lists.</summary>
+    /// <param name="name">The engineer's name, as the catalog spells it.</param>
+    /// <returns>The link; see <see cref="EngineerLink"/>.</returns>
+    public EngineerLink EngineerLinkFor(string name)
+    {
+        ArgumentNullException.ThrowIfNull(name);
+        return new EngineerLink(Navigator.LinkTo(name, PageKind.Engineer, name), Engineers.Selected.Contains(name), Scope.IsNarrowed);
+    }
+
     /// <summary>Gets the logger the view models write decisions to.</summary>
     public ILogger Logger { get; }
 
@@ -353,6 +362,9 @@ public sealed class Workspace
 
     /// <summary>Gets the exploration and organic data aboard, unsold; empty while the monitor is catching up.</summary>
     public CarriedData Carried => IsCatchingUp ? CarriedData.Empty : Sinks.Carried.Snapshot();
+
+    /// <summary>Gets every exploration and organic sale in the history; empty while the monitor is catching up.</summary>
+    public SoldData Sold => IsCatchingUp ? SoldData.Empty : Sinks.Carried.Sold();
 
     /// <summary>
     /// Moves the plan on by the engineering the game has reported since each entry last moved: rolls count

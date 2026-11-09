@@ -106,8 +106,8 @@ public sealed class MaterialPage : Page
     /// <summary>Gets bodies in the current system with it on the surface. Only raw materials have any.</summary>
     public IReadOnlyList<MaterialSourceRow> Sources { get; private set => SetProperty(ref field, value); } = [];
 
-    /// <summary>Gets a heading for the sources, or a note that none are known.</summary>
-    public string SourcesText { get; private set => SetProperty(ref field, value); } = "";
+    /// <summary>Gets the heading over the surface sources, the system you are in as a link; empty for a material that does not lie on surfaces.</summary>
+    public IReadOnlyList<PhrasePart> SourcesParts { get; private set => SetProperty(ref field, value); } = Phrase.Empty;
 
     /// <summary>Gets the journal symbol.</summary>
     public string SymbolText => $"Journal symbol {_material.Symbol}";
@@ -176,12 +176,12 @@ public sealed class MaterialPage : Page
                     string.Create(CultureInfo.InvariantCulture, $"{body.Materials[_material.Symbol]:0.0}%"),
                     body.Landable)),
         ];
-        SourcesText = _material.Category != MaterialCategory.Raw
-            ? ""
-            : system.SystemName is null
-                ? "Surface sources appear once the journal reports a system."
+        SourcesParts = _material.Category != MaterialCategory.Raw
+            ? Phrase.Empty
+            : system.SystemName is not { } here
+                ? Phrase.Text("Surface sources appear once the journal reports a system.")
                 : Sources.Count == 0
-                    ? $"No scanned body in {system.SystemName} carries it."
-                    : $"On the surface in {system.SystemName}";
+                    ? Phrase.Of("No scanned body in ", LinkTo(here, PageKind.System, here), " carries it.")
+                    : Phrase.Of("On the surface in ", LinkTo(here, PageKind.System, here));
     }
 }
