@@ -1389,7 +1389,7 @@
                     <StackPanel Spacing="16" IsVisible="{Binding Sections[game].IsCurrent}">
                     <StackPanel Spacing="4">
                       <TextBlock Classes="lede" Text="{Binding Summary}" />
-                      <ui:PhraseBlock Classes="accent" TextWrapping="Wrap" Parts="{Binding DetourParts}" IsVisible="{Binding !!DetourParts.Count}" />
+                      <ui:PhraseBlock Classes="accent" TextWrapping="Wrap" Parts="{Binding RerouteParts}" IsVisible="{Binding !!RerouteParts.Count}" />
                       <TextBlock Classes="muted" Text="{Binding TravelledText}" IsVisible="{Binding !!TravelledText.Length}" />
                       <Grid ColumnDefinitions="Auto,220,Auto" ColumnSpacing="10" IsVisible="{Binding Fuel.HasTank}" Margin="0,4,0,0">
                         <TextBlock Classes="col" Text="TANK" VerticalAlignment="Center" />

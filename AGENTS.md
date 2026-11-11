@@ -307,6 +307,13 @@ fixing the code over adding more.
     bounds: changing `WindowDecorations` resizes the client area at once and Avalonia writes that size into
     `Width` and `Height`, so a size set before it is lost. `RailView` paints its ground only as far as its
     content, so the overlay is clear below the last line.
+  - The game targets the next jump by itself on every arrival along a route, so a destination in
+    `Status.json` says nothing about whether the player is exploring here; the rail shows the bodies
+    from arrival and the route only while the drive charges or the ship is in hyperspace. Jumping to
+    a system off the plotted route makes the game re-plot through it and report
+    `RemainingJumpsInRoute` with the target, but it does not rewrite `NavRoute.json`, so
+    `RoutePage.RerouteJumps` takes the game's count over the stale file's stops and `RerouteLine`
+    says so.
   - Colour by meaning is a resource pair in `App.axaml`, one per theme, reached from XAML through the
     `SemanticBrush` converter with a key prefix (`KG` + grade, `K` + `MaterialCategory`, `K` +
     `ModuleGroup`) or `StarBrush` for a star class. A new meaning gets a resource pair and a `README`

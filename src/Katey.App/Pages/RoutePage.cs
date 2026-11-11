@@ -310,8 +310,8 @@ public sealed class RoutePage : Page
     /// <summary>Gets how far along the route the ship is, such as "4,002 ly of 7,320 ly travelled".</summary>
     public string TravelledText { get; private set => SetProperty(ref field, value); } = "";
 
-    /// <summary>Gets the line on the plotted route a targeted detour leaves behind, as <see cref="DetourLine"/> words it, or empty.</summary>
-    public IReadOnlyList<PhrasePart> DetourParts { get; private set => SetProperty(ref field, value); } = Phrase.Empty;
+    /// <summary>Gets the line on a targeted system that is off the route file, as <see cref="RerouteLine"/> words it, or empty.</summary>
+    public IReadOnlyList<PhrasePart> RerouteParts { get; private set => SetProperty(ref field, value); } = Phrase.Empty;
 
     /// <summary>Gets the fuel picture: the tank, what the next jump burns, and how far the route gets without a scoop. <see cref="FuelEstimate.None"/> until a refresh.</summary>
     public FuelEstimate Fuel { get; private set => SetProperty(ref field, value); } = FuelEstimate.None;
@@ -725,8 +725,8 @@ public sealed class RoutePage : Page
     /// The route the ship is on, with the system the player has targeted as the next jump. With no target
     /// elsewhere this is the game's route file. A target that is the route's next stop changes nothing. One
     /// further along the route drops the stops between, since the ship will jump straight to it. One off the
-    /// route, or any target when the route file is empty, makes a one-jump route from the ship to it; the
-    /// plotted route it leaves is described by <see cref="DetourLine"/>. A targeted stop's position comes
+    /// route, or any target when the route file is empty, makes a one-jump route from the ship to it; what
+    /// that means for the plotted route is described by <see cref="RerouteLine"/>. A targeted stop's position comes
     /// from the history or the Spansh plot; unknown, it is the ship's own, so its distance reads as 0.
     /// </summary>
     /// <param name="workspace">The shared state.</param>
@@ -770,12 +770,14 @@ public sealed class RoutePage : Page
     }
 
     /// <summary>
-    /// One line on the plotted route a targeted detour leaves behind: where it ends and how many jumps remain,
-    /// counting the ship rejoining it at its next stop after the detour.
+    /// One line on a targeted system that is not on the route file. The game re-plots its route through
+    /// whatever you target and reports the jumps left from there with the target, but it does not rewrite
+    /// the route file at once, so the file's stops are stale until it does and its count is not used. With
+    /// no count from the game, the target is simply off the plotted route.
     /// </summary>
     /// <param name="workspace">The shared state.</param>
-    /// <returns>The line, or empty when the target is on the plotted route or there is no plotted route.</returns>
-    public static IReadOnlyList<PhrasePart> DetourLine(Workspace workspace)
+    /// <returns>The line, with the target and the destination as links, or empty when the target is on the route file or there is no route file.</returns>
+    public static IReadOnlyList<PhrasePart> RerouteLine(Workspace workspace)
     {
         ArgumentNullException.ThrowIfNull(workspace);
         var progress = workspace.Route;
@@ -784,14 +786,25 @@ public sealed class RoutePage : Page
             return Phrase.Empty;
         }
 
-        var remaining = live.Stops.Count - 1 - Math.Max(IndexOfCurrent(live, progress), 0);
         var end = live.Stops[^1].StarSystem;
-        return Phrase.Of(
-            "Detour to ",
-            workspace.Navigator.LinkTo(target, PageKind.System, target),
-            ". The plotted route to ",
-            workspace.Navigator.LinkTo(end, PageKind.System, end),
-            $" resumes after it, {Display.Plural(remaining, "jump")}.");
+        Link System(string name) => workspace.Navigator.LinkTo(name, PageKind.System, name);
+        return progress.RemainingJumps is { } more
+            ? Phrase.Of("Re-routed through ", System(target), $", {Display.Plural(more + 1, "jump")} to ", System(end), ". The route file has not caught up yet.")
+            : Phrase.Of("Targeting ", System(target), ", off the plotted route to ", System(end), ".");
+    }
+
+    /// <summary>
+    /// Jumps left by the game's own count while the targeted system is off the route file: the game has
+    /// re-plotted through the target and reports the jumps after it with the target, while the file lags.
+    /// </summary>
+    /// <param name="workspace">The shared state.</param>
+    /// <returns>The game's count after the next jump plus that jump, or <see langword="null"/> when the target is on the route file, there is no route file, or the game gave no count.</returns>
+    public static int? RerouteJumps(Workspace workspace)
+    {
+        ArgumentNullException.ThrowIfNull(workspace);
+        var progress = workspace.Route;
+        var rerouted = workspace.Monitor.Route is { Stops.Count: > 1 } live && TargetElsewhere(progress) is { } target && IndexOfName(live, target) < 0;
+        return rerouted && progress.RemainingJumps is { } more ? more + 1 : null;
     }
 
     /// <summary>The targeted system when it is not the one the ship is in, else <see langword="null"/>.</summary>
@@ -902,7 +915,7 @@ public sealed class RoutePage : Page
         FuelParts = FuelLine(Workspace, stops);
         var hereIndex = HereIndex(Workspace);
         TravelledText = TravelledLine(stops, hereIndex);
-        DetourParts = DetourLine(Workspace);
+        RerouteParts = RerouteLine(Workspace);
         Fuel = FuelEstimate.For(Workspace, stops);
         if (stops.Count == 0)
         {

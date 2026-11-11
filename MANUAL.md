@@ -162,29 +162,23 @@ The rail follows the game along the right edge of the window. It shows:
     bodies with surface materials and shows their materials only; a body with both life and materials is
     listed, its biology count still in the title, its genera not. Landable is the default. The choice is
     remembered.
-  - In the Biology view, a second choice of three says which bodies with life to leave out. The choice is
+  - In the Biology view, a second choice of two says which bodies with life to leave out. The choice is
     remembered. Conditions Katey has no record of are never hidden.
   - **All life** lists every one.
   - **Skip bacteria** leaves out bodies whose life is bacteria alone: by the scanner's genera once mapped, or
     before that a single signal at least four in five likely to be bacteria.
-  - **Valuable only** asks a different question before and after the probes. Before you probe a body, the
-    question is whether it is worth flying over to probe. It stays while the chance that at least one of its
-    signals is a species worth the stop on its own is one in four or better, by the odds of the genera its
-    conditions allow. A body with many signals is therefore kept until the probes say what is there. Once
-    probed, the question is whether it is worth landing. It stays while its best landing pays 8M a minute on
-    the ground, bonus included. The best landing takes the species worth the time in order of their own pace
-    and leaves the rest, since nothing makes you sample everything.
-  - The minutes behind that pace are medians from a practised commander's journal: four for the glide down and
-    the climb back to supercruise, three per species from its first sample to its analysis, and one between
-    one species and the next. The distance between samples does not count: you drive or repark the ship. A
-    lone Stratum Tectonicas with the bonus runs about 14M a minute. Eight cheap species on one body pay more
-    in total but about 6M a minute, so Valuable only skips them once probed and Skip bacteria keeps them.
 
-The rail picks the route or the bodies by itself. It shows the route while another system is your targeted
-destination, while the drive is charging to jump, and while you are in hyperspace, until the moment you arrive
-at the next star. The game clears a route in the middle of its last jump, and the rail keeps showing that jump
-until it is made. With nothing targeted, or a body or station in this system targeted, it shows the bodies.
-The useful section is up without a click.
+The rail picks the route or the bodies by itself. It shows the bodies from the moment you arrive, with one
+line above them on the route: the next jump, how many jumps are left and where the route ends. It switches to
+the route while the drive is charging to jump and while you are in hyperspace, until the moment you arrive at
+the next star. The game clears a route in the middle of its last jump, and the rail keeps showing that jump
+until it is made. What you have targeted does not move the rail: the game targets the next jump by itself on
+every arrival along a route, so a targeted system says nothing about whether you are exploring here. The
+useful section is up without a click.
+
+Target a system that is not on your plotted route and the game re-plots its route through it, but it does not
+rewrite its route file at once. The rail and the Route page say "Re-routed through" that system, with the
+jumps left taken from the game's own count rather than from the stale file, until the file catches up.
 
 **Pop out** moves the rail to a window of its own that stays on top of other windows, for a second monitor or
 a stream capture. A one-line strip stays in the main window with the scan progress and these controls:

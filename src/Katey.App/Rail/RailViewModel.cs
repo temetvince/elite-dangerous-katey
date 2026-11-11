@@ -59,9 +59,6 @@ public enum BodyFilter
 
     /// <summary>Bodies whose life is bacteria alone are left out.</summary>
     SkipBacteria,
-
-    /// <summary>Only bodies worth the stop: those that keep the pace, <see cref="BodyRowBuilder.ValuableCreditsPerMinute"/> on the ground, are listed.</summary>
-    ValuableOnly,
 }
 
 /// <summary>One body in the rail's list: a body with surface materials or biological signals.</summary>
@@ -86,11 +83,10 @@ public enum BodyFilter
 /// <param name="TopMaterialGrade">The highest grade among the surface materials, 1 to 5, or 0 with none.</param>
 /// <param name="HasFirstLogBonus">Whether <paramref name="ExobiologyCredits"/> is five times the base throughout: the first-logged bonus applies to every genus, because nobody has set foot on the body or the game said so at each sample.</param>
 /// <param name="BaseCredits">The payout before that bonus, credits.</param>
-/// <param name="IsLowValue">Whether the body has life but falls below the pace a valuable body keeps, <see cref="BodyRowBuilder.ValuableCreditsPerMinute"/>.</param>
 /// <param name="Genera">Once probed, every genus of the body, richest first; <see langword="null"/> before the probes.</param>
 /// <param name="ShowsLife">Whether the view shows the body's life: every view but Minerals.</param>
 /// <param name="ShowsMaterials">Whether the view shows the body's materials: every view but Biology.</param>
-public sealed record RailBodyRow(string Name, string Signals, string Life, string Materials, bool Landable, bool HasShortMaterial, bool IsBacteriaOnly, long ExobiologyCredits, int MaterialCount, bool IsLanded, string Gravity, bool IsHighGravity, bool IsExtremeGravity, bool HasBiology, double DistanceLs, bool IsValuePredicted, int BiologicalSignals, int ShortMaterialCount, int TopMaterialGrade, bool HasFirstLogBonus, long BaseCredits, bool IsLowValue = false, IReadOnlyList<RailGenusRow>? Genera = null, bool ShowsLife = true, bool ShowsMaterials = true)
+public sealed record RailBodyRow(string Name, string Signals, string Life, string Materials, bool Landable, bool HasShortMaterial, bool IsBacteriaOnly, long ExobiologyCredits, int MaterialCount, bool IsLanded, string Gravity, bool IsHighGravity, bool IsExtremeGravity, bool HasBiology, double DistanceLs, bool IsValuePredicted, int BiologicalSignals, int ShortMaterialCount, int TopMaterialGrade, bool HasFirstLogBonus, long BaseCredits, IReadOnlyList<RailGenusRow>? Genera = null, bool ShowsLife = true, bool ShowsMaterials = true)
 {
     /// <summary>Gets the genus rows to show, none before the probes.</summary>
     public IReadOnlyList<RailGenusRow> GenusRows => Genera ?? [];
@@ -155,7 +151,6 @@ public sealed class RailViewModel : ObservableObject
 
     private readonly Workspace _workspace;
     private readonly BodyRowBuilder _bodies;
-    private string? _nextStop;
 
     /// <summary>Creates the rail.</summary>
     /// <param name="workspace">The shared state.</param>
@@ -315,10 +310,9 @@ public sealed class RailViewModel : ObservableObject
 
     /// <summary>
     /// Gets whether the rail is showing the route rather than this system's bodies: a route is plotted, and
-    /// a jump on it is targeted, or the drive is charging to jump, or the ship is in hyperspace, or this
-    /// system has not been surveyed yet, by honk, nav beacon or scan. A targeted jump is one the route file names next, or any target the game
-    /// itself reports as on the route, since the route file can lag a replot. The rail switches by itself,
-    /// so the useful section is up without a click.
+    /// the drive is charging to jump or the ship is in hyperspace. From arrival until the next charge the
+    /// bodies show, with the route kept to <see cref="RouteSummaryParts"/> above them. The rail switches by
+    /// itself, so the useful section is up without a click.
     /// </summary>
     public bool ShowsRoute { get; private set => SetProperty(ref field, value); }
 
@@ -336,6 +330,12 @@ public sealed class RailViewModel : ObservableObject
 
     /// <summary>Gets one line on the rest of the route: how much more, the next scoopable star, engineer stops, the end.</summary>
     public IReadOnlyList<PhrasePart> RouteRestParts { get; private set => SetProperty(ref field, value); } = Phrase.Empty;
+
+    /// <summary>
+    /// Gets the one line on the route shown above the bodies: the next jump as a link and how many jumps
+    /// are left to the destination, or that the route is done or not yet joined. Empty without a route.
+    /// </summary>
+    public IReadOnlyList<PhrasePart> RouteSummaryParts { get; private set => SetProperty(ref field, value); } = Phrase.Empty;
 
     /// <summary>Gets fuel and the next scoop.</summary>
     public IReadOnlyList<PhrasePart> FuelParts { get; private set => SetProperty(ref field, value); } = Phrase.Empty;
@@ -426,16 +426,14 @@ public sealed class RailViewModel : ObservableObject
     public string BodiesNote { get; private set => SetProperty(ref field, value); } = "";
 
     /// <summary>
-    /// Gets or sets which bodies with life the list leaves out: none, the bacteria-only ones, or every one below
-    /// the pace of <see cref="BodyRowBuilder.ValuableCreditsPerMinute"/> on the ground. Applies in the
-    /// Biology view. Remembered.
+    /// Gets or sets which bodies with life the list leaves out: none, or the bacteria-only ones. Applies in the
+    /// Biology view. Remembered; a saved value that names neither reads as <see cref="BodyFilter.All"/>.
     /// </summary>
     public BodyFilter Filter
     {
         get => _workspace.Preferences.Get(BodyFilterKey) switch
         {
             "bacteria" => BodyFilter.SkipBacteria,
-            "valuable" => BodyFilter.ValuableOnly,
             _ => BodyFilter.All,
         };
         set
@@ -445,7 +443,6 @@ public sealed class RailViewModel : ObservableObject
                 _workspace.Preferences.Set(BodyFilterKey, value switch
                 {
                     BodyFilter.SkipBacteria => "bacteria",
-                    BodyFilter.ValuableOnly => "valuable",
                     BodyFilter.All => "all",
                     _ => "all",
                 });
@@ -463,9 +460,6 @@ public sealed class RailViewModel : ObservableObject
     /// <summary>Gets whether bodies whose life is bacteria alone are left out; <see cref="FilterCommand"/> picks the choice.</summary>
     public bool SkipsBacteria => Filter == BodyFilter.SkipBacteria;
 
-    /// <summary>Gets whether only the bodies worth the stop are listed; <see cref="FilterCommand"/> picks the choice.</summary>
-    public bool IsValuableOnly => Filter == BodyFilter.ValuableOnly;
-
     /// <summary>Rebuilds every section from the trackers.</summary>
     public void Refresh()
     {
@@ -480,38 +474,49 @@ public sealed class RailViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Picks the route or the bodies. The route while another system is the selected destination, while the
-    /// drive is charging to jump or while the ship is in hyperspace, by the status file's flag or by the
-    /// journal's <c>StartJump</c> until its <c>FSDJump</c>; the bodies otherwise, a body or station in this
-    /// system targeted or nothing at all. <c>Status.json</c> says what is targeted and drops it the moment it
-    /// is cleared; without that file the journal's last target stands in, since the journal never says a
-    /// target was cleared.
+    /// The one route line above the bodies. The destination is the route file's last stop when there is a
+    /// file, since a re-plot through a targeted system keeps the destination while the stops to it are not
+    /// written yet; otherwise it is the built route's end, the one targeted jump.
+    /// </summary>
+    private IReadOnlyList<PhrasePart> RouteSummary(IReadOnlyList<RouteStopRow> stops, int hereIndex, int remaining)
+    {
+        Link System(string name) => _workspace.Navigator.LinkTo(name, PageKind.System, name);
+        var end = _workspace.Monitor.Route is { Stops.Count: > 0 } live ? live.Stops[^1].StarSystem : stops[^1].System;
+        if (hereIndex < 0)
+        {
+            return Phrase.Of($"Route of {Display.Plural(stops.Count - 1, "jump")} to ", System(end), "; you are not on it yet.");
+        }
+
+        if (remaining == 0 || hereIndex + 1 >= stops.Count)
+        {
+            return Phrase.Text("At the end of the route.");
+        }
+
+        var next = stops[hereIndex + 1].System;
+        return remaining == 1
+            ? Phrase.Of("Next jump ", System(next), ", the last.")
+            : Phrase.Of("Next jump ", System(next), $", {Display.Plural(remaining, "jump")} left to ", System(end), ".");
+    }
+
+    /// <summary>
+    /// Picks the route or the bodies. The route while the drive is charging to jump or the ship is in
+    /// hyperspace, by the status file's flags or by the journal's <c>StartJump</c> until its <c>FSDJump</c>;
+    /// the bodies otherwise, from the moment of arrival. What is targeted does not count: the game targets
+    /// the next jump by itself on every arrival along a route, so a targeted system says nothing about
+    /// whether you are exploring here. The route stays in one line above the bodies meanwhile.
     /// </summary>
     private void RefreshFocus()
     {
         var progress = _workspace.Route;
         var status = _workspace.Monitor.Status;
-        bool targetsAnotherSystem;
-        if (status is not null)
-        {
-            targetsAnotherSystem = status.DestinationSystem != 0 && status.DestinationSystem != progress.CurrentSystemAddress;
-        }
-        else
-        {
-            var target = progress.TargetSystem;
-            var targetIsNextStop = target is not null && _nextStop is not null && string.Equals(target, _nextStop, StringComparison.OrdinalIgnoreCase);
-            var targetIsRouteJump = target is not null && progress.RemainingJumps is not null && !string.Equals(target, progress.CurrentSystem, StringComparison.OrdinalIgnoreCase);
-            targetsAnotherSystem = targetIsNextStop || targetIsRouteJump;
-        }
-
         var charging = status is { IsFsdCharging: true, IsDocked: false, IsLanded: false };
         var jumping = status is { IsInHyperspace: true } || progress.InHyperspace;
         var before = ShowsRoute;
-        ShowsRoute = HasRoute && (targetsAnotherSystem || charging || jumping);
+        ShowsRoute = HasRoute && (charging || jumping);
         ShowsBodies = !ShowsRoute;
         if (ShowsRoute != before)
         {
-            var reason = !HasRoute ? "no route" : targetsAnotherSystem ? "another system is the destination" : charging ? "the drive is charging" : jumping ? "in hyperspace" : "nothing beyond this system is targeted";
+            var reason = !HasRoute ? "no route" : charging ? "the drive is charging" : jumping ? "in hyperspace" : "arrived";
             Log.RailSectionChanged(_workspace.Logger, ShowsRoute ? "route" : "bodies", reason);
         }
     }
@@ -579,27 +584,28 @@ public sealed class RailViewModel : ObservableObject
         OnPropertyChanged(nameof(HasNextWaypoint));
         if (stops.Count == 0)
         {
-            _nextStop = null;
             RouteHeading = "Route";
             RouteStops = [];
+            RouteSummaryParts = Phrase.Empty;
             RouteRestParts = Phrase.Text(_workspace.Route.CurrentSystem is null ? "No route plotted." : "No route plotted. Plot one in the galaxy map and it appears here.");
             return;
         }
 
         var hereIndex = RoutePage.HereIndex(_workspace);
-        var remaining = hereIndex < 0 ? stops.Count - 1 : stops.Count - 1 - hereIndex;
-        _nextStop = hereIndex >= 0 && hereIndex + 1 < stops.Count ? stops[hereIndex + 1].System : null;
+        // Off the route file, the game's own count stands in for the file's: it has re-plotted and the file lags.
+        var remaining = RoutePage.RerouteJumps(_workspace) ?? (hereIndex < 0 ? stops.Count - 1 : stops.Count - 1 - hereIndex);
         RouteHeading = remaining == 0 ? "Route · arrived" : $"Route · {Display.Plural(remaining, "jump")} left";
+        RouteSummaryParts = RouteSummary(stops, hereIndex, remaining);
         var start = Math.Max(hereIndex, 0);
         var window = stops.Skip(start).Take(RouteWindow).ToList();
         RouteStops = [.. window.Select(stop => new RailStopRow(stop.Index, stop.Link, stop.StarText, stop.Stage, stop.IsScoopable, stop.Engineer, stop.StarClass))];
 
         var rest = stops.Skip(start + window.Count).ToList();
         var notes = new List<IReadOnlyList<PhrasePart>>();
-        var detour = RoutePage.DetourLine(_workspace);
-        if (detour.Count > 0)
+        var reroute = RoutePage.RerouteLine(_workspace);
+        if (reroute.Count > 0)
         {
-            notes.Add(detour);
+            notes.Add(reroute);
         }
 
         Link System(string name) => _workspace.Navigator.LinkTo(name, PageKind.System, name);
@@ -636,7 +642,6 @@ public sealed class RailViewModel : ObservableObject
         OnPropertyChanged(nameof(IsBiologyView));
         OnPropertyChanged(nameof(ShowsAll));
         OnPropertyChanged(nameof(SkipsBacteria));
-        OnPropertyChanged(nameof(IsValuableOnly));
         var snapshot = _workspace.System;
         if (snapshot.SystemName is null)
         {
@@ -683,39 +688,15 @@ public sealed class RailViewModel : ObservableObject
                 : HiddenNote(hiddenRows);
     }
 
-    /// <summary>Whether the filter hides the body: bacteria alone under <see cref="BodyFilter.SkipBacteria"/>, life not worth the stop under <see cref="BodyFilter.ValuableOnly"/>.</summary>
-    private bool Hidden(BodyRow row) => Filter switch
-    {
-        BodyFilter.SkipBacteria => row.IsBacteriaOnly,
-        BodyFilter.ValuableOnly => row.HasBiology && !row.KeepsValuablePace,
-        BodyFilter.All => false,
-        _ => false,
-    };
+    /// <summary>Whether the filter hides the body: bacteria alone under <see cref="BodyFilter.SkipBacteria"/>.</summary>
+    private bool Hidden(BodyRow row) => Filter == BodyFilter.SkipBacteria && row.IsBacteriaOnly;
 
     /// <summary>One line on what the filter hid, or empty.</summary>
-    private string HiddenNote(List<BodyRow> hiddenRows)
+    private static string HiddenNote(List<BodyRow> hiddenRows)
     {
         if (hiddenRows.Count == 0)
         {
             return "";
-        }
-
-        if (Filter == BodyFilter.ValuableOnly)
-        {
-            var unprobed = hiddenRows.Count(row => !row.IsProbed);
-            var probed = hiddenRows.Count - unprobed;
-            var reasons = new List<string>();
-            if (unprobed > 0)
-            {
-                reasons.Add($"{unprobed} unprobed and unlikely to hold a species worth the trip");
-            }
-
-            if (probed > 0)
-            {
-                reasons.Add($"{probed} probed and below {Display.Credits((long)BodyRowBuilder.ValuableCreditsPerMinute)} a minute on the ground");
-            }
-
-            return $"{Display.Plural(hiddenRows.Count, "body", "bodies")} hidden as not worth the stop: {string.Join(", ", reasons)}.";
         }
 
         var byPrediction = hiddenRows.Count(row => row.IsBacteriaOnlyByPrediction);
@@ -762,7 +743,6 @@ public sealed class RailViewModel : ObservableObject
             row.TopMaterialGrade,
             row.HasFirstLogBonusThroughout,
             row.ExobiologyBaseCredits,
-            row.HasBiology && !row.KeepsValuablePace,
             row.Genera.Count > 0 ? listed : null,
             view != RailBodyView.Minerals,
             view != RailBodyView.Biology);

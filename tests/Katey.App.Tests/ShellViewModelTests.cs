@@ -444,7 +444,7 @@ public sealed class ShellViewModelTests
     }
 
     [Fact]
-    public void Rail_ShowsAOneJumpRoute_WhenASystemIsTargetedWithoutAPlottedRoute()
+    public void Rail_BuildsAOneJumpRoute_WhenASystemIsTargetedWithoutAPlottedRoute()
     {
         var (shell, monitor) = Create(new FakeStateStore());
         monitor.Feed(
@@ -457,7 +457,9 @@ public sealed class ShellViewModelTests
         monitor.Status = new ShipStatus(new DateTimeOffset(2026, 11, 8, 18, 21, 1, TimeSpan.Zero), 0x10, null, "Deciat", 15.0, DestinationSystem: 3);
         shell.Rail.Refresh();
         Assert.True(shell.Rail.HasRoute);
-        Assert.True(shell.Rail.ShowsRoute);
+        // A target alone does not bring the route up: the bodies stay, with the route in one line above them.
+        Assert.True(shell.Rail.ShowsBodies);
+        Assert.Equal("Next jump Deciat, the last.", Phrase.Plain(shell.Rail.RouteSummaryParts));
         Assert.Equal(["here", "next"], shell.Rail.RouteStops.Select(stop => stop.Marker));
         Assert.Equal("Deciat", shell.Rail.RouteStops[1].Link.Label);
         Assert.True(shell.Rail.RouteStops[1].IsScoopable);
@@ -465,7 +467,7 @@ public sealed class ShellViewModelTests
         Assert.Equal(2, route.Stops.Count);
         Assert.Equal(StopStage.Here, route.Stops[0].Stage);
         Assert.Equal("M", route.Stops[0].StarClass);
-        Assert.Empty(route.DetourParts);
+        Assert.Empty(route.RerouteParts);
 
         // The journal has no position for Deciat, but the Spansh plot does, so the jump has its distance and its fuel.
         shell.Workspace.Plot.Restore(new PlottedRoute("Koine", "Deciat", new DateTimeOffset(2026, 11, 1, 0, 0, 0, TimeSpan.Zero),
@@ -477,7 +479,7 @@ public sealed class ShellViewModelTests
         Assert.Equal(49.0, route.Stops[1].JumpLy, 0.1);
         Assert.StartsWith("0.0 ly of 49.0 ly travelled (0%)", route.TravelledText, StringComparison.Ordinal);
 
-        // With a plotted route, a target further along drops the stops between; one off the route is a detour that the plotted route resumes after.
+        // With a plotted route, a target further along drops the stops between; one off the route is a re-plot the game has made and the file has not.
         monitor.Route = new NavRoute(new DateTimeOffset(2026, 11, 8, 18, 22, 0, TimeSpan.Zero),
         [
             new("Koine", 9, "M", 107.40625, -40.59375, -71.5625),
@@ -487,14 +489,23 @@ public sealed class ShellViewModelTests
         monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-08T18:23:00Z","event":"FSDTarget","Name":"Sol","SystemAddress":1,"StarClass":"G"}""");
         route = Open<RoutePage>(shell, PageKind.Route);
         Assert.Equal(["Koine", "Sol"], route.Stops.Select(stop => stop.System));
-        Assert.Empty(route.DetourParts);
+        Assert.Empty(route.RerouteParts);
         monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-08T18:24:00Z","event":"FSDTarget","Name":"Praea","SystemAddress":77,"StarClass":"K"}""");
         route = Open<RoutePage>(shell, PageKind.Route);
         Assert.Equal(["Koine", "Praea"], route.Stops.Select(stop => stop.System));
-        Assert.Equal("Detour to Praea. The plotted route to Sol resumes after it, 2 jumps.", Phrase.Plain(route.DetourParts));
-        Assert.Equal(["Praea", "Sol"], route.DetourParts.Where(part => part.IsLink).Select(part => part.Text));
+        // Without a count from the game, the target is simply off the plotted route.
+        Assert.Equal("Targeting Praea, off the plotted route to Sol.", Phrase.Plain(route.RerouteParts));
+        Assert.Equal(["Praea", "Sol"], route.RerouteParts.Where(part => part.IsLink).Select(part => part.Text));
         shell.Rail.Refresh();
-        Assert.StartsWith("Detour to Praea.", Phrase.Plain(shell.Rail.RouteRestParts), StringComparison.Ordinal);
+        Assert.StartsWith("Targeting Praea,", Phrase.Plain(shell.Rail.RouteRestParts), StringComparison.Ordinal);
+        Assert.Equal("Route · 1 jump left", shell.Rail.RouteHeading);
+        // The game reports the jumps left from the target: it has re-plotted through Praea while the file still holds the old stops, so its count stands.
+        monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-08T18:25:00Z","event":"FSDTarget","Name":"Praea","SystemAddress":77,"StarClass":"K","RemainingJumpsInRoute":2}""");
+        route = Open<RoutePage>(shell, PageKind.Route);
+        Assert.Equal("Re-routed through Praea, 3 jumps to Sol. The route file has not caught up yet.", Phrase.Plain(route.RerouteParts));
+        shell.Rail.Refresh();
+        Assert.Equal("Route · 3 jumps left", shell.Rail.RouteHeading);
+        Assert.Equal("Next jump Praea, 3 jumps left to Sol.", Phrase.Plain(shell.Rail.RouteSummaryParts));
     }
 
     [Fact]
@@ -586,17 +597,23 @@ public sealed class ShellViewModelTests
         Assert.Equal("Koine", here.Link.Label);
         Assert.Equal(VisitState.Surveyed, here.Visit);
         Assert.Equal("surveyed", here.VisitedText);
-        Assert.True(rail.ShowsRoute);
-        Assert.False(rail.ShowsBodies);
+        // Arrived with the next jump targeted, as the game does by itself along a route: the bodies show, the route in one line above them.
+        Assert.True(rail.ShowsBodies);
+        Assert.False(rail.ShowsRoute);
+        Assert.Equal("Next jump Deciat, 2 jumps left to Sol.", Phrase.Plain(rail.RouteSummaryParts));
         // Sol is further along the route: it becomes the next jump and Deciat drops out between.
         monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-05T20:00:08Z","event":"FSDTarget","Name":"Sol","StarClass":"G"}""");
-        Assert.True(rail.ShowsRoute);
+        Assert.True(rail.ShowsBodies);
         Assert.Equal(["here", "next"], rail.RouteStops.Select(stop => stop.Marker));
         Assert.Equal("Sol", rail.RouteStops[1].Link.Label);
-        Assert.DoesNotContain("Detour", Phrase.Plain(rail.RouteRestParts), StringComparison.Ordinal);
-        // A target the game reports as on the route counts even when the route file has not caught up with a replot.
+        Assert.DoesNotContain("Re-routed", Phrase.Plain(rail.RouteRestParts), StringComparison.Ordinal);
+        Assert.Equal("Next jump Sol, the last.", Phrase.Plain(rail.RouteSummaryParts));
+        // A target off the route file with the game's own count: the game has re-plotted through it and the file lags, so its count stands.
         monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-05T20:00:09Z","event":"FSDTarget","Name":"Birpinovit","StarClass":"K","RemainingJumpsInRoute":2}""");
-        Assert.True(rail.ShowsRoute);
+        Assert.True(rail.ShowsBodies);
+        Assert.Equal("Route · 3 jumps left", rail.RouteHeading);
+        Assert.StartsWith("Re-routed through Birpinovit, 3 jumps to Sol.", Phrase.Plain(rail.RouteRestParts), StringComparison.Ordinal);
+        Assert.Equal("Next jump Birpinovit, 3 jumps left to Sol.", Phrase.Plain(rail.RouteSummaryParts));
         // The drive charging shows the route whatever is targeted.
         monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-05T20:00:10Z","event":"FSDTarget","Name":"Sol","StarClass":"G"}""");
         monitor.Status = new ShipStatus(DateTimeOffset.UtcNow, 0x20010, null, null, 15.0);
@@ -609,11 +626,12 @@ public sealed class ShellViewModelTests
         monitor.Status = new ShipStatus(DateTimeOffset.UtcNow, 0x10, null, null, 15.0);
         rail.Refresh();
         Assert.True(rail.ShowsBodies);
-        // With the status file present, its destination decides: another system targeted shows the route, a
-        // body here or nothing targeted shows the bodies, whatever the journal's last target said.
+        // What is targeted never moves the rail off the bodies: not a destination elsewhere in the status file,
+        // which the game sets by itself on arrival, not a body here, not nothing, and not the journal's last target
+        // when there is no status file.
         monitor.Status = new ShipStatus(DateTimeOffset.UtcNow, 0x10, null, "Deciat", 15.0, DestinationSystem: 3);
         rail.Refresh();
-        Assert.True(rail.ShowsRoute);
+        Assert.True(rail.ShowsBodies);
         monitor.Status = new ShipStatus(DateTimeOffset.UtcNow, 0x10, null, "Koine 2", 15.0, DestinationSystem: 9);
         rail.Refresh();
         Assert.True(rail.ShowsBodies);
@@ -623,7 +641,8 @@ public sealed class ShellViewModelTests
         Assert.True(rail.ShowsBodies);
         monitor.Status = null;
         monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-05T20:00:11Z","event":"FSDTarget","Name":"Deciat","StarClass":"K","RemainingJumpsInRoute":1}""");
-        Assert.True(rail.ShowsRoute);
+        Assert.True(rail.ShowsBodies);
+        Assert.Equal("Next jump Deciat, 2 jumps left to Sol.", Phrase.Plain(rail.RouteSummaryParts));
 
         // The Landable view by default, nearest first: every landable body with both its life and its materials.
         Assert.True(rail.ShowsLandable);
@@ -663,19 +682,14 @@ public sealed class ShellViewModelTests
         rail.View = RailBodyView.Biology;
         Assert.Equal(["2"], rail.Bodies.Select(body => body.Name));
 
-        // One choice of three, remembered: skip bacteria hides Koine 2; valuable only hides it too, since bacteria cannot
-        // reach 10M, with its own note; all life brings it back.
+        // One choice of two, remembered: skip bacteria hides Koine 2 with a note; all life brings it back.
         Assert.True(rail.ShowsAll);
         rail.Filter = BodyFilter.SkipBacteria;
         Assert.Equal(BodyFilter.SkipBacteria, rail.Filter);
+        Assert.True(rail.SkipsBacteria);
         Assert.Empty(rail.Bodies);
         Assert.Equal("1 body with only bacteria hidden.", rail.BodiesNote);
         Assert.Equal("bacteria", store.State.Preferences!["rail.bodyFilter"]);
-        rail.Filter = BodyFilter.ValuableOnly;
-        Assert.False(rail.SkipsBacteria);
-        Assert.Empty(rail.Bodies);
-        Assert.Equal("1 body hidden as not worth the stop: 1 probed and below 8.0M Cr a minute on the ground.", rail.BodiesNote);
-        Assert.Equal("valuable", store.State.Preferences!["rail.bodyFilter"]);
         rail.Filter = BodyFilter.All;
         Assert.Equal(["2"], rail.Bodies.Select(body => body.Name));
         Assert.Equal("", rail.BodiesNote);
@@ -780,7 +794,7 @@ public sealed class ShellViewModelTests
 
             var entry = PlanEntry.Create(Catalog, "fsd", "FSD_LongRange", 5, "special_fsd_heavy", new PlanSource("Ship", "FrameShiftDrive", "int_hyperdrive_size5_class5")).WithRolls(3, 2);
             var fitting = new Fitting("fit-1", "mandalay", "Dream", [new FitModule("FrameShiftDrive", "int_hyperdrive_size5_class5", new Engineering("FSD_LongRange", 5, "special_fsd_heavy"))]);
-            store.Save(new PersistedState([entry], ["Felicity Farseer"], @"C:\journals", [fitting], SharingPolicy.None, RailDetached: true, Preferences: new Dictionary<string, string> { ["rail.bodyFilter"] = "valuable" }));
+            store.Save(new PersistedState([entry], ["Felicity Farseer"], @"C:\journals", [fitting], SharingPolicy.None, RailDetached: true, Preferences: new Dictionary<string, string> { ["rail.bodyFilter"] = "bacteria" }));
 
             var loaded = new JsonFileStateStore(path, NullLogger<JsonFileStateStore>.Instance).Load();
             var restored = Assert.Single(loaded.Plan);
@@ -789,7 +803,7 @@ public sealed class ShellViewModelTests
             Assert.Equal(["Felicity Farseer"], loaded.Engineers);
             Assert.Equal(SharingPolicy.None, loaded.Policy);
             Assert.Equal("fit-1", Assert.Single(loaded.Fittings).Id);
-            Assert.Equal("valuable", loaded.Preferences!["rail.bodyFilter"]);
+            Assert.Equal("bacteria", loaded.Preferences!["rail.bodyFilter"]);
             Assert.True(loaded.RailDetached);
         }
         finally

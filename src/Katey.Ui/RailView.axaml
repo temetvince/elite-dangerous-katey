@@ -46,7 +46,7 @@
           </StackPanel>
         </Border>
 
-        <!-- The route and the plot show while the next jump is targeted or this system is unsurveyed; the bodies otherwise. -->
+        <!-- The route and the plot show while the drive charges and through the jump; the bodies otherwise, with the route in one line above them. -->
         <StackPanel IsVisible="{Binding ShowsRoute}">
         <!-- Route -->
         <Border Classes="rsec">
@@ -123,6 +123,7 @@
               </Panel>
               <TextBlock Grid.Column="1" Classes="eyebrow" Classes.accent="{Binding !IsFullyScanned}" Classes.good="{Binding IsFullyScanned}" Text="{Binding SystemHeading}" VerticalAlignment="Center" />
             </Grid>
+            <ui:PhraseBlock Classes="sub" Parts="{Binding RouteSummaryParts}" IsVisible="{Binding HasRoute}" />
             <TextBlock Classes="sub" TextWrapping="Wrap" Text="{Binding ValueText}" />
             <StackPanel Spacing="6" IsVisible="{Binding ShowsControls}">
               <!-- What the list is for: every landable body, the bodies with life, or the bodies with materials; nearest first in each. -->
@@ -131,11 +132,10 @@
                 <RadioButton GroupName="bodyView" Content="Biology" IsChecked="{Binding ShowsBiology, Mode=OneWay}" Command="{Binding ShowViewCommand}" CommandParameter="{x:Static rail:RailBodyView.Biology}" ToolTip.Tip="Bodies with life, nearest first, their life only." />
                 <RadioButton GroupName="bodyView" Content="Minerals" IsChecked="{Binding ShowsMinerals, Mode=OneWay}" Command="{Binding ShowViewCommand}" CommandParameter="{x:Static rail:RailBodyView.Minerals}" ToolTip.Tip="Bodies with surface materials, nearest first, their materials only." />
               </StackPanel>
-              <!-- Which bodies with life to leave out: one choice of three, remembered; only the Biology view asks. -->
+              <!-- Which bodies with life to leave out: one choice of two, remembered; only the Biology view asks. -->
               <StackPanel Orientation="Horizontal" Spacing="12" IsVisible="{Binding IsBiologyView}">
                 <RadioButton GroupName="bodyFilter" Content="All life" IsChecked="{Binding ShowsAll, Mode=OneWay}" Command="{Binding FilterCommand}" CommandParameter="{x:Static rail:BodyFilter.All}" ToolTip.Tip="Every body with life." />
                 <RadioButton GroupName="bodyFilter" Content="Skip bacteria" IsChecked="{Binding SkipsBacteria, Mode=OneWay}" Command="{Binding FilterCommand}" CommandParameter="{x:Static rail:BodyFilter.SkipBacteria}" ToolTip.Tip="Leaves out bodies whose life is bacteria alone: by the scanner's genera once mapped, or a single signal four in five likely to be bacteria before that." />
-                <RadioButton GroupName="bodyFilter" Content="Valuable only" IsChecked="{Binding IsValuableOnly, Mode=OneWay}" Command="{Binding FilterCommand}" CommandParameter="{x:Static rail:BodyFilter.ValuableOnly}" ToolTip.Tip="Before probing: only bodies with a one in four chance or better of a species worth the trip on its own. Once probed: only bodies whose best landing pays 8M a minute on the ground, bonus included. A body with a material your plan is short of stays." />
               </StackPanel>
             </StackPanel>
             <ItemsControl ItemsSource="{Binding Bodies}">

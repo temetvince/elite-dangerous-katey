@@ -796,8 +796,6 @@ public sealed class WorkbenchFeatureTests
         Assert.Equal("2 bio", living.BiologyCountText);
         Assert.StartsWith("Exobiology likely about ", living.ExobiologyText, StringComparison.Ordinal);
         Assert.Contains($"{Display.Credits(living.PredictedExobiologyCredits)}, {Display.Credits(living.ExobiologyRank)} with the first-logged bonus by the life these conditions allow; map it to know.", living.ExobiologyText, StringComparison.Ordinal);
-        Assert.True(living.GroundMinutes > SamplingTime.ApproachMinutes);
-        Assert.True(living.ExobiologyCreditsPerMinute > 0);
         Assert.DoesNotContain("nobody", living.ExobiologyText, StringComparison.Ordinal);
         Assert.Equal(2, living.ExobiologyRuns.Count(run => run.IsFigure));
         // The rail keeps it to one line before the scanner names the genera, and shows no separate value.
