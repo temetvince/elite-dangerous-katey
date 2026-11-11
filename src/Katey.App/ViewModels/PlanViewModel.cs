@@ -65,6 +65,15 @@ public sealed class PlanViewModel : ObservableObject
     /// <returns>A fresh list in plan order.</returns>
     public IReadOnlyList<PlanEntry> Snapshot() => [.. Entries.Select(entry => entry.Entry)];
 
+    /// <summary>Words every row again in the language in force. Called after a language switch; the plan itself is unchanged, so <see cref="Changed"/> is not raised.</summary>
+    public void Reword()
+    {
+        foreach (var row in Entries)
+        {
+            row.Reword();
+        }
+    }
+
     /// <summary>Whether the plan already holds an entry for the same work, by <see cref="PlanEntry.IsSameWorkAs"/>.</summary>
     /// <param name="candidate">The entry a page would add.</param>
     /// <returns><see langword="true"/> when adding it would repeat a job already planned.</returns>

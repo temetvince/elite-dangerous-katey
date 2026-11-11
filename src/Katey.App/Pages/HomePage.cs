@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using Katey.App.Navigation;
+using Katey.App.Text;
 using Katey.App.ViewModels;
 
 namespace Katey.App.Pages;
@@ -69,7 +70,7 @@ public sealed class HomePage : Page
         : base(PageKey.Home, workspace)
     {
         Title = "Katey";
-        Kicker = "Start";
+        Kicker = Strings.Get(Keys.Home_Kicker);
         Refresh();
     }
 
@@ -97,36 +98,43 @@ public sealed class HomePage : Page
         var selected = Workspace.Engineers.Count;
         Browse =
         [
-            new(LinkTo("Engineers", PageKind.Engineers), selected == 0 ? Display.Plural(catalog.Engineers.Count, "engineer") + ", none selected" : $"{Display.Plural(selected, "engineer")} you will visit"),
-            new(LinkTo("Modules", PageKind.Modules), Display.Plural(catalog.EngineerableModuleTypes().Count, "engineerable type")),
-            new(LinkTo("Materials", PageKind.Materials), Workspace.InventoryCounts is { } counts ? Display.Plural(counts.Count, "material") + " in your inventory" : "inventory not read yet"),
-            new(LinkTo("Unlocks", PageKind.Unlocks), UnlocksTile()),
-            new(LinkTo("Fleet", PageKind.Fleet), fleet.Ships.Count == 0 ? "no ships seen yet" : $"{Display.Plural(fleet.Ships.Count, "ship")}, {Display.Plural(Workspace.Fleet.Fittings.Count, "saved fit")}"),
-            new(LinkTo("Stats", PageKind.Statistics), Workspace.Statistics.Figure("Exploration", "Time_Played") is { } played ? Display.Duration(TimeSpan.FromSeconds(played)) + " played" : "waiting for the game's figures"),
-            new(LinkTo("This system", PageKind.System), route.CurrentSystem ?? "position unknown", route.CurrentSystem is { } here ? LinkTo(here, PageKind.System) : null),
-            new(LinkTo("Route", PageKind.Route), Workspace.Monitor.Route is { Stops.Count: > 1 } navRoute ? Display.Plural(navRoute.Stops.Count - 1, "jump") + " plotted" : "no route plotted"),
-            new(LinkTo("Settings", PageKind.Settings), Workspace.JournalFolder.Length == 0 ? "journal folder not set" : "journal folder set"),
+            new(LinkTo(Strings.Get(Keys.Nav_Engineers), PageKind.Engineers), selected == 0 ? Strings.Format(Keys.Home_EngineersNoneSelected, ("engineers", Display.Plural(Keys.Plural_Engineers, catalog.Engineers.Count))) : Strings.Format(Keys.Home_EngineersYouWillVisit, ("engineers", Display.Plural(Keys.Plural_Engineers, selected)))),
+            new(LinkTo(Strings.Get(Keys.Nav_Modules), PageKind.Modules), Display.Plural(Keys.Plural_EngineerableTypes, catalog.EngineerableModuleTypes().Count)),
+            new(LinkTo(Strings.Get(Keys.Nav_Materials), PageKind.Materials), Workspace.InventoryCounts is { } counts ? Strings.Format(Keys.Home_MaterialsInInventory, ("materials", Display.Plural(Keys.Plural_Materials, counts.Count))) : Strings.Get(Keys.Home_InventoryNotRead)),
+            new(LinkTo(Strings.Get(Keys.Nav_Unlocks), PageKind.Unlocks), UnlocksTile()),
+            new(LinkTo(Strings.Get(Keys.Nav_Fleet), PageKind.Fleet), fleet.Ships.Count == 0 ? Strings.Get(Keys.Home_NoShipsSeen) : Strings.Format(Keys.Home_ShipsAndFits, ("ships", Display.Plural(Keys.Plural_Ships, fleet.Ships.Count)), ("fits", Display.Plural(Keys.Plural_SavedFits, Workspace.Fleet.Fittings.Count)))),
+            new(LinkTo(Strings.Get(Keys.Nav_Stats), PageKind.Statistics), Workspace.Statistics.Figure("Exploration", "Time_Played") is { } played ? Strings.Format(Keys.Home_Played, ("duration", Display.Duration(TimeSpan.FromSeconds(played)))) : Strings.Get(Keys.Home_WaitingForFigures)),
+            new(LinkTo(Strings.Get(Keys.Home_ThisSystem), PageKind.System), route.CurrentSystem ?? Strings.Get(Keys.Home_PositionUnknown), route.CurrentSystem is { } here ? LinkTo(here, PageKind.System) : null),
+            new(LinkTo(Strings.Get(Keys.Nav_Route), PageKind.Route), Workspace.Monitor.Route is { Stops.Count: > 1 } navRoute ? Strings.Format(Keys.Home_JumpsPlotted, ("jumps", Display.Plural(Keys.Plural_Jumps, navRoute.Stops.Count - 1))) : Strings.Get(Keys.Home_NoRoutePlotted)),
+            new(LinkTo(Strings.Get(Keys.Nav_Settings), PageKind.Settings), Workspace.JournalFolder.Length == 0 ? Strings.Get(Keys.Home_JournalFolderNotSet) : Strings.Get(Keys.Home_JournalFolderSet)),
         ];
 
         var lines = Workspace.PlanLines();
         var enabled = Workspace.Plan.EnabledCount;
         var shortCount = Workspace.InventoryCounts is null ? 0 : lines.Count(line => !line.IsCovered);
+        var entries = Display.Plural(Keys.Plural_Entries, enabled);
         PlanText = enabled == 0
-            ? "The plan is empty. Add a blueprint from any module page."
+            ? Strings.Get(Keys.Home_PlanEmpty)
             : Workspace.InventoryCounts is null
-                ? $"{Display.Plural(enabled, "entry", "entries")} planned. Start the journal watch to see what you still need."
+                ? Strings.Format(Keys.Home_PlanNoInventory, ("entries", entries))
                 : shortCount == 0
-                    ? $"{Display.Plural(enabled, "entry", "entries")} planned and every material covered."
-                    : $"{Display.Plural(enabled, "entry", "entries")} planned, {Display.Plural(shortCount, "material")} short.";
+                    ? Strings.Format(Keys.Home_PlanCovered, ("entries", entries))
+                    : Strings.Format(Keys.Home_PlanShort, ("entries", entries), ("materials", Display.Plural(Keys.Plural_Materials, shortCount)));
         WatchText = Workspace.Monitor.State switch
         {
-            Journal.MonitorState.Watching => "Watching the journal.",
-            Journal.MonitorState.CatchingUp => "Reading the journal history.",
-            Journal.MonitorState.FolderMissing => "The journal folder does not exist. Fix it in Settings.",
-            Journal.MonitorState.Stopped => "Not watching the journal. Start it in Settings.",
-            _ => "Not watching the journal. Start it in Settings.",
+            Journal.MonitorState.Watching => Strings.Get(Keys.Home_Watching),
+            Journal.MonitorState.CatchingUp => Strings.Get(Keys.Home_CatchingUp),
+            Journal.MonitorState.FolderMissing => Strings.Get(Keys.Home_FolderMissing),
+            Journal.MonitorState.Stopped => Strings.Get(Keys.Home_NotWatching),
+            _ => Strings.Get(Keys.Home_NotWatching),
         };
-        CatalogText = $"{Display.Plural(catalog.Blueprints.Count, "blueprint")}, {Display.Plural(catalog.Experimentals.Count, "experimental effect")}, {Display.Plural(catalog.Engineers.Count, "engineer")}, {Display.Plural(catalog.Materials.Count, "material")}, {Display.Plural(Workspace.Modules.Count, "module")}.";
+        CatalogText = Strings.Format(
+            Keys.Home_Catalog,
+            ("blueprints", Display.Plural(Keys.Plural_Blueprints, catalog.Blueprints.Count)),
+            ("experimentals", Display.Plural(Keys.Plural_Experimentals, catalog.Experimentals.Count)),
+            ("engineers", Display.Plural(Keys.Plural_Engineers, catalog.Engineers.Count)),
+            ("materials", Display.Plural(Keys.Plural_Materials, catalog.Materials.Count)),
+            ("modules", Display.Plural(Keys.Plural_Modules, Workspace.Modules.Count)));
         Stats = [PlanStat(lines.Count, enabled, shortCount), EarningsStat(), RouteStat(), SystemStat(), DataStat()];
     }
 
@@ -135,95 +143,101 @@ public sealed class HomePage : Page
         var catalog = Workspace.Catalog;
         var boughtCount = catalog.Unlocks.Values.Count(unlock => Workspace.UnlockedBecause(unlock) is not null);
         var planned = Workspace.Plan.Snapshot().Count(entry => entry.IsUnlock);
-        return $"{Display.Plural(catalog.Unlocks.Count, "technology broker unlock")}, {boughtCount} bought, {planned} planned";
+        return Strings.Format(Keys.Home_UnlocksTile, ("unlocks", Display.Plural(Keys.Plural_BrokerUnlocks, catalog.Unlocks.Count)), ("bought", boughtCount), ("planned", planned));
     }
 
     private HomeStat PlanStat(int lineCount, int enabled, int shortCount)
     {
-        var link = LinkTo("Materials", PageKind.Materials);
+        var link = LinkTo(Strings.Get(Keys.Nav_Materials), PageKind.Materials);
+        var label = Display.Upper(Keys.Home_StatMaterialsShort);
+        var materials = Display.Plural(Keys.Plural_Materials, lineCount);
         return enabled == 0
-            ? new HomeStat("MATERIALS SHORT", "—", "The plan is empty.", StatTone.Muted, link)
+            ? new HomeStat(label, "—", Strings.Get(Keys.Home_StatPlanEmpty), StatTone.Muted, link)
             : Workspace.InventoryCounts is null
-            ? new HomeStat("MATERIALS SHORT", "—", $"{Display.Plural(lineCount, "material")} needed; inventory not read yet.", StatTone.Muted, link)
+            ? new HomeStat(label, "—", Strings.Format(Keys.Home_StatMaterialsNeeded, ("materials", materials)), StatTone.Muted, link)
             : shortCount == 0
-            ? new HomeStat("MATERIALS SHORT", "0", $"Every one of the {Display.Plural(lineCount, "material")} the plan needs is covered.", StatTone.Good, link)
-            : new HomeStat("MATERIALS SHORT", shortCount.ToString(CultureInfo.InvariantCulture), $"of the {Display.Plural(lineCount, "material")} the plan needs.", StatTone.Bad, link);
+            ? new HomeStat(label, "0", Strings.Format(Keys.Home_StatMaterialsCovered, ("materials", materials)), StatTone.Good, link)
+            : new HomeStat(label, shortCount.ToString(CultureInfo.CurrentCulture), Strings.Format(Keys.Home_StatMaterialsOf, ("materials", materials)), StatTone.Bad, link);
     }
 
     private HomeStat EarningsStat()
     {
         var statistics = Workspace.Statistics;
-        var link = LinkTo("Stats", PageKind.Statistics);
+        var link = LinkTo(Strings.Get(Keys.Nav_Stats), PageKind.Statistics);
+        var label = Display.Upper(Keys.Home_StatEarned);
         if (statistics.Latest is not { } latest)
         {
-            return new HomeStat("EARNED, 7 DAYS", "—", "No income in the journal yet.", StatTone.Muted, link);
+            return new HomeStat(label, "—", Strings.Get(Keys.Home_StatNoIncome), StatTone.Muted, link);
         }
 
         var since = latest - Week;
         var recent = statistics.Income.Where(entry => entry.At >= since).ToList();
         var total = recent.Sum(entry => entry.Amount);
         return recent.Count == 0
-            ? new HomeStat("EARNED, 7 DAYS", "0 Cr", "Nothing earned in the last week of play.", StatTone.Muted, link)
-            : new HomeStat("EARNED, 7 DAYS", Display.Credits(total), $"from {Display.Plural(recent.Count, "payment")} in the last week of play.", StatTone.Accent, link);
+            ? new HomeStat(label, Strings.Get(Keys.Home_StatZeroCredits), Strings.Get(Keys.Home_StatNothingEarned), StatTone.Muted, link)
+            : new HomeStat(label, Display.Credits(total), Strings.Format(Keys.Home_StatFromPayments, ("payments", Display.Plural(Keys.Plural_Payments, recent.Count))), StatTone.Accent, link);
     }
 
     private HomeStat RouteStat()
     {
-        var link = LinkTo("Route", PageKind.Route);
+        var link = LinkTo(Strings.Get(Keys.Nav_Route), PageKind.Route);
+        var label = Display.Upper(Keys.Home_StatJumpsLeft);
         var stops = RoutePage.BuildStops(Workspace);
         if (stops.Count == 0)
         {
-            return new HomeStat("JUMPS LEFT", "—", "No route plotted.", StatTone.Muted, link);
+            return new HomeStat(label, "—", Strings.Get(Keys.Home_StatNoRoute), StatTone.Muted, link);
         }
 
         var hereIndex = RoutePage.HereIndex(Workspace);
         var remaining = hereIndex < 0 ? stops.Count - 1 : stops.Count - 1 - hereIndex;
         if (remaining == 0)
         {
-            var arrived = Phrase.Of("Arrived at ", LinkTo(stops[^1].System, PageKind.System, stops[^1].System), ".");
-            return new HomeStat("JUMPS LEFT", "0", Phrase.Plain(arrived), StatTone.Good, link, arrived);
+            var arrived = Phrase.Format(Keys.Home_StatArrivedAt, ("system", LinkTo(stops[^1].System, PageKind.System, stops[^1].System)));
+            return new HomeStat(label, "0", Phrase.Plain(arrived), StatTone.Good, link, arrived);
         }
 
         var fuel = FuelEstimate.For(Workspace, stops);
         var detail = fuel.HasEstimate && fuel.JumpsWithoutScooping is { } jumps
-            ? Phrase.Text(jumps >= remaining ? "Fuel for the whole route without scooping." : jumps == 0 ? "Not enough fuel for the next jump." : $"Fuel for {Display.Plural(jumps, "jump")} before you must scoop.")
-            : Phrase.Of("to ", LinkTo(stops[^1].System, PageKind.System, stops[^1].System), ".");
+            ? Phrase.Text(jumps >= remaining ? Strings.Get(Keys.Fuel_WholeRoute) : jumps == 0 ? Strings.Get(Keys.Fuel_NotEnoughNext) : Strings.Format(Keys.Home_StatFuelBeforeScoop, ("jumps", Display.Plural(Keys.Plural_Jumps, jumps))))
+            : Phrase.Format(Keys.Home_StatTo, ("system", LinkTo(stops[^1].System, PageKind.System, stops[^1].System)));
         var tone = fuel.HasEstimate && fuel.JumpsWithoutScooping is { } left
             ? left == 0 ? StatTone.Bad : left < remaining ? StatTone.Warn : StatTone.Good
             : StatTone.Accent;
-        return new HomeStat("JUMPS LEFT", remaining.ToString(CultureInfo.InvariantCulture), Phrase.Plain(detail), tone, link, detail);
+        return new HomeStat(label, remaining.ToString(CultureInfo.CurrentCulture), Phrase.Plain(detail), tone, link, detail);
     }
 
     /// <summary>What the unsold exploration and organic data aboard is worth, the first-logged bonus taken as likely where the journal says nobody had logged the species.</summary>
     private HomeStat DataStat()
     {
-        var link = LinkTo("Stats", PageKind.Statistics);
+        var link = LinkTo(Strings.Get(Keys.Nav_Stats), PageKind.Statistics);
+        var label = Display.Upper(Keys.Home_StatDataAboard);
         var aboard = CarriedDataSummary.Of(Workspace.Carried, Workspace.Predictor);
         if (aboard.IsEmpty)
         {
-            return new HomeStat("DATA ABOARD", "—", "Nothing scanned or sampled since you last sold.", StatTone.Muted, link);
+            return new HomeStat(label, "—", Strings.Get(Keys.Home_StatNothingAboard), StatTone.Muted, link);
         }
 
         var parts = new List<string>();
         if (aboard.Bodies > 0)
         {
-            parts.Add($"{Display.Plural(aboard.Bodies, "body", "bodies")} in {Display.Plural(aboard.Systems, "system")}");
+            parts.Add(Strings.Format(Keys.Home_StatBodiesInSystems, ("bodies", Display.Plural(Keys.Plural_Bodies, aboard.Bodies)), ("systems", Display.Plural(Keys.Plural_Systems, aboard.Systems))));
         }
 
         if (aboard.Samples > 0)
         {
-            parts.Add(Display.Plural(aboard.Samples, "sample"));
+            parts.Add(Display.Plural(Keys.Plural_Samples, aboard.Samples));
         }
 
-        return new HomeStat("DATA ABOARD", Display.Credits(aboard.TotalCredits), $"{string.Join(", ", parts)} unsold; lost if you die.", StatTone.Accent, link);
+        return new HomeStat(label, Display.Credits(aboard.TotalCredits), Strings.Format(Keys.Home_StatUnsold, ("what", Display.List(parts))), StatTone.Accent, link);
     }
 
     private HomeStat SystemStat()
     {
         var system = Workspace.System;
+        var label = Display.Upper(Keys.Home_StatBodiesScanned);
         if (system.SystemName is null)
         {
-            return new HomeStat("BODIES SCANNED", "—", "No position yet.", StatTone.Muted, LinkTo("This system", PageKind.System));
+            return new HomeStat(label, "—", Strings.Get(Keys.Home_StatNoPosition), StatTone.Muted, LinkTo(Strings.Get(Keys.Home_ThisSystem), PageKind.System));
         }
 
         // The link under the figure is the system's own name, so the name opens the system wherever it is shown.
@@ -233,12 +247,12 @@ public sealed class HomePage : Page
         {
             var known = system.BodiesKnown ?? scanned;
             var tone = known >= total ? StatTone.Good : StatTone.Accent;
-            return new HomeStat("BODIES SCANNED", ScanProgress.Figure(system), "in this system.", tone, link);
+            return new HomeStat(label, ScanProgress.Figure(system), Strings.Get(Keys.Home_StatInThisSystem), tone, link);
         }
 
         return scanned == 0
-            ? new HomeStat("BODIES SCANNED", "0", "in this system. Honk to count the bodies.", StatTone.Muted, link)
-            : new HomeStat("BODIES SCANNED", scanned.ToString(CultureInfo.InvariantCulture), "in this system, before a honk.", StatTone.Accent, link);
+            ? new HomeStat(label, "0", Strings.Get(Keys.Home_StatHonkToCount), StatTone.Muted, link)
+            : new HomeStat(label, scanned.ToString(CultureInfo.CurrentCulture), Strings.Get(Keys.Home_StatBeforeHonk), StatTone.Accent, link);
     }
 }
 
@@ -251,10 +265,9 @@ public sealed class NotFoundPage : Page
     public NotFoundPage(PageKey key, Workspace workspace)
         : base(key, workspace)
     {
-        Title = "Nothing here";
-        Kicker = key.Kind.ToString();
-        Message = $"There is no {key.Kind.ToString().ToLowerInvariant()} called \"{key.Id}\".";
-        HomeLink = LinkTo("Back to the start page", PageKind.Home);
+        Title = Strings.Get(Keys.NotFound_Title);
+        Message = Strings.Format(Keys.NotFound_Message, ("id", key.Id));
+        HomeLink = LinkTo(Strings.Get(Keys.NotFound_BackHome), PageKind.Home);
     }
 
     /// <summary>Gets what went wrong.</summary>

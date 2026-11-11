@@ -12,7 +12,7 @@ public sealed class EdsyImportTests
     {
         var result = Import.Parse(TestData.Anaconda);
 
-        Assert.True(result.Ok, result.Error);
+        Assert.True(result.Ok, result.Error?.ToString());
         var loadout = result.Loadout!;
         Assert.Equal("Borrowed Time", loadout.ShipName);
         Assert.Equal(11, loadout.Modules.Count);
@@ -41,7 +41,7 @@ public sealed class EdsyImportTests
     public void Parse_ReadsTheJumpProfile_WhenTheExportCarriesTheMasses()
     {
         var withMasses = Import.Parse(/*lang=json,strict*/ """{"event":"Loadout","Ship":"Mandalay","ShipName":"Dream fit","UnladenMass":400.5,"FuelCapacity":{"Main":32,"Reserve":0.5},"Modules":[{"Slot":"FrameShiftDrive","Item":"Int_Hyperdrive_Size5_Class5","Engineering":{"BlueprintName":"FSD_LongRange","Level":5,"ExperimentalEffect":"special_fsd_heavy","Modifiers":[{"Label":"FSDOptimalMass","Value":1692.6,"OriginalValue":1050},{"Label":"MaxFuelPerJump","Value":5.2,"OriginalValue":5}]}},{"Slot":"Slot05_Size3","Item":"int_guardianfsdbooster_size3"}]}""");
-        Assert.True(withMasses.Ok, withMasses.Error);
+        Assert.True(withMasses.Ok, withMasses.Error?.ToString());
         var profile = withMasses.Loadout!.Profile;
         Assert.NotNull(profile);
         Assert.Equal(1692.6, profile.OptimalMass);
@@ -71,10 +71,10 @@ public sealed class EdsyImportTests
     [Fact]
     public void Parse_RejectsBadInputWithoutThrowing()
     {
-        Assert.Equal("Paste an EDSY export first.", Import.Parse("   ").Error);
-        Assert.Equal("That is not valid JSON.", Import.Parse("not json").Error);
-        Assert.Equal("No Loadout object found in the text.", Import.Parse("[]").Error);
-        Assert.StartsWith("The Loadout has no \"Modules\" list", Import.Parse(/*lang=json,strict*/ """{"event":"Loadout"}""").Error, StringComparison.Ordinal);
+        Assert.Equal(EdsyParseError.Empty, Import.Parse("   ").Error);
+        Assert.Equal(EdsyParseError.NotJson, Import.Parse("not json").Error);
+        Assert.Equal(EdsyParseError.NoLoadout, Import.Parse("[]").Error);
+        Assert.Equal(EdsyParseError.NoModules, Import.Parse(/*lang=json,strict*/ """{"event":"Loadout"}""").Error);
     }
 
     [Fact]

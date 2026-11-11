@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using Katey.App.Mvvm;
 using Katey.App.Navigation;
+using Katey.App.Text;
 using Katey.App.ViewModels;
 using Katey.Core;
 
@@ -23,7 +24,7 @@ public sealed record MaterialUseRow(Link Blueprint, int GradeNumber, int Count, 
     public string Grade => Display.Grade(GradeNumber);
 
     /// <summary>Gets "n per roll".</summary>
-    public string CountText => $"{Count} per roll";
+    public string CountText => Strings.Format(Keys.Material_PerRoll, ("count", Count));
 }
 
 /// <summary>A body in the current system that carries a raw material.</summary>
@@ -44,23 +45,23 @@ public sealed class MaterialPage : Page
         : base(new PageKey(PageKind.Material, symbol), workspace)
     {
         _material = workspace.Catalog.Materials[symbol];
-        Title = _material.Name;
-        Breadcrumbs = [LinkTo("Materials", PageKind.Materials), LinkTo(Core.Planning.ShoppingList.CategoryLabels[_material.Category], PageKind.Materials, _material.Category.ToString())];
-        Kicker = $"{Display.Grade(_material.Grade)} · {_material.Line}";
-        Sections = new SectionSwitch([("spends", "Where your plan spends it"), ("uses", "Used by"), ("sources", "Where to find it")], "spends", workspace.Preferences, "section.material");
+        Title = Names.Material(_material);
+        Breadcrumbs = [LinkTo(Strings.Get(Keys.Nav_Materials), PageKind.Materials), LinkTo(Display.CategoryLabel(_material.Category), PageKind.Materials, _material.Category.ToString())];
+        Kicker = Strings.Format(Keys.Material_Kicker, ("grade", Display.Grade(_material.Grade)), ("family", Names.Family(_material.Line)));
+        Sections = new SectionSwitch([("spends", Strings.Get(Keys.Section_PlanSpends)), ("uses", Strings.Get(Keys.Section_UsedBy)), ("sources", Strings.Get(Keys.Section_WhereToFind))], "spends", workspace.Preferences, "section.material");
         SpendSort = new TableSort<MaterialSpendRow>(
             [
-                new("entry", "Entry", row => row.Title),
-                new("needed", "Needs", row => row.Needed, DescendingFirst: true),
+                new("entry", Strings.Get(Keys.Column_Entry), row => row.Title),
+                new("needed", Strings.Get(Keys.Column_Needs), row => row.Needed, DescendingFirst: true),
             ],
             "entry",
             workspace.Preferences,
             "sort.materialSpends");
         UseSort = new TableSort<MaterialUseRow>(
             [
-                new("blueprint", "Blueprint", row => row.Blueprint.Label),
-                new("grade", "Grade", row => row.GradeNumber),
-                new("count", "Per roll", row => row.Count, DescendingFirst: true),
+                new("blueprint", Strings.Get(Keys.Column_Blueprint), row => row.Blueprint.Label),
+                new("grade", Strings.Get(Keys.Column_Grade), row => row.GradeNumber),
+                new("count", Strings.Get(Keys.Column_PerRoll), row => row.Count, DescendingFirst: true),
             ],
             "blueprint",
             workspace.Preferences,
@@ -110,7 +111,7 @@ public sealed class MaterialPage : Page
     public IReadOnlyList<PhrasePart> SourcesParts { get; private set => SetProperty(ref field, value); } = Phrase.Empty;
 
     /// <summary>Gets the journal symbol.</summary>
-    public string SymbolText => $"Journal symbol {_material.Symbol}";
+    public string SymbolText => Strings.Format(Keys.Material_JournalSymbol, ("symbol", _material.Symbol));
 
     /// <inheritdoc/>
     public override void Refresh()
@@ -131,21 +132,21 @@ public sealed class MaterialPage : Page
             {
                 if (blueprint.Grades[grade].TryGetValue(_material.Symbol, out var perRoll) && entry.RollsAt(grade) > 0)
                 {
-                    parts.Add($"{Display.Grade(grade)} ×{entry.RollsAt(grade)}");
+                    parts.Add(Strings.Format(Keys.Material_GradeTimesRolls, ("grade", Display.Grade(grade)), ("rolls", entry.RollsAt(grade))));
                     total += perRoll * entry.RollsAt(grade);
                 }
             }
 
             if (entry.Experimental is { } effect && catalog.Experimentals[effect].Components.TryGetValue(_material.Symbol, out var forEffect))
             {
-                parts.Add(catalog.Experimentals[effect].Name);
+                parts.Add(Names.Experimental(catalog.Experimentals[effect]));
                 total += forEffect;
             }
 
             if (total > 0)
             {
-                var module = entry.ModuleType is { } code ? catalog.ModuleTypes[code].Name : "Unknown module";
-                spends.Add(new MaterialSpendRow($"{module}: {blueprint.Name} {Display.Grade(entry.TargetGrade)}", string.Join(", ", parts), total));
+                var module = entry.ModuleType is { } code ? Names.ModuleType(catalog.ModuleTypes[code]) : Strings.Get(Keys.Page_UnknownModule);
+                spends.Add(new MaterialSpendRow(Strings.Format(Keys.Material_SpendTitle, ("module", module), ("blueprint", Names.Blueprint(blueprint)), ("grade", Display.Grade(entry.TargetGrade))), Display.List(parts), total));
                 needed += total;
             }
         }
@@ -158,12 +159,12 @@ public sealed class MaterialPage : Page
         ShortText = IsShort ? (needed - have!.Value).ToString(CultureInfo.InvariantCulture) : "";
 
         Uses = UseSort.Apply(catalog.MaterialUses(_material.Symbol).Select(use => new MaterialUseRow(
-            LinkTo(catalog.Blueprints[use.Blueprint].Name, PageKind.Blueprint, use.Blueprint),
+            LinkTo(Names.Blueprint(catalog.Blueprints[use.Blueprint]), PageKind.Blueprint, use.Blueprint),
             use.Grade,
             use.Count,
-            [.. catalog.ModuleTypesWithBlueprint(use.Blueprint).Select(type => LinkTo(type.Name, PageKind.ModuleType, type.Code))])));
+            [.. catalog.ModuleTypesWithBlueprint(use.Blueprint).Select(type => LinkTo(Names.ModuleType(type), PageKind.ModuleType, type.Code))])));
         var effects = catalog.ExperimentalsUsing(_material.Symbol);
-        ExperimentalsText = effects.Count == 0 ? "" : "Also in the experimental effects " + string.Join(", ", effects.Select(effect => effect.Name)) + ".";
+        ExperimentalsText = effects.Count == 0 ? "" : Strings.Format(Keys.Material_AlsoInExperimentals, ("names", Display.List(effects.Select(Names.Experimental))));
 
         var system = Workspace.System;
         Sources =
@@ -173,15 +174,15 @@ public sealed class MaterialPage : Page
                 .OrderByDescending(body => body.Materials[_material.Symbol])
                 .Select(body => new MaterialSourceRow(
                     BodyRowBuilder.ShortName(body.Name, system.SystemName),
-                    string.Create(CultureInfo.InvariantCulture, $"{body.Materials[_material.Symbol]:0.0}%"),
+                    Strings.Format(Keys.Unit_Percent, ("value", body.Materials[_material.Symbol])),
                     body.Landable)),
         ];
         SourcesParts = _material.Category != MaterialCategory.Raw
             ? Phrase.Empty
             : system.SystemName is not { } here
-                ? Phrase.Text("Surface sources appear once the journal reports a system.")
+                ? Phrase.Text(Strings.Get(Keys.Material_SourcesWhenKnown))
                 : Sources.Count == 0
-                    ? Phrase.Of("No scanned body in ", LinkTo(here, PageKind.System, here), " carries it.")
-                    : Phrase.Of("On the surface in ", LinkTo(here, PageKind.System, here));
+                    ? Phrase.Format(Keys.Material_NoBodyCarriesIt, ("system", LinkTo(here, PageKind.System, here)))
+                    : Phrase.Format(Keys.Material_OnTheSurfaceIn, ("system", LinkTo(here, PageKind.System, here)));
     }
 }

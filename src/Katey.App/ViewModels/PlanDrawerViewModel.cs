@@ -1,5 +1,6 @@
 ﻿using Katey.App.Mvvm;
 using Katey.App.Navigation;
+using Katey.App.Text;
 using Katey.Core.Planning;
 
 namespace Katey.App.ViewModels;
@@ -73,19 +74,19 @@ public sealed class PlanDrawerViewModel : ObservableObject
     {
         var entries = _workspace.Plan.Snapshot();
         Totals.Update(entries, _workspace.InventoryCounts);
-        Trades = TradeView.From(_workspace.Trades(), material => _workspace.Navigator.LinkTo(material.Name, PageKind.Materials, material.Symbol));
+        Trades = TradeView.From(_workspace.Trades(), material => _workspace.Navigator.LinkTo(Names.Material(material), PageKind.Materials, material.Symbol));
         var enabled = entries.Count(entry => entry.Enabled);
         Badge = enabled == 0
-            ? "empty"
+            ? Strings.Get(Keys.Drawer_BadgeEmpty)
             : Totals.HasInventory
-                ? (Totals.ShortCount == 0 ? $"{enabled} · covered" : $"{enabled} · {Totals.ShortCount} short")
-                : enabled.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                ? (Totals.ShortCount == 0 ? Strings.Format(Keys.Drawer_BadgeCovered, ("count", enabled)) : Strings.Format(Keys.Drawer_BadgeShort, ("count", enabled), ("short", Totals.ShortCount)))
+                : enabled.ToString(System.Globalization.CultureInfo.CurrentCulture);
         var engineers = _workspace.Engineers.Selected.Order(StringComparer.Ordinal).ToList();
-        SummaryParts = Phrase.Join("",
-        [
-            Phrase.Text($"{Display.Plural(entries.Count, "entry", "entries")}, {enabled} counted. {Totals.Summary} Engineers: "),
-            EngineerLink.Names(engineers.Select(_workspace.EngineerLinkFor), "none selected"),
-            Phrase.Text("."),
-        ]);
+        SummaryParts = Phrase.Format(
+            Keys.Drawer_Summary,
+            ("entries", Display.Plural(Keys.Plural_Entries, entries.Count)),
+            ("counted", enabled),
+            ("totals", Totals.Summary),
+            ("engineers", EngineerLink.Names(engineers.Select(_workspace.EngineerLinkFor), Strings.Get(Keys.Drawer_NoneSelected))));
     }
 }

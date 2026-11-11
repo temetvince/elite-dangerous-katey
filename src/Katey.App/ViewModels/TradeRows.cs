@@ -1,5 +1,5 @@
-﻿using System.Globalization;
-using Katey.App.Navigation;
+﻿using Katey.App.Navigation;
+using Katey.App.Text;
 using Katey.Core;
 using Katey.Core.Planning;
 using Katey.Core.Trading;
@@ -13,27 +13,27 @@ namespace Katey.App.ViewModels;
 public sealed record TradeRow(MaterialTrade Trade, Link From, Link To)
 {
     /// <summary>Gets "Give 12 Iron".</summary>
-    public string GiveText => string.Create(CultureInfo.InvariantCulture, $"Give {Trade.Give} {Trade.From.Name}");
+    public string GiveText => Strings.Format(Keys.Trade_Give, ("count", Trade.Give), ("material", Names.Material(Trade.From)));
 
     /// <summary>Gets "Give 12", for printing before the <see cref="From"/> link.</summary>
-    public string GiveCount => string.Create(CultureInfo.InvariantCulture, $"Give {Trade.Give}");
+    public string GiveCount => Strings.Format(Keys.Trade_GiveCount, ("count", Trade.Give));
 
     /// <summary>Gets "get 36 Carbon".</summary>
-    public string GetText => string.Create(CultureInfo.InvariantCulture, $"get {Trade.Get} {Trade.To.Name}");
+    public string GetText => Strings.Format(Keys.Trade_Get, ("count", Trade.Get), ("material", Names.Material(Trade.To)));
 
     /// <summary>Gets "get 36", for printing before the <see cref="To"/> link.</summary>
-    public string GetCount => string.Create(CultureInfo.InvariantCulture, $"get {Trade.Get}");
+    public string GetCount => Strings.Format(Keys.Trade_GetCount, ("count", Trade.Get));
 
     /// <summary>Gets the rate and the grades, such as "G2 → G1 at 1:3".</summary>
-    public string RateText => string.Create(CultureInfo.InvariantCulture, $"{Display.Grade(Trade.From.Grade)} → {Display.Grade(Trade.To.Grade)} at {Trade.Rate.Text}");
+    public string RateText => Strings.Format(Keys.Trade_Rate, ("from", Display.Grade(Trade.From.Grade)), ("to", Display.Grade(Trade.To.Grade)), ("rate", Trade.Rate.Text));
 
     /// <summary>Gets the two materials' in-game families, which the traders group by: "Iron family → Carbon family", or "both in the Wake Scans family" when they share one.</summary>
     public string FamilyText => string.Equals(Trade.From.Line, Trade.To.Line, StringComparison.Ordinal)
-        ? $"both in the {Trade.From.Line} family"
-        : $"{Trade.From.Line} family → {Trade.To.Line} family";
+        ? Strings.Format(Keys.Trade_SameFamily, ("family", Names.Family(Trade.From.Line)))
+        : Strings.Format(Keys.Trade_Families, ("from", Names.Family(Trade.From.Line)), ("to", Names.Family(Trade.To.Line)));
 
     /// <summary>Gets a note on the surplus, or empty when the trade hands back exactly what is wanted.</summary>
-    public string SurplusText => Trade.Surplus == 0 ? "" : string.Create(CultureInfo.InvariantCulture, $"{Trade.Surplus} more than needed");
+    public string SurplusText => Trade.Surplus == 0 ? "" : Strings.Format(Keys.Trade_Surplus, ("count", Trade.Surplus));
 }
 
 /// <summary>A shortfall no trade covers, ready to print.</summary>
@@ -42,13 +42,20 @@ public sealed record TradeRow(MaterialTrade Trade, Link From, Link To)
 public sealed record UnmetRow(TradeShortfall Shortfall, Link Material)
 {
     /// <summary>Gets "Still 4 Yttrium short".</summary>
-    public string Text => string.Create(CultureInfo.InvariantCulture, $"Still {Shortfall.Remaining} {Shortfall.Target.Material.Name} short");
+    public string Text => Strings.Format(Keys.Trade_StillShort, ("count", Shortfall.Remaining), ("material", Names.Material(Shortfall.Target.Material)));
 
     /// <summary>Gets "Still 4", for printing before the <see cref="Material"/> link.</summary>
-    public string Prefix => string.Create(CultureInfo.InvariantCulture, $"Still {Shortfall.Remaining}");
+    public string Prefix => Strings.Format(Keys.Trade_StillShortCount, ("count", Shortfall.Remaining));
 
-    /// <summary>Gets why.</summary>
-    public string Why => Shortfall.Why;
+    /// <summary>Gets why, in a sentence.</summary>
+    public string Why => Shortfall.Why switch
+    {
+        ShortfallReason.BatchesWhole => Strings.Get(Keys.Trade_WhyBatchesWhole),
+        ShortfallReason.OnlyNeverTrade => Strings.Get(Keys.Trade_WhyNeverTrade),
+        ShortfallReason.NothingSpare => Strings.Get(Keys.Trade_WhyNothingSpare),
+        ShortfallReason.NothingHeld => Strings.Get(Keys.Trade_WhyNothingHeld),
+        _ => Shortfall.Why.ToString(),
+    };
 }
 
 /// <summary>The trades to make at one kind of trader.</summary>
@@ -60,10 +67,10 @@ public sealed record TraderGroupRow(MaterialCategory Category, IReadOnlyList<Tra
     /// <summary>Gets "At a raw materials trader".</summary>
     public string Heading => Category switch
     {
-        MaterialCategory.Raw => "At a raw materials trader",
-        MaterialCategory.Manufactured => "At a manufactured materials trader",
-        MaterialCategory.Encoded => "At an encoded data trader",
-        _ => "At a material trader",
+        MaterialCategory.Raw => Strings.Get(Keys.Trade_AtRawTrader),
+        MaterialCategory.Manufactured => Strings.Get(Keys.Trade_AtManufacturedTrader),
+        MaterialCategory.Encoded => Strings.Get(Keys.Trade_AtEncodedTrader),
+        _ => Strings.Get(Keys.Trade_AtTrader),
     };
 
     /// <summary>Gets whether there is anything to do here.</summary>
@@ -91,14 +98,14 @@ public sealed record TradeView(string Headline, IReadOnlyList<TraderGroupRow> Gr
     {
         if (plan is null)
         {
-            return new TradeView("Trades appear once the journal watch has read your inventory.", [], "");
+            return new TradeView(Strings.Get(Keys.Trade_WaitingForInventory), [], "");
         }
 
         ArgumentNullException.ThrowIfNull(linkTo);
 
         if (plan.Targets.Count == 0)
         {
-            return new TradeView("Nothing to trade for: you hold what the plan needs and what you keep.", [], "");
+            return new TradeView(Strings.Get(Keys.Trade_NothingToTradeFor), [], "");
         }
 
         var groups = MaterialCalculator.CategoryOrder
@@ -109,13 +116,14 @@ public sealed record TradeView(string Headline, IReadOnlyList<TraderGroupRow> Gr
             .Where(group => group.Trades.Count > 0 || group.Unmet.Count > 0)
             .ToList();
         var covered = plan.Targets.Count - plan.Unmet.Count;
+        var materials = Display.Plural(Keys.Plural_Materials, plan.Targets.Count);
         var headline = plan.Trades.Count == 0
-            ? $"No trade covers any of the {Display.Plural(plan.Targets.Count, "material")} you are short of."
+            ? Strings.Format(Keys.Trade_NoneCovered, ("materials", materials))
             : plan.CoversEverything
-                ? $"{Display.Plural(plan.Trades.Count, "trade")} cover{(plan.Trades.Count == 1 ? "s" : "")} everything you are short of."
-                : $"{Display.Plural(plan.Trades.Count, "trade")} cover{(plan.Trades.Count == 1 ? "s" : "")} {covered} of the {Display.Plural(plan.Targets.Count, "material")} you are short of.";
-        var reserves = plan.Targets.Where(target => target.ForReserve && !target.ForPlan).Select(target => target.Material.Name).ToList();
-        var note = reserves.Count == 0 ? "" : $"Back to your reserve: {string.Join(", ", reserves)}.";
+                ? Strings.Plural(Keys.Trade_CoverAll, plan.Trades.Count)
+                : Strings.Plural(Keys.Trade_CoverSome, plan.Trades.Count, ("covered", covered), ("materials", materials));
+        var reserves = plan.Targets.Where(target => target.ForReserve && !target.ForPlan).Select(target => Names.Material(target.Material)).ToList();
+        var note = reserves.Count == 0 ? "" : Strings.Format(Keys.Trade_BackToReserve, ("names", Display.List(reserves)));
         return new TradeView(headline, groups, note);
     }
 }

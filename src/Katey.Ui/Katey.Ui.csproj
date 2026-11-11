@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Katey.App\Katey.App.csproj" />
+    <ProjectReference Include="..\Katey.Localization\Katey.Localization.csproj" />
   </ItemGroup>
 
 </Project>

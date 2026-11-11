@@ -53,7 +53,7 @@ plot section asks Spansh's galaxy plotter for a route through `PlotState` and an
 
 | Area | Types | Purpose |
 | --- | --- | --- |
-| `ShellViewModel.cs` | `ShellViewModel` | The window: builds the workspace, the navigator, the search, the rail and the drawer; saves on every change; starts the journal watch. |
+| `ShellViewModel.cs` | `ShellViewModel` | The window: applies the saved language, builds the workspace, the navigator, the search, the rail and the drawer; saves on every change; starts the journal watch. `SetLanguageCommand` switches the language live: the nav links are rebuilt, the current page is rebuilt from its key, the rail and the drawer refresh and the search reindexes. |
 | `Workspace.cs` | `Workspace` | What pages, rail and search share: catalogs, trackers, plan, engineer selection, the engineer scope, saved fits, the plot, the material reserves and the trade plan, navigator, settings. `Route` and `System` take the position from the live route file's first stop when it is newer than the journal's last arrival, which is how a journal the game rewrote still places the ship. Raises one event per kind of change, on the UI thread. `UnlockedBecause` says why a technology broker unlock counts as bought: the journal records it, a module it unlocks was bought at outfitting, or one is fitted or stored. `AdvancePlan` moves the plan on by the engineering rolls reported since each entry last moved, through `PlanProgress`, and reports the entries that left. `Farness` says how far an owned module is from the ship, for the fit matcher to name the nearer of two equal modules. |
 | `EngineerScope.cs` | `EngineerScope` | What the indexes and pickers may offer: everything, or only what the selected engineers can roll while the remembered "Only my engineers" switch is on. Narrows blueprints, grades, experimentals and module types, and gives the grade a picker starts at. |
 | `EngineerSelection.cs` | `EngineerSelection` | The engineers the commander will visit. |
@@ -63,9 +63,16 @@ plot section asks Spansh's galaxy plotter for a route through `PlotState` and an
 | `Trading/ReserveState.cs` | `ReserveState` | The material reserves the player set, keyed by journal symbol; saved with the state. |
 | `Navigation/PageKey.cs` | `PageKind`, `PageKey` | Names a page: a kind and an entity id. |
 | `Navigation/Link.cs` | `Link` | A labelled mention of a page with the command that opens it. |
-| `Navigation/NavItem.cs` | `NavItem` | One navbar section: an index page, lit while the current page belongs to it. |
+| `Navigation/NavItem.cs` | `NavItem` | One navbar section: an index page, lit while the current page belongs to it. Its command opens the page, and goes back instead when that page is already open. |
 | `Navigation/Navigator.cs` | `Navigator` | The current page, the history behind and ahead of it, and how far down each entry was scrolled as a fraction of its height, so back and forward return to the same place whatever the window size. |
 | `UiPreferences.cs` | `UiPreferences` | Remembered view choices by dotted name; `Remove` forgets one. |
+| `Text/Strings.resx`, `Text/Strings.<culture>.resx` | | The application's words, English in the neutral file and one file per shipped language, every entry with a comment saying where it shows and how long it may run. See [Words and languages](#words-and-languages). |
+| `Text/Keys.cs` | `Keys` | One constant per key of `Strings.resx`, a plural group folded to its base key. Generated: `dotnet run tools/StringKeys.cs -- src/Katey.App/Text/Strings.resx src/Katey.App/Text/Keys.cs Katey.App.Text Keys`. |
+| `Text/Strings.cs` | `Strings` | The localizer over `Strings.resx`: `Get`, `Format` and `Plural` by a key from `Keys`. |
+| `Text/Languages.cs` | `Languages`, `LanguageOption` | The cultures Katey ships in, English first; the `app.language` preference; the picker's options, each language under its own name; `Apply`, which resolves the saved choice against the machine and makes it the language in force. |
+| `Text/CatalogNames.resx`, `Text/CatalogNames.<culture>.resx` | | The game's own names per language: materials and their families, blueprints, effects, module types, unlocks, mounts, surface signal types, planet classes, atmosphere and volcanism words, lifetime figure labels. The neutral file is empty by design: English is the data's. |
+| `Text/CatalogNameKeys.cs` | `CatalogNameKeys` | How each game name is addressed in `CatalogNames.resx`, and `All`, the full key set a translation must hold. |
+| `Text/Names.cs` | `Names` | Every game name in the language in force, falling back to the data: `Material`, `Blueprint`, `Experimental`, `ModuleType`, `Unlock`; `Module`, composed from the type's translated name, the class and rating and the mount; `PlanetClass`, `Atmosphere` and `Volcanism`, which read the journal's phrase into its words and write it back through the language's template; `Figure` and `FigureSection` for the lifetime statistics. |
 | `FleetChoices.cs` | `FleetChoices` | The pick-list options for the fleet's policy and filters, shared by the fleet and fit pages. |
 | `FuelEstimate.cs` | `FuelEstimate`, `StopFuel` | The fuel picture for the route ahead: the game's fuel equation from the current ship's loadout figures, or its model fitted to recent jumps when the loadout lacks them, run from the live tank reading; and the tank against its capacity with what the next jump burns, as the fractions the fuel meter draws. |
 | `Routing/IRoutePlotter.cs` | `IRoutePlotter`, `RoutePlotException` | What a plotter is: a request in, a route out, or a reason fit to show. |
@@ -111,9 +118,11 @@ plot section asks Spansh's galaxy plotter for a route through `PlotState` and an
 | `ViewModels/SystemValue.cs` | `SystemValue` | The current system's worth: cartographics and exobiology, each as scanned and with its first bonus where it likely applies, what of it is still aboard and what has sold; as the system page's two sentences and the rail's unsold line. |
 | `ViewModels/SystemSales.cs` | `SystemSales` | What one system's data has sold for: a sale of several systems shared by Katey's estimate of their bodies, a species sale credited to the system its sample came from. |
 | `ViewModels/ScanProgress.cs` | `ScanProgress` | The current system's scan progress in words, as a figure and as a share, from the snapshot's `BodiesKnown`, shared by the home page, the system page and the rail. |
-| `ViewModels/Display.cs` | `Choice`, `MaterialChip`, `MaterialRow`, `Display` | Pick-list options, display records and shared formatting. |
+| `ViewModels/Display.cs` | `Choice`, `MaterialChip`, `MaterialRow`, `Display` | Pick-list options, display records and shared formatting, every word from the table: group, category and region labels, credits, distances, durations and grades through keyed unit templates, `Plural` over a plural base key, `List` and `Names` joined with the language's separator, `Upper` for a label set in capitals. |
+| `ViewModels/ShoppingListText.cs` | `ShoppingListText` | The plan's totals as plain text for the clipboard, in the language in force. |
+| `ViewModels/StarText.cs` | `StarText` | A star in words from what `StarClasses` reads off its class: `Describe`, `Brief` and `Label`, with the giant words. |
 | `ViewModels/Place.cs` | `Place` | Somewhere in the galaxy as a system link plus a detail, so every system name on a page opens its page. |
-| `ViewModels/Phrase.cs` | `PhrasePart`, `LinkTone`, `Phrase` | A sentence that carries links in its running text, so a system or an engineer named mid-sentence opens its page; a link has a tone: accent, the HUD blue, ink or dim. `Phrase.Of` builds one from strings, links and engineer links, `Plain` reads the words alone. |
+| `ViewModels/Phrase.cs` | `PhrasePart`, `LinkTone`, `Phrase` | A sentence that carries links in its running text, so a system or an engineer named mid-sentence opens its page; a link has a tone: accent, the HUD blue, ink or dim. `Phrase.Format` fills a keyed template whose placeholders may be links, engineer links or other sentences, so a translation can put the links in any order; `Phrase.Of` builds one from parts in order, `Plain` reads the words alone. |
 | `ViewModels/EngineerLink.cs` | `EngineerLink` | An engineer's name as Katey shows it everywhere, made by `Workspace.EngineerLinkFor`: their page, whether you ticked them and whether the engineers switch narrows the lists, from which the name is highlighted, dimmed or plain; `Names` lists several in a sentence. |
 | `ViewModels/TradeRows.cs` | `TradeView`, `TraderGroupRow`, `TradeRow`, `UnmetRow` | A trade plan laid out for a page: a headline, one group per trader with its trades and what stays short, each material a link to the materials page landing on it, each trade naming the two materials' in-game families, and a note on which targets are reserves. Shared by the materials page and the drawer. |
 | `Persistence/StateStore.cs` | `PersistedState`, `IStateStore`, `JsonFileStateStore` | The saved plan, engineer selection, fits, sharing policy, journal folder, bacteria filter, rail placement, view preferences, Spansh switch, last plot, backup folder and switch, and material reserves; where it lives, and moving it. |
@@ -122,6 +131,42 @@ plot section asks Spansh's galaxy plotter for a route through `PlotState` and an
 | `Logging/FileLoggerProvider.cs` | `FileLoggerProvider` | A logger provider that appends to one text file above a floor, rolling the file over past a size, passing every line through a scrubber, and writing a crash at Critical. |
 | `Logging/LogArguments.cs` | `LogArguments` | Reads `--log-level <level>` and `--verbose` from the command line: the log file's floor, Information when absent. |
 | `Logging/LogScrubber.cs` | `LogScrubber` | Strips the folders from every path in a log line, keeping the file name, and replaces the account and machine names, before the line is written. |
+
+## Words and languages
+
+Every word a page, the rail, the drawer or the search shows comes from a table by key; no view model holds a
+literal. The invariant mechanism is [`Katey.Localization`](../Katey.Localization/README.md); this project
+holds the words.
+
+- **Keys.** `Strings.resx` is keyed `Area.Thing`: `Rail.NextJump`, `Column.Grade`, `Unit.Credits`. A counted
+  text is a plural group, `Plural.Jumps.one` and `Plural.Jumps.other`, used as `Display.Plural(Keys.Plural_Jumps, n)`.
+  `Keys.cs` carries one constant per key, so a misspelt key fails to compile; the drift test fails when the
+  constants and the table disagree, which is the cue to run the generator named in the file map.
+- **Templates.** A text with placeholders is filled by name, as `Strings.Format(Keys.Route_JumpOf, ...)` does
+  with an `("index", i)` pair per placeholder.
+  A sentence that names a system or an engineer goes through `Phrase.Format` with the `Link` as the value, and
+  `PhraseBlock` shows it. Fragments are never concatenated: when a sentence has two shapes, it has two keys.
+- **Figures.** Numbers and dates inside a template take the formatting culture, the machine's regional setting.
+  Keys, ids, URLs, journal text and preference values stay invariant.
+- **Game names.** `Names` wraps every catalog name, journal body descriptor and lifetime figure label. Its
+  table's neutral file is empty, so English is always the data's own word and a language with no entry shows
+  the same. The completeness test checks every shipped language against `CatalogNameKeys.All`.
+- **The switch.** `Languages.Apply` runs in the shell's constructor before any page is built, from the
+  `app.language` preference or the machine's culture, so the first page is already in the right language.
+  `ShellViewModel.SetLanguageCommand` saves the choice, calls `Language.Set`, rebuilds the nav links, rebuilds
+  the current page from its key through `Navigator.Rebuild`, refreshes the rail, words the plan's rows again
+  through `PlanViewModel.Reword`, updates the drawer and reindexes the search. State that outlives a page,
+  such as a backup, plot or lookup status, keeps facts and words them when read, so it follows the switch
+  too. `Languages.Supported` lists the cultures that ship: English, German, Spanish, French, Portuguese
+  (Brazil), Russian.
+- **Adding a key.** Add the English entry to `Strings.resx` with a comment, regenerate `Keys.cs`, use the key,
+  then add the entry to every `Strings.<culture>.resx`; the translation test lists what is missing.
+- **Adding a language.** Add `Strings.<culture>.resx`, `CatalogNames.<culture>.resx` here and
+  `UiStrings.<culture>.resx` in `Katey.Ui`, add the culture to `Languages.Supported`, and add it to the
+  `SatelliteResourceLanguages` list in `publish.bat` and `publish.sh`. If the language's plural forms are not
+  one and other, teach `PluralRules` first.
+- **Tests.** `tests/Katey.App.Tests` pins the UI culture to English and the formatting culture to invariant, so
+  the sentence asserts hold on any machine. `StringTableTests` checks the keys, the translations and the names.
 
 ## How the pieces connect
 

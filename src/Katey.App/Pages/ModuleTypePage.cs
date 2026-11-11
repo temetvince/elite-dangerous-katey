@@ -1,5 +1,6 @@
 ﻿using Katey.App.Mvvm;
 using Katey.App.Navigation;
+using Katey.App.Text;
 using Katey.App.ViewModels;
 using Katey.Core;
 using Katey.Core.Fleet;
@@ -45,7 +46,7 @@ public sealed class BlueprintRow : ObservableObject
     public string Key => _blueprint.Key;
 
     /// <summary>Gets the display name.</summary>
-    public string Name => _blueprint.Name;
+    public string Name => Names.Blueprint(_blueprint);
 
     /// <summary>Gets the grades to choose from: 0 for experimental only, then every grade the blueprint has.</summary>
     public IReadOnlyList<int> Grades { get; }
@@ -57,7 +58,7 @@ public sealed class BlueprintRow : ObservableObject
     public int? ReachableGrade { get; }
 
     /// <summary>Gets "Gn" for the reachable grade, "none" when nobody selected offers it, or empty with no selection.</summary>
-    public string ReachableText => _page.HasSelection ? (ReachableGrade is { } grade ? Display.Grade(grade) : "none") : "";
+    public string ReachableText => _page.HasSelection ? (ReachableGrade is { } grade ? Display.Grade(grade) : Strings.Get(Keys.ModuleType_None)) : "";
 
     /// <summary>Gets whether the selected engineers reach the top grade.</summary>
     public bool ReachesTop => ReachableGrade == _blueprint.MaxGrade;
@@ -81,7 +82,7 @@ public sealed record BlueprintEngineer(EngineerLink Engineer, int MaxGrade, doub
     public bool Selected => Engineer.Selected;
 
     /// <summary>Gets "to Gn".</summary>
-    public string GradeText => "to " + Display.Grade(MaxGrade);
+    public string GradeText => Strings.Format(Keys.ModuleType_ToGrade, ("grade", Display.Grade(MaxGrade)));
 
     /// <summary>Gets the distance as text.</summary>
     public string DistanceText => Display.DistanceOrUnknown(DistanceLy);
@@ -150,32 +151,32 @@ public sealed class ModuleTypePage : Page
         : base(new PageKey(PageKind.ModuleType, code), workspace)
     {
         _type = workspace.Catalog.ModuleTypes[code];
-        Title = _type.Name;
-        Breadcrumbs = [LinkTo("Modules", PageKind.Modules), LinkTo(Display.GroupLabel(_type.Group), PageKind.Modules, _type.Group.ToString())];
+        Title = Names.ModuleType(_type);
+        Breadcrumbs = [LinkTo(Strings.Get(Keys.Nav_Modules), PageKind.Modules), LinkTo(Display.GroupLabel(_type.Group), PageKind.Modules, _type.Group.ToString())];
         SelectedExperimental = Choice.None;
-        Sections = new SectionSwitch([("blueprints", "Blueprints"), ("owned", "You own"), ("fits", "In your fits"), ("variants", "Variants")], "blueprints", workspace.Preferences, "section.moduleType");
+        Sections = new SectionSwitch([("blueprints", Strings.Get(Keys.Section_Blueprints)), ("owned", Strings.Get(Keys.Section_YouOwn)), ("fits", Strings.Get(Keys.Section_InYourFits)), ("variants", Strings.Get(Keys.Section_Variants))], "blueprints", workspace.Preferences, "section.moduleType");
         BlueprintSort = new TableSort<BlueprintRow>(
             [
-                new("name", "Blueprint", row => row.Name),
-                new("reach", "You reach", row => row.ReachableGrade, DescendingFirst: true),
+                new("name", Strings.Get(Keys.Column_Blueprint), row => row.Name),
+                new("reach", Strings.Get(Keys.Column_YouReach), row => row.ReachableGrade, DescendingFirst: true),
             ],
             "name",
             workspace.Preferences,
             "sort.blueprints");
         OwnedSort = new TableSort<OwnedModuleRow>(
             [
-                new("name", "Module", row => row.Name),
-                new("engineering", "Engineering", row => row.Engineering),
-                new("place", "Where", row => row.Where.Text),
+                new("name", Strings.Get(Keys.Column_Module), row => row.Name),
+                new("engineering", Strings.Get(Keys.Column_Engineering), row => row.Engineering),
+                new("place", Strings.Get(Keys.Column_Where), row => row.Where.Text),
             ],
             "name",
             workspace.Preferences,
             "sort.owned");
         FitWantSort = new TableSort<FitWantRow>(
             [
-                new("fit", "Fit", row => row.Fit.Label),
-                new("wants", "Wants", row => row.Wants),
-                new("status", "Status", row => row.Status),
+                new("fit", Strings.Get(Keys.Column_Fit), row => row.Fit.Label),
+                new("wants", Strings.Get(Keys.Column_Wants), row => row.Wants),
+                new("status", Strings.Get(Keys.Column_Status), row => row.Status),
             ],
             "fit",
             workspace.Preferences,
@@ -284,8 +285,8 @@ public sealed class ModuleTypePage : Page
         ArgumentNullException.ThrowIfNull(module);
         var system = module.System is { Length: > 0 } name ? LinkTo(name, PageKind.System, name) : null;
         return module.Place == ModulePlace.Installed
-            ? new Place(system, $"fitted to {module.Holder}")
-            : new Place(system, system is null ? module.Holder : "in storage");
+            ? new Place(system, Strings.Format(Keys.ModuleType_FittedTo, ("ship", module.Holder)))
+            : new Place(system, system is null ? module.Holder : Strings.Get(Keys.ModuleType_InStorage));
     }
 
     /// <inheritdoc/>
@@ -296,7 +297,7 @@ public sealed class ModuleTypePage : Page
         var scope = Workspace.Scope;
         OnPropertyChanged(nameof(HasSelection));
         ScopeNote = scope.Note;
-        Experimentals = [Choice.None, .. scope.Experimentals(_type).Select(effect => new Choice(effect.Key, effect.Name))];
+        Experimentals = [Choice.None, .. scope.Experimentals(_type).Select(effect => new Choice(effect.Key, Names.Experimental(effect)))];
         if (!Experimentals.Contains(SelectedExperimental))
         {
             SelectedExperimental = Choice.None;
@@ -320,7 +321,7 @@ public sealed class ModuleTypePage : Page
             rows.Add(new BlueprintRow(
                 this,
                 blueprint,
-                LinkTo(blueprint.Name, PageKind.Blueprint, blueprint.Key),
+                LinkTo(Names.Blueprint(blueprint), PageKind.Blueprint, blueprint.Key),
                 reachable,
                 scope.Grades(_type, blueprint.Key),
                 scope.StartingGrade(_type, blueprint.Key),
@@ -331,21 +332,22 @@ public sealed class ModuleTypePage : Page
 
         var appliers = catalog.EngineersForModuleType(_type.Code);
         var selectedAppliers = appliers.Where(selected.Contains).ToList();
+        var experimentals = Display.Plural(Keys.Plural_Experimentals, _type.Experimentals.Count);
         ExperimentalsParts = _type.Experimentals.Count == 0
-            ? Phrase.Text("This module type has no experimental effects.")
+            ? Phrase.Text(Strings.Get(Keys.ModuleType_NoExperimentals))
             : selected.Count == 0
-                ? Phrase.Text($"{Display.Plural(_type.Experimentals.Count, "experimental effect")}. Any engineer who offers a blueprint here can apply all of them.")
+                ? Phrase.Format(Keys.ModuleType_ExperimentalsAnyEngineer, ("experimentals", experimentals))
                 : selectedAppliers.Count == 0
-                    ? Phrase.Text($"{Display.Plural(_type.Experimentals.Count, "experimental effect")}. None of your selected engineers can apply them.")
-                    : Phrase.Join("", [Phrase.Text($"{Display.Plural(_type.Experimentals.Count, "experimental effect")}, any of which "), EngineerLink.Names(selectedAppliers.Select(Workspace.EngineerLinkFor), ""), Phrase.Text(" can apply.")]);
+                    ? Phrase.Format(Keys.ModuleType_ExperimentalsNobodyTicked, ("experimentals", experimentals))
+                    : Phrase.Format(Keys.ModuleType_ExperimentalsBy, ("experimentals", experimentals), ("engineers", EngineerLink.Names(selectedAppliers.Select(Workspace.EngineerLinkFor), "")));
 
         var fleet = Workspace.FleetSnapshot;
         var owned = FleetState.OwnedModules(fleet).Where(module => string.Equals(Workspace.Modules.Find(module.Item)?.Group, _type.Code, StringComparison.OrdinalIgnoreCase)).ToList();
-        var ownedNames = owned.Select(module => Workspace.Modules.NameOf(module.Item)).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var ownedNames = owned.Select(module => Workspace.ModuleName(module.Item)).ToHashSet(StringComparer.OrdinalIgnoreCase);
         Variants = [.. Workspace.Modules.OfType(_type.Code).Select(module => new VariantRow(module.Name, ownedNames.Contains(module.Name)))];
         OnPropertyChanged(nameof(HasVariants));
         Owned = OwnedSort.Apply(owned.Select(module => new OwnedModuleRow(
-            Workspace.Modules.NameOf(module.Item),
+            Workspace.ModuleName(module.Item),
             EngineeringText(module.Engineering),
             WhereOwned(module),
             module.IsEngineered)));
@@ -356,35 +358,31 @@ public sealed class ModuleTypePage : Page
                 .Where(line => string.Equals(Workspace.Modules.Find(line.Required.Item)?.Group, _type.Code, StringComparison.OrdinalIgnoreCase))
                 .Select(line => new FitWantRow(
                     LinkTo(fit.Fitting.Name, PageKind.Fit, fit.Fitting.Id),
-                    $"{Workspace.Modules.NameOf(line.Required.Item)}, {EngineeringText(line.Required.Engineering)}",
+                    Strings.Format(Keys.ModuleType_FitWants, ("module", Workspace.ModuleName(line.Required.Item)), ("engineering", EngineeringText(line.Required.Engineering))),
                     FleetPage.StatusText(line),
                     line.Quality,
                     FleetPage.ToneOf(line, fit.Fitting.Hull)))));
         OnPropertyChanged(nameof(HasFitWants));
 
         var planned = Workspace.Plan.Snapshot().Count(entry => entry.ModuleType == _type.Code);
-        PlanText = planned == 0 ? "" : $"{Display.Plural(planned, "plan entry", "plan entries")} use this type.";
+        PlanText = planned == 0 ? "" : Strings.Format(Keys.ModuleType_PlanEntriesUse, ("entries", Display.Plural(Keys.Plural_PlanEntries, planned)));
     }
 
     private string EngineeringText(Engineering? engineering)
     {
         if (engineering is null)
         {
-            return "stock";
+            return Strings.Get(Keys.Engineering_Stock);
         }
 
         var catalog = Workspace.Catalog;
-        var blueprint = catalog.Blueprints.TryGetValue(engineering.Blueprint, out var bp) ? bp.Name : engineering.Blueprint;
-        var text = $"{blueprint} {Display.Grade(engineering.Level)}";
+        var blueprint = catalog.Blueprints.TryGetValue(engineering.Blueprint, out var bp) ? Names.Blueprint(bp) : engineering.Blueprint;
+        var grade = Display.Grade(engineering.Level);
         if (engineering.Experimental is { } effect)
         {
-            text += " + " + (catalog.Experimentals.TryGetValue(effect, out var ex) ? ex.Name : effect);
-        }
-        else if (!engineering.ExperimentalKnown)
-        {
-            text += ", experimental unknown";
+            return Strings.Format(Keys.Engineering_TextWithExperimental, ("blueprint", blueprint), ("grade", grade), ("experimental", catalog.Experimentals.TryGetValue(effect, out var ex) ? Names.Experimental(ex) : effect));
         }
 
-        return text;
+        return Strings.Format(engineering.ExperimentalKnown ? Keys.Engineering_Text : Keys.Engineering_TextExperimentalUnknown, ("blueprint", blueprint), ("grade", grade));
     }
 }

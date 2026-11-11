@@ -207,6 +207,8 @@ stale values and the code to understand them is not.
 - [ ] `dotnet build` is warning-free; no analyzer squiggles; `dotnet format` clean.
 - [ ] Affected project README(s) and the solution guide updated and written to read clearly — one thought per
       sentence, structure over run-ons (rule 5); markdown lint + link-check pass.
+- [ ] Every language has the change: the five string tables, the five names tables where game data changed,
+      and the five manuals where `MANUAL.md` changed (project specifics, "What every change translates").
 - [ ] Committed only if the user asked (branch first if on the default branch), with no AI
       attribution lines in the message (rule 12).
 
@@ -230,15 +232,32 @@ fixing the code over adding more.
 - **Build:** `dotnet build Katey.slnx`.
 - **Run:** `dotnet run --project src/Katey.Ui`.
 - **Test:** `dotnet test Katey.slnx`.
+- **Docs gate:** `npx --yes markdownlint-cli2 "**/*.md" "#node_modules" "#bin" "#obj"` and
+  `dotnet run --project tools/CheckDocLinks`, which checks every relative link and heading anchor across the
+  Markdown and every backtick-wrapped symbol link's target. Both run whenever a `.md` file changes.
 - **Publish locally:** `publish.bat` on Windows, or `bash publish.sh` on Linux, writes one self-contained,
-  compressed Windows `katey.exe` into `bin/`, with `MANUAL.md`, `NOTICE.md` and `THIRD-PARTY-NOTICES.txt`
-  beside it; the release zip carries the same files. `KATEY_VERSION` stamps the build's version, which
-  the release workflow takes from the tag. `NOTICE.md` is generated content in spirit:
-  when a package, a font or a data source changes, update its section and copyright lines there. Each
-  passes `-p:PublishDocumentationFile=false -p:PublishReferencesDocumentationFiles=false` to keep the XML
-  out of the output, never `GenerateDocumentationFile=false`. If a framework-dependent build is ever
-  wanted, use `--no-self-contained`, not `--self-contained false`, which the SDK ignores, and leave
+  compressed Windows `katey.exe` into `bin/`, with every `MANUAL*.md`, `NOTICE.md` and
+  `THIRD-PARTY-NOTICES.txt` beside it; the release zip carries the same files. `KATEY_VERSION` stamps the
+  build's version, which the release workflow takes from the tag. `NOTICE.md` is generated content in
+  spirit: when a package, a font or a data source changes, update its section and copyright lines there.
+  Each script passes `-p:PublishDocumentationFile=false -p:PublishReferencesDocumentationFiles=false` to
+  keep the XML out of the output, never `GenerateDocumentationFile=false`. If a framework-dependent build
+  is ever wanted, use `--no-self-contained`, not `--self-contained false`, which the SDK ignores, and leave
   ReadyToRun off: a framework-dependent ReadyToRun single file starts and never shows its window.
+- **What every change translates.** Katey ships in English, German, Spanish, French, Portuguese (Brazil)
+  and Russian, and a change is not done until every language has it:
+  - a new or changed user-facing string lands in `Strings.resx` or `UiStrings.resx` and in all five
+    `*.<culture>.resx` beside it, with its plural forms (`.few` and `.many` for Russian);
+  - a new material, material family, blueprint, effect, module type, unlock, surface signal type, planet
+    class, atmosphere or volcanism word, or lifetime figure lands in all five `CatalogNames.<culture>.resx`;
+  - a change to `MANUAL.md` is made in the five `MANUAL.<culture>.md` in the same change, with the same
+    structure and the UI's own words from the string tables;
+  - English is the source of truth. `Strings.resx`, `UiStrings.resx`, `MANUAL.md` and the READMEs are written
+    first and the translations follow them; where a translation and the English disagree, the English is right
+    and the translation is corrected to it.
+  - `NOTICE.md` and `THIRD-PARTY-NOTICES.txt` are never translated: a licence binds in its published
+    wording, and the third-party file is its publishers' own text reproduced verbatim.
+  `StringTableTests`, `UiTextTests` and `ManualTests` fail on a gap; the docs gate checks the manuals' links.
 - **Release:** push a `v*` tag; `.github/workflows/release.yml` runs on Linux, builds and tests with
   warnings kept as warnings, checks whitespace formatting, reports the full format check without blocking,
   runs `publish.sh` and attaches the Windows `katey.exe` as a zip to a GitHub release. Windows
@@ -252,6 +271,9 @@ fixing the code over adding more.
     coverage, EDSY import, star classes, the cartographics and exobiology estimates, the module catalog,
     the fit matcher, the fuel model, the route plotting types, the material trader and the technology
     broker unlocks with their budget. No UI, no file IO beyond its embedded resources, no network.
+  - `src/Katey.Localization` — the language mechanism with no words: keyed lookups over a text source,
+    templates filled by placeholder name, plural rules per language, the one language switch, and the
+    checks a table must pass. References nothing else.
   - `src/Katey.Journal` — reads Elite Dangerous journal files and the live `NavRoute.json` and
     `Status.json`, keeps nine trackers current: materials, route and visited systems, system, fleet,
     activity, statistics, technology broker purchases, engineering rolls, data aboard and sold; and mirrors the
@@ -264,8 +286,11 @@ fixing the code over adding more.
   - `src/Katey.Ui` — the Avalonia main window and the rail's own window over Katey.App. Code-behind holds
     only platform concerns: opening and closing the rail window, the caption buttons and the title-bar
     drag, the folder picker, the clipboard and the search box's keys.
-  - `tests/Katey.Core.Tests`, `tests/Katey.Journal.Tests`, `tests/Katey.App.Tests` — xUnit, with hand-written
-    fakes rather than a mocking library.
+  - `tests/Katey.Core.Tests`, `tests/Katey.Journal.Tests`, `tests/Katey.App.Tests`,
+    `tests/Katey.Localization.Tests` — xUnit 2, with hand-written fakes rather than a mocking library.
+    `tests/Katey.Ui.Tests` — xUnit 3 under headless Avalonia, which that package requires.
+  - `tools/StringKeys.cs` — the file-based program that writes a table's key constants.
+    `tools/CheckDocLinks` — the doc link checker, in the solution so the warning gate covers it.
 - **Non-obvious:**
   - The data tables are JSON with widened types, so `Catalog.FromRows` runs `CatalogValidator` and throws
     `CatalogException` listing every problem. `CatalogTests` loads the embedded tables, which is what makes
@@ -357,6 +382,25 @@ fixing the code over adding more.
     McQuinn`). `Catalog.Engineers` stays keyed by name because the module tables name who offers a
     grade; `EngineerPage.KeyOf` and `Find` turn an id into a page key and back. A display name is
     shown, never looked up.
+  - Katey is localized, so rule 10 applies in full. Every user-facing string in `Katey.App` is a key in
+    `Text/Strings.resx` read through `Strings.Get`, `Strings.Format`, `Strings.Plural` or `Phrase.Format`;
+    every one in `Katey.Ui` is a `{loc:T Key}` binding on `Text/UiStrings.resx` or a `UiText.Get`. A new
+    sentence gets a key with a comment, never a literal, and a sentence with two shapes gets two keys;
+    fragments are never concatenated. `Keys.cs` and `UiKeys.cs` are generated by
+    `dotnet run tools/StringKeys.cs -- <table> <out> <namespace> <class>` and a drift test fails until they
+    are regenerated. Counted nouns are plural groups, `Plural.X.one` and `.other`, with `.few` and `.many`
+    for Russian. Every language table must be complete; `StringTableTests` and `UiTextTests` list the gaps.
+    `Languages.Supported` and the `SatelliteResourceLanguages` list in `publish.bat` and `publish.sh` name
+    the shipped cultures and must agree.
+  - The game's names go through `Names`, whose `CatalogNames.resx` has an empty neutral file: English is
+    the data's own word, so `Names` falls back to the catalog, the journal or `LabelOf` and never shows a
+    key. A translation must hold every key `CatalogNameKeys.All` lists. A module's name in a translated
+    language is composed from its type's name, class, rating and mount; in English it is the module
+    catalog's. Core and Journal stay language-agnostic: a reason or a kind leaves them as an enum
+    (`ShortfallReason`, `EdsyParseError`, `StarFamily`) and the application words it.
+  - `tests/Katey.App.Tests` pins the UI culture to English and the formatting culture to invariant in a
+    module initializer, which is why its sentence asserts hold on any machine. Numbers and dates in
+    templates use `CultureInfo.CurrentCulture`; keys, ids, URLs and preference values stay invariant.
   - `ExobiologyPredictor` canonicalises the journal's and Bioforge's spellings of atmospheres, body types
     and volcanism to one key before comparing; a new category name that slips past that shows up as a
     uniformly low score, not an error.
@@ -365,12 +409,20 @@ fixing the code over adding more.
     nothing else has, and the release workflow sets it to false in its environment, so the runner's SDK, which
     can be newer than the one here, reports its new rules as warnings instead of failing the release. The
     workflow checks whitespace formatting hard and the full `dotnet format` check as a report only.
+    IDE0072 and IDE0010, add missing switch cases, are off: their fixer fills each case it adds with
+    `throw new NotImplementedException()`, so a `dotnet format` run would turn a fallback arm into a crash.
+    Name every case of an enum switch yourself and let the compiler's CS8509 catch a missing one. The
+    other rules `.editorconfig` turns off, each with its reason beside it, are the fixers that reshape code
+    rather than correct it: folding blocks into expressions, null checks into `?.` and `??`, lambdas into
+    method groups, and IDE0130, whose fix crashes the formatter. Both shapes of a member are allowed; the
+    author chooses, the formatter leaves it.
   - The main window's minimum width is the pages' minimum, 960, plus the docked rail's 340 while the rail
     is docked; `MainWindow` applies it when the rail docks or pops out. Fit a narrower screen by popping
     the rail out, not by shrinking the pages.
   - The main window has two bars: the top one carries the wordmark, back and forward, the page links and
-    the caption buttons and is the drag strip; the bottom one carries the settings link, the search box
-    and the plan button, with the search results rising above the box.
+    the caption buttons and is the drag strip; the bottom one carries the language picker, the settings
+    link, the Stats link, the search box and the plan button, with the search results rising above the
+    box. Stats sits below so the page links fit one line in the longest language.
   - The windows draw their own title bars: `WindowDecorations="BorderOnly"` with
     `ExtendClientAreaToDecorationsHint`, caption buttons with plain `Click` handlers, and `WindowDrag` on
     pointer press. Avalonia 12's `WindowDecorationProperties.ElementRole` does nothing for a Win32 window

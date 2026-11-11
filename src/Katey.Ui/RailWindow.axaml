@@ -1,5 +1,6 @@
 ﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:loc="clr-namespace:Katey.Ui.Text"
         xmlns:ui="clr-namespace:Katey.Ui"
         x:Class="Katey.Ui.RailWindow"
         Title="Elite Dangerous - Katey Live"
@@ -18,9 +19,9 @@
         <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
           <Ellipse Width="8" Height="8" Fill="{StaticResource RailAccent}" IsVisible="{Binding IsLive}" />
           <Ellipse Width="8" Height="8" Fill="{StaticResource RailMuted}" IsVisible="{Binding !IsLive}" />
-          <TextBlock Classes="live" Text="KATEY LIVE" VerticalAlignment="Center" />
+          <TextBlock Classes="live" Text="{loc:T Rail.DetachedHeading, Upper=True}" VerticalAlignment="Center" />
         </StackPanel>
-        <Button Grid.Column="1" Classes="caption rail close" Click="CloseWindow" IsVisible="{Binding ShowsControls}" ToolTip.Tip="Bring the rail back into the main window">
+        <Button Grid.Column="1" Classes="caption rail close" Click="CloseWindow" IsVisible="{Binding ShowsControls}" ToolTip.Tip="{loc:T Rail.BringBackTip}">
           <Path Classes="glyph" Data="M0,0 L10,10 M10,0 L0,10" />
         </Button>
       </Grid>

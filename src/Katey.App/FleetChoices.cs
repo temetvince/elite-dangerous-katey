@@ -1,4 +1,5 @@
-﻿using Katey.App.ViewModels;
+﻿using Katey.App.Text;
+using Katey.App.ViewModels;
 using Katey.Core.Fleet;
 
 namespace Katey.App;
@@ -7,31 +8,31 @@ namespace Katey.App;
 public static class FleetChoices
 {
     /// <summary>Gets the sharing policies, keyed by <see cref="SharingPolicy"/> name.</summary>
-    public static IReadOnlyList<Choice> Policies { get; } =
-    [
-        new(nameof(SharingPolicy.Pooled), "Share modules across every fit"),
-        new(nameof(SharingPolicy.SameHull), "Share only between fits for the same hull"),
-        new(nameof(SharingPolicy.None), "Every fit needs its own modules"),
+    public static IReadOnlyList<Choice> Policies
+    => [
+        new(nameof(SharingPolicy.Pooled), Strings.Get(Keys.Sharing_Pooled)),
+        new(nameof(SharingPolicy.SameHull), Strings.Get(Keys.Sharing_SameHull)),
+        new(nameof(SharingPolicy.None), Strings.Get(Keys.Sharing_None)),
     ];
 
     /// <summary>Gets the engineering filters, keyed by <see cref="EngineeringFilter"/> name.</summary>
-    public static IReadOnlyList<Choice> Filters { get; } =
-    [
-        new(nameof(EngineeringFilter.All), "All modules"),
-        new(nameof(EngineeringFilter.UnengineeredOnly), "Unengineered only"),
-        new(nameof(EngineeringFilter.EngineeredOnly), "Engineered only"),
+    public static IReadOnlyList<Choice> Filters
+    => [
+        new(nameof(EngineeringFilter.All), Strings.Get(Keys.Filter_AllModules)),
+        new(nameof(EngineeringFilter.UnengineeredOnly), Strings.Get(Keys.Filter_UnengineeredOnly)),
+        new(nameof(EngineeringFilter.EngineeredOnly), Strings.Get(Keys.Filter_EngineeredOnly)),
     ];
 
     /// <summary>Gets the place filters, keyed by <see cref="PlaceFilter"/> name.</summary>
-    public static IReadOnlyList<Choice> Places { get; } =
-    [
-        new(nameof(PlaceFilter.Anywhere), "Fitted or stored"),
-        new(nameof(PlaceFilter.StoredOnly), "Stored only, not on a ship"),
-        new(nameof(PlaceFilter.FittedOnly), "Fitted to a ship only"),
+    public static IReadOnlyList<Choice> Places
+    => [
+        new(nameof(PlaceFilter.Anywhere), Strings.Get(Keys.Filter_FittedOrStored)),
+        new(nameof(PlaceFilter.StoredOnly), Strings.Get(Keys.Filter_StoredOnly)),
+        new(nameof(PlaceFilter.FittedOnly), Strings.Get(Keys.Filter_FittedOnly)),
     ];
 
     /// <summary>Gets the option that stands for every system.</summary>
-    public static Choice Everywhere { get; } = new("", "Everywhere");
+    public static Choice Everywhere => new("", Strings.Get(Keys.Filter_Everywhere));
 
     /// <summary>"Everywhere" plus every system holding a ship or a stored module, alphabetical.</summary>
     /// <param name="fleet">The fleet.</param>

@@ -72,6 +72,38 @@ The fonts ship inside the executable. B612, the typeface Airbus commissioned for
 the body text; B612 Mono sets every figure that lines up in a column; Barlow Semi Condensed sets headings
 and labels. All three are under the SIL Open Font Licence; see [NOTICE.md](../../NOTICE.md).
 
+## Words
+
+The chrome's words live in `Text/UiStrings.resx`, not in the XAML. A label binds with the `loc:T` markup
+extension:
+
+- `{loc:T Bar.Plan}` binds the text to its key.
+- `{loc:T Column.Grade, Upper=True}` sets a heading in capitals; the table keeps the natural case.
+- `{loc:T Column.Have, Lower=True}` sets the plan drawer's small labels in lower case.
+
+Each use of the extension binds to its own `LocalizedText`, which reads the table in the language in force and
+subscribes weakly to `UiText.Instance`. When `Language.Changed` fires, that instance raises a change, every
+`LocalizedText` raises its own, and every bound text in the window re-evaluates, so a language switch needs no
+rebuild of the chrome. Avalonia holds a binding's source weakly, so the extension anchors each text to the
+control it is set on through `UiText.Anchor`, a `ConditionalWeakTable`: the text lives exactly as long as its
+control, and a window that comes and goes, such as the rail's, leaves nothing behind. The headless test binds
+in a separate frame and collects garbage between two switches, which is what catches a text that is held by
+nothing. Code-behind reads `UiText.Get(UiKeys.X)`.
+
+The language picker is the first control in the bottom bar: a globe and the language's own name for itself,
+opening the list of languages Katey ships in with the machine's language first. A click on an entry is handled
+in code-behind, which reads the option off the clicked button and runs the shell's command, as the plot picker
+does: a command bound inside a flyout's popup does not reach the window's view model. Flags are not used,
+because a flag names a country and not a language.
+
+Headings in the `col` style trim with an ellipsis, so a longer German or Portuguese heading over a fixed-width
+column shortens rather than overlaps. The bundled faces cover Latin letters; Cyrillic falls through the font
+chains to Segoe UI and Consolas, which every Windows machine has.
+
+A test in `tests/Katey.Ui.Tests` scans the XAML for every `{loc:T` key and checks each against the table, and
+that every key in the table is used from XAML or code; another checks a binding re-evaluates on a switch under
+headless Avalonia.
+
 ## The window frame
 
 The main window and the rail window ask for a border without a title bar, `WindowDecorations="BorderOnly"`,
@@ -101,7 +133,10 @@ everything below the last line is clear and the game shows through untinted ther
 | `SingleInstance.cs` | One Katey per user: a named mutex claimed at start, and the notice a second copy shows instead of a main window. |
 | `App.axaml`, `App.axaml.cs` | The theme palettes with the meaning colours, the rail palette, the star colours, the shared converters, the font resources, the style include; builds the catalogs, the predictor, the state store, the trackers, the journal monitor, the HTTP client with the Spansh plotter, the journal backup and the `ShellViewModel`; on exit runs the shell's shutdown, which backs the journals up when asked, then disposes the monitor and the client. |
 | `Styles/Workbench.axaml` | Every style: text roles, panels, chips, grade badges, buttons including the link style, and the rail's fixed-palette styles. |
-| `MainWindow.axaml` | The top bar with the wordmark, the navbar, the search box, the plan button and the caption buttons; one data template per page kind; the docked rail and its retracted strip; the search results; and the plan drawer. |
+| `MainWindow.axaml` | The top bar with the wordmark, the navbar and the caption buttons; the bottom bar with the language picker, the settings link, the search box and the plan button; one data template per page kind; the docked rail and its retracted strip; the search results; and the plan drawer. Every literal is a `{loc:T Key}` binding; see [Words](#words). |
+| `Text/UiStrings.resx`, `Text/UiStrings.<culture>.resx` | The chrome's words: headings, buttons, tooltips, placeholders, the folder pickers' titles, the clipboard notices and the second-instance notice. English in the neutral file, one file per shipped language, each entry with a comment on where it shows. |
+| `Text/UiKeys.cs` | One constant per key of `UiStrings.resx`, for code-behind. Generated: `dotnet run tools/StringKeys.cs -- src/Katey.Ui/Text/UiStrings.resx src/Katey.Ui/Text/UiKeys.cs Katey.Ui.Text UiKeys`. |
+| `Text/UiText.cs` | `UiText`, the localizer over the chrome's table and the one instance that announces a language change; `LocalizedText`, one bound text that follows it; and `TExtension`, the `{loc:T Key}` markup extension. |
 | `MainWindow.axaml.cs` | Places the window on the primary screen and starts the watch when it opens, opens and closes the rail window, records and restores each page's scroll position around navigation, the caption buttons and the title-bar drag, the folder pickers for the journal, the backup and the saved data, the clipboard for the shopping list, the EDSY copies, the plot's waypoints and a system's name, the search box's Enter, Escape and Ctrl K, and the plot's ship-or-fit picker, a button whose flyout holds a search box and a list: opening it empties and focuses the box, a click on an entry or Enter chooses and closes, and nothing else changes the choice. |
 | `Converters.cs` | `BrushFromHex` and `GeometryFromPath`, which let the statistics page's chart bind colours and sector outlines from plain strings; `SemanticBrush` and `StarBrush`, which look a grade, an inventory, a module place or a star class up in the palette; and `Scale`, which turns a fraction into an angle or a width. |
 | `WindowDrag.cs` | Moves a window by its own title bar and maximises on a double click. |

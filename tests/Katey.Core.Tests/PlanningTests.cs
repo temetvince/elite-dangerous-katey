@@ -203,9 +203,7 @@ public sealed class PlanningTests
         Assert.Equal(15, line.Missing);
         Assert.Null(UnlockBudget.Remaining(Catalog, [booster], null));
         Assert.False(UnlockBudget.CanAfford(Catalog, Catalog.Unlocks["guardian_fsd_booster"], null));
-
-        var text = ShoppingList.Format(MaterialCalculator.WithInventory(MaterialCalculator.Totals(Catalog, [booster]), inventory), MaterialCalculator.Commodities(Catalog, [booster]));
-        Assert.EndsWith("Buy at a market\n8 × HN Shock Mount", text, StringComparison.Ordinal);
+        Assert.Equal(8, Assert.Single(MaterialCalculator.Commodities(Catalog, [booster])).Needed);
     }
 
     [Fact]
@@ -247,17 +245,6 @@ public sealed class PlanningTests
         var noInventory = MaterialCalculator.WithInventory(totals, null).Single(line => line.Material.Name == "Arsenic");
         Assert.Null(noInventory.Have);
         Assert.Equal(5, noInventory.Missing);
-    }
-
-    [Fact]
-    public void ShoppingList_PrintsSectionsAndHaveShort()
-    {
-        var totals = MaterialCalculator.Totals(Catalog, [Fsd(experimental: null)]);
-        var text = ShoppingList.Format(MaterialCalculator.WithInventory(totals, new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase) { ["Arsenic"] = 4 }));
-
-        Assert.StartsWith("Raw", text, StringComparison.Ordinal);
-        Assert.Contains("5 × Arsenic (G2, Rhenium) — have 4, short 1", text, StringComparison.Ordinal);
-        Assert.Contains("\n\nEncoded\n", text, StringComparison.Ordinal);
     }
 
     [Fact]

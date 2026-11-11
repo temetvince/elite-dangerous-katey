@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using System.Globalization;
 using Katey.App.Mvvm;
+using Katey.App.Text;
 using Katey.Core;
 using Katey.Core.Edsy;
 using Katey.Core.Planning;
@@ -25,25 +25,26 @@ public sealed class ImportedModuleViewModel : ObservableObject
         Module = module;
         _changed = changed;
         var moduleLabel = module.ModuleType is { } code && catalog.ModuleTypes.TryGetValue(code, out var type)
-            ? type.Name
-            : $"Unknown module ({module.Item})";
+            ? Names.ModuleType(type)
+            : Strings.Format(Keys.Plan_UnknownModuleItem, ("item", module.Item));
         var blueprint = catalog.Blueprints[module.Blueprint];
-        var experimental = module.Experimental is { } key ? $" + {catalog.Experimentals[key].Name}" : "";
-        Title = string.Create(CultureInfo.InvariantCulture, $"{moduleLabel}: {blueprint.Name} G{module.Level}{experimental}");
+        Title = module.Experimental is { } key
+            ? Strings.Format(Keys.Import_TitleWithExperimental, ("module", moduleLabel), ("blueprint", Names.Blueprint(blueprint)), ("grade", Display.Grade(module.Level)), ("experimental", Names.Experimental(catalog.Experimentals[key])))
+            : Strings.Format(Keys.Import_Title, ("module", moduleLabel), ("blueprint", Names.Blueprint(blueprint)), ("grade", Display.Grade(module.Level)));
 
         var notes = new List<string>();
         if (module.ModuleType is null)
         {
-            notes.Add("Module type unknown; engineers cannot be listed.");
+            notes.Add(Strings.Get(Keys.Import_NoteUnknownType));
         }
         else if (!catalog.ModuleTypes[module.ModuleType].Blueprints.ContainsKey(module.Blueprint))
         {
-            notes.Add("This blueprint is not listed for this module type in the data.");
+            notes.Add(Strings.Get(Keys.Import_NoteNotListed));
         }
 
         if (module.Level > blueprint.MaxGrade)
         {
-            notes.Add(string.Create(CultureInfo.InvariantCulture, $"This blueprint tops out at grade {blueprint.MaxGrade}; the plan uses that."));
+            notes.Add(Strings.Format(Keys.Import_NoteTopsOut, ("grade", blueprint.MaxGrade)));
         }
 
         Note = string.Join(" ", notes);
@@ -141,8 +142,20 @@ public sealed class ImportViewModel : ObservableObject
     /// <summary>Gets how many modules are ticked.</summary>
     public int IncludedCount => Modules.Count(module => module.Include);
 
+    /// <summary>The sentence for a parse failure.</summary>
+    /// <param name="error">The failure, or <see langword="null"/> when the cause is not known.</param>
+    /// <returns>The sentence.</returns>
+    public static string ImportErrorText(EdsyParseError? error) => error switch
+    {
+        EdsyParseError.Empty => Strings.Get(Keys.Import_PasteFirst),
+        EdsyParseError.NotJson => Strings.Get(Keys.Import_NotJson),
+        EdsyParseError.NoLoadout => Strings.Get(Keys.Import_NoLoadout),
+        EdsyParseError.NoModules => Strings.Get(Keys.Import_NoModules),
+        _ => Strings.Get(Keys.Import_CouldNotRead),
+    };
+
     /// <summary>Gets the add button's text.</summary>
-    public string AddLabel => string.Create(CultureInfo.InvariantCulture, $"Add {IncludedCount} to plan");
+    public string AddLabel => Strings.Format(Keys.Import_AddToPlan, ("count", IncludedCount));
 
     /// <summary>Gets the command that parses <see cref="Text"/>.</summary>
     public RelayCommand ReadCommand { get; }
@@ -157,7 +170,7 @@ public sealed class ImportViewModel : ObservableObject
         if (!result.Ok)
         {
             _loadout = null;
-            Error = result.Error ?? "The export could not be read.";
+            Error = ImportErrorText(result.Error);
             Heading = "";
             Warnings = [];
         }
@@ -166,7 +179,7 @@ public sealed class ImportViewModel : ObservableObject
             _loadout = result.Loadout;
             Error = "";
             var count = _loadout!.Modules.Count;
-            Heading = string.Create(CultureInfo.InvariantCulture, $"{_loadout.ShipName}: {count} engineered {(count == 1 ? "module" : "modules")}");
+            Heading = Strings.Format(Keys.Import_Heading, ("ship", _loadout.ShipName), ("modules", Display.Plural(Keys.Plural_EngineeredModules, count)));
             foreach (var module in _loadout.Modules)
             {
                 Modules.Add(new ImportedModuleViewModel(module, _catalog, OnIncludeChanged));

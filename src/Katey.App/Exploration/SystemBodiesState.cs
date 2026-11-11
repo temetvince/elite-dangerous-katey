@@ -1,4 +1,5 @@
 ﻿using Katey.App.Network;
+using Katey.App.Text;
 using Katey.Core.Exploration;
 using Microsoft.Extensions.Logging;
 
@@ -21,6 +22,7 @@ public sealed class SystemBodiesState
     private readonly Dictionary<long, IReadOnlyList<CataloguedBody>> _known = [];
     private readonly Dictionary<long, DateTimeOffset> _failed = [];
     private readonly HashSet<long> _running = [];
+    private SystemCatalogException? _failure;
 
     /// <summary>Creates the state.</summary>
     /// <param name="catalog">Who knows the bodies.</param>
@@ -48,7 +50,14 @@ public sealed class SystemBodiesState
     public event EventHandler? Changed;
 
     /// <summary>Gets one line on the last lookup that failed, or empty.</summary>
-    public string Status { get; private set; } = "";
+    public string Status => _failure switch
+    {
+        null => "",
+        { Failure: SystemLookupFailure.Http } failure => Strings.Format(Keys.Lookup_Http, ("code", failure.HttpCode)),
+        { Failure: SystemLookupFailure.Unreachable } => Strings.Get(Keys.Lookup_Unreachable),
+        { Failure: SystemLookupFailure.Unreadable } => Strings.Get(Keys.Lookup_Unreadable),
+        _ => Strings.Get(Keys.Lookup_TimedOut),
+    };
 
     /// <summary>The bodies known for a system.</summary>
     /// <param name="systemAddress">The system's id.</param>
@@ -80,7 +89,7 @@ public sealed class SystemBodiesState
     private async Task RunAsync(long systemAddress)
     {
         IReadOnlyList<CataloguedBody>? bodies = null;
-        var status = "";
+        SystemCatalogException? failure = null;
         try
         {
             bodies = await _catalog.BodiesAsync(systemAddress, CancellationToken.None).ConfigureAwait(false);
@@ -88,7 +97,7 @@ public sealed class SystemBodiesState
         catch (SystemCatalogException exception)
         {
             Log.SystemLookupFailed(_logger, systemAddress, exception);
-            status = exception.Message;
+            failure = exception;
         }
 
         _dispatch(() =>
@@ -104,7 +113,7 @@ public sealed class SystemBodiesState
                 _failed[systemAddress] = _now();
             }
 
-            Status = status;
+            _failure = failure;
             Changed?.Invoke(this, EventArgs.Empty);
         });
     }

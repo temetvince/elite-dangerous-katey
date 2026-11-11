@@ -19,11 +19,10 @@ embedded in the assembly, so everything in it is tested as plain objects.
 | `Planning/PlanProgress.cs` | `PlanProgress`, `Craft`, `PlanAdvance` | Moves a plan on by the engineering rolls the game reported: rolls count down, and a finished entry leaves the plan. |
 | `Planning/MaterialCalculator.cs` | `MaterialCalculator`, `MaterialTotal`, `MaterialLine` | Sums entries into totals and lays an inventory against them. |
 | `Planning/EngineerCoverage.cs` | `EngineerCoverage`, `BlueprintCoverage`, `EntryService` | What a set of engineers unlocks, and who can serve one entry. |
-| `Planning/ShoppingList.cs` | `ShoppingList` | Plain-text formatting of material lines, with a "Buy at a market" section for the commodities unlocks need. |
 | `Planning/UnlockBudget.cs` | `UnlockBudget` | What a technology broker unlock costs against the inventory the plan leaves: the remaining counts, the lines, and whether it can be afforded. |
-| `Trading/MaterialTrader.cs` | `MaterialTrader`, `TradePlan`, `MaterialTrade`, `TradeTarget`, `TradeShortfall`, `TradeRate`, `MaterialReserve`, `MaterialCaps` | The material traders' exchange rates, the storage caps, the reserves a player keeps, and the planner that says what to hand over for what. |
-| `Edsy/EdsyImport.cs` | `EdsyImport`, `ParsedLoadout`, `ImportedModule`, `LoadoutModule`, `EdsyParseResult` | Parses an EDSY journal Loadout export, jump profile included when the export carries the masses. |
-| `Exploration/StarClasses.cs` | `StarClasses`, `StarKind` | Scoopable, neutron, white dwarf, black hole, or other, from a star class string. |
+| `Trading/MaterialTrader.cs` | `MaterialTrader`, `TradePlan`, `MaterialTrade`, `TradeTarget`, `TradeShortfall`, `ShortfallReason`, `TradeRate`, `MaterialReserve`, `MaterialCaps` | The material traders' exchange rates, the storage caps, the reserves a player keeps, and the planner that says what to hand over for what; a shortfall carries its reason as a `ShortfallReason`. |
+| `Edsy/EdsyImport.cs` | `EdsyImport`, `ParsedLoadout`, `ImportedModule`, `LoadoutModule`, `EdsyParseResult`, `EdsyParseError` | Parses an EDSY journal Loadout export, jump profile included when the export carries the masses; a failure carries its cause as an `EdsyParseError`. |
+| `Exploration/StarClasses.cs` | `StarClasses`, `StarKind`, `StarFamily` | What a star class string means: scoopable, neutron, white dwarf, black hole or other; its family, its spectral letter and its giant suffix. The words are the application's. |
 | `Exploration/BodyValue.cs` | `BodyValue` | The cartographics payout estimate. |
 | `Exploration/SurfaceGravity.cs` | `SurfaceGravity`, `GravityBand` | Light, high or extreme surface gravity, for a landing warning. |
 | `Exploration/ExobiologyPredictor.cs` | `ExobiologyPredictor`, `BodyConditions`, `GenusPrediction`, `SpeciesPrediction`, `GenusLikelihood` | Which species a genus signal is likely to be, what it pays, and which genera have ever been found under a body's conditions. |
@@ -113,12 +112,14 @@ For each target the planner scores a trade from every spare material in the same
   the fewest units.
 
 The lowest score wins. When it leaves a remainder the planner goes again for the rest. When nothing can be
-traded it records a `TradeShortfall` with the reason:
+traded it records a `TradeShortfall` with a `ShortfallReason`:
 
-- the only spare materials are never-trade ones;
-- nothing is held above its floor;
-- nothing else in the inventory is held;
-- every whole batch would overfill the target's stack.
+- `OnlyNeverTrade`: the only spare materials are never-trade ones;
+- `NothingSpare`: nothing is held above its floor;
+- `NothingHeld`: nothing else in the inventory is held;
+- `BatchesWhole`: every whole batch would overfill the target's stack.
+
+The words for each are the application's.
 
 Batches are whole and never overfill a stack, so a trade down a grade can hand back a few more than wanted;
 each `MaterialTrade` reports that surplus.
@@ -166,8 +167,10 @@ loadout's `JumpProfile`, built from those and each module's `Engineering.Modifie
 - H and `SupermassiveBlackHole` are black holes;
 - everything else is other.
 
-`Describe` and `Brief` put a class in a reader's words, "Class M red giant star" and "M red giant". `Spectral`
-gives a scoopable star's letter, which is how a giant takes its class's colour.
+`Family` sorts a class into the family a description names: main sequence, neutron, white dwarf, black hole,
+brown dwarf, T Tauri, Herbig Ae/Be, Wolf-Rayet, carbon star, rogue planet, or other. `Spectral` gives a
+scoopable star's letter, which is how a giant takes its class's colour, and `Giant` the suffix after the
+underscore, such as `RedGiant`. The words for all of these are the application's.
 
 `SurfaceGravity.Band` reads a surface gravity in g: from 1.0 g a landing is high, from 1.5 g extreme, where a
 heavy ship may not arrest its descent. The thresholds are the two constants on the class.

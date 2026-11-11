@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using System.Net;
+﻿using System.Net;
 using System.Reflection;
 using Katey.Core.Routing;
 using Microsoft.Extensions.Logging;
@@ -89,12 +88,12 @@ public sealed class SpanshPlotter : IRoutePlotter
         {
             if (job.Job is null)
             {
-                throw new RoutePlotException("Spansh accepted the plot but gave no job to wait for.");
+                throw new RoutePlotException(PlotFailure.NoJob);
             }
 
             if (DateTimeOffset.UtcNow > deadline)
             {
-                throw new RoutePlotException($"Spansh is still working after {MaxWait.TotalSeconds:0} seconds. Try again later.");
+                throw new RoutePlotException(PlotFailure.StillWorking, waited: MaxWait);
             }
 
             await Task.Delay(PollInterval, cancellationToken).ConfigureAwait(false);
@@ -116,7 +115,7 @@ public sealed class SpanshPlotter : IRoutePlotter
         if (job.Status == PlotJobStatus.Failed || job.Route is null)
         {
             Log.PlotRefused(_logger, request.Source, request.Destination, job.Error ?? "no route");
-            throw new RoutePlotException(job.Error ?? "Spansh could not plot that route.");
+            throw new RoutePlotException(PlotFailure.Rejected, job.Error);
         }
 
         Log.PlotReceived(_logger, request.Source, request.Destination, job.Route.Jumps, (long)(DateTimeOffset.UtcNow - startedAt).TotalMilliseconds);
@@ -124,18 +123,14 @@ public sealed class SpanshPlotter : IRoutePlotter
     }
 
     private static RoutePlotException Unreachable(Exception exception)
-        => new("Spansh could not be reached. Check the connection and try again.", exception);
+        => new(PlotFailure.Unreachable, innerException: exception);
 
     private static async Task<PlotJob> ReadAsync(HttpResponseMessage response, PlotRequest request, DateTimeOffset startedAt, CancellationToken cancellationToken)
     {
         var body = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
         var job = SpanshJson.Read(body, request.Source, request.Destination, startedAt);
-        if (job.Status == PlotJobStatus.Failed && !response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.Accepted)
-        {
-            var code = ((int)response.StatusCode).ToString(CultureInfo.InvariantCulture);
-            return job with { Error = $"{job.Error} (Spansh answered HTTP {code}.)" };
-        }
-
-        return job;
+        return job.Status == PlotJobStatus.Failed && !response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.Accepted
+            ? throw new RoutePlotException(PlotFailure.Rejected, job.Error, (int)response.StatusCode)
+            : job;
     }
 }

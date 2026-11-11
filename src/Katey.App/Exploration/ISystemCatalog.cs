@@ -2,38 +2,54 @@
 
 namespace Katey.App.Exploration;
 
-/// <summary>A system lookup that could not be made: the service said no or could not be reached.</summary>
-public sealed class SystemCatalogException : Exception
+/// <summary>Why a system lookup gave no answer. The application words each kind; the exception carries only the facts.</summary>
+public enum SystemLookupFailure
 {
-    /// <summary>Creates the exception.</summary>
-    public SystemCatalogException()
-    {
-    }
+    /// <summary>The catalog could not be reached.</summary>
+    Unreachable,
 
-    /// <summary>Creates the exception with a reason fit to show the user.</summary>
-    /// <param name="message">Why the lookup failed, in plain words.</param>
-    public SystemCatalogException(string message)
-        : base(message)
-    {
-    }
+    /// <summary>The catalog answered with an HTTP status in <see cref="SystemCatalogException.HttpCode"/> other than success or not-found.</summary>
+    Http,
 
-    /// <summary>Creates the exception with a reason and its cause.</summary>
-    /// <param name="message">Why the lookup failed, in plain words.</param>
-    /// <param name="innerException">What went wrong underneath.</param>
-    public SystemCatalogException(string message, Exception innerException)
-        : base(message, innerException)
-    {
-    }
+    /// <summary>The catalog's answer was not readable as the expected JSON.</summary>
+    Unreadable,
+
+    /// <summary>The catalog did not answer in time.</summary>
+    TimedOut,
 }
 
-/// <summary>Something that knows a system's bodies, usually by asking a service over the network.</summary>
+/// <summary>A system lookup that gave no answer. Its message is developer text for the log; the user's sentence is worded from <see cref="Failure"/>.</summary>
+/// <remarks>Creates the exception.</remarks>
+/// <param name="failure">What went wrong.</param>
+/// <param name="httpCode">The HTTP status for an <see cref="SystemLookupFailure.Http"/> failure, or <see langword="null"/>.</param>
+/// <param name="innerException">The transport or parsing failure behind it, or <see langword="null"/>.</param>
+public sealed class SystemCatalogException(SystemLookupFailure failure, int? httpCode = null, Exception? innerException = null) : Exception(Describe(failure, httpCode), innerException)
+{
+
+    /// <summary>Gets what went wrong.</summary>
+    public SystemLookupFailure Failure { get; } = failure;
+
+    /// <summary>Gets the HTTP status the catalog answered with, or <see langword="null"/>.</summary>
+    public int? HttpCode { get; } = httpCode;
+
+    private static string Describe(SystemLookupFailure failure, int? httpCode)
+        => failure switch
+        {
+            SystemLookupFailure.Unreachable => "The system catalog could not be reached.",
+            SystemLookupFailure.Http => $"The system catalog answered HTTP {httpCode}.",
+            SystemLookupFailure.Unreadable => "The system catalog's answer could not be read.",
+            SystemLookupFailure.TimedOut => "The system catalog did not answer in time.",
+            _ => $"The system catalog failed: {failure}.",
+        };
+}
+
+/// <summary>Looks a system's bodies up in a catalog outside the journal.</summary>
 public interface ISystemCatalog
 {
-    /// <summary>Looks a system's bodies up.</summary>
-    /// <param name="systemAddress">The system's id, as the journal and the catalogues share it.</param>
+    /// <summary>The bodies a catalog knows for a system.</summary>
+    /// <param name="systemAddress">The game's system address.</param>
     /// <param name="cancellationToken">Cancels the lookup.</param>
-    /// <returns>The bodies the catalogue knows, which may be none.</returns>
-    /// <exception cref="SystemCatalogException">The lookup could not be made. The message is fit to show the user.</exception>
-    /// <exception cref="OperationCanceledException"><paramref name="cancellationToken"/> was cancelled.</exception>
+    /// <returns>The bodies, empty when the catalog does not know the system.</returns>
+    /// <exception cref="SystemCatalogException">The lookup gave no answer; <see cref="SystemCatalogException.Failure"/> says why.</exception>
     Task<IReadOnlyList<CataloguedBody>> BodiesAsync(long systemAddress, CancellationToken cancellationToken);
 }

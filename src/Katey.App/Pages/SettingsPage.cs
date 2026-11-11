@@ -1,6 +1,6 @@
-﻿using System.Globalization;
-using Katey.App.Mvvm;
+﻿using Katey.App.Mvvm;
 using Katey.App.Navigation;
+using Katey.App.Text;
 using Katey.Journal;
 
 namespace Katey.App.Pages;
@@ -13,8 +13,8 @@ public sealed class SettingsPage : Page
     public SettingsPage(Workspace workspace)
         : base(new PageKey(PageKind.Settings), workspace)
     {
-        Title = "Settings";
-        Kicker = "Journal";
+        Title = Strings.Get(Keys.Nav_Settings);
+        Kicker = Strings.Get(Keys.Settings_Kicker);
         Folder = workspace.JournalFolder;
         WatchCommand = new RelayCommand(Watch, () => Folder.Trim().Length > 0);
         StopCommand = new RelayCommand(workspace.Monitor.Stop, () => IsWatching);
@@ -74,7 +74,7 @@ public sealed class SettingsPage : Page
     }
 
     /// <summary>Gets what each outgoing request carries.</summary>
-    public static string NetworkText => "Nothing leaves this machine unless you tick it here. A route plot sends Spansh the two system names and the ship's jump numbers: masses, tank sizes and the drive's figures. A system lookup sends Spansh the id of the system you have arrived in and brings back the bodies it knows there. Every request names Katey, its version and the project's address.";
+    public static string NetworkText => Strings.Get(Keys.Settings_NetworkText);
 
     private void RefreshNetwork()
     {
@@ -118,7 +118,7 @@ public sealed class SettingsPage : Page
     public RelayCommand BackupNowCommand { get; }
 
     /// <summary>Gets what the backup copies, so the folder is an informed choice.</summary>
-    public static string BackupText => "Copies every file in the journal folder, the live files included, into the folder you choose, and only what is new or changed. Point it at a folder your cloud drive syncs and the journals leave the machine.";
+    public static string BackupText => Strings.Get(Keys.Settings_BackupText);
 
     /// <summary>
     /// Gets or sets the folder the saved data is kept in. Reads as the folder of the store's current file.
@@ -144,7 +144,7 @@ public sealed class SettingsPage : Page
     public string DataStatus { get; private set => SetProperty(ref field, value); } = "";
 
     /// <summary>Gets what the saved data folder holds and what choosing another does, so the folder is an informed choice.</summary>
-    public static string DataText => "Katey keeps its plan, engineers, fits and settings in this folder. Choose another and it keeps them there from then on. If that folder already holds a Katey data file, that file is loaded and becomes the saved data; otherwise the current data is written there. The old file is left where it was. Point two machines at one synced folder to share one set of data.";
+    public static string DataText => Strings.Get(Keys.Settings_DataText);
 
     /// <summary>Gets the command that starts watching <see cref="Folder"/>.</summary>
     public RelayCommand WatchCommand { get; }
@@ -170,15 +170,15 @@ public sealed class SettingsPage : Page
         var inventory = Workspace.Inventory;
         Status = Workspace.Monitor.State switch
         {
-            MonitorState.Stopped => "Not watching. Press Watch to read the journal.",
-            MonitorState.FolderMissing => "That folder does not exist. Check the path or press Detect.",
-            MonitorState.CatchingUp => string.Create(CultureInfo.InvariantCulture, $"Reading journal history: {progress.FilesDone} of {progress.FileCount} files."),
-            MonitorState.Watching when !inventory.HasSnapshot => "Watching. No Materials snapshot yet: start the game and the inventory appears.",
-            MonitorState.Watching => "Watching. Everything updates as the game writes its journal.",
+            MonitorState.Stopped => Strings.Get(Keys.Settings_NotWatching),
+            MonitorState.FolderMissing => Strings.Get(Keys.Settings_FolderMissing),
+            MonitorState.CatchingUp => Strings.Format(Keys.Settings_CatchingUp, ("done", progress.FilesDone), ("total", progress.FileCount)),
+            MonitorState.Watching when !inventory.HasSnapshot => Strings.Get(Keys.Settings_WatchingNoSnapshot),
+            MonitorState.Watching => Strings.Get(Keys.Settings_Watching),
             _ => "",
         };
         InventoryText = inventory.HasSnapshot
-            ? $"Commander {inventory.Commander}, inventory as of {inventory.AsOf?.ToLocalTime().ToString("g", CultureInfo.CurrentCulture)}."
+            ? Strings.Format(Keys.Settings_InventoryOf, ("commander", inventory.Commander), ("when", inventory.AsOf?.ToLocalTime()))
             : "";
     }
 
@@ -212,13 +212,13 @@ public sealed class SettingsPage : Page
         }
         catch (Exception exception) when (exception is ArgumentException or IOException or UnauthorizedAccessException)
         {
-            DataStatus = $"Could not keep the saved data in {folder}: {exception.Message}";
+            DataStatus = Strings.Format(Keys.Settings_DataMoveFailed, ("folder", folder), ("message", exception.Message));
             return;
         }
 
         DataStatus = found
-            ? $"Loaded the Katey data already in {folder}. It is the saved data from now on."
-            : $"The saved data now lives in {folder}.";
+            ? Strings.Format(Keys.Settings_DataLoaded, ("folder", folder))
+            : Strings.Format(Keys.Settings_DataMoved, ("folder", folder));
         Refresh();
     }
 }

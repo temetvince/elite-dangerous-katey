@@ -48,6 +48,11 @@ public sealed class Navigator : ObservableObject
     /// <summary>Gets whether there is a page behind the current one.</summary>
     public bool CanGoBack => _index > 0;
 
+    /// <summary>Whether a page is the current one.</summary>
+    /// <param name="key">The page.</param>
+    /// <returns><see langword="true"/> when the current page has this key; <see langword="false"/> before the first <see cref="Open"/>.</returns>
+    public bool IsAt(PageKey key) => _current is not null && key == _current.Key;
+
     /// <summary>Gets whether there is a page ahead of the current one.</summary>
     public bool CanGoForward => _index < _history.Count - 1;
 
@@ -99,6 +104,18 @@ public sealed class Navigator : ObservableObject
 
     /// <summary>Rebuilds the current page's content from the live data. Does nothing before the first <see cref="Open"/>.</summary>
     public void Refresh() => _current?.Refresh();
+
+    /// <summary>
+    /// Builds the current page again from its key, as after a language change, when every word on it is stale.
+    /// The history and its scroll positions are kept. Does nothing before the first <see cref="Open"/>.
+    /// </summary>
+    public void Rebuild()
+    {
+        if (_current is not null)
+        {
+            Show(_current.Key);
+        }
+    }
 
     private void Back()
     {

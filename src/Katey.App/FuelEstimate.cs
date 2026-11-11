@@ -1,7 +1,7 @@
-﻿using System.Globalization;
-using Katey.App.Navigation;
+﻿using Katey.App.Navigation;
 using Katey.App.Pages;
 using Katey.App.Routing;
+using Katey.App.Text;
 using Katey.App.ViewModels;
 using Katey.Core.Exploration;
 
@@ -42,7 +42,7 @@ public sealed record FuelEstimate(IReadOnlyList<PhrasePart> SummaryParts, IReadO
     public double TankFraction => TankTonnes is { } tonnes && TankCapacity is { } capacity ? Math.Clamp(tonnes / capacity, 0, 1) : 0;
 
     /// <summary>Gets the reading against the capacity, such as "18.3 / 32 t", or empty without a reading.</summary>
-    public string TankText => TankTonnes is { } tonnes && TankCapacity is { } capacity ? string.Create(CultureInfo.InvariantCulture, $"{tonnes:0.0} / {capacity:0.#} t") : "";
+    public string TankText => TankTonnes is { } tonnes && TankCapacity is { } capacity ? Strings.Format(Keys.Fuel_Tank, ("tonnes", tonnes), ("capacity", capacity)) : "";
 
     /// <summary>Gets whether the tank is below a quarter, the point at which the figure turns a warning colour.</summary>
     public bool TankIsLow => HasTank && TankFraction < 0.25;
@@ -57,7 +57,7 @@ public sealed record FuelEstimate(IReadOnlyList<PhrasePart> SummaryParts, IReadO
     public double TankAfterJumpFraction => TankFraction - NextJumpFraction;
 
     /// <summary>Gets the next jump's burn as a figure to set beside the reading, such as "-4.2 t", or empty without one.</summary>
-    public string NextJumpText => NextJumpTonnes is { } burn ? string.Create(CultureInfo.InvariantCulture, $"-{burn:0.0} t") : "";
+    public string NextJumpText => NextJumpTonnes is { } burn ? Strings.Format(Keys.Fuel_NextJump, ("tonnes", burn)) : "";
 
     /// <summary>Builds the estimate for the current ship and route.</summary>
     /// <param name="workspace">The shared state.</param>
@@ -81,7 +81,7 @@ public sealed record FuelEstimate(IReadOnlyList<PhrasePart> SummaryParts, IReadO
 
         if (ship is null || fuelNow is null)
         {
-            return new FuelEstimate(Phrase.Text("Fuel estimate appears once the game reports your ship and tank."), none, false);
+            return new FuelEstimate(Phrase.Text(Strings.Get(Keys.Fuel_NeedsShipAndTank)), none, false);
         }
 
         var capacity = ship.FuelCapacity ?? Math.Max(fuelNow.Value, 1);
@@ -89,7 +89,7 @@ public sealed record FuelEstimate(IReadOnlyList<PhrasePart> SummaryParts, IReadO
         var driveModule = ship.Modules.FirstOrDefault(module => FrameShiftDrives.Figures(module.Item) is not null);
         if (driveModule is null)
         {
-            return new FuelEstimate(Phrase.Text("Fuel estimate needs the ship's frame shift drive in its loadout."), none, false, fuelNow, capacity);
+            return new FuelEstimate(Phrase.Text(Strings.Get(Keys.Fuel_NeedsDrive)), none, false, fuelNow, capacity);
         }
 
         // The game's own equation from the loadout's masses and drive figures needs no jump first, and is asked again before each
@@ -111,7 +111,7 @@ public sealed record FuelEstimate(IReadOnlyList<PhrasePart> SummaryParts, IReadO
 
         if (modelAt is null)
         {
-            return new FuelEstimate(Phrase.Text("Fuel estimate needs the ship's mass from the game, or one jump in this ship to learn its burn."), none, false, fuelNow, capacity);
+            return new FuelEstimate(Phrase.Text(Strings.Get(Keys.Fuel_NeedsMassOrJump)), none, false, fuelNow, capacity);
         }
 
         var hereIndex = RoutePage.HereIndex(workspace);
@@ -125,7 +125,7 @@ public sealed record FuelEstimate(IReadOnlyList<PhrasePart> SummaryParts, IReadO
         if (jumping && ahead.Count > 0)
         {
             var arriving = ahead[0];
-            byIndex[arriving.Index] = new StopFuel($"{fuelNow.Value:0.0} t", true, arriving.IsScoopable);
+            byIndex[arriving.Index] = new StopFuel(Strings.Format(Keys.Unit_Tonnes, ("value", fuelNow.Value)), true, arriving.IsScoopable);
             previousKind = arriving.Kind;
             ahead = [.. ahead.Skip(1)];
         }
@@ -147,7 +147,7 @@ public sealed record FuelEstimate(IReadOnlyList<PhrasePart> SummaryParts, IReadO
         {
             var fuel = projection.Stops[i];
             byIndex[ahead[i].Index] = new StopFuel(
-                !fuel.Reachable ? "out of fuel" : $"{fuel.FuelOnArrival:0.0} t",
+                !fuel.Reachable ? Strings.Get(Keys.Fuel_OutOfFuel) : Strings.Format(Keys.Unit_Tonnes, ("value", fuel.FuelOnArrival)),
                 fuel.Reachable,
                 fuel.ScoopHere);
         }
@@ -155,21 +155,21 @@ public sealed record FuelEstimate(IReadOnlyList<PhrasePart> SummaryParts, IReadO
         var parts = new List<IReadOnlyList<PhrasePart>>
         {
             Phrase.Text(projection.JumpsWithoutScooping >= ahead.Count
-                ? "Fuel for the whole route without scooping."
+                ? Strings.Get(Keys.Fuel_WholeRoute)
                 : projection.JumpsWithoutScooping == 0
-                    ? "Not enough fuel for the next jump."
-                    : $"Fuel for {Display.Plural(projection.JumpsWithoutScooping, "more jump")} without scooping."),
+                    ? Strings.Get(Keys.Fuel_NotEnoughNext)
+                    : Strings.Format(Keys.Fuel_ForJumps, ("jumps", Display.Plural(Keys.Plural_MoreJumps, projection.JumpsWithoutScooping)))),
         };
         if (projection.JumpsWithoutScooping < ahead.Count)
         {
             parts.Add(projection.MustScoopBy is { } must
-                ? Phrase.Of("Scoop by ", workspace.Navigator.LinkTo(ahead[must].System, PageKind.System, ahead[must].System), $", stop {ahead[must].Index}.")
-                : Phrase.Text("No scoopable star within reach: refuel before leaving."));
+                ? Phrase.Format(Keys.Fuel_ScoopBy, ("system", workspace.Navigator.LinkTo(ahead[must].System, PageKind.System, ahead[must].System)), ("index", ahead[must].Index))
+                : Phrase.Text(Strings.Get(Keys.Fuel_NoScoopable)));
         }
 
         if (projection.RunsDry)
         {
-            parts.Add(Phrase.Text("Even scooping at every star you pass, the route runs dry."));
+            parts.Add(Phrase.Text(Strings.Get(Keys.Fuel_RunsDry)));
         }
 
         var nextJump = projection.Stops[0].Cost;

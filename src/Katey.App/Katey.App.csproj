@@ -8,6 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Katey.Core\Katey.Core.csproj" />
     <ProjectReference Include="..\Katey.Journal\Katey.Journal.csproj" />
+    <ProjectReference Include="..\Katey.Localization\Katey.Localization.csproj" />
   </ItemGroup>
 
 </Project>

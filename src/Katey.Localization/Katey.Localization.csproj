@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Katey.Localization</RootNamespace>
+    <Description>Language-agnostic text mechanism: keyed lookups over a text source, named-placeholder templates, plural categories per language, and the one language switch an application and its views follow.</Description>
+  </PropertyGroup>
+
+</Project>

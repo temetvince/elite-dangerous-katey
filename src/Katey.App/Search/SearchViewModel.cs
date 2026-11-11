@@ -2,6 +2,7 @@
 using Katey.App.Mvvm;
 using Katey.App.Navigation;
 using Katey.App.Pages;
+using Katey.App.Text;
 using Katey.App.ViewModels;
 using Katey.Core.Search;
 
@@ -22,7 +23,7 @@ public sealed class SearchViewModel : ObservableObject
     private const int Limit = 12;
 
     private readonly Workspace _workspace;
-    private readonly TextIndex<Func<SearchResult>> _catalogIndex = new();
+    private TextIndex<Func<SearchResult>> _catalogIndex = new();
     private TextIndex<Func<SearchResult>> _journalIndex = new();
     private (int Systems, int Ships, int Fits) _journalShape = (-1, -1, -1);
 
@@ -75,6 +76,15 @@ public sealed class SearchViewModel : ObservableObject
         Query = "";
     }
 
+    /// <summary>Rebuilds the whole index, as after a language change, when every label and kind in it is stale.</summary>
+    public void Rebuild()
+    {
+        _catalogIndex = new TextIndex<Func<SearchResult>>();
+        BuildCatalogIndex();
+        _journalShape = (-1, -1, -1);
+        RefreshJournalIndex();
+    }
+
     /// <summary>Rebuilds the journal half of the index when the ships, fits or visited systems changed.</summary>
     public void RefreshJournalIndex()
     {
@@ -97,7 +107,7 @@ public sealed class SearchViewModel : ObservableObject
                 continue;
             }
 
-            index.Add(name, () => new SearchResult(Link(name, PageKind.System, name), "System", string.Create(CultureInfo.CurrentCulture, $"last visited {last.ToLocalTime():g}")));
+            index.Add(name, () => new SearchResult(Link(name, PageKind.System, name), Strings.Get(Keys.Search_KindSystem), Strings.Format(Keys.Search_LastVisited, ("when", last.ToLocalTime()))));
         }
 
         foreach (var ship in fleet.Ships)
@@ -105,13 +115,13 @@ public sealed class SearchViewModel : ObservableObject
             var hull = Core.Fleet.ShipNames.Prefer(ship.Type, ship.TypeName);
             var title = ship.Name.Length > 0 ? ship.Name : hull;
             var id = ship.ShipId.ToString(CultureInfo.InvariantCulture);
-            var subtitle = ship.Name.Length > 0 ? hull + (ship.Ident.Length > 0 ? " · " + ship.Ident : "") : "unnamed";
+            var subtitle = ship.Name.Length > 0 ? (ship.Ident.Length > 0 ? Strings.Format(Keys.Search_ShipIdent, ("hull", hull), ("ident", ship.Ident)) : hull) : Strings.Get(Keys.Search_Unnamed);
             if (string.IsNullOrWhiteSpace(title))
             {
                 continue;
             }
 
-            index.Add(title, () => new SearchResult(Link(title, PageKind.Ship, id), "Ship", subtitle), hull + " " + ship.Ident);
+            index.Add(title, () => new SearchResult(Link(title, PageKind.Ship, id), Strings.Get(Keys.Search_KindShip), subtitle), hull + " " + ship.Ident);
         }
 
         foreach (var fit in _workspace.Fleet.Fittings)
@@ -123,7 +133,7 @@ public sealed class SearchViewModel : ObservableObject
                 continue;
             }
 
-            index.Add(fitting.Name, () => new SearchResult(Link(fitting.Name, PageKind.Fit, fitting.Id), "Fit", hullName), hullName);
+            index.Add(fitting.Name, () => new SearchResult(Link(fitting.Name, PageKind.Fit, fitting.Id), Strings.Get(Keys.Search_KindFit), hullName), hullName);
         }
 
         _journalIndex = index;
@@ -141,34 +151,34 @@ public sealed class SearchViewModel : ObservableObject
         foreach (var engineer in catalog.Engineers.Values)
         {
             var profile = engineer;
-            _catalogIndex.Add(profile.Name, () => new SearchResult(Link(profile.Name, PageKind.Engineer, EngineerPage.KeyOf(profile)), "Engineer", $"{profile.System} · {profile.Base}"), profile.System + " " + profile.Base);
+            _catalogIndex.Add(profile.Name, () => new SearchResult(Link(profile.Name, PageKind.Engineer, EngineerPage.KeyOf(profile)), Strings.Get(Keys.Search_KindEngineer), Strings.Format(Keys.Search_Place, ("system", profile.System), ("base", profile.Base))), profile.System + " " + profile.Base);
         }
 
         foreach (var type in catalog.ModuleTypes.Values.Where(type => type.IsEngineerable))
         {
             var moduleType = type;
-            _catalogIndex.Add(moduleType.Name, () => new SearchResult(Link(moduleType.Name, PageKind.ModuleType, moduleType.Code), "Module", Display.GroupLabel(moduleType.Group)), moduleType.Code + " " + Display.GroupLabel(moduleType.Group));
+            _catalogIndex.Add(Names.ModuleType(moduleType), () => new SearchResult(Link(Names.ModuleType(moduleType), PageKind.ModuleType, moduleType.Code), Strings.Get(Keys.Search_KindModule), Display.GroupLabel(moduleType.Group)), moduleType.Code + " " + moduleType.Name + " " + Display.GroupLabel(moduleType.Group));
         }
 
         foreach (var blueprint in catalog.Blueprints.Values)
         {
             var key = blueprint.Key;
-            var name = blueprint.Name;
-            var types = string.Join(", ", catalog.ModuleTypesWithBlueprint(key).Select(type => type.Name));
-            _catalogIndex.Add(name, () => new SearchResult(Link(name, PageKind.Blueprint, key), "Blueprint", types.Length > 0 ? types : key), key);
+            var name = Names.Blueprint(blueprint);
+            var types = Display.List(catalog.ModuleTypesWithBlueprint(key).Select(Names.ModuleType));
+            _catalogIndex.Add(name, () => new SearchResult(Link(name, PageKind.Blueprint, key), Strings.Get(Keys.Search_KindBlueprint), types.Length > 0 ? types : key), key + " " + blueprint.Name);
         }
 
         foreach (var unlock in catalog.Unlocks.Values)
         {
             var found = unlock;
             var section = found.Broker.ToString().ToLowerInvariant();
-            _catalogIndex.Add(found.Name, () => new SearchResult(Link(found.Name, PageKind.Unlocks, section), "Unlock", UnlocksPage.BrokerLabel(found.Broker)), found.Key.Replace('_', ' ') + " tech broker");
+            _catalogIndex.Add(Names.Unlock(found), () => new SearchResult(Link(Names.Unlock(found), PageKind.Unlocks, section), Strings.Get(Keys.Search_KindUnlock), UnlocksPage.BrokerLabel(found.Broker)), found.Key.Replace('_', ' ') + " " + found.Name + " tech broker");
         }
 
         foreach (var material in catalog.Materials.Values)
         {
             var item = material;
-            _catalogIndex.Add(item.Name, () => new SearchResult(Link(item.Name, PageKind.Material, item.Symbol), "Material", $"{Display.Grade(item.Grade)} · {Core.Planning.ShoppingList.CategoryLabels[item.Category]} · {item.Line}"), item.Symbol + " " + item.Line);
+            _catalogIndex.Add(Names.Material(item), () => new SearchResult(Link(Names.Material(item), PageKind.Material, item.Symbol), Strings.Get(Keys.Search_KindMaterial), Strings.Format(Keys.Search_MaterialDetail, ("grade", Display.Grade(item.Grade)), ("category", Display.CategoryLabel(item.Category)), ("line", Names.Family(item.Line)))), item.Symbol + " " + item.Name + " " + item.Line + " " + Names.Family(item.Line));
         }
     }
 

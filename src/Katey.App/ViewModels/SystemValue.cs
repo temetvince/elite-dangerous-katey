@@ -1,4 +1,5 @@
-﻿using Katey.Journal;
+﻿using Katey.App.Text;
+using Katey.Journal;
 
 namespace Katey.App.ViewModels;
 
@@ -54,23 +55,19 @@ public sealed record SystemValue(long ScanBase, long Scan, long Exobiology, long
     /// <returns>Such as "Exploration data unsold: 95.4M Cr, 76.0M Cr of it for being first; sold: 1.2M Cr." The first part is left out when no bonus applies, the sold part when nothing has sold.</returns>
     public string UnsoldLine()
     {
-        var line = $"Exploration data unsold: {Display.Credits(Unsold)}";
-        if (UnsoldFirstBonus > 0)
+        var key = (UnsoldFirstBonus > 0, Sold > 0) switch
         {
-            line += $", {Display.Credits(UnsoldFirstBonus)} of it for being first";
-        }
-
-        if (Sold > 0)
-        {
-            line += $"; sold: {Display.Credits(Sold)}";
-        }
-
-        return line + ".";
+            (false, false) => Keys.Value_UnsoldLine,
+            (true, false) => Keys.Value_UnsoldLineFirst,
+            (false, true) => Keys.Value_UnsoldLineSold,
+            (true, true) => Keys.Value_UnsoldLineFirstSold,
+        };
+        return Strings.Format(key, ("credits", Display.Credits(Unsold)), ("first", Display.Credits(UnsoldFirstBonus)), ("sold", Display.Credits(Sold)));
     }
 
     /// <summary>The unsold figure for the rail.</summary>
     /// <returns>Such as "Exploration data unsold: 95.4M Cr".</returns>
-    public string UnsoldText() => $"Exploration data unsold: {Display.Credits(Unsold)}";
+    public string UnsoldText() => Strings.Format(Keys.Value_Unsold, ("credits", Display.Credits(Unsold)));
 
     /// <summary>The figures as a full sentence for the system page.</summary>
     /// <returns>
@@ -80,21 +77,24 @@ public sealed record SystemValue(long ScanBase, long Scan, long Exobiology, long
     /// </returns>
     public string Line()
     {
-        var line = $"Cartographics about {Display.Credits(ScanBase)} as scanned";
-        if (HasDiscoveryBonus)
+        var clauses = new List<string>
         {
-            line += $", {Display.Credits(Scan)} with the first-discovery bonus";
-        }
-
+            HasDiscoveryBonus
+                ? Strings.Format(Keys.Value_CartoWithBonus, ("credits", Display.Credits(ScanBase)), ("bonus", Display.Credits(Scan)))
+                : Strings.Format(Keys.Value_Carto, ("credits", Display.Credits(ScanBase))),
+        };
         if (HasExobiology)
         {
-            line += $"; exobiology {(ExobiologyKnown ? "" : "about ")}{Display.Credits(Exobiology)}";
-            if (HasFirstLogBonus)
+            var key = (ExobiologyKnown, HasFirstLogBonus) switch
             {
-                line += $", {Display.Credits(ExobiologyWithBonus)} with the first-logged bonus";
-            }
+                (true, false) => Keys.Value_Exo,
+                (false, false) => Keys.Value_ExoAbout,
+                (true, true) => Keys.Value_ExoWithBonus,
+                (false, true) => Keys.Value_ExoAboutWithBonus,
+            };
+            clauses.Add(Strings.Format(key, ("credits", Display.Credits(Exobiology)), ("bonus", Display.Credits(ExobiologyWithBonus))));
         }
 
-        return line + ".";
+        return string.Join(Strings.Get(Keys.List_Clause), clauses) + ".";
     }
 }

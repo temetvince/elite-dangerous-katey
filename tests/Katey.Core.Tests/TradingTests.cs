@@ -82,12 +82,12 @@ public sealed class TradingTests
         Assert.Equal("Yttrium", trade.From.Name);
         var unmet = Assert.Single(kept.Unmet);
         Assert.Equal(1, unmet.Remaining);
-        Assert.Contains("above what the plan needs and you keep", unmet.Why, StringComparison.Ordinal);
+        Assert.Equal(ShortfallReason.NothingSpare, unmet.Why);
 
         // Marked never-trade, Niobium is not touched even though it is spare, and the reason says so.
         var never = MaterialTrader.Plan(Catalog, needs, inventory, [new MaterialReserve(M("Niobium").Symbol, 0, true)]);
         Assert.DoesNotContain(never.Trades, trade => trade.From.Name == "Niobium");
-        Assert.Contains("never trade", Assert.Single(never.Unmet).Why, StringComparison.Ordinal);
+        Assert.Equal(ShortfallReason.OnlyNeverTrade, Assert.Single(never.Unmet).Why);
     }
 
     [Fact]
@@ -119,7 +119,7 @@ public sealed class TradingTests
         var encodedNeed = Catalog.Materials.Values.First(material => material.Category == MaterialCategory.Encoded && material.Grade == 1);
         var noCross = MaterialTrader.Plan(Catalog, Needs((encodedNeed.Name, 3)), Inventory(("Iron", 300)), []);
         Assert.Empty(noCross.Trades);
-        Assert.Contains("Nothing else in this inventory", Assert.Single(noCross.Unmet).Why, StringComparison.Ordinal);
+        Assert.Equal(ShortfallReason.NothingHeld, Assert.Single(noCross.Unmet).Why);
     }
 
     [Fact]
@@ -141,7 +141,7 @@ public sealed class TradingTests
         var fits = Assert.Single(nearCap.Trades);
         Assert.Equal("Vanadium", fits.From.Name);
         Assert.Equal(3, fits.Get);
-        Assert.Contains("more than the stack can hold", Assert.Single(nearCap.Unmet).Why, StringComparison.Ordinal);
+        Assert.Equal(ShortfallReason.BatchesWhole, Assert.Single(nearCap.Unmet).Why);
 
         Assert.Same(TradePlan.Empty, MaterialTrader.Plan(Catalog, Needs(("Carbon", 3)), Inventory(("Carbon", 3)), []));
     }

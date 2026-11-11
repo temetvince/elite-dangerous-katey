@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Katey.App.Text;
 using Katey.Core;
 using Katey.Core.Fleet;
 using Katey.Core.Planning;
@@ -11,7 +12,7 @@ namespace Katey.App.ViewModels;
 public sealed record Choice(string Key, string Label)
 {
     /// <summary>Gets the option that stands for nothing chosen.</summary>
-    public static Choice None { get; } = new("", "None");
+    public static Choice None => new("", Strings.Get(Keys.Choice_None));
 
     /// <inheritdoc/>
     public override string ToString() => Label;
@@ -25,10 +26,10 @@ public sealed record Choice(string Key, string Label)
 public sealed record MaterialChip(string Name, int Count, int Grade, MaterialCategory Category)
 {
     /// <summary>Gets <c>count× name</c>.</summary>
-    public string Text => string.Create(CultureInfo.InvariantCulture, $"{Count}× {Name}");
+    public string Text => Strings.Format(Keys.Material_CountTimesName, ("count", Count), ("name", Name));
 
     /// <summary>Gets <c>Gn · Raw</c>, the grade and a short inventory name.</summary>
-    public string Meta => string.Create(CultureInfo.InvariantCulture, $"G{Grade} · {Display.ShortCategory(Category)}");
+    public string Meta => Strings.Format(Keys.Material_GradeAndCategory, ("grade", Display.Grade(Grade)), ("category", Display.ShortCategory(Category)));
 
     /// <summary>Builds chips from a count map, in its order.</summary>
     /// <param name="catalog">The catalog.</param>
@@ -44,7 +45,7 @@ public sealed record MaterialChip(string Name, int Count, int Grade, MaterialCat
             .. counts.Select(pair =>
             {
                 var material = catalog.Materials[pair.Key];
-                return new MaterialChip(material.Name, pair.Value, material.Grade, material.Category);
+                return new MaterialChip(Names.Material(material), pair.Value, material.Grade, material.Category);
             }),
         ];
     }
@@ -55,13 +56,13 @@ public sealed record MaterialChip(string Name, int Count, int Grade, MaterialCat
 public sealed record MaterialRow(MaterialLine Line)
 {
     /// <summary>Gets the display name.</summary>
-    public string Name => Line.Material.Name;
+    public string Name => Names.Material(Line.Material);
 
     /// <summary>Gets <c>Gn</c>.</summary>
-    public string Grade => string.Create(CultureInfo.InvariantCulture, $"G{Line.Material.Grade}");
+    public string Grade => Display.Grade(Line.Material.Grade);
 
-    /// <summary>Gets the in-game family.</summary>
-    public string Family => Line.Material.Line;
+    /// <summary>Gets the in-game family, in the language in force.</summary>
+    public string Family => Names.Family(Line.Material.Line);
 
     /// <summary>Gets how many the plan needs.</summary>
     public int Needed => Line.Needed;
@@ -91,7 +92,7 @@ public sealed record MaterialRow(MaterialLine Line)
     public bool HasMeter => Line.Have is not null && Line.Needed > 0;
 }
 
-/// <summary>Shared labels.</summary>
+/// <summary>Shared labels and figures, every one of them in the language in force.</summary>
 public static class Display
 {
     /// <summary>Human label for a module group.</summary>
@@ -99,11 +100,22 @@ public static class Display
     /// <returns>Plural, title case.</returns>
     public static string GroupLabel(ModuleGroup group) => group switch
     {
-        ModuleGroup.Core => "Core internals",
-        ModuleGroup.Optional => "Optional internals",
-        ModuleGroup.Hardpoint => "Hardpoints",
-        ModuleGroup.Utility => "Utility mounts",
+        ModuleGroup.Core => Strings.Get(Keys.ModuleGroup_Core),
+        ModuleGroup.Optional => Strings.Get(Keys.ModuleGroup_Optional),
+        ModuleGroup.Hardpoint => Strings.Get(Keys.ModuleGroup_Hardpoint),
+        ModuleGroup.Utility => Strings.Get(Keys.ModuleGroup_Utility),
         _ => group.ToString(),
+    };
+
+    /// <summary>Human label for an inventory.</summary>
+    /// <param name="category">The inventory.</param>
+    /// <returns>"Raw", "Manufactured" or "Encoded".</returns>
+    public static string CategoryLabel(MaterialCategory category) => category switch
+    {
+        MaterialCategory.Raw => Strings.Get(Keys.Category_Raw),
+        MaterialCategory.Manufactured => Strings.Get(Keys.Category_Manufactured),
+        MaterialCategory.Encoded => Strings.Get(Keys.Category_Encoded),
+        _ => category.ToString(),
     };
 
     /// <summary>The module group a slot belongs to, for colouring by place on the ship.</summary>
@@ -125,9 +137,9 @@ public static class Display
     /// <returns><c>Raw</c>, <c>Mfd</c> or <c>Enc</c>.</returns>
     public static string ShortCategory(MaterialCategory category) => category switch
     {
-        MaterialCategory.Raw => "Raw",
-        MaterialCategory.Manufactured => "Mfd",
-        MaterialCategory.Encoded => "Enc",
+        MaterialCategory.Raw => Strings.Get(Keys.Category_RawShort),
+        MaterialCategory.Manufactured => Strings.Get(Keys.Category_ManufacturedShort),
+        MaterialCategory.Encoded => Strings.Get(Keys.Category_EncodedShort),
         _ => category.ToString(),
     };
 
@@ -136,8 +148,8 @@ public static class Display
     /// <returns>"The Bubble" or "Colonia".</returns>
     public static string RegionLabel(Region region) => region switch
     {
-        Region.Bubble => "The Bubble",
-        Region.Colonia => "Colonia",
+        Region.Bubble => Strings.Get(Keys.Region_Bubble),
+        Region.Colonia => Strings.Get(Keys.Region_Colonia),
         _ => region.ToString(),
     };
 
@@ -145,10 +157,10 @@ public static class Display
     /// <param name="credits">Credits.</param>
     /// <returns>Text.</returns>
     public static string Credits(long credits) => credits >= 1_000_000
-        ? string.Create(CultureInfo.InvariantCulture, $"{credits / 1_000_000.0:0.0}M Cr")
+        ? Strings.Format(Keys.Unit_CreditsMillions, ("value", credits / 1_000_000.0))
         : credits >= 1_000
-            ? string.Create(CultureInfo.InvariantCulture, $"{credits / 1_000.0:0}k Cr")
-            : string.Create(CultureInfo.InvariantCulture, $"{credits} Cr");
+            ? Strings.Format(Keys.Unit_CreditsThousands, ("value", credits / 1_000.0))
+            : Strings.Format(Keys.Unit_Credits, ("value", credits));
 
     /// <summary>
     /// Credits in millions with one decimal whatever the amount, "0.8M Cr" or "12.3M Cr", for a column of figures
@@ -156,17 +168,17 @@ public static class Display
     /// </summary>
     /// <param name="credits">Credits.</param>
     /// <returns>Text.</returns>
-    public static string CreditsMillions(long credits) => $"{Millions(credits)} Cr";
+    public static string CreditsMillions(long credits) => Strings.Format(Keys.Unit_CreditsMillions, ("value", credits / 1_000_000.0));
 
     /// <summary>Credits in millions with one decimal and no unit, "0.8M" or "12.3M", for a figure that shares its unit with another.</summary>
     /// <param name="credits">Credits.</param>
     /// <returns>Text.</returns>
-    public static string Millions(long credits) => string.Create(CultureInfo.InvariantCulture, $"{credits / 1_000_000.0:0.0}M");
+    public static string Millions(long credits) => Strings.Format(Keys.Unit_Millions, ("value", credits / 1_000_000.0));
 
     /// <summary>Credits in full, with a thousands separator.</summary>
     /// <param name="credits">Credits.</param>
     /// <returns>Text such as "1,234,567 Cr".</returns>
-    public static string CreditsExact(long credits) => string.Create(CultureInfo.InvariantCulture, $"{credits:#,0} Cr");
+    public static string CreditsExact(long credits) => Strings.Format(Keys.Unit_CreditsExact, ("value", credits));
 
     /// <summary>A span of time in days, hours and minutes.</summary>
     /// <param name="span">The span. Negative reads as zero.</param>
@@ -179,49 +191,61 @@ public static class Display
         }
 
         return span.TotalDays >= 1
-            ? string.Create(CultureInfo.InvariantCulture, $"{(int)span.TotalDays:#,0}d {span.Hours}h")
+            ? Strings.Format(Keys.Unit_DaysHours, ("days", (int)span.TotalDays), ("hours", span.Hours))
             : span.TotalHours >= 1
-                ? string.Create(CultureInfo.InvariantCulture, $"{span.Hours}h {span.Minutes}m")
-                : string.Create(CultureInfo.InvariantCulture, $"{span.Minutes}m");
+                ? Strings.Format(Keys.Unit_HoursMinutes, ("hours", span.Hours), ("minutes", span.Minutes))
+                : Strings.Format(Keys.Unit_Minutes, ("minutes", span.Minutes));
     }
 
     /// <summary>A whole number with a thousands separator.</summary>
     /// <param name="value">The number.</param>
     /// <returns>Text such as "12,345".</returns>
-    public static string Whole(double value) => string.Create(CultureInfo.InvariantCulture, $"{value:#,0}");
+    public static string Whole(double value) => value.ToString("#,0", CultureInfo.CurrentCulture);
 
     /// <summary>A distance in light years: whole numbers above 100, one decimal below, with a thousands separator.</summary>
     /// <param name="lightYears">Light years.</param>
     /// <returns>Text such as "41.2 ly" or "22,003 ly".</returns>
     public static string LightYears(double lightYears)
         => lightYears >= 100
-            ? string.Create(CultureInfo.InvariantCulture, $"{lightYears:#,0} ly")
-            : string.Create(CultureInfo.InvariantCulture, $"{lightYears:0.0} ly");
+            ? Strings.Format(Keys.Unit_LightYears, ("value", lightYears))
+            : Strings.Format(Keys.Unit_LightYearsPrecise, ("value", lightYears));
 
     /// <summary>A distance from the ship, or a note that the ship's position is unknown.</summary>
     /// <param name="lightYears">Light years, or <see langword="null"/>.</param>
     /// <returns>Text.</returns>
-    public static string DistanceOrUnknown(double? lightYears) => lightYears is { } ly ? LightYears(ly) : "distance unknown";
+    public static string DistanceOrUnknown(double? lightYears) => lightYears is { } ly ? LightYears(ly) : Strings.Get(Keys.Distance_Unknown);
 
     /// <summary>"Gn".</summary>
     /// <param name="grade">1–5.</param>
     /// <returns>Text.</returns>
-    public static string Grade(int grade) => string.Create(CultureInfo.InvariantCulture, $"G{grade}");
+    public static string Grade(int grade) => Strings.Format(Keys.Unit_Grade, ("grade", grade));
 
     /// <summary>A local clock time, "HH:mm".</summary>
     /// <param name="at">The instant.</param>
     /// <returns>Text in the local time zone.</returns>
     public static string Clock(DateTimeOffset at) => at.ToLocalTime().ToString("HH:mm", CultureInfo.InvariantCulture);
 
-    /// <summary>A count with its noun, singular or plural: "1 jump", "3 jumps".</summary>
+    /// <summary>A count with its noun in the plural form the language takes: "1 jump", "3 jumps".</summary>
+    /// <param name="key">A plural base key from <see cref="Keys"/>, such as <see cref="Keys.Plural_Jumps"/>.</param>
     /// <param name="count">The count.</param>
-    /// <param name="singular">The noun.</param>
-    /// <param name="plural">Its plural, or <see langword="null"/> to add an "s".</param>
     /// <returns>Text.</returns>
-    public static string Plural(int count, string singular, string? plural = null)
-        => string.Create(CultureInfo.InvariantCulture, $"{count} {(count == 1 ? singular : plural ?? (singular + "s"))}");
+    public static string Plural(string key, long count) => Strings.Plural(key, count);
 
-    /// <summary>Joins names with commas, or a fallback when there are none.</summary>
+    /// <summary>A text in capitals, as a figure's label is set.</summary>
+    /// <param name="key">A key from <see cref="Keys"/>.</param>
+    /// <returns>The text upper-cased in the formatting culture.</returns>
+    public static string Upper(string key) => Strings.Get(key).ToUpper(CultureInfo.CurrentCulture);
+
+    /// <summary>Joins items with the language's list separator.</summary>
+    /// <param name="items">Items in order.</param>
+    /// <returns>The text; empty for no items.</returns>
+    public static string List(IEnumerable<string> items)
+    {
+        ArgumentNullException.ThrowIfNull(items);
+        return string.Join(Strings.Get(Keys.List_Separator), items);
+    }
+
+    /// <summary>Joins names with the list separator, or a fallback when there are none.</summary>
     /// <param name="names">Names in order.</param>
     /// <param name="fallback">Shown when <paramref name="names"/> is empty.</param>
     /// <returns>The text.</returns>
@@ -229,6 +253,6 @@ public static class Display
     {
         ArgumentNullException.ThrowIfNull(names);
         var list = names.ToList();
-        return list.Count == 0 ? fallback : string.Join(", ", list);
+        return list.Count == 0 ? fallback : List(list);
     }
 }

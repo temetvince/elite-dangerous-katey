@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using Katey.App.Mvvm;
 using Katey.App.Navigation;
+using Katey.App.Text;
 using Katey.App.ViewModels;
 using Katey.Core.Edsy;
 using Katey.Core.Fleet;
@@ -59,7 +60,7 @@ public sealed record FitListRow(Link Link, string HullName, string Summary, int 
     public bool IsWarn => MissingCount == 0 && !AllOwned;
 
     /// <summary>Gets the verdict in a word or two: "ALL OWNED", "HULL NOT OWNED", "3 MISSING" or "PARTIAL".</summary>
-    public string Verdict => AllOwned ? "ALL OWNED" : MissingCount < 0 ? "HULL NOT OWNED" : MissingCount > 0 ? $"{MissingCount} MISSING" : "PARTIAL";
+    public string Verdict => AllOwned ? Display.Upper(Keys.Fleet_VerdictAllOwned) : MissingCount < 0 ? Display.Upper(Keys.Fleet_VerdictHullNotOwned) : MissingCount > 0 ? Strings.Format(Keys.Fleet_VerdictMissing, ("count", MissingCount)).ToUpper(CultureInfo.CurrentCulture) : Display.Upper(Keys.Fleet_VerdictPartial);
 }
 
 /// <summary>One owned module no fit claimed.</summary>
@@ -88,10 +89,10 @@ public sealed class FleetPage : Page
     public FleetPage(Workspace workspace)
         : base(new PageKey(PageKind.Fleet), workspace)
     {
-        Title = "Fleet";
-        Kicker = "Browse";
+        Title = Strings.Get(Keys.Nav_Fleet);
+        Kicker = Strings.Get(Keys.Page_KickerBrowse);
         _import = new EdsyImport(workspace.Catalog);
-        Sections = new SectionSwitch([("ships", "Ships"), ("fits", "Saved fits"), ("unused", "Owned modules no fit uses")], "ships", workspace.Preferences, "section.fleet");
+        Sections = new SectionSwitch([("ships", Strings.Get(Keys.Section_Ships)), ("fits", Strings.Get(Keys.Section_SavedFits)), ("unused", Strings.Get(Keys.Section_UnusedModules))], "ships", workspace.Preferences, "section.fleet");
         SelectedPolicy = FleetChoices.Policies.First(choice => choice.Key == workspace.Fleet.Policy.ToString());
         SelectedFilter = FleetChoices.Filters.First(choice => choice.Key == workspace.Fleet.Filter.ToString());
         SelectedPlace = FleetChoices.Places.First(choice => choice.Key == workspace.Fleet.Place.ToString());
@@ -99,28 +100,28 @@ public sealed class FleetPage : Page
         CancelReplaceCommand = new RelayCommand(CancelReplace);
         ShipSort = new TableSort<ShipListRow>(
             [
-                new("name", "Ship", row => row.Name),
-                new("type", "Hull", row => row.TypeName),
-                new("location", "Where", row => row.Where.Text),
+                new("name", Strings.Get(Keys.Column_Ship), row => row.Name),
+                new("type", Strings.Get(Keys.Column_Hull), row => row.TypeName),
+                new("location", Strings.Get(Keys.Column_Where), row => row.Where.Text),
             ],
             "name",
             workspace.Preferences,
             "sort.ships");
         FitSort = new TableSort<FitListRow>(
             [
-                new("name", "Fit", row => row.Name),
-                new("hull", "Hull", row => row.HullName),
-                new("missing", "Missing", row => row.MissingCount, DescendingFirst: true),
+                new("name", Strings.Get(Keys.Column_Fit), row => row.Name),
+                new("hull", Strings.Get(Keys.Column_Hull), row => row.HullName),
+                new("missing", Strings.Get(Keys.Column_Missing), row => row.MissingCount, DescendingFirst: true),
             ],
             "name",
             workspace.Preferences,
             "sort.fits");
         UnusedSort = new TableSort<UnusedModuleRow>(
             [
-                new("name", "Module", row => row.Name),
-                new("engineering", "Engineering", row => row.Engineering),
-                new("place", "Where", row => row.Where.Text),
-                new("type", "Type", row => row.TypeName),
+                new("name", Strings.Get(Keys.Column_Module), row => row.Name),
+                new("engineering", Strings.Get(Keys.Column_Engineering), row => row.Engineering),
+                new("place", Strings.Get(Keys.Column_Where), row => row.Where.Text),
+                new("type", Strings.Get(Keys.Column_Type), row => row.TypeName),
             ],
             "name",
             workspace.Preferences,
@@ -176,7 +177,7 @@ public sealed class FleetPage : Page
     public bool IsConfirmingReplace => _pendingReplacement is not null;
 
     /// <summary>Gets the question put while a replacement awaits confirmation, such as "Replace the saved fit Combat for the Anaconda Mk II?", or empty.</summary>
-    public string ReplaceText => _pendingReplacement is { } pending ? $"Replace the saved fit {pending.Existing.Name} for the {ShipNames.Display(pending.Existing.Hull)}?" : "";
+    public string ReplaceText => _pendingReplacement is { } pending ? Strings.Format(Keys.Fleet_ReplaceQuestion, ("name", pending.Existing.Name), ("hull", ShipNames.Display(pending.Existing.Hull))) : "";
 
     /// <summary>Gets the command that withdraws the replacement and keeps the saved fit.</summary>
     public RelayCommand CancelReplaceCommand { get; }
@@ -258,7 +259,7 @@ public sealed class FleetPage : Page
     public IReadOnlyList<UnusedModuleRow> Unused { get; private set => SetProperty(ref field, value); } = [];
 
     /// <summary>Gets a heading for the unused list with its count.</summary>
-    public string UnusedHeading => $"Owned modules no fit uses ({Unused.Count})";
+    public string UnusedHeading => Strings.Format(Keys.Fleet_UnusedHeading, ("count", Unused.Count));
 
     /// <summary>Engineering as text, or "stock".</summary>
     /// <param name="workspace">The shared state, for names.</param>
@@ -269,22 +270,23 @@ public sealed class FleetPage : Page
         ArgumentNullException.ThrowIfNull(workspace);
         if (engineering is null)
         {
-            return "stock";
+            return Strings.Get(Keys.Engineering_Stock);
         }
 
         var catalog = workspace.Catalog;
-        var blueprint = catalog.Blueprints.TryGetValue(engineering.Blueprint, out var bp) ? bp.Name : engineering.Blueprint;
-        var text = $"{blueprint} {Display.Grade(engineering.Level)}{(engineering.IsComplete ? "" : $", {engineering.Percent}%")}";
-        if (engineering.Experimental is { } effect)
+        var blueprint = catalog.Blueprints.TryGetValue(engineering.Blueprint, out var bp) ? Names.Blueprint(bp) : engineering.Blueprint;
+        var grade = Display.Grade(engineering.Level);
+        var experimental = engineering.Experimental is { } effect ? (catalog.Experimentals.TryGetValue(effect, out var ex) ? Names.Experimental(ex) : effect) : null;
+        var key = (engineering.IsComplete, experimental is not null, engineering.ExperimentalKnown) switch
         {
-            text += " + " + (catalog.Experimentals.TryGetValue(effect, out var ex) ? ex.Name : effect);
-        }
-        else if (!engineering.ExperimentalKnown)
-        {
-            text += ", experimental unknown";
-        }
-
-        return text;
+            (true, true, _) => Keys.Engineering_TextWithExperimental,
+            (true, false, true) => Keys.Engineering_Text,
+            (true, false, false) => Keys.Engineering_TextExperimentalUnknown,
+            (false, true, _) => Keys.Engineering_TextUnfinishedWithExperimental,
+            (false, false, true) => Keys.Engineering_TextUnfinished,
+            (false, false, false) => Keys.Engineering_TextUnfinishedExperimentalUnknown,
+        };
+        return Strings.Format(key, ("blueprint", blueprint), ("grade", grade), ("percent", engineering.Percent), ("experimental", experimental));
     }
 
     /// <summary>
@@ -313,17 +315,19 @@ public sealed class FleetPage : Page
         ArgumentNullException.ThrowIfNull(line);
         if (line.Found is null)
         {
-            return "missing";
+            return Strings.Get(Keys.Match_Missing);
         }
 
-        var place = line.Found.Place == ModulePlace.Installed ? $"fitted to {line.Found.Holder}{(line.Found.IsPrebuilt ? ", prebuilt" : "")}" : $"stored at {line.Found.Holder}";
+        var place = line.Found.Place == ModulePlace.Installed
+            ? Strings.Format(line.Found.IsPrebuilt ? Keys.Match_FittedToPrebuilt : Keys.Match_FittedTo, ("ship", line.Found.Holder))
+            : Strings.Format(Keys.Match_StoredAt, ("place", line.Found.Holder));
         return line.Quality switch
         {
-            MatchQuality.ExperimentalUnknown => $"{place}, experimental unknown",
-            MatchQuality.Partial when line.NeedsOnlyExperimental => $"partial: {place}, experimental missing",
-            MatchQuality.Partial when line.Found.Engineering is { IsComplete: false } unfinished && unfinished.Level == (line.Required.Engineering?.Level ?? 0) => $"partial: {place}, {Display.Grade(unfinished.Level)} at {unfinished.Percent}%",
-            MatchQuality.Partial => $"partial: {place}, {Display.Grade(line.Found.Engineering?.Level ?? 0)} of {Display.Grade(line.Required.Engineering?.Level ?? 0)}",
-            MatchQuality.Missing => "missing",
+            MatchQuality.ExperimentalUnknown => Strings.Format(Keys.Match_ExperimentalUnknown, ("place", place)),
+            MatchQuality.Partial when line.NeedsOnlyExperimental => Strings.Format(Keys.Match_PartialExperimentalMissing, ("place", place)),
+            MatchQuality.Partial when line.Found.Engineering is { IsComplete: false } unfinished && unfinished.Level == (line.Required.Engineering?.Level ?? 0) => Strings.Format(Keys.Match_PartialUnfinished, ("place", place), ("grade", Display.Grade(unfinished.Level)), ("percent", unfinished.Percent)),
+            MatchQuality.Partial => Strings.Format(Keys.Match_PartialGrade, ("place", place), ("grade", Display.Grade(line.Found.Engineering?.Level ?? 0)), ("wanted", Display.Grade(line.Required.Engineering?.Level ?? 0))),
+            MatchQuality.Missing => Strings.Get(Keys.Match_Missing),
             MatchQuality.Exact => place,
             _ => place,
         };
@@ -336,14 +340,14 @@ public sealed class FleetPage : Page
     {
         ArgumentNullException.ThrowIfNull(fit);
         return !fit.HullOwned
-            ? "You do not own this hull."
+            ? Strings.Get(Keys.Fleet_HullNotOwned)
             : fit.MissingCount == 0 && fit.PartialCount == 0 && fit.UncertainCount == 0
-                ? "Every module is owned."
-                : string.Join(", ", new[]
+                ? Strings.Get(Keys.Fleet_EveryModuleOwned)
+                : Display.List(new[]
                 {
-                    fit.MissingCount > 0 ? $"{fit.MissingCount} missing" : "",
-                    fit.PartialCount > 0 ? $"{fit.PartialCount} partial" : "",
-                    fit.UncertainCount > 0 ? $"{fit.UncertainCount} with an unknown experimental" : "",
+                    fit.MissingCount > 0 ? Strings.Format(Keys.Fleet_SummaryMissing, ("count", fit.MissingCount)) : "",
+                    fit.PartialCount > 0 ? Strings.Format(Keys.Fleet_SummaryPartial, ("count", fit.PartialCount)) : "",
+                    fit.UncertainCount > 0 ? Strings.Format(Keys.Fleet_SummaryUncertain, ("count", fit.UncertainCount)) : "",
                 }.Where(part => part.Length > 0)) + ".";
     }
 
@@ -365,7 +369,7 @@ public sealed class FleetPage : Page
     public static string ShipTitle(OwnedShip ship)
     {
         ArgumentNullException.ThrowIfNull(ship);
-        return ship.Name.Length > 0 ? (ship.Ident.Length > 0 ? $"{ship.Name} ({ship.Ident})" : ship.Name) : ShipNames.Prefer(ship.Type, ship.TypeName);
+        return ship.Name.Length > 0 ? (ship.Ident.Length > 0 ? Strings.Format(Keys.Fleet_ShipTitle, ("name", ship.Name), ("ident", ship.Ident)) : ship.Name) : ShipNames.Prefer(ship.Type, ship.TypeName);
     }
 
     /// <summary>Where a ship is: its system's link and the station, or a state when the system is unknown.</summary>
@@ -375,9 +379,9 @@ public sealed class FleetPage : Page
     {
         ArgumentNullException.ThrowIfNull(ship);
         return ship.InTransit
-            ? Place.Only("in transit")
+            ? Place.Only(Strings.Get(Keys.Fleet_InTransit))
             : ship.System is null
-                ? Place.Only("location unknown")
+                ? Place.Only(Strings.Get(Keys.Fleet_LocationUnknown))
                 : new Place(LinkTo(ship.System, PageKind.System, ship.System), ship.Station ?? "");
     }
 
@@ -389,8 +393,8 @@ public sealed class FleetPage : Page
         ArgumentNullException.ThrowIfNull(module);
         var system = module.System is { Length: > 0 } name ? LinkTo(name, PageKind.System, name) : null;
         return module.Place == ModulePlace.Installed
-            ? new Place(system, $"fitted to {module.Holder}")
-            : new Place(system, system is null ? module.Holder : "in storage");
+            ? new Place(system, Strings.Format(Keys.ModuleType_FittedTo, ("ship", module.Holder)))
+            : new Place(system, system is null ? module.Holder : Strings.Get(Keys.ModuleType_InStorage));
     }
 
     /// <inheritdoc/>
@@ -401,14 +405,17 @@ public sealed class FleetPage : Page
             LinkTo(ShipTitle(ship), PageKind.Ship, ship.ShipId.ToString(CultureInfo.InvariantCulture)),
             ShipNames.Prefer(ship.Type, ship.TypeName),
             WhereShip(ship),
-            ship.FitAsOf is { } asOf ? string.Create(CultureInfo.CurrentCulture, $"fit as of {asOf.ToLocalTime():g}") : "fit unknown: not flown since the journal began",
+            ship.FitAsOf is { } asOf ? Strings.Format(Keys.Fleet_FitAsOf, ("when", asOf.ToLocalTime())) : Strings.Get(Keys.Fleet_FitUnknown),
             ship.IsCurrent,
             ship.IsPrebuilt)));
         FleetStatus = fleet.Ships.Count == 0
-            ? "No ships seen yet. The fleet appears once the journal has been read."
-            : string.Create(
-                CultureInfo.CurrentCulture,
-                $"{Display.Plural(fleet.Ships.Count, "ship")}, {Display.Plural(fleet.StoredModules.Count, "stored module")}. Fleet list {(fleet.ShipsAsOf is { } s ? "as of " + s.ToLocalTime().ToString("g", CultureInfo.CurrentCulture) : "not yet seen: dock at a shipyard")}; stored modules {(fleet.ModulesAsOf is { } m ? "as of " + m.ToLocalTime().ToString("g", CultureInfo.CurrentCulture) : "not yet seen: dock at outfitting")}.");
+            ? Strings.Get(Keys.Fleet_NoShips)
+            : Strings.Format(
+                Keys.Fleet_Status,
+                ("ships", Display.Plural(Keys.Plural_Ships, fleet.Ships.Count)),
+                ("modules", Display.Plural(Keys.Plural_StoredModules, fleet.StoredModules.Count)),
+                ("shipsAsOf", fleet.ShipsAsOf is { } s ? Strings.Format(Keys.Fleet_AsOf, ("when", s.ToLocalTime())) : Strings.Get(Keys.Fleet_ShipsNotSeen)),
+                ("modulesAsOf", fleet.ModulesAsOf is { } m ? Strings.Format(Keys.Fleet_AsOf, ("when", m.ToLocalTime())) : Strings.Get(Keys.Fleet_ModulesNotSeen)));
 
         Locations = FleetChoices.Locations(fleet);
         SelectedLocation = FleetChoices.LocationChoice(Locations, Workspace.Fleet.Location);
@@ -428,8 +435,8 @@ public sealed class FleetPage : Page
             var code = Workspace.Modules.Find(module.Item)?.Group;
             var type = code is not null && Workspace.Catalog.ModuleTypes.TryGetValue(code, out var found) ? found : null;
             return new UnusedModuleRow(
-                type is null ? null : LinkTo(type.Name, PageKind.ModuleType, type.Code),
-                Workspace.Modules.NameOf(module.Item),
+                type is null ? null : LinkTo(Names.ModuleType(type), PageKind.ModuleType, type.Code),
+                Workspace.ModuleName(module.Item),
                 EngineeringText(Workspace, module.Engineering),
                 WhereOwned(module),
                 module.IsEngineered);
@@ -457,7 +464,7 @@ public sealed class FleetPage : Page
         var result = _import.Parse(PasteText);
         if (!result.Ok)
         {
-            AddError = result.Error ?? "The export could not be read.";
+            AddError = ImportViewModel.ImportErrorText(result.Error);
             OnPropertyChanged(nameof(HasAddError));
             return;
         }

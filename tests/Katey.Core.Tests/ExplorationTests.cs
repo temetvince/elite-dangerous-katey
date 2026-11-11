@@ -26,20 +26,30 @@ public sealed class ExplorationTests
         => Assert.Equal(expected, StarClasses.Classify(starClass));
 
     [Theory]
-    [InlineData("K", "Class K star")]
-    [InlineData("M_RedGiant", "Class M red giant star")]
-    [InlineData("K_OrangeGiant", "Class K orange giant star")]
-    [InlineData("L", "Class L brown dwarf")]
-    [InlineData("TTS", "T Tauri star")]
-    [InlineData("WN", "Wolf-Rayet star, class WN")]
-    [InlineData("N", "Neutron star")]
-    [InlineData("DA", "White dwarf, class DA")]
-    [InlineData("H", "Black hole")]
-    [InlineData("Y", "Class Y brown dwarf")]
-    [InlineData("X", "Class X star")]
-    [InlineData(null, "Star")]
-    public void StarClasses_DescribeAStarForAReader(string? starClass, string expected)
-        => Assert.Equal(expected, StarClasses.Describe(starClass));
+    [InlineData("K", StarFamily.MainSequence)]
+    [InlineData("M_RedGiant", StarFamily.MainSequence)]
+    [InlineData("L", StarFamily.BrownDwarf)]
+    [InlineData("TTS", StarFamily.TTauri)]
+    [InlineData("AeBe", StarFamily.HerbigAeBe)]
+    [InlineData("WN", StarFamily.WolfRayet)]
+    [InlineData("CN", StarFamily.CarbonStar)]
+    [InlineData("N", StarFamily.Neutron)]
+    [InlineData("DA", StarFamily.WhiteDwarf)]
+    [InlineData("H", StarFamily.BlackHole)]
+    [InlineData("RoguePlanet", StarFamily.RoguePlanet)]
+    [InlineData("X", StarFamily.Other)]
+    [InlineData(null, StarFamily.Unknown)]
+    public void StarClasses_SortAClassIntoItsFamily(string? starClass, StarFamily expected)
+        => Assert.Equal(expected, StarClasses.Family(starClass));
+
+    [Theory]
+    [InlineData("M_RedGiant", "RedGiant")]
+    [InlineData("A_BlueWhiteSuperGiant", "BlueWhiteSuperGiant")]
+    [InlineData("K", null)]
+    [InlineData("M_", null)]
+    [InlineData(null, null)]
+    public void StarClasses_ReadTheGiantSuffix(string? starClass, string? expected)
+        => Assert.Equal(expected, StarClasses.Giant(starClass));
 
     [Theory]
     [InlineData(null, GravityBand.Light)]

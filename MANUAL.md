@@ -1,5 +1,8 @@
 # Katey manual
 
+Also in [Deutsch](MANUAL.de.md), [Español](MANUAL.es.md), [Français](MANUAL.fr.md),
+[Português (Brasil)](MANUAL.pt-BR.md) and [Русский](MANUAL.ru.md).
+
 Katey is a desktop companion for Elite Dangerous. It reads the journal files the game writes on your own
 machine and keeps up with you as you play. It plans engineering against the materials you actually hold. It
 checks your saved ship builds against the ships and modules you own. It follows your route and the system you
@@ -65,14 +68,25 @@ three buttons at its right end to minimise, maximise and close. From left to rig
 
 - **KATEY**, the wordmark, which opens the [start page](#home).
 - **Back** and **forward**, which work as in a browser and return you to where you had scrolled.
-- The page links: **Engineers**, **Modules**, **Materials**, **Unlocks**, **Fleet**, **Stats**, **Route**
-  and **System**. The one whose section you are in is lit, so an engineer's page lights Engineers and a
-  blueprint lights Modules.
+- The page links: **Engineers**, **Modules**, **Materials**, **Unlocks**, **Fleet**, **Route** and
+  **System**. The one whose section you are in is lit, so an engineer's page lights Engineers and a
+  blueprint lights Modules. Press a link again while its own page is open and you return to the page
+  you were on before.
 
 ### The bottom bar
 
-- **Settings** on the left opens the [Settings](#settings) page. Press it again while settings is up and
+- **Language**, the globe at the far left, shows the language Katey is in and opens the list of languages it
+  ships in: English, German, Spanish, French, Portuguese (Brazil) and Russian, each in its own name, with
+  "System language" first. Katey follows your Windows language until you pick one; the choice is remembered
+  and the whole window changes at once. The game's own names change with it: materials, blueprints,
+  experimental effects, module types, technology broker items, planet classes, atmospheres and volcanism, and
+  the lifetime figures. Species, ship and module names that come from your journal follow the game client's
+  own language. This manual has a copy in each language, linked at its top.
+- **Settings** next to it opens the [Settings](#settings) page. Press it again while settings is up and
   you go back to the page you were on.
+- **Stats** next to it opens the [Stats](#stats) page, and returns you to the page you were on when
+  pressed again while Stats is open. It lives here rather than in the top bar so the page links stay on
+  one line in every language.
 - The **search box** across the middle; see [Search](#search).
 - **Plan** on the right opens and closes the [plan drawer](#the-plan-drawer). The number on it is how many
   entries the plan holds.
@@ -681,7 +695,9 @@ replaced, so the file can be shared as it is.
 
 For a bug that needs more detail, start Katey as `katey.exe --verbose`, or `katey.exe --log-level debug`. The
 log then also records the pages opened, the rail's decisions and the lookups made; `--log-level warning` keeps
-only trouble. It is back to normal the next time you start without the option.
+only trouble. It is back to normal the next time you start without the option. `katey.exe --pseudo-loc` shows
+every word longer, accented and in brackets, which is how a translator or a bug report finds text that is cut
+short or has not gone through the tables.
 
 If the day's journal file goes missing while the game runs, the game writes it again from the start, and
 everything it held is lost to the game and to Katey. The backup keeps its earlier copy of such a file beside

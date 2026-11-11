@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Katey.App.Text;
 using Katey.Journal;
 
 namespace Katey.App.ViewModels;
@@ -18,8 +19,8 @@ public static class ScanProgress
         ArgumentNullException.ThrowIfNull(snapshot);
         var scanned = snapshot.BodiesScanned;
         return snapshot.BodyCount is { } count
-            ? $"{snapshot.BodiesKnown ?? scanned} of {count} scanned"
-            : scanned > 0 ? $"{scanned} scanned" : "";
+            ? Strings.Format(Keys.Scan_OfCountScanned, ("known", snapshot.BodiesKnown ?? scanned), ("count", count))
+            : scanned > 0 ? Strings.Format(Keys.Scan_Scanned, ("count", scanned)) : "";
     }
 
     /// <summary>Words the progress in full, for a page.</summary>
@@ -32,13 +33,9 @@ public static class ScanProgress
     {
         ArgumentNullException.ThrowIfNull(snapshot);
         var scanned = snapshot.BodiesScanned;
-        if (snapshot.BodyCount is not { } count)
-        {
-            return scanned > 0 ? $"{scanned} bodies scanned; honk for the count" : "Nothing scanned yet.";
-        }
-
-        var text = $"{snapshot.BodiesKnown ?? scanned} of {count} bodies scanned";
-        return snapshot.AllBodiesFound ? text + ", all found" : text;
+        return snapshot.BodyCount is not { } count
+            ? scanned > 0 ? Strings.Plural(Keys.Scan_ScannedHonk, scanned) : Strings.Get(Keys.Scan_NothingYet)
+            : Strings.Format(snapshot.AllBodiesFound ? Keys.Scan_OfBodiesScannedAllFound : Keys.Scan_OfBodiesScanned, ("known", snapshot.BodiesKnown ?? scanned), ("count", count));
     }
 
     /// <summary>Words the known count as a figure, for a stat tile.</summary>
@@ -68,6 +65,6 @@ public static class ScanProgress
     {
         ArgumentNullException.ThrowIfNull(snapshot);
         var earlier = snapshot.BodiesKnownEarlier;
-        return earlier == 0 ? "" : $"No journal details for {Display.Plural(earlier, "body", "bodies")} scanned on an earlier visit.";
+        return earlier == 0 ? "" : Strings.Format(Keys.Scan_EarlierNote, ("bodies", Display.Plural(Keys.Plural_Bodies, earlier)));
     }
 }

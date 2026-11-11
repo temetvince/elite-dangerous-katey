@@ -1,5 +1,6 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:Katey.Ui.Text"
              xmlns:ui="using:Katey.Ui"
              xmlns:rail="using:Katey.App.Rail"
              x:Class="Katey.Ui.RailView">
@@ -14,11 +15,11 @@
             <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
               <Ellipse Classes="pulse" Width="8" Height="8" Fill="{StaticResource RailAccent}" IsVisible="{Binding IsLive}" />
               <Ellipse Width="8" Height="8" Fill="{StaticResource RailMuted}" IsVisible="{Binding !IsLive}" />
-              <TextBlock Classes="live" Text="LIVE" />
+              <TextBlock Classes="live" Text="{loc:T Rail.Live, Upper=True}" />
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" IsVisible="{Binding ShowsControls}">
-              <Button Content="Pop out" Command="{Binding DetachCommand}" IsVisible="{Binding !IsDetached}" />
-              <Button Content="Bring back" Command="{Binding AttachCommand}" IsVisible="{Binding IsDetached}" />
+              <Button Content="{loc:T Rail.PopOut}" Command="{Binding DetachCommand}" IsVisible="{Binding !IsDetached}" />
+              <Button Content="{loc:T Rail.BringBackShort}" Command="{Binding AttachCommand}" IsVisible="{Binding IsDetached}" />
             </StackPanel>
           </Grid>
         </Border>
@@ -39,8 +40,8 @@
         <!-- Position -->
         <Border Classes="rsec">
           <StackPanel Spacing="6">
-            <TextBlock Classes="eyebrow accent" Text="POSITION" />
-            <Button Classes="link quiet" Command="{Binding SystemLink.OpenCommand}" IsVisible="{Binding ShowsControls}" ToolTip.Tip="Open this system"><TextBlock Classes="big" Text="{Binding SystemName}" /></Button>
+            <TextBlock Classes="eyebrow accent" Text="{loc:T Column.Position, Upper=True}" />
+            <Button Classes="link quiet" Command="{Binding SystemLink.OpenCommand}" IsVisible="{Binding ShowsControls}" ToolTip.Tip="{loc:T Common.OpenSystemTip}"><TextBlock Classes="big" Text="{Binding SystemName}" /></Button>
             <TextBlock Classes="big" Text="{Binding SystemName}" IsVisible="{Binding !ShowsControls}" />
             <TextBlock Classes="sub" Text="{Binding PositionDetail}" />
           </StackPanel>
@@ -72,7 +73,7 @@
                         <TextBlock Classes="accent" Text="{Binding Engineer.Name}" IsVisible="{Binding !$parent[ItemsControl].DataContext.ShowsControls}" />
                       </StackPanel>
                     </StackPanel>
-                    <Border Grid.Column="3" Classes="tag" IsVisible="{Binding IsScoopable}"><TextBlock Text="scoop" /></Border>
+                    <Border Grid.Column="3" Classes="tag" IsVisible="{Binding IsScoopable}"><TextBlock Text="{loc:T Rail.Scoop}" /></Border>
                   </Grid>
                 </DataTemplate>
               </ItemsControl.ItemTemplate>
@@ -82,7 +83,7 @@
             <!-- The tank: label and figures on one line, the bar full width beneath. The bar is drawn as the HUD draws it: blue to the tank's level under orange to the level after the next jump, so the blue that shows is the jump's burn. -->
             <StackPanel Spacing="4" IsVisible="{Binding Fuel.HasTank}">
               <Grid ColumnDefinitions="Auto,*,Auto,Auto" ColumnSpacing="8">
-                <TextBlock Classes="eyebrow" Text="TANK" VerticalAlignment="Center" />
+                <TextBlock Classes="eyebrow" Text="{loc:T Column.Tank, Upper=True}" VerticalAlignment="Center" />
                 <TextBlock Grid.Column="2" Classes="mono sub" Text="{Binding Fuel.TankText}" VerticalAlignment="Center" />
                 <TextBlock Grid.Column="3" Classes="mono burn" Text="{Binding Fuel.NextJumpText}" IsVisible="{Binding Fuel.HasNextJump}" VerticalAlignment="Center" />
               </Grid>
@@ -100,12 +101,12 @@
         <Border Classes="rsec" IsVisible="{Binding HasPlot}">
           <StackPanel Spacing="6">
             <Grid ColumnDefinitions="*,Auto">
-              <TextBlock Classes="eyebrow" Text="SPANSH PLOT" />
-              <Button Grid.Column="1" Classes="link" Content="Full plot" Command="{Binding PlotLink.OpenCommand}" IsVisible="{Binding ShowsControls}" />
+              <TextBlock Classes="eyebrow" Text="{loc:T Rail.SpanshPlot, Upper=True}" />
+              <Button Grid.Column="1" Classes="link" Content="{loc:T Rail.FullPlot}" Command="{Binding PlotLink.OpenCommand}" IsVisible="{Binding ShowsControls}" />
             </Grid>
             <TextBlock Classes="sub" TextWrapping="Wrap" Text="{Binding PlotText}" />
             <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding HasNextWaypoint}">
-              <Button Content="Copy next waypoint" Click="CopyNextWaypoint" IsVisible="{Binding ShowsControls}" ToolTip.Tip="Copies the system name to paste into the galaxy map" />
+              <Button Content="{loc:T Common.CopyNextWaypoint}" Click="CopyNextWaypoint" IsVisible="{Binding ShowsControls}" ToolTip.Tip="{loc:T Common.CopyNextWaypointTip}" />
               <TextBlock Name="PlotCopyStatus" Classes="sub" VerticalAlignment="Center" />
             </StackPanel>
           </StackPanel>
@@ -128,14 +129,14 @@
             <StackPanel Spacing="6" IsVisible="{Binding ShowsControls}">
               <!-- What the list is for: every landable body, the bodies with life, or the bodies with materials; nearest first in each. -->
               <StackPanel Orientation="Horizontal" Spacing="12">
-                <RadioButton GroupName="bodyView" Content="Landable" IsChecked="{Binding ShowsLandable, Mode=OneWay}" Command="{Binding ShowViewCommand}" CommandParameter="{x:Static rail:RailBodyView.Landable}" ToolTip.Tip="Every landable body, nearest first, with its life and its materials." />
-                <RadioButton GroupName="bodyView" Content="Biology" IsChecked="{Binding ShowsBiology, Mode=OneWay}" Command="{Binding ShowViewCommand}" CommandParameter="{x:Static rail:RailBodyView.Biology}" ToolTip.Tip="Bodies with life, nearest first, their life only." />
-                <RadioButton GroupName="bodyView" Content="Minerals" IsChecked="{Binding ShowsMinerals, Mode=OneWay}" Command="{Binding ShowViewCommand}" CommandParameter="{x:Static rail:RailBodyView.Minerals}" ToolTip.Tip="Bodies with surface materials, nearest first, their materials only." />
+                <RadioButton GroupName="bodyView" Content="{loc:T Rail.Landable}" IsChecked="{Binding ShowsLandable, Mode=OneWay}" Command="{Binding ShowViewCommand}" CommandParameter="{x:Static rail:RailBodyView.Landable}" ToolTip.Tip="{loc:T Rail.LandableTip}" />
+                <RadioButton GroupName="bodyView" Content="{loc:T Rail.Biology}" IsChecked="{Binding ShowsBiology, Mode=OneWay}" Command="{Binding ShowViewCommand}" CommandParameter="{x:Static rail:RailBodyView.Biology}" ToolTip.Tip="{loc:T Rail.BiologyTip}" />
+                <RadioButton GroupName="bodyView" Content="{loc:T Rail.Minerals}" IsChecked="{Binding ShowsMinerals, Mode=OneWay}" Command="{Binding ShowViewCommand}" CommandParameter="{x:Static rail:RailBodyView.Minerals}" ToolTip.Tip="{loc:T Rail.MineralsTip}" />
               </StackPanel>
               <!-- Which bodies with life to leave out: one choice of two, remembered; only the Biology view asks. -->
               <StackPanel Orientation="Horizontal" Spacing="12" IsVisible="{Binding IsBiologyView}">
-                <RadioButton GroupName="bodyFilter" Content="All life" IsChecked="{Binding ShowsAll, Mode=OneWay}" Command="{Binding FilterCommand}" CommandParameter="{x:Static rail:BodyFilter.All}" ToolTip.Tip="Every body with life." />
-                <RadioButton GroupName="bodyFilter" Content="Skip bacteria" IsChecked="{Binding SkipsBacteria, Mode=OneWay}" Command="{Binding FilterCommand}" CommandParameter="{x:Static rail:BodyFilter.SkipBacteria}" ToolTip.Tip="Leaves out bodies whose life is bacteria alone: by the scanner's genera once mapped, or a single signal four in five likely to be bacteria before that." />
+                <RadioButton GroupName="bodyFilter" Content="{loc:T Rail.AllLife}" IsChecked="{Binding ShowsAll, Mode=OneWay}" Command="{Binding FilterCommand}" CommandParameter="{x:Static rail:BodyFilter.All}" ToolTip.Tip="{loc:T Rail.AllLifeTip}" />
+                <RadioButton GroupName="bodyFilter" Content="{loc:T Rail.SkipBacteria}" IsChecked="{Binding SkipsBacteria, Mode=OneWay}" Command="{Binding FilterCommand}" CommandParameter="{x:Static rail:BodyFilter.SkipBacteria}" ToolTip.Tip="{loc:T Rail.SkipBacteriaTip}" />
               </StackPanel>
             </StackPanel>
             <ItemsControl ItemsSource="{Binding Bodies}">
@@ -147,11 +148,11 @@
                         <TextBlock Classes="mono" Text="{Binding Name}" />
                         <TextBlock Classes="accent" Text="{Binding ValueText}" IsVisible="{Binding !!ValueText.Length}" />
                         <Border Classes="tag accent" IsVisible="{Binding HasBiology}"><TextBlock Text="{Binding BiologyTag}" /></Border>
-                        <Border Classes="tag good" IsVisible="{Binding Landable}"><TextBlock Text="landable" /></Border>
+                        <Border Classes="tag good" IsVisible="{Binding Landable}"><TextBlock Text="{loc:T Common.Landable}" /></Border>
                         <Border Classes="tag" IsVisible="{Binding IsHighGravity}"><TextBlock Text="{Binding Gravity}" /></Border>
                         <Border Classes="tag bad" IsVisible="{Binding IsExtremeGravity}"><TextBlock Text="{Binding Gravity}" /></Border>
-                        <Border Classes="tag" IsVisible="{Binding HasShortMaterial}"><TextBlock Text="needed" /></Border>
-                        <Border Classes="tag" IsVisible="{Binding IsLanded}"><TextBlock Text="landed" /></Border>
+                        <Border Classes="tag" IsVisible="{Binding HasShortMaterial}"><TextBlock Text="{loc:T Rail.Needed}" /></Border>
+                        <Border Classes="tag" IsVisible="{Binding IsLanded}"><TextBlock Text="{loc:T Rail.Landed}" /></Border>
                       </StackPanel>
                       <TextBlock Classes="sub" Text="{Binding Signals}" IsVisible="{Binding Signals.Length}" />
                       <TextBlock Text="{Binding Life}" IsVisible="{Binding LifeVisible}" />

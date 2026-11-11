@@ -14,6 +14,7 @@ public static class PreferenceKeys
     /// <summary>The exact keys that are current.</summary>
     public static IReadOnlySet<string> Exact { get; } = new HashSet<string>(StringComparer.Ordinal)
     {
+        "app.language",
         "engineers.onlyMine",
         "fit.useOwned",
         "fleet.engineering",

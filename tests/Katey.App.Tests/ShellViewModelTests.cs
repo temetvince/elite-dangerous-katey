@@ -1,4 +1,5 @@
-﻿using Katey.App.Navigation;
+﻿using System.Globalization;
+using Katey.App.Navigation;
 using Katey.App.Pages;
 using Katey.App.Persistence;
 using Katey.App.Rail;
@@ -9,6 +10,7 @@ using Katey.Core.Fleet;
 using Katey.Core.Planning;
 using Katey.Core.Routing;
 using Katey.Journal;
+using Katey.Localization;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Katey.App.Tests;
@@ -363,18 +365,24 @@ public sealed class ShellViewModelTests
     {
         var (shell, _) = Create(new FakeStateStore());
         Assert.False(shell.Navigator.CanGoBack);
-        Assert.Equal(["Engineers", "Modules", "Materials", "Unlocks", "Fleet", "Stats", "Route", "System"], shell.Nav.Select(item => item.Label));
+        Assert.Equal(["Engineers", "Modules", "Materials", "Unlocks", "Fleet", "Route", "System"], shell.Nav.Select(item => item.Label));
         Assert.All(shell.Nav, item => Assert.False(item.IsCurrent));
         Assert.Equal("Settings", shell.SettingsNav.Label);
+        Assert.Equal("Stats", shell.StatsNav.Label);
+        Assert.False(shell.StatsNav.IsCurrent);
         Assert.False(shell.SettingsNav.IsCurrent);
-        shell.SettingsCommand.Execute(null);
+        shell.SettingsNav.Command.Execute(null);
         Assert.IsType<SettingsPage>(shell.Navigator.Current);
         Assert.True(shell.SettingsNav.IsCurrent);
-        shell.SettingsCommand.Execute(null);
+        shell.SettingsNav.Command.Execute(null);
         Assert.IsType<HomePage>(shell.Navigator.Current);
         Assert.False(shell.SettingsNav.IsCurrent);
 
-        shell.Nav[1].Link.OpenCommand.Execute(null);
+        shell.Nav[1].Command.Execute(null);
+        Assert.IsType<ModulesPage>(shell.Navigator.Current);
+        shell.Nav[1].Command.Execute(null);
+        Assert.IsType<HomePage>(shell.Navigator.Current);
+        shell.Nav[1].Command.Execute(null);
         Assert.IsType<ModulesPage>(shell.Navigator.Current);
         Assert.True(shell.Nav[1].IsCurrent);
         shell.Navigator.Open(new PageKey(PageKind.Blueprint, "FSD_LongRange"));
@@ -838,5 +846,53 @@ public sealed class ShellViewModelTests
         Assert.Equal(VisitState.Surveyed, RoutePage.VisitOf(surveyed, 9, "Koine", StopStage.Here));
         Assert.Equal("surveyed", RoutePage.VisitLabel(VisitState.Surveyed));
         Assert.Equal("new to you", RoutePage.VisitLabel(VisitState.New));
+    }
+
+    [Fact]
+    public void SavedLanguage_IsInForceBeforeTheShellWordsAnything()
+    {
+        var before = CultureInfo.CurrentUICulture;
+        var defaultBefore = CultureInfo.DefaultThreadCurrentUICulture;
+        try
+        {
+            var store = new FakeStateStore { State = PersistedState.Empty with { Preferences = new Dictionary<string, string> { ["app.language"] = "ru" } } };
+            var (shell, _) = Create(store);
+
+            Assert.Equal("Русский", shell.LanguageLabel);
+            Assert.NotEqual("Modules", shell.Nav[1].Label);
+            Assert.Equal("ru", shell.LanguageOptions.Single(option => option.IsCurrent).Saved);
+        }
+        finally
+        {
+            CultureInfo.CurrentUICulture = before;
+            CultureInfo.DefaultThreadCurrentUICulture = defaultBefore;
+            Language.Set(before);
+        }
+    }
+
+    [Fact]
+    public void LanguageSwitch_RewordsThePlanEntries_InBothDirections()
+    {
+        var before = CultureInfo.CurrentUICulture;
+        var defaultBefore = CultureInfo.DefaultThreadCurrentUICulture;
+        try
+        {
+            var (shell, _) = Create(new FakeStateStore());
+            shell.Workspace.Plan.Add([PlanEntry.Create(Catalog, "fsd", "FSD_LongRange", 5, null, PlanSource.Manual)]);
+            var row = shell.Workspace.Plan.Entries.Single();
+            Assert.Equal("Frame Shift Drive: Increased range", row.Title);
+
+            shell.SetLanguageCommand.Execute(shell.LanguageOptions.Single(option => option.Saved == "de"));
+            Assert.Equal("Frameshift-Antrieb: Erhöhte Reichweite", row.Title);
+
+            shell.SetLanguageCommand.Execute(shell.LanguageOptions.Single(option => option.Saved == "en"));
+            Assert.Equal("Frame Shift Drive: Increased range", row.Title);
+        }
+        finally
+        {
+            CultureInfo.CurrentUICulture = before;
+            CultureInfo.DefaultThreadCurrentUICulture = defaultBefore;
+            Language.Set(before);
+        }
     }
 }

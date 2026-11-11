@@ -73,4 +73,7 @@ internal static partial class Log
 
     [LoggerMessage(EventId = 3023, Level = LogLevel.Debug, Message = "Not in the tables: {Kind} {Symbol}.")]
     internal static partial void UnknownSymbol(ILogger logger, string kind, string symbol);
+
+    [LoggerMessage(EventId = 3024, Level = LogLevel.Information, Message = "Language changed from {Before} to {After}.")]
+    internal static partial void LanguageChanged(ILogger logger, string before, string after);
 }

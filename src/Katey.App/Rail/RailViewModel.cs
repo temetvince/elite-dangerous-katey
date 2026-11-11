@@ -2,6 +2,7 @@
 using Katey.App.Mvvm;
 using Katey.App.Navigation;
 using Katey.App.Pages;
+using Katey.App.Text;
 using Katey.App.ViewModels;
 using Katey.Journal;
 
@@ -26,12 +27,12 @@ public sealed record RailStopRow(int Index, Link Link, string StarText, StopStag
     /// <summary>Gets "here", "next" or the stop number.</summary>
     public string Marker => Stage switch
     {
-        StopStage.Here => "here",
-        StopStage.Next => "next",
-        StopStage.Done => Index.ToString(CultureInfo.InvariantCulture),
-        StopStage.Ahead => Index.ToString(CultureInfo.InvariantCulture),
-        StopStage.LastKnown => "last",
-        _ => Index.ToString(CultureInfo.InvariantCulture),
+        StopStage.Here => Strings.Get(Keys.Route_StageHere),
+        StopStage.Next => Strings.Get(Keys.Route_StageNext),
+        StopStage.Done => Index.ToString(CultureInfo.CurrentCulture),
+        StopStage.Ahead => Index.ToString(CultureInfo.CurrentCulture),
+        StopStage.LastKnown => Strings.Get(Keys.Route_StageLast),
+        _ => Index.ToString(CultureInfo.CurrentCulture),
     };
 
     /// <summary>Gets whether an engineer is based here.</summary>
@@ -104,7 +105,7 @@ public sealed record RailBodyRow(string Name, string Signals, string Life, strin
     public bool MaterialsVisible => ShowsMaterials && HasMaterials;
 
     /// <summary>Gets the biological signal count as a short tag, such as "3 bio", or empty with none.</summary>
-    public string BiologyTag => BiologicalSignals > 0 ? string.Create(CultureInfo.InvariantCulture, $"{BiologicalSignals} bio") : "";
+    public string BiologyTag => BiologicalSignals > 0 ? Strings.Format(Keys.Rail_BiologyTag, ("count", BiologicalSignals)) : "";
 
     /// <summary>Gets whether there is a life line.</summary>
     public bool HasLife => Life.Length > 0;
@@ -114,7 +115,7 @@ public sealed record RailBodyRow(string Name, string Signals, string Life, strin
 
     /// <summary>Gets the biology still to collect as short text once the scanner has named it, the first-logged bonus spelt out as "4.7M Cr x5 = 23.4M Cr"; the bio tag beside it says what it is. Empty before that, when the life line carries the prediction, and when there is none.</summary>
     public string ValueText => ExobiologyCredits > 0 && !IsValuePredicted
-        ? HasFirstLogBonus ? $"{Display.Credits(BaseCredits)} x5 = {Display.Credits(ExobiologyCredits)}" : Display.Credits(ExobiologyCredits)
+        ? HasFirstLogBonus ? Strings.Format(Keys.Rail_ValueWithBonus, ("base", Display.Credits(BaseCredits)), ("total", Display.Credits(ExobiologyCredits))) : Display.Credits(ExobiologyCredits)
         : "";
 }
 
@@ -161,9 +162,9 @@ public sealed class RailViewModel : ObservableObject
         _workspace = workspace;
         _bodies = new BodyRowBuilder(workspace.Catalog, workspace.Predictor);
         IsDetached = detached;
-        SystemLink = workspace.Navigator.LinkTo("Open this system", PageKind.System);
-        RouteLink = workspace.Navigator.LinkTo("Full route", PageKind.Route);
-        PlotLink = workspace.Navigator.LinkTo("Spansh plot", PageKind.Route, RoutePage.PlotSection);
+        SystemLink = workspace.Navigator.LinkTo(Strings.Get(Keys.Rail_OpenSystem), PageKind.System);
+        RouteLink = workspace.Navigator.LinkTo(Strings.Get(Keys.Rail_FullRoute), PageKind.Route);
+        PlotLink = workspace.Navigator.LinkTo(Strings.Get(Keys.Section_SpanshPlot), PageKind.Route, RoutePage.PlotSection);
         DetachCommand = new RelayCommand(() => IsDetached = true);
         AttachCommand = new RelayCommand(() => IsDetached = false);
         ResetWindowCommand = new RelayCommand(() => WindowBounds = "");
@@ -484,18 +485,18 @@ public sealed class RailViewModel : ObservableObject
         var end = _workspace.Monitor.Route is { Stops.Count: > 0 } live ? live.Stops[^1].StarSystem : stops[^1].System;
         if (hereIndex < 0)
         {
-            return Phrase.Of($"Route of {Display.Plural(stops.Count - 1, "jump")} to ", System(end), "; you are not on it yet.");
+            return Phrase.Format(Keys.Rail_RouteOfJumps, ("jumps", Display.Plural(Keys.Plural_Jumps, stops.Count - 1)), ("end", System(end)));
         }
 
         if (remaining == 0 || hereIndex + 1 >= stops.Count)
         {
-            return Phrase.Text("At the end of the route.");
+            return Phrase.Text(Strings.Get(Keys.Rail_AtEnd));
         }
 
         var next = stops[hereIndex + 1].System;
         return remaining == 1
-            ? Phrase.Of("Next jump ", System(next), ", the last.")
-            : Phrase.Of("Next jump ", System(next), $", {Display.Plural(remaining, "jump")} left to ", System(end), ".");
+            ? Phrase.Format(Keys.Rail_NextJumpLast, ("system", System(next)))
+            : Phrase.Format(Keys.Rail_NextJump, ("system", System(next)), ("jumps", Display.Plural(Keys.Plural_Jumps, remaining)), ("end", System(end)));
     }
 
     /// <summary>
@@ -529,8 +530,8 @@ public sealed class RailViewModel : ObservableObject
         IsLive = state is MonitorState.Watching or MonitorState.CatchingUp;
         NotLiveText = state switch
         {
-            MonitorState.FolderMissing => "The journal folder does not exist. Fix it in Settings.",
-            MonitorState.Stopped => "Not watching the journal. Start it in Settings.",
+            MonitorState.FolderMissing => Strings.Get(Keys.Home_FolderMissing),
+            MonitorState.Stopped => Strings.Get(Keys.Home_NotWatching),
             MonitorState.CatchingUp => "",
             MonitorState.Watching => "",
             _ => "",
@@ -539,8 +540,8 @@ public sealed class RailViewModel : ObservableObject
         var route = _workspace.Route;
         var fleet = _workspace.FleetSnapshot;
         var status = _workspace.Monitor.Status;
-        SystemName = route.CurrentSystem ?? "No position yet";
-        SystemLink = _workspace.Navigator.LinkTo("Open this system", PageKind.System);
+        SystemName = route.CurrentSystem ?? Strings.Get(Keys.Rail_NoPositionYet);
+        SystemLink = _workspace.Navigator.LinkTo(Strings.Get(Keys.Rail_OpenSystem), PageKind.System);
         var parts = new List<string>();
         var ship = fleet.Ships.FirstOrDefault(ship => ship.IsCurrent);
         if (ship is not null)
@@ -555,11 +556,11 @@ public sealed class RailViewModel : ObservableObject
 
         if (route.InHyperspace)
         {
-            parts.Add("in hyperspace");
+            parts.Add(Strings.Get(Keys.Rail_InHyperspace));
         }
         else if (status is not null)
         {
-            parts.Add(status.IsDocked ? "docked" : status.IsLanded ? "landed" : status.IsInSupercruise ? (status.IsScooping ? "scooping" : "in supercruise") : "in normal space");
+            parts.Add(Strings.Get(status.IsDocked ? Keys.Rail_Docked : status.IsLanded ? Keys.Rail_Landed : status.IsInSupercruise ? (status.IsScooping ? Keys.Rail_Scooping : Keys.Rail_InSupercruise) : Keys.Rail_InNormalSpace));
         }
 
         if (status is not null)
@@ -567,18 +568,18 @@ public sealed class RailViewModel : ObservableObject
             parts.Add(Display.Clock(status.Timestamp));
         }
 
-        PositionDetail = string.Join(" · ", parts);
+        PositionDetail = string.Join(Strings.Get(Keys.List_Dot), parts);
     }
 
     private void RefreshRoute()
     {
-        RouteLink = _workspace.Navigator.LinkTo("Full route", PageKind.Route);
+        RouteLink = _workspace.Navigator.LinkTo(Strings.Get(Keys.Rail_FullRoute), PageKind.Route);
         var stops = RoutePage.BuildStops(_workspace);
         HasRoute = stops.Count > 0;
         FuelParts = RoutePage.FuelLine(_workspace, stops);
         TravelledText = RoutePage.TravelledLine(stops, RoutePage.HereIndex(_workspace));
         Fuel = FuelEstimate.For(_workspace, stops);
-        PlotLink = _workspace.Navigator.LinkTo("Spansh plot", PageKind.Route, RoutePage.PlotSection);
+        PlotLink = _workspace.Navigator.LinkTo(Strings.Get(Keys.Section_SpanshPlot), PageKind.Route, RoutePage.PlotSection);
         var progress = RoutePage.PlotProgress(_workspace);
         HasPlot = progress is not null;
         PlotText = progress?.Text ?? "";
@@ -586,17 +587,17 @@ public sealed class RailViewModel : ObservableObject
         OnPropertyChanged(nameof(HasNextWaypoint));
         if (stops.Count == 0)
         {
-            RouteHeading = "Route";
+            RouteHeading = Strings.Get(Keys.Rail_RouteHeading);
             RouteStops = [];
             RouteSummaryParts = Phrase.Empty;
-            RouteRestParts = Phrase.Text(_workspace.Route.CurrentSystem is null ? "No route plotted." : "No route plotted. Plot one in the galaxy map and it appears here.");
+            RouteRestParts = Phrase.Text(Strings.Get(_workspace.Route.CurrentSystem is null ? Keys.Rail_NoRoute : Keys.Rail_NoRoutePlotOne));
             return;
         }
 
         var hereIndex = RoutePage.HereIndex(_workspace);
         // Off the route file, the game's own count stands in for the file's: it has re-plotted and the file lags.
         var remaining = RoutePage.RerouteJumps(_workspace) ?? (hereIndex < 0 ? stops.Count - 1 : stops.Count - 1 - hereIndex);
-        RouteHeading = remaining == 0 ? "Route · arrived" : $"Route · {Display.Plural(remaining, "jump")} left";
+        RouteHeading = remaining == 0 ? Strings.Get(Keys.Rail_RouteArrived) : Strings.Format(Keys.Rail_RouteLeft, ("jumps", Display.Plural(Keys.Plural_Jumps, remaining)));
         RouteSummaryParts = RouteSummary(stops, hereIndex, remaining);
         var start = Math.Max(hereIndex, 0);
         var window = stops.Skip(start).Take(RouteWindow).ToList();
@@ -613,21 +614,21 @@ public sealed class RailViewModel : ObservableObject
         Link System(string name) => _workspace.Navigator.LinkTo(name, PageKind.System, name);
         if (hereIndex < 0)
         {
-            notes.Add(Phrase.Text("You are not on the route yet."));
+            notes.Add(Phrase.Text(Strings.Get(Keys.Rail_NotOnRoute)));
         }
 
         if (rest.Count > 0)
         {
-            notes.Add(Phrase.Of($"{Display.Plural(rest.Count, "more jump")} to ", System(stops[^1].System), "."));
+            notes.Add(Phrase.Format(Keys.Rail_MoreJumpsTo, ("jumps", Display.Plural(Keys.Plural_MoreJumps, rest.Count)), ("system", System(stops[^1].System))));
             var scoop = rest.FirstOrDefault(stop => stop.IsScoopable);
             if (scoop is not null && !window.Any(stop => stop.IsScoopable && stop.Stage != StopStage.Here))
             {
-                notes.Add(Phrase.Of("Next scoopable star is ", System(scoop.System), $", stop {scoop.Index}."));
+                notes.Add(Phrase.Format(Keys.Rail_NextScoopable, ("system", System(scoop.System)), ("index", scoop.Index)));
             }
 
             foreach (var stop in rest.Where(stop => stop.HasEngineer))
             {
-                notes.Add(Phrase.Of(stop.Engineer, $" is at stop {stop.Index}, ", System(stop.System), "."));
+                notes.Add(Phrase.Format(Keys.Rail_EngineerAtStop, ("engineer", stop.Engineer), ("index", stop.Index), ("system", System(stop.System))));
             }
         }
 
@@ -647,18 +648,18 @@ public sealed class RailViewModel : ObservableObject
         var snapshot = _workspace.System;
         if (snapshot.SystemName is null)
         {
-            SystemHeading = "This system";
+            SystemHeading = Strings.Get(Keys.Rail_ThisSystem);
             ScanText = "";
             ScanFraction = 0;
             IsFullyScanned = false;
             ValueText = "";
             Bodies = [];
-            BodiesNote = "Bodies appear as you scan them.";
+            BodiesNote = Strings.Get(Keys.Rail_BodiesAppear);
             return;
         }
 
         ScanText = ScanProgress.Heading(snapshot);
-        SystemHeading = ScanText.Length == 0 ? "This system" : $"This system · {ScanText}";
+        SystemHeading = ScanText.Length == 0 ? Strings.Get(Keys.Rail_ThisSystem) : Strings.Format(Keys.Rail_ThisSystemScan, ("scan", ScanText));
         ScanFraction = ScanProgress.Fraction(snapshot);
         IsFullyScanned = snapshot.BodyCount is > 0 && ScanFraction >= 1;
         var rows = _bodies.Build(snapshot);
@@ -678,15 +679,15 @@ public sealed class RailViewModel : ObservableObject
         var hiddenRows = candidates.Except(shown).ToList();
         var earlier = ScanProgress.EarlierNote(snapshot);
         BodiesNote = rows.Count == 0
-            ? earlier.Length > 0 ? earlier : "Nothing scanned yet."
+            ? earlier.Length > 0 ? earlier : Strings.Get(Keys.Rail_NothingScanned)
             : candidates.Count == 0
-                ? view switch
+                ? Strings.Get(view switch
                 {
-                    RailBodyView.Landable => "No scanned body is landable.",
-                    RailBodyView.Minerals => "No scanned body has surface materials.",
-                    RailBodyView.Biology => "No scanned body has life.",
-                    _ => "No scanned body has life.",
-                }
+                    RailBodyView.Landable => Keys.Rail_NoLandable,
+                    RailBodyView.Minerals => Keys.Rail_NoMinerals,
+                    RailBodyView.Biology => Keys.Rail_NoLife,
+                    _ => Keys.Rail_NoLife,
+                })
                 : HiddenNote(hiddenRows);
     }
 
@@ -702,7 +703,10 @@ public sealed class RailViewModel : ObservableObject
         }
 
         var byPrediction = hiddenRows.Count(row => row.IsBacteriaOnlyByPrediction);
-        return $"{Display.Plural(hiddenRows.Count, "body", "bodies")} with only bacteria hidden{(byPrediction > 0 ? $", {byPrediction} of them unmapped but with conditions only bacteria has been found under" : "")}.";
+        var bodies = Display.Plural(Keys.Plural_Bodies, hiddenRows.Count);
+        return byPrediction > 0
+            ? Strings.Format(Keys.Rail_HiddenBacteriaPredicted, ("bodies", bodies), ("predicted", byPrediction))
+            : Strings.Format(Keys.Rail_HiddenBacteria, ("bodies", bodies));
     }
 
     private static RailBodyRow RailRow(BodyRow row, IReadOnlySet<string> shortMaterials, RailBodyView view)
@@ -710,19 +714,25 @@ public sealed class RailViewModel : ObservableObject
         // Before the scanner names the genera, one short line: what could live here and what it is likely worth.
         // Once it has, a list: each genus richest first with its likeliest species, and the pace under it.
         var life = row.Genera.Count == 0 && row.PredictedExobiologyCredits > 0
-            ? $"{Display.Plural(row.PossibleGenera, "genus", "genera")} could live here, likely about {Display.Credits(row.PredictedExobiologyCredits)}{(row.FirstLogLikely ? $" x{BodyRow.FirstLogMultiplier} = {Display.Credits(row.ExobiologyRank)} with the first-logged bonus" : "")}."
+            ? Strings.Format(
+                row.FirstLogLikely ? Keys.Rail_CouldLiveWithBonus : Keys.Rail_CouldLive,
+                ("genera", Display.Plural(Keys.Plural_Genera, row.PossibleGenera)),
+                ("credits", Display.Credits(row.PredictedExobiologyCredits)),
+                ("multiplier", BodyRow.FirstLogMultiplier),
+                ("total", Display.Credits(row.ExobiologyRank)))
             : "";
         var ordered = row.Genera.OrderByDescending(genus => genus.ExpectedCredits).ThenBy(genus => genus.Name, StringComparer.Ordinal).ToList();
         var listed = ordered.Select(genus => new RailGenusRow(
             genus.Name,
             genus.Stage > 0
-                ? string.Create(CultureInfo.InvariantCulture, $"{genus.TopSpecies}, {genus.Stage} of 3 sampled")
-                : genus.TopSpecies.Length == 0 ? "No prediction" : string.Create(CultureInfo.InvariantCulture, $"{genus.TopSpecies} {genus.TopProbability * 100:0}%"),
-            genus.ExpectedCredits > 0 ? Display.Credits(genus.CreditsWithBonus) : "value unknown",
+                ? Strings.Format(Keys.Rail_GenusSampled, ("species", genus.TopSpecies), ("stage", genus.Stage))
+                : genus.TopSpecies.Length == 0 ? Strings.Get(Keys.Rail_NoPrediction) : Strings.Format(Keys.Rail_GenusOdds, ("species", genus.TopSpecies), ("percent", genus.TopProbability * 100)),
+            genus.ExpectedCredits > 0 ? Display.Credits(genus.CreditsWithBonus) : Strings.Get(Keys.Rail_ValueUnknown),
             genus.Stage)).ToList();
-        var shortHere = row.MaterialNames.Where(shortMaterials.Contains).ToList();
-        var others = row.MaterialNames.Where(name => !shortMaterials.Contains(name)).ToList();
-        var materials = string.Join(", ", shortHere.Select(name => name + " (needed)").Concat(others));
+        var surface = row.MaterialSymbols.Zip(row.MaterialNames, (symbol, name) => (Symbol: symbol, Name: name)).ToList();
+        var shortHere = surface.Where(material => shortMaterials.Contains(material.Symbol)).Select(material => material.Name).ToList();
+        var others = surface.Where(material => !shortMaterials.Contains(material.Symbol)).Select(material => material.Name).ToList();
+        var materials = Display.List(shortHere.Select(name => Strings.Format(Keys.Rail_MaterialNeeded, ("material", name))).Concat(others));
         return new RailBodyRow(
             row.Name,
             row.Signals,

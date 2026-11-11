@@ -119,11 +119,27 @@ public sealed record TradeTarget(Material Material, int Have, int Needed, int Ke
 /// <param name="Surplus">How many of <paramref name="Get"/> are beyond what was wanted, because batches are whole.</param>
 public sealed record MaterialTrade(Material From, int Give, Material To, int Get, TradeRate Rate, int Surplus);
 
+/// <summary>Why a shortfall stays uncovered.</summary>
+public enum ShortfallReason
+{
+    /// <summary>Spare materials exist, but every trade left would overfill the target's stack: batches are whole.</summary>
+    BatchesWhole,
+
+    /// <summary>The only spare materials in the inventory are marked never to trade.</summary>
+    OnlyNeverTrade,
+
+    /// <summary>Materials are held in the inventory, but none above what the plan needs and the player keeps.</summary>
+    NothingSpare,
+
+    /// <summary>Nothing else in the inventory is held at all.</summary>
+    NothingHeld,
+}
+
 /// <summary>A shortfall no trade can cover, and why.</summary>
 /// <param name="Target">What is short.</param>
 /// <param name="Remaining">How many are still missing after every trade planned.</param>
-/// <param name="Why">One line for the player.</param>
-public sealed record TradeShortfall(TradeTarget Target, int Remaining, string Why);
+/// <param name="Why">Why no trade covers it.</param>
+public sealed record TradeShortfall(TradeTarget Target, int Remaining, ShortfallReason Why);
 
 /// <summary>What to trade at the material traders to cover every shortfall that can be covered.</summary>
 /// <param name="Targets">Everything short, plan needs and reserves alike, in the order worked.</param>
@@ -245,16 +261,16 @@ public static class MaterialTrader
         return new TradePlan([.. targets.Select(stock => stock.Target)], trades, unmet);
     }
 
-    private static string Why(IEnumerable<Stock> stocks, Material target)
+    private static ShortfallReason Why(IEnumerable<Stock> stocks, Material target)
     {
         var sameInventory = stocks.Where(stock => stock.Material.Category == target.Category && !string.Equals(stock.Material.Symbol, target.Symbol, StringComparison.OrdinalIgnoreCase)).ToList();
         return sameInventory.Any(stock => stock.Spare > 0 && !stock.NeverTrade)
-            ? "Every trade left would hand back more than the stack can hold: batches are whole."
+            ? ShortfallReason.BatchesWhole
             : sameInventory.Any(stock => stock.Spare > 0 && stock.NeverTrade)
-            ? "The only spare materials in this inventory are ones you never trade."
+            ? ShortfallReason.OnlyNeverTrade
             : sameInventory.Any(stock => stock.Have > 0)
-            ? "Nothing in this inventory is held above what the plan needs and you keep."
-            : "Nothing else in this inventory is held at all.";
+            ? ShortfallReason.NothingSpare
+            : ShortfallReason.NothingHeld;
     }
 
     /// <summary>A unit's worth on the game's own scale, where one unit is worth three of the grade below.</summary>

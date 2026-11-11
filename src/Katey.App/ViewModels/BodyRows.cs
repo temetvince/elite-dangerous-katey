@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Katey.App.Text;
 using Katey.Core;
 using Katey.Core.Exploration;
 using Katey.Journal;
@@ -56,7 +57,7 @@ public sealed record GenusRow(string Genus, string Name, string Candidates, long
         {
             if (ExpectedCredits == 0)
             {
-                return "value unknown";
+                return Strings.Get(Keys.Body_ValueUnknown);
             }
 
             if (!HasFirstLogBonus)
@@ -65,7 +66,7 @@ public sealed record GenusRow(string Genus, string Name, string Candidates, long
             }
 
             var bonus = $"({Display.Millions(ExpectedCredits * BodyRow.FirstLogMultiplier)})";
-            return $"{Display.Millions(ExpectedCredits),FigureWidth} {bonus,BonusWidth} Cr";
+            return Strings.Format(Keys.Body_ExpectedWithBonus, ("figure", Display.Millions(ExpectedCredits).PadLeft(FigureWidth)), ("bonus", bonus.PadLeft(BonusWidth)));
         }
     }
 
@@ -110,7 +111,8 @@ public sealed record TextRun(string Text, bool IsFigure, bool IsEarned = false);
 /// <param name="Genera">Genera found, with predictions, the most valuable first.</param>
 /// <param name="BacteriaOnlyByPrediction">Whether, with signals but no genus list yet, bacteria is the only genus ever found under the body's conditions.</param>
 /// <param name="Materials">Surface materials, highest share first, as text, or empty.</param>
-/// <param name="MaterialNames">Display names of every surface material.</param>
+/// <param name="MaterialNames">Display names of every surface material, in the language in force, in the same order as <paramref name="MaterialSymbols"/>.</param>
+/// <param name="MaterialSymbols">Journal symbols of every surface material.</param>
 /// <param name="ScanValue">Cartographics value as text.</param>
 /// <param name="ScanCredits">Cartographics value as scanned, credits.</param>
 /// <param name="ExobiologyCredits">Expected exobiology payout from the genera the scanner has named, credits, or 0 before it has.</param>
@@ -153,6 +155,7 @@ public sealed record BodyRow(
     bool BacteriaOnlyByPrediction,
     string Materials,
     IReadOnlyList<string> MaterialNames,
+    IReadOnlyList<string> MaterialSymbols,
     string ScanValue,
     long ScanCredits,
     long ExobiologyCredits,
@@ -172,13 +175,13 @@ public sealed record BodyRow(
     public long ScanBaseCredits { get; init; }
 
     /// <summary>Gets the distance from arrival as text.</summary>
-    public string Distance => string.Create(CultureInfo.InvariantCulture, $"{DistanceLs:0}ls");
+    public string Distance => Strings.Format(Keys.Unit_LightSeconds, ("value", DistanceLs));
 
     /// <summary>Gets whether it is a star the drive cannot refuel from, which deserves a warning of its own.</summary>
     public bool IsUnscoopableStar => IsStar && !IsScoopable;
 
     /// <summary>Gets the surface gravity as text, such as "1.60g", or empty when unknown.</summary>
-    public string GravityText => GravityG is { } g ? string.Create(CultureInfo.InvariantCulture, $"{g:0.00}g") : "";
+    public string GravityText => GravityG is { } g ? Strings.Format(Keys.Unit_Gravity, ("value", g)) : "";
 
     /// <summary>Gets the landing band of the gravity.</summary>
     public GravityBand Gravity => SurfaceGravity.Band(GravityG);
@@ -192,8 +195,8 @@ public sealed record BodyRow(
     /// <summary>Gets the gravity warning, "high gravity" or "extreme gravity", or empty when the landing is ordinary.</summary>
     public string GravityWarning => Gravity switch
     {
-        GravityBand.Extreme => "extreme gravity",
-        GravityBand.High => "high gravity",
+        GravityBand.Extreme => Strings.Get(Keys.Body_ExtremeGravity),
+        GravityBand.High => Strings.Get(Keys.Body_HighGravity),
         GravityBand.Light => "",
         _ => "",
     };
@@ -205,7 +208,7 @@ public sealed record BodyRow(
     public bool MappedByYouFirst => !IsStar && FirstMapping && MappedByYou;
 
     /// <summary>Gets the discovery slot: "discovered by you" when nobody had discovered it before your scan, else "discovered"; "discovery unknown" for a body a catalogue described, which says nothing of who found it.</summary>
-    public string DiscoveryStatus => FromCatalogue ? "discovery unknown" : DiscoveryYours ? "discovered by you" : "discovered";
+    public string DiscoveryStatus => Strings.Get(FromCatalogue ? Keys.Body_DiscoveryUnknown : DiscoveryYours ? Keys.Body_DiscoveredByYou : Keys.Body_Discovered);
 
     /// <summary>Gets whether the first discovery is yours: nobody had discovered it before you scanned it. The game credits it when the data is sold. False for a body a catalogue described.</summary>
     public bool DiscoveryYours => !FromCatalogue && FirstDiscovery;
@@ -214,7 +217,7 @@ public sealed record BodyRow(
     /// Gets the mapping slot: "unmapped" while nobody has mapped it, "mapped by you" when you were the first, else
     /// "mapped"; empty for a star, which cannot be mapped, and "mapping unknown" for a body a catalogue described.
     /// </summary>
-    public string MappingStatus => IsStar ? "" : FromCatalogue ? "mapping unknown" : MappedByYouFirst ? "mapped by you" : FirstMappingOpen ? "unmapped" : "mapped";
+    public string MappingStatus => IsStar ? "" : Strings.Get(FromCatalogue ? Keys.Body_MappingUnknown : MappedByYouFirst ? Keys.Body_MappedByYou : FirstMappingOpen ? Keys.Body_Unmapped : Keys.Body_Mapped);
 
     /// <summary>Gets whether the first mapping is yours: still open, or taken by you. False for a star and for a body a catalogue described.</summary>
     public bool MappingYours => !IsStar && !FromCatalogue && FirstMapping;
@@ -224,7 +227,7 @@ public sealed record BodyRow(
     /// when you were the first, else "footfall"; empty where nobody can land, and "footfall unknown" for a body a
     /// catalogue described.
     /// </summary>
-    public string FootfallStatus => !Landable ? "" : FromCatalogue ? "footfall unknown" : FootfallOpen ? "no footfall" : FootfallYours ? "footfall by you" : "footfall";
+    public string FootfallStatus => !Landable ? "" : Strings.Get(FromCatalogue ? Keys.Body_FootfallUnknown : FootfallOpen ? Keys.Body_NoFootfall : FootfallYours ? Keys.Body_FootfallByYou : Keys.Body_Footfall);
 
     /// <summary>Gets whether the first footfall is yours: still open, or taken by you. False where nobody can land and for a body a catalogue described.</summary>
     public bool FootfallYours => Landable && !FromCatalogue && FirstFootfall;
@@ -243,12 +246,12 @@ public sealed record BodyRow(
             var parts = new List<string>();
             if (!IsStar && MappedByYou && !FirstMapping)
             {
-                parts.Add("mapped by you");
+                parts.Add(Strings.Get(Keys.Body_MappedByYou));
             }
 
             if (LandedByYou && !FirstFootfall)
             {
-                parts.Add("landed by you");
+                parts.Add(Strings.Get(Keys.Body_LandedByYou));
             }
 
             if (parts.Count == 0)
@@ -256,8 +259,8 @@ public sealed record BodyRow(
                 return "";
             }
 
-            var line = string.Join(", ", parts);
-            return char.ToUpperInvariant(line[0]) + line[1..] + ".";
+            var line = Display.List(parts);
+            return char.ToUpper(line[0], CultureInfo.CurrentCulture) + line[1..] + ".";
         }
     }
 
@@ -270,13 +273,13 @@ public sealed record BodyRow(
     /// <summary>Gets whether the body has surface materials.</summary>
     public bool HasMaterials => MaterialNames.Count > 0;
 
-    /// <summary>Whether the body carries any of the given materials, by display name.</summary>
-    /// <param name="names">Material display names, such as the ones the plan is short of.</param>
+    /// <summary>Whether the body carries any of the given materials, by journal symbol.</summary>
+    /// <param name="symbols">Material symbols, such as the ones the plan is short of, compared as the set compares.</param>
     /// <returns><see langword="true"/> when at least one is on the surface.</returns>
-    public bool HasShortMaterial(IReadOnlySet<string> names)
+    public bool HasShortMaterial(IReadOnlySet<string> symbols)
     {
-        ArgumentNullException.ThrowIfNull(names);
-        return MaterialNames.Any(names.Contains);
+        ArgumentNullException.ThrowIfNull(symbols);
+        return MaterialSymbols.Any(symbols.Contains);
     }
 
     /// <summary>The game pays this many times the base value for a species nobody has logged on that body before.</summary>
@@ -320,7 +323,7 @@ public sealed record BodyRow(
     public bool IsProbed => Genera.Count > 0;
 
     /// <summary>Gets the biological signal count as a short badge, such as "3 bio", or empty with none.</summary>
-    public string BiologyCountText => BiologicalSignals > 0 ? string.Create(CultureInfo.InvariantCulture, $"{BiologicalSignals} bio") : "";
+    public string BiologyCountText => BiologicalSignals > 0 ? Strings.Format(Keys.Body_BioCount, ("count", BiologicalSignals)) : "";
 
     /// <summary>
     /// Gets the expected exobiology payout as a sentence in runs, the figures marked: the scanner's figure, exact
@@ -339,17 +342,17 @@ public sealed record BodyRow(
             var known = ExobiologyCredits > 0;
             var runs = new List<TextRun>
             {
-                new(known ? IsExobiologyKnown ? "Exobiology " : "Exobiology about " : "Exobiology likely about ", false),
+                new(Strings.Get(known ? IsExobiologyKnown ? Keys.Body_ExobiologyLead : Keys.Body_ExobiologyAboutLead : Keys.Body_ExobiologyLikelyLead), false),
                 new(Display.Credits(ExobiologyBaseCredits), true),
             };
             if (ExobiologyRank > ExobiologyBaseCredits)
             {
-                runs.Add(new(", ", false));
+                runs.Add(new(Strings.Get(Keys.List_Separator), false));
                 runs.Add(new(Display.Credits(ExobiologyRank), true));
-                runs.Add(new(" with the first-logged bonus", false));
+                runs.Add(new(Strings.Get(Keys.Body_WithFirstLoggedBonus), false));
             }
 
-            runs.Add(new(known ? "." : " by the life these conditions allow; map it to know.", false));
+            runs.Add(new(known ? "." : Strings.Get(Keys.Body_ByConditions), false));
             return runs;
         }
     }
@@ -380,12 +383,12 @@ public sealed record BodyRow(
             }
 
             var withBonus = complete.Sum(genus => genus.CreditsWithBonus);
-            var runs = new List<TextRun> { new("You've gathered ", false), new(Display.Credits(gathered), true, true) };
+            var runs = new List<TextRun> { new(Strings.Get(Keys.Body_GatheredLead), false), new(Display.Credits(gathered), true, true) };
             if (withBonus > gathered)
             {
-                runs.Add(new(", ", false));
+                runs.Add(new(Strings.Get(Keys.List_Separator), false));
                 runs.Add(new(Display.Credits(withBonus), true, true));
-                runs.Add(new(" with the first-logged bonus", false));
+                runs.Add(new(Strings.Get(Keys.Body_WithFirstLoggedBonus), false));
             }
 
             runs.Add(new(".", false));
@@ -499,10 +502,10 @@ public sealed class BodyRowBuilder
         var space = species.IndexOf(' ', StringComparison.Ordinal);
         var genus = space > 0 ? species[..space] : species;
         var rest = space > 0 ? species[(space + 1)..] : "";
-        var odds = string.Create(CultureInfo.InvariantCulture, $"{probability * 100:0}%");
+        var odds = Strings.Format(Keys.Unit_PercentWhole, ("value", probability * 100));
         return rest.Length > 0
-            ? $"{genus} (likely {rest}) {odds}, {Display.Credits(expected)} expected"
-            : $"{genus} {odds}, {Display.Credits(expected)} expected";
+            ? Strings.Format(Keys.Body_GenusLikely, ("genus", genus), ("species", rest), ("odds", odds), ("credits", Display.Credits(expected)))
+            : Strings.Format(Keys.Body_GenusOnly, ("genus", genus), ("odds", odds), ("credits", Display.Credits(expected)));
     }
 
     private BodyRow Row(ScannedBody body, SystemSnapshot snapshot)
@@ -530,15 +533,15 @@ public sealed class BodyRowBuilder
                 expected = snapshot.LearnedSpecies.GetValueOrDefault(confirmed.Species)?.Value
                     ?? prediction.Candidates.FirstOrDefault(candidate => candidate.Species == confirmed.Species)?.Reward
                     ?? 0;
-                candidates = string.Create(CultureInfo.InvariantCulture, $"{confirmed.SpeciesName}, stage {confirmed.Stage} of 3");
+                candidates = Strings.Format(Keys.Body_SpeciesStage, ("species", confirmed.SpeciesName), ("stage", confirmed.Stage));
             }
             else
             {
                 expected = prediction.ExpectedReward;
                 candidates = prediction.Candidates.Count == 0
-                    ? "No prediction for these conditions"
-                    : string.Join(" · ", prediction.Candidates.Take(3).Select(candidate =>
-                        string.Create(CultureInfo.InvariantCulture, $"{candidate.Name} {candidate.Probability * 100:0}% ({Display.Credits(candidate.Reward)})")));
+                    ? Strings.Get(Keys.Body_NoPredictionConditions)
+                    : string.Join(Strings.Get(Keys.List_Dot), prediction.Candidates.Take(3).Select(candidate =>
+                        Strings.Format(Keys.Body_Candidate, ("species", candidate.Name), ("odds", Strings.Format(Keys.Unit_PercentWhole, ("value", candidate.Probability * 100))), ("credits", Display.Credits(candidate.Reward)))));
             }
 
             // A sampled species has the game's word on the bonus; one not yet sampled takes the body's likelihood.
@@ -574,73 +577,75 @@ public sealed class BodyRowBuilder
                 possibleGenera = likely.Count;
                 predicted = (long)Math.Round(likely.Sum(genus => genus.Probability * genus.Prediction.ExpectedReward) * body.BiologicalSignals);
                 var top = likely.Take(3).Select(genus => GenusLine(genus.Prediction.Candidates[0].Name, genus.Probability, genus.Prediction.ExpectedReward));
-                possibleLife = $"{Display.Plural(likely.Count, "genus", "genera")} could live here; the likeliest: {string.Join(" · ", top)}";
+                possibleLife = Strings.Format(Keys.Body_CouldLive, ("genera", Display.Plural(Keys.Plural_Genera, likely.Count)), ("list", string.Join(Strings.Get(Keys.List_Dot), top)));
             }
         }
 
         var signals = new List<string>();
         if (body.BiologicalSignals > 0)
         {
-            signals.Add(Display.Plural(body.BiologicalSignals, "biological"));
+            signals.Add(Display.Plural(Keys.Plural_Biological, body.BiologicalSignals));
         }
 
         if (body.GeologicalSignals > 0)
         {
-            signals.Add(Display.Plural(body.GeologicalSignals, "geological"));
+            signals.Add(Display.Plural(Keys.Plural_Geological, body.GeologicalSignals));
         }
 
-        signals.AddRange(body.OtherSignals);
+        signals.AddRange(body.OtherSignals.Select(signal => Names.Signal(signal.Type, signal.Label)));
 
         var materials = body.Materials
             .OrderByDescending(pair => pair.Value)
             .Select(pair => _catalog.Materials.TryGetValue(pair.Key, out var material)
-                ? (material.Name, Share: pair.Value, material.Grade)
-                : (Name: pair.Key, Share: pair.Value, Grade: 0))
+                ? (Name: Names.Material(material), Share: pair.Value, material.Grade, material.Symbol)
+                : (Name: pair.Key, Share: pair.Value, Grade: 0, Symbol: pair.Key))
             .ToList();
 
         var surface = body.IsStar
-            ? (body.MassEarths is { } solar ? string.Create(CultureInfo.InvariantCulture, $"{solar:0.00} solar masses") : "")
-            : string.Join(" · ", new[]
+            ? (body.MassEarths is { } solar ? Strings.Format(Keys.Unit_SolarMasses, ("value", solar)) : "")
+            : string.Join(Strings.Get(Keys.List_Dot), new[]
             {
-                body.Terraformable ? "terraformable" : "",
-                body.HasRings ? "rings" : "",
+                body.Terraformable ? Strings.Get(Keys.Body_Terraformable) : "",
+                body.HasRings ? Strings.Get(Keys.Body_Rings) : "",
             }.Where(part => part.Length > 0));
-        var temperature = !body.IsStar && body.SurfaceTemperatureK is { } kelvin ? string.Create(CultureInfo.InvariantCulture, $"{kelvin:0}K") : "";
+        var temperature = !body.IsStar && body.SurfaceTemperatureK is { } kelvin ? Strings.Format(Keys.Unit_Kelvin, ("value", kelvin)) : "";
 
         var scanCredits = ScanCredits(body);
         var scanValue = body.FromNavBeacon
-            ? "nav beacon data, nothing to sell"
+            ? Strings.Get(Keys.Body_NavBeaconData)
             : body.FromCatalogue
             ? ""
             : body.IsStar
             ? Display.Credits(scanCredits)
-            : string.Create(
-                CultureInfo.InvariantCulture,
-                $"{Display.Credits(BodyValue.Planet(body.Class, body.Terraformable, body.MassEarths ?? 1, !body.WasDiscovered, mapped: false, !body.WasMapped))} scanned, {Display.Credits(BodyValue.Planet(body.Class, body.Terraformable, body.MassEarths ?? 1, !body.WasDiscovered, mapped: true, !body.WasMapped))} mapped");
+            : Strings.Format(
+                Keys.Body_ScannedMapped,
+                ("scanned", Display.Credits(BodyValue.Planet(body.Class, body.Terraformable, body.MassEarths ?? 1, !body.WasDiscovered, mapped: false, !body.WasMapped))),
+                ("mapped", Display.Credits(BodyValue.Planet(body.Class, body.Terraformable, body.MassEarths ?? 1, !body.WasDiscovered, mapped: true, !body.WasMapped))));
 
         return new BodyRow(
             ShortName(body.Name, snapshot.SystemName),
             body.IsStar,
             body.IsStar && StarClasses.IsScoopable(body.Class),
-            body.IsStar ? StarClasses.Describe(body.Class) : body.Class ?? "Belt cluster",
+            body.IsStar ? StarText.Describe(body.Class) : body.Class is null ? Strings.Get(Keys.Body_BeltCluster) : Names.PlanetClass(body.Class),
             body.DistanceLs,
             body.IsStar ? null : body.SurfaceGravityG,
             surface,
             temperature,
-            body.Atmosphere.Length > 0 ? body.Atmosphere : (body.IsStar ? "" : "no atmosphere"),
-            body.Volcanism,
+            body.Atmosphere.Length > 0 ? Names.Atmosphere(body.Atmosphere) : (body.IsStar ? "" : Strings.Get(Keys.Body_NoAtmosphere)),
+            Names.Volcanism(body.Volcanism),
             body.Landable,
             !body.WasDiscovered,
             !body.WasMapped,
             !body.WasFootfalled && !snapshot.Populated,
             body.MappedByYou,
             body.LandedByYou,
-            signals.Count > 0 ? string.Join(", ", signals) : "",
+            signals.Count > 0 ? Display.List(signals) : "",
             body.BiologicalSignals,
             [.. genera.OrderByDescending(genus => genus.ExpectedCredits).ThenBy(genus => genus.Name, StringComparer.Ordinal)],
             bacteriaOnlyByPrediction,
-            string.Join(", ", materials.Take(6).Select(material => string.Create(CultureInfo.InvariantCulture, $"{material.Name} {material.Share:0.0}%"))),
+            Display.List(materials.Take(6).Select(material => Strings.Format(Keys.Body_MaterialShare, ("material", material.Name), ("share", material.Share)))),
             [.. materials.Select(material => material.Name)],
+            [.. materials.Select(material => material.Symbol)],
             scanValue,
             scanCredits,
             bio,
@@ -649,7 +654,7 @@ public sealed class BodyRowBuilder
             possibleGenera,
             materials.Count == 0 ? 0 : materials.Max(material => material.Grade),
             !body.FromCatalogue && snapshot.ArrivedAt is { } arrived && body.ScannedAt != default && body.ScannedAt < arrived
-                ? string.Create(CultureInfo.InvariantCulture, $"scanned {body.ScannedAt.ToLocalTime():d MMM}")
+                ? Strings.Format(Keys.Body_ScannedOn, ("when", body.ScannedAt.ToLocalTime()))
                 : "",
             body.FromCatalogue,
             body.Sold,

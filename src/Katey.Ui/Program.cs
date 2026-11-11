@@ -1,6 +1,9 @@
 ﻿using Avalonia;
 using Katey.App.Logging;
 using Katey.App.Persistence;
+using Katey.App.Text;
+using Katey.Localization;
+using Katey.Ui.Text;
 using Microsoft.Extensions.Logging;
 
 namespace Katey.Ui;
@@ -18,7 +21,7 @@ internal static class Program
     public static FileLoggerProvider FileLog { get; private set; } = OpenLog(LogArguments.DefaultLevel);
 
     /// <summary>Starts the application.</summary>
-    /// <param name="args">Command-line arguments: <c>--log-level &lt;level&gt;</c> or <c>--verbose</c> sets the log file's floor; the rest pass through to Avalonia.</param>
+    /// <param name="args">Command-line arguments: <c>--log-level &lt;level&gt;</c> or <c>--verbose</c> sets the log file's floor; <c>--pseudo-loc</c> shows every text lengthened and accented, to find clipping and untranslated words; the rest pass through to Avalonia.</param>
     /// <returns>The process exit code.</returns>
     [STAThread]
     public static int Main(string[] args)
@@ -28,6 +31,12 @@ internal static class Program
         {
             FileLog.Dispose();
             FileLog = OpenLog(level);
+        }
+
+        if (args.Contains("--pseudo-loc", StringComparer.OrdinalIgnoreCase))
+        {
+            Strings.Localizer.Decorate(source => new PseudoTextSource(source));
+            UiText.Localizer.Decorate(source => new PseudoTextSource(source));
         }
 
         AppDomain.CurrentDomain.UnhandledException += (_, e) => FileLog.WriteCrash(e.ExceptionObject as Exception);

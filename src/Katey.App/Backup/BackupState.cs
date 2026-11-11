@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Katey.App.Text;
 using Katey.App.ViewModels;
 using Katey.Journal;
 using Microsoft.Extensions.Logging;
@@ -15,6 +16,7 @@ public sealed class BackupState
     private readonly IJournalBackup _backup;
     private readonly Action<Action> _dispatch;
     private readonly ILogger _logger;
+    private Report _report = new(ReportKind.None);
 
     /// <summary>Creates the state.</summary>
     /// <param name="backup">What copies the folder.</param>
@@ -72,7 +74,15 @@ public sealed class BackupState
     public bool IsConfigured => Folder.Length > 0;
 
     /// <summary>Gets one line on the last run, or what is happening now. Empty before any run.</summary>
-    public string Status { get; private set; } = "";
+    public string Status => _report.Kind switch
+    {
+        ReportKind.Running => Strings.Format(Keys.Backup_Running, ("folder", _report.Folder)),
+        ReportKind.Done => Describe(_report.Result!, _report.At),
+        ReportKind.NoFolder => Strings.Get(Keys.Backup_NoFolder),
+        ReportKind.Error => Strings.Format(Keys.Backup_Error, ("message", _report.Error)),
+        ReportKind.None => "",
+        _ => "",
+    };
 
     /// <summary>Gets whether a backup is running.</summary>
     public bool IsBusy { get; private set; }
@@ -88,16 +98,16 @@ public sealed class BackupState
         }
 
         IsBusy = true;
-        Status = $"Backing up to {Folder}…";
+        _report = new(ReportKind.Running, Folder: Folder);
         Changed?.Invoke(this, EventArgs.Empty);
         var destination = Folder;
         _ = Task.Run(() =>
         {
-            var status = Run(sourceFolder, destination);
+            var report = Run(sourceFolder, destination);
             _dispatch(() =>
             {
                 // The status lands before the busy flag drops, so anything waiting on the flag reads the finished status.
-                Status = status;
+                _report = report;
                 IsBusy = false;
                 Changed?.Invoke(this, EventArgs.Empty);
             });
@@ -134,22 +144,34 @@ public sealed class BackupState
     {
         ArgumentNullException.ThrowIfNull(result);
         var when = at.ToLocalTime().ToString("HH:mm", CultureInfo.InvariantCulture);
-        var line = $"Backed up at {when}: {Display.Plural(result.Copied, "file")} copied, {result.Skipped} already current.";
-        return result.IsComplete ? line : $"{line} {Display.Plural(result.Failures.Count, "file")} failed: {result.Failures[0]}";
+        var line = Strings.Format(Keys.Backup_Done, ("when", when), ("files", Display.Plural(Keys.Plural_Files, result.Copied)), ("skipped", result.Skipped));
+        return result.IsComplete ? line : line + " " + Strings.Format(Keys.Backup_Failed, ("files", Display.Plural(Keys.Plural_Files, result.Failures.Count)), ("first", result.Failures[0]));
     }
 
-    private string Run(string sourceFolder, string destination)
+    private Report Run(string sourceFolder, string destination)
     {
         try
         {
             return sourceFolder.Length == 0
-                ? "No journal folder to back up. Set one above first."
-                : Describe(_backup.Copy(sourceFolder, destination), DateTimeOffset.UtcNow);
+                ? new Report(ReportKind.NoFolder)
+                : new Report(ReportKind.Done, _backup.Copy(sourceFolder, destination), DateTimeOffset.UtcNow);
         }
         catch (Exception exception) when (exception is ArgumentException or IOException or UnauthorizedAccessException)
         {
             Log.BackupFailed(_logger, exception);
-            return $"Backup failed: {exception.Message}";
+            return new Report(ReportKind.Error, Error: exception.Message);
         }
     }
+
+    private enum ReportKind
+    {
+        None,
+        Running,
+        Done,
+        NoFolder,
+        Error,
+    }
+
+    /// <summary>What the last backup did, kept as facts so <see cref="Status"/> can be worded in whatever language is in force when it is read.</summary>
+    private sealed record Report(ReportKind Kind, BackupResult? Result = null, DateTimeOffset At = default, string? Error = null, string Folder = "");
 }

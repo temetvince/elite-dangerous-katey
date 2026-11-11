@@ -19,14 +19,14 @@ dotnet publish "$here/src/Katey.Ui" \
     -p:DebugSymbols=false \
     -p:PublishDocumentationFile=false \
     -p:PublishReferencesDocumentationFiles=false \
-    -p:SatelliteResourceLanguages=en \
+    -p:SatelliteResourceLanguages=en%3Bde%3Bes%3Bfr%3Bpt-BR%3Bru \
     -p:Version="$version"
 
 # SkiaSharp and HarfBuzzSharp ship their native symbol files; they are not Katey's and do not ship.
 rm -f "$here"/bin/*.pdb
 
 # The manual and the legal notices travel with the executable.
-cp "$here/MANUAL.md" "$here/NOTICE.md" "$here/THIRD-PARTY-NOTICES.txt" "$here/bin/"
+cp "$here"/MANUAL*.md "$here/NOTICE.md" "$here/THIRD-PARTY-NOTICES.txt" "$here/bin/"
 echo
 echo "Published to $here/bin"
 ls -1 "$here/bin"

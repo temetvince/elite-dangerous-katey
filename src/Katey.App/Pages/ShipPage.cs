@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using Katey.App.Mvvm;
 using Katey.App.Navigation;
+using Katey.App.Text;
 using Katey.App.ViewModels;
 using Katey.Core;
 using Katey.Core.Edsy;
@@ -61,8 +62,8 @@ public sealed class FittedModuleRow : ObservableObject
         Engineering = engineeringText;
         IsEngineered = module.Engineering is not null;
         IsPrebuilt = isPrebuilt;
-        Blueprints = type is null ? [] : [.. scope.Blueprints(type).Select(blueprint => new Choice(blueprint.Key, blueprint.Name))];
-        Experimentals = type is null ? [Choice.None] : [Choice.None, .. scope.Experimentals(type).Select(effect => new Choice(effect.Key, effect.Name))];
+        Blueprints = type is null ? [] : [.. scope.Blueprints(type).Select(blueprint => new Choice(blueprint.Key, Names.Blueprint(blueprint)))];
+        Experimentals = type is null ? [Choice.None] : [Choice.None, .. scope.Experimentals(type).Select(effect => new Choice(effect.Key, Names.Experimental(effect)))];
         AddCommand = new RelayCommand(Add, () => CanPlan && SelectedBlueprint is not null && !IsPlanned && !IsAlreadyDone);
 
         var current = module.Engineering;
@@ -144,7 +145,7 @@ public sealed class FittedModuleRow : ObservableObject
     }
 
     /// <summary>Gets the add button's label: "Add to plan", "In the plan" when the picker's choice is already planned, or "Already engineered" when the module already has it.</summary>
-    public string AddText => IsPlanned ? "In the plan" : IsAlreadyDone ? "Already engineered" : "Add to plan";
+    public string AddText => IsPlanned ? Strings.Get(Keys.Ship_InThePlan) : IsAlreadyDone ? Strings.Get(Keys.Ship_AlreadyEngineered) : Strings.Get(Keys.Ship_AddToPlan);
 
     /// <summary>Gets the blueprints the type allows.</summary>
     public IReadOnlyList<Choice> Blueprints { get; }
@@ -259,7 +260,7 @@ public enum PrebuiltTone
 public sealed record PrebuiltSummary(string Lead, string State, string Detail, PrebuiltTone Tone)
 {
     /// <summary>Gets the whole line as one sentence.</summary>
-    public string Text => $"{Lead} - {State}{Detail}";
+    public string Text => Strings.Format(Keys.Ship_PrebuiltLine, ("lead", Lead), ("state", State), ("detail", Detail));
 
     /// <summary>Gets whether a slot differs from the fit as redeemed.</summary>
     public bool IsChanged => Tone == PrebuiltTone.Changed;
@@ -288,13 +289,13 @@ public sealed class ShipPage : Page, IEdsyExportable
         : base(new PageKey(PageKind.Ship, shipId), workspace)
     {
         _shipId = int.Parse(shipId, CultureInfo.InvariantCulture);
-        Kicker = "Ship";
-        Breadcrumbs = [LinkTo("Fleet", PageKind.Fleet)];
+        Kicker = Strings.Get(Keys.Ship_Kicker);
+        Breadcrumbs = [LinkTo(Strings.Get(Keys.Nav_Fleet), PageKind.Fleet)];
         Sort = new TableSort<FittedModuleRow>(
             [
-                new("slot", "Slot", row => row.Slot),
-                new("name", "Module", row => row.Name),
-                new("engineering", "Engineering", row => row.Engineering),
+                new("slot", Strings.Get(Keys.Column_Slot), row => row.Slot),
+                new("name", Strings.Get(Keys.Column_Module), row => row.Name),
+                new("engineering", Strings.Get(Keys.Column_Engineering), row => row.Engineering),
             ],
             "slot",
             workspace.Preferences,
@@ -390,10 +391,10 @@ public sealed class ShipPage : Page, IEdsyExportable
         return !ship.IsPrebuilt
             ? null
             : ship.RedeemedModules is null
-            ? new PrebuiltSummary("Prebuilt ship", "Redeemed from a bundle", ". Its fit as redeemed has not been seen yet.", PrebuiltTone.Unknown)
+            ? new PrebuiltSummary(Strings.Get(Keys.Ship_PrebuiltLead), Strings.Get(Keys.Ship_PrebuiltUnknown), Strings.Get(Keys.Ship_PrebuiltUnknownDetail), PrebuiltTone.Unknown)
             : changed == 0
-            ? new PrebuiltSummary("Prebuilt ship", "Still as redeemed", ": selling it and redeeming it again loses nothing.", PrebuiltTone.Unchanged)
-            : new PrebuiltSummary("Prebuilt ship", "Changed since redemption", $": {Display.Plural(changed, "slot differs", "slots differ")} from how it came, and selling it would lose that.", PrebuiltTone.Changed);
+            ? new PrebuiltSummary(Strings.Get(Keys.Ship_PrebuiltLead), Strings.Get(Keys.Ship_PrebuiltUnchanged), Strings.Get(Keys.Ship_PrebuiltUnchangedDetail), PrebuiltTone.Unchanged)
+            : new PrebuiltSummary(Strings.Get(Keys.Ship_PrebuiltLead), Strings.Get(Keys.Ship_PrebuiltChanged), Strings.Plural(Keys.Ship_PrebuiltChangedDetail, changed), PrebuiltTone.Changed);
     }
 
     /// <summary>
@@ -423,7 +424,7 @@ public sealed class ShipPage : Page, IEdsyExportable
         {
             if (!before.TryGetValue(module.Slot, out var was))
             {
-                rows.Add(new PrebuiltChangeRow(SlotNames.Display(module.Slot), "empty", Describe(workspace, module)));
+                rows.Add(new PrebuiltChangeRow(SlotNames.Display(module.Slot), Strings.Get(Keys.Ship_Empty), Describe(workspace, module)));
             }
             else if (!string.Equals(was.Item, module.Item, StringComparison.OrdinalIgnoreCase) || was.Engineering != module.Engineering)
             {
@@ -431,20 +432,20 @@ public sealed class ShipPage : Page, IEdsyExportable
             }
             else if (prebuiltThen.Contains(module.Slot) && !prebuiltNow.Contains(module.Slot))
             {
-                rows.Add(new PrebuiltChangeRow(SlotNames.Display(module.Slot), $"{Describe(workspace, was)}, prebuilt", $"{Describe(workspace, module)}, bought: it can be stored, moved or sold"));
+                rows.Add(new PrebuiltChangeRow(SlotNames.Display(module.Slot), Strings.Format(Keys.Ship_WasPrebuilt, ("module", Describe(workspace, was))), Strings.Format(Keys.Ship_NowBought, ("module", Describe(workspace, module)))));
             }
         }
 
         foreach (var module in then.Where(module => !now.Any(current => string.Equals(current.Slot, module.Slot, StringComparison.OrdinalIgnoreCase))))
         {
-            rows.Add(new PrebuiltChangeRow(SlotNames.Display(module.Slot), Describe(workspace, module), "empty"));
+            rows.Add(new PrebuiltChangeRow(SlotNames.Display(module.Slot), Describe(workspace, module), Strings.Get(Keys.Ship_Empty)));
         }
 
         return rows;
     }
 
     private static string Describe(Workspace workspace, FitModule module)
-        => $"{workspace.Modules.NameOf(module.Item)}, {FleetPage.EngineeringText(workspace, module.Engineering)}";
+        => Strings.Format(Keys.Ship_ModuleAndEngineering, ("module", workspace.ModuleName(module.Item)), ("engineering", FleetPage.EngineeringText(workspace, module.Engineering)));
 
     /// <summary>Finds the ship, or <see langword="null"/> when the fleet does not have it.</summary>
     /// <param name="fleet">The fleet.</param>
@@ -465,7 +466,7 @@ public sealed class ShipPage : Page, IEdsyExportable
         var ship = fleet.Ships.FirstOrDefault(ship => ship.ShipId == _shipId);
         if (ship is null)
         {
-            Title = "Ship sold or unknown";
+            Title = Strings.Get(Keys.Ship_SoldOrUnknown);
             Prebuilt = null;
             PrebuiltChanges = [];
             OnPropertyChanged(nameof(PrebuiltText));
@@ -487,11 +488,11 @@ public sealed class ShipPage : Page, IEdsyExportable
         IsCurrent = ship.IsCurrent;
         IsPrebuilt = ship.IsPrebuilt;
         Where = ship.InTransit
-            ? Place.Only("in transit")
+            ? Place.Only(Strings.Get(Keys.Fleet_InTransit))
             : ship.System is null
-                ? Place.Only("location unknown")
+                ? Place.Only(Strings.Get(Keys.Fleet_LocationUnknown))
                 : new Place(LinkTo(ship.System, PageKind.System, ship.System), ship.Station ?? "");
-        FitText = ship.FitAsOf is { } asOf ? string.Create(CultureInfo.CurrentCulture, $"Fit as of {asOf.ToLocalTime():g}.") : "Fit unknown: this ship has not been flown since the journal began.";
+        FitText = ship.FitAsOf is { } asOf ? Strings.Format(Keys.Ship_FitAsOf, ("when", asOf.ToLocalTime())) : Strings.Get(Keys.Ship_FitUnknown);
         ScopeNote = Workspace.Scope.Note;
         var prebuiltSlots = ship.Modules.Where(module => module.IsPrebuilt).Select(module => module.Slot).ToHashSet(StringComparer.OrdinalIgnoreCase);
         PrebuiltChanges = PrebuiltChangeRows(Workspace, ship);
@@ -508,9 +509,9 @@ public sealed class ShipPage : Page, IEdsyExportable
             return new FittedModuleRow(
                 Workspace.Catalog,
                 module,
-                Workspace.Modules.NameOf(module.Item),
+                Workspace.ModuleName(module.Item),
                 type,
-                type is null ? null : LinkTo(type.Name, PageKind.ModuleType, type.Code),
+                type is null ? null : LinkTo(Names.ModuleType(type), PageKind.ModuleType, type.Code),
                 FleetPage.EngineeringText(Workspace, module.Engineering),
                 title,
                 entry => Workspace.Plan.Add([entry]),
@@ -518,7 +519,7 @@ public sealed class ShipPage : Page, IEdsyExportable
                 prebuiltSlots.Contains(module.Slot),
                 IsPlanned);
         }));
-        ModulesText = modules.Count == 0 ? "" : $"{Display.Plural(modules.Count, "module")}, {modules.Count(module => module.Engineering is not null)} engineered";
+        ModulesText = modules.Count == 0 ? "" : Strings.Format(Keys.Ship_ModulesText, ("modules", Display.Plural(Keys.Plural_Modules, modules.Count)), ("engineered", modules.Count(module => module.Engineering is not null)));
         Fits = [.. Workspace.Fleet.Fittings.Where(fit => string.Equals(fit.Hull, ship.Type, StringComparison.OrdinalIgnoreCase)).Select(fit => LinkTo(fit.Name, PageKind.Fit, fit.Id))];
         OnPropertyChanged(nameof(HasFits));
         EdsyJson = ship.LoadoutJson ?? (modules.Count == 0 ? "" : EdsyExport.LoadoutJson(ship.Type, ship.Name, ship.Ident, modules));

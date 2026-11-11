@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using Katey.App.Mvvm;
 using Katey.App.Navigation;
+using Katey.App.Text;
 using Katey.App.ViewModels;
 using Katey.Core.Charts;
 using Katey.Journal;
@@ -55,19 +56,19 @@ public sealed record WingMissionRow(string Name, string Faction, long Reward, Da
     public string RewardText => Display.CreditsExact(Reward);
 
     /// <summary>Gets when it was accepted, in local time.</summary>
-    public string AcceptedText => AcceptedAt.ToLocalTime().ToString("d MMM HH:mm", CultureInfo.InvariantCulture);
+    public string AcceptedText => AcceptedAt.ToLocalTime().ToString("g", CultureInfo.CurrentCulture);
 
     /// <summary>Gets the wing at acceptance as text.</summary>
-    public string WithText => Display.Names(Partners, "nobody in the wing");
+    public string WithText => Display.Names(Partners, Strings.Get(Keys.Stats_NobodyInWing));
 
     /// <summary>Gets how it stands as text, with what it paid when completed.</summary>
     public string OutcomeText => Outcome switch
     {
-        MissionOutcome.Active => "open",
-        MissionOutcome.Completed => $"completed, {Display.CreditsExact(Paid)}",
-        MissionOutcome.Failed => "failed",
-        MissionOutcome.Abandoned => "abandoned",
-        MissionOutcome.Lapsed => "gone from the list",
+        MissionOutcome.Active => Strings.Get(Keys.Stats_MissionOpen),
+        MissionOutcome.Completed => Strings.Format(Keys.Stats_MissionCompleted, ("paid", Display.CreditsExact(Paid))),
+        MissionOutcome.Failed => Strings.Get(Keys.Stats_MissionFailed),
+        MissionOutcome.Abandoned => Strings.Get(Keys.Stats_MissionAbandoned),
+        MissionOutcome.Lapsed => Strings.Get(Keys.Stats_MissionLapsed),
         _ => Outcome.ToString(),
     };
 
@@ -90,7 +91,7 @@ public sealed record PartnerRow(string Name, int Sessions, TimeSpan Together, lo
     public string SharedText => Display.CreditsExact(Shared);
 
     /// <summary>Gets the last session's date as text.</summary>
-    public string LastSeenText => LastSeen.ToLocalTime().ToString("d MMM yyyy", CultureInfo.InvariantCulture);
+    public string LastSeenText => LastSeen.ToLocalTime().ToString("d", CultureInfo.CurrentCulture);
 }
 
 /// <summary>One activity in the income chart's legend: its switch, colour and figures.</summary>
@@ -164,18 +165,18 @@ public sealed class StatisticsPage : Page
 
     private static readonly string[] Palette = ["#4E79A7", "#F28E2B", "#E15759", "#76B7B2", "#59A14F", "#EDC948", "#B07AA1", "#FF9DA7", "#9C755F", "#BAB0AC"];
 
-    private static readonly (IncomeKind Kind, string Label)[] Kinds =
+    private static readonly (IncomeKind Kind, string Key)[] Kinds =
     [
-        (IncomeKind.Bounties, "Bounties"),
-        (IncomeKind.CombatBonds, "Combat bonds"),
-        (IncomeKind.Trading, "Trading"),
-        (IncomeKind.MiningAndSalvage, "Mining and salvage"),
-        (IncomeKind.Exploration, "Exploration"),
-        (IncomeKind.Exobiology, "Exobiology"),
-        (IncomeKind.Missions, "Missions"),
-        (IncomeKind.SearchAndRescue, "Search and rescue"),
-        (IncomeKind.Powerplay, "Powerplay"),
-        (IncomeKind.Other, "Other"),
+        (IncomeKind.Bounties, Keys.Stats_KindBounties),
+        (IncomeKind.CombatBonds, Keys.Stats_KindCombatBonds),
+        (IncomeKind.Trading, Keys.Stats_KindTrading),
+        (IncomeKind.MiningAndSalvage, Keys.Stats_KindMiningAndSalvage),
+        (IncomeKind.Exploration, Keys.Stats_KindExploration),
+        (IncomeKind.Exobiology, Keys.Stats_KindExobiology),
+        (IncomeKind.Missions, Keys.Stats_KindMissions),
+        (IncomeKind.SearchAndRescue, Keys.Stats_KindSearchAndRescue),
+        (IncomeKind.Powerplay, Keys.Stats_KindPowerplay),
+        (IncomeKind.Other, Keys.Stats_KindOther),
     ];
 
     private bool _loading;
@@ -185,30 +186,30 @@ public sealed class StatisticsPage : Page
     public StatisticsPage(Workspace workspace)
         : base(new PageKey(PageKind.Statistics), workspace)
     {
-        Title = "Statistics";
-        Kicker = "Commander";
+        Title = Strings.Get(Keys.Stats_Title);
+        Kicker = Strings.Get(Keys.Stats_Kicker);
         Sections = new SectionSwitch(
             [
-                ("income", "Income"),
-                ("exobiology", "Exobiology"),
-                ("exploration", "Exploration"),
-                ("combat", "Combat"),
-                ("trading", "Trading and mining"),
-                ("missions", "Missions and other"),
-                ("powerplay", "Powerplay"),
-                ("together", "Wings and crews"),
-                ("lifetime", "Lifetime figures"),
+                ("income", Strings.Get(Keys.Section_Income)),
+                ("exobiology", Strings.Get(Keys.Section_Exobiology)),
+                ("exploration", Strings.Get(Keys.Section_Exploration)),
+                ("combat", Strings.Get(Keys.Section_Combat)),
+                ("trading", Strings.Get(Keys.Section_TradingAndMining)),
+                ("missions", Strings.Get(Keys.Section_MissionsAndOther)),
+                ("powerplay", Strings.Get(Keys.Section_Powerplay)),
+                ("together", Strings.Get(Keys.Section_WingsAndCrews)),
+                ("lifetime", Strings.Get(Keys.Section_Lifetime)),
             ],
             "income",
             workspace.Preferences,
             "section.stats");
         PartnerSort = new TableSort<PartnerRow>(
             [
-                new("name", "Commander", row => row.Name),
-                new("sessions", "Sessions", row => row.Sessions, DescendingFirst: true),
-                new("together", "Time together", row => row.Together, DescendingFirst: true),
-                new("shared", "Shared", row => row.Shared, DescendingFirst: true),
-                new("seen", "Last flown", row => row.LastSeen, DescendingFirst: true),
+                new("name", Strings.Get(Keys.Column_Commander), row => row.Name),
+                new("sessions", Strings.Get(Keys.Column_Sessions), row => row.Sessions, DescendingFirst: true),
+                new("together", Strings.Get(Keys.Column_TimeTogether), row => row.Together, DescendingFirst: true),
+                new("shared", Strings.Get(Keys.Column_Shared), row => row.Shared, DescendingFirst: true),
+                new("seen", Strings.Get(Keys.Column_LastFlown), row => row.LastSeen, DescendingFirst: true),
             ],
             "shared",
             workspace.Preferences,
@@ -216,11 +217,11 @@ public sealed class StatisticsPage : Page
         PartnerSort.Changed += (_, _) => Refresh();
         WingMissionSort = new TableSort<WingMissionRow>(
             [
-                new("mission", "Mission", row => row.Name),
-                new("faction", "Faction", row => row.Faction),
-                new("reward", "Reward", row => row.Reward, DescendingFirst: true),
-                new("accepted", "Accepted", row => row.AcceptedAt, DescendingFirst: true),
-                new("status", "Status", row => row.Outcome),
+                new("mission", Strings.Get(Keys.Column_Mission), row => row.Name),
+                new("faction", Strings.Get(Keys.Column_Faction), row => row.Faction),
+                new("reward", Strings.Get(Keys.Column_Reward), row => row.Reward, DescendingFirst: true),
+                new("accepted", Strings.Get(Keys.Column_Accepted), row => row.AcceptedAt, DescendingFirst: true),
+                new("status", Strings.Get(Keys.Column_Status), row => row.Outcome),
             ],
             "accepted",
             workspace.Preferences,
@@ -228,18 +229,18 @@ public sealed class StatisticsPage : Page
         WingMissionSort.Changed += (_, _) => Refresh();
         SpeciesSort = new TableSort<SpeciesRow>(
             [
-                new("species", "Species", row => row.Species),
-                new("samples", "Samples", row => row.Samples, DescendingFirst: true),
-                new("total", "With bonus", row => row.Total, DescendingFirst: true),
-                new("base", "Without bonus", row => row.Total - row.Bonus, DescendingFirst: true),
-                new("bonus", "Bonus", row => row.Bonus, DescendingFirst: true),
+                new("species", Strings.Get(Keys.Column_Species), row => row.Species),
+                new("samples", Strings.Get(Keys.Column_Samples), row => row.Samples, DescendingFirst: true),
+                new("total", Strings.Get(Keys.Column_WithBonus), row => row.Total, DescendingFirst: true),
+                new("base", Strings.Get(Keys.Column_WithoutBonus), row => row.Total - row.Bonus, DescendingFirst: true),
+                new("bonus", Strings.Get(Keys.Column_Bonus), row => row.Bonus, DescendingFirst: true),
             ],
             "total",
             workspace.Preferences,
             "sort.species");
         SpeciesSort.Changed += (_, _) => Refresh();
         var hidden = workspace.Preferences.GetSet(HiddenKey);
-        Activities = [.. Kinds.Select((pair, index) => new ActivityToggle(pair.Kind, pair.Label, Palette[index % Palette.Length], !hidden.Contains(pair.Kind.ToString()), OnToggle))];
+        Activities = [.. Kinds.Select((pair, index) => new ActivityToggle(pair.Kind, Strings.Get(pair.Key), Palette[index % Palette.Length], !hidden.Contains(pair.Kind.ToString()), OnToggle))];
         SelectedPeriod = Periods.FirstOrDefault(choice => choice.Key == workspace.Preferences.Get(PeriodKey)) ?? Periods[0];
         Refresh();
     }
@@ -250,11 +251,11 @@ public sealed class StatisticsPage : Page
     /// <summary>Gets the periods the ledger figures can be narrowed to.</summary>
     public IReadOnlyList<Choice> Periods { get; } =
     [
-        new("all", "All time"),
-        new("7", "Last 7 days"),
-        new("30", "Last 30 days"),
-        new("90", "Last 90 days"),
-        new("365", "Last year"),
+        new("all", Strings.Get(Keys.Stats_PeriodAll)),
+        new("7", Strings.Get(Keys.Stats_Period7)),
+        new("30", Strings.Get(Keys.Stats_Period30)),
+        new("90", Strings.Get(Keys.Stats_Period90)),
+        new("365", Strings.Get(Keys.Stats_Period365)),
     ];
 
     /// <summary>Gets or sets the period. Must be one of <see cref="Periods"/>. Remembered.</summary>
@@ -338,7 +339,7 @@ public sealed class StatisticsPage : Page
     public bool HasWingMissions => WingMissions.Count > 0;
 
     /// <summary>Gets what the wing missions table lists, so a mission taken from the board while winged is not a surprise.</summary>
-    public static string WingMissionsNote => "Wing missions accepted in the period, with who was in the wing at the time, and every one still open. The journal does not say whether a wing mission came from the board or from a wingmate, so one you took yourself while winged is here too.";
+    public static string WingMissionsNote => Strings.Get(Keys.Stats_WingMissionsNote);
 
     /// <summary>Gets everyone flown with in the period, in sort order.</summary>
     public IReadOnlyList<PartnerRow> Partners { get; private set => SetProperty(ref field, value); } = [];
@@ -392,7 +393,7 @@ public sealed class StatisticsPage : Page
 
         if (key.Contains("OnFoot_Distance", StringComparison.OrdinalIgnoreCase))
         {
-            return string.Create(CultureInfo.InvariantCulture, $"{value / 1000:#,0.0} km");
+            return Strings.Format(Keys.Unit_Kilometres, ("value", value / 1000));
         }
 
         if (key.Contains("Distance", StringComparison.OrdinalIgnoreCase))
@@ -421,10 +422,10 @@ public sealed class StatisticsPage : Page
         var ledger = statistics.Income;
         var income = ledger.Where(entry => entry.At >= since).ToList();
         LedgerNote = ledger.Count == 0
-            ? "The ledger fills as the journal history is read: every sale, voucher, reward and salary."
+            ? Strings.Get(Keys.Stats_LedgerEmpty)
             : SelectedPeriod.Key == "all"
-                ? $"{Display.Plural(income.Count, "payment")} since {ledger[0].At.ToLocalTime().ToString("d MMM yyyy", CultureInfo.InvariantCulture)}."
-                : $"{Display.Plural(income.Count, "payment")} in the period.";
+                ? Strings.Format(Keys.Stats_PaymentsSince, ("payments", Display.Plural(Keys.Plural_Payments, income.Count)), ("when", ledger[0].At.ToLocalTime()))
+                : Strings.Format(Keys.Stats_PaymentsInPeriod, ("payments", Display.Plural(Keys.Plural_Payments, income.Count)));
 
         RefreshChart(income);
         var aboard = CarriedDataSummary.Of(Workspace.Carried, Workspace.Predictor);
@@ -441,13 +442,13 @@ public sealed class StatisticsPage : Page
         [
             .. statistics.Lifetime
                 .Select(section => new StatGroup(
-                    LabelOf(section.Name),
-                    [.. section.Figures.Where(pair => showZeros || pair.Value != 0).Select(pair => new StatRow(LabelOf(pair.Key), FormatFigure(pair.Key, pair.Value)))]))
+                    Names.FigureSection(section.Name, LabelOf(section.Name)),
+                    [.. section.Figures.Where(pair => showZeros || pair.Value != 0).Select(pair => new StatRow(Names.Figure(pair.Key, LabelOf(pair.Key)), FormatFigure(pair.Key, pair.Value)))]))
                 .Where(group => group.Rows.Count > 0),
         ];
         LifetimeNote = statistics.AsOf is { } asOf
-            ? $"As the game reported them on {asOf.ToLocalTime().ToString("d MMM yyyy HH:mm", CultureInfo.InvariantCulture)}. The game writes them each time you load in."
-            : "The game writes its lifetime figures each time you load in; none has been read yet.";
+            ? Strings.Format(Keys.Stats_LifetimeAsOf, ("when", asOf.ToLocalTime()))
+            : Strings.Get(Keys.Stats_LifetimeNone);
     }
 
     private static Summary Summarise(IEnumerable<IncomeEntry> entries)
@@ -457,7 +458,7 @@ public sealed class StatisticsPage : Page
     }
 
     private static IReadOnlyList<StatRow> LifetimeRows(StatisticsSnapshot statistics, string section, params string[] keys)
-        => [.. keys.Select(key => (Key: key, Value: statistics.Figure(section, key))).Where(pair => pair.Value is not null).Select(pair => new StatRow(LabelOf(pair.Key), FormatFigure(pair.Key, pair.Value!.Value)))];
+        => [.. keys.Select(key => (Key: key, Value: statistics.Figure(section, key))).Where(pair => pair.Value is not null).Select(pair => new StatRow(Names.Figure(pair.Key, LabelOf(pair.Key)), FormatFigure(pair.Key, pair.Value!.Value)))];
 
     private static StatGroup? Lifetime(StatisticsSnapshot statistics, string title, string section, params string[] keys)
     {
@@ -470,10 +471,10 @@ public sealed class StatisticsPage : Page
     private static StatGroup Ledger(string title, Summary summary, string paymentWord)
         => new(title,
         [
-            new StatRow("Earned", Display.CreditsExact(summary.Total)),
+            new StatRow(Strings.Get(Keys.Stats_Earned), Display.CreditsExact(summary.Total)),
             new StatRow(paymentWord, Display.Whole(summary.Count)),
-            new StatRow("Largest", Display.CreditsExact(summary.Largest)),
-            new StatRow("Average", Display.CreditsExact(summary.Count == 0 ? 0 : summary.Total / summary.Count)),
+            new StatRow(Strings.Get(Keys.Stats_Largest), Display.CreditsExact(summary.Largest)),
+            new StatRow(Strings.Get(Keys.Stats_Average), Display.CreditsExact(summary.Count == 0 ? 0 : summary.Total / summary.Count)),
         ]);
 
     private void OnToggle(ActivityToggle toggle)
@@ -495,9 +496,9 @@ public sealed class StatisticsPage : Page
         {
             var summary = byKind.GetValueOrDefault(activity.Kind);
             activity.AmountText = Display.CreditsExact(summary?.Total ?? 0);
-            activity.CountText = summary is null ? "no payments" : Display.Plural(summary.Count, "payment");
+            activity.CountText = summary is null ? Strings.Get(Keys.Stats_NoPayments) : Display.Plural(Keys.Plural_Payments, summary.Count);
             var share = activity.IsShown && shownTotal > 0 && summary is { Total: > 0 } ? (double)summary.Total / shownTotal : 0;
-            activity.ShareText = share > 0 ? string.Create(CultureInfo.InvariantCulture, $"{share * 100:0.0}%") : "";
+            activity.ShareText = share > 0 ? Strings.Format(Keys.Unit_Percent, ("value", share * 100)) : "";
         }
 
         var slices = PieChart.Build(shown.Select(activity => (activity.Kind.ToString(), (double)Math.Max(0, byKind.GetValueOrDefault(activity.Kind)?.Total ?? 0))), 220);
@@ -506,41 +507,41 @@ public sealed class StatisticsPage : Page
             .. slices.Select(slice =>
             {
                 var activity = Activities.First(candidate => candidate.Kind.ToString() == slice.Key);
-                return new ChartSlice(activity.Label, activity.Color, slice.PathData, string.Create(CultureInfo.InvariantCulture, $"{activity.Label}: {activity.AmountText}, {slice.Fraction * 100:0.0}%"));
+                return new ChartSlice(activity.Label, activity.Color, slice.PathData, Strings.Format(Keys.Stats_ChartSlice, ("activity", activity.Label), ("amount", activity.AmountText), ("percent", slice.Fraction * 100)));
             }),
         ];
         OnPropertyChanged(nameof(HasSlices));
-        IncomeTotalText = shownTotal == 0 ? "Nothing earned in the period from the activities switched on." : $"{Display.CreditsExact(shownTotal)} from the activities switched on.";
+        IncomeTotalText = shownTotal == 0 ? Strings.Get(Keys.Stats_NothingEarnedShown) : Strings.Format(Keys.Stats_EarnedFromShown, ("credits", Display.CreditsExact(shownTotal)));
         var all = Summarise(income);
         IncomeGroups =
         [
-            new StatGroup("Everything in the period",
+            new StatGroup(Strings.Get(Keys.Stats_EverythingInPeriod),
             [
-                new StatRow("Earned", Display.CreditsExact(all.Total)),
-                new StatRow("Payments", Display.Whole(all.Count)),
-                new StatRow("Largest single payment", Display.CreditsExact(all.Largest)),
-                new StatRow("Best activity", byKind.Count == 0 ? "none yet" : Activities.First(activity => activity.Kind == byKind.MaxBy(pair => pair.Value.Total).Key).Label),
+                new StatRow(Strings.Get(Keys.Stats_Earned), Display.CreditsExact(all.Total)),
+                new StatRow(Strings.Get(Keys.Stats_Payments), Display.Whole(all.Count)),
+                new StatRow(Strings.Get(Keys.Stats_LargestSinglePayment), Display.CreditsExact(all.Largest)),
+                new StatRow(Strings.Get(Keys.Stats_BestActivity), byKind.Count == 0 ? Strings.Get(Keys.Stats_NoneYet) : Activities.First(activity => activity.Kind == byKind.MaxBy(pair => pair.Value.Total).Key).Label),
             ]),
         ];
         _loading = false;
     }
 
     /// <summary>The organic samples aboard, unsold, with the first-logged bonus taken as likely wherever nobody had logged the species on its body.</summary>
-    private static StatGroup AboardExobiology(CarriedDataSummary aboard) => new("Aboard, unsold",
+    private static StatGroup AboardExobiology(CarriedDataSummary aboard) => new(Strings.Get(Keys.Stats_AboardUnsold),
     [
-        new StatRow("Samples", Display.Whole(aboard.Samples)),
-        new StatRow("Likely first-logged", Display.Whole(aboard.FirstLoggedSamples)),
-        new StatRow("Worth with the bonus", Display.CreditsExact(aboard.ExobiologyCredits)),
-        new StatRow("Worth without it", Display.CreditsExact(aboard.ExobiologyBaseCredits)),
+        new StatRow(Strings.Get(Keys.Stats_Samples), Display.Whole(aboard.Samples)),
+        new StatRow(Strings.Get(Keys.Stats_LikelyFirstLogged), Display.Whole(aboard.FirstLoggedSamples)),
+        new StatRow(Strings.Get(Keys.Stats_WorthWithBonus), Display.CreditsExact(aboard.ExobiologyCredits)),
+        new StatRow(Strings.Get(Keys.Stats_WorthWithoutBonus), Display.CreditsExact(aboard.ExobiologyBaseCredits)),
     ]);
 
     /// <summary>The cartographic data aboard, unsold, valued by the estimate the system page uses.</summary>
-    private static StatGroup AboardCartographics(CarriedDataSummary aboard) => new("Aboard, unsold",
+    private static StatGroup AboardCartographics(CarriedDataSummary aboard) => new(Strings.Get(Keys.Stats_AboardUnsold),
     [
-        new StatRow("Systems", Display.Whole(aboard.Systems)),
-        new StatRow("Bodies scanned", Display.Whole(aboard.Bodies)),
-        new StatRow("Bodies mapped", Display.Whole(aboard.Mapped)),
-        new StatRow("Estimated value", Display.CreditsExact(aboard.CartographicsCredits)),
+        new StatRow(Strings.Get(Keys.Stats_Systems), Display.Whole(aboard.Systems)),
+        new StatRow(Strings.Get(Keys.Stats_BodiesScanned), Display.Whole(aboard.Bodies)),
+        new StatRow(Strings.Get(Keys.Stats_BodiesMapped), Display.Whole(aboard.Mapped)),
+        new StatRow(Strings.Get(Keys.Stats_EstimatedValue), Display.CreditsExact(aboard.CartographicsCredits)),
     ]);
 
     private IReadOnlyList<StatGroup> BuildExobiology(StatisticsSnapshot statistics, List<IncomeEntry> income)
@@ -553,58 +554,58 @@ public sealed class StatisticsPage : Page
             .ToList();
         Species = SpeciesSort.Apply(rows);
         OnPropertyChanged(nameof(HasSpecies));
-        var period = new StatGroup("Sold in the period",
+        var period = new StatGroup(Strings.Get(Keys.Stats_SoldInPeriod),
         [
-            new StatRow("With the first-logged bonus", Display.CreditsExact(summary.Total)),
-            new StatRow("Without the bonus", Display.CreditsExact(summary.Total - summary.Bonus)),
-            new StatRow("The bonus alone", Display.CreditsExact(summary.Bonus)),
-            new StatRow("Samples sold", Display.Whole(summary.Count)),
-            new StatRow("Species sold", Display.Whole(rows.Count)),
-            new StatRow("Average per sample", Display.CreditsExact(summary.Count == 0 ? 0 : summary.Total / summary.Count)),
-            new StatRow("Best sample", Display.CreditsExact(summary.Largest)),
+            new StatRow(Strings.Get(Keys.Stats_WithFirstLoggedBonus), Display.CreditsExact(summary.Total)),
+            new StatRow(Strings.Get(Keys.Stats_WithoutTheBonus), Display.CreditsExact(summary.Total - summary.Bonus)),
+            new StatRow(Strings.Get(Keys.Stats_TheBonusAlone), Display.CreditsExact(summary.Bonus)),
+            new StatRow(Strings.Get(Keys.Stats_SamplesSold), Display.Whole(summary.Count)),
+            new StatRow(Strings.Get(Keys.Stats_SpeciesSold), Display.Whole(rows.Count)),
+            new StatRow(Strings.Get(Keys.Stats_AveragePerSample), Display.CreditsExact(summary.Count == 0 ? 0 : summary.Total / summary.Count)),
+            new StatRow(Strings.Get(Keys.Stats_BestSample), Display.CreditsExact(summary.Largest)),
         ]);
-        return Groups(period, Lifetime(statistics, "Lifetime", "Exobiology", "Organic_Data_Profits", "First_Logged_Profits", "Organic_Data", "First_Logged", "Organic_Systems", "Organic_Planets", "Organic_Genus", "Organic_Species", "Organic_Variant_Encountered"));
+        return Groups(period, Lifetime(statistics, Strings.Get(Keys.Stats_Lifetime), "Exobiology", "Organic_Data_Profits", "First_Logged_Profits", "Organic_Data", "First_Logged", "Organic_Systems", "Organic_Planets", "Organic_Genus", "Organic_Species", "Organic_Variant_Encountered"));
     }
 
     private static IReadOnlyList<StatGroup> BuildExploration(StatisticsSnapshot statistics, List<IncomeEntry> income)
         => Groups(
-            Ledger("Cartographic data sold in the period", Summarise(income.Where(entry => entry.Kind == IncomeKind.Exploration)), "Sales") with
+            Ledger(Strings.Get(Keys.Stats_CartographicsSold), Summarise(income.Where(entry => entry.Kind == IncomeKind.Exploration)), Strings.Get(Keys.Stats_Sales)) with
             {
                 Rows =
                 [
-                    .. Ledger("", Summarise(income.Where(entry => entry.Kind == IncomeKind.Exploration)), "Sales").Rows,
-                    new StatRow("First-discovery bonus within that", Display.CreditsExact(income.Where(entry => entry.Kind == IncomeKind.Exploration).Sum(entry => entry.Bonus))),
+                    .. Ledger("", Summarise(income.Where(entry => entry.Kind == IncomeKind.Exploration)), Strings.Get(Keys.Stats_Sales)).Rows,
+                    new StatRow(Strings.Get(Keys.Stats_FirstDiscoveryWithin), Display.CreditsExact(income.Where(entry => entry.Kind == IncomeKind.Exploration).Sum(entry => entry.Bonus))),
                 ],
             },
-            Lifetime(statistics, "Lifetime", "Exploration", "Systems_Visited", "Exploration_Profits", "Planets_Scanned_To_Level_2", "Planets_Scanned_To_Level_3", "Efficient_Scans", "Highest_Payout", "Total_Hyperspace_Distance", "Total_Hyperspace_Jumps", "Greatest_Distance_From_Start", "Time_Played", "First_Footfalls", "Planet_Footfalls", "Settlements_Visited"));
+            Lifetime(statistics, Strings.Get(Keys.Stats_Lifetime), "Exploration", "Systems_Visited", "Exploration_Profits", "Planets_Scanned_To_Level_2", "Planets_Scanned_To_Level_3", "Efficient_Scans", "Highest_Payout", "Total_Hyperspace_Distance", "Total_Hyperspace_Jumps", "Greatest_Distance_From_Start", "Time_Played", "First_Footfalls", "Planet_Footfalls", "Settlements_Visited"));
 
     private static IReadOnlyList<StatGroup> BuildCombat(StatisticsSnapshot statistics, List<IncomeEntry> income)
         => Groups(
-            Ledger("Bounties in the period", Summarise(income.Where(entry => entry.Kind == IncomeKind.Bounties)), "Vouchers redeemed"),
-            Ledger("Combat bonds in the period", Summarise(income.Where(entry => entry.Kind == IncomeKind.CombatBonds)), "Vouchers redeemed"),
-            Lifetime(statistics, "Lifetime", "Combat", "Bounties_Claimed", "Bounty_Hunting_Profit", "Combat_Bonds", "Combat_Bond_Profits", "Assassinations", "Assassination_Profits", "Highest_Single_Reward", "Skimmers_Killed", "OnFoot_Combat_Bonds", "OnFoot_Combat_Bonds_Profits", "OnFoot_Ships_Destroyed", "Dropships_Taken"));
+            Ledger(Strings.Get(Keys.Stats_BountiesInPeriod), Summarise(income.Where(entry => entry.Kind == IncomeKind.Bounties)), Strings.Get(Keys.Stats_VouchersRedeemed)),
+            Ledger(Strings.Get(Keys.Stats_CombatBondsInPeriod), Summarise(income.Where(entry => entry.Kind == IncomeKind.CombatBonds)), Strings.Get(Keys.Stats_VouchersRedeemed)),
+            Lifetime(statistics, Strings.Get(Keys.Stats_Lifetime), "Combat", "Bounties_Claimed", "Bounty_Hunting_Profit", "Combat_Bonds", "Combat_Bond_Profits", "Assassinations", "Assassination_Profits", "Highest_Single_Reward", "Skimmers_Killed", "OnFoot_Combat_Bonds", "OnFoot_Combat_Bonds_Profits", "OnFoot_Ships_Destroyed", "Dropships_Taken"));
 
     private static IReadOnlyList<StatGroup> BuildTrading(StatisticsSnapshot statistics, List<IncomeEntry> income)
     {
         var trades = income.Where(entry => entry.Kind == IncomeKind.Trading).ToList();
         var losses = trades.Count(entry => entry.Amount < 0);
-        var trading = Ledger("Trading in the period", Summarise(trades), "Sales");
-        trading = trading with { Title = "Trading in the period", Rows = [new StatRow("Profit", trading.Rows[0].Value), .. trading.Rows.Skip(1), new StatRow("Sales at a loss", Display.Whole(losses))] };
+        var trading = Ledger(Strings.Get(Keys.Stats_TradingInPeriod), Summarise(trades), Strings.Get(Keys.Stats_Sales));
+        trading = trading with { Rows = [new StatRow(Strings.Get(Keys.Stats_Profit), trading.Rows[0].Value), .. trading.Rows.Skip(1), new StatRow(Strings.Get(Keys.Stats_SalesAtALoss), Display.Whole(losses))] };
         return Groups(
             trading,
-            Ledger("Mining and salvage in the period", Summarise(income.Where(entry => entry.Kind == IncomeKind.MiningAndSalvage)), "Sales"),
-            Lifetime(statistics, "Lifetime trading", "Trading", "Markets_Traded_With", "Market_Profits", "Resources_Traded", "Average_Profit", "Highest_Single_Transaction"),
-            Lifetime(statistics, "Lifetime mining", "Mining", "Mining_Profits", "Quantity_Mined", "Materials_Collected"));
+            Ledger(Strings.Get(Keys.Stats_MiningInPeriod), Summarise(income.Where(entry => entry.Kind == IncomeKind.MiningAndSalvage)), Strings.Get(Keys.Stats_Sales)),
+            Lifetime(statistics, Strings.Get(Keys.Stats_LifetimeTrading), "Trading", "Markets_Traded_With", "Market_Profits", "Resources_Traded", "Average_Profit", "Highest_Single_Transaction"),
+            Lifetime(statistics, Strings.Get(Keys.Stats_LifetimeMining), "Mining", "Mining_Profits", "Quantity_Mined", "Materials_Collected"));
     }
 
     private static IReadOnlyList<StatGroup> BuildMissions(StatisticsSnapshot statistics, List<IncomeEntry> income)
         => Groups(
-            Ledger("Missions in the period", Summarise(income.Where(entry => entry.Kind == IncomeKind.Missions)), "Completed with a reward"),
-            Ledger("Search and rescue in the period", Summarise(income.Where(entry => entry.Kind == IncomeKind.SearchAndRescue)), "Rewards"),
-            Ledger("Other income in the period", Summarise(income.Where(entry => entry.Kind == IncomeKind.Other)), "Payments"),
-            Lifetime(statistics, "Lifetime passengers", "Passengers", "Passengers_Missions_Accepted", "Passengers_Missions_Bulk", "Passengers_Missions_VIP", "Passengers_Missions_Delivered", "Passengers_Missions_Ejected"),
-            Lifetime(statistics, "Lifetime search and rescue", "Search_And_Rescue", "SearchRescue_Traded", "SearchRescue_Profit", "SearchRescue_Count"),
-            Lifetime(statistics, "Lifetime crime", "Crime", "Notoriety", "Fines", "Total_Fines", "Bounties_Received", "Total_Bounties", "Highest_Bounty"));
+            Ledger(Strings.Get(Keys.Stats_MissionsInPeriod), Summarise(income.Where(entry => entry.Kind == IncomeKind.Missions)), Strings.Get(Keys.Stats_CompletedWithReward)),
+            Ledger(Strings.Get(Keys.Stats_SearchAndRescueInPeriod), Summarise(income.Where(entry => entry.Kind == IncomeKind.SearchAndRescue)), Strings.Get(Keys.Stats_Rewards)),
+            Ledger(Strings.Get(Keys.Stats_OtherIncomeInPeriod), Summarise(income.Where(entry => entry.Kind == IncomeKind.Other)), Strings.Get(Keys.Stats_Payments)),
+            Lifetime(statistics, Strings.Get(Keys.Stats_LifetimePassengers), "Passengers", "Passengers_Missions_Accepted", "Passengers_Missions_Bulk", "Passengers_Missions_VIP", "Passengers_Missions_Delivered", "Passengers_Missions_Ejected"),
+            Lifetime(statistics, Strings.Get(Keys.Stats_LifetimeSearchAndRescue), "Search_And_Rescue", "SearchRescue_Traded", "SearchRescue_Profit", "SearchRescue_Count"),
+            Lifetime(statistics, Strings.Get(Keys.Stats_LifetimeCrime), "Crime", "Notoriety", "Fines", "Total_Fines", "Bounties_Received", "Total_Bounties", "Highest_Bounty"));
 
     private static IReadOnlyList<StatGroup> BuildPowerplay(StatisticsSnapshot statistics, List<IncomeEntry> income, DateTimeOffset since)
     {
@@ -614,24 +615,24 @@ public sealed class StatisticsPage : Page
         var delivered = activity.Where(entry => entry.Action == PowerplayAction.Delivered).ToList();
         var collected = activity.Where(entry => entry.Action == PowerplayAction.Collected).ToList();
         var standing = statistics.Powerplay is { } pledge
-            ? new StatGroup("Standing",
+            ? new StatGroup(Strings.Get(Keys.Stats_Standing),
             [
-                new StatRow("Pledged to", pledge.Power),
-                new StatRow("Rank", Display.Whole(pledge.Rank)),
-                new StatRow("Merits", Display.Whole(pledge.Merits)),
-                new StatRow("Time pledged", Display.Duration(pledge.TimePledged)),
-                new StatRow("As of", pledge.AsOf.ToLocalTime().ToString("d MMM yyyy HH:mm", CultureInfo.InvariantCulture)),
+                new StatRow(Strings.Get(Keys.Stats_PledgedTo), pledge.Power),
+                new StatRow(Strings.Get(Keys.Stats_Rank), Display.Whole(pledge.Rank)),
+                new StatRow(Strings.Get(Keys.Stats_Merits), Display.Whole(pledge.Merits)),
+                new StatRow(Strings.Get(Keys.Stats_TimePledged), Display.Duration(pledge.TimePledged)),
+                new StatRow(Strings.Get(Keys.Stats_AsOf), pledge.AsOf.ToLocalTime().ToString("g", CultureInfo.CurrentCulture)),
             ])
-            : new StatGroup("Standing", [new StatRow("Pledged to", "nobody, as far as the journal says")]);
-        var period = new StatGroup("In the period",
+            : new StatGroup(Strings.Get(Keys.Stats_Standing), [new StatRow(Strings.Get(Keys.Stats_PledgedTo), Strings.Get(Keys.Stats_PledgedToNobody))]);
+        var period = new StatGroup(Strings.Get(Keys.Stats_InPeriod),
         [
-            new StatRow("Merits earned", Display.Whole(merits.Sum(entry => entry.Value))),
-            new StatRow("Merit awards", Display.Whole(merits.Count)),
-            new StatRow("Largest award", Display.Whole(merits.Count == 0 ? 0 : merits.Max(entry => entry.Value))),
-            new StatRow("Salary", Display.CreditsExact(salary.Total)),
-            new StatRow("Salary payments", Display.Whole(salary.Count)),
-            new StatRow("Goods delivered", $"{Display.Whole(delivered.Sum(entry => entry.Value))} units in {Display.Plural(delivered.Count, "delivery", "deliveries")}"),
-            new StatRow("Goods collected", $"{Display.Whole(collected.Sum(entry => entry.Value))} units in {Display.Plural(collected.Count, "pickup")}"),
+            new StatRow(Strings.Get(Keys.Stats_MeritsEarned), Display.Whole(merits.Sum(entry => entry.Value))),
+            new StatRow(Strings.Get(Keys.Stats_MeritAwards), Display.Whole(merits.Count)),
+            new StatRow(Strings.Get(Keys.Stats_LargestAward), Display.Whole(merits.Count == 0 ? 0 : merits.Max(entry => entry.Value))),
+            new StatRow(Strings.Get(Keys.Stats_Salary), Display.CreditsExact(salary.Total)),
+            new StatRow(Strings.Get(Keys.Stats_SalaryPayments), Display.Whole(salary.Count)),
+            new StatRow(Strings.Get(Keys.Stats_GoodsDelivered), Strings.Format(Keys.Stats_UnitsIn, ("units", Display.Whole(delivered.Sum(entry => entry.Value))), ("runs", Display.Plural(Keys.Plural_Deliveries, delivered.Count)))),
+            new StatRow(Strings.Get(Keys.Stats_GoodsCollected), Strings.Format(Keys.Stats_UnitsIn, ("units", Display.Whole(collected.Sum(entry => entry.Value))), ("runs", Display.Plural(Keys.Plural_Pickups, collected.Count)))),
         ]);
         return [standing, period];
     }
@@ -650,24 +651,24 @@ public sealed class StatisticsPage : Page
         var inCrew = shared.Where(entry => entry.Company == Company.Crew).ToList();
         TogetherGroups =
         [
-            new StatGroup("Time together in the period",
+            new StatGroup(Strings.Get(Keys.Stats_TimeTogetherInPeriod),
             [
-                new StatRow("In wings", Display.Duration(wings.Aggregate(TimeSpan.Zero, (sum, pair) => sum + pair.Length))),
-                new StatRow("Wing sessions", Display.Whole(wings.Count)),
-                new StatRow("In crews", Display.Duration(crews.Aggregate(TimeSpan.Zero, (sum, pair) => sum + pair.Length))),
-                new StatRow("Crew sessions", Display.Whole(crews.Count)),
-                new StatRow("Longest session", Display.Duration(sessions.Count == 0 ? TimeSpan.Zero : sessions.Max(pair => pair.Length))),
-                new StatRow("People flown with", Display.Whole(sessions.SelectMany(pair => pair.Session.Partners).Distinct(StringComparer.Ordinal).Count())),
+                new StatRow(Strings.Get(Keys.Stats_InWings), Display.Duration(wings.Aggregate(TimeSpan.Zero, (sum, pair) => sum + pair.Length))),
+                new StatRow(Strings.Get(Keys.Stats_WingSessions), Display.Whole(wings.Count)),
+                new StatRow(Strings.Get(Keys.Stats_InCrews), Display.Duration(crews.Aggregate(TimeSpan.Zero, (sum, pair) => sum + pair.Length))),
+                new StatRow(Strings.Get(Keys.Stats_CrewSessions), Display.Whole(crews.Count)),
+                new StatRow(Strings.Get(Keys.Stats_LongestSession), Display.Duration(sessions.Count == 0 ? TimeSpan.Zero : sessions.Max(pair => pair.Length))),
+                new StatRow(Strings.Get(Keys.Stats_PeopleFlownWith), Display.Whole(sessions.SelectMany(pair => pair.Session.Partners).Distinct(StringComparer.Ordinal).Count())),
             ]),
-            new StatGroup("Shared in the period",
+            new StatGroup(Strings.Get(Keys.Stats_SharedInPeriod),
             [
-                new StatRow("Everything shared", Display.CreditsExact(shared.Sum(entry => entry.Income.Amount))),
-                new StatRow("Bounties shared across a wing", Display.CreditsExact(inWing.Where(entry => entry.Income.Kind == IncomeKind.Bounties).Sum(entry => entry.Income.Amount))),
-                new StatRow("Trade dividends", Display.CreditsExact(inWing.Where(entry => entry.Income.Kind == IncomeKind.Trading).Sum(entry => entry.Income.Amount))),
-                new StatRow("Wing missions", Display.CreditsExact(inWing.Where(entry => entry.Income.Kind == IncomeKind.Missions).Sum(entry => entry.Income.Amount))),
-                new StatRow("Bounties earned in a crew", Display.CreditsExact(inCrew.Where(entry => entry.Income.Kind == IncomeKind.Bounties).Sum(entry => entry.Income.Amount))),
-                new StatRow("Combat bonds earned in a crew", Display.CreditsExact(inCrew.Where(entry => entry.Income.Kind == IncomeKind.CombatBonds).Sum(entry => entry.Income.Amount))),
-                new StatRow("Shared payments", Display.Whole(shared.Count)),
+                new StatRow(Strings.Get(Keys.Stats_EverythingShared), Display.CreditsExact(shared.Sum(entry => entry.Income.Amount))),
+                new StatRow(Strings.Get(Keys.Stats_BountiesSharedWing), Display.CreditsExact(inWing.Where(entry => entry.Income.Kind == IncomeKind.Bounties).Sum(entry => entry.Income.Amount))),
+                new StatRow(Strings.Get(Keys.Stats_TradeDividends), Display.CreditsExact(inWing.Where(entry => entry.Income.Kind == IncomeKind.Trading).Sum(entry => entry.Income.Amount))),
+                new StatRow(Strings.Get(Keys.Stats_WingMissions), Display.CreditsExact(inWing.Where(entry => entry.Income.Kind == IncomeKind.Missions).Sum(entry => entry.Income.Amount))),
+                new StatRow(Strings.Get(Keys.Stats_BountiesInCrew), Display.CreditsExact(inCrew.Where(entry => entry.Income.Kind == IncomeKind.Bounties).Sum(entry => entry.Income.Amount))),
+                new StatRow(Strings.Get(Keys.Stats_CombatBondsInCrew), Display.CreditsExact(inCrew.Where(entry => entry.Income.Kind == IncomeKind.CombatBonds).Sum(entry => entry.Income.Amount))),
+                new StatRow(Strings.Get(Keys.Stats_SharedPayments), Display.Whole(shared.Count)),
             ]),
         ];
         var rows = sessions
@@ -687,8 +688,8 @@ public sealed class StatisticsPage : Page
             .Select(mission => new WingMissionRow(mission.Name, mission.Faction, mission.Reward, mission.AcceptedAt, mission.Partners, mission.Outcome, mission.Paid)));
         OnPropertyChanged(nameof(HasWingMissions));
         TogetherNote = statistics.Sessions.Count == 0
-            ? "No wing or crew in the journal yet. A session opens when you join a wing or a crew, or someone joins yours."
-            : "A commander's shared figure is what the game marked as shared while they were present. Flying in a wing while you explore alone shares nothing, and counts for nothing here.";
+            ? Strings.Get(Keys.Stats_NoWingYet)
+            : Strings.Get(Keys.Stats_SharedNote);
     }
 
     private static TimeSpan Overlap(CompanySession session, DateTimeOffset since, DateTimeOffset now)

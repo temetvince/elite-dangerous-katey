@@ -9,12 +9,14 @@ using Katey.App.Persistence;
 using Katey.App.Rail;
 using Katey.App.Routing;
 using Katey.App.Search;
+using Katey.App.Text;
 using Katey.App.Trading;
 using Katey.App.ViewModels;
 using Katey.Core;
 using Katey.Core.Exploration;
 using Katey.Core.Fleet;
 using Katey.Journal;
+using Katey.Localization;
 using Microsoft.Extensions.Logging;
 
 namespace Katey.App;
@@ -75,6 +77,7 @@ public sealed class ShellViewModel : ObservableObject
         // The plan asks for an engineer's link only when it refreshes, by which time the workspace below exists.
         var plan = new PlanViewModel(catalog, () => engineers.Selected, name => Workspace!.EngineerLinkFor(name));
         var preferences = new UiPreferences(saved.Preferences);
+        LanguageLabel = Languages.NativeName(Languages.Apply(preferences));
         var fleet = new FleetState(saved.Fittings, saved.Policy, preferences);
         var network = new NetworkAccess(saved, logger);
         var plot = new PlotState(plotter, dispatch, logger, network, saved.Plot);
@@ -118,19 +121,11 @@ public sealed class ShellViewModel : ObservableObject
         backupState.Changed += (_, _) => OnPlotChanged();
         preferences.Changed += (_, _) => Save();
         HomeLink = Navigator.LinkTo("Katey", PageKind.Home);
-        Nav =
-        [
-            new(Navigator.LinkTo("Engineers", PageKind.Engineers), new HashSet<PageKind> { PageKind.Engineers, PageKind.Engineer }),
-            new(Navigator.LinkTo("Modules", PageKind.Modules), new HashSet<PageKind> { PageKind.Modules, PageKind.ModuleType, PageKind.Blueprint }),
-            new(Navigator.LinkTo("Materials", PageKind.Materials), new HashSet<PageKind> { PageKind.Materials, PageKind.Material }),
-            new(Navigator.LinkTo("Unlocks", PageKind.Unlocks), new HashSet<PageKind> { PageKind.Unlocks }),
-            new(Navigator.LinkTo("Fleet", PageKind.Fleet), new HashSet<PageKind> { PageKind.Fleet, PageKind.Ship, PageKind.Fit }),
-            new(Navigator.LinkTo("Stats", PageKind.Statistics), new HashSet<PageKind> { PageKind.Statistics }),
-            new(Navigator.LinkTo("Route", PageKind.Route), new HashSet<PageKind> { PageKind.Route }),
-            new(Navigator.LinkTo("System", PageKind.System), new HashSet<PageKind> { PageKind.System }),
-        ];
-        SettingsNav = new NavItem(Navigator.LinkTo("Settings", PageKind.Settings), new HashSet<PageKind> { PageKind.Settings });
-        SettingsCommand = new RelayCommand(ToggleSettings);
+        Nav = BuildNav();
+        SettingsNav = BuildSettingsNav();
+        StatsNav = BuildStatsNav();
+        LanguageOptions = Languages.Options(preferences.Get(Languages.PreferenceKey));
+        SetLanguageCommand = new RelayCommand<LanguageOption>(SetLanguage);
         UpdateNav();
         Navigator.Navigated += (_, _) =>
         {
@@ -155,14 +150,23 @@ public sealed class ShellViewModel : ObservableObject
     /// <summary>Gets the link the wordmark carries: the start page.</summary>
     public Link HomeLink { get; }
 
-    /// <summary>Gets the navbar's sections, in display order. Settings is not among them; see <see cref="SettingsNav"/>.</summary>
-    public IReadOnlyList<NavItem> Nav { get; }
+    /// <summary>Gets the navbar's sections, in display order. Settings and Stats are not among them; see <see cref="SettingsNav"/> and <see cref="StatsNav"/>. Rebuilt when the language changes.</summary>
+    public IReadOnlyList<NavItem> Nav { get; private set => SetProperty(ref field, value); }
 
-    /// <summary>Gets the settings link, shown in the bottom bar rather than among the sections.</summary>
-    public NavItem SettingsNav { get; }
+    /// <summary>Gets the language picker's choices: the machine's language first, then every language Katey ships in under its own name; the one in force is marked current.</summary>
+    public IReadOnlyList<LanguageOption> LanguageOptions { get; private set => SetProperty(ref field, value); }
 
-    /// <summary>Gets the command behind the settings button: opens settings, or, when settings is already showing, goes back to the page before it.</summary>
-    public RelayCommand SettingsCommand { get; }
+    /// <summary>Gets the name the language in force gives itself, for the picker's button: "English", "Deutsch".</summary>
+    public string LanguageLabel { get; private set => SetProperty(ref field, value); } = "";
+
+    /// <summary>Gets the command that switches to a <see cref="LanguageOption"/>: every page, the rail, the drawer, the search and the chrome change at once, and the choice is saved.</summary>
+    public RelayCommand<LanguageOption> SetLanguageCommand { get; }
+
+    /// <summary>Gets the settings link, shown in the bottom bar rather than among the sections. Rebuilt when the language changes.</summary>
+    public NavItem SettingsNav { get; private set => SetProperty(ref field, value); }
+
+    /// <summary>Gets the bottom bar's Stats link, between Settings and the search box, which keeps the top bar's page links on one line in the longest language. Rebuilt when the language changes.</summary>
+    public NavItem StatsNav { get; private set => SetProperty(ref field, value); }
 
     /// <summary>Gets the live rail.</summary>
     public RailViewModel Rail { get; }
@@ -254,16 +258,48 @@ public sealed class ShellViewModel : ObservableObject
         Save();
     }
 
-    private void ToggleSettings()
+    private IReadOnlyList<NavItem> BuildNav()
+
+        => [
+            new(Navigator.LinkTo(Strings.Get(Keys.Nav_Engineers), PageKind.Engineers), new HashSet<PageKind> { PageKind.Engineers, PageKind.Engineer }, Navigator),
+            new(Navigator.LinkTo(Strings.Get(Keys.Nav_Modules), PageKind.Modules), new HashSet<PageKind> { PageKind.Modules, PageKind.ModuleType, PageKind.Blueprint }, Navigator),
+            new(Navigator.LinkTo(Strings.Get(Keys.Nav_Materials), PageKind.Materials), new HashSet<PageKind> { PageKind.Materials, PageKind.Material }, Navigator),
+            new(Navigator.LinkTo(Strings.Get(Keys.Nav_Unlocks), PageKind.Unlocks), new HashSet<PageKind> { PageKind.Unlocks }, Navigator),
+            new(Navigator.LinkTo(Strings.Get(Keys.Nav_Fleet), PageKind.Fleet), new HashSet<PageKind> { PageKind.Fleet, PageKind.Ship, PageKind.Fit }, Navigator),
+            new(Navigator.LinkTo(Strings.Get(Keys.Nav_Route), PageKind.Route), new HashSet<PageKind> { PageKind.Route }, Navigator),
+            new(Navigator.LinkTo(Strings.Get(Keys.Nav_System), PageKind.System), new HashSet<PageKind> { PageKind.System }, Navigator),
+        ];
+
+    private NavItem BuildSettingsNav() => new(Navigator.LinkTo(Strings.Get(Keys.Nav_Settings), PageKind.Settings), new HashSet<PageKind> { PageKind.Settings }, Navigator);
+
+    private NavItem BuildStatsNav() => new(Navigator.LinkTo(Strings.Get(Keys.Nav_Stats), PageKind.Statistics), new HashSet<PageKind> { PageKind.Statistics }, Navigator);
+
+    private void SetLanguage(LanguageOption option)
     {
-        if (Navigator.Current.Key.Kind == PageKind.Settings && Navigator.CanGoBack)
+        ArgumentNullException.ThrowIfNull(option);
+        if (option.Saved.Length == 0)
         {
-            Navigator.BackCommand.Execute(null);
+            Workspace.Preferences.Remove(Languages.PreferenceKey);
         }
-        else if (Navigator.Current.Key.Kind != PageKind.Settings)
+        else
         {
-            SettingsNav.Link.OpenCommand.Execute(null);
+            Workspace.Preferences.Set(Languages.PreferenceKey, option.Saved);
         }
+
+        var before = Language.Current;
+        var culture = Languages.Apply(Workspace.Preferences);
+        Log.LanguageChanged(_logger, before.Name, culture.Name);
+        Nav = BuildNav();
+        SettingsNav = BuildSettingsNav();
+        StatsNav = BuildStatsNav();
+        LanguageOptions = Languages.Options(option.Saved);
+        LanguageLabel = Languages.NativeName(culture);
+        Navigator.Rebuild();
+        UpdateNav();
+        Rail.Refresh();
+        Workspace.Plan.Reword();
+        PlanDrawer.Update();
+        Search.Rebuild();
     }
 
     private void UpdateNav()
@@ -274,6 +310,7 @@ public sealed class ShellViewModel : ObservableObject
         }
 
         SettingsNav.Update(Navigator.Current.Key.Kind);
+        StatsNav.Update(Navigator.Current.Key.Kind);
     }
 
     private void OnPlanChanged()

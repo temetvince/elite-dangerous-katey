@@ -1,6 +1,6 @@
-﻿using System.Globalization;
-using Katey.App.Mvvm;
+﻿using Katey.App.Mvvm;
 using Katey.App.Navigation;
+using Katey.App.Text;
 using Katey.App.ViewModels;
 using Katey.Core;
 using Katey.Core.Planning;
@@ -50,9 +50,9 @@ public sealed class UnlockRow : ObservableObject
         UnlockedBecause = unlockedBecause ?? "";
         CommoditiesText = unlock.Commodities.Count == 0
             ? ""
-            : "Also " + string.Join(", ", unlock.Commodities.Select(pair => string.Create(CultureInfo.InvariantCulture, $"{pair.Value}× {pair.Key}"))) + " from a market.";
-        var missing = shortLines.Where(line => !line.IsCovered).Select(line => string.Create(CultureInfo.InvariantCulture, $"{line.Missing} {line.Material.Name}")).ToList();
-        ShortText = state == UnlockState.OutOfReach && missing.Count > 0 ? "Short " + string.Join(", ", missing) + "." : "";
+            : Strings.Format(Keys.Unlocks_AlsoFromMarket, ("items", Display.List(unlock.Commodities.Select(pair => Strings.Format(Keys.Material_CountTimesName, ("count", pair.Value), ("name", pair.Key))))));
+        var missing = shortLines.Where(line => !line.IsCovered).Select(line => Strings.Format(Keys.Unlocks_MissingItem, ("count", line.Missing), ("material", Names.Material(line.Material)))).ToList();
+        ShortText = state == UnlockState.OutOfReach && missing.Count > 0 ? Strings.Format(Keys.Unlocks_ShortOf, ("items", Display.List(missing))) : "";
     }
 
     /// <summary>Gets the unlock.</summary>
@@ -62,7 +62,7 @@ public sealed class UnlockRow : ObservableObject
     public string Key => Unlock.Key;
 
     /// <summary>Gets the unlock's name.</summary>
-    public string Name => Unlock.Name;
+    public string Name => Names.Unlock(Unlock);
 
     /// <summary>Gets which broker sells it, as a label.</summary>
     public string BrokerText => UnlocksPage.BrokerLabel(Unlock.Broker);
@@ -79,10 +79,10 @@ public sealed class UnlockRow : ObservableObject
     /// <summary>Gets the state in a word, for the badge.</summary>
     public string StateText => State switch
     {
-        UnlockState.Unlocked => "UNLOCKED",
-        UnlockState.Planned => "PLANNED",
-        UnlockState.Affordable => "AFFORDABLE",
-        UnlockState.OutOfReach => "SHORT",
+        UnlockState.Unlocked => Display.Upper(Keys.Unlocks_StateUnlocked),
+        UnlockState.Planned => Display.Upper(Keys.Unlocks_StatePlanned),
+        UnlockState.Affordable => Display.Upper(Keys.Unlocks_StateAffordable),
+        UnlockState.OutOfReach => Display.Upper(Keys.Unlocks_StateShort),
         _ => State.ToString().ToUpperInvariant(),
     };
 
@@ -123,7 +123,7 @@ public sealed class UnlockRow : ObservableObject
     public string UnlockedBecause { get; }
 
     /// <summary>Gets a note when the journal cannot tell whether this unlock was bought.</summary>
-    public string DetectNote => Unlock.IsDetectable ? "" : "The journal does not name this item, so Katey cannot tell whether you have bought it.";
+    public string DetectNote => Unlock.IsDetectable ? "" : Strings.Get(Keys.Unlocks_NotDetectable);
 
     /// <summary>Gets whether <see cref="DetectNote"/> has anything to show.</summary>
     public bool HasDetectNote => DetectNote.Length > 0;
@@ -168,20 +168,20 @@ public sealed class UnlockGroupRow : ExpandableGroup
     {
         get
         {
-            var parts = new List<string> { Display.Plural(Rows.Count, "unlock") };
+            var parts = new List<string> { Display.Plural(Keys.Plural_Unlocks, Rows.Count) };
             var bought = Rows.Count(row => row.IsUnlocked);
             var planned = Rows.Count(row => row.IsPlanned);
             if (bought > 0)
             {
-                parts.Add($"{bought} bought");
+                parts.Add(Strings.Format(Keys.Unlocks_Bought, ("count", bought)));
             }
 
             if (planned > 0)
             {
-                parts.Add($"{planned} planned");
+                parts.Add(Strings.Format(Keys.Unlocks_Planned, ("count", planned)));
             }
 
-            return string.Join(", ", parts);
+            return Display.List(parts);
         }
     }
 }
@@ -202,9 +202,9 @@ public sealed class UnlocksPage : Page
     public UnlocksPage(Workspace workspace, string section = "")
         : base(new PageKey(PageKind.Unlocks, section ?? ""), workspace)
     {
-        Title = "Technology broker unlocks";
-        Kicker = "Browse";
-        Sections = new SectionSwitch([("guardian", "Guardian"), ("human", "Human")], "guardian", workspace.Preferences, "section.unlocks");
+        Title = Strings.Get(Keys.Unlocks_Title);
+        Kicker = Strings.Get(Keys.Page_KickerBrowse);
+        Sections = new SectionSwitch([("guardian", Strings.Get(Keys.Section_Guardian)), ("human", Strings.Get(Keys.Section_Human))], "guardian", workspace.Preferences, "section.unlocks");
         if (section is "guardian" or "human")
         {
             Sections.Show(section);
@@ -213,9 +213,9 @@ public sealed class UnlocksPage : Page
         Sections.PropertyChanged += (_, _) => Refresh();
         Sort = new TableSort<UnlockRow>(
             [
-                new("name", "Unlock", row => row.Name),
-                new("state", "State", row => (int)row.State),
-                new("type", "Module type", row => row.TypeLink?.Label ?? ""),
+                new("name", Strings.Get(Keys.Column_Unlock), row => row.Name),
+                new("state", Strings.Get(Keys.Column_State), row => (int)row.State),
+                new("type", Strings.Get(Keys.Column_ModuleType), row => row.TypeLink?.Label ?? ""),
             ],
             "name",
             workspace.Preferences,
@@ -276,11 +276,11 @@ public sealed class UnlocksPage : Page
     /// <returns>Plural, title case, such as "Modified weapons".</returns>
     public static string CategoryLabel(UnlockCategory category) => category switch
     {
-        UnlockCategory.Modules => "Modules",
-        UnlockCategory.Weapons => "Weapons",
-        UnlockCategory.ModifiedWeapons => "Modified weapons",
-        UnlockCategory.Fighters => "Fighters",
-        UnlockCategory.PreEngineered => "Pre-engineered modules",
+        UnlockCategory.Modules => Strings.Get(Keys.Unlocks_CategoryModules),
+        UnlockCategory.Weapons => Strings.Get(Keys.Unlocks_CategoryWeapons),
+        UnlockCategory.ModifiedWeapons => Strings.Get(Keys.Unlocks_CategoryModifiedWeapons),
+        UnlockCategory.Fighters => Strings.Get(Keys.Unlocks_CategoryFighters),
+        UnlockCategory.PreEngineered => Strings.Get(Keys.Unlocks_CategoryPreEngineered),
         _ => category.ToString(),
     };
 
@@ -289,8 +289,8 @@ public sealed class UnlocksPage : Page
     /// <returns>"Guardian technology broker" or "Human technology broker".</returns>
     public static string BrokerLabel(BrokerKind broker) => broker switch
     {
-        BrokerKind.Guardian => "Guardian technology broker",
-        BrokerKind.Human => "Human technology broker",
+        BrokerKind.Guardian => Strings.Get(Keys.Unlocks_GuardianBroker),
+        BrokerKind.Human => Strings.Get(Keys.Unlocks_HumanBroker),
         _ => broker.ToString(),
     };
 
@@ -313,7 +313,7 @@ public sealed class UnlocksPage : Page
                 : planned is not null ? UnlockState.Planned
                 : UnlockBudget.CanAfford(catalog, unlock, remaining) ? UnlockState.Affordable
                 : UnlockState.OutOfReach;
-            var typeLink = unlock.ModuleType is { } code && catalog.ModuleTypes.TryGetValue(code, out var type) ? LinkTo(type.Name, PageKind.ModuleType, type.Code) : null;
+            var typeLink = unlock.ModuleType is { } code && catalog.ModuleTypes.TryGetValue(code, out var type) ? LinkTo(Names.ModuleType(type), PageKind.ModuleType, type.Code) : null;
             rows.Add(new UnlockRow(unlock, typeLink, state, MaterialChip.From(catalog, unlock.Materials), lines, Select, because ?? ""));
         }
 
@@ -326,16 +326,16 @@ public sealed class UnlocksPage : Page
         ];
 
         var counts = rows.CountBy(row => row.State).ToDictionary();
+        var unlocks = Display.Plural(Keys.Plural_Unlocks, rows.Count);
         Summary = inventory is null
-            ? $"{Display.Plural(rows.Count, "unlock")}. Start the journal watch to see which you can afford."
-            : string.Join(" ", new[]
-            {
-                $"{Display.Plural(rows.Count, "unlock")}:",
-                $"{counts.GetValueOrDefault(UnlockState.Unlocked)} bought,",
-                $"{counts.GetValueOrDefault(UnlockState.Planned)} planned,",
-                $"{counts.GetValueOrDefault(UnlockState.Affordable)} affordable with what the plan leaves,",
-                $"{counts.GetValueOrDefault(UnlockState.OutOfReach)} short.",
-            });
+            ? Strings.Format(Keys.Unlocks_SummaryNoInventory, ("unlocks", unlocks))
+            : Strings.Format(
+                Keys.Unlocks_Summary,
+                ("unlocks", unlocks),
+                ("bought", counts.GetValueOrDefault(UnlockState.Unlocked)),
+                ("planned", counts.GetValueOrDefault(UnlockState.Planned)),
+                ("affordable", counts.GetValueOrDefault(UnlockState.Affordable)),
+                ("short", counts.GetValueOrDefault(UnlockState.OutOfReach)));
 
         var plannedUnlocks = entries.Where(entry => entry.IsUnlock && entry.Enabled).ToList();
         HasPlanned = plannedUnlocks.Count > 0;
@@ -343,13 +343,14 @@ public sealed class UnlocksPage : Page
         Commodities = MaterialCalculator.Commodities(catalog, plannedUnlocks);
         OnPropertyChanged(nameof(HasCommodities));
         var shortCount = inventory is null ? 0 : Materials.Count(row => row.IsShort);
+        var plannedCount = Display.Plural(Keys.Plural_Unlocks, plannedUnlocks.Count);
         MaterialsSummary = !HasPlanned
-            ? "Tick an unlock to plan it. Its materials join the plan's totals and the trades at the material traders."
+            ? Strings.Get(Keys.Unlocks_TickToPlan)
             : inventory is null
-                ? $"{Display.Plural(plannedUnlocks.Count, "unlock")} planned. Start the journal watch to see what you still need."
+                ? Strings.Format(Keys.Unlocks_PlannedNoInventory, ("unlocks", plannedCount))
                 : shortCount == 0
-                    ? $"{Display.Plural(plannedUnlocks.Count, "unlock")} planned and every material covered."
-                    : $"{Display.Plural(plannedUnlocks.Count, "unlock")} planned, {Display.Plural(shortCount, "material")} short.";
+                    ? Strings.Format(Keys.Unlocks_PlannedCovered, ("unlocks", plannedCount))
+                    : Strings.Format(Keys.Unlocks_PlannedShort, ("unlocks", plannedCount), ("materials", Display.Plural(Keys.Plural_Materials, shortCount)));
     }
 
     private void Select(UnlockRow row, bool selected)

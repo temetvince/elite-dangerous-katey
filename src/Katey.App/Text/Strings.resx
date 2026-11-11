@@ -1,0 +1,3546 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Backup.Done" xml:space="preserve">
+    <value>Backed up at {when}: {files} copied, {skipped} already current.</value>
+    <comment>Backup status; {when} is a clock time, {files} a count of files.</comment>
+  </data>
+  <data name="Backup.Error" xml:space="preserve">
+    <value>Backup failed: {message}</value>
+    <comment>Backup status on an error; {message} is the system's.</comment>
+  </data>
+  <data name="Backup.Failed" xml:space="preserve">
+    <value>{files} failed: {first}</value>
+    <comment>Appended to Backup.Done when some files failed; {first} is the first failure.</comment>
+  </data>
+  <data name="Backup.NoFolder" xml:space="preserve">
+    <value>No journal folder to back up. Set one above first.</value>
+    <comment>Backup status when no journal folder is set.</comment>
+  </data>
+  <data name="Backup.Running" xml:space="preserve">
+    <value>Backing up to {folder}…</value>
+    <comment>Backup status while copying.</comment>
+  </data>
+  <data name="Blueprint.Added" xml:space="preserve">
+    <value>Added {blueprint} {grade} on {type} to the plan.</value>
+    <comment>Blueprint page: confirmation after adding; {grade} is a G-badge.</comment>
+  </data>
+  <data name="Blueprint.AddedExperimentalAlone" xml:space="preserve">
+    <value>Added {experimental} alone on {type} to the plan.</value>
+    <comment>Blueprint page: confirmation after adding.</comment>
+  </data>
+  <data name="Blueprint.AddedWithExperimental" xml:space="preserve">
+    <value>Added {blueprint} {grade} on {type} with {experimental} to the plan.</value>
+    <comment>Blueprint page: confirmation after adding.</comment>
+  </data>
+  <data name="Blueprint.JournalName" xml:space="preserve">
+    <value>Journal name {key}</value>
+    <comment>Blueprint page: the game's internal name.</comment>
+  </data>
+  <data name="Blueprint.Kicker" xml:space="preserve">
+    <value>Blueprint</value>
+    <comment>Small label above a blueprint page's title.</comment>
+  </data>
+  <data name="Blueprint.ScopeNobodyOffers" xml:space="preserve">
+    <value>None of your selected engineers offers this blueprint, so it cannot be added from here. Turn Only my engineers off on the engineers page to plan it anyway; the plan will warn that nobody you ticked can roll it.</value>
+    <comment>Blueprint page narrowing note; 'Only my engineers' is the switch Engineers.OnlyMine.</comment>
+  </data>
+  <data name="Body.BeltCluster" xml:space="preserve">
+    <value>Belt cluster</value>
+    <comment>A body row's class for an asteroid belt cluster.</comment>
+  </data>
+  <data name="Body.BioCount" xml:space="preserve">
+    <value>{count} bio</value>
+    <comment>Body: biological signal count badge.</comment>
+  </data>
+  <data name="Body.ByConditions" xml:space="preserve">
+    <value> by the life these conditions allow; map it to know.</value>
+    <comment>Body value sentence end for a prediction; keep the leading space.</comment>
+  </data>
+  <data name="Body.Candidate" xml:space="preserve">
+    <value>{species} {odds} ({credits})</value>
+    <comment>Body genus: one predicted species with odds and value.</comment>
+  </data>
+  <data name="Body.CouldLive" xml:space="preserve">
+    <value>{genera} could live here; the likeliest: {list}</value>
+    <comment>Body life line before the genera are known; {genera} is a count of genera, {list} dot-separated genus lines.</comment>
+  </data>
+  <data name="Body.Discovered" xml:space="preserve">
+    <value>discovered</value>
+    <comment>Body status badge. Lower case.</comment>
+  </data>
+  <data name="Body.DiscoveredByYou" xml:space="preserve">
+    <value>discovered by you</value>
+    <comment>Body status badge. Lower case.</comment>
+  </data>
+  <data name="Body.DiscoveryUnknown" xml:space="preserve">
+    <value>discovery unknown</value>
+    <comment>Body status badge. Lower case.</comment>
+  </data>
+  <data name="Body.ExobiologyAboutLead" xml:space="preserve">
+    <value>Exobiology about </value>
+    <comment>Body value sentence lead before an estimate; keep the trailing space.</comment>
+  </data>
+  <data name="Body.ExobiologyLead" xml:space="preserve">
+    <value>Exobiology </value>
+    <comment>Body value sentence lead before an exact figure; keep the trailing space.</comment>
+  </data>
+  <data name="Body.ExobiologyLikelyLead" xml:space="preserve">
+    <value>Exobiology likely about </value>
+    <comment>Body value sentence lead before a prediction; keep the trailing space.</comment>
+  </data>
+  <data name="Body.ExpectedWithBonus" xml:space="preserve">
+    <value>{figure} {bonus} Cr</value>
+    <comment>Body genus: the expected millions and, in brackets, the figure with the bonus; both padded for a column.</comment>
+  </data>
+  <data name="Body.ExtremeGravity" xml:space="preserve">
+    <value>extreme gravity</value>
+    <comment>Body warning. Lower case.</comment>
+  </data>
+  <data name="Body.Footfall" xml:space="preserve">
+    <value>footfall</value>
+    <comment>Body status badge. Lower case.</comment>
+  </data>
+  <data name="Body.FootfallByYou" xml:space="preserve">
+    <value>footfall by you</value>
+    <comment>Body status badge. Lower case.</comment>
+  </data>
+  <data name="Body.FootfallUnknown" xml:space="preserve">
+    <value>footfall unknown</value>
+    <comment>Body status badge. Lower case.</comment>
+  </data>
+  <data name="Body.GatheredLead" xml:space="preserve">
+    <value>You've gathered </value>
+    <comment>Body gathered sentence lead; keep the trailing space.</comment>
+  </data>
+  <data name="Body.GenusLikely" xml:space="preserve">
+    <value>{genus} (likely {species}) {odds}, {credits} expected</value>
+    <comment>Body life line: a genus with its likeliest species, odds and expected credits.</comment>
+  </data>
+  <data name="Body.GenusOnly" xml:space="preserve">
+    <value>{genus} {odds}, {credits} expected</value>
+    <comment>Body life line: a genus with its odds and expected credits.</comment>
+  </data>
+  <data name="Body.HighGravity" xml:space="preserve">
+    <value>high gravity</value>
+    <comment>Body warning. Lower case.</comment>
+  </data>
+  <data name="Body.LandedByYou" xml:space="preserve">
+    <value>landed by you</value>
+    <comment>Body status detail. Lower case.</comment>
+  </data>
+  <data name="Body.Mapped" xml:space="preserve">
+    <value>mapped</value>
+    <comment>Body status badge. Lower case.</comment>
+  </data>
+  <data name="Body.MappedByYou" xml:space="preserve">
+    <value>mapped by you</value>
+    <comment>Body status badge. Lower case.</comment>
+  </data>
+  <data name="Body.MappingUnknown" xml:space="preserve">
+    <value>mapping unknown</value>
+    <comment>Body status badge. Lower case.</comment>
+  </data>
+  <data name="Body.MaterialShare" xml:space="preserve">
+    <value>{material} {share:0.0}%</value>
+    <comment>Body materials: one material and its share.</comment>
+  </data>
+  <data name="Body.NavBeaconData" xml:space="preserve">
+    <value>nav beacon data, nothing to sell</value>
+    <comment>Body value note. Lower case.</comment>
+  </data>
+  <data name="Body.NoAtmosphere" xml:space="preserve">
+    <value>no atmosphere</value>
+    <comment>Body atmosphere note. Lower case.</comment>
+  </data>
+  <data name="Body.NoFootfall" xml:space="preserve">
+    <value>no footfall</value>
+    <comment>Body status badge. Lower case.</comment>
+  </data>
+  <data name="Body.NoPredictionConditions" xml:space="preserve">
+    <value>No prediction for these conditions</value>
+    <comment>Body genus: nothing can be predicted.</comment>
+  </data>
+  <data name="Body.Rings" xml:space="preserve">
+    <value>rings</value>
+    <comment>Body surface note. Lower case.</comment>
+  </data>
+  <data name="Body.ScannedMapped" xml:space="preserve">
+    <value>{scanned} scanned, {mapped} mapped</value>
+    <comment>Body value: credits as scanned and as mapped.</comment>
+  </data>
+  <data name="Body.ScannedOn" xml:space="preserve">
+    <value>scanned {when:d}</value>
+    <comment>Body note: scanned on an earlier visit. Lower case.</comment>
+  </data>
+  <data name="Body.SpeciesStage" xml:space="preserve">
+    <value>{species}, stage {stage} of 3</value>
+    <comment>Body genus: the sampled species and its stage.</comment>
+  </data>
+  <data name="Body.Terraformable" xml:space="preserve">
+    <value>terraformable</value>
+    <comment>Body surface note. Lower case.</comment>
+  </data>
+  <data name="Body.Unmapped" xml:space="preserve">
+    <value>unmapped</value>
+    <comment>Body status badge. Lower case.</comment>
+  </data>
+  <data name="Body.ValueUnknown" xml:space="preserve">
+    <value>value unknown</value>
+    <comment>Body genus: no value known. Lower case.</comment>
+  </data>
+  <data name="Body.WithFirstLoggedBonus" xml:space="preserve">
+    <value> with the first-logged bonus</value>
+    <comment>Body value sentence part after the bonus figure; keep the leading space.</comment>
+  </data>
+  <data name="Category.Encoded" xml:space="preserve">
+    <value>Encoded</value>
+    <comment>The encoded data inventory.</comment>
+  </data>
+  <data name="Category.EncodedShort" xml:space="preserve">
+    <value>Enc</value>
+    <comment>Three-letter name of the encoded inventory.</comment>
+  </data>
+  <data name="Category.Manufactured" xml:space="preserve">
+    <value>Manufactured</value>
+    <comment>The manufactured materials inventory.</comment>
+  </data>
+  <data name="Category.ManufacturedShort" xml:space="preserve">
+    <value>Mfd</value>
+    <comment>Three-letter name of the manufactured inventory.</comment>
+  </data>
+  <data name="Category.Raw" xml:space="preserve">
+    <value>Raw</value>
+    <comment>The raw materials inventory.</comment>
+  </data>
+  <data name="Category.RawShort" xml:space="preserve">
+    <value>Raw</value>
+    <comment>Three-letter name of the raw inventory.</comment>
+  </data>
+  <data name="Choice.None" xml:space="preserve">
+    <value>None</value>
+    <comment>Dropdowns: the experimental effect option that stands for none chosen. Max 10 chars.</comment>
+  </data>
+  <data name="Column.Accepted" xml:space="preserve">
+    <value>Accepted</value>
+    <comment>Sort column: when the mission was accepted.</comment>
+  </data>
+  <data name="Column.Blueprint" xml:space="preserve">
+    <value>Blueprint</value>
+    <comment>Sort column: the blueprint.</comment>
+  </data>
+  <data name="Column.Body" xml:space="preserve">
+    <value>Body</value>
+    <comment>Sort column: the planet, moon or star.</comment>
+  </data>
+  <data name="Column.Bonus" xml:space="preserve">
+    <value>Bonus</value>
+    <comment>Sort column: the bonus alone.</comment>
+  </data>
+  <data name="Column.Cartographics" xml:space="preserve">
+    <value>Cartographics</value>
+    <comment>Sort column: the body's cartographic value.</comment>
+  </data>
+  <data name="Column.Class" xml:space="preserve">
+    <value>Class</value>
+    <comment>Sort column: the body's class.</comment>
+  </data>
+  <data name="Column.Commander" xml:space="preserve">
+    <value>Commander</value>
+    <comment>Sort column: a commander's name.</comment>
+  </data>
+  <data name="Column.Difference" xml:space="preserve">
+    <value>Difference</value>
+    <comment>Sort column: the kind of difference.</comment>
+  </data>
+  <data name="Column.Distance" xml:space="preserve">
+    <value>Distance</value>
+    <comment>Sort column: distance from the ship.</comment>
+  </data>
+  <data name="Column.Engineer" xml:space="preserve">
+    <value>Engineer</value>
+    <comment>Sort column: the engineer's name.</comment>
+  </data>
+  <data name="Column.Engineering" xml:space="preserve">
+    <value>Engineering</value>
+    <comment>Sort column: the module's engineering.</comment>
+  </data>
+  <data name="Column.Entry" xml:space="preserve">
+    <value>Entry</value>
+    <comment>Sort column: the plan entry.</comment>
+  </data>
+  <data name="Column.Faction" xml:space="preserve">
+    <value>Faction</value>
+    <comment>Sort column: the mission's faction.</comment>
+  </data>
+  <data name="Column.Family" xml:space="preserve">
+    <value>Family</value>
+    <comment>Sort column: the material's in-game family.</comment>
+  </data>
+  <data name="Column.Fit" xml:space="preserve">
+    <value>Fit</value>
+    <comment>Sort column: the saved fit.</comment>
+  </data>
+  <data name="Column.FitWants" xml:space="preserve">
+    <value>Fit wants</value>
+    <comment>Sort column: what the fit wants in a slot.</comment>
+  </data>
+  <data name="Column.FromStart" xml:space="preserve">
+    <value>From start</value>
+    <comment>Sort column: distance travelled from the route's start.</comment>
+  </data>
+  <data name="Column.Fuel" xml:space="preserve">
+    <value>Fuel</value>
+    <comment>Sort column: fuel on arrival.</comment>
+  </data>
+  <data name="Column.Grade" xml:space="preserve">
+    <value>Grade</value>
+    <comment>Sort column: the grade.</comment>
+  </data>
+  <data name="Column.Have" xml:space="preserve">
+    <value>Have</value>
+    <comment>Sort column: how many you hold.</comment>
+  </data>
+  <data name="Column.Hull" xml:space="preserve">
+    <value>Hull</value>
+    <comment>Sort column: the ship's hull.</comment>
+  </data>
+  <data name="Column.Jump" xml:space="preserve">
+    <value>Jump</value>
+    <comment>Sort column: the jump distance.</comment>
+  </data>
+  <data name="Column.Landable" xml:space="preserve">
+    <value>Landable</value>
+    <comment>Sort column: landable bodies first, then by life.</comment>
+  </data>
+  <data name="Column.LastFlown" xml:space="preserve">
+    <value>Last flown</value>
+    <comment>Sort column: when you last flew together.</comment>
+  </data>
+  <data name="Column.Material" xml:space="preserve">
+    <value>Material</value>
+    <comment>Sort column: the material.</comment>
+  </data>
+  <data name="Column.Missing" xml:space="preserve">
+    <value>Missing</value>
+    <comment>Sort column: how many modules a fit lacks.</comment>
+  </data>
+  <data name="Column.Mission" xml:space="preserve">
+    <value>Mission</value>
+    <comment>Sort column: the mission's name.</comment>
+  </data>
+  <data name="Column.Module" xml:space="preserve">
+    <value>Module</value>
+    <comment>Sort column: the module.</comment>
+  </data>
+  <data name="Column.ModuleType" xml:space="preserve">
+    <value>Module type</value>
+    <comment>Sort column: the module type.</comment>
+  </data>
+  <data name="Column.Need" xml:space="preserve">
+    <value>Need</value>
+    <comment>Sort column: how many the plan needs.</comment>
+  </data>
+  <data name="Column.Needs" xml:space="preserve">
+    <value>Needs</value>
+    <comment>Sort column: how many a plan entry needs.</comment>
+  </data>
+  <data name="Column.Notes" xml:space="preserve">
+    <value>Notes</value>
+    <comment>Sort column: the waypoint's notes.</comment>
+  </data>
+  <data name="Column.Offers" xml:space="preserve">
+    <value>Offers</value>
+    <comment>Sort column: how many blueprints an engineer offers.</comment>
+  </data>
+  <data name="Column.PerRoll" xml:space="preserve">
+    <value>Per roll</value>
+    <comment>Sort column: how many one roll costs.</comment>
+  </data>
+  <data name="Column.Region" xml:space="preserve">
+    <value>Region</value>
+    <comment>Sort column: the Bubble or Colonia.</comment>
+  </data>
+  <data name="Column.Required" xml:space="preserve">
+    <value>Required</value>
+    <comment>Sort column: what a fit requires.</comment>
+  </data>
+  <data name="Column.Reward" xml:space="preserve">
+    <value>Reward</value>
+    <comment>Sort column: the mission's reward.</comment>
+  </data>
+  <data name="Column.Samples" xml:space="preserve">
+    <value>Samples</value>
+    <comment>Sort column: how many samples.</comment>
+  </data>
+  <data name="Column.Sessions" xml:space="preserve">
+    <value>Sessions</value>
+    <comment>Sort column: how many wing or crew sessions.</comment>
+  </data>
+  <data name="Column.Shared" xml:space="preserve">
+    <value>Shared</value>
+    <comment>Sort column: credits shared.</comment>
+  </data>
+  <data name="Column.Ship" xml:space="preserve">
+    <value>Ship</value>
+    <comment>Sort column: the ship.</comment>
+  </data>
+  <data name="Column.ShipHas" xml:space="preserve">
+    <value>Ship has</value>
+    <comment>Sort column: what the ship has in a slot.</comment>
+  </data>
+  <data name="Column.Short" xml:space="preserve">
+    <value>Short</value>
+    <comment>Sort column: how many are missing.</comment>
+  </data>
+  <data name="Column.Slot" xml:space="preserve">
+    <value>Slot</value>
+    <comment>Sort column: the module slot.</comment>
+  </data>
+  <data name="Column.Species" xml:space="preserve">
+    <value>Species</value>
+    <comment>Sort column: the species sold.</comment>
+  </data>
+  <data name="Column.Stage" xml:space="preserve">
+    <value>Stage</value>
+    <comment>Sort column: here, next or done.</comment>
+  </data>
+  <data name="Column.Star" xml:space="preserve">
+    <value>Star</value>
+    <comment>Sort column: the star class.</comment>
+  </data>
+  <data name="Column.State" xml:space="preserve">
+    <value>State</value>
+    <comment>Sort column: an unlock's state.</comment>
+  </data>
+  <data name="Column.Status" xml:space="preserve">
+    <value>Status</value>
+    <comment>Sort column: the match status.</comment>
+  </data>
+  <data name="Column.Stop" xml:space="preserve">
+    <value>Stop</value>
+    <comment>Sort column: the stop number.</comment>
+  </data>
+  <data name="Column.System" xml:space="preserve">
+    <value>System</value>
+    <comment>Sort column: the star system.</comment>
+  </data>
+  <data name="Column.TimeTogether" xml:space="preserve">
+    <value>Time together</value>
+    <comment>Sort column: time spent in a wing or crew with someone.</comment>
+  </data>
+  <data name="Column.ToGo" xml:space="preserve">
+    <value>To go</value>
+    <comment>Sort column: distance left.</comment>
+  </data>
+  <data name="Column.Type" xml:space="preserve">
+    <value>Type</value>
+    <comment>Sort column: the module type.</comment>
+  </data>
+  <data name="Column.Unlock" xml:space="preserve">
+    <value>Unlock</value>
+    <comment>Sort column: the unlock.</comment>
+  </data>
+  <data name="Column.Visit" xml:space="preserve">
+    <value>Visit</value>
+    <comment>Sort column: whether you will visit the engineer.</comment>
+  </data>
+  <data name="Column.Visited" xml:space="preserve">
+    <value>Visited</value>
+    <comment>Sort column: whether you have been there.</comment>
+  </data>
+  <data name="Column.Wants" xml:space="preserve">
+    <value>Wants</value>
+    <comment>Sort column: what a fit wants in a slot.</comment>
+  </data>
+  <data name="Column.Where" xml:space="preserve">
+    <value>Where</value>
+    <comment>Sort column: the system or place.</comment>
+  </data>
+  <data name="Column.WithBonus" xml:space="preserve">
+    <value>With bonus</value>
+    <comment>Sort column: credits with the first-logged bonus.</comment>
+  </data>
+  <data name="Column.WithoutBonus" xml:space="preserve">
+    <value>Without bonus</value>
+    <comment>Sort column: credits without the bonus.</comment>
+  </data>
+  <data name="Column.YouReach" xml:space="preserve">
+    <value>You reach</value>
+    <comment>Sort column: the grade your ticked engineers reach.</comment>
+  </data>
+  <data name="Distance.Unknown" xml:space="preserve">
+    <value>distance unknown</value>
+    <comment>Shown where a distance would be when the ship's position is not known.</comment>
+  </data>
+  <data name="Drawer.BadgeCovered" xml:space="preserve">
+    <value>{count} · covered</value>
+    <comment>Plan button badge: entries counted, nothing short.</comment>
+  </data>
+  <data name="Drawer.BadgeEmpty" xml:space="preserve">
+    <value>empty</value>
+    <comment>Plan button badge while the plan has no counted entries. Lower case, one word.</comment>
+  </data>
+  <data name="Drawer.BadgeShort" xml:space="preserve">
+    <value>{count} · {short} short</value>
+    <comment>Plan button badge: entries counted and how many materials are short.</comment>
+  </data>
+  <data name="Drawer.NoneSelected" xml:space="preserve">
+    <value>none selected</value>
+    <comment>Plan drawer summary: the engineers list when nobody is ticked. Lower case.</comment>
+  </data>
+  <data name="Drawer.Summary" xml:space="preserve">
+    <value>{entries}, {counted} counted. {totals} Engineers: {engineers}.</value>
+    <comment>Plan drawer summary line; {entries} is a count of entries, {totals} a sentence, {engineers} a list of names.</comment>
+  </data>
+  <data name="Engineer.DistanceUnknown" xml:space="preserve">
+    <value>Distance unknown until the journal reports your position.</value>
+    <comment>Engineer page distance line.</comment>
+  </data>
+  <data name="Engineer.GradeOf" xml:space="preserve">
+    <value>{grade} of {top}</value>
+    <comment>Engineer page offers: the grade they reach of the blueprint's top grade, both G-badges.</comment>
+  </data>
+  <data name="Engineer.LightYearsFrom" xml:space="preserve">
+    <value>{distance} from {system}</value>
+    <comment>Engineer page: distance to the engineer; {system} is a link.</comment>
+  </data>
+  <data name="Engineer.PlanTitle" xml:space="preserve">
+    <value>{module}: {blueprint} {grade}</value>
+    <comment>Engineer page plan row title; {grade} is a G-badge.</comment>
+  </data>
+  <data name="Engineer.RollsTarget" xml:space="preserve">
+    <value>Rolls the target grade.</value>
+    <comment>Engineer page plan row note.</comment>
+  </data>
+  <data name="Engineer.RollsTargetAndApplies" xml:space="preserve">
+    <value>Rolls the target grade and applies the experimental.</value>
+    <comment>Engineer page plan row note.</comment>
+  </data>
+  <data name="Engineer.RollsTargetNotExperimental" xml:space="preserve">
+    <value>Rolls the target grade; the experimental needs someone else.</value>
+    <comment>Engineer page plan row note.</comment>
+  </data>
+  <data name="Engineer.RouteStartsHere" xml:space="preserve">
+    <value>Your route starts here.</value>
+    <comment>Engineer page route line.</comment>
+  </data>
+  <data name="Engineer.RouteStop" xml:space="preserve">
+    <value>Stop {index} of {count} on your route.</value>
+    <comment>Engineer page route line.</comment>
+  </data>
+  <data name="Engineer.StopsAt" xml:space="preserve">
+    <value>Stops at {grade}; another engineer finishes it.</value>
+    <comment>Engineer page plan row note; {grade} is a G-badge.</comment>
+  </data>
+  <data name="Engineer.StoredModules" xml:space="preserve">
+    <value>You have {modules} stored in {system}.</value>
+    <comment>Engineer page; {modules} is a count of modules, {system} a link.</comment>
+  </data>
+  <data name="Engineering.Stock" xml:space="preserve">
+    <value>stock</value>
+    <comment>A module with no engineering. Lower case.</comment>
+  </data>
+  <data name="Engineering.Text" xml:space="preserve">
+    <value>{blueprint} {grade}</value>
+    <comment>A module's engineering: blueprint and G-badge.</comment>
+  </data>
+  <data name="Engineering.TextExperimentalUnknown" xml:space="preserve">
+    <value>{blueprint} {grade}, experimental unknown</value>
+    <comment>A module's engineering when the journal does not say whether it has an experimental.</comment>
+  </data>
+  <data name="Engineering.TextUnfinished" xml:space="preserve">
+    <value>{blueprint} {grade}, {percent}%</value>
+    <comment>A module's engineering with an unfinished grade; {percent} is the progress.</comment>
+  </data>
+  <data name="Engineering.TextUnfinishedExperimentalUnknown" xml:space="preserve">
+    <value>{blueprint} {grade}, {percent}%, experimental unknown</value>
+    <comment>A module's unfinished engineering when the experimental is not known.</comment>
+  </data>
+  <data name="Engineering.TextUnfinishedWithExperimental" xml:space="preserve">
+    <value>{blueprint} {grade}, {percent}% + {experimental}</value>
+    <comment>A module's unfinished engineering with its experimental effect.</comment>
+  </data>
+  <data name="Engineering.TextWithExperimental" xml:space="preserve">
+    <value>{blueprint} {grade} + {experimental}</value>
+    <comment>A module's engineering with its experimental effect.</comment>
+  </data>
+  <data name="Engineers.DistancesFrom" xml:space="preserve">
+    <value>Distances from {system}.</value>
+    <comment>Engineers page distance line; {system} is a link.</comment>
+  </data>
+  <data name="Engineers.DistancesWhenKnown" xml:space="preserve">
+    <value>Distances appear once the journal reports where you are.</value>
+    <comment>Engineers page distance line before the position is known.</comment>
+  </data>
+  <data name="Engineers.NobodySelected" xml:space="preserve">
+    <value>Nobody selected. Tick the engineers you are willing to travel to; the plan marks who can roll each entry.</value>
+    <comment>Engineers page selection line.</comment>
+  </data>
+  <data name="Engineers.OnlyMineText" xml:space="preserve">
+    <value>On, the modules page and every blueprint, grade and experimental picker offer only what the engineers you ticked can roll, and grades start at the grade they reach.
+Off, everything is offered and grades start at the top. The plan still warns about entries nobody you ticked can roll.</value>
+    <comment>Engineers page: what the narrowing switch does. Two paragraphs separated by a line break.</comment>
+  </data>
+  <data name="Engineers.ScopeOff" xml:space="preserve">
+    <value>Off: every blueprint, grade and experimental is offered, and grade pickers start at the top.</value>
+    <comment>Engineers page: the narrowing switch's status.</comment>
+  </data>
+  <data name="Engineers.ScopeOn" xml:space="preserve">
+    <value>On: narrowed to what your {engineers} can roll, and grade pickers start at the grade they reach.</value>
+    <comment>Engineers page: the narrowing switch's status; {engineers} is a count of ticked engineers.</comment>
+  </data>
+  <data name="Engineers.ScopeOnNobody" xml:space="preserve">
+    <value>On, but nobody is ticked yet, so nothing is narrowed. Tick the engineers you will visit below.</value>
+    <comment>Engineers page: the narrowing switch's status.</comment>
+  </data>
+  <data name="Engineers.Selected" xml:space="preserve">
+    <value>{engineers} selected. The modules page can narrow itself to what they can roll.</value>
+    <comment>Engineers page selection line; {engineers} is a count of engineers.</comment>
+  </data>
+  <data name="Filter.AllModules" xml:space="preserve">
+    <value>All modules</value>
+    <comment>Fleet page: engineering filter choice.</comment>
+  </data>
+  <data name="Filter.EngineeredOnly" xml:space="preserve">
+    <value>Engineered only</value>
+    <comment>Fleet page: engineering filter choice.</comment>
+  </data>
+  <data name="Filter.Everywhere" xml:space="preserve">
+    <value>Everywhere</value>
+    <comment>Fleet page: location filter choice meaning no restriction.</comment>
+  </data>
+  <data name="Filter.FittedOnly" xml:space="preserve">
+    <value>Fitted to a ship only</value>
+    <comment>Fleet page: place filter choice.</comment>
+  </data>
+  <data name="Filter.FittedOrStored" xml:space="preserve">
+    <value>Fitted or stored</value>
+    <comment>Fleet page: place filter choice.</comment>
+  </data>
+  <data name="Filter.StoredOnly" xml:space="preserve">
+    <value>Stored only, not on a ship</value>
+    <comment>Fleet page: place filter choice.</comment>
+  </data>
+  <data name="Filter.UnengineeredOnly" xml:space="preserve">
+    <value>Unengineered only</value>
+    <comment>Fleet page: engineering filter choice.</comment>
+  </data>
+  <data name="Fit.AlreadyMatch" xml:space="preserve">
+    <value>{matching} of {total} modules already match.</value>
+    <comment>Fit page comparison summary sentence.</comment>
+  </data>
+  <data name="Fit.AlreadyOwned" xml:space="preserve">
+    <value>You already own one, {where}. Not planned.</value>
+    <comment>Fit page difference note; {where} is Match.FittedTo or Match.StoredAt.</comment>
+  </data>
+  <data name="Fit.ChangesPlanned" xml:space="preserve">
+    <value>Every engineering change for this ship is in the plan</value>
+    <comment>Fit page button.</comment>
+  </data>
+  <data name="Fit.FittedElsewhere" xml:space="preserve">
+    <value>{module} in {slot}</value>
+    <comment>Fit page: what the ship has, found in another slot.</comment>
+  </data>
+  <data name="Fit.GapsPlanned" xml:space="preserve">
+    <value>Every gap in what you own is in the plan</value>
+    <comment>Fit page button.</comment>
+  </data>
+  <data name="Fit.HullNote" xml:space="preserve">
+    <value>This ship is a {ship}; the fit is for a {fit}. Modules are matched within slots of the same kind, so the layout may not carry over.</value>
+    <comment>Fit page note when the compared ship is another hull.</comment>
+  </data>
+  <data name="Fit.Kicker" xml:space="preserve">
+    <value>Saved fit</value>
+    <comment>Small label above a fit page's title.</comment>
+  </data>
+  <data name="Fit.KindDifferentBlueprint" xml:space="preserve">
+    <value>different blueprint</value>
+    <comment>Fit difference kind. Lower case.</comment>
+  </data>
+  <data name="Fit.KindDifferentModule" xml:space="preserve">
+    <value>different module</value>
+    <comment>Fit difference kind. Lower case.</comment>
+  </data>
+  <data name="Fit.KindEmptySlot" xml:space="preserve">
+    <value>empty slot</value>
+    <comment>Fit difference kind. Lower case.</comment>
+  </data>
+  <data name="Fit.KindExperimentalMissing" xml:space="preserve">
+    <value>experimental missing</value>
+    <comment>Fit difference kind. Lower case.</comment>
+  </data>
+  <data name="Fit.KindExperimentalUnknown" xml:space="preserve">
+    <value>experimental unknown</value>
+    <comment>Fit difference kind. Lower case.</comment>
+  </data>
+  <data name="Fit.KindLowerGrade" xml:space="preserve">
+    <value>lower grade</value>
+    <comment>Fit difference kind. Lower case.</comment>
+  </data>
+  <data name="Fit.KindNotEngineered" xml:space="preserve">
+    <value>not engineered</value>
+    <comment>Fit difference kind. Lower case.</comment>
+  </data>
+  <data name="Fit.KindUnfinishedGrade" xml:space="preserve">
+    <value>grade unfinished</value>
+    <comment>Fit difference kind. Lower case.</comment>
+  </data>
+  <data name="Fit.MayAlreadyOwn" xml:space="preserve">
+    <value>You may already own one, {where}, but its experimental is unknown.</value>
+    <comment>Fit page difference note.</comment>
+  </data>
+  <data name="Fit.MayBeRight" xml:space="preserve">
+    <value>{slots} may already be right; the ship's experimental is unknown.</value>
+    <comment>Fit page comparison summary sentence.</comment>
+  </data>
+  <data name="Fit.MustBuy" xml:space="preserve">
+    <value>{modules} must be bought first.</value>
+    <comment>Fit page comparison summary sentence; {modules} is a count of modules.</comment>
+  </data>
+  <data name="Fit.NeedEngineering" xml:space="preserve">
+    <value>{slots} need engineering.</value>
+    <comment>Fit page comparison summary sentence.</comment>
+  </data>
+  <data name="Fit.NeedEngineeringCovered" xml:space="preserve">
+    <value>{slots} need engineering, {covered} of them with engineers you will visit.</value>
+    <comment>Fit page comparison summary sentence.</comment>
+  </data>
+  <data name="Fit.NobodyInData" xml:space="preserve">
+    <value>nobody in the data</value>
+    <comment>Fit page: stands in for an empty engineers list. Lower case.</comment>
+  </data>
+  <data name="Fit.NobodyOffersThis" xml:space="preserve">
+    <value>No engineer in the data offers this.</value>
+    <comment>Fit page difference engineers line.</comment>
+  </data>
+  <data name="Fit.NoChanges" xml:space="preserve">
+    <value>No engineering to add</value>
+    <comment>Fit page button.</comment>
+  </data>
+  <data name="Fit.NoGaps" xml:space="preserve">
+    <value>Nothing missing needs engineering</value>
+    <comment>Fit page button.</comment>
+  </data>
+  <data name="Fit.NoneOfYours" xml:space="preserve">
+    <value>None of your engineers. Offered by {engineers}.</value>
+    <comment>Fit page difference engineers line.</comment>
+  </data>
+  <data name="Fit.NoShipsToCompare" xml:space="preserve">
+    <value>No ships seen yet. The comparison appears once the journal has read your fleet.</value>
+    <comment>Fit page comparison summary.</comment>
+  </data>
+  <data name="Fit.OwnedCanFill" xml:space="preserve">
+    <value>{slots} can be filled from modules you already own.</value>
+    <comment>Fit page comparison summary sentence; {slots} is a count of slots.</comment>
+  </data>
+  <data name="Fit.PlanChanges.one" xml:space="preserve">
+    <value>Plan the {count} engineering change for this ship</value>
+    <comment>Fit page button.</comment>
+  </data>
+  <data name="Fit.PlanChanges.other" xml:space="preserve">
+    <value>Plan the {count} engineering changes for this ship</value>
+    <comment>Fit page button.</comment>
+  </data>
+  <data name="Fit.PlanGaps.one" xml:space="preserve">
+    <value>Plan the {count} gap in what you own</value>
+    <comment>Fit page button.</comment>
+  </data>
+  <data name="Fit.PlanGaps.other" xml:space="preserve">
+    <value>Plan the {count} gaps in what you own</value>
+    <comment>Fit page button.</comment>
+  </data>
+  <data name="Fit.PrebuiltSlots.one" xml:space="preserve">
+    <value>{count} slot to engineer holds a prebuilt module, which cannot leave this ship.</value>
+    <comment>Fit page comparison summary sentence.</comment>
+  </data>
+  <data name="Fit.PrebuiltSlots.other" xml:space="preserve">
+    <value>{count} slots to engineer hold a prebuilt module, which cannot leave this ship.</value>
+    <comment>Fit page comparison summary sentence.</comment>
+  </data>
+  <data name="Fit.Removed" xml:space="preserve">
+    <value>Fit removed</value>
+    <comment>Fit page title when the fit is gone.</comment>
+  </data>
+  <data name="Fit.ShipChoice" xml:space="preserve">
+    <value>{ship} · {hull} · {matching} of {total} match</value>
+    <comment>Fit page ship picker entry.</comment>
+  </data>
+  <data name="Fit.YourEngineers" xml:space="preserve">
+    <value>Your engineers: {engineers}</value>
+    <comment>Fit page difference engineers line; {engineers} is a list of links.</comment>
+  </data>
+  <data name="Fleet.AsOf" xml:space="preserve">
+    <value>as of {when:g}</value>
+    <comment>Fleet page status part. Lower case.</comment>
+  </data>
+  <data name="Fleet.EveryModuleOwned" xml:space="preserve">
+    <value>Every module is owned.</value>
+    <comment>Fit summary.</comment>
+  </data>
+  <data name="Fleet.FitAsOf" xml:space="preserve">
+    <value>fit as of {when:g}</value>
+    <comment>Fleet page ship row: when the fit was last seen. Lower case.</comment>
+  </data>
+  <data name="Fleet.FitUnknown" xml:space="preserve">
+    <value>fit unknown: not flown since the journal began</value>
+    <comment>Fleet page ship row. Lower case.</comment>
+  </data>
+  <data name="Fleet.HullNotOwned" xml:space="preserve">
+    <value>You do not own this hull.</value>
+    <comment>Fit summary.</comment>
+  </data>
+  <data name="Fleet.InTransit" xml:space="preserve">
+    <value>in transit</value>
+    <comment>Where a stored module is while being shipped. Lower case.</comment>
+  </data>
+  <data name="Fleet.LocationUnknown" xml:space="preserve">
+    <value>location unknown</value>
+    <comment>Where a ship is when the journal has not said. Lower case.</comment>
+  </data>
+  <data name="Fleet.ModulesNotSeen" xml:space="preserve">
+    <value>not yet seen: dock at outfitting</value>
+    <comment>Fleet page status part. Lower case.</comment>
+  </data>
+  <data name="Fleet.NoShips" xml:space="preserve">
+    <value>No ships seen yet. The fleet appears once the journal has been read.</value>
+    <comment>Fleet page status.</comment>
+  </data>
+  <data name="Fleet.ReplaceQuestion" xml:space="preserve">
+    <value>Replace the saved fit {name} for the {hull}?</value>
+    <comment>Fleet page: confirmation before replacing a fit of the same name.</comment>
+  </data>
+  <data name="Fleet.ShipsNotSeen" xml:space="preserve">
+    <value>not yet seen: dock at a shipyard</value>
+    <comment>Fleet page status part. Lower case.</comment>
+  </data>
+  <data name="Fleet.ShipTitle" xml:space="preserve">
+    <value>{name} ({ident})</value>
+    <comment>A named ship with its registration.</comment>
+  </data>
+  <data name="Fleet.Status" xml:space="preserve">
+    <value>{ships}, {modules}. Fleet list {shipsAsOf}; stored modules {modulesAsOf}.</value>
+    <comment>Fleet page status; {ships} and {modules} are counts, the rest are Fleet.AsOf or Fleet.ShipsNotSeen / Fleet.ModulesNotSeen.</comment>
+  </data>
+  <data name="Fleet.Storage" xml:space="preserve">
+    <value>storage</value>
+    <comment>Where a stored module is when the game names no system. Lower case.</comment>
+  </data>
+  <data name="Fleet.SummaryMissing" xml:space="preserve">
+    <value>{count} missing</value>
+    <comment>Fit summary part.</comment>
+  </data>
+  <data name="Fleet.SummaryPartial" xml:space="preserve">
+    <value>{count} partial</value>
+    <comment>Fit summary part.</comment>
+  </data>
+  <data name="Fleet.SummaryUncertain" xml:space="preserve">
+    <value>{count} with an unknown experimental</value>
+    <comment>Fit summary part.</comment>
+  </data>
+  <data name="Fleet.UnusedHeading" xml:space="preserve">
+    <value>Owned modules no fit uses ({count})</value>
+    <comment>Fleet page: heading of the unused modules list.</comment>
+  </data>
+  <data name="Fleet.VerdictAllOwned" xml:space="preserve">
+    <value>All owned</value>
+    <comment>Fit badge, shown in capitals.</comment>
+  </data>
+  <data name="Fleet.VerdictHullNotOwned" xml:space="preserve">
+    <value>Hull not owned</value>
+    <comment>Fit badge, shown in capitals.</comment>
+  </data>
+  <data name="Fleet.VerdictMissing" xml:space="preserve">
+    <value>{count} missing</value>
+    <comment>Fit badge, shown in capitals.</comment>
+  </data>
+  <data name="Fleet.VerdictPartial" xml:space="preserve">
+    <value>Partial</value>
+    <comment>Fit badge, shown in capitals.</comment>
+  </data>
+  <data name="Fuel.ForJumps" xml:space="preserve">
+    <value>Fuel for {jumps} without scooping.</value>
+    <comment>Route page fuel summary; {jumps} is a count of further jumps.</comment>
+  </data>
+  <data name="Fuel.NeedsDrive" xml:space="preserve">
+    <value>Fuel estimate needs the ship's frame shift drive in its loadout.</value>
+    <comment>Route page fuel note.</comment>
+  </data>
+  <data name="Fuel.NeedsMassOrJump" xml:space="preserve">
+    <value>Fuel estimate needs the ship's mass from the game, or one jump in this ship to learn its burn.</value>
+    <comment>Route page fuel note.</comment>
+  </data>
+  <data name="Fuel.NeedsShipAndTank" xml:space="preserve">
+    <value>Fuel estimate appears once the game reports your ship and tank.</value>
+    <comment>Route page fuel note.</comment>
+  </data>
+  <data name="Fuel.NextJump" xml:space="preserve">
+    <value>-{tonnes:0.0} t</value>
+    <comment>Fuel gauge: what the next jump burns.</comment>
+  </data>
+  <data name="Fuel.NoScoopable" xml:space="preserve">
+    <value>No scoopable star within reach: refuel before leaving.</value>
+    <comment>Route page fuel summary.</comment>
+  </data>
+  <data name="Fuel.NotEnoughNext" xml:space="preserve">
+    <value>Not enough fuel for the next jump.</value>
+    <comment>Route page fuel summary.</comment>
+  </data>
+  <data name="Fuel.OutOfFuel" xml:space="preserve">
+    <value>out of fuel</value>
+    <comment>Route stop: the tank runs dry before it. Lower case.</comment>
+  </data>
+  <data name="Fuel.RunsDry" xml:space="preserve">
+    <value>Even scooping at every star you pass, the route runs dry.</value>
+    <comment>Route page fuel summary.</comment>
+  </data>
+  <data name="Fuel.ScoopBy" xml:space="preserve">
+    <value>Scoop by {system}, stop {index}.</value>
+    <comment>Route page fuel summary; {system} is a link.</comment>
+  </data>
+  <data name="Fuel.Tank" xml:space="preserve">
+    <value>{tonnes:0.0} / {capacity:0.#} t</value>
+    <comment>Fuel gauge: tonnes aboard over the tank's capacity.</comment>
+  </data>
+  <data name="Fuel.WholeRoute" xml:space="preserve">
+    <value>Fuel for the whole route without scooping.</value>
+    <comment>Route page fuel summary.</comment>
+  </data>
+  <data name="Home.Catalog" xml:space="preserve">
+    <value>{blueprints}, {experimentals}, {engineers}, {materials}, {modules}.</value>
+    <comment>Start page: what the tables hold; each placeholder is a count with its noun.</comment>
+  </data>
+  <data name="Home.CatchingUp" xml:space="preserve">
+    <value>Reading the journal history.</value>
+    <comment>Start page watch line.</comment>
+  </data>
+  <data name="Home.EngineersNoneSelected" xml:space="preserve">
+    <value>{engineers}, none selected</value>
+    <comment>Start page tile detail; {engineers} is a count of engineers.</comment>
+  </data>
+  <data name="Home.EngineersYouWillVisit" xml:space="preserve">
+    <value>{engineers} you will visit</value>
+    <comment>Start page tile detail; {engineers} is a count of engineers.</comment>
+  </data>
+  <data name="Home.FolderMissing" xml:space="preserve">
+    <value>The journal folder does not exist. Fix it in Settings.</value>
+    <comment>Start page watch line.</comment>
+  </data>
+  <data name="Home.InventoryNotRead" xml:space="preserve">
+    <value>inventory not read yet</value>
+    <comment>Start page tile detail. Lower case.</comment>
+  </data>
+  <data name="Home.JournalFolderNotSet" xml:space="preserve">
+    <value>journal folder not set</value>
+    <comment>Start page tile detail. Lower case.</comment>
+  </data>
+  <data name="Home.JournalFolderSet" xml:space="preserve">
+    <value>journal folder set</value>
+    <comment>Start page tile detail. Lower case.</comment>
+  </data>
+  <data name="Home.JumpsPlotted" xml:space="preserve">
+    <value>{jumps} plotted</value>
+    <comment>Start page tile detail; {jumps} is a count of jumps.</comment>
+  </data>
+  <data name="Home.Kicker" xml:space="preserve">
+    <value>Start</value>
+    <comment>Small label above the start page's title.</comment>
+  </data>
+  <data name="Home.MaterialsInInventory" xml:space="preserve">
+    <value>{materials} in your inventory</value>
+    <comment>Start page tile detail; {materials} is a count of materials.</comment>
+  </data>
+  <data name="Home.NoRoutePlotted" xml:space="preserve">
+    <value>no route plotted</value>
+    <comment>Start page tile detail. Lower case.</comment>
+  </data>
+  <data name="Home.NoShipsSeen" xml:space="preserve">
+    <value>no ships seen yet</value>
+    <comment>Start page tile detail. Lower case.</comment>
+  </data>
+  <data name="Home.NotWatching" xml:space="preserve">
+    <value>Not watching the journal. Start it in Settings.</value>
+    <comment>Start page watch line.</comment>
+  </data>
+  <data name="Home.PlanCovered" xml:space="preserve">
+    <value>{entries} planned and every material covered.</value>
+    <comment>Start page plan line.</comment>
+  </data>
+  <data name="Home.PlanEmpty" xml:space="preserve">
+    <value>The plan is empty. Add a blueprint from any module page.</value>
+    <comment>Start page plan line.</comment>
+  </data>
+  <data name="Home.PlanNoInventory" xml:space="preserve">
+    <value>{entries} planned. Start the journal watch to see what you still need.</value>
+    <comment>Start page plan line; {entries} is a count of entries.</comment>
+  </data>
+  <data name="Home.PlanShort" xml:space="preserve">
+    <value>{entries} planned, {materials} short.</value>
+    <comment>Start page plan line; {materials} is a count of materials.</comment>
+  </data>
+  <data name="Home.Played" xml:space="preserve">
+    <value>{duration} played</value>
+    <comment>Start page tile detail; {duration} is compact, such as 3d 4h.</comment>
+  </data>
+  <data name="Home.PositionUnknown" xml:space="preserve">
+    <value>position unknown</value>
+    <comment>Start page tile detail. Lower case.</comment>
+  </data>
+  <data name="Home.ShipsAndFits" xml:space="preserve">
+    <value>{ships}, {fits}</value>
+    <comment>Start page tile detail: a count of ships and a count of saved fits.</comment>
+  </data>
+  <data name="Home.StatArrivedAt" xml:space="preserve">
+    <value>Arrived at {system}.</value>
+    <comment>Start page figure detail; {system} is a link.</comment>
+  </data>
+  <data name="Home.StatBeforeHonk" xml:space="preserve">
+    <value>in this system, before a honk.</value>
+    <comment>Start page figure detail. Lower case.</comment>
+  </data>
+  <data name="Home.StatBodiesInSystems" xml:space="preserve">
+    <value>{bodies} in {systems}</value>
+    <comment>Start page figure detail: data aboard; two counts.</comment>
+  </data>
+  <data name="Home.StatBodiesScanned" xml:space="preserve">
+    <value>Bodies scanned</value>
+    <comment>Start page figure label, shown in capitals.</comment>
+  </data>
+  <data name="Home.StatDataAboard" xml:space="preserve">
+    <value>Data aboard</value>
+    <comment>Start page figure label, shown in capitals.</comment>
+  </data>
+  <data name="Home.StatEarned" xml:space="preserve">
+    <value>Earned, 7 days</value>
+    <comment>Start page figure label, shown in capitals.</comment>
+  </data>
+  <data name="Home.StatFromPayments" xml:space="preserve">
+    <value>from {payments} in the last week of play.</value>
+    <comment>Start page figure detail; {payments} is a count of payments. Lower case.</comment>
+  </data>
+  <data name="Home.StatFuelBeforeScoop" xml:space="preserve">
+    <value>Fuel for {jumps} before you must scoop.</value>
+    <comment>Start page figure detail; {jumps} is a count of jumps.</comment>
+  </data>
+  <data name="Home.StatHonkToCount" xml:space="preserve">
+    <value>in this system. Honk to count the bodies.</value>
+    <comment>Start page figure detail. Lower case.</comment>
+  </data>
+  <data name="Home.StatInThisSystem" xml:space="preserve">
+    <value>in this system.</value>
+    <comment>Start page figure detail. Lower case.</comment>
+  </data>
+  <data name="Home.StatJumpsLeft" xml:space="preserve">
+    <value>Jumps left</value>
+    <comment>Start page figure label, shown in capitals.</comment>
+  </data>
+  <data name="Home.StatMaterialsCovered" xml:space="preserve">
+    <value>Every one of the {materials} the plan needs is covered.</value>
+    <comment>Start page figure detail.</comment>
+  </data>
+  <data name="Home.StatMaterialsNeeded" xml:space="preserve">
+    <value>{materials} needed; inventory not read yet.</value>
+    <comment>Start page figure detail.</comment>
+  </data>
+  <data name="Home.StatMaterialsOf" xml:space="preserve">
+    <value>of the {materials} the plan needs.</value>
+    <comment>Start page figure detail, after the short count. Lower case.</comment>
+  </data>
+  <data name="Home.StatMaterialsShort" xml:space="preserve">
+    <value>Materials short</value>
+    <comment>Start page figure label, shown in capitals.</comment>
+  </data>
+  <data name="Home.StatNoIncome" xml:space="preserve">
+    <value>No income in the journal yet.</value>
+    <comment>Start page figure detail.</comment>
+  </data>
+  <data name="Home.StatNoPosition" xml:space="preserve">
+    <value>No position yet.</value>
+    <comment>Start page figure detail.</comment>
+  </data>
+  <data name="Home.StatNoRoute" xml:space="preserve">
+    <value>No route plotted.</value>
+    <comment>Start page figure detail.</comment>
+  </data>
+  <data name="Home.StatNothingAboard" xml:space="preserve">
+    <value>Nothing scanned or sampled since you last sold.</value>
+    <comment>Start page figure detail.</comment>
+  </data>
+  <data name="Home.StatNothingEarned" xml:space="preserve">
+    <value>Nothing earned in the last week of play.</value>
+    <comment>Start page figure detail.</comment>
+  </data>
+  <data name="Home.StatPlanEmpty" xml:space="preserve">
+    <value>The plan is empty.</value>
+    <comment>Start page figure detail.</comment>
+  </data>
+  <data name="Home.StatTo" xml:space="preserve">
+    <value>to {system}.</value>
+    <comment>Start page figure detail: where the route ends; {system} is a link. Lower case.</comment>
+  </data>
+  <data name="Home.StatUnsold" xml:space="preserve">
+    <value>{what} unsold; lost if you die.</value>
+    <comment>Start page figure detail; {what} lists what is aboard.</comment>
+  </data>
+  <data name="Home.StatZeroCredits" xml:space="preserve">
+    <value>0 Cr</value>
+    <comment>Start page figure: no credits.</comment>
+  </data>
+  <data name="Home.ThisSystem" xml:space="preserve">
+    <value>This system</value>
+    <comment>Start page tile: the system the ship is in.</comment>
+  </data>
+  <data name="Home.UnlocksTile" xml:space="preserve">
+    <value>{unlocks}, {bought} bought, {planned} planned</value>
+    <comment>Start page tile detail; {unlocks} is a count of technology broker unlocks.</comment>
+  </data>
+  <data name="Home.WaitingForFigures" xml:space="preserve">
+    <value>waiting for the game's figures</value>
+    <comment>Start page tile detail. Lower case.</comment>
+  </data>
+  <data name="Home.Watching" xml:space="preserve">
+    <value>Watching the journal.</value>
+    <comment>Start page watch line.</comment>
+  </data>
+  <data name="Import.AddToPlan" xml:space="preserve">
+    <value>Add {count} to plan</value>
+    <comment>Import form: the button with how many modules are ticked.</comment>
+  </data>
+  <data name="Import.CouldNotRead" xml:space="preserve">
+    <value>The export could not be read.</value>
+    <comment>Import form: the pasted text is not a Loadout export.</comment>
+  </data>
+  <data name="Import.Heading" xml:space="preserve">
+    <value>{ship}: {modules}</value>
+    <comment>Import form heading; {modules} is a count of engineered modules.</comment>
+  </data>
+  <data name="Import.NoLoadout" xml:space="preserve">
+    <value>No Loadout object found in the text.</value>
+    <comment>Import form: the JSON has no Loadout record.</comment>
+  </data>
+  <data name="Import.NoModules" xml:space="preserve">
+    <value>The Loadout has no "Modules" list. Export from EDSY as a journal Loadout.</value>
+    <comment>Import form: the Loadout record lacks its module list.</comment>
+  </data>
+  <data name="Import.NoteNotListed" xml:space="preserve">
+    <value>This blueprint is not listed for this module type in the data.</value>
+    <comment>Imported module note.</comment>
+  </data>
+  <data name="Import.NoteTopsOut" xml:space="preserve">
+    <value>This blueprint tops out at grade {grade}; the plan uses that.</value>
+    <comment>Imported module note.</comment>
+  </data>
+  <data name="Import.NoteUnknownType" xml:space="preserve">
+    <value>Module type unknown; engineers cannot be listed.</value>
+    <comment>Imported module note.</comment>
+  </data>
+  <data name="Import.NotJson" xml:space="preserve">
+    <value>That is not valid JSON.</value>
+    <comment>Import form: the pasted text is not JSON.</comment>
+  </data>
+  <data name="Import.PasteFirst" xml:space="preserve">
+    <value>Paste an EDSY export first.</value>
+    <comment>Import form: the paste box is empty.</comment>
+  </data>
+  <data name="Import.Title" xml:space="preserve">
+    <value>{module}: {blueprint} {grade}</value>
+    <comment>An imported module's title; {grade} is a G-badge.</comment>
+  </data>
+  <data name="Import.TitleWithExperimental" xml:space="preserve">
+    <value>{module}: {blueprint} {grade} + {experimental}</value>
+    <comment>An imported module's title with its experimental effect.</comment>
+  </data>
+  <data name="Language.System" xml:space="preserve">
+    <value>System language</value>
+    <comment>Language picker: the choice that follows the machine's language. Max 24 chars.</comment>
+  </data>
+  <data name="List.Clause" xml:space="preserve">
+    <value>; </value>
+    <comment>Between clauses of one sentence.</comment>
+  </data>
+  <data name="List.Dot" xml:space="preserve">
+    <value> · </value>
+    <comment>Between short items of a summary line.</comment>
+  </data>
+  <data name="List.Separator" xml:space="preserve">
+    <value>, </value>
+    <comment>Between items of a list in running text.</comment>
+  </data>
+  <data name="Lookup.Http" xml:space="preserve">
+    <value>Spansh answered HTTP {code} for the system lookup.</value>
+    <comment>System page status when the Spansh system lookup fails; {code} is the HTTP status.</comment>
+  </data>
+  <data name="Lookup.TimedOut" xml:space="preserve">
+    <value>Spansh took too long to answer the system lookup.</value>
+    <comment>System page status when the Spansh system lookup times out.</comment>
+  </data>
+  <data name="Lookup.Unreachable" xml:space="preserve">
+    <value>Spansh could not be reached for the system lookup.</value>
+    <comment>System page status when the Spansh system lookup cannot connect.</comment>
+  </data>
+  <data name="Lookup.Unreadable" xml:space="preserve">
+    <value>Spansh's answer to the system lookup could not be read.</value>
+    <comment>System page status when the Spansh system lookup's answer is not valid JSON.</comment>
+  </data>
+  <data name="Match.ExperimentalUnknown" xml:space="preserve">
+    <value>{place}, experimental unknown</value>
+    <comment>Fit line status.</comment>
+  </data>
+  <data name="Match.FittedTo" xml:space="preserve">
+    <value>fitted to {ship}</value>
+    <comment>Fit line status: where the owned module is. Lower case.</comment>
+  </data>
+  <data name="Match.FittedToPrebuilt" xml:space="preserve">
+    <value>fitted to {ship}, prebuilt</value>
+    <comment>Fit line status: the owned module came with a prebuilt ship. Lower case.</comment>
+  </data>
+  <data name="Match.Missing" xml:space="preserve">
+    <value>missing</value>
+    <comment>Fit line status: the module is not owned. Lower case.</comment>
+  </data>
+  <data name="Match.PartialExperimentalMissing" xml:space="preserve">
+    <value>partial: {place}, experimental missing</value>
+    <comment>Fit line status.</comment>
+  </data>
+  <data name="Match.PartialGrade" xml:space="preserve">
+    <value>partial: {place}, {grade} of {wanted}</value>
+    <comment>Fit line status; both G-badges.</comment>
+  </data>
+  <data name="Match.PartialUnfinished" xml:space="preserve">
+    <value>partial: {place}, {grade} at {percent}%</value>
+    <comment>Fit line status; {grade} is a G-badge.</comment>
+  </data>
+  <data name="Match.StoredAt" xml:space="preserve">
+    <value>stored at {place}</value>
+    <comment>Fit line status: where the owned module is stored. Lower case.</comment>
+  </data>
+  <data name="Material.AlsoInExperimentals" xml:space="preserve">
+    <value>Also in the experimental effects {names}.</value>
+    <comment>Material page; {names} is a list.</comment>
+  </data>
+  <data name="Material.CountTimesName" xml:space="preserve">
+    <value>{count}× {name}</value>
+    <comment>A material quantity: 3× Iron.</comment>
+  </data>
+  <data name="Material.GradeAndCategory" xml:space="preserve">
+    <value>{grade} · {category}</value>
+    <comment>A material chip's second line: the grade badge and the short inventory name.</comment>
+  </data>
+  <data name="Material.GradeTimesRolls" xml:space="preserve">
+    <value>{grade} ×{rolls}</value>
+    <comment>Material page spends: a grade and how many rolls at it.</comment>
+  </data>
+  <data name="Material.JournalSymbol" xml:space="preserve">
+    <value>Journal symbol {symbol}</value>
+    <comment>Material page: the game's internal name.</comment>
+  </data>
+  <data name="Material.Kicker" xml:space="preserve">
+    <value>{grade} · {family}</value>
+    <comment>Material page: small label above the title; G-badge and in-game family.</comment>
+  </data>
+  <data name="Material.NoBodyCarriesIt" xml:space="preserve">
+    <value>No scanned body in {system} carries it.</value>
+    <comment>Material page sources line; {system} is a link.</comment>
+  </data>
+  <data name="Material.OnTheSurfaceIn" xml:space="preserve">
+    <value>On the surface in {system}</value>
+    <comment>Material page sources heading; {system} is a link.</comment>
+  </data>
+  <data name="Material.PerRoll" xml:space="preserve">
+    <value>{count} per roll</value>
+    <comment>Material page: how many one roll costs.</comment>
+  </data>
+  <data name="Material.SourcesWhenKnown" xml:space="preserve">
+    <value>Surface sources appear once the journal reports a system.</value>
+    <comment>Material page sources line.</comment>
+  </data>
+  <data name="Material.SpendTitle" xml:space="preserve">
+    <value>{module}: {blueprint} {grade}</value>
+    <comment>Material page spends: the entry's title; {grade} is a G-badge.</comment>
+  </data>
+  <data name="Materials.InventoryOf" xml:space="preserve">
+    <value>Inventory of {commander} as of {when:g}.</value>
+    <comment>Materials page status; {when} is a date and time.</comment>
+  </data>
+  <data name="Materials.NoInventory" xml:space="preserve">
+    <value>No inventory yet. Counts appear once the journal watch has read a Materials snapshot, which the game writes on every load.</value>
+    <comment>Materials page status before the inventory is known.</comment>
+  </data>
+  <data name="Materials.NotInTables" xml:space="preserve">
+    <value>Not in the tables: {symbols}.</value>
+    <comment>Materials page: inventory symbols the tables do not know, as a list.</comment>
+  </data>
+  <data name="Materials.SectionHeading" xml:space="preserve">
+    <value>{label} · {held} held</value>
+    <comment>Materials page: an inventory's heading with how many you hold in all.</comment>
+  </data>
+  <data name="Materials.TheCommander" xml:space="preserve">
+    <value>the commander</value>
+    <comment>Materials page: stands in for the commander's name when the journal has not given it. Lower case.</comment>
+  </data>
+  <data name="Module.WithMount" xml:space="preserve">
+    <value>{type} {mount}</value>
+    <comment>A module's composed name without a class.</comment>
+  </data>
+  <data name="Module.WithSize" xml:space="preserve">
+    <value>{type} {size}</value>
+    <comment>A module's composed name without a mount.</comment>
+  </data>
+  <data name="Module.WithSizeAndMount" xml:space="preserve">
+    <value>{type} {size} {mount}</value>
+    <comment>A module's composed name: type, class and rating, mount; for languages that translate module types.</comment>
+  </data>
+  <data name="ModuleGroup.Core" xml:space="preserve">
+    <value>Core internals</value>
+    <comment>Where a module fits on a ship.</comment>
+  </data>
+  <data name="ModuleGroup.Hardpoint" xml:space="preserve">
+    <value>Hardpoints</value>
+    <comment>Where a module fits on a ship.</comment>
+  </data>
+  <data name="ModuleGroup.Optional" xml:space="preserve">
+    <value>Optional internals</value>
+    <comment>Where a module fits on a ship.</comment>
+  </data>
+  <data name="ModuleGroup.Utility" xml:space="preserve">
+    <value>Utility mounts</value>
+    <comment>Where a module fits on a ship.</comment>
+  </data>
+  <data name="Modules.FilterOn" xml:space="preserve">
+    <value>Show only items from selected engineers is on: {types} of {total} have a blueprint your {engineers} can roll. Change that on the engineers page.</value>
+    <comment>Modules page narrowing note; {types} is a count of types, {engineers} a count of ticked engineers.</comment>
+  </data>
+  <data name="Modules.FilterOnNobody" xml:space="preserve">
+    <value>Show only items from selected engineers is on, but nobody is ticked on the engineers page, so every type is shown.</value>
+    <comment>Modules page narrowing note; names the switch Engineers.OnlyMineSwitch.</comment>
+  </data>
+  <data name="Modules.GroupSummary" xml:space="preserve">
+    <value>{types}, {owned} owned</value>
+    <comment>Modules page group heading detail; {types} is a count of types.</comment>
+  </data>
+  <data name="Modules.ReachableOf" xml:space="preserve">
+    <value>{reachable} of {blueprints} with your engineers</value>
+    <comment>Modules page type row; {blueprints} is a count of blueprints.</comment>
+  </data>
+  <data name="Modules.YouOwn" xml:space="preserve">
+    <value>you own {count}</value>
+    <comment>Modules page type row. Lower case.</comment>
+  </data>
+  <data name="ModuleType.ExperimentalsAnyEngineer" xml:space="preserve">
+    <value>{experimentals}. Any engineer who offers a blueprint here can apply all of them.</value>
+    <comment>Module type page experimentals line; {experimentals} is a count of experimental effects.</comment>
+  </data>
+  <data name="ModuleType.ExperimentalsBy" xml:space="preserve">
+    <value>{experimentals}, any of which {engineers} can apply.</value>
+    <comment>Module type page experimentals line; {engineers} is a list of engineer links.</comment>
+  </data>
+  <data name="ModuleType.ExperimentalsNobodyTicked" xml:space="preserve">
+    <value>{experimentals}. None of your selected engineers can apply them.</value>
+    <comment>Module type page experimentals line.</comment>
+  </data>
+  <data name="ModuleType.FittedTo" xml:space="preserve">
+    <value>fitted to {ship}</value>
+    <comment>Module type page: where an owned module is. Lower case.</comment>
+  </data>
+  <data name="ModuleType.FitWants" xml:space="preserve">
+    <value>{module}, {engineering}</value>
+    <comment>Module type page fits section: the module a fit wants and its engineering.</comment>
+  </data>
+  <data name="ModuleType.InStorage" xml:space="preserve">
+    <value>in storage</value>
+    <comment>Module type page: where an owned module is. Lower case.</comment>
+  </data>
+  <data name="ModuleType.NoExperimentals" xml:space="preserve">
+    <value>This module type has no experimental effects.</value>
+    <comment>Module type page experimentals line.</comment>
+  </data>
+  <data name="ModuleType.None" xml:space="preserve">
+    <value>none</value>
+    <comment>Module type page: the reachable grade when nobody ticked offers the blueprint. Lower case.</comment>
+  </data>
+  <data name="ModuleType.PlanEntriesUse" xml:space="preserve">
+    <value>{entries} use this type.</value>
+    <comment>Module type page; {entries} is a count of plan entries.</comment>
+  </data>
+  <data name="ModuleType.ToGrade" xml:space="preserve">
+    <value>to {grade}</value>
+    <comment>Module type page: an engineer's top grade; {grade} is a G-badge. Lower case.</comment>
+  </data>
+  <data name="Nav.Engineers" xml:space="preserve">
+    <value>Engineers</value>
+    <comment>Top bar: the engineers section link. One word; max 12 chars.</comment>
+  </data>
+  <data name="Nav.Fleet" xml:space="preserve">
+    <value>Fleet</value>
+    <comment>Top bar: the ships and fits section link. One word; max 12 chars.</comment>
+  </data>
+  <data name="Nav.Materials" xml:space="preserve">
+    <value>Materials</value>
+    <comment>Top bar: the materials section link. One word; max 12 chars.</comment>
+  </data>
+  <data name="Nav.Modules" xml:space="preserve">
+    <value>Modules</value>
+    <comment>Top bar: the modules section link. One word; max 12 chars.</comment>
+  </data>
+  <data name="Nav.Route" xml:space="preserve">
+    <value>Route</value>
+    <comment>Top bar: the plotted route section link. One word; max 12 chars.</comment>
+  </data>
+  <data name="Nav.Settings" xml:space="preserve">
+    <value>Settings</value>
+    <comment>Bottom bar: the settings link. One word; max 12 chars.</comment>
+  </data>
+  <data name="Nav.Stats" xml:space="preserve">
+    <value>Stats</value>
+    <comment>Top bar: the statistics section link. One word; max 12 chars.</comment>
+  </data>
+  <data name="Nav.System" xml:space="preserve">
+    <value>System</value>
+    <comment>Top bar: the current star system section link. One word; max 12 chars.</comment>
+  </data>
+  <data name="Nav.Unlocks" xml:space="preserve">
+    <value>Unlocks</value>
+    <comment>Top bar: the technology broker unlocks section link. One word; max 12 chars.</comment>
+  </data>
+  <data name="NotFound.BackHome" xml:space="preserve">
+    <value>Back to the start page</value>
+    <comment>Not-found page link.</comment>
+  </data>
+  <data name="NotFound.Message" xml:space="preserve">
+    <value>Nothing here is called “{id}”.</value>
+    <comment>Not-found page message; {id} is what the link named.</comment>
+  </data>
+  <data name="NotFound.Title" xml:space="preserve">
+    <value>Nothing here</value>
+    <comment>Title of the page shown for a link to something that does not exist.</comment>
+  </data>
+  <data name="Page.KickerBrowse" xml:space="preserve">
+    <value>Browse</value>
+    <comment>Small label above an index page's title.</comment>
+  </data>
+  <data name="Page.UnknownModule" xml:space="preserve">
+    <value>Unknown module</value>
+    <comment>A module whose type the tables do not know.</comment>
+  </data>
+  <data name="Place.Text" xml:space="preserve">
+    <value>{system} · {detail}</value>
+    <comment>A place: the system's name and a detail such as the station.</comment>
+  </data>
+  <data name="Plan.AlsoFromMarket" xml:space="preserve">
+    <value>Also from a market: {items}.</value>
+    <comment>An unlock's commodities, as count× name items.</comment>
+  </data>
+  <data name="Plan.BoughtOnce" xml:space="preserve">
+    <value>Bought once at a {source}, with the materials below.</value>
+    <comment>An unlock entry's note; {source} is the kind of broker, lower case.</comment>
+  </data>
+  <data name="Plan.BoughtOnceWithCommodities" xml:space="preserve">
+    <value>Bought once at a {source}, with the materials below and the commodities above.</value>
+    <comment>An unlock entry's note when it also needs commodities.</comment>
+  </data>
+  <data name="Plan.ExcludedFromTotals" xml:space="preserve">
+    <value>excluded from totals</value>
+    <comment>Badge on a plan entry that is not counted. Lower case.</comment>
+  </data>
+  <data name="Plan.ExperimentalOnlyBy" xml:space="preserve">
+    <value>Experimental only: {engineers}</value>
+    <comment>A plan entry's engineers line; {engineers} is the list of who can apply it.</comment>
+  </data>
+  <data name="Plan.ExperimentalOnlyNoEffect" xml:space="preserve">
+    <value>Experimental only, with no effect chosen.</value>
+    <comment>A plan entry's engineers line.</comment>
+  </data>
+  <data name="Plan.Fighter" xml:space="preserve">
+    <value>Fighter</value>
+    <comment>A plan entry's module label for a fighter unlock, which has no module type.</comment>
+  </data>
+  <data name="Plan.FromShipSlot" xml:space="preserve">
+    <value>From {ship}, {slot}</value>
+    <comment>Where an imported plan entry came from.</comment>
+  </data>
+  <data name="Plan.NobodyCanApply" xml:space="preserve">
+    <value>No engineer in the data can apply an effect to this module.</value>
+    <comment>Fallback for a plan entry's experimental appliers list.</comment>
+  </data>
+  <data name="Plan.NobodyCanApplyIt" xml:space="preserve">
+    <value>no engineer in the data can apply it.</value>
+    <comment>Fallback for the engineers list of an experimental-only entry. Lower case.</comment>
+  </data>
+  <data name="Plan.NobodyOffersGrade" xml:space="preserve">
+    <value>No engineer in the data offers this grade for this module.</value>
+    <comment>Fallback for a plan entry's engineers list.</comment>
+  </data>
+  <data name="Plan.Title" xml:space="preserve">
+    <value>{module}: {blueprint}</value>
+    <comment>A plan entry's title.</comment>
+  </data>
+  <data name="Plan.UnknownModule" xml:space="preserve">
+    <value>Unknown module</value>
+    <comment>A module the tables do not know.</comment>
+  </data>
+  <data name="Plan.UnknownModuleItem" xml:space="preserve">
+    <value>Unknown module ({item})</value>
+    <comment>A module the tables do not know; {item} is the game's symbol.</comment>
+  </data>
+  <data name="Plan.WarnNobodyOffers" xml:space="preserve">
+    <value>No engineer in the data offers this blueprint on this module type.</value>
+    <comment>Plan entry warning.</comment>
+  </data>
+  <data name="Plan.WarnNoEffect" xml:space="preserve">
+    <value>Experimental only, but no effect is chosen, so this entry needs nothing.</value>
+    <comment>Plan entry warning.</comment>
+  </data>
+  <data name="Plan.WarnSelectedEffect" xml:space="preserve">
+    <value>None of your selected engineers can apply this experimental effect.</value>
+    <comment>Plan entry warning.</comment>
+  </data>
+  <data name="Plan.WarnSelectedGrade" xml:space="preserve">
+    <value>None of your selected engineers offers grade {grade} for this module.</value>
+    <comment>Plan entry warning.</comment>
+  </data>
+  <data name="Plan.WarnUnknownType" xml:space="preserve">
+    <value>The module type is unknown, so engineers cannot be listed.</value>
+    <comment>Plan entry warning.</comment>
+  </data>
+  <data name="Plot.Asking" xml:space="preserve">
+    <value>Asking Spansh for a route from {from} to {to}…</value>
+    <comment>Route page status while Spansh plots.</comment>
+  </data>
+  <data name="Plot.Cancelled" xml:space="preserve">
+    <value>Plot cancelled.</value>
+    <comment>Route page status after the user cancels.</comment>
+  </data>
+  <data name="Plot.Plotted" xml:space="preserve">
+    <value>Plotted {jumps} from {from} to {to}.</value>
+    <comment>Route page status after a plot; {jumps} is a count of jumps.</comment>
+  </data>
+  <data name="Plural.Biological.one" xml:space="preserve">
+    <value>{count} biological</value>
+    <comment>A count of biological signals.</comment>
+  </data>
+  <data name="Plural.Biological.other" xml:space="preserve">
+    <value>{count} biological</value>
+    <comment>A count of biological signals.</comment>
+  </data>
+  <data name="Plural.Blueprints.one" xml:space="preserve">
+    <value>{count} blueprint</value>
+    <comment>A count of blueprints.</comment>
+  </data>
+  <data name="Plural.Blueprints.other" xml:space="preserve">
+    <value>{count} blueprints</value>
+    <comment>A count of blueprints.</comment>
+  </data>
+  <data name="Plural.Bodies.one" xml:space="preserve">
+    <value>{count} body</value>
+    <comment>A count of planets, moons and stars.</comment>
+  </data>
+  <data name="Plural.Bodies.other" xml:space="preserve">
+    <value>{count} bodies</value>
+    <comment>A count of planets, moons and stars.</comment>
+  </data>
+  <data name="Plural.BrokerUnlocks.one" xml:space="preserve">
+    <value>{count} technology broker unlock</value>
+    <comment>A count of technology broker unlocks, in full.</comment>
+  </data>
+  <data name="Plural.BrokerUnlocks.other" xml:space="preserve">
+    <value>{count} technology broker unlocks</value>
+    <comment>A count of technology broker unlocks, in full.</comment>
+  </data>
+  <data name="Plural.Deliveries.one" xml:space="preserve">
+    <value>{count} delivery</value>
+    <comment>A count of Powerplay deliveries.</comment>
+  </data>
+  <data name="Plural.Deliveries.other" xml:space="preserve">
+    <value>{count} deliveries</value>
+    <comment>A count of Powerplay deliveries.</comment>
+  </data>
+  <data name="Plural.EngineerableTypes.one" xml:space="preserve">
+    <value>{count} engineerable type</value>
+    <comment>A count of module types that can be engineered.</comment>
+  </data>
+  <data name="Plural.EngineerableTypes.other" xml:space="preserve">
+    <value>{count} engineerable types</value>
+    <comment>A count of module types that can be engineered.</comment>
+  </data>
+  <data name="Plural.EngineeredModules.one" xml:space="preserve">
+    <value>{count} engineered module</value>
+    <comment>A count of engineered modules in an imported build.</comment>
+  </data>
+  <data name="Plural.EngineeredModules.other" xml:space="preserve">
+    <value>{count} engineered modules</value>
+    <comment>A count of engineered modules in an imported build.</comment>
+  </data>
+  <data name="Plural.Engineers.one" xml:space="preserve">
+    <value>{count} engineer</value>
+    <comment>A count of engineers.</comment>
+  </data>
+  <data name="Plural.Engineers.other" xml:space="preserve">
+    <value>{count} engineers</value>
+    <comment>A count of engineers.</comment>
+  </data>
+  <data name="Plural.Entries.one" xml:space="preserve">
+    <value>{count} entry</value>
+    <comment>A count of plan entries.</comment>
+  </data>
+  <data name="Plural.Entries.other" xml:space="preserve">
+    <value>{count} entries</value>
+    <comment>A count of plan entries.</comment>
+  </data>
+  <data name="Plural.Experimentals.one" xml:space="preserve">
+    <value>{count} experimental effect</value>
+    <comment>A count of experimental effects.</comment>
+  </data>
+  <data name="Plural.Experimentals.other" xml:space="preserve">
+    <value>{count} experimental effects</value>
+    <comment>A count of experimental effects.</comment>
+  </data>
+  <data name="Plural.Files.one" xml:space="preserve">
+    <value>{count} file</value>
+    <comment>A count of files.</comment>
+  </data>
+  <data name="Plural.Files.other" xml:space="preserve">
+    <value>{count} files</value>
+    <comment>A count of files.</comment>
+  </data>
+  <data name="Plural.Genera.one" xml:space="preserve">
+    <value>{count} genus</value>
+    <comment>A count of genera of life.</comment>
+  </data>
+  <data name="Plural.Genera.other" xml:space="preserve">
+    <value>{count} genera</value>
+    <comment>A count of genera of life.</comment>
+  </data>
+  <data name="Plural.Geological.one" xml:space="preserve">
+    <value>{count} geological</value>
+    <comment>A count of geological signals.</comment>
+  </data>
+  <data name="Plural.Geological.other" xml:space="preserve">
+    <value>{count} geological</value>
+    <comment>A count of geological signals.</comment>
+  </data>
+  <data name="Plural.Jumps.one" xml:space="preserve">
+    <value>{count} jump</value>
+    <comment>A count of hyperspace jumps.</comment>
+  </data>
+  <data name="Plural.Jumps.other" xml:space="preserve">
+    <value>{count} jumps</value>
+    <comment>A count of hyperspace jumps.</comment>
+  </data>
+  <data name="Plural.LandableBodies.one" xml:space="preserve">
+    <value>{count} landable body</value>
+    <comment>A count of bodies a ship can land on.</comment>
+  </data>
+  <data name="Plural.LandableBodies.other" xml:space="preserve">
+    <value>{count} landable bodies</value>
+    <comment>A count of bodies a ship can land on.</comment>
+  </data>
+  <data name="Plural.Materials.one" xml:space="preserve">
+    <value>{count} material</value>
+    <comment>A count of materials.</comment>
+  </data>
+  <data name="Plural.Materials.other" xml:space="preserve">
+    <value>{count} materials</value>
+    <comment>A count of materials.</comment>
+  </data>
+  <data name="Plural.Modules.one" xml:space="preserve">
+    <value>{count} module</value>
+    <comment>A count of modules.</comment>
+  </data>
+  <data name="Plural.Modules.other" xml:space="preserve">
+    <value>{count} modules</value>
+    <comment>A count of modules.</comment>
+  </data>
+  <data name="Plural.MoreJumps.one" xml:space="preserve">
+    <value>{count} more jump</value>
+    <comment>A count of further jumps.</comment>
+  </data>
+  <data name="Plural.MoreJumps.other" xml:space="preserve">
+    <value>{count} more jumps</value>
+    <comment>A count of further jumps.</comment>
+  </data>
+  <data name="Plural.NeutronStops.one" xml:space="preserve">
+    <value>{count} neutron stop</value>
+    <comment>A count of neutron stars on a plot.</comment>
+  </data>
+  <data name="Plural.NeutronStops.other" xml:space="preserve">
+    <value>{count} neutron stops</value>
+    <comment>A count of neutron stars on a plot.</comment>
+  </data>
+  <data name="Plural.Payments.one" xml:space="preserve">
+    <value>{count} payment</value>
+    <comment>A count of payments received.</comment>
+  </data>
+  <data name="Plural.Payments.other" xml:space="preserve">
+    <value>{count} payments</value>
+    <comment>A count of payments received.</comment>
+  </data>
+  <data name="Plural.Pickups.one" xml:space="preserve">
+    <value>{count} pickup</value>
+    <comment>A count of Powerplay collections.</comment>
+  </data>
+  <data name="Plural.Pickups.other" xml:space="preserve">
+    <value>{count} pickups</value>
+    <comment>A count of Powerplay collections.</comment>
+  </data>
+  <data name="Plural.PlanEntries.one" xml:space="preserve">
+    <value>{count} plan entry</value>
+    <comment>A count of plan entries, in full.</comment>
+  </data>
+  <data name="Plural.PlanEntries.other" xml:space="preserve">
+    <value>{count} plan entries</value>
+    <comment>A count of plan entries, in full.</comment>
+  </data>
+  <data name="Plural.RefuelStops.one" xml:space="preserve">
+    <value>{count} refuel stop</value>
+    <comment>A count of refuel stops on a plot.</comment>
+  </data>
+  <data name="Plural.RefuelStops.other" xml:space="preserve">
+    <value>{count} refuel stops</value>
+    <comment>A count of refuel stops on a plot.</comment>
+  </data>
+  <data name="Plural.Samples.one" xml:space="preserve">
+    <value>{count} sample</value>
+    <comment>A count of exobiology samples.</comment>
+  </data>
+  <data name="Plural.Samples.other" xml:space="preserve">
+    <value>{count} samples</value>
+    <comment>A count of exobiology samples.</comment>
+  </data>
+  <data name="Plural.SavedFits.one" xml:space="preserve">
+    <value>{count} saved fit</value>
+    <comment>A count of saved fits.</comment>
+  </data>
+  <data name="Plural.SavedFits.other" xml:space="preserve">
+    <value>{count} saved fits</value>
+    <comment>A count of saved fits.</comment>
+  </data>
+  <data name="Plural.ScannedBodies.one" xml:space="preserve">
+    <value>{count} scanned body</value>
+    <comment>A count of bodies you have scanned.</comment>
+  </data>
+  <data name="Plural.ScannedBodies.other" xml:space="preserve">
+    <value>{count} scanned bodies</value>
+    <comment>A count of bodies you have scanned.</comment>
+  </data>
+  <data name="Plural.Ships.one" xml:space="preserve">
+    <value>{count} ship</value>
+    <comment>A count of ships.</comment>
+  </data>
+  <data name="Plural.Ships.other" xml:space="preserve">
+    <value>{count} ships</value>
+    <comment>A count of ships.</comment>
+  </data>
+  <data name="Plural.Slots.one" xml:space="preserve">
+    <value>{count} slot</value>
+    <comment>A count of module slots.</comment>
+  </data>
+  <data name="Plural.Slots.other" xml:space="preserve">
+    <value>{count} slots</value>
+    <comment>A count of module slots.</comment>
+  </data>
+  <data name="Plural.StoredModules.one" xml:space="preserve">
+    <value>{count} stored module</value>
+    <comment>A count of modules in storage.</comment>
+  </data>
+  <data name="Plural.StoredModules.other" xml:space="preserve">
+    <value>{count} stored modules</value>
+    <comment>A count of modules in storage.</comment>
+  </data>
+  <data name="Plural.Systems.one" xml:space="preserve">
+    <value>{count} system</value>
+    <comment>A count of star systems.</comment>
+  </data>
+  <data name="Plural.Systems.other" xml:space="preserve">
+    <value>{count} systems</value>
+    <comment>A count of star systems.</comment>
+  </data>
+  <data name="Plural.TickedEngineers.one" xml:space="preserve">
+    <value>{count} ticked engineer</value>
+    <comment>A count of engineers you ticked.</comment>
+  </data>
+  <data name="Plural.TickedEngineers.other" xml:space="preserve">
+    <value>{count} ticked engineers</value>
+    <comment>A count of engineers you ticked.</comment>
+  </data>
+  <data name="Plural.Trades.one" xml:space="preserve">
+    <value>{count} trade</value>
+    <comment>A count of trades at a material trader.</comment>
+  </data>
+  <data name="Plural.Trades.other" xml:space="preserve">
+    <value>{count} trades</value>
+    <comment>A count of trades at a material trader.</comment>
+  </data>
+  <data name="Plural.Types.one" xml:space="preserve">
+    <value>{count} type</value>
+    <comment>A count of module types.</comment>
+  </data>
+  <data name="Plural.Types.other" xml:space="preserve">
+    <value>{count} types</value>
+    <comment>A count of module types.</comment>
+  </data>
+  <data name="Plural.Unlocks.one" xml:space="preserve">
+    <value>{count} unlock</value>
+    <comment>A count of technology broker unlocks.</comment>
+  </data>
+  <data name="Plural.Unlocks.other" xml:space="preserve">
+    <value>{count} unlocks</value>
+    <comment>A count of technology broker unlocks.</comment>
+  </data>
+  <data name="Plural.Visits.one" xml:space="preserve">
+    <value>{count} visit</value>
+    <comment>A count of visits to a system.</comment>
+  </data>
+  <data name="Plural.Visits.other" xml:space="preserve">
+    <value>{count} visits</value>
+    <comment>A count of visits to a system.</comment>
+  </data>
+  <data name="Rail.AtEnd" xml:space="preserve">
+    <value>At the end of the route.</value>
+    <comment>Rail route line.</comment>
+  </data>
+  <data name="Rail.BiologyTag" xml:space="preserve">
+    <value>{count} bio</value>
+    <comment>Rail: biological signal count badge.</comment>
+  </data>
+  <data name="Rail.BodiesAppear" xml:space="preserve">
+    <value>Bodies appear as you scan them.</value>
+    <comment>Rail bodies note before a position is known.</comment>
+  </data>
+  <data name="Rail.CouldLive" xml:space="preserve">
+    <value>{genera} could live here, likely about {credits}.</value>
+    <comment>Rail body life line before the scanner names the genera.</comment>
+  </data>
+  <data name="Rail.CouldLiveWithBonus" xml:space="preserve">
+    <value>{genera} could live here, likely about {credits} x{multiplier} = {total} with the first-logged bonus.</value>
+    <comment>Rail body life line with the first-logged bonus.</comment>
+  </data>
+  <data name="Rail.Docked" xml:space="preserve">
+    <value>docked</value>
+    <comment>Rail position detail. Lower case.</comment>
+  </data>
+  <data name="Rail.EngineerAtStop" xml:space="preserve">
+    <value>{engineer} is at stop {index}, {system}.</value>
+    <comment>Rail route note; {engineer} and {system} are links.</comment>
+  </data>
+  <data name="Rail.FullRoute" xml:space="preserve">
+    <value>Full route</value>
+    <comment>Rail: link to the route page.</comment>
+  </data>
+  <data name="Rail.GenusOdds" xml:space="preserve">
+    <value>{species} {percent:0}%</value>
+    <comment>Rail genus line: the likeliest species and its odds.</comment>
+  </data>
+  <data name="Rail.GenusSampled" xml:space="preserve">
+    <value>{species}, {stage} of 3 sampled</value>
+    <comment>Rail genus line: the species and how many of its three samples are taken.</comment>
+  </data>
+  <data name="Rail.HiddenBacteria" xml:space="preserve">
+    <value>{bodies} with only bacteria hidden.</value>
+    <comment>Rail bodies note; {bodies} is a count of bodies.</comment>
+  </data>
+  <data name="Rail.HiddenBacteriaPredicted" xml:space="preserve">
+    <value>{bodies} with only bacteria hidden, {predicted} of them unmapped but with conditions only bacteria has been found under.</value>
+    <comment>Rail bodies note.</comment>
+  </data>
+  <data name="Rail.InHyperspace" xml:space="preserve">
+    <value>in hyperspace</value>
+    <comment>Rail position detail. Lower case.</comment>
+  </data>
+  <data name="Rail.InNormalSpace" xml:space="preserve">
+    <value>in normal space</value>
+    <comment>Rail position detail. Lower case.</comment>
+  </data>
+  <data name="Rail.InSupercruise" xml:space="preserve">
+    <value>in supercruise</value>
+    <comment>Rail position detail. Lower case.</comment>
+  </data>
+  <data name="Rail.Landed" xml:space="preserve">
+    <value>landed</value>
+    <comment>Rail position detail. Lower case.</comment>
+  </data>
+  <data name="Rail.MaterialNeeded" xml:space="preserve">
+    <value>{material} (needed)</value>
+    <comment>Rail body materials: a material the plan is short of.</comment>
+  </data>
+  <data name="Rail.MoreJumpsTo" xml:space="preserve">
+    <value>{jumps} to {system}.</value>
+    <comment>Rail route note; {jumps} is a count of further jumps, {system} a link.</comment>
+  </data>
+  <data name="Rail.NextJump" xml:space="preserve">
+    <value>Next jump {system}, {jumps} left to {end}.</value>
+    <comment>Rail route line.</comment>
+  </data>
+  <data name="Rail.NextJumpLast" xml:space="preserve">
+    <value>Next jump {system}, the last.</value>
+    <comment>Rail route line; {system} is a link.</comment>
+  </data>
+  <data name="Rail.NextScoopable" xml:space="preserve">
+    <value>Next scoopable star is {system}, stop {index}.</value>
+    <comment>Rail route note.</comment>
+  </data>
+  <data name="Rail.NoLandable" xml:space="preserve">
+    <value>No scanned body is landable.</value>
+    <comment>Rail bodies note.</comment>
+  </data>
+  <data name="Rail.NoLife" xml:space="preserve">
+    <value>No scanned body has life.</value>
+    <comment>Rail bodies note.</comment>
+  </data>
+  <data name="Rail.NoMinerals" xml:space="preserve">
+    <value>No scanned body has surface materials.</value>
+    <comment>Rail bodies note.</comment>
+  </data>
+  <data name="Rail.NoPositionYet" xml:space="preserve">
+    <value>No position yet</value>
+    <comment>Rail: shown where the system name goes before the journal reports one.</comment>
+  </data>
+  <data name="Rail.NoPrediction" xml:space="preserve">
+    <value>No prediction</value>
+    <comment>Rail genus line when no species can be predicted.</comment>
+  </data>
+  <data name="Rail.NoRoute" xml:space="preserve">
+    <value>No route plotted.</value>
+    <comment>Rail route note.</comment>
+  </data>
+  <data name="Rail.NoRoutePlotOne" xml:space="preserve">
+    <value>No route plotted. Plot one in the galaxy map and it appears here.</value>
+    <comment>Rail route note.</comment>
+  </data>
+  <data name="Rail.NothingScanned" xml:space="preserve">
+    <value>Nothing scanned yet.</value>
+    <comment>Rail bodies note.</comment>
+  </data>
+  <data name="Rail.NotOnRoute" xml:space="preserve">
+    <value>You are not on the route yet.</value>
+    <comment>Rail route note.</comment>
+  </data>
+  <data name="Rail.OpenSystem" xml:space="preserve">
+    <value>Open this system</value>
+    <comment>Rail: link to the current system's page.</comment>
+  </data>
+  <data name="Rail.RouteArrived" xml:space="preserve">
+    <value>Route · arrived</value>
+    <comment>Rail route heading at the destination.</comment>
+  </data>
+  <data name="Rail.RouteHeading" xml:space="preserve">
+    <value>Route</value>
+    <comment>Rail: heading of the route section.</comment>
+  </data>
+  <data name="Rail.RouteLeft" xml:space="preserve">
+    <value>Route · {jumps} left</value>
+    <comment>Rail route heading; {jumps} is a count of jumps.</comment>
+  </data>
+  <data name="Rail.RouteOfJumps" xml:space="preserve">
+    <value>Route of {jumps} to {end}; you are not on it yet.</value>
+    <comment>Rail route line; {jumps} is a count of jumps, {end} a link.</comment>
+  </data>
+  <data name="Rail.Scooping" xml:space="preserve">
+    <value>scooping</value>
+    <comment>Rail position detail. Lower case.</comment>
+  </data>
+  <data name="Rail.ThisSystem" xml:space="preserve">
+    <value>This system</value>
+    <comment>Rail: heading of the bodies section.</comment>
+  </data>
+  <data name="Rail.ThisSystemScan" xml:space="preserve">
+    <value>This system · {scan}</value>
+    <comment>Rail: heading of the bodies section with the scan progress.</comment>
+  </data>
+  <data name="Rail.ValueUnknown" xml:space="preserve">
+    <value>value unknown</value>
+    <comment>Rail genus value when none is known. Lower case.</comment>
+  </data>
+  <data name="Rail.ValueWithBonus" xml:space="preserve">
+    <value>{base} x5 = {total}</value>
+    <comment>Rail: a body's exobiology value with the first-logged bonus spelt out.</comment>
+  </data>
+  <data name="Region.Bubble" xml:space="preserve">
+    <value>The Bubble</value>
+    <comment>The inhabited region around Sol.</comment>
+  </data>
+  <data name="Region.Colonia" xml:space="preserve">
+    <value>Colonia</value>
+    <comment>The Colonia region. A proper noun.</comment>
+  </data>
+  <data name="Route.AlgorithmOptimistic" xml:space="preserve">
+    <value>Optimistic: fewest jumps, favours neutron stars</value>
+    <comment>Plot form routing choice.</comment>
+  </data>
+  <data name="Route.AlgorithmPessimistic" xml:space="preserve">
+    <value>Pessimistic: the sure route</value>
+    <comment>Plot form routing choice.</comment>
+  </data>
+  <data name="Route.ArrivalScoopable" xml:space="preserve">
+    <value>This system's arrival star is scoopable; {rest}</value>
+    <comment>Route scoop sentence when the current star refuels; {rest} is a lower-case clause.</comment>
+  </data>
+  <data name="Route.ArrivedAt" xml:space="preserve">
+    <value>Arrived at {destination}.</value>
+    <comment>Plot progress line.</comment>
+  </data>
+  <data name="Route.ArrivedEnd" xml:space="preserve">
+    <value>Arrived at the end of the route.</value>
+    <comment>Route page summary.</comment>
+  </data>
+  <data name="Route.ArrivedOffPlot" xml:space="preserve">
+    <value>Arrived at {destination}, now off the plot.</value>
+    <comment>Plot progress line.</comment>
+  </data>
+  <data name="Route.ChooseShipOrFit" xml:space="preserve">
+    <value>Choose a ship or fit</value>
+    <comment>Plot form: the ship-or-fit chooser's face while nothing is chosen. Max 28 chars.</comment>
+  </data>
+  <data name="Route.FuelAlone" xml:space="preserve">
+    <value>Fuel {tonnes:0.0} t.</value>
+    <comment>Route fuel line with no route.</comment>
+  </data>
+  <data name="Route.FuelThen" xml:space="preserve">
+    <value>Fuel {tonnes:0.0} t. {rest}</value>
+    <comment>Route fuel line: the tank, then the scoop sentence.</comment>
+  </data>
+  <data name="Route.JumpOf" xml:space="preserve">
+    <value>Jump {index} of {count}, {remaining} to go.</value>
+    <comment>Route page summary.</comment>
+  </data>
+  <data name="Route.Kicker" xml:space="preserve">
+    <value>Live</value>
+    <comment>Small label above the route page's title.</comment>
+  </data>
+  <data name="Route.NeedsShipOrFit" xml:space="preserve">
+    <value>The plot needs a ship or a fit: fly a ship with the journal watched, or save a fit from EDSY, and it appears here.</value>
+    <comment>Plot form range line.</comment>
+  </data>
+  <data name="Route.NextIsScoopable" xml:space="preserve">
+    <value>Next star is scoopable.</value>
+    <comment>Route scoop sentence.</comment>
+  </data>
+  <data name="Route.NextScoopableToo" xml:space="preserve">
+    <value>the next star is scoopable too.</value>
+    <comment>Route scoop clause. Lower case.</comment>
+  </data>
+  <data name="Route.NextScoopAfterIt" xml:space="preserve">
+    <value>the next scoopable star after it is {system}, {jumps} on.</value>
+    <comment>Route scoop clause; {system} is a link, {jumps} a count of jumps. Lower case.</comment>
+  </data>
+  <data name="Route.NextScoopIs" xml:space="preserve">
+    <value>Next scoopable star is {system}, {jumps} on.</value>
+    <comment>Route scoop sentence.</comment>
+  </data>
+  <data name="Route.NextWaypoint" xml:space="preserve">
+    <value>Next waypoint {system}, {jumps} to {destination}.</value>
+    <comment>Plot progress line.</comment>
+  </data>
+  <data name="Route.NoLoadoutYet" xml:space="preserve">
+    <value>The journal has not reported this ship's loadout, mass and tank yet.</value>
+    <comment>Plot form range line.</comment>
+  </data>
+  <data name="Route.NoRoute" xml:space="preserve">
+    <value>No route plotted.</value>
+    <comment>Route page summary.</comment>
+  </data>
+  <data name="Route.NoRouteNoPosition" xml:space="preserve">
+    <value>No route plotted, and no position yet.</value>
+    <comment>Route page summary.</comment>
+  </data>
+  <data name="Route.NoScoopAhead" xml:space="preserve">
+    <value>No scoopable star ahead on this route.</value>
+    <comment>Route scoop sentence.</comment>
+  </data>
+  <data name="Route.NoScoopFurther" xml:space="preserve">
+    <value>no scoopable star further on this route.</value>
+    <comment>Route scoop clause after 'this system's arrival star is scoopable;'. Lower case.</comment>
+  </data>
+  <data name="Route.NoteNeutron" xml:space="preserve">
+    <value>neutron</value>
+    <comment>Plot waypoint note. Lower case.</comment>
+  </data>
+  <data name="Route.NoteRefuelHere" xml:space="preserve">
+    <value>refuel here</value>
+    <comment>Plot waypoint note. Lower case.</comment>
+  </data>
+  <data name="Route.NoteScoop" xml:space="preserve">
+    <value>scoop</value>
+    <comment>Plot waypoint note. Lower case.</comment>
+  </data>
+  <data name="Route.OffPlotFirst" xml:space="preserve">
+    <value>Off the plot. First waypoint {system}, {jumps} to {destination}.</value>
+    <comment>Plot progress line; systems are links, {jumps} a count of jumps.</comment>
+  </data>
+  <data name="Route.OffPlotLastKnown" xml:space="preserve">
+    <value>Off the plot. Last known waypoint {last}, next {next}. ~{jumps} to {destination}.</value>
+    <comment>Plot progress line; the tilde marks an estimate.</comment>
+  </data>
+  <data name="Route.PlotFromTo" xml:space="preserve">
+    <value>{from} to {to}</value>
+    <comment>Plot summary: the two ends as links.</comment>
+  </data>
+  <data name="Route.PlotTargetLabel" xml:space="preserve">
+    <value>{name} · {hull} · {range} ly</value>
+    <comment>Plot form ship picker entry; {range} has one decimal.</comment>
+  </data>
+  <data name="Route.PlottedAt" xml:space="preserve">
+    <value>plotted {when:g}</value>
+    <comment>Plot summary: when Spansh plotted it. Lower case.</comment>
+  </data>
+  <data name="Route.PlottedNotOn" xml:space="preserve">
+    <value>{jumps} plotted; the ship is not on the route yet.</value>
+    <comment>Route page summary; {jumps} is a count of jumps.</comment>
+  </data>
+  <data name="Route.RangeLine" xml:space="preserve">
+    <value>Full-tank range {range:0.00} ly with {cargo:0.#} t of cargo. Neutron boost ×{boost}.</value>
+    <comment>Plot form range line.</comment>
+  </data>
+  <data name="Route.ReroutedThrough" xml:space="preserve">
+    <value>Re-routed through {target}, {jumps} to {end}. The route file has not caught up yet.</value>
+    <comment>Route note when the targeted system is off the plotted route; systems are links.</comment>
+  </data>
+  <data name="Route.StageDone" xml:space="preserve">
+    <value>done</value>
+    <comment>Route stop stage badge. Lower case.</comment>
+  </data>
+  <data name="Route.StageHere" xml:space="preserve">
+    <value>here</value>
+    <comment>Route stop stage badge. Lower case.</comment>
+  </data>
+  <data name="Route.StageLast" xml:space="preserve">
+    <value>last</value>
+    <comment>Rail stop stage badge, shorter. Lower case.</comment>
+  </data>
+  <data name="Route.StageLastKnown" xml:space="preserve">
+    <value>last known</value>
+    <comment>Route stop stage badge. Lower case.</comment>
+  </data>
+  <data name="Route.StageNext" xml:space="preserve">
+    <value>next</value>
+    <comment>Route stop stage badge. Lower case.</comment>
+  </data>
+  <data name="Route.StarText" xml:space="preserve">
+    <value>{class} · {label}</value>
+    <comment>Route stop: the star's class in brief and what it means.</comment>
+  </data>
+  <data name="Route.TargetingOffRoute" xml:space="preserve">
+    <value>Targeting {target}, off the plotted route to {end}.</value>
+    <comment>Route note.</comment>
+  </data>
+  <data name="Route.TotalLightYears" xml:space="preserve">
+    <value>{total} in all.</value>
+    <comment>Route travelled line when the ship is not on the route.</comment>
+  </data>
+  <data name="Route.Travelled" xml:space="preserve">
+    <value>{done} of {total} travelled ({percent}%).</value>
+    <comment>Route travelled line.</comment>
+  </data>
+  <data name="Route.VisitNew" xml:space="preserve">
+    <value>new to you</value>
+    <comment>Route stop: never visited. Lower case.</comment>
+  </data>
+  <data name="Route.VisitSurveyed" xml:space="preserve">
+    <value>surveyed</value>
+    <comment>Route stop: you scanned the system. Lower case.</comment>
+  </data>
+  <data name="Route.VisitVisited" xml:space="preserve">
+    <value>visited</value>
+    <comment>Route stop: you have been there. Lower case.</comment>
+  </data>
+  <data name="Scan.EarlierNote" xml:space="preserve">
+    <value>No journal details for {bodies} scanned on an earlier visit.</value>
+    <comment>System page note; {bodies} is a count of bodies.</comment>
+  </data>
+  <data name="Scan.NothingYet" xml:space="preserve">
+    <value>Nothing scanned yet.</value>
+    <comment>System page: no body scanned.</comment>
+  </data>
+  <data name="Scan.OfBodiesScanned" xml:space="preserve">
+    <value>{known} of {count} bodies scanned</value>
+    <comment>System page: bodies scanned against the count.</comment>
+  </data>
+  <data name="Scan.OfBodiesScannedAllFound" xml:space="preserve">
+    <value>{known} of {count} bodies scanned, all found</value>
+    <comment>System page: every body is found.</comment>
+  </data>
+  <data name="Scan.OfCountScanned" xml:space="preserve">
+    <value>{known} of {count} scanned</value>
+    <comment>Rail heading: bodies scanned against the system's body count.</comment>
+  </data>
+  <data name="Scan.Scanned" xml:space="preserve">
+    <value>{count} scanned</value>
+    <comment>Rail heading: bodies scanned when the system's count is not known.</comment>
+  </data>
+  <data name="Scan.ScannedHonk.one" xml:space="preserve">
+    <value>{count} body scanned; honk for the count</value>
+    <comment>System page: bodies scanned before the discovery scanner has given the count.</comment>
+  </data>
+  <data name="Scan.ScannedHonk.other" xml:space="preserve">
+    <value>{count} bodies scanned; honk for the count</value>
+    <comment>System page: bodies scanned before the discovery scanner has given the count.</comment>
+  </data>
+  <data name="Scope.Narrowed" xml:space="preserve">
+    <value>Showing only what your selected engineers can roll. Turn Show only items from selected engineers off on the engineers page to see everything.</value>
+    <comment>Note on a page narrowed to the ticked engineers; names the switch Engineers.OnlyMineSwitch.</comment>
+  </data>
+  <data name="Search.KindBlueprint" xml:space="preserve">
+    <value>Blueprint</value>
+    <comment>Search result kind.</comment>
+  </data>
+  <data name="Search.KindEngineer" xml:space="preserve">
+    <value>Engineer</value>
+    <comment>Search result kind.</comment>
+  </data>
+  <data name="Search.KindFit" xml:space="preserve">
+    <value>Fit</value>
+    <comment>Search result kind: a saved fit.</comment>
+  </data>
+  <data name="Search.KindMaterial" xml:space="preserve">
+    <value>Material</value>
+    <comment>Search result kind.</comment>
+  </data>
+  <data name="Search.KindModule" xml:space="preserve">
+    <value>Module</value>
+    <comment>Search result kind.</comment>
+  </data>
+  <data name="Search.KindShip" xml:space="preserve">
+    <value>Ship</value>
+    <comment>Search result kind.</comment>
+  </data>
+  <data name="Search.KindSystem" xml:space="preserve">
+    <value>System</value>
+    <comment>Search result kind: a star system.</comment>
+  </data>
+  <data name="Search.KindUnlock" xml:space="preserve">
+    <value>Unlock</value>
+    <comment>Search result kind.</comment>
+  </data>
+  <data name="Search.LastVisited" xml:space="preserve">
+    <value>last visited {when:g}</value>
+    <comment>Search result subtitle for a system; {when} is a date and time.</comment>
+  </data>
+  <data name="Search.MaterialDetail" xml:space="preserve">
+    <value>{grade} · {category} · {line}</value>
+    <comment>Search result subtitle for a material: grade badge, inventory, in-game family.</comment>
+  </data>
+  <data name="Search.Place" xml:space="preserve">
+    <value>{system} · {base}</value>
+    <comment>Search result subtitle for an engineer: their system and base.</comment>
+  </data>
+  <data name="Search.ShipIdent" xml:space="preserve">
+    <value>{hull} · {ident}</value>
+    <comment>Search result subtitle for a named ship: hull and registration.</comment>
+  </data>
+  <data name="Search.Unnamed" xml:space="preserve">
+    <value>unnamed</value>
+    <comment>Search result subtitle for a ship without a name. Lower case.</comment>
+  </data>
+  <data name="Section.AgainstEverythingOwned" xml:space="preserve">
+    <value>Against everything you own</value>
+    <comment>Fit page section.</comment>
+  </data>
+  <data name="Section.Blueprints" xml:space="preserve">
+    <value>Blueprints</value>
+    <comment>Module type page section.</comment>
+  </data>
+  <data name="Section.Combat" xml:space="preserve">
+    <value>Combat</value>
+    <comment>Statistics page section.</comment>
+  </data>
+  <data name="Section.CompareWithShip" xml:space="preserve">
+    <value>Compare with a ship</value>
+    <comment>Fit page section.</comment>
+  </data>
+  <data name="Section.Exobiology" xml:space="preserve">
+    <value>Exobiology</value>
+    <comment>Statistics page section.</comment>
+  </data>
+  <data name="Section.Exploration" xml:space="preserve">
+    <value>Exploration</value>
+    <comment>Statistics page section.</comment>
+  </data>
+  <data name="Section.GameRoute" xml:space="preserve">
+    <value>Game route</value>
+    <comment>Route page section.</comment>
+  </data>
+  <data name="Section.Guardian" xml:space="preserve">
+    <value>Guardian</value>
+    <comment>Unlocks page section: the Guardian technology brokers.</comment>
+  </data>
+  <data name="Section.Human" xml:space="preserve">
+    <value>Human</value>
+    <comment>Unlocks page section: the human technology brokers.</comment>
+  </data>
+  <data name="Section.Income" xml:space="preserve">
+    <value>Income</value>
+    <comment>Statistics page section.</comment>
+  </data>
+  <data name="Section.InYourFits" xml:space="preserve">
+    <value>In your fits</value>
+    <comment>Module type page section.</comment>
+  </data>
+  <data name="Section.Lifetime" xml:space="preserve">
+    <value>Lifetime figures</value>
+    <comment>Statistics page section.</comment>
+  </data>
+  <data name="Section.MissionsAndOther" xml:space="preserve">
+    <value>Missions and other</value>
+    <comment>Statistics page section.</comment>
+  </data>
+  <data name="Section.PlanSpends" xml:space="preserve">
+    <value>Where your plan spends it</value>
+    <comment>Material page section.</comment>
+  </data>
+  <data name="Section.Powerplay" xml:space="preserve">
+    <value>Powerplay</value>
+    <comment>Statistics page section.</comment>
+  </data>
+  <data name="Section.SavedFits" xml:space="preserve">
+    <value>Saved fits</value>
+    <comment>Fleet page section.</comment>
+  </data>
+  <data name="Section.Ships" xml:space="preserve">
+    <value>Ships</value>
+    <comment>Fleet page section.</comment>
+  </data>
+  <data name="Section.SpanshPlot" xml:space="preserve">
+    <value>Spansh plot</value>
+    <comment>Route page section.</comment>
+  </data>
+  <data name="Section.TradingAndMining" xml:space="preserve">
+    <value>Trading and mining</value>
+    <comment>Statistics page section.</comment>
+  </data>
+  <data name="Section.UnusedModules" xml:space="preserve">
+    <value>Owned modules no fit uses</value>
+    <comment>Fleet page section.</comment>
+  </data>
+  <data name="Section.UsedBy" xml:space="preserve">
+    <value>Used by</value>
+    <comment>Material page section.</comment>
+  </data>
+  <data name="Section.Variants" xml:space="preserve">
+    <value>Variants</value>
+    <comment>Module type page section.</comment>
+  </data>
+  <data name="Section.WhereToFind" xml:space="preserve">
+    <value>Where to find it</value>
+    <comment>Material page section.</comment>
+  </data>
+  <data name="Section.WingsAndCrews" xml:space="preserve">
+    <value>Wings and crews</value>
+    <comment>Statistics page section.</comment>
+  </data>
+  <data name="Section.YouOwn" xml:space="preserve">
+    <value>You own</value>
+    <comment>Module type page section.</comment>
+  </data>
+  <data name="Settings.BackupText" xml:space="preserve">
+    <value>Copies every file in the journal folder, the live files included, into the folder you choose, and only what is new or changed. Point it at a folder your cloud drive syncs and the journals leave the machine.</value>
+    <comment>Settings page: the backup explanation.</comment>
+  </data>
+  <data name="Settings.CatchingUp" xml:space="preserve">
+    <value>Reading journal history: {done} of {total} files.</value>
+    <comment>Settings page watch status.</comment>
+  </data>
+  <data name="Settings.DataLoaded" xml:space="preserve">
+    <value>Loaded the Katey data already in {folder}. It is the saved data from now on.</value>
+    <comment>Settings page saved-data status.</comment>
+  </data>
+  <data name="Settings.DataMoved" xml:space="preserve">
+    <value>The saved data now lives in {folder}.</value>
+    <comment>Settings page saved-data status.</comment>
+  </data>
+  <data name="Settings.DataMoveFailed" xml:space="preserve">
+    <value>Could not keep the saved data in {folder}: {message}</value>
+    <comment>Settings page saved-data status on an error.</comment>
+  </data>
+  <data name="Settings.DataText" xml:space="preserve">
+    <value>Katey keeps its plan, engineers, fits and settings in this folder. Choose another and it keeps them there from then on. If that folder already holds a Katey data file, that file is loaded and becomes the saved data; otherwise the current data is written there. The old file is left where it was. Point two machines at one synced folder to share one set of data.</value>
+    <comment>Settings page: the saved data explanation.</comment>
+  </data>
+  <data name="Settings.FolderMissing" xml:space="preserve">
+    <value>That folder does not exist. Check the path or press Detect.</value>
+    <comment>Settings page watch status; 'Detect' names the button Settings.Detect.</comment>
+  </data>
+  <data name="Settings.InventoryOf" xml:space="preserve">
+    <value>Commander {commander}, inventory as of {when:g}.</value>
+    <comment>Settings page inventory line; {when} is a date and time.</comment>
+  </data>
+  <data name="Settings.Kicker" xml:space="preserve">
+    <value>Journal</value>
+    <comment>Small label above the settings page's title.</comment>
+  </data>
+  <data name="Settings.NetworkText" xml:space="preserve">
+    <value>Nothing leaves this machine unless you tick it here. A route plot sends Spansh the two system names and the ship's jump numbers: masses, tank sizes and the drive's figures. A system lookup sends Spansh the id of the system you have arrived in and brings back the bodies it knows there. Every request names Katey, its version and the project's address.</value>
+    <comment>Settings page: the outgoing connections explanation.</comment>
+  </data>
+  <data name="Settings.NotWatching" xml:space="preserve">
+    <value>Not watching. Press Watch to read the journal.</value>
+    <comment>Settings page watch status; 'Watch' names the button Settings.Watch.</comment>
+  </data>
+  <data name="Settings.Watching" xml:space="preserve">
+    <value>Watching. Everything updates as the game writes its journal.</value>
+    <comment>Settings page watch status.</comment>
+  </data>
+  <data name="Settings.WatchingNoSnapshot" xml:space="preserve">
+    <value>Watching. No Materials snapshot yet: start the game and the inventory appears.</value>
+    <comment>Settings page watch status.</comment>
+  </data>
+  <data name="Sharing.None" xml:space="preserve">
+    <value>Every fit needs its own modules</value>
+    <comment>Fleet page: sharing policy choice.</comment>
+  </data>
+  <data name="Sharing.Pooled" xml:space="preserve">
+    <value>Share modules across every fit</value>
+    <comment>Fleet page: sharing policy choice.</comment>
+  </data>
+  <data name="Sharing.SameHull" xml:space="preserve">
+    <value>Share only between fits for the same hull</value>
+    <comment>Fleet page: sharing policy choice.</comment>
+  </data>
+  <data name="Shell.CatchingUp" xml:space="preserve">
+    <value>Reading the journal history, {done} of {total} files. Live figures appear when it finishes.</value>
+    <comment>Shown while the journal history is replayed.</comment>
+  </data>
+  <data name="Ship.AddToPlan" xml:space="preserve">
+    <value>Add to plan</value>
+    <comment>Ship page module picker button.</comment>
+  </data>
+  <data name="Ship.AlreadyEngineered" xml:space="preserve">
+    <value>Already engineered</value>
+    <comment>Ship page module picker button: the module already has it.</comment>
+  </data>
+  <data name="Ship.Empty" xml:space="preserve">
+    <value>empty</value>
+    <comment>Ship page prebuilt changes: an empty slot. Lower case.</comment>
+  </data>
+  <data name="Ship.FitAsOf" xml:space="preserve">
+    <value>Fit as of {when:g}.</value>
+    <comment>Ship page: when the fit was last seen.</comment>
+  </data>
+  <data name="Ship.FitUnknown" xml:space="preserve">
+    <value>Fit unknown: this ship has not been flown since the journal began.</value>
+    <comment>Ship page fit line.</comment>
+  </data>
+  <data name="Ship.InThePlan" xml:space="preserve">
+    <value>In the plan</value>
+    <comment>Ship page module picker button: the choice is already planned.</comment>
+  </data>
+  <data name="Ship.Kicker" xml:space="preserve">
+    <value>Ship</value>
+    <comment>Small label above a ship page's title.</comment>
+  </data>
+  <data name="Ship.ModuleAndEngineering" xml:space="preserve">
+    <value>{module}, {engineering}</value>
+    <comment>A module's name and its engineering.</comment>
+  </data>
+  <data name="Ship.ModulesText" xml:space="preserve">
+    <value>{modules}, {engineered} engineered</value>
+    <comment>Ship page: how many modules and how many are engineered; {modules} is a count.</comment>
+  </data>
+  <data name="Ship.NowBought" xml:space="preserve">
+    <value>{module}, bought: it can be stored, moved or sold</value>
+    <comment>Ship page prebuilt changes: the module as it is now.</comment>
+  </data>
+  <data name="Ship.PrebuiltChanged" xml:space="preserve">
+    <value>Changed since redemption</value>
+    <comment>Ship page prebuilt state.</comment>
+  </data>
+  <data name="Ship.PrebuiltChangedDetail.one" xml:space="preserve">
+    <value>: {count} slot differs from how it came, and selling it would lose that.</value>
+    <comment>Ship page prebuilt detail, starting with its punctuation.</comment>
+  </data>
+  <data name="Ship.PrebuiltChangedDetail.other" xml:space="preserve">
+    <value>: {count} slots differ from how it came, and selling it would lose that.</value>
+    <comment>Ship page prebuilt detail, starting with its punctuation.</comment>
+  </data>
+  <data name="Ship.PrebuiltLead" xml:space="preserve">
+    <value>Prebuilt ship</value>
+    <comment>Ship page prebuilt line: the lead words.</comment>
+  </data>
+  <data name="Ship.PrebuiltLine" xml:space="preserve">
+    <value>{lead} - {state}{detail}</value>
+    <comment>Ship page prebuilt line: lead, state and the rest of the sentence.</comment>
+  </data>
+  <data name="Ship.PrebuiltUnchanged" xml:space="preserve">
+    <value>Still as redeemed</value>
+    <comment>Ship page prebuilt state.</comment>
+  </data>
+  <data name="Ship.PrebuiltUnchangedDetail" xml:space="preserve">
+    <value>: selling it and redeeming it again loses nothing.</value>
+    <comment>Ship page prebuilt detail, starting with its punctuation.</comment>
+  </data>
+  <data name="Ship.PrebuiltUnknown" xml:space="preserve">
+    <value>Redeemed from a bundle</value>
+    <comment>Ship page prebuilt state.</comment>
+  </data>
+  <data name="Ship.PrebuiltUnknownDetail" xml:space="preserve">
+    <value>. Its fit as redeemed has not been seen yet.</value>
+    <comment>Ship page prebuilt detail, starting with its punctuation.</comment>
+  </data>
+  <data name="Ship.SoldOrUnknown" xml:space="preserve">
+    <value>Ship sold or unknown</value>
+    <comment>Ship page title when the ship is gone.</comment>
+  </data>
+  <data name="Ship.WasPrebuilt" xml:space="preserve">
+    <value>{module}, prebuilt</value>
+    <comment>Ship page prebuilt changes: the module as it came.</comment>
+  </data>
+  <data name="Shopping.BuyAtAMarket" xml:space="preserve">
+    <value>Buy at a market</value>
+    <comment>Clipboard shopping list: heading over the commodities.</comment>
+  </data>
+  <data name="Shopping.Commodity" xml:space="preserve">
+    <value>{needed} × {name}</value>
+    <comment>Clipboard shopping list: one commodity line.</comment>
+  </data>
+  <data name="Shopping.Line" xml:space="preserve">
+    <value>{needed} × {material} ({grade}, {family})</value>
+    <comment>Clipboard shopping list: one material line before the inventory is known; {grade} is a G-badge, {family} the in-game family.</comment>
+  </data>
+  <data name="Shopping.LineWithInventory" xml:space="preserve">
+    <value>{needed} × {material} ({grade}, {family}) — have {have}, short {short}</value>
+    <comment>Clipboard shopping list: one material line with the inventory laid against it.</comment>
+  </data>
+  <data name="Spansh.CouldNotPlot" xml:space="preserve">
+    <value>Spansh could not plot that route.</value>
+    <comment>Plot failure shown on the route page.</comment>
+  </data>
+  <data name="Spansh.Http" xml:space="preserve">
+    <value>{error} (Spansh answered HTTP {code}.)</value>
+    <comment>Plot failure with the HTTP status Spansh gave.</comment>
+  </data>
+  <data name="Spansh.NoJob" xml:space="preserve">
+    <value>Spansh accepted the plot but gave no job to wait for.</value>
+    <comment>Plot failure shown on the route page.</comment>
+  </data>
+  <data name="Spansh.StillWorking" xml:space="preserve">
+    <value>Spansh is still working after {seconds:0} seconds. Try again later.</value>
+    <comment>Plot failure shown on the route page.</comment>
+  </data>
+  <data name="Spansh.Unreachable" xml:space="preserve">
+    <value>Spansh could not be reached. Check the connection and try again.</value>
+    <comment>Plot failure shown on the route page.</comment>
+  </data>
+  <data name="Star.BlackHole" xml:space="preserve">
+    <value>Black hole</value>
+    <comment>A star described.</comment>
+  </data>
+  <data name="Star.BlueWhiteSuperGiant" xml:space="preserve">
+    <value>blue-white supergiant</value>
+    <comment>Giant words after a spectral letter. Lower case.</comment>
+  </data>
+  <data name="Star.Brief" xml:space="preserve">
+    <value>{letter} {giant}</value>
+    <comment>A giant star in brief: spectral letter and giant words, such as M red giant.</comment>
+  </data>
+  <data name="Star.BrownDwarf" xml:space="preserve">
+    <value>Class {class} brown dwarf</value>
+    <comment>A star described.</comment>
+  </data>
+  <data name="Star.CarbonStar" xml:space="preserve">
+    <value>Carbon star, class {class}</value>
+    <comment>A star described.</comment>
+  </data>
+  <data name="Star.Class" xml:space="preserve">
+    <value>Class {class} star</value>
+    <comment>A star described by its class.</comment>
+  </data>
+  <data name="Star.HerbigAeBe" xml:space="preserve">
+    <value>Herbig Ae/Be star</value>
+    <comment>A star described.</comment>
+  </data>
+  <data name="Star.LabelBlackHole" xml:space="preserve">
+    <value>black hole</value>
+    <comment>Route stop label. Lower case.</comment>
+  </data>
+  <data name="Star.LabelNeutron" xml:space="preserve">
+    <value>neutron star</value>
+    <comment>Route stop label. Lower case.</comment>
+  </data>
+  <data name="Star.LabelNotScoopable" xml:space="preserve">
+    <value>not scoopable</value>
+    <comment>Route stop label. Lower case.</comment>
+  </data>
+  <data name="Star.LabelScoopable" xml:space="preserve">
+    <value>scoopable</value>
+    <comment>Route stop: the star refuels the ship. Lower case.</comment>
+  </data>
+  <data name="Star.LabelWhiteDwarf" xml:space="preserve">
+    <value>white dwarf</value>
+    <comment>Route stop label. Lower case.</comment>
+  </data>
+  <data name="Star.Neutron" xml:space="preserve">
+    <value>Neutron star</value>
+    <comment>A star described.</comment>
+  </data>
+  <data name="Star.OrangeGiant" xml:space="preserve">
+    <value>orange giant</value>
+    <comment>Giant words after a spectral letter. Lower case.</comment>
+  </data>
+  <data name="Star.RedGiant" xml:space="preserve">
+    <value>red giant</value>
+    <comment>Giant words after a spectral letter. Lower case.</comment>
+  </data>
+  <data name="Star.RedSuperGiant" xml:space="preserve">
+    <value>red supergiant</value>
+    <comment>Giant words after a spectral letter. Lower case.</comment>
+  </data>
+  <data name="Star.RoguePlanet" xml:space="preserve">
+    <value>Rogue planet</value>
+    <comment>A body the game files as a star.</comment>
+  </data>
+  <data name="Star.TTauri" xml:space="preserve">
+    <value>T Tauri star</value>
+    <comment>A star described.</comment>
+  </data>
+  <data name="Star.Unknown" xml:space="preserve">
+    <value>Star</value>
+    <comment>A star with no class given.</comment>
+  </data>
+  <data name="Star.WhiteDwarf" xml:space="preserve">
+    <value>White dwarf, class {class}</value>
+    <comment>A star described.</comment>
+  </data>
+  <data name="Star.WhiteSuperGiant" xml:space="preserve">
+    <value>white supergiant</value>
+    <comment>Giant words after a spectral letter. Lower case.</comment>
+  </data>
+  <data name="Star.WolfRayet" xml:space="preserve">
+    <value>Wolf-Rayet star, class {class}</value>
+    <comment>A star described.</comment>
+  </data>
+  <data name="Stats.AboardUnsold" xml:space="preserve">
+    <value>Aboard, unsold</value>
+    <comment>Statistics group title: data carried and not yet sold.</comment>
+  </data>
+  <data name="Stats.AsOf" xml:space="preserve">
+    <value>As of</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.Average" xml:space="preserve">
+    <value>Average</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.AveragePerSample" xml:space="preserve">
+    <value>Average per sample</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.BestActivity" xml:space="preserve">
+    <value>Best activity</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.BestSample" xml:space="preserve">
+    <value>Best sample</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.BodiesMapped" xml:space="preserve">
+    <value>Bodies mapped</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.BodiesScanned" xml:space="preserve">
+    <value>Bodies scanned</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.BountiesInCrew" xml:space="preserve">
+    <value>Bounties earned in a crew</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.BountiesInPeriod" xml:space="preserve">
+    <value>Bounties in the period</value>
+    <comment>Statistics group title.</comment>
+  </data>
+  <data name="Stats.BountiesSharedWing" xml:space="preserve">
+    <value>Bounties shared across a wing</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.CartographicsSold" xml:space="preserve">
+    <value>Cartographic data sold in the period</value>
+    <comment>Statistics group title.</comment>
+  </data>
+  <data name="Stats.ChartSlice" xml:space="preserve">
+    <value>{activity}: {amount}, {percent:0.0}%</value>
+    <comment>Income chart tooltip.</comment>
+  </data>
+  <data name="Stats.CombatBondsInCrew" xml:space="preserve">
+    <value>Combat bonds earned in a crew</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.CombatBondsInPeriod" xml:space="preserve">
+    <value>Combat bonds in the period</value>
+    <comment>Statistics group title.</comment>
+  </data>
+  <data name="Stats.CompletedWithReward" xml:space="preserve">
+    <value>Completed with a reward</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.CrewSessions" xml:space="preserve">
+    <value>Crew sessions</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.Earned" xml:space="preserve">
+    <value>Earned</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.EarnedFromShown" xml:space="preserve">
+    <value>{credits} from the activities switched on.</value>
+    <comment>Income total line.</comment>
+  </data>
+  <data name="Stats.EstimatedValue" xml:space="preserve">
+    <value>Estimated value</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.EverythingInPeriod" xml:space="preserve">
+    <value>Everything in the period</value>
+    <comment>Statistics group title.</comment>
+  </data>
+  <data name="Stats.EverythingShared" xml:space="preserve">
+    <value>Everything shared</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.FirstDiscoveryWithin" xml:space="preserve">
+    <value>First-discovery bonus within that</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.GoodsCollected" xml:space="preserve">
+    <value>Goods collected</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.GoodsDelivered" xml:space="preserve">
+    <value>Goods delivered</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.InCrews" xml:space="preserve">
+    <value>In crews</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.InPeriod" xml:space="preserve">
+    <value>In the period</value>
+    <comment>Statistics group title.</comment>
+  </data>
+  <data name="Stats.InWings" xml:space="preserve">
+    <value>In wings</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.Kicker" xml:space="preserve">
+    <value>Commander</value>
+    <comment>Small label above the statistics page's title.</comment>
+  </data>
+  <data name="Stats.KindBounties" xml:space="preserve">
+    <value>Bounties</value>
+    <comment>Income activity.</comment>
+  </data>
+  <data name="Stats.KindCombatBonds" xml:space="preserve">
+    <value>Combat bonds</value>
+    <comment>Income activity.</comment>
+  </data>
+  <data name="Stats.KindExobiology" xml:space="preserve">
+    <value>Exobiology</value>
+    <comment>Income activity.</comment>
+  </data>
+  <data name="Stats.KindExploration" xml:space="preserve">
+    <value>Exploration</value>
+    <comment>Income activity.</comment>
+  </data>
+  <data name="Stats.KindMiningAndSalvage" xml:space="preserve">
+    <value>Mining and salvage</value>
+    <comment>Income activity.</comment>
+  </data>
+  <data name="Stats.KindMissions" xml:space="preserve">
+    <value>Missions</value>
+    <comment>Income activity.</comment>
+  </data>
+  <data name="Stats.KindOther" xml:space="preserve">
+    <value>Other</value>
+    <comment>Income activity: everything else.</comment>
+  </data>
+  <data name="Stats.KindPowerplay" xml:space="preserve">
+    <value>Powerplay</value>
+    <comment>Income activity. A proper noun in the game.</comment>
+  </data>
+  <data name="Stats.KindSearchAndRescue" xml:space="preserve">
+    <value>Search and rescue</value>
+    <comment>Income activity.</comment>
+  </data>
+  <data name="Stats.KindTrading" xml:space="preserve">
+    <value>Trading</value>
+    <comment>Income activity.</comment>
+  </data>
+  <data name="Stats.Largest" xml:space="preserve">
+    <value>Largest</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.LargestAward" xml:space="preserve">
+    <value>Largest award</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.LargestSinglePayment" xml:space="preserve">
+    <value>Largest single payment</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.LedgerEmpty" xml:space="preserve">
+    <value>The ledger fills as the journal history is read: every sale, voucher, reward and salary.</value>
+    <comment>Statistics page ledger note before any income.</comment>
+  </data>
+  <data name="Stats.Lifetime" xml:space="preserve">
+    <value>Lifetime</value>
+    <comment>Statistics group title: the game's lifetime figures.</comment>
+  </data>
+  <data name="Stats.LifetimeAsOf" xml:space="preserve">
+    <value>As the game reported them on {when:g}. The game writes them each time you load in.</value>
+    <comment>Statistics page note under the lifetime figures.</comment>
+  </data>
+  <data name="Stats.LifetimeCrime" xml:space="preserve">
+    <value>Lifetime crime</value>
+    <comment>Statistics group title.</comment>
+  </data>
+  <data name="Stats.LifetimeMining" xml:space="preserve">
+    <value>Lifetime mining</value>
+    <comment>Statistics group title.</comment>
+  </data>
+  <data name="Stats.LifetimeNone" xml:space="preserve">
+    <value>The game writes its lifetime figures each time you load in; none has been read yet.</value>
+    <comment>Statistics page note under the lifetime figures.</comment>
+  </data>
+  <data name="Stats.LifetimePassengers" xml:space="preserve">
+    <value>Lifetime passengers</value>
+    <comment>Statistics group title.</comment>
+  </data>
+  <data name="Stats.LifetimeSearchAndRescue" xml:space="preserve">
+    <value>Lifetime search and rescue</value>
+    <comment>Statistics group title.</comment>
+  </data>
+  <data name="Stats.LifetimeTrading" xml:space="preserve">
+    <value>Lifetime trading</value>
+    <comment>Statistics group title.</comment>
+  </data>
+  <data name="Stats.LikelyFirstLogged" xml:space="preserve">
+    <value>Likely first-logged</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.LongestSession" xml:space="preserve">
+    <value>Longest session</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.MeritAwards" xml:space="preserve">
+    <value>Merit awards</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.Merits" xml:space="preserve">
+    <value>Merits</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.MeritsEarned" xml:space="preserve">
+    <value>Merits earned</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.MiningInPeriod" xml:space="preserve">
+    <value>Mining and salvage in the period</value>
+    <comment>Statistics group title.</comment>
+  </data>
+  <data name="Stats.MissionAbandoned" xml:space="preserve">
+    <value>abandoned</value>
+    <comment>Wing mission outcome. Lower case.</comment>
+  </data>
+  <data name="Stats.MissionCompleted" xml:space="preserve">
+    <value>completed, {paid}</value>
+    <comment>Wing mission outcome with what it paid. Lower case.</comment>
+  </data>
+  <data name="Stats.MissionFailed" xml:space="preserve">
+    <value>failed</value>
+    <comment>Wing mission outcome. Lower case.</comment>
+  </data>
+  <data name="Stats.MissionLapsed" xml:space="preserve">
+    <value>gone from the list</value>
+    <comment>Wing mission outcome: no longer in the mission list. Lower case.</comment>
+  </data>
+  <data name="Stats.MissionOpen" xml:space="preserve">
+    <value>open</value>
+    <comment>Wing mission outcome. Lower case.</comment>
+  </data>
+  <data name="Stats.MissionsInPeriod" xml:space="preserve">
+    <value>Missions in the period</value>
+    <comment>Statistics group title.</comment>
+  </data>
+  <data name="Stats.NobodyInWing" xml:space="preserve">
+    <value>nobody in the wing</value>
+    <comment>Wing missions: stands in for an empty wing list. Lower case.</comment>
+  </data>
+  <data name="Stats.NoneYet" xml:space="preserve">
+    <value>none yet</value>
+    <comment>Statistics figure value when there is nothing. Lower case.</comment>
+  </data>
+  <data name="Stats.NoPayments" xml:space="preserve">
+    <value>no payments</value>
+    <comment>Income activity row: nothing earned. Lower case.</comment>
+  </data>
+  <data name="Stats.NothingEarnedShown" xml:space="preserve">
+    <value>Nothing earned in the period from the activities switched on.</value>
+    <comment>Income total line.</comment>
+  </data>
+  <data name="Stats.NoWingYet" xml:space="preserve">
+    <value>No wing or crew in the journal yet. A session opens when you join a wing or a crew, or someone joins yours.</value>
+    <comment>Statistics page note under the wings and crews section.</comment>
+  </data>
+  <data name="Stats.OtherIncomeInPeriod" xml:space="preserve">
+    <value>Other income in the period</value>
+    <comment>Statistics group title.</comment>
+  </data>
+  <data name="Stats.Payments" xml:space="preserve">
+    <value>Payments</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.PaymentsInPeriod" xml:space="preserve">
+    <value>{payments} in the period.</value>
+    <comment>Statistics page ledger note for a period.</comment>
+  </data>
+  <data name="Stats.PaymentsSince" xml:space="preserve">
+    <value>{payments} since {when:d}.</value>
+    <comment>Statistics page ledger note for all time; {payments} is a count of payments.</comment>
+  </data>
+  <data name="Stats.PeopleFlownWith" xml:space="preserve">
+    <value>People flown with</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.Period30" xml:space="preserve">
+    <value>Last 30 days</value>
+    <comment>Statistics period choice.</comment>
+  </data>
+  <data name="Stats.Period365" xml:space="preserve">
+    <value>Last year</value>
+    <comment>Statistics period choice.</comment>
+  </data>
+  <data name="Stats.Period7" xml:space="preserve">
+    <value>Last 7 days</value>
+    <comment>Statistics period choice.</comment>
+  </data>
+  <data name="Stats.Period90" xml:space="preserve">
+    <value>Last 90 days</value>
+    <comment>Statistics period choice.</comment>
+  </data>
+  <data name="Stats.PeriodAll" xml:space="preserve">
+    <value>All time</value>
+    <comment>Statistics period choice.</comment>
+  </data>
+  <data name="Stats.PledgedTo" xml:space="preserve">
+    <value>Pledged to</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.PledgedToNobody" xml:space="preserve">
+    <value>nobody, as far as the journal says</value>
+    <comment>Statistics figure value. Lower case.</comment>
+  </data>
+  <data name="Stats.Profit" xml:space="preserve">
+    <value>Profit</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.Rank" xml:space="preserve">
+    <value>Rank</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.Rewards" xml:space="preserve">
+    <value>Rewards</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.Salary" xml:space="preserve">
+    <value>Salary</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.SalaryPayments" xml:space="preserve">
+    <value>Salary payments</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.Sales" xml:space="preserve">
+    <value>Sales</value>
+    <comment>Statistics figure label: how many sales.</comment>
+  </data>
+  <data name="Stats.SalesAtALoss" xml:space="preserve">
+    <value>Sales at a loss</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.Samples" xml:space="preserve">
+    <value>Samples</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.SamplesSold" xml:space="preserve">
+    <value>Samples sold</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.SearchAndRescueInPeriod" xml:space="preserve">
+    <value>Search and rescue in the period</value>
+    <comment>Statistics group title.</comment>
+  </data>
+  <data name="Stats.SharedInPeriod" xml:space="preserve">
+    <value>Shared in the period</value>
+    <comment>Statistics group title.</comment>
+  </data>
+  <data name="Stats.SharedNote" xml:space="preserve">
+    <value>A commander's shared figure is what the game marked as shared while they were present. Flying in a wing while you explore alone shares nothing, and counts for nothing here.</value>
+    <comment>Statistics page note under the wings and crews section.</comment>
+  </data>
+  <data name="Stats.SharedPayments" xml:space="preserve">
+    <value>Shared payments</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.SoldInPeriod" xml:space="preserve">
+    <value>Sold in the period</value>
+    <comment>Statistics group title.</comment>
+  </data>
+  <data name="Stats.SpeciesSold" xml:space="preserve">
+    <value>Species sold</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.Standing" xml:space="preserve">
+    <value>Standing</value>
+    <comment>Statistics group title: Powerplay standing.</comment>
+  </data>
+  <data name="Stats.Systems" xml:space="preserve">
+    <value>Systems</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.TheBonusAlone" xml:space="preserve">
+    <value>The bonus alone</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.TimePledged" xml:space="preserve">
+    <value>Time pledged</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.TimeTogetherInPeriod" xml:space="preserve">
+    <value>Time together in the period</value>
+    <comment>Statistics group title.</comment>
+  </data>
+  <data name="Stats.Title" xml:space="preserve">
+    <value>Statistics</value>
+    <comment>Statistics page title.</comment>
+  </data>
+  <data name="Stats.TradeDividends" xml:space="preserve">
+    <value>Trade dividends</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.TradingInPeriod" xml:space="preserve">
+    <value>Trading in the period</value>
+    <comment>Statistics group title.</comment>
+  </data>
+  <data name="Stats.UnitsIn" xml:space="preserve">
+    <value>{units} units in {runs}</value>
+    <comment>Statistics figure value: units moved and in how many runs; {runs} is a count of deliveries or pickups.</comment>
+  </data>
+  <data name="Stats.VouchersRedeemed" xml:space="preserve">
+    <value>Vouchers redeemed</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.WingMissions" xml:space="preserve">
+    <value>Wing missions</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.WingMissionsNote" xml:space="preserve">
+    <value>Wing missions accepted in the period, with who was in the wing at the time, and every one still open. The journal does not say whether a wing mission came from the board or from a wingmate, so one you took yourself while winged is here too.</value>
+    <comment>Statistics page note under the wing missions table.</comment>
+  </data>
+  <data name="Stats.WingSessions" xml:space="preserve">
+    <value>Wing sessions</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.WithFirstLoggedBonus" xml:space="preserve">
+    <value>With the first-logged bonus</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.WithoutTheBonus" xml:space="preserve">
+    <value>Without the bonus</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.WorthWithBonus" xml:space="preserve">
+    <value>Worth with the bonus</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="Stats.WorthWithoutBonus" xml:space="preserve">
+    <value>Worth without it</value>
+    <comment>Statistics figure label.</comment>
+  </data>
+  <data name="System.EveryoneDiscoveredAll" xml:space="preserve">
+    <value>Every one of the {bodies} was discovered before you</value>
+    <comment>System page discovery clause.</comment>
+  </data>
+  <data name="System.FleetHere" xml:space="preserve">
+    <value>You have {ships} and {modules} here.</value>
+    <comment>System page fleet line; two counts.</comment>
+  </data>
+  <data name="System.Kicker" xml:space="preserve">
+    <value>System</value>
+    <comment>Small label above a system page's title.</comment>
+  </data>
+  <data name="System.LastThere" xml:space="preserve">
+    <value>Last there {when:g}, {visits} in all.</value>
+    <comment>System page visit line; {visits} is a count of visits.</comment>
+  </data>
+  <data name="System.LightYearsFrom" xml:space="preserve">
+    <value>{distance} from {system}.</value>
+    <comment>System page: distance to another system; {system} is a link.</comment>
+  </data>
+  <data name="System.NobodyDiscoveredAny" xml:space="preserve">
+    <value>Nobody had discovered any of the {bodies} before you</value>
+    <comment>System page discovery clause; {bodies} is a count of scanned bodies.</comment>
+  </data>
+  <data name="System.NoFootfallAny" xml:space="preserve">
+    <value>nobody has set foot on any of its {bodies}</value>
+    <comment>System page discovery clause; {bodies} is a count of landable bodies. Lower case.</comment>
+  </data>
+  <data name="System.NoFootfallSome" xml:space="preserve">
+    <value>nobody has set foot on {untrodden} of its {bodies}</value>
+    <comment>System page discovery clause. Lower case.</comment>
+  </data>
+  <data name="System.NoPositionYet" xml:space="preserve">
+    <value>No position yet</value>
+    <comment>System page title before the journal reports a system.</comment>
+  </data>
+  <data name="System.NotReported" xml:space="preserve">
+    <value>The journal has not reported where you are.</value>
+    <comment>System page progress line.</comment>
+  </data>
+  <data name="System.NotVisited" xml:space="preserve">
+    <value>You have not been here since the journal began.</value>
+    <comment>System page visit line.</comment>
+  </data>
+  <data name="System.SomeUndiscovered" xml:space="preserve">
+    <value>{undiscovered} of the {bodies} had never been discovered before you</value>
+    <comment>System page discovery clause.</comment>
+  </data>
+  <data name="System.YouAreHere" xml:space="preserve">
+    <value>You are here. {scan}.</value>
+    <comment>System page: where you are and the scan progress sentence without its full stop.</comment>
+  </data>
+  <data name="System.YouLandedOn" xml:space="preserve">
+    <value>you have landed on {bodies}</value>
+    <comment>System page discovery clause; {bodies} is a count of bodies. Lower case.</comment>
+  </data>
+  <data name="Totals.AllHeld.one" xml:space="preserve">
+    <value>Totals for {count} entry. You already hold everything.</value>
+    <comment>Totals summary when nothing is short.</comment>
+  </data>
+  <data name="Totals.AllHeld.other" xml:space="preserve">
+    <value>Totals for {count} entries. You already hold everything.</value>
+    <comment>Totals summary when nothing is short.</comment>
+  </data>
+  <data name="Totals.ForEntries.one" xml:space="preserve">
+    <value>Totals for {count} entry.</value>
+    <comment>Totals summary, first sentence, followed by Totals.ShortMaterials.</comment>
+  </data>
+  <data name="Totals.ForEntries.other" xml:space="preserve">
+    <value>Totals for {count} entries.</value>
+    <comment>Totals summary, first sentence, followed by Totals.ShortMaterials.</comment>
+  </data>
+  <data name="Totals.NoInventory.one" xml:space="preserve">
+    <value>Totals for {count} entry. Start the journal watch to see what you still need.</value>
+    <comment>Totals summary before the inventory is known.</comment>
+  </data>
+  <data name="Totals.NoInventory.other" xml:space="preserve">
+    <value>Totals for {count} entries. Start the journal watch to see what you still need.</value>
+    <comment>Totals summary before the inventory is known.</comment>
+  </data>
+  <data name="Totals.NoneCounted" xml:space="preserve">
+    <value>No entries are counted.</value>
+    <comment>Totals summary when every plan entry is excluded.</comment>
+  </data>
+  <data name="Totals.SectionHeading" xml:space="preserve">
+    <value>{label} ({count})</value>
+    <comment>Materials table: an inventory's heading with how many it needs in all.</comment>
+  </data>
+  <data name="Totals.ShortMaterials.one" xml:space="preserve">
+    <value>{count} material is short.</value>
+    <comment>Totals summary, second sentence.</comment>
+  </data>
+  <data name="Totals.ShortMaterials.other" xml:space="preserve">
+    <value>{count} materials are short.</value>
+    <comment>Totals summary, second sentence.</comment>
+  </data>
+  <data name="Trade.AtEncodedTrader" xml:space="preserve">
+    <value>At an encoded data trader</value>
+    <comment>Heading over the trades at one kind of trader.</comment>
+  </data>
+  <data name="Trade.AtManufacturedTrader" xml:space="preserve">
+    <value>At a manufactured materials trader</value>
+    <comment>Heading over the trades at one kind of trader.</comment>
+  </data>
+  <data name="Trade.AtRawTrader" xml:space="preserve">
+    <value>At a raw materials trader</value>
+    <comment>Heading over the trades at one kind of trader.</comment>
+  </data>
+  <data name="Trade.AtTrader" xml:space="preserve">
+    <value>At a material trader</value>
+    <comment>Heading over the trades at a trader of an unknown kind.</comment>
+  </data>
+  <data name="Trade.BackToReserve" xml:space="preserve">
+    <value>Back to your reserve: {names}.</value>
+    <comment>Trades note naming the materials traded for to restore a reserve rather than the plan.</comment>
+  </data>
+  <data name="Trade.CoverAll.one" xml:space="preserve">
+    <value>{count} trade covers everything you are short of.</value>
+    <comment>Trades headline when the trades cover every shortfall.</comment>
+  </data>
+  <data name="Trade.CoverAll.other" xml:space="preserve">
+    <value>{count} trades cover everything you are short of.</value>
+    <comment>Trades headline when the trades cover every shortfall.</comment>
+  </data>
+  <data name="Trade.CoverSome.one" xml:space="preserve">
+    <value>{count} trade covers {covered} of the {materials} you are short of.</value>
+    <comment>Trades headline when some shortfalls stay; {materials} is a count of materials.</comment>
+  </data>
+  <data name="Trade.CoverSome.other" xml:space="preserve">
+    <value>{count} trades cover {covered} of the {materials} you are short of.</value>
+    <comment>Trades headline when some shortfalls stay; {materials} is a count of materials.</comment>
+  </data>
+  <data name="Trade.Families" xml:space="preserve">
+    <value>{from} family → {to} family</value>
+    <comment>A trade across two in-game families.</comment>
+  </data>
+  <data name="Trade.Get" xml:space="preserve">
+    <value>get {count} {material}</value>
+    <comment>A trade: what comes back. Lower case, follows Give.</comment>
+  </data>
+  <data name="Trade.GetCount" xml:space="preserve">
+    <value>get {count}</value>
+    <comment>A trade: the count received, shown before the material's link.</comment>
+  </data>
+  <data name="Trade.Give" xml:space="preserve">
+    <value>Give {count} {material}</value>
+    <comment>A trade: what to hand over.</comment>
+  </data>
+  <data name="Trade.GiveCount" xml:space="preserve">
+    <value>Give {count}</value>
+    <comment>A trade: the count handed over, shown before the material's link.</comment>
+  </data>
+  <data name="Trade.NoneCovered" xml:space="preserve">
+    <value>No trade covers any of the {materials} you are short of.</value>
+    <comment>Trades headline; {materials} is a count of materials.</comment>
+  </data>
+  <data name="Trade.NothingToTradeFor" xml:space="preserve">
+    <value>Nothing to trade for: you hold what the plan needs and what you keep.</value>
+    <comment>Trades headline when nothing is short.</comment>
+  </data>
+  <data name="Trade.Rate" xml:space="preserve">
+    <value>{from} → {to} at {rate}</value>
+    <comment>A trade: the two grades and the exchange rate, such as G2 → G1 at 1:3.</comment>
+  </data>
+  <data name="Trade.SameFamily" xml:space="preserve">
+    <value>both in the {family} family</value>
+    <comment>A trade between two materials of one in-game family.</comment>
+  </data>
+  <data name="Trade.StillShort" xml:space="preserve">
+    <value>Still {count} {material} short</value>
+    <comment>A shortfall no trade covers.</comment>
+  </data>
+  <data name="Trade.StillShortCount" xml:space="preserve">
+    <value>Still {count}</value>
+    <comment>A shortfall's count, shown before the material's link.</comment>
+  </data>
+  <data name="Trade.Surplus" xml:space="preserve">
+    <value>{count} more than needed</value>
+    <comment>A trade that hands back more than the shortfall.</comment>
+  </data>
+  <data name="Trade.WaitingForInventory" xml:space="preserve">
+    <value>Trades appear once the journal watch has read your inventory.</value>
+    <comment>Trades headline before the inventory is known.</comment>
+  </data>
+  <data name="Trade.WhyBatchesWhole" xml:space="preserve">
+    <value>Every trade left would hand back more than the stack can hold: batches are whole.</value>
+    <comment>Why a shortfall stays uncovered.</comment>
+  </data>
+  <data name="Trade.WhyNeverTrade" xml:space="preserve">
+    <value>The only spare materials in this inventory are ones you never trade.</value>
+    <comment>Why a shortfall stays uncovered.</comment>
+  </data>
+  <data name="Trade.WhyNothingHeld" xml:space="preserve">
+    <value>Nothing else in this inventory is held at all.</value>
+    <comment>Why a shortfall stays uncovered.</comment>
+  </data>
+  <data name="Trade.WhyNothingSpare" xml:space="preserve">
+    <value>Nothing in this inventory is held above what the plan needs and you keep.</value>
+    <comment>Why a shortfall stays uncovered.</comment>
+  </data>
+  <data name="Unit.Credits" xml:space="preserve">
+    <value>{value} Cr</value>
+    <comment>Credits below a thousand: 120 Cr.</comment>
+  </data>
+  <data name="Unit.CreditsExact" xml:space="preserve">
+    <value>{value:#,0} Cr</value>
+    <comment>Credits in full with a thousands separator.</comment>
+  </data>
+  <data name="Unit.CreditsMillions" xml:space="preserve">
+    <value>{value:0.0}M Cr</value>
+    <comment>Credits in millions: 1.2M Cr.</comment>
+  </data>
+  <data name="Unit.CreditsThousands" xml:space="preserve">
+    <value>{value:0}k Cr</value>
+    <comment>Credits in thousands: 850k Cr.</comment>
+  </data>
+  <data name="Unit.DaysHours" xml:space="preserve">
+    <value>{days:#,0}d {hours}h</value>
+    <comment>A duration in days and hours, compact.</comment>
+  </data>
+  <data name="Unit.Grade" xml:space="preserve">
+    <value>G{grade}</value>
+    <comment>An engineering grade, 1 to 5, as a short badge. Keep the letter.</comment>
+  </data>
+  <data name="Unit.Gravity" xml:space="preserve">
+    <value>{value:0.00}g</value>
+    <comment>Surface gravity in g, compact.</comment>
+  </data>
+  <data name="Unit.HoursMinutes" xml:space="preserve">
+    <value>{hours}h {minutes}m</value>
+    <comment>A duration in hours and minutes, compact.</comment>
+  </data>
+  <data name="Unit.Kelvin" xml:space="preserve">
+    <value>{value:0}K</value>
+    <comment>A temperature in kelvin, compact.</comment>
+  </data>
+  <data name="Unit.Kilometres" xml:space="preserve">
+    <value>{value:#,0.0} km</value>
+    <comment>A distance on foot in kilometres.</comment>
+  </data>
+  <data name="Unit.LightSeconds" xml:space="preserve">
+    <value>{value:0}ls</value>
+    <comment>A distance in light seconds, compact.</comment>
+  </data>
+  <data name="Unit.LightYears" xml:space="preserve">
+    <value>{value:#,0} ly</value>
+    <comment>A distance in whole light years.</comment>
+  </data>
+  <data name="Unit.LightYearsJump" xml:space="preserve">
+    <value>{value:0.00} ly</value>
+    <comment>A jump distance with two decimals.</comment>
+  </data>
+  <data name="Unit.LightYearsPrecise" xml:space="preserve">
+    <value>{value:0.0} ly</value>
+    <comment>A distance in light years with one decimal.</comment>
+  </data>
+  <data name="Unit.Millions" xml:space="preserve">
+    <value>{value:0.0}M</value>
+    <comment>Credits in millions without the unit, where the unit is shown once for a column.</comment>
+  </data>
+  <data name="Unit.Minutes" xml:space="preserve">
+    <value>{minutes}m</value>
+    <comment>A duration in minutes, compact.</comment>
+  </data>
+  <data name="Unit.Percent" xml:space="preserve">
+    <value>{value:0.0}%</value>
+    <comment>A share as a percentage with one decimal.</comment>
+  </data>
+  <data name="Unit.PercentWhole" xml:space="preserve">
+    <value>{value:0}%</value>
+    <comment>A share as a whole percentage.</comment>
+  </data>
+  <data name="Unit.SolarMasses" xml:space="preserve">
+    <value>{value:0.00} solar masses</value>
+    <comment>A star's mass.</comment>
+  </data>
+  <data name="Unit.Tonnes" xml:space="preserve">
+    <value>{value:0.0} t</value>
+    <comment>A mass in tonnes with one decimal.</comment>
+  </data>
+  <data name="Unlock.BoughtAtOutfitting" xml:space="preserve">
+    <value>You have bought one at outfitting, so it is unlocked.</value>
+    <comment>Why an unlock counts as owned.</comment>
+  </data>
+  <data name="Unlock.JournalRecordsPurchase" xml:space="preserve">
+    <value>The journal records the purchase.</value>
+    <comment>Why an unlock counts as owned.</comment>
+  </data>
+  <data name="Unlock.OwnOne" xml:space="preserve">
+    <value>You own one, so it is unlocked.</value>
+    <comment>Why an unlock counts as owned.</comment>
+  </data>
+  <data name="Unlocks.AlsoFromMarket" xml:space="preserve">
+    <value>Also {items} from a market.</value>
+    <comment>Unlock row: its commodities, as count× name items.</comment>
+  </data>
+  <data name="Unlocks.Bought" xml:space="preserve">
+    <value>{count} bought</value>
+    <comment>Unlock group summary part.</comment>
+  </data>
+  <data name="Unlocks.CategoryFighters" xml:space="preserve">
+    <value>Fighters</value>
+    <comment>Unlock category.</comment>
+  </data>
+  <data name="Unlocks.CategoryModifiedWeapons" xml:space="preserve">
+    <value>Modified weapons</value>
+    <comment>Unlock category.</comment>
+  </data>
+  <data name="Unlocks.CategoryModules" xml:space="preserve">
+    <value>Modules</value>
+    <comment>Unlock category.</comment>
+  </data>
+  <data name="Unlocks.CategoryPreEngineered" xml:space="preserve">
+    <value>Pre-engineered modules</value>
+    <comment>Unlock category.</comment>
+  </data>
+  <data name="Unlocks.CategoryWeapons" xml:space="preserve">
+    <value>Weapons</value>
+    <comment>Unlock category.</comment>
+  </data>
+  <data name="Unlocks.GuardianBroker" xml:space="preserve">
+    <value>Guardian technology broker</value>
+    <comment>Where an unlock is bought.</comment>
+  </data>
+  <data name="Unlocks.HumanBroker" xml:space="preserve">
+    <value>Human technology broker</value>
+    <comment>Where an unlock is bought.</comment>
+  </data>
+  <data name="Unlocks.MissingItem" xml:space="preserve">
+    <value>{count} {material}</value>
+    <comment>Unlock row: one missing material.</comment>
+  </data>
+  <data name="Unlocks.NotDetectable" xml:space="preserve">
+    <value>The journal does not name this item, so Katey cannot tell whether you have bought it.</value>
+    <comment>Unlock row note.</comment>
+  </data>
+  <data name="Unlocks.Planned" xml:space="preserve">
+    <value>{count} planned</value>
+    <comment>Unlock group summary part.</comment>
+  </data>
+  <data name="Unlocks.PlannedCovered" xml:space="preserve">
+    <value>{unlocks} planned and every material covered.</value>
+    <comment>Unlocks page materials summary.</comment>
+  </data>
+  <data name="Unlocks.PlannedNoInventory" xml:space="preserve">
+    <value>{unlocks} planned. Start the journal watch to see what you still need.</value>
+    <comment>Unlocks page materials summary.</comment>
+  </data>
+  <data name="Unlocks.PlannedShort" xml:space="preserve">
+    <value>{unlocks} planned, {materials} short.</value>
+    <comment>Unlocks page materials summary; two counts.</comment>
+  </data>
+  <data name="Unlocks.ShortOf" xml:space="preserve">
+    <value>Short {items}.</value>
+    <comment>Unlock row: what is missing, as count name items.</comment>
+  </data>
+  <data name="Unlocks.StateAffordable" xml:space="preserve">
+    <value>Affordable</value>
+    <comment>Unlock badge, shown in capitals.</comment>
+  </data>
+  <data name="Unlocks.StatePlanned" xml:space="preserve">
+    <value>Planned</value>
+    <comment>Unlock badge, shown in capitals.</comment>
+  </data>
+  <data name="Unlocks.StateShort" xml:space="preserve">
+    <value>Short</value>
+    <comment>Unlock badge, shown in capitals.</comment>
+  </data>
+  <data name="Unlocks.StateUnlocked" xml:space="preserve">
+    <value>Unlocked</value>
+    <comment>Unlock badge, shown in capitals.</comment>
+  </data>
+  <data name="Unlocks.Summary" xml:space="preserve">
+    <value>{unlocks}: {bought} bought, {planned} planned, {affordable} affordable with what the plan leaves, {short} short.</value>
+    <comment>Unlocks page summary; {unlocks} is a count of unlocks.</comment>
+  </data>
+  <data name="Unlocks.SummaryNoInventory" xml:space="preserve">
+    <value>{unlocks}. Start the journal watch to see which you can afford.</value>
+    <comment>Unlocks page summary; {unlocks} is a count of unlocks.</comment>
+  </data>
+  <data name="Unlocks.TickToPlan" xml:space="preserve">
+    <value>Tick an unlock to plan it. Its materials join the plan's totals and the trades at the material traders.</value>
+    <comment>Unlocks page materials summary when nothing is planned.</comment>
+  </data>
+  <data name="Unlocks.Title" xml:space="preserve">
+    <value>Technology broker unlocks</value>
+    <comment>Unlocks page title.</comment>
+  </data>
+  <data name="Value.Carto" xml:space="preserve">
+    <value>Cartographics about {credits} as scanned</value>
+    <comment>System page value clause.</comment>
+  </data>
+  <data name="Value.CartoWithBonus" xml:space="preserve">
+    <value>Cartographics about {credits} as scanned, {bonus} with the first-discovery bonus</value>
+    <comment>System page value clause.</comment>
+  </data>
+  <data name="Value.Exo" xml:space="preserve">
+    <value>exobiology {credits}</value>
+    <comment>System page value clause, lower case, follows a semicolon.</comment>
+  </data>
+  <data name="Value.ExoAbout" xml:space="preserve">
+    <value>exobiology about {credits}</value>
+    <comment>System page value clause when the species are not all known yet.</comment>
+  </data>
+  <data name="Value.ExoAboutWithBonus" xml:space="preserve">
+    <value>exobiology about {credits}, {bonus} with the first-logged bonus</value>
+    <comment>System page value clause.</comment>
+  </data>
+  <data name="Value.ExoWithBonus" xml:space="preserve">
+    <value>exobiology {credits}, {bonus} with the first-logged bonus</value>
+    <comment>System page value clause.</comment>
+  </data>
+  <data name="Value.Unsold" xml:space="preserve">
+    <value>Exploration data unsold: {credits}</value>
+    <comment>Rail: the system's unsold exploration value.</comment>
+  </data>
+  <data name="Value.UnsoldLine" xml:space="preserve">
+    <value>Exploration data unsold: {credits}.</value>
+    <comment>System page value line.</comment>
+  </data>
+  <data name="Value.UnsoldLineFirst" xml:space="preserve">
+    <value>Exploration data unsold: {credits}, {first} of it for being first.</value>
+    <comment>System page value line; {first} is the part that is first-discovery bonus.</comment>
+  </data>
+  <data name="Value.UnsoldLineFirstSold" xml:space="preserve">
+    <value>Exploration data unsold: {credits}, {first} of it for being first; sold: {sold}.</value>
+    <comment>System page value line.</comment>
+  </data>
+  <data name="Value.UnsoldLineSold" xml:space="preserve">
+    <value>Exploration data unsold: {credits}; sold: {sold}.</value>
+    <comment>System page value line.</comment>
+  </data>
+</root>

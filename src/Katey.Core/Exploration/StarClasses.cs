@@ -12,34 +12,64 @@ public enum StarKind
     /// <summary>A white dwarf of any class: a jet cone, a lesser boost, and a hazard.</summary>
     WhiteDwarf,
 
-    /// <summary>A black hole, supermassive or not.</summary>
+    /// <summary>A black hole, stellar or supermassive: nothing to scoop and a hazard.</summary>
     BlackHole,
 
-    /// <summary>Anything else: brown dwarfs, T Tauri, Herbig, Wolf-Rayet and carbon stars, and what the journal cannot name.</summary>
+    /// <summary>Anything else: a brown dwarf, a Wolf-Rayet or carbon star, a rogue planet, or an unknown class.</summary>
+    Other,
+}
+
+/// <summary>What a star is, as far as a reader wants to know: the family its class belongs to.</summary>
+public enum StarFamily
+{
+    /// <summary>No class given.</summary>
+    Unknown,
+
+    /// <summary>A main-sequence or giant star of class O, B, A, F, G, K or M.</summary>
+    MainSequence,
+
+    /// <summary>A neutron star.</summary>
+    Neutron,
+
+    /// <summary>A white dwarf of any class.</summary>
+    WhiteDwarf,
+
+    /// <summary>A black hole, stellar or supermassive.</summary>
+    BlackHole,
+
+    /// <summary>A brown dwarf of class L, T or Y.</summary>
+    BrownDwarf,
+
+    /// <summary>A T Tauri star.</summary>
+    TTauri,
+
+    /// <summary>A Herbig Ae/Be star.</summary>
+    HerbigAeBe,
+
+    /// <summary>A Wolf-Rayet star of class W, WN, WNC, WC or WO.</summary>
+    WolfRayet,
+
+    /// <summary>A carbon star of class C, CN, CJ, CH, CHd, CS or MS.</summary>
+    CarbonStar,
+
+    /// <summary>A rogue planet.</summary>
+    RoguePlanet,
+
+    /// <summary>A class the catalog does not know.</summary>
     Other,
 }
 
 /// <summary>
-/// Reads the class strings the journal and <c>NavRoute.json</c> use for stars. A giant carries its spectral
-/// class before an underscore, such as <c>M_RedGiant</c> or <c>A_BlueWhiteSuperGiant</c>, and scoops like
-/// any star of that class.
+/// Reads the star class strings the journal and <c>NavRoute.json</c> use: <c>K</c>, <c>M_RedGiant</c>, <c>N</c>,
+/// <c>DA</c>, <c>H</c>, <c>TTS</c> and so on. Says what the class is; the words for a reader are the application's.
 /// </summary>
 public static class StarClasses
 {
     private static readonly HashSet<string> ScoopableClasses = new(StringComparer.OrdinalIgnoreCase) { "O", "B", "A", "F", "G", "K", "M" };
     private static readonly HashSet<string> BrownDwarfClasses = new(StringComparer.OrdinalIgnoreCase) { "L", "T", "Y" };
 
-    private static readonly Dictionary<string, string> GiantWords = new(StringComparer.OrdinalIgnoreCase)
-    {
-        ["RedGiant"] = "red giant",
-        ["RedSuperGiant"] = "red supergiant",
-        ["OrangeGiant"] = "orange giant",
-        ["BlueWhiteSuperGiant"] = "blue-white supergiant",
-        ["WhiteSuperGiant"] = "white supergiant",
-    };
-
-    /// <summary>Sorts a class string into what it means for a ship.</summary>
-    /// <param name="starClass">The class as the journal spells it, such as "K", "M_RedGiant", "N", "DA" or "H". Case does not matter.</param>
+    /// <summary>What a star means to a ship passing through.</summary>
+    /// <param name="starClass">The class as the journal spells it, or <see langword="null"/>.</param>
     /// <returns>The kind; <see cref="StarKind.Other"/> for an empty or unknown class.</returns>
     public static StarKind Classify(string? starClass)
     {
@@ -58,14 +88,14 @@ public static class StarClasses
             : trimmed.StartsWith('D') && trimmed.Length <= 3 ? StarKind.WhiteDwarf : StarKind.Other;
     }
 
-    /// <summary>Whether the fuel scoop works at the star.</summary>
-    /// <param name="starClass">The class as the journal spells it.</param>
-    /// <returns><see langword="true"/> for class O, B, A, F, G, K or M, giants included.</returns>
+    /// <summary>Whether the fuel scoop works at a star.</summary>
+    /// <param name="starClass">The class as the journal spells it, or <see langword="null"/>.</param>
+    /// <returns><see langword="true"/> for a main-sequence or giant star of class O to M.</returns>
     public static bool IsScoopable(string? starClass) => Classify(starClass) == StarKind.Scoopable;
 
     /// <summary>The spectral letter of a scoopable star.</summary>
-    /// <param name="starClass">The class as the journal spells it.</param>
-    /// <returns>"O" to "M" in upper case for a scoopable star, a giant's letter included; <see langword="null"/> for anything else.</returns>
+    /// <param name="starClass">The class as the journal spells it, or <see langword="null"/>.</param>
+    /// <returns>The letter in capitals, O to M, or <see langword="null"/> for any other class.</returns>
     public static string? Spectral(string? starClass)
     {
         if (string.IsNullOrWhiteSpace(starClass))
@@ -76,91 +106,52 @@ public static class StarClasses
         var trimmed = starClass.Trim();
         var underscore = trimmed.IndexOf('_', StringComparison.Ordinal);
         var letter = underscore < 0 ? trimmed : trimmed[..underscore];
-        return ScoopableClasses.Contains(letter) && (underscore < 0 || GiantSuffix(trimmed) is not null) ? letter.ToUpperInvariant() : null;
+        return ScoopableClasses.Contains(letter) && (underscore < 0 || Giant(trimmed) is not null) ? letter.ToUpperInvariant() : null;
     }
 
-    /// <summary>The class in a reader's words, briefly: "K", "M red giant", "N", "DA".</summary>
-    /// <param name="starClass">The class as the journal spells it.</param>
-    /// <returns>The spectral letter with the giant's words after it, or the class string trimmed; empty for none.</returns>
-    public static string Brief(string? starClass)
-    {
-        var trimmed = starClass?.Trim() ?? "";
-        return Spectral(trimmed) is { } letter && GiantSuffix(trimmed) is { } giant ? $"{letter} {giant}" : trimmed;
-    }
-
-    /// <summary>One line on a star for a reader: its class in words. Whether it can be scooped is <see cref="Label"/>'s to say, so the two sit side by side without repeating.</summary>
+    /// <summary>The giant suffix of a class such as <c>M_RedGiant</c>.</summary>
     /// <param name="starClass">The class as the journal spells it, or <see langword="null"/>.</param>
-    /// <returns>Such as "Class K star", "Class M red giant star", "Neutron star", "White dwarf, class DA", "Black hole", "Class L brown dwarf"; "Star" for no class.</returns>
-    public static string Describe(string? starClass)
+    /// <returns>The suffix after the underscore, such as <c>RedGiant</c> or <c>BlueWhiteSuperGiant</c>, when it names a giant; <see langword="null"/> otherwise.</returns>
+    public static string? Giant(string? starClass)
     {
-        var trimmed = starClass?.Trim() ?? "";
-        return Classify(trimmed) switch
+        if (string.IsNullOrWhiteSpace(starClass))
         {
-            StarKind.Scoopable => $"Class {Brief(trimmed)} star",
-            StarKind.Neutron => "Neutron star",
-            StarKind.WhiteDwarf => $"White dwarf, class {trimmed}",
-            StarKind.BlackHole => "Black hole",
-            StarKind.Other => Other(trimmed),
-            _ => Other(trimmed),
-        };
+            return null;
+        }
+
+        var trimmed = starClass.Trim();
+        var underscore = trimmed.IndexOf('_', StringComparison.Ordinal);
+        if (underscore < 0 || underscore == trimmed.Length - 1)
+        {
+            return null;
+        }
+
+        var suffix = trimmed[(underscore + 1)..];
+        return suffix.Contains("Giant", StringComparison.OrdinalIgnoreCase) ? suffix : null;
     }
 
-    /// <summary>The short label for a kind, for a route stop: "scoopable", "neutron star", "white dwarf", "black hole" or "not scoopable".</summary>
-    /// <param name="kind">The kind.</param>
-    /// <returns>The label in lower case.</returns>
-    public static string Label(StarKind kind) => kind switch
+    /// <summary>The family a class belongs to, for a reader's description.</summary>
+    /// <param name="starClass">The class as the journal spells it, or <see langword="null"/>.</param>
+    /// <returns>The family; <see cref="StarFamily.Unknown"/> for no class, <see cref="StarFamily.Other"/> for one the catalog does not know.</returns>
+    public static StarFamily Family(string? starClass)
     {
-        StarKind.Scoopable => "scoopable",
-        StarKind.Neutron => "neutron star",
-        StarKind.WhiteDwarf => "white dwarf",
-        StarKind.BlackHole => "black hole",
-        StarKind.Other => "not scoopable",
-        _ => "not scoopable",
-    };
-
-    private static string Other(string starClass) => starClass switch
-    {
-        "" => "Star",
-        _ when BrownDwarfClasses.Contains(starClass) => $"Class {starClass} brown dwarf",
-        _ when starClass.Equals("TTS", StringComparison.OrdinalIgnoreCase) => "T Tauri star",
-        _ when starClass.Equals("AeBe", StringComparison.OrdinalIgnoreCase) => "Herbig Ae/Be star",
-        _ when starClass.StartsWith('W') && starClass.Length <= 3 => $"Wolf-Rayet star, class {starClass}",
-        _ when starClass.StartsWith('C') && starClass.Length <= 3 => $"Carbon star, class {starClass}",
-        _ when starClass.Equals("RoguePlanet", StringComparison.OrdinalIgnoreCase) => "Rogue planet",
-        _ => $"Class {starClass} star",
-    };
-
-    /// <summary>The words for a giant's suffix: "red giant" for "M_RedGiant"; an unknown suffix is split at its capitals.</summary>
-    private static string? GiantSuffix(string starClass)
-    {
-        var underscore = starClass.IndexOf('_', StringComparison.Ordinal);
-        if (underscore < 0 || underscore == starClass.Length - 1)
-        {
-            return null;
-        }
-
-        var suffix = starClass[(underscore + 1)..];
-        if (GiantWords.TryGetValue(suffix, out var words))
-        {
-            return words;
-        }
-
-        if (!suffix.Contains("Giant", StringComparison.OrdinalIgnoreCase))
-        {
-            return null;
-        }
-
-        var split = new System.Text.StringBuilder();
-        foreach (var character in suffix)
-        {
-            if (char.IsUpper(character) && split.Length > 0)
+        var trimmed = starClass?.Trim() ?? "";
+        return trimmed.Length == 0
+            ? StarFamily.Unknown
+            : Classify(trimmed) switch
             {
-                split.Append(' ');
-            }
-
-            split.Append(char.ToLowerInvariant(character));
-        }
-
-        return split.ToString();
+                StarKind.Scoopable => StarFamily.MainSequence,
+                StarKind.Neutron => StarFamily.Neutron,
+                StarKind.WhiteDwarf => StarFamily.WhiteDwarf,
+                StarKind.BlackHole => StarFamily.BlackHole,
+                StarKind.Other when BrownDwarfClasses.Contains(trimmed) => StarFamily.BrownDwarf,
+                StarKind.Other when trimmed.Equals("TTS", StringComparison.OrdinalIgnoreCase) => StarFamily.TTauri,
+                StarKind.Other when trimmed.Equals("AeBe", StringComparison.OrdinalIgnoreCase) => StarFamily.HerbigAeBe,
+                StarKind.Other when trimmed.StartsWith('W') && trimmed.Length <= 3 => StarFamily.WolfRayet,
+                StarKind.Other when trimmed.StartsWith('C') && trimmed.Length <= 3 => StarFamily.CarbonStar,
+                StarKind.Other when trimmed.Equals("RoguePlanet", StringComparison.OrdinalIgnoreCase) => StarFamily.RoguePlanet,
+                StarKind.Other => StarFamily.Other,
+                _ => StarFamily.Other,
+            };
     }
 }

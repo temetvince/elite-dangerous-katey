@@ -40,10 +40,26 @@ public sealed record ParsedLoadout(
     IReadOnlyList<LoadoutModule> AllModules,
     Routing.JumpProfile? Profile = null);
 
-/// <summary>Outcome of <see cref="EdsyImport.Parse"/>: a loadout or one sentence saying why not.</summary>
+/// <summary>Why an EDSY export could not be read.</summary>
+public enum EdsyParseError
+{
+    /// <summary>Nothing was pasted.</summary>
+    Empty,
+
+    /// <summary>The text is not JSON.</summary>
+    NotJson,
+
+    /// <summary>The JSON holds no <c>Loadout</c> record.</summary>
+    NoLoadout,
+
+    /// <summary>The <c>Loadout</c> record has no <c>Modules</c> list.</summary>
+    NoModules,
+}
+
+/// <summary>Outcome of <see cref="EdsyImport.Parse"/>: a loadout or why not.</summary>
 /// <param name="Loadout">The loadout, or <see langword="null"/> on failure.</param>
 /// <param name="Error">Why parsing failed, or <see langword="null"/> on success.</param>
-public sealed record EdsyParseResult(ParsedLoadout? Loadout, string? Error)
+public sealed record EdsyParseResult(ParsedLoadout? Loadout, EdsyParseError? Error)
 {
     /// <summary>Gets whether a loadout was read.</summary>
     public bool Ok => Loadout is not null;
@@ -77,7 +93,7 @@ public sealed class EdsyImport(Catalog catalog)
 
         if (string.IsNullOrWhiteSpace(text))
         {
-            return new EdsyParseResult(null, "Paste an EDSY export first.");
+            return new EdsyParseResult(null, EdsyParseError.Empty);
         }
 
         JsonDocument document;
@@ -87,19 +103,19 @@ public sealed class EdsyImport(Catalog catalog)
         }
         catch (JsonException)
         {
-            return new EdsyParseResult(null, "That is not valid JSON.");
+            return new EdsyParseResult(null, EdsyParseError.NotJson);
         }
 
         using (document)
         {
             if (FindLoadout(document.RootElement) is not { } loadout)
             {
-                return new EdsyParseResult(null, "No Loadout object found in the text.");
+                return new EdsyParseResult(null, EdsyParseError.NoLoadout);
             }
 
             if (!loadout.TryGetProperty("Modules", out var modules) || modules.ValueKind != JsonValueKind.Array)
             {
-                return new EdsyParseResult(null, "The Loadout has no \"Modules\" list. Export from EDSY as a journal Loadout.");
+                return new EdsyParseResult(null, EdsyParseError.NoModules);
             }
 
             var ship = (StringOrNull(loadout, "Ship") ?? "unknown ship").ToUpperInvariant().ToLowerInvariant();

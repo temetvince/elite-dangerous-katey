@@ -18,6 +18,11 @@ public sealed record OrganicScan(string Genus, string Species, string SpeciesNam
 /// <param name="Name">Localised genus name.</param>
 public sealed record GenusSignal(string Genus, string Name);
 
+/// <summary>A surface signal other than the biological and geological counts.</summary>
+/// <param name="Type">The game's symbol, such as <c>$SAA_SignalType_Human;</c>, which the application names in its own language.</param>
+/// <param name="Label">The game client's words for it, the fallback when the application has none.</param>
+public sealed record BodySignal(string Type, string Label);
+
 /// <summary>One scanned body in the current system.</summary>
 /// <param name="BodyId">The journal's body id, unique within the system.</param>
 /// <param name="Name">Full body name.</param>
@@ -78,7 +83,7 @@ public sealed record ScannedBody(
     bool LandedByYou,
     int BiologicalSignals,
     int GeologicalSignals,
-    IReadOnlyList<string> OtherSignals,
+    IReadOnlyList<BodySignal> OtherSignals,
     IReadOnlyList<GenusSignal> Genuses,
     IReadOnlyList<OrganicScan> Organics,
     DateTimeOffset ScannedAt = default,
@@ -449,10 +454,9 @@ public sealed class ExplorationTracker : IJournalSink
             }
             else
             {
-                var label = JsonRead.Localised(signal, "Type") ?? type;
-                if (!body.OtherSignals.Contains(label, StringComparer.Ordinal))
+                if (!body.OtherSignals.Any(other => string.Equals(other.Type, type, StringComparison.Ordinal)))
                 {
-                    body.OtherSignals.Add(label);
+                    body.OtherSignals.Add(new BodySignal(type, JsonRead.Localised(signal, "Type") ?? type));
                 }
             }
         }
@@ -646,7 +650,7 @@ public sealed class ExplorationTracker : IJournalSink
 
         public int GeologicalSignals { get; set; }
 
-        public List<string> OtherSignals { get; } = [];
+        public List<BodySignal> OtherSignals { get; } = [];
 
         public List<GenusSignal> Genuses { get; set; } = [];
 

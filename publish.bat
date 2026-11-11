@@ -17,7 +17,7 @@ dotnet publish "%~dp0src\Katey.Ui" ^
     -p:DebugSymbols=false ^
     -p:PublishDocumentationFile=false ^
     -p:PublishReferencesDocumentationFiles=false ^
-    -p:SatelliteResourceLanguages=en ^
+    -p:SatelliteResourceLanguages=en%3Bde%3Bes%3Bfr%3Bpt-BR%3Bru ^
     -p:Version=%KATEY_VERSION%
 if errorlevel 1 exit /b 1
 
@@ -25,7 +25,7 @@ rem SkiaSharp and HarfBuzzSharp ship their native symbol files; they are not Kat
 del /q "%~dp0bin\*.pdb" 2>nul
 
 rem The manual and the legal notices travel with the executable.
-copy /y "%~dp0MANUAL.md" "%~dp0bin\" >nul
+copy /y "%~dp0MANUAL*.md" "%~dp0bin\" >nul
 copy /y "%~dp0NOTICE.md" "%~dp0bin\" >nul
 copy /y "%~dp0THIRD-PARTY-NOTICES.txt" "%~dp0bin\" >nul
 echo.

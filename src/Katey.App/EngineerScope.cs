@@ -1,4 +1,5 @@
-﻿using Katey.Core;
+﻿using Katey.App.Text;
+using Katey.Core;
 using Katey.Core.Planning;
 
 namespace Katey.App;
@@ -41,7 +42,7 @@ public sealed class EngineerScope
     public bool IsNarrowed => OnlyMyEngineers && _engineers.Count > 0;
 
     /// <summary>Gets one line telling a page's reader that it is narrowed and where to change that, or empty when it is not.</summary>
-    public string Note => IsNarrowed ? "Showing only what your selected engineers can roll. Turn Show only items from selected engineers off on the engineers page to see everything." : "";
+    public string Note => IsNarrowed ? Strings.Get(Keys.Scope_Narrowed) : "";
 
     /// <summary>The blueprints a picker offers for a module type.</summary>
     /// <param name="type">The module type.</param>

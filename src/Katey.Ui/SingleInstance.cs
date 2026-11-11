@@ -1,5 +1,6 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Layout;
+using Katey.Ui.Text;
 
 namespace Katey.Ui;
 
@@ -47,7 +48,7 @@ public static class SingleInstance
             CanResize = false,
             WindowStartupLocation = WindowStartupLocation.CenterScreen,
         };
-        var close = new Button { Content = "Close", HorizontalAlignment = HorizontalAlignment.Right };
+        var close = new Button { Content = UiText.Get(UiKeys.AlreadyRunning_Close), HorizontalAlignment = HorizontalAlignment.Right };
         close.Click += (_, _) => window.Close();
         window.Content = new StackPanel
         {
@@ -55,7 +56,7 @@ public static class SingleInstance
             Spacing = 14,
             Children =
             {
-                new TextBlock { Text = "Katey is already running. Use the window that is open; a second copy would overwrite its saved data.", TextWrapping = Avalonia.Media.TextWrapping.Wrap },
+                new TextBlock { Text = UiText.Get(UiKeys.AlreadyRunning_Notice), TextWrapping = Avalonia.Media.TextWrapping.Wrap },
                 close,
             },
         };

@@ -2,6 +2,7 @@
 using Katey.App.Mvvm;
 using Katey.App.Navigation;
 using Katey.App.Routing;
+using Katey.App.Text;
 using Katey.App.ViewModels;
 using Katey.Core.Exploration;
 using Katey.Core.Fleet;
@@ -68,7 +69,7 @@ public sealed record RouteStopRow(int Index, Link Link, string StarClass, StarKi
     public string System => Link.Label;
 
     /// <summary>Gets a short description of the star: class and what it means.</summary>
-    public string StarText => $"{StarClasses.Brief(StarClass)} · {StarClasses.Label(Kind)}";
+    public string StarText => Strings.Format(Keys.Route_StarText, ("class", ViewModels.StarText.Brief(StarClass)), ("label", ViewModels.StarText.Label(Kind)));
 
     /// <summary>Gets whether the drive can refuel here.</summary>
     public bool IsScoopable => Kind == StarKind.Scoopable;
@@ -83,7 +84,7 @@ public sealed record RouteStopRow(int Index, Link Link, string StarClass, StarKi
     public string StageText => RoutePage.StageLabel(Stage);
 
     /// <summary>Gets the jump distance as text, or empty for the first stop.</summary>
-    public string JumpText => JumpLy > 0 ? string.Create(CultureInfo.InvariantCulture, $"{JumpLy:0.00} ly") : "";
+    public string JumpText => JumpLy > 0 ? Strings.Format(Keys.Unit_LightYearsJump, ("value", JumpLy)) : "";
 
     /// <summary>Gets the distance from the start as text.</summary>
     public string CumulativeText => Display.LightYears(CumulativeLy);
@@ -121,7 +122,7 @@ public sealed record PlotTarget(string Key, string Kind, string Name, string Hul
     public string Id => Key[(Key.IndexOf(':', StringComparison.Ordinal) + 1)..];
 
     /// <summary>Gets the line the picker shows and searches, such as "Borrowed Time · Anaconda Mk II · 42.1 ly".</summary>
-    public string Label => string.Create(CultureInfo.InvariantCulture, $"{Name} · {HullName} · {Range:0.0} ly");
+    public string Label => Strings.Format(Keys.Route_PlotTargetLabel, ("name", Name), ("hull", HullName), ("range", Range.ToString("0.0", CultureInfo.CurrentCulture)));
 
     /// <summary>The key of an owned ship.</summary>
     /// <param name="shipId">The game's ship id.</param>
@@ -154,16 +155,16 @@ public sealed record PlotStopRow(int Index, Link Link, StopStage Stage, VisitSta
     public string StageText => RoutePage.StageLabel(Stage);
 
     /// <summary>Gets the jump distance as text, or empty for the first waypoint.</summary>
-    public string JumpText => JumpLy > 0 ? string.Create(CultureInfo.InvariantCulture, $"{JumpLy:0.00} ly") : "";
+    public string JumpText => JumpLy > 0 ? Strings.Format(Keys.Unit_LightYearsJump, ("value", JumpLy)) : "";
 
     /// <summary>Gets the distance left as text.</summary>
     public string RemainingText => Display.LightYears(RemainingLy);
 
     /// <summary>Gets the tank on arrival as text.</summary>
-    public string FuelText => string.Create(CultureInfo.InvariantCulture, $"{FuelInTank:0.0} t");
+    public string FuelText => Strings.Format(Keys.Unit_Tonnes, ("value", FuelInTank));
 
     /// <summary>Gets the waypoint's notes: "neutron", "scoop", "refuel here", joined.</summary>
-    public string NotesText => string.Join(" · ", Notes());
+    public string NotesText => string.Join(Strings.Get(Keys.List_Dot), Notes());
 
     /// <summary>Gets "surveyed", "visited" or "new to you".</summary>
     public string VisitedText => RoutePage.VisitLabel(Visit);
@@ -181,16 +182,16 @@ public sealed record PlotStopRow(int Index, Link Link, StopStage Stage, VisitSta
     {
         if (HasNeutron)
         {
-            yield return "neutron";
+            yield return Strings.Get(Keys.Route_NoteNeutron);
         }
 
         if (MustRefuel)
         {
-            yield return "refuel here";
+            yield return Strings.Get(Keys.Route_NoteRefuelHere);
         }
         else if (IsScoopable)
         {
-            yield return "scoop";
+            yield return Strings.Get(Keys.Route_NoteScoop);
         }
     }
 }
@@ -236,9 +237,9 @@ public sealed class RoutePage : Page
         : base(new PageKey(PageKind.Route), workspace)
     {
         ArgumentNullException.ThrowIfNull(section);
-        Title = "Route";
-        Kicker = "Live";
-        Sections = new SectionSwitch([(GameSection, "Game route"), (PlotSection, "Spansh plot")], GameSection, workspace.Preferences, "section.route");
+        Title = Strings.Get(Keys.Nav_Route);
+        Kicker = Strings.Get(Keys.Route_Kicker);
+        Sections = new SectionSwitch([(GameSection, Strings.Get(Keys.Section_GameRoute)), (PlotSection, Strings.Get(Keys.Section_SpanshPlot))], GameSection, workspace.Preferences, "section.route");
         if (section == PlotSection)
         {
             Sections.Show(PlotSection);
@@ -246,33 +247,33 @@ public sealed class RoutePage : Page
 
         Sort = new TableSort<RouteStopRow>(
             [
-                new("stage", "Stage", row => row.Index),
-                new("index", "Stop", row => row.Index),
-                new("system", "System", row => row.System),
-                new("star", "Star", row => row.StarText),
-                new("visited", "Visited", row => -(int)row.Visit),
-                new("jump", "Jump", row => row.JumpLy, DescendingFirst: true),
-                new("travelled", "From start", row => row.CumulativeLy),
+                new("stage", Strings.Get(Keys.Column_Stage), row => row.Index),
+                new("index", Strings.Get(Keys.Column_Stop), row => row.Index),
+                new("system", Strings.Get(Keys.Column_System), row => row.System),
+                new("star", Strings.Get(Keys.Column_Star), row => row.StarText),
+                new("visited", Strings.Get(Keys.Column_Visited), row => -(int)row.Visit),
+                new("jump", Strings.Get(Keys.Column_Jump), row => row.JumpLy, DescendingFirst: true),
+                new("travelled", Strings.Get(Keys.Column_FromStart), row => row.CumulativeLy),
             ],
             "index",
             workspace.Preferences,
             "sort.route");
         PlotSort = new TableSort<PlotStopRow>(
             [
-                new("stage", "Stage", row => row.Index),
-                new("index", "Stop", row => row.Index),
-                new("system", "System", row => row.System),
-                new("jump", "Jump", row => row.JumpLy, DescendingFirst: true),
-                new("left", "To go", row => row.RemainingLy),
-                new("fuel", "Fuel", row => row.FuelInTank),
-                new("notes", "Notes", row => row.NotesText),
+                new("stage", Strings.Get(Keys.Column_Stage), row => row.Index),
+                new("index", Strings.Get(Keys.Column_Stop), row => row.Index),
+                new("system", Strings.Get(Keys.Column_System), row => row.System),
+                new("jump", Strings.Get(Keys.Column_Jump), row => row.JumpLy, DescendingFirst: true),
+                new("left", Strings.Get(Keys.Column_ToGo), row => row.RemainingLy),
+                new("fuel", Strings.Get(Keys.Column_Fuel), row => row.FuelInTank),
+                new("notes", Strings.Get(Keys.Column_Notes), row => row.NotesText),
             ],
             "index",
             workspace.Preferences,
             "sort.plot");
         Sort.Changed += (_, _) => Refresh();
         PlotSort.Changed += (_, _) => Refresh();
-        SettingsLink = LinkTo("Settings", PageKind.Settings);
+        SettingsLink = LinkTo(Strings.Get(Keys.Nav_Settings), PageKind.Settings);
         SelectedAlgorithm = Algorithms.FirstOrDefault(choice => choice.Key == workspace.Preferences.Get(AlgorithmKey)) ?? Algorithms[0];
         PlotTo = workspace.Preferences.Get(ToKey) ?? "";
         UseSupercharge = workspace.Preferences.GetBool(SuperchargeKey, true);
@@ -370,8 +371,8 @@ public sealed class RoutePage : Page
     /// <summary>Gets the routing algorithms to choose from.</summary>
     public IReadOnlyList<Choice> Algorithms { get; } =
     [
-        new(nameof(PlotAlgorithm.Optimistic), "Optimistic: fewest jumps, favours neutron stars"),
-        new(nameof(PlotAlgorithm.Pessimistic), "Pessimistic: the sure route"),
+        new(nameof(PlotAlgorithm.Optimistic), Strings.Get(Keys.Route_AlgorithmOptimistic)),
+        new(nameof(PlotAlgorithm.Pessimistic), Strings.Get(Keys.Route_AlgorithmPessimistic)),
     ];
 
     /// <summary>Gets or sets the algorithm. Must be one of <see cref="Algorithms"/>.</summary>
@@ -459,6 +460,7 @@ public sealed class RoutePage : Page
         {
             if (value is not null && SetProperty(ref _selectedPlotTarget, value))
             {
+                OnPropertyChanged(nameof(PlotTargetLabel));
                 Workspace.Preferences.Set(TargetKey, value.Key);
                 ArrangePlotTargets();
                 RefreshRange();
@@ -466,6 +468,9 @@ public sealed class RoutePage : Page
             }
         }
     }
+
+    /// <summary>Gets the chooser's face: the chosen ship or fit, or the prompt to choose one while nothing is chosen.</summary>
+    public string PlotTargetLabel => _selectedPlotTarget?.Label ?? Strings.Get(Keys.Route_ChooseShipOrFit);
 
     /// <summary>Gets or sets the text that narrows <see cref="PlotTargets"/>, matched case-insensitively against each entry's line. Empty shows everything. Not saved.</summary>
     public string PlotFilter
@@ -521,11 +526,11 @@ public sealed class RoutePage : Page
     /// <returns>"here", "next", "done" or empty.</returns>
     public static string StageLabel(StopStage stage) => stage switch
     {
-        StopStage.Here => "here",
-        StopStage.Next => "next",
-        StopStage.Done => "done",
+        StopStage.Here => Strings.Get(Keys.Route_StageHere),
+        StopStage.Next => Strings.Get(Keys.Route_StageNext),
+        StopStage.Done => Strings.Get(Keys.Route_StageDone),
         StopStage.Ahead => "",
-        StopStage.LastKnown => "last known",
+        StopStage.LastKnown => Strings.Get(Keys.Route_StageLastKnown),
         _ => "",
     };
 
@@ -575,10 +580,10 @@ public sealed class RoutePage : Page
     /// <returns>"surveyed", "visited" or "new to you".</returns>
     public static string VisitLabel(VisitState visit) => visit switch
     {
-        VisitState.Surveyed => "surveyed",
-        VisitState.Visited => "visited",
-        VisitState.New => "new to you",
-        _ => "new to you",
+        VisitState.Surveyed => Strings.Get(Keys.Route_VisitSurveyed),
+        VisitState.Visited => Strings.Get(Keys.Route_VisitVisited),
+        VisitState.New => Strings.Get(Keys.Route_VisitNew),
+        _ => Strings.Get(Keys.Route_VisitNew),
     };
 
     /// <summary>The index of the ship's position on the route, or -1 when it is not on it.</summary>
@@ -611,27 +616,27 @@ public sealed class RoutePage : Page
             var lastKnown = LastKnownIndex(plot, progress);
             if (lastKnown < 0)
             {
-                return new PlotProgressLine(Phrase.Of("Off the plot. First waypoint ", System(plot.Stops[0].Name), $", {Display.Plural(plot.Jumps, "jump")} to ", destination, "."), plot.Stops[0].Name, -1);
+                return new PlotProgressLine(Phrase.Format(Keys.Route_OffPlotFirst, ("system", System(plot.Stops[0].Name)), ("jumps", Display.Plural(Keys.Plural_Jumps, plot.Jumps)), ("destination", destination)), plot.Stops[0].Name, -1);
             }
 
             if (lastKnown >= last)
             {
-                return new PlotProgressLine(Phrase.Of("Arrived at ", destination, ", now off the plot."), "", -1, lastKnown);
+                return new PlotProgressLine(Phrase.Format(Keys.Route_ArrivedOffPlot, ("destination", destination)), "", -1, lastKnown);
             }
 
             var resume = plot.Stops[lastKnown + 1];
             // One jump back to the next waypoint, then the plot's own count from there.
-            return new PlotProgressLine(Phrase.Of("Off the plot. Last known waypoint ", System(plot.Stops[lastKnown].Name), ", next ", System(resume.Name), $". ~{Display.Plural(last - lastKnown, "jump")} to ", destination, "."), resume.Name, -1, lastKnown);
+            return new PlotProgressLine(Phrase.Format(Keys.Route_OffPlotLastKnown, ("last", System(plot.Stops[lastKnown].Name)), ("next", System(resume.Name)), ("jumps", Display.Plural(Keys.Plural_Jumps, last - lastKnown)), ("destination", destination)), resume.Name, -1, lastKnown);
         }
 
         if (hereIndex >= last)
         {
-            return new PlotProgressLine(Phrase.Of("Arrived at ", destination, "."), "", hereIndex);
+            return new PlotProgressLine(Phrase.Format(Keys.Route_ArrivedAt, ("destination", destination)), "", hereIndex);
         }
 
         var next = plot.Stops[hereIndex + 1];
         var remaining = last - hereIndex;
-        return new PlotProgressLine(Phrase.Of("Next waypoint ", System(next.Name), $", {Display.Plural(remaining, "jump")} to ", destination, "."), next.Name, hereIndex);
+        return new PlotProgressLine(Phrase.Format(Keys.Route_NextWaypoint, ("system", System(next.Name)), ("jumps", Display.Plural(Keys.Plural_Jumps, remaining)), ("destination", destination)), next.Name, hereIndex);
     }
 
     /// <summary>
@@ -668,7 +673,7 @@ public sealed class RoutePage : Page
         var fuel = workspace.Monitor.Status?.FuelMain;
         if (stops.Count == 0)
         {
-            return fuel is { } alone ? Phrase.Text(string.Create(CultureInfo.InvariantCulture, $"Fuel {alone:0.0} t.")) : Phrase.Empty;
+            return fuel is { } alone ? Phrase.Text(Strings.Format(Keys.Route_FuelAlone, ("tonnes", alone))) : Phrase.Empty;
         }
 
         var hereIndex = HereIndex(workspace);
@@ -679,15 +684,15 @@ public sealed class RoutePage : Page
         // Stop indexes are one-based. With the ship's place on the route unknown, the stops count from its start.
         var jumpsOn = nextScoop is null ? 0 : nextScoop.Index - Math.Max(hereIndex + 1, 1);
         var ahead = nextScoop is null
-            ? Phrase.Text(scoopHere ? "no scoopable star further on this route." : "No scoopable star ahead on this route.")
+            ? Phrase.Text(Strings.Get(scoopHere ? Keys.Route_NoScoopFurther : Keys.Route_NoScoopAhead))
             : jumpsOn <= 1
-                ? Phrase.Text(scoopHere ? "the next star is scoopable too." : "Next star is scoopable.")
-                : Phrase.Of(
-                    scoopHere ? "the next scoopable star after it is " : "Next scoopable star is ",
-                    workspace.Navigator.LinkTo(nextScoop.System, PageKind.System, nextScoop.System),
-                    $", {Display.Plural(jumpsOn, "jump")} on.");
-        var scoopText = scoopHere ? Phrase.Join("", [Phrase.Text("This system's arrival star is scoopable; "), ahead]) : ahead;
-        return fuel is { } now ? Phrase.Join("", [Phrase.Text(string.Create(CultureInfo.InvariantCulture, $"Fuel {now:0.0} t. ")), scoopText]) : scoopText;
+                ? Phrase.Text(Strings.Get(scoopHere ? Keys.Route_NextScoopableToo : Keys.Route_NextIsScoopable))
+                : Phrase.Format(
+                    scoopHere ? Keys.Route_NextScoopAfterIt : Keys.Route_NextScoopIs,
+                    ("system", workspace.Navigator.LinkTo(nextScoop.System, PageKind.System, nextScoop.System)),
+                    ("jumps", Display.Plural(Keys.Plural_Jumps, jumpsOn)));
+        var scoopText = scoopHere ? Phrase.Format(Keys.Route_ArrivalScoopable, ("rest", ahead)) : ahead;
+        return fuel is { } now ? Phrase.Format(Keys.Route_FuelThen, ("tonnes", now), ("rest", scoopText)) : scoopText;
     }
 
     /// <summary>How far along the route the ship is.</summary>
@@ -705,12 +710,12 @@ public sealed class RoutePage : Page
         var total = stops[^1].CumulativeLy;
         if (hereIndex < 0)
         {
-            return $"{Display.LightYears(total)} in all.";
+            return Strings.Format(Keys.Route_TotalLightYears, ("total", Display.LightYears(total)));
         }
 
         var done = stops[hereIndex].CumulativeLy;
         var percent = total > 0 ? (int)Math.Round(100 * done / total) : 100;
-        return $"{Display.LightYears(done)} of {Display.LightYears(total)} travelled ({percent}%).";
+        return Strings.Format(Keys.Route_Travelled, ("done", Display.LightYears(done)), ("total", Display.LightYears(total)), ("percent", percent));
     }
 
     /// <inheritdoc/>
@@ -789,8 +794,8 @@ public sealed class RoutePage : Page
         var end = live.Stops[^1].StarSystem;
         Link System(string name) => workspace.Navigator.LinkTo(name, PageKind.System, name);
         return progress.RemainingJumps is { } more
-            ? Phrase.Of("Re-routed through ", System(target), $", {Display.Plural(more + 1, "jump")} to ", System(end), ". The route file has not caught up yet.")
-            : Phrase.Of("Targeting ", System(target), ", off the plotted route to ", System(end), ".");
+            ? Phrase.Format(Keys.Route_ReroutedThrough, ("target", System(target)), ("jumps", Display.Plural(Keys.Plural_Jumps, more + 1)), ("end", System(end)))
+            : Phrase.Format(Keys.Route_TargetingOffRoute, ("target", System(target)), ("end", System(end)));
     }
 
     /// <summary>
@@ -919,16 +924,16 @@ public sealed class RoutePage : Page
         Fuel = FuelEstimate.For(Workspace, stops);
         if (stops.Count == 0)
         {
-            Summary = Workspace.Route.CurrentSystem is null ? "No route plotted, and no position yet." : "No route plotted.";
+            Summary = Strings.Get(Workspace.Route.CurrentSystem is null ? Keys.Route_NoRouteNoPosition : Keys.Route_NoRoute);
             return;
         }
 
         var remaining = hereIndex < 0 ? stops.Count - 1 : stops.Count - 1 - hereIndex;
         Summary = hereIndex < 0
-            ? $"{Display.Plural(stops.Count - 1, "jump")} plotted; the ship is not on the route yet."
+            ? Strings.Format(Keys.Route_PlottedNotOn, ("jumps", Display.Plural(Keys.Plural_Jumps, stops.Count - 1)))
             : remaining == 0
-                ? "Arrived at the end of the route."
-                : $"Jump {hereIndex + 1} of {stops.Count}, {remaining} to go.";
+                ? Strings.Get(Keys.Route_ArrivedEnd)
+                : Strings.Format(Keys.Route_JumpOf, ("index", hereIndex + 1), ("count", stops.Count), ("remaining", remaining));
     }
 
     private void RefreshPlotForm()
@@ -976,6 +981,7 @@ public sealed class RoutePage : Page
         var keep = wanted is null ? null : _plotTargets.FirstOrDefault(target => target.Key == wanted);
         _selectedPlotTarget = keep ?? _plotTargets.FirstOrDefault();
         OnPropertyChanged(nameof(SelectedPlotTarget));
+        OnPropertyChanged(nameof(PlotTargetLabel));
         ArrangePlotTargets();
         RefreshRange();
         PlotCommand.RaiseCanExecuteChanged();
@@ -1015,9 +1021,9 @@ public sealed class RoutePage : Page
         var profile = SelectedProfile();
         PlotRangeText = profile is null
             ? (Workspace.FleetSnapshot.Ships.Count == 0 && Workspace.Fleet.Fittings.Count == 0
-                ? "The plot needs a ship or a fit: fly a ship with the journal watched, or save a fit from EDSY, and it appears here."
-                : "The journal has not reported this ship's loadout, mass and tank yet.")
-            : string.Create(CultureInfo.InvariantCulture, $"Full-tank range {profile.Range(ParseCargo(PlotCargo)):0.00} ly with {ParseCargo(PlotCargo):0.#} t of cargo. Neutron boost ×{profile.SuperchargeMultiplier}.");
+                ? Strings.Get(Keys.Route_NeedsShipOrFit)
+                : Strings.Get(Keys.Route_NoLoadoutYet))
+            : Strings.Format(Keys.Route_RangeLine, ("range", profile.Range(ParseCargo(PlotCargo))), ("cargo", ParseCargo(PlotCargo)), ("boost", profile.SuperchargeMultiplier));
     }
 
     private JumpProfile? SelectedProfile()
@@ -1057,14 +1063,14 @@ public sealed class RoutePage : Page
 
         var progress = PlotProgress(Workspace)!;
         HasPlot = true;
-        PlotSummaryParts = Phrase.Join(" · ",
+        PlotSummaryParts = Phrase.Join(Strings.Get(Keys.List_Dot),
         [
-            Phrase.Of(LinkTo(plot.Source, PageKind.System, plot.Source), " to ", LinkTo(plot.Destination, PageKind.System, plot.Destination)),
-            Phrase.Text(Display.Plural(plot.Jumps, "jump")),
+            Phrase.Format(Keys.Route_PlotFromTo, ("from", LinkTo(plot.Source, PageKind.System, plot.Source)), ("to", LinkTo(plot.Destination, PageKind.System, plot.Destination))),
+            Phrase.Text(Display.Plural(Keys.Plural_Jumps, plot.Jumps)),
             Phrase.Text(Display.LightYears(plot.TotalLy)),
-            Phrase.Text(Display.Plural(plot.NeutronStops, "neutron stop")),
-            Phrase.Text(Display.Plural(plot.RefuelStops, "refuel stop")),
-            Phrase.Text($"plotted {plot.PlottedAt.ToLocalTime().ToString("g", CultureInfo.CurrentCulture)}"),
+            Phrase.Text(Display.Plural(Keys.Plural_NeutronStops, plot.NeutronStops)),
+            Phrase.Text(Display.Plural(Keys.Plural_RefuelStops, plot.RefuelStops)),
+            Phrase.Text(Strings.Format(Keys.Route_PlottedAt, ("when", plot.PlottedAt.ToLocalTime()))),
         ]);
         PlotProgressParts = progress.Parts;
         NextWaypoint = progress.NextWaypoint;

@@ -1,5 +1,6 @@
 ﻿using Katey.App.Mvvm;
 using Katey.App.Navigation;
+using Katey.App.Text;
 using Katey.App.ViewModels;
 using Katey.Core;
 
@@ -14,11 +15,11 @@ public sealed record ModuleTypeRow(Link Link, int BlueprintCount, int Reachable,
 {
     /// <summary>Gets the blueprint count as text, with the reachable count when engineers are selected.</summary>
     public string BlueprintsText => Reachable == BlueprintCount
-        ? Display.Plural(BlueprintCount, "blueprint")
-        : $"{Reachable} of {Display.Plural(BlueprintCount, "blueprint")} with your engineers";
+        ? Display.Plural(Keys.Plural_Blueprints, BlueprintCount)
+        : Strings.Format(Keys.Modules_ReachableOf, ("reachable", Reachable), ("blueprints", Display.Plural(Keys.Plural_Blueprints, BlueprintCount)));
 
     /// <summary>Gets "you own n", or empty.</summary>
-    public string OwnedText => OwnedCount == 0 ? "" : $"you own {OwnedCount}";
+    public string OwnedText => OwnedCount == 0 ? "" : Strings.Format(Keys.Modules_YouOwn, ("count", OwnedCount));
 }
 
 /// <summary>Module types in one group, rolled up until opened. Whether it is open is remembered.</summary>
@@ -40,7 +41,7 @@ public sealed class ModuleGroupRow : ExpandableGroup
     public ModuleGroup Group { get; }
 
     /// <summary>Gets a count line, such as "8 types, 3 owned".</summary>
-    public string Summary => $"{Display.Plural(Types.Count, "type")}, {Types.Sum(type => type.OwnedCount)} owned";
+    public string Summary => Strings.Format(Keys.Modules_GroupSummary, ("types", Display.Plural(Keys.Plural_Types, Types.Count)), ("owned", Types.Sum(type => type.OwnedCount)));
 
     /// <summary>Gets the types in it.</summary>
     public IReadOnlyList<ModuleTypeRow> Types { get; }
@@ -60,8 +61,8 @@ public sealed class ModulesPage : Page
     public ModulesPage(Workspace workspace, string openGroup = "")
         : base(new PageKey(PageKind.Modules, openGroup), workspace)
     {
-        Title = "Modules";
-        Kicker = "Browse";
+        Title = Strings.Get(Keys.Nav_Modules);
+        Kicker = Strings.Get(Keys.Page_KickerBrowse);
         _expansion = new GroupExpansion(workspace.Preferences, "modules.expanded");
         ExpandAllCommand = new RelayCommand(() => _expansion.SetAll(Groups, true));
         CollapseAllCommand = new RelayCommand(() => _expansion.SetAll(Groups, false));
@@ -109,7 +110,7 @@ public sealed class ModulesPage : Page
                     group.Key,
                     [
                         .. group.Select(type => new ModuleTypeRow(
-                                LinkTo(type.Name, PageKind.ModuleType, type.Code),
+                                LinkTo(Names.ModuleType(type), PageKind.ModuleType, type.Code),
                                 type.Blueprints.Count,
                                 selected.Count == 0
                                     ? type.Blueprints.Count
@@ -124,7 +125,7 @@ public sealed class ModulesPage : Page
         FilterText = !Workspace.Scope.OnlyMyEngineers
             ? ""
             : selected.Count == 0
-                ? "Show only items from selected engineers is on, but nobody is ticked on the engineers page, so every type is shown."
-                : $"Show only items from selected engineers is on: {Display.Plural(Groups.Sum(group => group.Types.Count), "type")} of {types.Count} have a blueprint your {Display.Plural(selected.Count, "ticked engineer")} can roll. Change that on the engineers page.";
+                ? Strings.Get(Keys.Modules_FilterOnNobody)
+                : Strings.Format(Keys.Modules_FilterOn, ("types", Display.Plural(Keys.Plural_Types, Groups.Sum(group => group.Types.Count))), ("total", types.Count), ("engineers", Display.Plural(Keys.Plural_TickedEngineers, selected.Count)));
     }
 }

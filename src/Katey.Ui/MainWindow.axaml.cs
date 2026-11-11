@@ -10,6 +10,8 @@ using Katey.App;
 using Katey.App.Pages;
 using Katey.App.Rail;
 using Katey.App.Search;
+using Katey.App.Text;
+using Katey.Ui.Text;
 
 namespace Katey.Ui;
 
@@ -83,6 +85,19 @@ public sealed partial class MainWindow : Window
     }
 
     private ScrollViewer? Workbench => this.FindControl<ScrollViewer>("WorkbenchScroll");
+
+    /// <summary>A language chosen in the picker: the shell switches to it and the picker closes. The choice is read off the clicked button, as the plot picker reads its entries, since a command bound inside a flyout's popup does not reach the shell.</summary>
+    /// <param name="sender">The language's button, whose data context is the option.</param>
+    /// <param name="args">The click.</param>
+    private void LanguageChosen(object? sender, RoutedEventArgs args)
+    {
+        if (Shell is { } shell && sender is Button { DataContext: LanguageOption option })
+        {
+            shell.SetLanguageCommand.Execute(option);
+        }
+
+        this.FindControl<Button>("LanguageButton")?.Flyout?.Hide();
+    }
 
     private void RecordScroll()
     {
@@ -238,7 +253,7 @@ public sealed partial class MainWindow : Window
 
     private async void BrowseFolder(object? sender, RoutedEventArgs args)
     {
-        if (Shell?.Navigator.Current is SettingsPage settings && await PickFolderAsync("Choose the Elite Dangerous journal folder") is { } path)
+        if (Shell?.Navigator.Current is SettingsPage settings && await PickFolderAsync(UiText.Get(UiKeys.Picker_JournalFolder)) is { } path)
         {
             settings.Folder = path;
         }
@@ -246,7 +261,7 @@ public sealed partial class MainWindow : Window
 
     private async void BrowseBackupFolder(object? sender, RoutedEventArgs args)
     {
-        if (Shell?.Navigator.Current is SettingsPage settings && await PickFolderAsync("Choose the folder to back the journals up into") is { } path)
+        if (Shell?.Navigator.Current is SettingsPage settings && await PickFolderAsync(UiText.Get(UiKeys.Picker_BackupFolder)) is { } path)
         {
             settings.BackupFolder = path;
         }
@@ -254,7 +269,7 @@ public sealed partial class MainWindow : Window
 
     private async void BrowseDataFolder(object? sender, RoutedEventArgs args)
     {
-        if (Shell?.Navigator.Current is SettingsPage settings && await PickFolderAsync("Choose the folder to keep Katey's saved data in") is { } path)
+        if (Shell?.Navigator.Current is SettingsPage settings && await PickFolderAsync(UiText.Get(UiKeys.Picker_DataFolder)) is { } path)
         {
             settings.DataFolder = path;
         }
@@ -286,7 +301,7 @@ public sealed partial class MainWindow : Window
             return;
         }
 
-        page.CopyStatus = await ClipboardText.CopyAsync(this, page.Name) ? $"Copied {page.Name}." : "Clipboard unavailable.";
+        page.CopyStatus = await ClipboardText.CopyAsync(this, page.Name) ? UiText.Format(UiKeys.Clipboard_CopiedName, ("name", page.Name)) : UiText.Get(UiKeys.Clipboard_Unavailable);
     }
 
     private async void CopyEdsy(object? sender, RoutedEventArgs args)
@@ -296,7 +311,7 @@ public sealed partial class MainWindow : Window
             return;
         }
 
-        page.ExportStatus = await ClipboardText.CopyAsync(this, page.EdsyJson) ? "Copied. In EDSY, choose Import and paste." : "Clipboard unavailable.";
+        page.ExportStatus = await ClipboardText.CopyAsync(this, page.EdsyJson) ? UiText.Get(UiKeys.Clipboard_CopiedForEdsy) : UiText.Get(UiKeys.Clipboard_Unavailable);
     }
 
     private async void CopyTotals(object? sender, RoutedEventArgs args)
@@ -306,7 +321,7 @@ public sealed partial class MainWindow : Window
             return;
         }
 
-        status.Text = await ClipboardText.CopyAsync(this, shell.PlanDrawer.Totals.Text) ? "Copied." : "Clipboard unavailable.";
+        status.Text = await ClipboardText.CopyAsync(this, shell.PlanDrawer.Totals.Text) ? UiText.Get(UiKeys.Clipboard_Copied) : UiText.Get(UiKeys.Clipboard_Unavailable);
     }
 
     private async void CopyNextWaypoint(object? sender, RoutedEventArgs args)
@@ -319,7 +334,7 @@ public sealed partial class MainWindow : Window
         var copied = await ClipboardText.CopyAsync(this, route.NextWaypoint);
         if (this.FindControl<TextBlock>("WaypointStatus") is { } status)
         {
-            status.Text = copied ? $"Copied {route.NextWaypoint}." : "Clipboard unavailable.";
+            status.Text = copied ? UiText.Format(UiKeys.Clipboard_CopiedName, ("name", route.NextWaypoint)) : UiText.Get(UiKeys.Clipboard_Unavailable);
         }
     }
 

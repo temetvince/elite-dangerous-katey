@@ -1,4 +1,6 @@
 ﻿using Katey.App.Navigation;
+using Katey.App.Text;
+using Katey.Localization;
 
 namespace Katey.App.ViewModels;
 
@@ -90,6 +92,75 @@ public static class Phrase
                 default:
                     result.Add(new PhrasePart(part.ToString() ?? ""));
                     break;
+            }
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// A sentence from a keyed template, its placeholders filled by name: a <see cref="Link"/> becomes a link, an
+    /// <see cref="EngineerLink"/> an engineer in their tone, a sentence is spliced in, and anything else is written
+    /// out as text with the placeholder's format. The template comes from <see cref="Strings"/>, so a translation
+    /// can put the links in any order.
+    /// </summary>
+    /// <param name="key">A key from <see cref="Keys"/>.</param>
+    /// <param name="args">Name → value. A placeholder no argument names stays as written; a <see langword="null"/> value writes nothing.</param>
+    /// <returns>The parts.</returns>
+    public static IReadOnlyList<PhrasePart> Format(string key, params (string Name, object? Value)[] args)
+    {
+        ArgumentNullException.ThrowIfNull(key);
+        ArgumentNullException.ThrowIfNull(args);
+        var result = new List<PhrasePart>();
+        foreach (var segment in Template.Parse(Strings.Get(key)))
+        {
+            if (!segment.IsPlaceholder)
+            {
+                result.Add(new PhrasePart(segment.Text));
+                continue;
+            }
+
+            var found = false;
+            foreach (var (name, value) in args)
+            {
+                if (!string.Equals(name, segment.Name, StringComparison.Ordinal))
+                {
+                    continue;
+                }
+
+                found = true;
+                switch (value)
+                {
+                    case null:
+                        break;
+                    case Link link:
+                        result.Add(PhrasePart.Of(link));
+                        break;
+                    case EngineerLink engineer:
+                        result.Add(PhrasePart.Of(engineer));
+                        break;
+                    case PhrasePart part:
+                        result.Add(part);
+                        break;
+                    case IReadOnlyList<PhrasePart> parts:
+                        result.AddRange(parts);
+                        break;
+                    default:
+                        var text = Localizer.Write(value, segment.Format);
+                        if (text.Length > 0)
+                        {
+                            result.Add(new PhrasePart(text));
+                        }
+
+                        break;
+                }
+
+                break;
+            }
+
+            if (!found)
+            {
+                result.Add(new PhrasePart(Template.AsWritten(segment)));
             }
         }
 

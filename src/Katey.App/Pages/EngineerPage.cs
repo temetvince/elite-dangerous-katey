@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using Katey.App.Mvvm;
 using Katey.App.Navigation;
+using Katey.App.Text;
 using Katey.App.ViewModels;
 using Katey.Core.Planning;
 
@@ -14,7 +15,7 @@ namespace Katey.App.Pages;
 public sealed record EngineerOfferRow(string Blueprint, int MaxGrade, int TopGrade, RelayCommand AddCommand)
 {
     /// <summary>Gets "Gn", with "of Gm" when the engineer stops short of the top.</summary>
-    public string GradeText => MaxGrade == TopGrade ? Display.Grade(MaxGrade) : $"{Display.Grade(MaxGrade)} of {Display.Grade(TopGrade)}";
+    public string GradeText => MaxGrade == TopGrade ? Display.Grade(MaxGrade) : Strings.Format(Keys.Engineer_GradeOf, ("grade", Display.Grade(MaxGrade)), ("top", Display.Grade(TopGrade)));
 
     /// <summary>Gets whether the engineer reaches the blueprint's top grade.</summary>
     public bool ReachesTop => MaxGrade == TopGrade;
@@ -45,7 +46,7 @@ public sealed class EngineerPage : Page
     {
         _profile = profile;
         Title = _profile.Name;
-        Breadcrumbs = [LinkTo("Engineers", PageKind.Engineers)];
+        Breadcrumbs = [LinkTo(Strings.Get(Keys.Nav_Engineers), PageKind.Engineers)];
         Kicker = Display.RegionLabel(_profile.Region);
         Where = new Place(LinkTo(_profile.System, PageKind.System, _profile.System), _profile.Base);
         Refresh();
@@ -111,8 +112,8 @@ public sealed class EngineerPage : Page
     {
         var catalog = Workspace.Catalog;
         DistanceParts = Workspace.DistanceFromHere(Workspace.PositionOf(_profile)) is { } ly && Workspace.Route.CurrentSystem is { } here
-            ? Phrase.Of($"{Display.LightYears(ly)} from ", LinkTo(here, PageKind.System, here))
-            : Phrase.Text("Distance unknown until the journal reports your position.");
+            ? Phrase.Format(Keys.Engineer_LightYearsFrom, ("distance", Display.LightYears(ly)), ("system", LinkTo(here, PageKind.System, here)))
+            : Phrase.Text(Strings.Get(Keys.Engineer_DistanceUnknown));
         OnPropertyChanged(nameof(Selected));
 
         Offers =
@@ -123,11 +124,11 @@ public sealed class EngineerPage : Page
                 {
                     var type = catalog.ModuleTypes[group.Key];
                     return new EngineerOfferGroup(
-                        LinkTo(type.Name, PageKind.ModuleType, type.Code),
+                        LinkTo(Names.ModuleType(type), PageKind.ModuleType, type.Code),
                         Display.GroupLabel(type.Group),
                         [
                             .. group.Select(offer => new EngineerOfferRow(
-                                catalog.Blueprints[offer.Blueprint].Name,
+                                Names.Blueprint(catalog.Blueprints[offer.Blueprint]),
                                 offer.MaxGrade,
                                 catalog.Blueprints[offer.Blueprint].MaxGrade,
                                 new RelayCommand(() => Workspace.Plan.Add([PlanEntry.Create(catalog, type.Code, offer.Blueprint, offer.MaxGrade, null, PlanSource.Manual)])))),
@@ -147,10 +148,10 @@ public sealed class EngineerPage : Page
                 continue;
             }
 
-            var title = $"{(entry.ModuleType is { } type ? catalog.ModuleTypes[type].Name : "Unknown module")}: {catalog.Blueprints[entry.Blueprint].Name} {Display.Grade(entry.TargetGrade)}";
+            var title = Strings.Format(Keys.Engineer_PlanTitle, ("module", entry.ModuleType is { } type ? Names.ModuleType(catalog.ModuleTypes[type]) : Strings.Get(Keys.Page_UnknownModule)), ("blueprint", Names.Blueprint(catalog.Blueprints[entry.Blueprint])), ("grade", Display.Grade(entry.TargetGrade)));
             var note = canRoll
-                ? (canApply ? "Rolls the target grade" + (entry.Experimental is null ? "." : " and applies the experimental.") : "Rolls the target grade; the experimental needs someone else.")
-                : $"Stops at {Display.Grade(offer.MaxGrade)}; another engineer finishes it.";
+                ? (canApply ? Strings.Get(entry.Experimental is null ? Keys.Engineer_RollsTarget : Keys.Engineer_RollsTargetAndApplies) : Strings.Get(Keys.Engineer_RollsTargetNotExperimental))
+                : Strings.Format(Keys.Engineer_StopsAt, ("grade", Display.Grade(offer.MaxGrade)));
             rows.Add(new EngineerPlanRow(title, note, canRoll && canApply));
         }
 
@@ -158,10 +159,10 @@ public sealed class EngineerPage : Page
         OnPropertyChanged(nameof(HasPlanRows));
 
         var stored = Workspace.FleetSnapshot.StoredModules.Count(module => string.Equals(module.System, _profile.System, StringComparison.OrdinalIgnoreCase));
-        StoredParts = stored == 0 ? Phrase.Empty : Phrase.Of($"You have {Display.Plural(stored, "module")} stored in ", LinkTo(_profile.System, PageKind.System, _profile.System), ".");
+        StoredParts = stored == 0 ? Phrase.Empty : Phrase.Format(Keys.Engineer_StoredModules, ("modules", Display.Plural(Keys.Plural_Modules, stored)), ("system", LinkTo(_profile.System, PageKind.System, _profile.System)));
 
         var stops = Workspace.Monitor.Route?.Stops ?? [];
         var index = stops.ToList().FindIndex(stop => string.Equals(stop.StarSystem, _profile.System, StringComparison.OrdinalIgnoreCase));
-        RouteText = index < 0 ? "" : index == 0 ? "Your route starts here." : $"Stop {index + 1} of {stops.Count} on your route.";
+        RouteText = index < 0 ? "" : index == 0 ? Strings.Get(Keys.Engineer_RouteStartsHere) : Strings.Format(Keys.Engineer_RouteStop, ("index", index + 1), ("count", stops.Count));
     }
 }

@@ -65,6 +65,7 @@
     <Setter Property="FontSize" Value="11" />
     <Setter Property="LetterSpacing" Value="1.2" />
     <Setter Property="Foreground" Value="{DynamicResource KMuted}" />
+    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
   </Style>
   <Style Selector="TextBlock.body">
     <Setter Property="TextWrapping" Value="Wrap" />

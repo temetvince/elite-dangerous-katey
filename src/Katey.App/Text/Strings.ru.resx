@@ -1,0 +1,2951 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Backup.Done" xml:space="preserve">
+    <value>Копия создана в {when}: {files} скопировано, {skipped} уже актуальны.</value>
+  </data>
+  <data name="Backup.Error" xml:space="preserve">
+    <value>Сбой резервного копирования: {message}</value>
+  </data>
+  <data name="Backup.Failed" xml:space="preserve">
+    <value>{files} с ошибкой: {first}</value>
+  </data>
+  <data name="Backup.NoFolder" xml:space="preserve">
+    <value>Нет папки журналов для копирования. Сначала укажите её выше.</value>
+  </data>
+  <data name="Backup.Running" xml:space="preserve">
+    <value>Копирование в {folder}…</value>
+  </data>
+  <data name="Blueprint.Added" xml:space="preserve">
+    <value>Добавлено в план: {blueprint} {grade} для {type}.</value>
+  </data>
+  <data name="Blueprint.AddedExperimentalAlone" xml:space="preserve">
+    <value>Добавлено в план: только {experimental} для {type}.</value>
+  </data>
+  <data name="Blueprint.AddedWithExperimental" xml:space="preserve">
+    <value>Добавлено в план: {blueprint} {grade} + {experimental} для {type}.</value>
+  </data>
+  <data name="Blueprint.JournalName" xml:space="preserve">
+    <value>Имя в журнале: {key}</value>
+  </data>
+  <data name="Blueprint.Kicker" xml:space="preserve">
+    <value>Чертёж</value>
+  </data>
+  <data name="Blueprint.ScopeNobodyOffers" xml:space="preserve">
+    <value>Ни один из выбранных вами инженеров не предлагает этот чертёж, поэтому отсюда его добавить нельзя. Выключите «Только мои инженеры» на странице инженеров, чтобы всё же запланировать его; план предупредит, что никто из отмеченных вами не сможет его прокрутить.</value>
+  </data>
+  <data name="Body.BeltCluster" xml:space="preserve">
+    <value>Скопление пояса</value>
+  </data>
+  <data name="Body.BioCount" xml:space="preserve">
+    <value>{count} био</value>
+  </data>
+  <data name="Body.ByConditions" xml:space="preserve">
+    <value> по жизни, которую допускают эти условия; картографируйте, чтобы узнать точно.</value>
+  </data>
+  <data name="Body.Candidate" xml:space="preserve">
+    <value>{species} {odds} ({credits})</value>
+  </data>
+  <data name="Body.CouldLive" xml:space="preserve">
+    <value>Здесь может жить: {genera}; вероятнее всего: {list}</value>
+  </data>
+  <data name="Body.Discovered" xml:space="preserve">
+    <value>открыто</value>
+  </data>
+  <data name="Body.DiscoveredByYou" xml:space="preserve">
+    <value>открыто вами</value>
+  </data>
+  <data name="Body.DiscoveryUnknown" xml:space="preserve">
+    <value>открытие неизвестно</value>
+  </data>
+  <data name="Body.ExobiologyAboutLead" xml:space="preserve">
+    <value>Экзобиология около </value>
+  </data>
+  <data name="Body.ExobiologyLead" xml:space="preserve">
+    <value>Экзобиология </value>
+  </data>
+  <data name="Body.ExobiologyLikelyLead" xml:space="preserve">
+    <value>Экзобиология вероятно около </value>
+  </data>
+  <data name="Body.ExpectedWithBonus" xml:space="preserve">
+    <value>{figure} {bonus} кр.</value>
+  </data>
+  <data name="Body.ExtremeGravity" xml:space="preserve">
+    <value>экстремальная гравитация</value>
+  </data>
+  <data name="Body.Footfall" xml:space="preserve">
+    <value>высадка была</value>
+  </data>
+  <data name="Body.FootfallByYou" xml:space="preserve">
+    <value>вы высаживались</value>
+  </data>
+  <data name="Body.FootfallUnknown" xml:space="preserve">
+    <value>высадка неизвестна</value>
+  </data>
+  <data name="Body.GatheredLead" xml:space="preserve">
+    <value>Вы собрали </value>
+  </data>
+  <data name="Body.GenusLikely" xml:space="preserve">
+    <value>{genus} (вероятно {species}) {odds}, ожидается {credits}</value>
+  </data>
+  <data name="Body.GenusOnly" xml:space="preserve">
+    <value>{genus} {odds}, ожидается {credits}</value>
+  </data>
+  <data name="Body.HighGravity" xml:space="preserve">
+    <value>высокая гравитация</value>
+  </data>
+  <data name="Body.LandedByYou" xml:space="preserve">
+    <value>вы садились</value>
+  </data>
+  <data name="Body.Mapped" xml:space="preserve">
+    <value>картографировано</value>
+  </data>
+  <data name="Body.MappedByYou" xml:space="preserve">
+    <value>картографировано вами</value>
+  </data>
+  <data name="Body.MappingUnknown" xml:space="preserve">
+    <value>картографирование неизвестно</value>
+  </data>
+  <data name="Body.MaterialShare" xml:space="preserve">
+    <value>{material} {share:0.0}%</value>
+  </data>
+  <data name="Body.NavBeaconData" xml:space="preserve">
+    <value>данные навигационного маяка, продать нечего</value>
+  </data>
+  <data name="Body.NoAtmosphere" xml:space="preserve">
+    <value>без атмосферы</value>
+  </data>
+  <data name="Body.NoFootfall" xml:space="preserve">
+    <value>без высадок</value>
+  </data>
+  <data name="Body.NoPredictionConditions" xml:space="preserve">
+    <value>Нет прогноза для этих условий</value>
+  </data>
+  <data name="Body.Rings" xml:space="preserve">
+    <value>кольца</value>
+  </data>
+  <data name="Body.ScannedMapped" xml:space="preserve">
+    <value>{scanned} за скан, {mapped} за картографирование</value>
+  </data>
+  <data name="Body.ScannedOn" xml:space="preserve">
+    <value>сканировано {when:d}</value>
+  </data>
+  <data name="Body.SpeciesStage" xml:space="preserve">
+    <value>{species}, этап {stage} из 3</value>
+  </data>
+  <data name="Body.Terraformable" xml:space="preserve">
+    <value>терраформируемое</value>
+  </data>
+  <data name="Body.Unmapped" xml:space="preserve">
+    <value>не картографировано</value>
+  </data>
+  <data name="Body.ValueUnknown" xml:space="preserve">
+    <value>стоимость неизвестна</value>
+  </data>
+  <data name="Body.WithFirstLoggedBonus" xml:space="preserve">
+    <value> с бонусом за первую регистрацию</value>
+  </data>
+  <data name="Category.Encoded" xml:space="preserve">
+    <value>Закодированные</value>
+  </data>
+  <data name="Category.EncodedShort" xml:space="preserve">
+    <value>Закод.</value>
+  </data>
+  <data name="Category.Manufactured" xml:space="preserve">
+    <value>Произведённые</value>
+  </data>
+  <data name="Category.ManufacturedShort" xml:space="preserve">
+    <value>Произв.</value>
+  </data>
+  <data name="Category.Raw" xml:space="preserve">
+    <value>Сырьё</value>
+  </data>
+  <data name="Category.RawShort" xml:space="preserve">
+    <value>Сырьё</value>
+  </data>
+  <data name="Choice.None" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Column.Accepted" xml:space="preserve">
+    <value>Принята</value>
+  </data>
+  <data name="Column.Blueprint" xml:space="preserve">
+    <value>Чертёж</value>
+  </data>
+  <data name="Column.Body" xml:space="preserve">
+    <value>Тело</value>
+  </data>
+  <data name="Column.Bonus" xml:space="preserve">
+    <value>Бонус</value>
+  </data>
+  <data name="Column.Cartographics" xml:space="preserve">
+    <value>Картография</value>
+  </data>
+  <data name="Column.Class" xml:space="preserve">
+    <value>Класс</value>
+  </data>
+  <data name="Column.Commander" xml:space="preserve">
+    <value>Командир</value>
+  </data>
+  <data name="Column.Difference" xml:space="preserve">
+    <value>Различие</value>
+  </data>
+  <data name="Column.Distance" xml:space="preserve">
+    <value>Расстояние</value>
+  </data>
+  <data name="Column.Engineer" xml:space="preserve">
+    <value>Инженер</value>
+  </data>
+  <data name="Column.Engineering" xml:space="preserve">
+    <value>Инженерия</value>
+  </data>
+  <data name="Column.Entry" xml:space="preserve">
+    <value>Запись</value>
+  </data>
+  <data name="Column.Faction" xml:space="preserve">
+    <value>Фракция</value>
+  </data>
+  <data name="Column.Family" xml:space="preserve">
+    <value>Семейство</value>
+  </data>
+  <data name="Column.Fit" xml:space="preserve">
+    <value>Сборка</value>
+  </data>
+  <data name="Column.FitWants" xml:space="preserve">
+    <value>Нужно по сборке</value>
+  </data>
+  <data name="Column.FromStart" xml:space="preserve">
+    <value>От начала</value>
+  </data>
+  <data name="Column.Fuel" xml:space="preserve">
+    <value>Топливо</value>
+  </data>
+  <data name="Column.Grade" xml:space="preserve">
+    <value>Уровень</value>
+  </data>
+  <data name="Column.Have" xml:space="preserve">
+    <value>Есть</value>
+  </data>
+  <data name="Column.Hull" xml:space="preserve">
+    <value>Корпус</value>
+  </data>
+  <data name="Column.Jump" xml:space="preserve">
+    <value>Прыжок</value>
+  </data>
+  <data name="Column.Landable" xml:space="preserve">
+    <value>Посадка</value>
+  </data>
+  <data name="Column.LastFlown" xml:space="preserve">
+    <value>Последний полёт</value>
+  </data>
+  <data name="Column.Material" xml:space="preserve">
+    <value>Материал</value>
+  </data>
+  <data name="Column.Missing" xml:space="preserve">
+    <value>Не хватает</value>
+  </data>
+  <data name="Column.Mission" xml:space="preserve">
+    <value>Миссия</value>
+  </data>
+  <data name="Column.Module" xml:space="preserve">
+    <value>Модуль</value>
+  </data>
+  <data name="Column.ModuleType" xml:space="preserve">
+    <value>Тип модуля</value>
+  </data>
+  <data name="Column.Need" xml:space="preserve">
+    <value>Нужно</value>
+  </data>
+  <data name="Column.Needs" xml:space="preserve">
+    <value>Требует</value>
+  </data>
+  <data name="Column.Notes" xml:space="preserve">
+    <value>Заметки</value>
+  </data>
+  <data name="Column.Offers" xml:space="preserve">
+    <value>Предлагает</value>
+  </data>
+  <data name="Column.PerRoll" xml:space="preserve">
+    <value>За ролл</value>
+  </data>
+  <data name="Column.Region" xml:space="preserve">
+    <value>Регион</value>
+  </data>
+  <data name="Column.Required" xml:space="preserve">
+    <value>Требуется</value>
+  </data>
+  <data name="Column.Reward" xml:space="preserve">
+    <value>Награда</value>
+  </data>
+  <data name="Column.Samples" xml:space="preserve">
+    <value>Образцы</value>
+  </data>
+  <data name="Column.Sessions" xml:space="preserve">
+    <value>Сессии</value>
+  </data>
+  <data name="Column.Shared" xml:space="preserve">
+    <value>Поделено</value>
+  </data>
+  <data name="Column.Ship" xml:space="preserve">
+    <value>Корабль</value>
+  </data>
+  <data name="Column.ShipHas" xml:space="preserve">
+    <value>На корабле</value>
+  </data>
+  <data name="Column.Short" xml:space="preserve">
+    <value>Нехватка</value>
+  </data>
+  <data name="Column.Slot" xml:space="preserve">
+    <value>Слот</value>
+  </data>
+  <data name="Column.Species" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="Column.Stage" xml:space="preserve">
+    <value>Этап</value>
+  </data>
+  <data name="Column.Star" xml:space="preserve">
+    <value>Звезда</value>
+  </data>
+  <data name="Column.State" xml:space="preserve">
+    <value>Состояние</value>
+  </data>
+  <data name="Column.Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Column.Stop" xml:space="preserve">
+    <value>Остановка</value>
+  </data>
+  <data name="Column.System" xml:space="preserve">
+    <value>Система</value>
+  </data>
+  <data name="Column.TimeTogether" xml:space="preserve">
+    <value>Время вместе</value>
+  </data>
+  <data name="Column.ToGo" xml:space="preserve">
+    <value>Осталось</value>
+  </data>
+  <data name="Column.Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Column.Unlock" xml:space="preserve">
+    <value>Разблокировка</value>
+  </data>
+  <data name="Column.Visit" xml:space="preserve">
+    <value>Визит</value>
+  </data>
+  <data name="Column.Visited" xml:space="preserve">
+    <value>Посещено</value>
+  </data>
+  <data name="Column.Wants" xml:space="preserve">
+    <value>Нужно</value>
+  </data>
+  <data name="Column.Where" xml:space="preserve">
+    <value>Где</value>
+  </data>
+  <data name="Column.WithBonus" xml:space="preserve">
+    <value>С бонусом</value>
+  </data>
+  <data name="Column.WithoutBonus" xml:space="preserve">
+    <value>Без бонуса</value>
+  </data>
+  <data name="Column.YouReach" xml:space="preserve">
+    <value>Вам доступно</value>
+  </data>
+  <data name="Distance.Unknown" xml:space="preserve">
+    <value>расстояние неизвестно</value>
+  </data>
+  <data name="Drawer.BadgeCovered" xml:space="preserve">
+    <value>{count} · всё есть</value>
+  </data>
+  <data name="Drawer.BadgeEmpty" xml:space="preserve">
+    <value>пусто</value>
+  </data>
+  <data name="Drawer.BadgeShort" xml:space="preserve">
+    <value>{count} · нехватка {short}</value>
+  </data>
+  <data name="Drawer.NoneSelected" xml:space="preserve">
+    <value>никто не выбран</value>
+  </data>
+  <data name="Drawer.Summary" xml:space="preserve">
+    <value>{entries}, учитывается {counted}. {totals} Инженеры: {engineers}.</value>
+  </data>
+  <data name="Engineer.DistanceUnknown" xml:space="preserve">
+    <value>Расстояние неизвестно, пока журнал не сообщит ваше положение.</value>
+  </data>
+  <data name="Engineer.GradeOf" xml:space="preserve">
+    <value>{grade} из {top}</value>
+  </data>
+  <data name="Engineer.LightYearsFrom" xml:space="preserve">
+    <value>{distance} от {system}</value>
+  </data>
+  <data name="Engineer.PlanTitle" xml:space="preserve">
+    <value>{module}: {blueprint} {grade}</value>
+  </data>
+  <data name="Engineer.RollsTarget" xml:space="preserve">
+    <value>Прокручивает целевой уровень.</value>
+  </data>
+  <data name="Engineer.RollsTargetAndApplies" xml:space="preserve">
+    <value>Прокручивает целевой уровень и применяет экспериментальный эффект.</value>
+  </data>
+  <data name="Engineer.RollsTargetNotExperimental" xml:space="preserve">
+    <value>Прокручивает целевой уровень; для эффекта нужен кто-то другой.</value>
+  </data>
+  <data name="Engineer.RouteStartsHere" xml:space="preserve">
+    <value>Ваш маршрут начинается здесь.</value>
+  </data>
+  <data name="Engineer.RouteStop" xml:space="preserve">
+    <value>Остановка {index} из {count} на вашем маршруте.</value>
+  </data>
+  <data name="Engineer.StopsAt" xml:space="preserve">
+    <value>Останавливается на {grade}; другой инженер доводит до конца.</value>
+  </data>
+  <data name="Engineer.StoredModules" xml:space="preserve">
+    <value>В {system} у вас в хранилище: {modules}.</value>
+  </data>
+  <data name="Engineering.Stock" xml:space="preserve">
+    <value>стандартный</value>
+  </data>
+  <data name="Engineering.Text" xml:space="preserve">
+    <value>{blueprint} {grade}</value>
+  </data>
+  <data name="Engineering.TextExperimentalUnknown" xml:space="preserve">
+    <value>{blueprint} {grade}, эффект неизвестен</value>
+  </data>
+  <data name="Engineering.TextUnfinished" xml:space="preserve">
+    <value>{blueprint} {grade}, {percent}%</value>
+  </data>
+  <data name="Engineering.TextUnfinishedExperimentalUnknown" xml:space="preserve">
+    <value>{blueprint} {grade}, {percent}%, эффект неизвестен</value>
+  </data>
+  <data name="Engineering.TextUnfinishedWithExperimental" xml:space="preserve">
+    <value>{blueprint} {grade}, {percent}% + {experimental}</value>
+  </data>
+  <data name="Engineering.TextWithExperimental" xml:space="preserve">
+    <value>{blueprint} {grade} + {experimental}</value>
+  </data>
+  <data name="Engineers.DistancesFrom" xml:space="preserve">
+    <value>Расстояния от {system}.</value>
+  </data>
+  <data name="Engineers.DistancesWhenKnown" xml:space="preserve">
+    <value>Расстояния появятся, когда журнал сообщит, где вы.</value>
+  </data>
+  <data name="Engineers.NobodySelected" xml:space="preserve">
+    <value>Никто не выбран. Отметьте инженеров, к которым вы готовы лететь; план покажет, кто может прокрутить каждую запись.</value>
+  </data>
+  <data name="Engineers.OnlyMineText" xml:space="preserve">
+    <value>Включено: страница модулей и каждый выбор чертежа, уровня и эффекта предлагают только то, что могут прокрутить отмеченные вами инженеры, а уровни начинаются с доступного им.
+Выключено: предлагается всё, уровни начинаются с высшего. План всё равно предупреждает о записях, которые никто из отмеченных не может прокрутить.</value>
+  </data>
+  <data name="Engineers.ScopeOff" xml:space="preserve">
+    <value>Выключено: предлагаются все чертежи, уровни и эффекты, а выбор уровня начинается с высшего.</value>
+  </data>
+  <data name="Engineers.ScopeOn" xml:space="preserve">
+    <value>Включено: сужено до возможностей отмеченных инженеров ({engineers}), а выбор уровня начинается с доступного им.</value>
+  </data>
+  <data name="Engineers.ScopeOnNobody" xml:space="preserve">
+    <value>Включено, но никто пока не отмечен, поэтому ничего не сужено. Отметьте ниже инженеров, которых посетите.</value>
+  </data>
+  <data name="Engineers.Selected" xml:space="preserve">
+    <value>Выбрано: {engineers}. Страница модулей может сузиться до того, что они могут прокрутить.</value>
+  </data>
+  <data name="Filter.AllModules" xml:space="preserve">
+    <value>Все модули</value>
+  </data>
+  <data name="Filter.EngineeredOnly" xml:space="preserve">
+    <value>Только модифицированные</value>
+  </data>
+  <data name="Filter.Everywhere" xml:space="preserve">
+    <value>Везде</value>
+  </data>
+  <data name="Filter.FittedOnly" xml:space="preserve">
+    <value>Только установленные на корабль</value>
+  </data>
+  <data name="Filter.FittedOrStored" xml:space="preserve">
+    <value>Установленные или в хранилище</value>
+  </data>
+  <data name="Filter.StoredOnly" xml:space="preserve">
+    <value>Только в хранилище, не на корабле</value>
+  </data>
+  <data name="Filter.UnengineeredOnly" xml:space="preserve">
+    <value>Только без инженерии</value>
+  </data>
+  <data name="Fit.AlreadyMatch" xml:space="preserve">
+    <value>Уже совпадают: {matching} из {total} модулей.</value>
+  </data>
+  <data name="Fit.AlreadyOwned" xml:space="preserve">
+    <value>Один у вас уже есть, {where}. Не планируется.</value>
+  </data>
+  <data name="Fit.ChangesPlanned" xml:space="preserve">
+    <value>Все изменения инженерии для этого корабля уже в плане</value>
+  </data>
+  <data name="Fit.FittedElsewhere" xml:space="preserve">
+    <value>{module} в слоте {slot}</value>
+  </data>
+  <data name="Fit.GapsPlanned" xml:space="preserve">
+    <value>Все пробелы в том, что у вас есть, уже в плане</value>
+  </data>
+  <data name="Fit.HullNote" xml:space="preserve">
+    <value>Этот корабль — {ship}; сборка для {fit}. Модули сопоставляются в слотах одного вида, поэтому раскладка может не перенестись.</value>
+  </data>
+  <data name="Fit.Kicker" xml:space="preserve">
+    <value>Сохранённая сборка</value>
+  </data>
+  <data name="Fit.KindDifferentBlueprint" xml:space="preserve">
+    <value>другой чертёж</value>
+  </data>
+  <data name="Fit.KindDifferentModule" xml:space="preserve">
+    <value>другой модуль</value>
+  </data>
+  <data name="Fit.KindEmptySlot" xml:space="preserve">
+    <value>пустой слот</value>
+  </data>
+  <data name="Fit.KindExperimentalMissing" xml:space="preserve">
+    <value>нет эффекта</value>
+  </data>
+  <data name="Fit.KindExperimentalUnknown" xml:space="preserve">
+    <value>эффект неизвестен</value>
+  </data>
+  <data name="Fit.KindLowerGrade" xml:space="preserve">
+    <value>ниже уровень</value>
+  </data>
+  <data name="Fit.KindNotEngineered" xml:space="preserve">
+    <value>без инженерии</value>
+  </data>
+  <data name="Fit.KindUnfinishedGrade" xml:space="preserve">
+    <value>уровень не завершён</value>
+  </data>
+  <data name="Fit.MayAlreadyOwn" xml:space="preserve">
+    <value>Возможно, один у вас уже есть, {where}, но его эффект неизвестен.</value>
+  </data>
+  <data name="Fit.MayBeRight" xml:space="preserve">
+    <value>Возможно, уже подходят: {slots}; эффект на корабле неизвестен.</value>
+  </data>
+  <data name="Fit.MustBuy" xml:space="preserve">
+    <value>Сначала нужно купить: {modules}.</value>
+  </data>
+  <data name="Fit.NeedEngineering" xml:space="preserve">
+    <value>Требуют инженерии: {slots}.</value>
+  </data>
+  <data name="Fit.NeedEngineeringCovered" xml:space="preserve">
+    <value>Требуют инженерии: {slots}, из них {covered} — у инженеров, которых вы посетите.</value>
+  </data>
+  <data name="Fit.NobodyInData" xml:space="preserve">
+    <value>никого в данных</value>
+  </data>
+  <data name="Fit.NobodyOffersThis" xml:space="preserve">
+    <value>Ни один инженер в данных этого не предлагает.</value>
+  </data>
+  <data name="Fit.NoChanges" xml:space="preserve">
+    <value>Нечего добавлять</value>
+  </data>
+  <data name="Fit.NoGaps" xml:space="preserve">
+    <value>Ничто из недостающего не требует инженерии</value>
+  </data>
+  <data name="Fit.NoneOfYours" xml:space="preserve">
+    <value>Никто из ваших инженеров. Предлагают: {engineers}.</value>
+  </data>
+  <data name="Fit.NoShipsToCompare" xml:space="preserve">
+    <value>Кораблей пока не видно. Сравнение появится, когда журнал прочитает ваш флот.</value>
+  </data>
+  <data name="Fit.OwnedCanFill" xml:space="preserve">
+    <value>Можно заполнить вашими модулями: {slots}.</value>
+  </data>
+  <data name="Fit.PlanChanges.few" xml:space="preserve">
+    <value>Запланировать {count} изменения инженерии для этого корабля</value>
+  </data>
+  <data name="Fit.PlanChanges.many" xml:space="preserve">
+    <value>Запланировать {count} изменений инженерии для этого корабля</value>
+  </data>
+  <data name="Fit.PlanChanges.one" xml:space="preserve">
+    <value>Запланировать {count} изменение инженерии для этого корабля</value>
+  </data>
+  <data name="Fit.PlanChanges.other" xml:space="preserve">
+    <value>Запланировать {count} изменений инженерии для этого корабля</value>
+  </data>
+  <data name="Fit.PlanGaps.few" xml:space="preserve">
+    <value>Запланировать {count} пробела в том, что у вас есть</value>
+  </data>
+  <data name="Fit.PlanGaps.many" xml:space="preserve">
+    <value>Запланировать {count} пробелов в том, что у вас есть</value>
+  </data>
+  <data name="Fit.PlanGaps.one" xml:space="preserve">
+    <value>Запланировать {count} пробел в том, что у вас есть</value>
+  </data>
+  <data name="Fit.PlanGaps.other" xml:space="preserve">
+    <value>Запланировать {count} пробелов в том, что у вас есть</value>
+  </data>
+  <data name="Fit.PrebuiltSlots.few" xml:space="preserve">
+    <value>{count} слота для инженерии заняты предустановленными модулями, которые нельзя снять с этого корабля.</value>
+  </data>
+  <data name="Fit.PrebuiltSlots.many" xml:space="preserve">
+    <value>{count} слотов для инженерии заняты предустановленными модулями, которые нельзя снять с этого корабля.</value>
+  </data>
+  <data name="Fit.PrebuiltSlots.one" xml:space="preserve">
+    <value>{count} слот для инженерии занят предустановленным модулем, который нельзя снять с этого корабля.</value>
+  </data>
+  <data name="Fit.PrebuiltSlots.other" xml:space="preserve">
+    <value>{count} слотов для инженерии заняты предустановленными модулями, которые нельзя снять с этого корабля.</value>
+  </data>
+  <data name="Fit.Removed" xml:space="preserve">
+    <value>Сборка удалена</value>
+  </data>
+  <data name="Fit.ShipChoice" xml:space="preserve">
+    <value>{ship} · {hull} · совпадает {matching} из {total}</value>
+  </data>
+  <data name="Fit.YourEngineers" xml:space="preserve">
+    <value>Ваши инженеры: {engineers}</value>
+  </data>
+  <data name="Fleet.AsOf" xml:space="preserve">
+    <value>на {when:g}</value>
+  </data>
+  <data name="Fleet.EveryModuleOwned" xml:space="preserve">
+    <value>Все модули есть.</value>
+  </data>
+  <data name="Fleet.FitAsOf" xml:space="preserve">
+    <value>сборка на {when:g}</value>
+  </data>
+  <data name="Fleet.FitUnknown" xml:space="preserve">
+    <value>сборка неизвестна: не летали с начала журнала</value>
+  </data>
+  <data name="Fleet.HullNotOwned" xml:space="preserve">
+    <value>У вас нет этого корпуса.</value>
+  </data>
+  <data name="Fleet.InTransit" xml:space="preserve">
+    <value>в пути</value>
+  </data>
+  <data name="Fleet.LocationUnknown" xml:space="preserve">
+    <value>местоположение неизвестно</value>
+  </data>
+  <data name="Fleet.ModulesNotSeen" xml:space="preserve">
+    <value>ещё не видно: зайдите в снаряжение</value>
+  </data>
+  <data name="Fleet.NoShips" xml:space="preserve">
+    <value>Кораблей пока не видно. Флот появится, когда журнал будет прочитан.</value>
+  </data>
+  <data name="Fleet.ReplaceQuestion" xml:space="preserve">
+    <value>Заменить сохранённую сборку {name} для {hull}?</value>
+  </data>
+  <data name="Fleet.ShipsNotSeen" xml:space="preserve">
+    <value>ещё не видно: зайдите на верфь</value>
+  </data>
+  <data name="Fleet.ShipTitle" xml:space="preserve">
+    <value>{name} ({ident})</value>
+  </data>
+  <data name="Fleet.Status" xml:space="preserve">
+    <value>{ships}, {modules}. Список флота {shipsAsOf}; модули в хранилище {modulesAsOf}.</value>
+  </data>
+  <data name="Fleet.Storage" xml:space="preserve">
+    <value>хранилище</value>
+  </data>
+  <data name="Fleet.SummaryMissing" xml:space="preserve">
+    <value>не хватает {count}</value>
+  </data>
+  <data name="Fleet.SummaryPartial" xml:space="preserve">
+    <value>частично {count}</value>
+  </data>
+  <data name="Fleet.SummaryUncertain" xml:space="preserve">
+    <value>{count} с неизвестным эффектом</value>
+  </data>
+  <data name="Fleet.UnusedHeading" xml:space="preserve">
+    <value>Свои модули, не нужные ни одной сборке ({count})</value>
+  </data>
+  <data name="Fleet.VerdictAllOwned" xml:space="preserve">
+    <value>Всё есть</value>
+  </data>
+  <data name="Fleet.VerdictHullNotOwned" xml:space="preserve">
+    <value>Нет корпуса</value>
+  </data>
+  <data name="Fleet.VerdictMissing" xml:space="preserve">
+    <value>Не хватает {count}</value>
+  </data>
+  <data name="Fleet.VerdictPartial" xml:space="preserve">
+    <value>Частично</value>
+  </data>
+  <data name="Fuel.ForJumps" xml:space="preserve">
+    <value>Топлива хватит на {jumps} без заправки.</value>
+  </data>
+  <data name="Fuel.NeedsDrive" xml:space="preserve">
+    <value>Для оценки топлива нужен рамочно-сдвиговый двигатель в сборке корабля.</value>
+  </data>
+  <data name="Fuel.NeedsMassOrJump" xml:space="preserve">
+    <value>Для оценки топлива нужна масса корабля из игры или один прыжок на этом корабле, чтобы узнать расход.</value>
+  </data>
+  <data name="Fuel.NeedsShipAndTank" xml:space="preserve">
+    <value>Оценка топлива появится, когда игра сообщит ваш корабль и бак.</value>
+  </data>
+  <data name="Fuel.NextJump" xml:space="preserve">
+    <value>-{tonnes:0.0} т</value>
+  </data>
+  <data name="Fuel.NoScoopable" xml:space="preserve">
+    <value>В пределах досягаемости нет звезды для заправки: заправьтесь перед вылетом.</value>
+  </data>
+  <data name="Fuel.NotEnoughNext" xml:space="preserve">
+    <value>Топлива на следующий прыжок не хватает.</value>
+  </data>
+  <data name="Fuel.OutOfFuel" xml:space="preserve">
+    <value>топливо кончится</value>
+  </data>
+  <data name="Fuel.RunsDry" xml:space="preserve">
+    <value>Даже с заправкой у каждой звезды на пути топливо на маршруте кончится.</value>
+  </data>
+  <data name="Fuel.ScoopBy" xml:space="preserve">
+    <value>Заправьтесь не позже {system}, остановка {index}.</value>
+  </data>
+  <data name="Fuel.Tank" xml:space="preserve">
+    <value>{tonnes:0.0} / {capacity:0.#} т</value>
+  </data>
+  <data name="Fuel.WholeRoute" xml:space="preserve">
+    <value>Топлива хватит на весь маршрут без заправки.</value>
+  </data>
+  <data name="Home.Catalog" xml:space="preserve">
+    <value>{blueprints}, {experimentals}, {engineers}, {materials}, {modules}.</value>
+  </data>
+  <data name="Home.CatchingUp" xml:space="preserve">
+    <value>Читается история журнала.</value>
+  </data>
+  <data name="Home.EngineersNoneSelected" xml:space="preserve">
+    <value>{engineers}, никто не выбран</value>
+  </data>
+  <data name="Home.EngineersYouWillVisit" xml:space="preserve">
+    <value>к посещению: {engineers}</value>
+  </data>
+  <data name="Home.FolderMissing" xml:space="preserve">
+    <value>Папка журналов не существует. Исправьте в настройках.</value>
+  </data>
+  <data name="Home.InventoryNotRead" xml:space="preserve">
+    <value>инвентарь ещё не прочитан</value>
+  </data>
+  <data name="Home.JournalFolderNotSet" xml:space="preserve">
+    <value>папка журналов не задана</value>
+  </data>
+  <data name="Home.JournalFolderSet" xml:space="preserve">
+    <value>папка журналов задана</value>
+  </data>
+  <data name="Home.JumpsPlotted" xml:space="preserve">
+    <value>проложено: {jumps}</value>
+  </data>
+  <data name="Home.Kicker" xml:space="preserve">
+    <value>Начало</value>
+  </data>
+  <data name="Home.MaterialsInInventory" xml:space="preserve">
+    <value>в инвентаре: {materials}</value>
+  </data>
+  <data name="Home.NoRoutePlotted" xml:space="preserve">
+    <value>маршрут не проложен</value>
+  </data>
+  <data name="Home.NoShipsSeen" xml:space="preserve">
+    <value>кораблей пока не видно</value>
+  </data>
+  <data name="Home.NotWatching" xml:space="preserve">
+    <value>Слежение за журналом выключено. Включите в настройках.</value>
+  </data>
+  <data name="Home.PlanCovered" xml:space="preserve">
+    <value>Запланировано: {entries}, все материалы есть.</value>
+  </data>
+  <data name="Home.PlanEmpty" xml:space="preserve">
+    <value>План пуст. Добавьте чертёж со страницы любого модуля.</value>
+  </data>
+  <data name="Home.PlanNoInventory" xml:space="preserve">
+    <value>Запланировано: {entries}. Включите слежение за журналом, чтобы увидеть, чего не хватает.</value>
+  </data>
+  <data name="Home.PlanShort" xml:space="preserve">
+    <value>Запланировано: {entries}, нехватка: {materials}.</value>
+  </data>
+  <data name="Home.Played" xml:space="preserve">
+    <value>в игре {duration}</value>
+  </data>
+  <data name="Home.PositionUnknown" xml:space="preserve">
+    <value>положение неизвестно</value>
+  </data>
+  <data name="Home.ShipsAndFits" xml:space="preserve">
+    <value>{ships}, {fits}</value>
+  </data>
+  <data name="Home.StatArrivedAt" xml:space="preserve">
+    <value>Прибытие в {system}.</value>
+  </data>
+  <data name="Home.StatBeforeHonk" xml:space="preserve">
+    <value>в этой системе, до сканера обнаружения.</value>
+  </data>
+  <data name="Home.StatBodiesInSystems" xml:space="preserve">
+    <value>{bodies} · {systems}</value>
+  </data>
+  <data name="Home.StatBodiesScanned" xml:space="preserve">
+    <value>Тел отсканировано</value>
+  </data>
+  <data name="Home.StatDataAboard" xml:space="preserve">
+    <value>Данные на борту</value>
+  </data>
+  <data name="Home.StatEarned" xml:space="preserve">
+    <value>Заработано за 7 дней</value>
+  </data>
+  <data name="Home.StatFromPayments" xml:space="preserve">
+    <value>за последнюю неделю игры: {payments}.</value>
+  </data>
+  <data name="Home.StatFuelBeforeScoop" xml:space="preserve">
+    <value>Топлива хватит на {jumps} до обязательной заправки.</value>
+  </data>
+  <data name="Home.StatHonkToCount" xml:space="preserve">
+    <value>в этой системе. Запустите сканер обнаружения, чтобы узнать число тел.</value>
+  </data>
+  <data name="Home.StatInThisSystem" xml:space="preserve">
+    <value>в этой системе.</value>
+  </data>
+  <data name="Home.StatJumpsLeft" xml:space="preserve">
+    <value>Прыжков осталось</value>
+  </data>
+  <data name="Home.StatMaterialsCovered" xml:space="preserve">
+    <value>Все материалы, нужные плану ({materials}), есть.</value>
+  </data>
+  <data name="Home.StatMaterialsNeeded" xml:space="preserve">
+    <value>нужно: {materials}; инвентарь ещё не прочитан.</value>
+  </data>
+  <data name="Home.StatMaterialsOf" xml:space="preserve">
+    <value>из всех нужных плану ({materials}).</value>
+  </data>
+  <data name="Home.StatMaterialsShort" xml:space="preserve">
+    <value>Нехватка материалов</value>
+  </data>
+  <data name="Home.StatNoIncome" xml:space="preserve">
+    <value>Доходов в журнале пока нет.</value>
+  </data>
+  <data name="Home.StatNoPosition" xml:space="preserve">
+    <value>Положение пока неизвестно.</value>
+  </data>
+  <data name="Home.StatNoRoute" xml:space="preserve">
+    <value>Маршрут не проложен.</value>
+  </data>
+  <data name="Home.StatNothingAboard" xml:space="preserve">
+    <value>С последней продажи ничего не отсканировано и не собрано.</value>
+  </data>
+  <data name="Home.StatNothingEarned" xml:space="preserve">
+    <value>За последнюю неделю игры ничего не заработано.</value>
+  </data>
+  <data name="Home.StatPlanEmpty" xml:space="preserve">
+    <value>План пуст.</value>
+  </data>
+  <data name="Home.StatTo" xml:space="preserve">
+    <value>до {system}.</value>
+  </data>
+  <data name="Home.StatUnsold" xml:space="preserve">
+    <value>не продано: {what}; будет потеряно при гибели.</value>
+  </data>
+  <data name="Home.StatZeroCredits" xml:space="preserve">
+    <value>0 кр.</value>
+  </data>
+  <data name="Home.ThisSystem" xml:space="preserve">
+    <value>Эта система</value>
+  </data>
+  <data name="Home.UnlocksTile" xml:space="preserve">
+    <value>{unlocks}, куплено {bought}, запланировано {planned}</value>
+  </data>
+  <data name="Home.WaitingForFigures" xml:space="preserve">
+    <value>ожидание данных игры</value>
+  </data>
+  <data name="Home.Watching" xml:space="preserve">
+    <value>Слежение за журналом включено.</value>
+  </data>
+  <data name="Import.AddToPlan" xml:space="preserve">
+    <value>Добавить в план ({count})</value>
+  </data>
+  <data name="Import.CouldNotRead" xml:space="preserve">
+    <value>Не удалось прочитать экспорт.</value>
+  </data>
+  <data name="Import.Heading" xml:space="preserve">
+    <value>{ship}: {modules}</value>
+  </data>
+  <data name="Import.NoLoadout" xml:space="preserve">
+    <value>В тексте не найден объект Loadout.</value>
+  </data>
+  <data name="Import.NoModules" xml:space="preserve">
+    <value>В Loadout нет списка "Modules". Экспортируйте из EDSY как Loadout журнала.</value>
+  </data>
+  <data name="Import.NoteNotListed" xml:space="preserve">
+    <value>Этот чертёж не указан для этого типа модуля в данных.</value>
+  </data>
+  <data name="Import.NoteTopsOut" xml:space="preserve">
+    <value>Этот чертёж заканчивается на уровне {grade}; план использует его.</value>
+  </data>
+  <data name="Import.NoteUnknownType" xml:space="preserve">
+    <value>Тип модуля неизвестен; инженеров перечислить нельзя.</value>
+  </data>
+  <data name="Import.NotJson" xml:space="preserve">
+    <value>Это не корректный JSON.</value>
+  </data>
+  <data name="Import.PasteFirst" xml:space="preserve">
+    <value>Сначала вставьте экспорт EDSY.</value>
+  </data>
+  <data name="Import.Title" xml:space="preserve">
+    <value>{module}: {blueprint} {grade}</value>
+  </data>
+  <data name="Import.TitleWithExperimental" xml:space="preserve">
+    <value>{module}: {blueprint} {grade} + {experimental}</value>
+  </data>
+  <data name="Language.System" xml:space="preserve">
+    <value>Язык системы</value>
+  </data>
+  <data name="List.Clause" xml:space="preserve">
+    <value>; </value>
+  </data>
+  <data name="List.Dot" xml:space="preserve">
+    <value> · </value>
+  </data>
+  <data name="List.Separator" xml:space="preserve">
+    <value>, </value>
+  </data>
+  <data name="Lookup.Http" xml:space="preserve">
+    <value>Spansh ответил HTTP {code} на запрос системы.</value>
+  </data>
+  <data name="Lookup.TimedOut" xml:space="preserve">
+    <value>Spansh слишком долго отвечал на запрос системы.</value>
+  </data>
+  <data name="Lookup.Unreachable" xml:space="preserve">
+    <value>Не удалось связаться со Spansh для запроса системы.</value>
+  </data>
+  <data name="Lookup.Unreadable" xml:space="preserve">
+    <value>Не удалось прочитать ответ Spansh на запрос системы.</value>
+  </data>
+  <data name="Match.ExperimentalUnknown" xml:space="preserve">
+    <value>{place}, эффект неизвестен</value>
+  </data>
+  <data name="Match.FittedTo" xml:space="preserve">
+    <value>установлен на {ship}</value>
+  </data>
+  <data name="Match.FittedToPrebuilt" xml:space="preserve">
+    <value>установлен на {ship}, предустановленный</value>
+  </data>
+  <data name="Match.Missing" xml:space="preserve">
+    <value>отсутствует</value>
+  </data>
+  <data name="Match.PartialExperimentalMissing" xml:space="preserve">
+    <value>частично: {place}, нет эффекта</value>
+  </data>
+  <data name="Match.PartialGrade" xml:space="preserve">
+    <value>частично: {place}, {grade} из {wanted}</value>
+  </data>
+  <data name="Match.PartialUnfinished" xml:space="preserve">
+    <value>частично: {place}, {grade} на {percent}%</value>
+  </data>
+  <data name="Match.StoredAt" xml:space="preserve">
+    <value>в хранилище: {place}</value>
+  </data>
+  <data name="Material.AlsoInExperimentals" xml:space="preserve">
+    <value>Также в экспериментальных эффектах: {names}.</value>
+  </data>
+  <data name="Material.CountTimesName" xml:space="preserve">
+    <value>{count}× {name}</value>
+  </data>
+  <data name="Material.GradeAndCategory" xml:space="preserve">
+    <value>{grade} · {category}</value>
+  </data>
+  <data name="Material.GradeTimesRolls" xml:space="preserve">
+    <value>{grade} ×{rolls}</value>
+  </data>
+  <data name="Material.JournalSymbol" xml:space="preserve">
+    <value>Символ в журнале: {symbol}</value>
+  </data>
+  <data name="Material.Kicker" xml:space="preserve">
+    <value>{grade} · {family}</value>
+  </data>
+  <data name="Material.NoBodyCarriesIt" xml:space="preserve">
+    <value>Ни одно отсканированное тело в {system} его не содержит.</value>
+  </data>
+  <data name="Material.OnTheSurfaceIn" xml:space="preserve">
+    <value>На поверхности в {system}</value>
+  </data>
+  <data name="Material.PerRoll" xml:space="preserve">
+    <value>{count} за ролл</value>
+  </data>
+  <data name="Material.SourcesWhenKnown" xml:space="preserve">
+    <value>Источники на поверхности появятся, когда журнал сообщит систему.</value>
+  </data>
+  <data name="Material.SpendTitle" xml:space="preserve">
+    <value>{module}: {blueprint} {grade}</value>
+  </data>
+  <data name="Materials.InventoryOf" xml:space="preserve">
+    <value>Инвентарь: {commander}, на {when:g}.</value>
+  </data>
+  <data name="Materials.NoInventory" xml:space="preserve">
+    <value>Инвентаря пока нет. Количества появятся, когда слежение за журналом прочитает снимок Materials, который игра записывает при каждой загрузке.</value>
+  </data>
+  <data name="Materials.NotInTables" xml:space="preserve">
+    <value>Нет в таблицах: {symbols}.</value>
+  </data>
+  <data name="Materials.SectionHeading" xml:space="preserve">
+    <value>{label} · в наличии {held}</value>
+  </data>
+  <data name="Materials.TheCommander" xml:space="preserve">
+    <value>командир</value>
+  </data>
+  <data name="Module.WithMount" xml:space="preserve">
+    <value>{type} {mount}</value>
+  </data>
+  <data name="Module.WithSize" xml:space="preserve">
+    <value>{type} {size}</value>
+  </data>
+  <data name="Module.WithSizeAndMount" xml:space="preserve">
+    <value>{type} {size} {mount}</value>
+  </data>
+  <data name="ModuleGroup.Core" xml:space="preserve">
+    <value>Основные модули</value>
+  </data>
+  <data name="ModuleGroup.Hardpoint" xml:space="preserve">
+    <value>Орудийные подвесы</value>
+  </data>
+  <data name="ModuleGroup.Optional" xml:space="preserve">
+    <value>Дополнительные модули</value>
+  </data>
+  <data name="ModuleGroup.Utility" xml:space="preserve">
+    <value>Вспомогательные крепления</value>
+  </data>
+  <data name="Modules.FilterOn" xml:space="preserve">
+    <value>«Показывать только от выбранных инженеров» включено: {types} из {total} имеют чертёж, доступный отмеченным инженерам ({engineers}). Изменить это можно на странице инженеров.</value>
+  </data>
+  <data name="Modules.FilterOnNobody" xml:space="preserve">
+    <value>«Показывать только от выбранных инженеров» включено, но на странице инженеров никто не отмечен, поэтому показаны все типы.</value>
+  </data>
+  <data name="Modules.GroupSummary" xml:space="preserve">
+    <value>{types}, есть у вас: {owned}</value>
+  </data>
+  <data name="Modules.ReachableOf" xml:space="preserve">
+    <value>вашим инженерам доступно {reachable}; всего {blueprints}</value>
+  </data>
+  <data name="Modules.YouOwn" xml:space="preserve">
+    <value>у вас {count}</value>
+  </data>
+  <data name="ModuleType.ExperimentalsAnyEngineer" xml:space="preserve">
+    <value>{experimentals}. Любой инженер, предлагающий здесь чертёж, может применить их все.</value>
+  </data>
+  <data name="ModuleType.ExperimentalsBy" xml:space="preserve">
+    <value>{experimentals}; любой из них могут применить: {engineers}.</value>
+  </data>
+  <data name="ModuleType.ExperimentalsNobodyTicked" xml:space="preserve">
+    <value>{experimentals}. Никто из выбранных вами инженеров не может их применить.</value>
+  </data>
+  <data name="ModuleType.FittedTo" xml:space="preserve">
+    <value>установлен на {ship}</value>
+  </data>
+  <data name="ModuleType.FitWants" xml:space="preserve">
+    <value>{module}, {engineering}</value>
+  </data>
+  <data name="ModuleType.InStorage" xml:space="preserve">
+    <value>в хранилище</value>
+  </data>
+  <data name="ModuleType.NoExperimentals" xml:space="preserve">
+    <value>У этого типа модуля нет экспериментальных эффектов.</value>
+  </data>
+  <data name="ModuleType.None" xml:space="preserve">
+    <value>нет</value>
+  </data>
+  <data name="ModuleType.PlanEntriesUse" xml:space="preserve">
+    <value>Используется в плане: {entries}.</value>
+  </data>
+  <data name="ModuleType.ToGrade" xml:space="preserve">
+    <value>до {grade}</value>
+  </data>
+  <data name="Nav.Engineers" xml:space="preserve">
+    <value>Инженеры</value>
+  </data>
+  <data name="Nav.Fleet" xml:space="preserve">
+    <value>Флот</value>
+  </data>
+  <data name="Nav.Materials" xml:space="preserve">
+    <value>Материалы</value>
+  </data>
+  <data name="Nav.Modules" xml:space="preserve">
+    <value>Модули</value>
+  </data>
+  <data name="Nav.Route" xml:space="preserve">
+    <value>Маршрут</value>
+  </data>
+  <data name="Nav.Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Nav.Stats" xml:space="preserve">
+    <value>Статистика</value>
+  </data>
+  <data name="Nav.System" xml:space="preserve">
+    <value>Система</value>
+  </data>
+  <data name="Nav.Unlocks" xml:space="preserve">
+    <value>Брокеры</value>
+  </data>
+  <data name="NotFound.BackHome" xml:space="preserve">
+    <value>На начальную страницу</value>
+  </data>
+  <data name="NotFound.Message" xml:space="preserve">
+    <value>Здесь нет ничего с именем «{id}».</value>
+  </data>
+  <data name="NotFound.Title" xml:space="preserve">
+    <value>Здесь ничего нет</value>
+  </data>
+  <data name="Page.KickerBrowse" xml:space="preserve">
+    <value>Разделы</value>
+  </data>
+  <data name="Page.UnknownModule" xml:space="preserve">
+    <value>Неизвестный модуль</value>
+  </data>
+  <data name="Place.Text" xml:space="preserve">
+    <value>{system} · {detail}</value>
+  </data>
+  <data name="Plan.AlsoFromMarket" xml:space="preserve">
+    <value>Также с рынка: {items}.</value>
+  </data>
+  <data name="Plan.BoughtOnce" xml:space="preserve">
+    <value>Покупается один раз ({source}) за материалы ниже.</value>
+  </data>
+  <data name="Plan.BoughtOnceWithCommodities" xml:space="preserve">
+    <value>Покупается один раз ({source}) за материалы ниже и товары выше.</value>
+  </data>
+  <data name="Plan.ExcludedFromTotals" xml:space="preserve">
+    <value>не учитывается в итогах</value>
+  </data>
+  <data name="Plan.ExperimentalOnlyBy" xml:space="preserve">
+    <value>Только эффект: {engineers}</value>
+  </data>
+  <data name="Plan.ExperimentalOnlyNoEffect" xml:space="preserve">
+    <value>Только эффект, но эффект не выбран.</value>
+  </data>
+  <data name="Plan.Fighter" xml:space="preserve">
+    <value>Истребитель</value>
+  </data>
+  <data name="Plan.FromShipSlot" xml:space="preserve">
+    <value>С корабля {ship}, {slot}</value>
+  </data>
+  <data name="Plan.NobodyCanApply" xml:space="preserve">
+    <value>Ни один инженер в данных не может применить эффект к этому модулю.</value>
+  </data>
+  <data name="Plan.NobodyCanApplyIt" xml:space="preserve">
+    <value>ни один инженер в данных не может его применить.</value>
+  </data>
+  <data name="Plan.NobodyOffersGrade" xml:space="preserve">
+    <value>Ни один инженер в данных не предлагает этот уровень для этого модуля.</value>
+  </data>
+  <data name="Plan.Title" xml:space="preserve">
+    <value>{module}: {blueprint}</value>
+  </data>
+  <data name="Plan.UnknownModule" xml:space="preserve">
+    <value>Неизвестный модуль</value>
+  </data>
+  <data name="Plan.UnknownModuleItem" xml:space="preserve">
+    <value>Неизвестный модуль ({item})</value>
+  </data>
+  <data name="Plan.WarnNobodyOffers" xml:space="preserve">
+    <value>Ни один инженер в данных не предлагает этот чертёж для этого типа модуля.</value>
+  </data>
+  <data name="Plan.WarnNoEffect" xml:space="preserve">
+    <value>Только эффект, но эффект не выбран, поэтому записи ничего не нужно.</value>
+  </data>
+  <data name="Plan.WarnSelectedEffect" xml:space="preserve">
+    <value>Никто из выбранных вами инженеров не может применить этот экспериментальный эффект.</value>
+  </data>
+  <data name="Plan.WarnSelectedGrade" xml:space="preserve">
+    <value>Никто из выбранных вами инженеров не предлагает уровень {grade} для этого модуля.</value>
+  </data>
+  <data name="Plan.WarnUnknownType" xml:space="preserve">
+    <value>Тип модуля неизвестен, поэтому инженеров перечислить нельзя.</value>
+  </data>
+  <data name="Plot.Asking" xml:space="preserve">
+    <value>Запрашиваем у Spansh маршрут из {from} в {to}…</value>
+  </data>
+  <data name="Plot.Cancelled" xml:space="preserve">
+    <value>Прокладка отменена.</value>
+  </data>
+  <data name="Plot.Plotted" xml:space="preserve">
+    <value>Проложено: {jumps}, из {from} в {to}.</value>
+  </data>
+  <data name="Plural.Biological.few" xml:space="preserve">
+    <value>{count} биологических</value>
+  </data>
+  <data name="Plural.Biological.many" xml:space="preserve">
+    <value>{count} биологических</value>
+  </data>
+  <data name="Plural.Biological.one" xml:space="preserve">
+    <value>{count} биологический</value>
+  </data>
+  <data name="Plural.Biological.other" xml:space="preserve">
+    <value>{count} биологических</value>
+  </data>
+  <data name="Plural.Blueprints.few" xml:space="preserve">
+    <value>{count} чертежа</value>
+  </data>
+  <data name="Plural.Blueprints.many" xml:space="preserve">
+    <value>{count} чертежей</value>
+  </data>
+  <data name="Plural.Blueprints.one" xml:space="preserve">
+    <value>{count} чертёж</value>
+  </data>
+  <data name="Plural.Blueprints.other" xml:space="preserve">
+    <value>{count} чертежей</value>
+  </data>
+  <data name="Plural.Bodies.few" xml:space="preserve">
+    <value>{count} тела</value>
+  </data>
+  <data name="Plural.Bodies.many" xml:space="preserve">
+    <value>{count} тел</value>
+  </data>
+  <data name="Plural.Bodies.one" xml:space="preserve">
+    <value>{count} тело</value>
+  </data>
+  <data name="Plural.Bodies.other" xml:space="preserve">
+    <value>{count} тел</value>
+  </data>
+  <data name="Plural.BrokerUnlocks.few" xml:space="preserve">
+    <value>{count} разблокировки технологического брокера</value>
+  </data>
+  <data name="Plural.BrokerUnlocks.many" xml:space="preserve">
+    <value>{count} разблокировок технологического брокера</value>
+  </data>
+  <data name="Plural.BrokerUnlocks.one" xml:space="preserve">
+    <value>{count} разблокировка технологического брокера</value>
+  </data>
+  <data name="Plural.BrokerUnlocks.other" xml:space="preserve">
+    <value>{count} разблокировок технологического брокера</value>
+  </data>
+  <data name="Plural.Deliveries.few" xml:space="preserve">
+    <value>{count} доставки</value>
+  </data>
+  <data name="Plural.Deliveries.many" xml:space="preserve">
+    <value>{count} доставок</value>
+  </data>
+  <data name="Plural.Deliveries.one" xml:space="preserve">
+    <value>{count} доставка</value>
+  </data>
+  <data name="Plural.Deliveries.other" xml:space="preserve">
+    <value>{count} доставок</value>
+  </data>
+  <data name="Plural.EngineerableTypes.few" xml:space="preserve">
+    <value>{count} типа для инженерии</value>
+  </data>
+  <data name="Plural.EngineerableTypes.many" xml:space="preserve">
+    <value>{count} типов для инженерии</value>
+  </data>
+  <data name="Plural.EngineerableTypes.one" xml:space="preserve">
+    <value>{count} тип для инженерии</value>
+  </data>
+  <data name="Plural.EngineerableTypes.other" xml:space="preserve">
+    <value>{count} типов для инженерии</value>
+  </data>
+  <data name="Plural.EngineeredModules.few" xml:space="preserve">
+    <value>{count} модифицированных модуля</value>
+  </data>
+  <data name="Plural.EngineeredModules.many" xml:space="preserve">
+    <value>{count} модифицированных модулей</value>
+  </data>
+  <data name="Plural.EngineeredModules.one" xml:space="preserve">
+    <value>{count} модифицированный модуль</value>
+  </data>
+  <data name="Plural.EngineeredModules.other" xml:space="preserve">
+    <value>{count} модифицированных модулей</value>
+  </data>
+  <data name="Plural.Engineers.few" xml:space="preserve">
+    <value>{count} инженера</value>
+  </data>
+  <data name="Plural.Engineers.many" xml:space="preserve">
+    <value>{count} инженеров</value>
+  </data>
+  <data name="Plural.Engineers.one" xml:space="preserve">
+    <value>{count} инженер</value>
+  </data>
+  <data name="Plural.Engineers.other" xml:space="preserve">
+    <value>{count} инженеров</value>
+  </data>
+  <data name="Plural.Entries.few" xml:space="preserve">
+    <value>{count} записи</value>
+  </data>
+  <data name="Plural.Entries.many" xml:space="preserve">
+    <value>{count} записей</value>
+  </data>
+  <data name="Plural.Entries.one" xml:space="preserve">
+    <value>{count} запись</value>
+  </data>
+  <data name="Plural.Entries.other" xml:space="preserve">
+    <value>{count} записей</value>
+  </data>
+  <data name="Plural.Experimentals.few" xml:space="preserve">
+    <value>{count} экспериментальных эффекта</value>
+  </data>
+  <data name="Plural.Experimentals.many" xml:space="preserve">
+    <value>{count} экспериментальных эффектов</value>
+  </data>
+  <data name="Plural.Experimentals.one" xml:space="preserve">
+    <value>{count} экспериментальный эффект</value>
+  </data>
+  <data name="Plural.Experimentals.other" xml:space="preserve">
+    <value>{count} экспериментальных эффектов</value>
+  </data>
+  <data name="Plural.Files.few" xml:space="preserve">
+    <value>{count} файла</value>
+  </data>
+  <data name="Plural.Files.many" xml:space="preserve">
+    <value>{count} файлов</value>
+  </data>
+  <data name="Plural.Files.one" xml:space="preserve">
+    <value>{count} файл</value>
+  </data>
+  <data name="Plural.Files.other" xml:space="preserve">
+    <value>{count} файлов</value>
+  </data>
+  <data name="Plural.Genera.few" xml:space="preserve">
+    <value>{count} рода</value>
+  </data>
+  <data name="Plural.Genera.many" xml:space="preserve">
+    <value>{count} родов</value>
+  </data>
+  <data name="Plural.Genera.one" xml:space="preserve">
+    <value>{count} род</value>
+  </data>
+  <data name="Plural.Genera.other" xml:space="preserve">
+    <value>{count} родов</value>
+  </data>
+  <data name="Plural.Geological.few" xml:space="preserve">
+    <value>{count} геологических</value>
+  </data>
+  <data name="Plural.Geological.many" xml:space="preserve">
+    <value>{count} геологических</value>
+  </data>
+  <data name="Plural.Geological.one" xml:space="preserve">
+    <value>{count} геологический</value>
+  </data>
+  <data name="Plural.Geological.other" xml:space="preserve">
+    <value>{count} геологических</value>
+  </data>
+  <data name="Plural.Jumps.few" xml:space="preserve">
+    <value>{count} прыжка</value>
+  </data>
+  <data name="Plural.Jumps.many" xml:space="preserve">
+    <value>{count} прыжков</value>
+  </data>
+  <data name="Plural.Jumps.one" xml:space="preserve">
+    <value>{count} прыжок</value>
+  </data>
+  <data name="Plural.Jumps.other" xml:space="preserve">
+    <value>{count} прыжков</value>
+  </data>
+  <data name="Plural.LandableBodies.few" xml:space="preserve">
+    <value>{count} тела для посадки</value>
+  </data>
+  <data name="Plural.LandableBodies.many" xml:space="preserve">
+    <value>{count} тел для посадки</value>
+  </data>
+  <data name="Plural.LandableBodies.one" xml:space="preserve">
+    <value>{count} тело для посадки</value>
+  </data>
+  <data name="Plural.LandableBodies.other" xml:space="preserve">
+    <value>{count} тел для посадки</value>
+  </data>
+  <data name="Plural.Materials.few" xml:space="preserve">
+    <value>{count} материала</value>
+  </data>
+  <data name="Plural.Materials.many" xml:space="preserve">
+    <value>{count} материалов</value>
+  </data>
+  <data name="Plural.Materials.one" xml:space="preserve">
+    <value>{count} материал</value>
+  </data>
+  <data name="Plural.Materials.other" xml:space="preserve">
+    <value>{count} материалов</value>
+  </data>
+  <data name="Plural.Modules.few" xml:space="preserve">
+    <value>{count} модуля</value>
+  </data>
+  <data name="Plural.Modules.many" xml:space="preserve">
+    <value>{count} модулей</value>
+  </data>
+  <data name="Plural.Modules.one" xml:space="preserve">
+    <value>{count} модуль</value>
+  </data>
+  <data name="Plural.Modules.other" xml:space="preserve">
+    <value>{count} модулей</value>
+  </data>
+  <data name="Plural.MoreJumps.few" xml:space="preserve">
+    <value>ещё {count} прыжка</value>
+  </data>
+  <data name="Plural.MoreJumps.many" xml:space="preserve">
+    <value>ещё {count} прыжков</value>
+  </data>
+  <data name="Plural.MoreJumps.one" xml:space="preserve">
+    <value>ещё {count} прыжок</value>
+  </data>
+  <data name="Plural.MoreJumps.other" xml:space="preserve">
+    <value>ещё {count} прыжков</value>
+  </data>
+  <data name="Plural.NeutronStops.few" xml:space="preserve">
+    <value>{count} нейтронные остановки</value>
+  </data>
+  <data name="Plural.NeutronStops.many" xml:space="preserve">
+    <value>{count} нейтронных остановок</value>
+  </data>
+  <data name="Plural.NeutronStops.one" xml:space="preserve">
+    <value>{count} нейтронная остановка</value>
+  </data>
+  <data name="Plural.NeutronStops.other" xml:space="preserve">
+    <value>{count} нейтронных остановок</value>
+  </data>
+  <data name="Plural.Payments.few" xml:space="preserve">
+    <value>{count} выплаты</value>
+  </data>
+  <data name="Plural.Payments.many" xml:space="preserve">
+    <value>{count} выплат</value>
+  </data>
+  <data name="Plural.Payments.one" xml:space="preserve">
+    <value>{count} выплата</value>
+  </data>
+  <data name="Plural.Payments.other" xml:space="preserve">
+    <value>{count} выплат</value>
+  </data>
+  <data name="Plural.Pickups.few" xml:space="preserve">
+    <value>{count} загрузки</value>
+  </data>
+  <data name="Plural.Pickups.many" xml:space="preserve">
+    <value>{count} загрузок</value>
+  </data>
+  <data name="Plural.Pickups.one" xml:space="preserve">
+    <value>{count} загрузка</value>
+  </data>
+  <data name="Plural.Pickups.other" xml:space="preserve">
+    <value>{count} загрузок</value>
+  </data>
+  <data name="Plural.PlanEntries.few" xml:space="preserve">
+    <value>{count} записи плана</value>
+  </data>
+  <data name="Plural.PlanEntries.many" xml:space="preserve">
+    <value>{count} записей плана</value>
+  </data>
+  <data name="Plural.PlanEntries.one" xml:space="preserve">
+    <value>{count} запись плана</value>
+  </data>
+  <data name="Plural.PlanEntries.other" xml:space="preserve">
+    <value>{count} записей плана</value>
+  </data>
+  <data name="Plural.RefuelStops.few" xml:space="preserve">
+    <value>{count} остановки для заправки</value>
+  </data>
+  <data name="Plural.RefuelStops.many" xml:space="preserve">
+    <value>{count} остановок для заправки</value>
+  </data>
+  <data name="Plural.RefuelStops.one" xml:space="preserve">
+    <value>{count} остановка для заправки</value>
+  </data>
+  <data name="Plural.RefuelStops.other" xml:space="preserve">
+    <value>{count} остановок для заправки</value>
+  </data>
+  <data name="Plural.Samples.few" xml:space="preserve">
+    <value>{count} образца</value>
+  </data>
+  <data name="Plural.Samples.many" xml:space="preserve">
+    <value>{count} образцов</value>
+  </data>
+  <data name="Plural.Samples.one" xml:space="preserve">
+    <value>{count} образец</value>
+  </data>
+  <data name="Plural.Samples.other" xml:space="preserve">
+    <value>{count} образцов</value>
+  </data>
+  <data name="Plural.SavedFits.few" xml:space="preserve">
+    <value>{count} сохранённые сборки</value>
+  </data>
+  <data name="Plural.SavedFits.many" xml:space="preserve">
+    <value>{count} сохранённых сборок</value>
+  </data>
+  <data name="Plural.SavedFits.one" xml:space="preserve">
+    <value>{count} сохранённая сборка</value>
+  </data>
+  <data name="Plural.SavedFits.other" xml:space="preserve">
+    <value>{count} сохранённых сборок</value>
+  </data>
+  <data name="Plural.ScannedBodies.few" xml:space="preserve">
+    <value>{count} отсканированных тела</value>
+  </data>
+  <data name="Plural.ScannedBodies.many" xml:space="preserve">
+    <value>{count} отсканированных тел</value>
+  </data>
+  <data name="Plural.ScannedBodies.one" xml:space="preserve">
+    <value>{count} отсканированное тело</value>
+  </data>
+  <data name="Plural.ScannedBodies.other" xml:space="preserve">
+    <value>{count} отсканированных тел</value>
+  </data>
+  <data name="Plural.Ships.few" xml:space="preserve">
+    <value>{count} корабля</value>
+  </data>
+  <data name="Plural.Ships.many" xml:space="preserve">
+    <value>{count} кораблей</value>
+  </data>
+  <data name="Plural.Ships.one" xml:space="preserve">
+    <value>{count} корабль</value>
+  </data>
+  <data name="Plural.Ships.other" xml:space="preserve">
+    <value>{count} кораблей</value>
+  </data>
+  <data name="Plural.Slots.few" xml:space="preserve">
+    <value>{count} слота</value>
+  </data>
+  <data name="Plural.Slots.many" xml:space="preserve">
+    <value>{count} слотов</value>
+  </data>
+  <data name="Plural.Slots.one" xml:space="preserve">
+    <value>{count} слот</value>
+  </data>
+  <data name="Plural.Slots.other" xml:space="preserve">
+    <value>{count} слотов</value>
+  </data>
+  <data name="Plural.StoredModules.few" xml:space="preserve">
+    <value>{count} модуля в хранилище</value>
+  </data>
+  <data name="Plural.StoredModules.many" xml:space="preserve">
+    <value>{count} модулей в хранилище</value>
+  </data>
+  <data name="Plural.StoredModules.one" xml:space="preserve">
+    <value>{count} модуль в хранилище</value>
+  </data>
+  <data name="Plural.StoredModules.other" xml:space="preserve">
+    <value>{count} модулей в хранилище</value>
+  </data>
+  <data name="Plural.Systems.few" xml:space="preserve">
+    <value>{count} системы</value>
+  </data>
+  <data name="Plural.Systems.many" xml:space="preserve">
+    <value>{count} систем</value>
+  </data>
+  <data name="Plural.Systems.one" xml:space="preserve">
+    <value>{count} система</value>
+  </data>
+  <data name="Plural.Systems.other" xml:space="preserve">
+    <value>{count} систем</value>
+  </data>
+  <data name="Plural.TickedEngineers.few" xml:space="preserve">
+    <value>{count} отмеченных инженера</value>
+  </data>
+  <data name="Plural.TickedEngineers.many" xml:space="preserve">
+    <value>{count} отмеченных инженеров</value>
+  </data>
+  <data name="Plural.TickedEngineers.one" xml:space="preserve">
+    <value>{count} отмеченный инженер</value>
+  </data>
+  <data name="Plural.TickedEngineers.other" xml:space="preserve">
+    <value>{count} отмеченных инженеров</value>
+  </data>
+  <data name="Plural.Trades.few" xml:space="preserve">
+    <value>{count} обмена</value>
+  </data>
+  <data name="Plural.Trades.many" xml:space="preserve">
+    <value>{count} обменов</value>
+  </data>
+  <data name="Plural.Trades.one" xml:space="preserve">
+    <value>{count} обмен</value>
+  </data>
+  <data name="Plural.Trades.other" xml:space="preserve">
+    <value>{count} обменов</value>
+  </data>
+  <data name="Plural.Types.few" xml:space="preserve">
+    <value>{count} типа</value>
+  </data>
+  <data name="Plural.Types.many" xml:space="preserve">
+    <value>{count} типов</value>
+  </data>
+  <data name="Plural.Types.one" xml:space="preserve">
+    <value>{count} тип</value>
+  </data>
+  <data name="Plural.Types.other" xml:space="preserve">
+    <value>{count} типов</value>
+  </data>
+  <data name="Plural.Unlocks.few" xml:space="preserve">
+    <value>{count} разблокировки</value>
+  </data>
+  <data name="Plural.Unlocks.many" xml:space="preserve">
+    <value>{count} разблокировок</value>
+  </data>
+  <data name="Plural.Unlocks.one" xml:space="preserve">
+    <value>{count} разблокировка</value>
+  </data>
+  <data name="Plural.Unlocks.other" xml:space="preserve">
+    <value>{count} разблокировок</value>
+  </data>
+  <data name="Plural.Visits.few" xml:space="preserve">
+    <value>{count} посещения</value>
+  </data>
+  <data name="Plural.Visits.many" xml:space="preserve">
+    <value>{count} посещений</value>
+  </data>
+  <data name="Plural.Visits.one" xml:space="preserve">
+    <value>{count} посещение</value>
+  </data>
+  <data name="Plural.Visits.other" xml:space="preserve">
+    <value>{count} посещений</value>
+  </data>
+  <data name="Rail.AtEnd" xml:space="preserve">
+    <value>Конец маршрута.</value>
+  </data>
+  <data name="Rail.BiologyTag" xml:space="preserve">
+    <value>{count} био</value>
+  </data>
+  <data name="Rail.BodiesAppear" xml:space="preserve">
+    <value>Тела появляются по мере сканирования.</value>
+  </data>
+  <data name="Rail.CouldLive" xml:space="preserve">
+    <value>Здесь может жить: {genera}; вероятно около {credits}.</value>
+  </data>
+  <data name="Rail.CouldLiveWithBonus" xml:space="preserve">
+    <value>Здесь может жить: {genera}; вероятно около {credits} x{multiplier} = {total} с бонусом за первую регистрацию.</value>
+  </data>
+  <data name="Rail.Docked" xml:space="preserve">
+    <value>в доке</value>
+  </data>
+  <data name="Rail.EngineerAtStop" xml:space="preserve">
+    <value>{engineer} — остановка {index}, {system}.</value>
+  </data>
+  <data name="Rail.FullRoute" xml:space="preserve">
+    <value>Весь маршрут</value>
+  </data>
+  <data name="Rail.GenusOdds" xml:space="preserve">
+    <value>{species} {percent:0}%</value>
+  </data>
+  <data name="Rail.GenusSampled" xml:space="preserve">
+    <value>{species}, образцов {stage} из 3</value>
+  </data>
+  <data name="Rail.HiddenBacteria" xml:space="preserve">
+    <value>Скрыто: {bodies} только с бактериями.</value>
+  </data>
+  <data name="Rail.HiddenBacteriaPredicted" xml:space="preserve">
+    <value>Скрыто: {bodies} только с бактериями, из них {predicted} не картографированы, но с условиями, в которых находили только бактерии.</value>
+  </data>
+  <data name="Rail.InHyperspace" xml:space="preserve">
+    <value>в гиперпространстве</value>
+  </data>
+  <data name="Rail.InNormalSpace" xml:space="preserve">
+    <value>в обычном пространстве</value>
+  </data>
+  <data name="Rail.InSupercruise" xml:space="preserve">
+    <value>в суперкруизе</value>
+  </data>
+  <data name="Rail.Landed" xml:space="preserve">
+    <value>на поверхности</value>
+  </data>
+  <data name="Rail.MaterialNeeded" xml:space="preserve">
+    <value>{material} (нужен)</value>
+  </data>
+  <data name="Rail.MoreJumpsTo" xml:space="preserve">
+    <value>{jumps} до {system}.</value>
+  </data>
+  <data name="Rail.NextJump" xml:space="preserve">
+    <value>Следующий прыжок: {system}, до {end} осталось {jumps}.</value>
+  </data>
+  <data name="Rail.NextJumpLast" xml:space="preserve">
+    <value>Следующий прыжок: {system}, последний.</value>
+  </data>
+  <data name="Rail.NextScoopable" xml:space="preserve">
+    <value>Следующая звезда для заправки — {system}, остановка {index}.</value>
+  </data>
+  <data name="Rail.NoLandable" xml:space="preserve">
+    <value>Ни одно отсканированное тело не подходит для посадки.</value>
+  </data>
+  <data name="Rail.NoLife" xml:space="preserve">
+    <value>Ни на одном отсканированном теле нет жизни.</value>
+  </data>
+  <data name="Rail.NoMinerals" xml:space="preserve">
+    <value>Ни на одном отсканированном теле нет материалов на поверхности.</value>
+  </data>
+  <data name="Rail.NoPositionYet" xml:space="preserve">
+    <value>Положение пока неизвестно</value>
+  </data>
+  <data name="Rail.NoPrediction" xml:space="preserve">
+    <value>Нет прогноза</value>
+  </data>
+  <data name="Rail.NoRoute" xml:space="preserve">
+    <value>Маршрут не проложен.</value>
+  </data>
+  <data name="Rail.NoRoutePlotOne" xml:space="preserve">
+    <value>Маршрут не проложен. Проложите его в карте галактики, и он появится здесь.</value>
+  </data>
+  <data name="Rail.NothingScanned" xml:space="preserve">
+    <value>Пока ничего не отсканировано.</value>
+  </data>
+  <data name="Rail.NotOnRoute" xml:space="preserve">
+    <value>Вы ещё не на маршруте.</value>
+  </data>
+  <data name="Rail.OpenSystem" xml:space="preserve">
+    <value>Открыть эту систему</value>
+  </data>
+  <data name="Rail.RouteArrived" xml:space="preserve">
+    <value>Маршрут · прибытие</value>
+  </data>
+  <data name="Rail.RouteHeading" xml:space="preserve">
+    <value>Маршрут</value>
+  </data>
+  <data name="Rail.RouteLeft" xml:space="preserve">
+    <value>Маршрут · осталось {jumps}</value>
+  </data>
+  <data name="Rail.RouteOfJumps" xml:space="preserve">
+    <value>Маршрут до {end}: {jumps}; вы ещё не на нём.</value>
+  </data>
+  <data name="Rail.Scooping" xml:space="preserve">
+    <value>заправка</value>
+  </data>
+  <data name="Rail.ThisSystem" xml:space="preserve">
+    <value>Эта система</value>
+  </data>
+  <data name="Rail.ThisSystemScan" xml:space="preserve">
+    <value>Эта система · {scan}</value>
+  </data>
+  <data name="Rail.ValueUnknown" xml:space="preserve">
+    <value>стоимость неизвестна</value>
+  </data>
+  <data name="Rail.ValueWithBonus" xml:space="preserve">
+    <value>{base} x5 = {total}</value>
+  </data>
+  <data name="Region.Bubble" xml:space="preserve">
+    <value>Пузырь</value>
+  </data>
+  <data name="Region.Colonia" xml:space="preserve">
+    <value>Колония</value>
+  </data>
+  <data name="Route.AlgorithmOptimistic" xml:space="preserve">
+    <value>Оптимистичный: меньше прыжков, предпочитает нейтронные звёзды</value>
+  </data>
+  <data name="Route.AlgorithmPessimistic" xml:space="preserve">
+    <value>Пессимистичный: надёжный маршрут</value>
+  </data>
+  <data name="Route.ArrivalScoopable" xml:space="preserve">
+    <value>Звезда прибытия этой системы подходит для заправки; {rest}</value>
+  </data>
+  <data name="Route.ArrivedAt" xml:space="preserve">
+    <value>Прибытие в {destination}.</value>
+  </data>
+  <data name="Route.ArrivedEnd" xml:space="preserve">
+    <value>Прибытие в конец маршрута.</value>
+  </data>
+  <data name="Route.ArrivedOffPlot" xml:space="preserve">
+    <value>Прибытие в {destination}, теперь вне маршрута.</value>
+  </data>
+  <data name="Route.ChooseShipOrFit" xml:space="preserve">
+    <value>Выберите корабль или сборку</value>
+  </data>
+  <data name="Route.FuelAlone" xml:space="preserve">
+    <value>Топливо {tonnes:0.0} т.</value>
+  </data>
+  <data name="Route.FuelThen" xml:space="preserve">
+    <value>Топливо {tonnes:0.0} т. {rest}</value>
+  </data>
+  <data name="Route.JumpOf" xml:space="preserve">
+    <value>Прыжок {index} из {count}, осталось {remaining}.</value>
+  </data>
+  <data name="Route.Kicker" xml:space="preserve">
+    <value>Сейчас</value>
+  </data>
+  <data name="Route.NeedsShipOrFit" xml:space="preserve">
+    <value>Для прокладки нужен корабль или сборка: полетайте на корабле при включённом слежении за журналом или сохраните сборку из EDSY, и они появятся здесь.</value>
+  </data>
+  <data name="Route.NextIsScoopable" xml:space="preserve">
+    <value>Следующая звезда подходит для заправки.</value>
+  </data>
+  <data name="Route.NextScoopableToo" xml:space="preserve">
+    <value>следующая звезда тоже подходит для заправки.</value>
+  </data>
+  <data name="Route.NextScoopAfterIt" xml:space="preserve">
+    <value>следующая за ней звезда для заправки — {system}, через {jumps}.</value>
+  </data>
+  <data name="Route.NextScoopIs" xml:space="preserve">
+    <value>Следующая звезда для заправки — {system}, через {jumps}.</value>
+  </data>
+  <data name="Route.NextWaypoint" xml:space="preserve">
+    <value>Следующая точка {system}, до {destination} — {jumps}.</value>
+  </data>
+  <data name="Route.NoLoadoutYet" xml:space="preserve">
+    <value>Журнал ещё не сообщил сборку, массу и бак этого корабля.</value>
+  </data>
+  <data name="Route.NoRoute" xml:space="preserve">
+    <value>Маршрут не проложен.</value>
+  </data>
+  <data name="Route.NoRouteNoPosition" xml:space="preserve">
+    <value>Маршрут не проложен, положение пока неизвестно.</value>
+  </data>
+  <data name="Route.NoScoopAhead" xml:space="preserve">
+    <value>Впереди на этом маршруте нет звёзд для заправки.</value>
+  </data>
+  <data name="Route.NoScoopFurther" xml:space="preserve">
+    <value>дальше на этом маршруте звёзд для заправки нет.</value>
+  </data>
+  <data name="Route.NoteNeutron" xml:space="preserve">
+    <value>нейтронная</value>
+  </data>
+  <data name="Route.NoteRefuelHere" xml:space="preserve">
+    <value>заправьтесь здесь</value>
+  </data>
+  <data name="Route.NoteScoop" xml:space="preserve">
+    <value>заправка</value>
+  </data>
+  <data name="Route.OffPlotFirst" xml:space="preserve">
+    <value>Вне маршрута. Первая точка {system}, до {destination} — {jumps}.</value>
+  </data>
+  <data name="Route.OffPlotLastKnown" xml:space="preserve">
+    <value>Вне маршрута. Последняя известная точка {last}, следующая {next}. До {destination} ~{jumps}.</value>
+  </data>
+  <data name="Route.PlotFromTo" xml:space="preserve">
+    <value>из {from} в {to}</value>
+  </data>
+  <data name="Route.PlotTargetLabel" xml:space="preserve">
+    <value>{name} · {hull} · {range} св. лет</value>
+  </data>
+  <data name="Route.PlottedAt" xml:space="preserve">
+    <value>проложено {when:g}</value>
+  </data>
+  <data name="Route.PlottedNotOn" xml:space="preserve">
+    <value>Проложено: {jumps}; корабль ещё не на маршруте.</value>
+  </data>
+  <data name="Route.RangeLine" xml:space="preserve">
+    <value>Дальность с полным баком {range:0.00} св. лет при {cargo:0.#} т груза. Нейтронный разгон ×{boost}.</value>
+  </data>
+  <data name="Route.ReroutedThrough" xml:space="preserve">
+    <value>Маршрут перестроен через {target}, до {end} — {jumps}. Файл маршрута ещё не обновился.</value>
+  </data>
+  <data name="Route.StageDone" xml:space="preserve">
+    <value>пройдено</value>
+  </data>
+  <data name="Route.StageHere" xml:space="preserve">
+    <value>здесь</value>
+  </data>
+  <data name="Route.StageLast" xml:space="preserve">
+    <value>последняя</value>
+  </data>
+  <data name="Route.StageLastKnown" xml:space="preserve">
+    <value>последняя известная</value>
+  </data>
+  <data name="Route.StageNext" xml:space="preserve">
+    <value>следующая</value>
+  </data>
+  <data name="Route.StarText" xml:space="preserve">
+    <value>{class} · {label}</value>
+  </data>
+  <data name="Route.TargetingOffRoute" xml:space="preserve">
+    <value>Цель {target} вне проложенного маршрута до {end}.</value>
+  </data>
+  <data name="Route.TotalLightYears" xml:space="preserve">
+    <value>Всего {total}.</value>
+  </data>
+  <data name="Route.Travelled" xml:space="preserve">
+    <value>Пройдено {done} из {total} ({percent}%).</value>
+  </data>
+  <data name="Route.VisitNew" xml:space="preserve">
+    <value>новая для вас</value>
+  </data>
+  <data name="Route.VisitSurveyed" xml:space="preserve">
+    <value>исследована</value>
+  </data>
+  <data name="Route.VisitVisited" xml:space="preserve">
+    <value>посещена</value>
+  </data>
+  <data name="Scan.EarlierNote" xml:space="preserve">
+    <value>Нет данных журнала о телах, отсканированных в прошлый визит: {bodies}.</value>
+  </data>
+  <data name="Scan.NothingYet" xml:space="preserve">
+    <value>Пока ничего не отсканировано.</value>
+  </data>
+  <data name="Scan.OfBodiesScanned" xml:space="preserve">
+    <value>отсканировано {known} из {count} тел</value>
+  </data>
+  <data name="Scan.OfBodiesScannedAllFound" xml:space="preserve">
+    <value>отсканировано {known} из {count} тел, все найдены</value>
+  </data>
+  <data name="Scan.OfCountScanned" xml:space="preserve">
+    <value>{known} из {count} отсканировано</value>
+  </data>
+  <data name="Scan.Scanned" xml:space="preserve">
+    <value>отсканировано {count}</value>
+  </data>
+  <data name="Scan.ScannedHonk.few" xml:space="preserve">
+    <value>{count} тела отсканированы; запустите сканер обнаружения для подсчёта</value>
+  </data>
+  <data name="Scan.ScannedHonk.many" xml:space="preserve">
+    <value>{count} тел отсканировано; запустите сканер обнаружения для подсчёта</value>
+  </data>
+  <data name="Scan.ScannedHonk.one" xml:space="preserve">
+    <value>{count} тело отсканировано; запустите сканер обнаружения для подсчёта</value>
+  </data>
+  <data name="Scan.ScannedHonk.other" xml:space="preserve">
+    <value>{count} тел отсканировано; запустите сканер обнаружения для подсчёта</value>
+  </data>
+  <data name="Scope.Narrowed" xml:space="preserve">
+    <value>Показано только то, что могут прокрутить выбранные вами инженеры. Выключите «Показывать только от выбранных инженеров» на странице инженеров, чтобы видеть всё.</value>
+  </data>
+  <data name="Search.KindBlueprint" xml:space="preserve">
+    <value>Чертёж</value>
+  </data>
+  <data name="Search.KindEngineer" xml:space="preserve">
+    <value>Инженер</value>
+  </data>
+  <data name="Search.KindFit" xml:space="preserve">
+    <value>Сборка</value>
+  </data>
+  <data name="Search.KindMaterial" xml:space="preserve">
+    <value>Материал</value>
+  </data>
+  <data name="Search.KindModule" xml:space="preserve">
+    <value>Модуль</value>
+  </data>
+  <data name="Search.KindShip" xml:space="preserve">
+    <value>Корабль</value>
+  </data>
+  <data name="Search.KindSystem" xml:space="preserve">
+    <value>Система</value>
+  </data>
+  <data name="Search.KindUnlock" xml:space="preserve">
+    <value>Разблокировка</value>
+  </data>
+  <data name="Search.LastVisited" xml:space="preserve">
+    <value>последний визит {when:g}</value>
+  </data>
+  <data name="Search.MaterialDetail" xml:space="preserve">
+    <value>{grade} · {category} · {line}</value>
+  </data>
+  <data name="Search.Place" xml:space="preserve">
+    <value>{system} · {base}</value>
+  </data>
+  <data name="Search.ShipIdent" xml:space="preserve">
+    <value>{hull} · {ident}</value>
+  </data>
+  <data name="Search.Unnamed" xml:space="preserve">
+    <value>без имени</value>
+  </data>
+  <data name="Section.AgainstEverythingOwned" xml:space="preserve">
+    <value>Против всего, что у вас есть</value>
+  </data>
+  <data name="Section.Blueprints" xml:space="preserve">
+    <value>Чертежи</value>
+  </data>
+  <data name="Section.Combat" xml:space="preserve">
+    <value>Бой</value>
+  </data>
+  <data name="Section.CompareWithShip" xml:space="preserve">
+    <value>Сравнить с кораблём</value>
+  </data>
+  <data name="Section.Exobiology" xml:space="preserve">
+    <value>Экзобиология</value>
+  </data>
+  <data name="Section.Exploration" xml:space="preserve">
+    <value>Исследование</value>
+  </data>
+  <data name="Section.GameRoute" xml:space="preserve">
+    <value>Маршрут игры</value>
+  </data>
+  <data name="Section.Guardian" xml:space="preserve">
+    <value>Стражи</value>
+  </data>
+  <data name="Section.Human" xml:space="preserve">
+    <value>Люди</value>
+  </data>
+  <data name="Section.Income" xml:space="preserve">
+    <value>Доход</value>
+  </data>
+  <data name="Section.InYourFits" xml:space="preserve">
+    <value>В ваших сборках</value>
+  </data>
+  <data name="Section.Lifetime" xml:space="preserve">
+    <value>За всё время</value>
+  </data>
+  <data name="Section.MissionsAndOther" xml:space="preserve">
+    <value>Миссии и прочее</value>
+  </data>
+  <data name="Section.PlanSpends" xml:space="preserve">
+    <value>На что его тратит ваш план</value>
+  </data>
+  <data name="Section.Powerplay" xml:space="preserve">
+    <value>Powerplay</value>
+  </data>
+  <data name="Section.SavedFits" xml:space="preserve">
+    <value>Сохранённые сборки</value>
+  </data>
+  <data name="Section.Ships" xml:space="preserve">
+    <value>Корабли</value>
+  </data>
+  <data name="Section.SpanshPlot" xml:space="preserve">
+    <value>Маршрут Spansh</value>
+  </data>
+  <data name="Section.TradingAndMining" xml:space="preserve">
+    <value>Торговля и добыча</value>
+  </data>
+  <data name="Section.UnusedModules" xml:space="preserve">
+    <value>Свои модули, не нужные ни одной сборке</value>
+  </data>
+  <data name="Section.UsedBy" xml:space="preserve">
+    <value>Где используется</value>
+  </data>
+  <data name="Section.Variants" xml:space="preserve">
+    <value>Варианты</value>
+  </data>
+  <data name="Section.WhereToFind" xml:space="preserve">
+    <value>Где найти</value>
+  </data>
+  <data name="Section.WingsAndCrews" xml:space="preserve">
+    <value>Крылья и экипажи</value>
+  </data>
+  <data name="Section.YouOwn" xml:space="preserve">
+    <value>У вас есть</value>
+  </data>
+  <data name="Settings.BackupText" xml:space="preserve">
+    <value>Копирует каждый файл папки журналов, включая живые файлы, в выбранную вами папку — только новое или изменённое. Укажите папку, которую синхронизирует облачный диск, и журналы будут покидать компьютер.</value>
+  </data>
+  <data name="Settings.CatchingUp" xml:space="preserve">
+    <value>Чтение истории журнала: {done} из {total} файлов.</value>
+  </data>
+  <data name="Settings.DataLoaded" xml:space="preserve">
+    <value>Загружены данные Katey, уже лежавшие в {folder}. Теперь это сохранённые данные.</value>
+  </data>
+  <data name="Settings.DataMoved" xml:space="preserve">
+    <value>Сохранённые данные теперь находятся в {folder}.</value>
+  </data>
+  <data name="Settings.DataMoveFailed" xml:space="preserve">
+    <value>Не удалось разместить сохранённые данные в {folder}: {message}</value>
+  </data>
+  <data name="Settings.DataText" xml:space="preserve">
+    <value>Katey хранит план, инженеров, сборки и настройки в этой папке. Выберите другую, и с этого момента они будут храниться там. Если в той папке уже есть файл данных Katey, он загружается и становится сохранёнными данными; иначе туда записываются текущие данные. Старый файл остаётся на месте. Направьте два компьютера на одну синхронизируемую папку, чтобы делить один набор данных.</value>
+  </data>
+  <data name="Settings.FolderMissing" xml:space="preserve">
+    <value>Такой папки не существует. Проверьте путь или нажмите «Найти».</value>
+  </data>
+  <data name="Settings.InventoryOf" xml:space="preserve">
+    <value>Командир {commander}, инвентарь на {when:g}.</value>
+  </data>
+  <data name="Settings.Kicker" xml:space="preserve">
+    <value>Журнал</value>
+  </data>
+  <data name="Settings.NetworkText" xml:space="preserve">
+    <value>Ничего не покидает этот компьютер, пока вы не отметите это здесь. Прокладка маршрута отправляет Spansh названия двух систем и прыжковые характеристики корабля: массы, объём бака и параметры двигателя. Запрос системы отправляет Spansh идентификатор системы, в которую вы прибыли, и получает известные ему тела. Каждый запрос называет Katey, её версию и адрес проекта.</value>
+  </data>
+  <data name="Settings.NotWatching" xml:space="preserve">
+    <value>Слежение выключено. Нажмите «Следить», чтобы читать журнал.</value>
+  </data>
+  <data name="Settings.Watching" xml:space="preserve">
+    <value>Слежение включено. Всё обновляется по мере записи журнала игрой.</value>
+  </data>
+  <data name="Settings.WatchingNoSnapshot" xml:space="preserve">
+    <value>Слежение включено. Снимка Materials пока нет: запустите игру, и инвентарь появится.</value>
+  </data>
+  <data name="Sharing.None" xml:space="preserve">
+    <value>Каждой сборке нужны свои модули</value>
+  </data>
+  <data name="Sharing.Pooled" xml:space="preserve">
+    <value>Общие модули для всех сборок</value>
+  </data>
+  <data name="Sharing.SameHull" xml:space="preserve">
+    <value>Общие только между сборками для одного корпуса</value>
+  </data>
+  <data name="Shell.CatchingUp" xml:space="preserve">
+    <value>Чтение истории журнала, {done} из {total} файлов. Текущие данные появятся по завершении.</value>
+  </data>
+  <data name="Ship.AddToPlan" xml:space="preserve">
+    <value>В план</value>
+  </data>
+  <data name="Ship.AlreadyEngineered" xml:space="preserve">
+    <value>Уже модифицирован</value>
+  </data>
+  <data name="Ship.Empty" xml:space="preserve">
+    <value>пусто</value>
+  </data>
+  <data name="Ship.FitAsOf" xml:space="preserve">
+    <value>Сборка на {when:g}.</value>
+  </data>
+  <data name="Ship.FitUnknown" xml:space="preserve">
+    <value>Сборка неизвестна: на этом корабле не летали с начала журнала.</value>
+  </data>
+  <data name="Ship.InThePlan" xml:space="preserve">
+    <value>В плане</value>
+  </data>
+  <data name="Ship.Kicker" xml:space="preserve">
+    <value>Корабль</value>
+  </data>
+  <data name="Ship.ModuleAndEngineering" xml:space="preserve">
+    <value>{module}, {engineering}</value>
+  </data>
+  <data name="Ship.ModulesText" xml:space="preserve">
+    <value>{modules}, модифицировано {engineered}</value>
+  </data>
+  <data name="Ship.NowBought" xml:space="preserve">
+    <value>{module}, куплен: его можно убрать в хранилище, перенести или продать</value>
+  </data>
+  <data name="Ship.PrebuiltChanged" xml:space="preserve">
+    <value>Изменён после получения</value>
+  </data>
+  <data name="Ship.PrebuiltChangedDetail.few" xml:space="preserve">
+    <value>: {count} слота отличаются от исходных, и при продаже это будет потеряно.</value>
+  </data>
+  <data name="Ship.PrebuiltChangedDetail.many" xml:space="preserve">
+    <value>: {count} слотов отличаются от исходных, и при продаже это будет потеряно.</value>
+  </data>
+  <data name="Ship.PrebuiltChangedDetail.one" xml:space="preserve">
+    <value>: {count} слот отличается от исходного, и при продаже это будет потеряно.</value>
+  </data>
+  <data name="Ship.PrebuiltChangedDetail.other" xml:space="preserve">
+    <value>: {count} слотов отличаются от исходных, и при продаже это будет потеряно.</value>
+  </data>
+  <data name="Ship.PrebuiltLead" xml:space="preserve">
+    <value>Готовый корабль</value>
+  </data>
+  <data name="Ship.PrebuiltLine" xml:space="preserve">
+    <value>{lead} — {state}{detail}</value>
+  </data>
+  <data name="Ship.PrebuiltUnchanged" xml:space="preserve">
+    <value>В исходном виде</value>
+  </data>
+  <data name="Ship.PrebuiltUnchangedDetail" xml:space="preserve">
+    <value>: продать и получить заново можно без потерь.</value>
+  </data>
+  <data name="Ship.PrebuiltUnknown" xml:space="preserve">
+    <value>Получен из набора</value>
+  </data>
+  <data name="Ship.PrebuiltUnknownDetail" xml:space="preserve">
+    <value>. Его исходная сборка пока не видна.</value>
+  </data>
+  <data name="Ship.SoldOrUnknown" xml:space="preserve">
+    <value>Корабль продан или неизвестен</value>
+  </data>
+  <data name="Ship.WasPrebuilt" xml:space="preserve">
+    <value>{module}, предустановленный</value>
+  </data>
+  <data name="Shopping.BuyAtAMarket" xml:space="preserve">
+    <value>Купить на рынке</value>
+  </data>
+  <data name="Shopping.Commodity" xml:space="preserve">
+    <value>{needed} × {name}</value>
+  </data>
+  <data name="Shopping.Line" xml:space="preserve">
+    <value>{needed} × {material} ({grade}, {family})</value>
+  </data>
+  <data name="Shopping.LineWithInventory" xml:space="preserve">
+    <value>{needed} × {material} ({grade}, {family}) — есть {have}, не хватает {short}</value>
+  </data>
+  <data name="Spansh.CouldNotPlot" xml:space="preserve">
+    <value>Spansh не смог проложить этот маршрут.</value>
+  </data>
+  <data name="Spansh.Http" xml:space="preserve">
+    <value>{error} (Spansh ответил HTTP {code}.)</value>
+  </data>
+  <data name="Spansh.NoJob" xml:space="preserve">
+    <value>Spansh принял запрос, но не выдал задание для ожидания.</value>
+  </data>
+  <data name="Spansh.StillWorking" xml:space="preserve">
+    <value>Spansh всё ещё работает спустя {seconds:0} секунд. Попробуйте позже.</value>
+  </data>
+  <data name="Spansh.Unreachable" xml:space="preserve">
+    <value>Spansh недоступен. Проверьте соединение и попробуйте снова.</value>
+  </data>
+  <data name="Star.BlackHole" xml:space="preserve">
+    <value>Чёрная дыра</value>
+  </data>
+  <data name="Star.BlueWhiteSuperGiant" xml:space="preserve">
+    <value>бело-голубой сверхгигант</value>
+  </data>
+  <data name="Star.Brief" xml:space="preserve">
+    <value>{letter} {giant}</value>
+  </data>
+  <data name="Star.BrownDwarf" xml:space="preserve">
+    <value>Коричневый карлик класса {class}</value>
+  </data>
+  <data name="Star.CarbonStar" xml:space="preserve">
+    <value>Углеродная звезда класса {class}</value>
+  </data>
+  <data name="Star.Class" xml:space="preserve">
+    <value>Звезда класса {class}</value>
+  </data>
+  <data name="Star.HerbigAeBe" xml:space="preserve">
+    <value>Звезда Хербига Ae/Be</value>
+  </data>
+  <data name="Star.LabelBlackHole" xml:space="preserve">
+    <value>чёрная дыра</value>
+  </data>
+  <data name="Star.LabelNeutron" xml:space="preserve">
+    <value>нейтронная звезда</value>
+  </data>
+  <data name="Star.LabelNotScoopable" xml:space="preserve">
+    <value>нет заправки</value>
+  </data>
+  <data name="Star.LabelScoopable" xml:space="preserve">
+    <value>заправка</value>
+  </data>
+  <data name="Star.LabelWhiteDwarf" xml:space="preserve">
+    <value>белый карлик</value>
+  </data>
+  <data name="Star.Neutron" xml:space="preserve">
+    <value>Нейтронная звезда</value>
+  </data>
+  <data name="Star.OrangeGiant" xml:space="preserve">
+    <value>оранжевый гигант</value>
+  </data>
+  <data name="Star.RedGiant" xml:space="preserve">
+    <value>красный гигант</value>
+  </data>
+  <data name="Star.RedSuperGiant" xml:space="preserve">
+    <value>красный сверхгигант</value>
+  </data>
+  <data name="Star.RoguePlanet" xml:space="preserve">
+    <value>Планета-сирота</value>
+  </data>
+  <data name="Star.TTauri" xml:space="preserve">
+    <value>Звезда типа T Тельца</value>
+  </data>
+  <data name="Star.Unknown" xml:space="preserve">
+    <value>Звезда</value>
+  </data>
+  <data name="Star.WhiteDwarf" xml:space="preserve">
+    <value>Белый карлик класса {class}</value>
+  </data>
+  <data name="Star.WhiteSuperGiant" xml:space="preserve">
+    <value>белый сверхгигант</value>
+  </data>
+  <data name="Star.WolfRayet" xml:space="preserve">
+    <value>Звезда Вольфа — Райе класса {class}</value>
+  </data>
+  <data name="Stats.AboardUnsold" xml:space="preserve">
+    <value>На борту, не продано</value>
+  </data>
+  <data name="Stats.AsOf" xml:space="preserve">
+    <value>На момент</value>
+  </data>
+  <data name="Stats.Average" xml:space="preserve">
+    <value>В среднем</value>
+  </data>
+  <data name="Stats.AveragePerSample" xml:space="preserve">
+    <value>В среднем за образец</value>
+  </data>
+  <data name="Stats.BestActivity" xml:space="preserve">
+    <value>Лучшая деятельность</value>
+  </data>
+  <data name="Stats.BestSample" xml:space="preserve">
+    <value>Лучший образец</value>
+  </data>
+  <data name="Stats.BodiesMapped" xml:space="preserve">
+    <value>Тел картографировано</value>
+  </data>
+  <data name="Stats.BodiesScanned" xml:space="preserve">
+    <value>Тел отсканировано</value>
+  </data>
+  <data name="Stats.BountiesInCrew" xml:space="preserve">
+    <value>Награды за головы в экипаже</value>
+  </data>
+  <data name="Stats.BountiesInPeriod" xml:space="preserve">
+    <value>Награды за головы за период</value>
+  </data>
+  <data name="Stats.BountiesSharedWing" xml:space="preserve">
+    <value>Награды за головы, поделённые в крыле</value>
+  </data>
+  <data name="Stats.CartographicsSold" xml:space="preserve">
+    <value>Картографические данные, проданные за период</value>
+  </data>
+  <data name="Stats.ChartSlice" xml:space="preserve">
+    <value>{activity}: {amount}, {percent:0.0}%</value>
+  </data>
+  <data name="Stats.CombatBondsInCrew" xml:space="preserve">
+    <value>Боевые облигации в экипаже</value>
+  </data>
+  <data name="Stats.CombatBondsInPeriod" xml:space="preserve">
+    <value>Боевые облигации за период</value>
+  </data>
+  <data name="Stats.CompletedWithReward" xml:space="preserve">
+    <value>Выполнено с наградой</value>
+  </data>
+  <data name="Stats.CrewSessions" xml:space="preserve">
+    <value>Сессии экипажа</value>
+  </data>
+  <data name="Stats.Earned" xml:space="preserve">
+    <value>Заработано</value>
+  </data>
+  <data name="Stats.EarnedFromShown" xml:space="preserve">
+    <value>{credits} от включённых видов деятельности.</value>
+  </data>
+  <data name="Stats.EstimatedValue" xml:space="preserve">
+    <value>Оценочная стоимость</value>
+  </data>
+  <data name="Stats.EverythingInPeriod" xml:space="preserve">
+    <value>Всё за период</value>
+  </data>
+  <data name="Stats.EverythingShared" xml:space="preserve">
+    <value>Всё поделённое</value>
+  </data>
+  <data name="Stats.FirstDiscoveryWithin" xml:space="preserve">
+    <value>Из них бонус первооткрывателя</value>
+  </data>
+  <data name="Stats.GoodsCollected" xml:space="preserve">
+    <value>Товаров собрано</value>
+  </data>
+  <data name="Stats.GoodsDelivered" xml:space="preserve">
+    <value>Товаров доставлено</value>
+  </data>
+  <data name="Stats.InCrews" xml:space="preserve">
+    <value>В экипажах</value>
+  </data>
+  <data name="Stats.InPeriod" xml:space="preserve">
+    <value>За период</value>
+  </data>
+  <data name="Stats.InWings" xml:space="preserve">
+    <value>В крыльях</value>
+  </data>
+  <data name="Stats.Kicker" xml:space="preserve">
+    <value>Командир</value>
+  </data>
+  <data name="Stats.KindBounties" xml:space="preserve">
+    <value>Награды за головы</value>
+  </data>
+  <data name="Stats.KindCombatBonds" xml:space="preserve">
+    <value>Боевые облигации</value>
+  </data>
+  <data name="Stats.KindExobiology" xml:space="preserve">
+    <value>Экзобиология</value>
+  </data>
+  <data name="Stats.KindExploration" xml:space="preserve">
+    <value>Исследование</value>
+  </data>
+  <data name="Stats.KindMiningAndSalvage" xml:space="preserve">
+    <value>Добыча и утилизация</value>
+  </data>
+  <data name="Stats.KindMissions" xml:space="preserve">
+    <value>Миссии</value>
+  </data>
+  <data name="Stats.KindOther" xml:space="preserve">
+    <value>Прочее</value>
+  </data>
+  <data name="Stats.KindPowerplay" xml:space="preserve">
+    <value>Powerplay</value>
+  </data>
+  <data name="Stats.KindSearchAndRescue" xml:space="preserve">
+    <value>Поиск и спасение</value>
+  </data>
+  <data name="Stats.KindTrading" xml:space="preserve">
+    <value>Торговля</value>
+  </data>
+  <data name="Stats.Largest" xml:space="preserve">
+    <value>Наибольшая</value>
+  </data>
+  <data name="Stats.LargestAward" xml:space="preserve">
+    <value>Наибольшая награда</value>
+  </data>
+  <data name="Stats.LargestSinglePayment" xml:space="preserve">
+    <value>Наибольшая разовая выплата</value>
+  </data>
+  <data name="Stats.LedgerEmpty" xml:space="preserve">
+    <value>Книга доходов заполняется по мере чтения истории журнала: каждая продажа, ваучер, награда и зарплата.</value>
+  </data>
+  <data name="Stats.Lifetime" xml:space="preserve">
+    <value>За всё время</value>
+  </data>
+  <data name="Stats.LifetimeAsOf" xml:space="preserve">
+    <value>По данным игры на {when:g}. Игра записывает их при каждом входе.</value>
+  </data>
+  <data name="Stats.LifetimeCrime" xml:space="preserve">
+    <value>Преступления за всё время</value>
+  </data>
+  <data name="Stats.LifetimeMining" xml:space="preserve">
+    <value>Добыча за всё время</value>
+  </data>
+  <data name="Stats.LifetimeNone" xml:space="preserve">
+    <value>Игра записывает статистику за всё время при каждом входе; пока ничего не прочитано.</value>
+  </data>
+  <data name="Stats.LifetimePassengers" xml:space="preserve">
+    <value>Пассажиры за всё время</value>
+  </data>
+  <data name="Stats.LifetimeSearchAndRescue" xml:space="preserve">
+    <value>Поиск и спасение за всё время</value>
+  </data>
+  <data name="Stats.LifetimeTrading" xml:space="preserve">
+    <value>Торговля за всё время</value>
+  </data>
+  <data name="Stats.LikelyFirstLogged" xml:space="preserve">
+    <value>Вероятно, первая регистрация</value>
+  </data>
+  <data name="Stats.LongestSession" xml:space="preserve">
+    <value>Самая долгая сессия</value>
+  </data>
+  <data name="Stats.MeritAwards" xml:space="preserve">
+    <value>Начисления заслуг</value>
+  </data>
+  <data name="Stats.Merits" xml:space="preserve">
+    <value>Заслуги</value>
+  </data>
+  <data name="Stats.MeritsEarned" xml:space="preserve">
+    <value>Заслуг заработано</value>
+  </data>
+  <data name="Stats.MiningInPeriod" xml:space="preserve">
+    <value>Добыча и утилизация за период</value>
+  </data>
+  <data name="Stats.MissionAbandoned" xml:space="preserve">
+    <value>отменена</value>
+  </data>
+  <data name="Stats.MissionCompleted" xml:space="preserve">
+    <value>выполнена, {paid}</value>
+  </data>
+  <data name="Stats.MissionFailed" xml:space="preserve">
+    <value>провалена</value>
+  </data>
+  <data name="Stats.MissionLapsed" xml:space="preserve">
+    <value>исчезла из списка</value>
+  </data>
+  <data name="Stats.MissionOpen" xml:space="preserve">
+    <value>активна</value>
+  </data>
+  <data name="Stats.MissionsInPeriod" xml:space="preserve">
+    <value>Миссии за период</value>
+  </data>
+  <data name="Stats.NobodyInWing" xml:space="preserve">
+    <value>никого в крыле</value>
+  </data>
+  <data name="Stats.NoneYet" xml:space="preserve">
+    <value>пока нет</value>
+  </data>
+  <data name="Stats.NoPayments" xml:space="preserve">
+    <value>нет выплат</value>
+  </data>
+  <data name="Stats.NothingEarnedShown" xml:space="preserve">
+    <value>За период ничего не заработано от включённых видов деятельности.</value>
+  </data>
+  <data name="Stats.NoWingYet" xml:space="preserve">
+    <value>В журнале пока нет крыла или экипажа. Сессия открывается, когда вы вступаете в крыло или экипаж либо кто-то вступает в ваш.</value>
+  </data>
+  <data name="Stats.OtherIncomeInPeriod" xml:space="preserve">
+    <value>Прочий доход за период</value>
+  </data>
+  <data name="Stats.Payments" xml:space="preserve">
+    <value>Выплаты</value>
+  </data>
+  <data name="Stats.PaymentsInPeriod" xml:space="preserve">
+    <value>{payments} за период.</value>
+  </data>
+  <data name="Stats.PaymentsSince" xml:space="preserve">
+    <value>{payments} с {when:d}.</value>
+  </data>
+  <data name="Stats.PeopleFlownWith" xml:space="preserve">
+    <value>Людей, с которыми летали</value>
+  </data>
+  <data name="Stats.Period30" xml:space="preserve">
+    <value>Последние 30 дней</value>
+  </data>
+  <data name="Stats.Period365" xml:space="preserve">
+    <value>Последний год</value>
+  </data>
+  <data name="Stats.Period7" xml:space="preserve">
+    <value>Последние 7 дней</value>
+  </data>
+  <data name="Stats.Period90" xml:space="preserve">
+    <value>Последние 90 дней</value>
+  </data>
+  <data name="Stats.PeriodAll" xml:space="preserve">
+    <value>За всё время</value>
+  </data>
+  <data name="Stats.PledgedTo" xml:space="preserve">
+    <value>Присяга</value>
+  </data>
+  <data name="Stats.PledgedToNobody" xml:space="preserve">
+    <value>никому, насколько известно журналу</value>
+  </data>
+  <data name="Stats.Profit" xml:space="preserve">
+    <value>Прибыль</value>
+  </data>
+  <data name="Stats.Rank" xml:space="preserve">
+    <value>Ранг</value>
+  </data>
+  <data name="Stats.Rewards" xml:space="preserve">
+    <value>Награды</value>
+  </data>
+  <data name="Stats.Salary" xml:space="preserve">
+    <value>Зарплата</value>
+  </data>
+  <data name="Stats.SalaryPayments" xml:space="preserve">
+    <value>Выплаты зарплаты</value>
+  </data>
+  <data name="Stats.Sales" xml:space="preserve">
+    <value>Продажи</value>
+  </data>
+  <data name="Stats.SalesAtALoss" xml:space="preserve">
+    <value>Продажи в убыток</value>
+  </data>
+  <data name="Stats.Samples" xml:space="preserve">
+    <value>Образцы</value>
+  </data>
+  <data name="Stats.SamplesSold" xml:space="preserve">
+    <value>Образцов продано</value>
+  </data>
+  <data name="Stats.SearchAndRescueInPeriod" xml:space="preserve">
+    <value>Поиск и спасение за период</value>
+  </data>
+  <data name="Stats.SharedInPeriod" xml:space="preserve">
+    <value>Поделено за период</value>
+  </data>
+  <data name="Stats.SharedNote" xml:space="preserve">
+    <value>Поделённая сумма командира — то, что игра отметила как поделённое, пока он был рядом. Полёт в крыле, пока вы исследуете в одиночку, ничего не делит и здесь не учитывается.</value>
+  </data>
+  <data name="Stats.SharedPayments" xml:space="preserve">
+    <value>Поделённые выплаты</value>
+  </data>
+  <data name="Stats.SoldInPeriod" xml:space="preserve">
+    <value>Продано за период</value>
+  </data>
+  <data name="Stats.SpeciesSold" xml:space="preserve">
+    <value>Видов продано</value>
+  </data>
+  <data name="Stats.Standing" xml:space="preserve">
+    <value>Положение</value>
+  </data>
+  <data name="Stats.Systems" xml:space="preserve">
+    <value>Системы</value>
+  </data>
+  <data name="Stats.TheBonusAlone" xml:space="preserve">
+    <value>Только бонус</value>
+  </data>
+  <data name="Stats.TimePledged" xml:space="preserve">
+    <value>Время присяги</value>
+  </data>
+  <data name="Stats.TimeTogetherInPeriod" xml:space="preserve">
+    <value>Время вместе за период</value>
+  </data>
+  <data name="Stats.Title" xml:space="preserve">
+    <value>Статистика</value>
+  </data>
+  <data name="Stats.TradeDividends" xml:space="preserve">
+    <value>Торговые дивиденды</value>
+  </data>
+  <data name="Stats.TradingInPeriod" xml:space="preserve">
+    <value>Торговля за период</value>
+  </data>
+  <data name="Stats.UnitsIn" xml:space="preserve">
+    <value>{units} ед. за {runs}</value>
+  </data>
+  <data name="Stats.VouchersRedeemed" xml:space="preserve">
+    <value>Ваучеров обналичено</value>
+  </data>
+  <data name="Stats.WingMissions" xml:space="preserve">
+    <value>Миссии крыла</value>
+  </data>
+  <data name="Stats.WingMissionsNote" xml:space="preserve">
+    <value>Миссии крыла, принятые за период, с составом крыла на тот момент, и все ещё активные. Журнал не говорит, взята ли миссия крыла с доски или от напарника, поэтому здесь есть и те, что вы взяли сами, будучи в крыле.</value>
+  </data>
+  <data name="Stats.WingSessions" xml:space="preserve">
+    <value>Сессии крыла</value>
+  </data>
+  <data name="Stats.WithFirstLoggedBonus" xml:space="preserve">
+    <value>С бонусом за первую регистрацию</value>
+  </data>
+  <data name="Stats.WithoutTheBonus" xml:space="preserve">
+    <value>Без бонуса</value>
+  </data>
+  <data name="Stats.WorthWithBonus" xml:space="preserve">
+    <value>Стоимость с бонусом</value>
+  </data>
+  <data name="Stats.WorthWithoutBonus" xml:space="preserve">
+    <value>Стоимость без него</value>
+  </data>
+  <data name="System.EveryoneDiscoveredAll" xml:space="preserve">
+    <value>Всё из отсканированного ({bodies}) было открыто до вас</value>
+  </data>
+  <data name="System.FleetHere" xml:space="preserve">
+    <value>Здесь у вас {ships} и {modules}.</value>
+  </data>
+  <data name="System.Kicker" xml:space="preserve">
+    <value>Система</value>
+  </data>
+  <data name="System.LastThere" xml:space="preserve">
+    <value>Последний раз {when:g}, всего {visits}.</value>
+  </data>
+  <data name="System.LightYearsFrom" xml:space="preserve">
+    <value>{distance} от {system}.</value>
+  </data>
+  <data name="System.NobodyDiscoveredAny" xml:space="preserve">
+    <value>Ничто из отсканированного ({bodies}) не было открыто до вас</value>
+  </data>
+  <data name="System.NoFootfallAny" xml:space="preserve">
+    <value>никто не высаживался ни на одно из его тел ({bodies})</value>
+  </data>
+  <data name="System.NoFootfallSome" xml:space="preserve">
+    <value>никто не высаживался на {untrodden} из его тел ({bodies})</value>
+  </data>
+  <data name="System.NoPositionYet" xml:space="preserve">
+    <value>Положение пока неизвестно</value>
+  </data>
+  <data name="System.NotReported" xml:space="preserve">
+    <value>Журнал не сообщил, где вы.</value>
+  </data>
+  <data name="System.NotVisited" xml:space="preserve">
+    <value>Вы здесь не были с начала журнала.</value>
+  </data>
+  <data name="System.SomeUndiscovered" xml:space="preserve">
+    <value>{undiscovered} из отсканированных тел ({bodies}) никто не открывал до вас</value>
+  </data>
+  <data name="System.YouAreHere" xml:space="preserve">
+    <value>Вы здесь. {scan}.</value>
+  </data>
+  <data name="System.YouLandedOn" xml:space="preserve">
+    <value>вы садились на {bodies}</value>
+  </data>
+  <data name="Totals.AllHeld.few" xml:space="preserve">
+    <value>Итого по {count} записям. У вас уже есть всё.</value>
+  </data>
+  <data name="Totals.AllHeld.many" xml:space="preserve">
+    <value>Итого по {count} записям. У вас уже есть всё.</value>
+  </data>
+  <data name="Totals.AllHeld.one" xml:space="preserve">
+    <value>Итого по {count} записи. У вас уже есть всё.</value>
+  </data>
+  <data name="Totals.AllHeld.other" xml:space="preserve">
+    <value>Итого по {count} записям. У вас уже есть всё.</value>
+  </data>
+  <data name="Totals.ForEntries.few" xml:space="preserve">
+    <value>Итого по {count} записям.</value>
+  </data>
+  <data name="Totals.ForEntries.many" xml:space="preserve">
+    <value>Итого по {count} записям.</value>
+  </data>
+  <data name="Totals.ForEntries.one" xml:space="preserve">
+    <value>Итого по {count} записи.</value>
+  </data>
+  <data name="Totals.ForEntries.other" xml:space="preserve">
+    <value>Итого по {count} записям.</value>
+  </data>
+  <data name="Totals.NoInventory.few" xml:space="preserve">
+    <value>Итого по {count} записям. Включите слежение за журналом, чтобы увидеть, чего не хватает.</value>
+  </data>
+  <data name="Totals.NoInventory.many" xml:space="preserve">
+    <value>Итого по {count} записям. Включите слежение за журналом, чтобы увидеть, чего не хватает.</value>
+  </data>
+  <data name="Totals.NoInventory.one" xml:space="preserve">
+    <value>Итого по {count} записи. Включите слежение за журналом, чтобы увидеть, чего не хватает.</value>
+  </data>
+  <data name="Totals.NoInventory.other" xml:space="preserve">
+    <value>Итого по {count} записям. Включите слежение за журналом, чтобы увидеть, чего не хватает.</value>
+  </data>
+  <data name="Totals.NoneCounted" xml:space="preserve">
+    <value>Ни одна запись не учитывается.</value>
+  </data>
+  <data name="Totals.SectionHeading" xml:space="preserve">
+    <value>{label} ({count})</value>
+  </data>
+  <data name="Totals.ShortMaterials.few" xml:space="preserve">
+    <value>Не хватает {count} материалов.</value>
+  </data>
+  <data name="Totals.ShortMaterials.many" xml:space="preserve">
+    <value>Не хватает {count} материалов.</value>
+  </data>
+  <data name="Totals.ShortMaterials.one" xml:space="preserve">
+    <value>Не хватает {count} материала.</value>
+  </data>
+  <data name="Totals.ShortMaterials.other" xml:space="preserve">
+    <value>Не хватает {count} материалов.</value>
+  </data>
+  <data name="Trade.AtEncodedTrader" xml:space="preserve">
+    <value>У торговца закодированными данными</value>
+  </data>
+  <data name="Trade.AtManufacturedTrader" xml:space="preserve">
+    <value>У торговца произведёнными материалами</value>
+  </data>
+  <data name="Trade.AtRawTrader" xml:space="preserve">
+    <value>У торговца сырьём</value>
+  </data>
+  <data name="Trade.AtTrader" xml:space="preserve">
+    <value>У торговца материалами</value>
+  </data>
+  <data name="Trade.BackToReserve" xml:space="preserve">
+    <value>Для восполнения резерва: {names}.</value>
+  </data>
+  <data name="Trade.CoverAll.few" xml:space="preserve">
+    <value>{count} обмена покрывают всё, чего вам не хватает.</value>
+  </data>
+  <data name="Trade.CoverAll.many" xml:space="preserve">
+    <value>{count} обменов покрывают всё, чего вам не хватает.</value>
+  </data>
+  <data name="Trade.CoverAll.one" xml:space="preserve">
+    <value>{count} обмен покрывает всё, чего вам не хватает.</value>
+  </data>
+  <data name="Trade.CoverAll.other" xml:space="preserve">
+    <value>{count} обменов покрывают всё, чего вам не хватает.</value>
+  </data>
+  <data name="Trade.CoverSome.few" xml:space="preserve">
+    <value>{count} обмена покрывают {covered} из материалов, которых не хватает ({materials}).</value>
+  </data>
+  <data name="Trade.CoverSome.many" xml:space="preserve">
+    <value>{count} обменов покрывают {covered} из материалов, которых не хватает ({materials}).</value>
+  </data>
+  <data name="Trade.CoverSome.one" xml:space="preserve">
+    <value>{count} обмен покрывает {covered} из материалов, которых не хватает ({materials}).</value>
+  </data>
+  <data name="Trade.CoverSome.other" xml:space="preserve">
+    <value>{count} обменов покрывают {covered} из материалов, которых не хватает ({materials}).</value>
+  </data>
+  <data name="Trade.Families" xml:space="preserve">
+    <value>семейство {from} → семейство {to}</value>
+  </data>
+  <data name="Trade.Get" xml:space="preserve">
+    <value>получить {count} × {material}</value>
+  </data>
+  <data name="Trade.GetCount" xml:space="preserve">
+    <value>получить {count} ×</value>
+  </data>
+  <data name="Trade.Give" xml:space="preserve">
+    <value>Отдать {count} × {material}</value>
+  </data>
+  <data name="Trade.GiveCount" xml:space="preserve">
+    <value>Отдать {count} ×</value>
+  </data>
+  <data name="Trade.NoneCovered" xml:space="preserve">
+    <value>Ни один обмен не покрывает ничего из нехватки ({materials}).</value>
+  </data>
+  <data name="Trade.NothingToTradeFor" xml:space="preserve">
+    <value>Менять нечего: у вас есть всё, что нужно плану и что вы держите в резерве.</value>
+  </data>
+  <data name="Trade.Rate" xml:space="preserve">
+    <value>{from} → {to} по {rate}</value>
+  </data>
+  <data name="Trade.SameFamily" xml:space="preserve">
+    <value>оба из семейства {family}</value>
+  </data>
+  <data name="Trade.StillShort" xml:space="preserve">
+    <value>Не хватает ещё {count} × {material}</value>
+  </data>
+  <data name="Trade.StillShortCount" xml:space="preserve">
+    <value>Не хватает ещё {count} ×</value>
+  </data>
+  <data name="Trade.Surplus" xml:space="preserve">
+    <value>{count} сверх нужного</value>
+  </data>
+  <data name="Trade.WaitingForInventory" xml:space="preserve">
+    <value>Обмены появятся, когда слежение за журналом прочитает ваш инвентарь.</value>
+  </data>
+  <data name="Trade.WhyBatchesWhole" xml:space="preserve">
+    <value>Каждый оставшийся обмен дал бы больше, чем вмещает стопка: партии неделимы.</value>
+  </data>
+  <data name="Trade.WhyNeverTrade" xml:space="preserve">
+    <value>Единственные свободные материалы в этом инвентаре — те, что вы никогда не меняете.</value>
+  </data>
+  <data name="Trade.WhyNothingHeld" xml:space="preserve">
+    <value>Больше ничего в этом инвентаре нет вовсе.</value>
+  </data>
+  <data name="Trade.WhyNothingSpare" xml:space="preserve">
+    <value>Ничего в этом инвентаре нет сверх того, что нужно плану и что вы держите в резерве.</value>
+  </data>
+  <data name="Unit.Credits" xml:space="preserve">
+    <value>{value} кр.</value>
+  </data>
+  <data name="Unit.CreditsExact" xml:space="preserve">
+    <value>{value:#,0} кр.</value>
+  </data>
+  <data name="Unit.CreditsMillions" xml:space="preserve">
+    <value>{value:0.0} млн кр.</value>
+  </data>
+  <data name="Unit.CreditsThousands" xml:space="preserve">
+    <value>{value:0} тыс. кр.</value>
+  </data>
+  <data name="Unit.DaysHours" xml:space="preserve">
+    <value>{days:#,0} д {hours} ч</value>
+  </data>
+  <data name="Unit.Grade" xml:space="preserve">
+    <value>G{grade}</value>
+  </data>
+  <data name="Unit.Gravity" xml:space="preserve">
+    <value>{value:0.00}g</value>
+  </data>
+  <data name="Unit.HoursMinutes" xml:space="preserve">
+    <value>{hours} ч {minutes} мин</value>
+  </data>
+  <data name="Unit.Kelvin" xml:space="preserve">
+    <value>{value:0}K</value>
+  </data>
+  <data name="Unit.Kilometres" xml:space="preserve">
+    <value>{value:#,0.0} км</value>
+  </data>
+  <data name="Unit.LightSeconds" xml:space="preserve">
+    <value>{value:0} св. с</value>
+  </data>
+  <data name="Unit.LightYears" xml:space="preserve">
+    <value>{value:#,0} св. лет</value>
+  </data>
+  <data name="Unit.LightYearsJump" xml:space="preserve">
+    <value>{value:0.00} св. лет</value>
+  </data>
+  <data name="Unit.LightYearsPrecise" xml:space="preserve">
+    <value>{value:0.0} св. лет</value>
+  </data>
+  <data name="Unit.Millions" xml:space="preserve">
+    <value>{value:0.0} млн</value>
+  </data>
+  <data name="Unit.Minutes" xml:space="preserve">
+    <value>{minutes} мин</value>
+  </data>
+  <data name="Unit.Percent" xml:space="preserve">
+    <value>{value:0.0}%</value>
+  </data>
+  <data name="Unit.PercentWhole" xml:space="preserve">
+    <value>{value:0}%</value>
+  </data>
+  <data name="Unit.SolarMasses" xml:space="preserve">
+    <value>{value:0.00} солнечных масс</value>
+  </data>
+  <data name="Unit.Tonnes" xml:space="preserve">
+    <value>{value:0.0} т</value>
+  </data>
+  <data name="Unlock.BoughtAtOutfitting" xml:space="preserve">
+    <value>Вы купили такой в снаряжении, значит он разблокирован.</value>
+  </data>
+  <data name="Unlock.JournalRecordsPurchase" xml:space="preserve">
+    <value>Покупка записана в журнале.</value>
+  </data>
+  <data name="Unlock.OwnOne" xml:space="preserve">
+    <value>У вас есть такой, значит он разблокирован.</value>
+  </data>
+  <data name="Unlocks.AlsoFromMarket" xml:space="preserve">
+    <value>Также с рынка: {items}.</value>
+  </data>
+  <data name="Unlocks.Bought" xml:space="preserve">
+    <value>куплено {count}</value>
+  </data>
+  <data name="Unlocks.CategoryFighters" xml:space="preserve">
+    <value>Истребители</value>
+  </data>
+  <data name="Unlocks.CategoryModifiedWeapons" xml:space="preserve">
+    <value>Модифицированное оружие</value>
+  </data>
+  <data name="Unlocks.CategoryModules" xml:space="preserve">
+    <value>Модули</value>
+  </data>
+  <data name="Unlocks.CategoryPreEngineered" xml:space="preserve">
+    <value>Предмодифицированные модули</value>
+  </data>
+  <data name="Unlocks.CategoryWeapons" xml:space="preserve">
+    <value>Оружие</value>
+  </data>
+  <data name="Unlocks.GuardianBroker" xml:space="preserve">
+    <value>Технологический брокер Стражей</value>
+  </data>
+  <data name="Unlocks.HumanBroker" xml:space="preserve">
+    <value>Человеческий технологический брокер</value>
+  </data>
+  <data name="Unlocks.MissingItem" xml:space="preserve">
+    <value>{count} × {material}</value>
+  </data>
+  <data name="Unlocks.NotDetectable" xml:space="preserve">
+    <value>Журнал не называет этот предмет, поэтому Katey не может определить, куплен ли он.</value>
+  </data>
+  <data name="Unlocks.Planned" xml:space="preserve">
+    <value>запланировано {count}</value>
+  </data>
+  <data name="Unlocks.PlannedCovered" xml:space="preserve">
+    <value>Запланировано: {unlocks}, все материалы есть.</value>
+  </data>
+  <data name="Unlocks.PlannedNoInventory" xml:space="preserve">
+    <value>Запланировано: {unlocks}. Включите слежение за журналом, чтобы увидеть, чего не хватает.</value>
+  </data>
+  <data name="Unlocks.PlannedShort" xml:space="preserve">
+    <value>Запланировано: {unlocks}, нехватка: {materials}.</value>
+  </data>
+  <data name="Unlocks.ShortOf" xml:space="preserve">
+    <value>Не хватает: {items}.</value>
+  </data>
+  <data name="Unlocks.StateAffordable" xml:space="preserve">
+    <value>По карману</value>
+  </data>
+  <data name="Unlocks.StatePlanned" xml:space="preserve">
+    <value>В плане</value>
+  </data>
+  <data name="Unlocks.StateShort" xml:space="preserve">
+    <value>Нехватка</value>
+  </data>
+  <data name="Unlocks.StateUnlocked" xml:space="preserve">
+    <value>Разблокировано</value>
+  </data>
+  <data name="Unlocks.Summary" xml:space="preserve">
+    <value>{unlocks}: куплено {bought}, запланировано {planned}, по карману с учётом плана {affordable}, нехватка {short}.</value>
+  </data>
+  <data name="Unlocks.SummaryNoInventory" xml:space="preserve">
+    <value>{unlocks}. Включите слежение за журналом, чтобы увидеть, что вам по карману.</value>
+  </data>
+  <data name="Unlocks.TickToPlan" xml:space="preserve">
+    <value>Отметьте разблокировку, чтобы запланировать её. Её материалы попадут в итоги плана и в обмены у торговцев материалами.</value>
+  </data>
+  <data name="Unlocks.Title" xml:space="preserve">
+    <value>Разблокировки технологических брокеров</value>
+  </data>
+  <data name="Value.Carto" xml:space="preserve">
+    <value>Картография около {credits} за скан</value>
+  </data>
+  <data name="Value.CartoWithBonus" xml:space="preserve">
+    <value>Картография около {credits} за скан, {bonus} с бонусом первооткрывателя</value>
+  </data>
+  <data name="Value.Exo" xml:space="preserve">
+    <value>экзобиология {credits}</value>
+  </data>
+  <data name="Value.ExoAbout" xml:space="preserve">
+    <value>экзобиология около {credits}</value>
+  </data>
+  <data name="Value.ExoAboutWithBonus" xml:space="preserve">
+    <value>экзобиология около {credits}, {bonus} с бонусом за первую регистрацию</value>
+  </data>
+  <data name="Value.ExoWithBonus" xml:space="preserve">
+    <value>экзобиология {credits}, {bonus} с бонусом за первую регистрацию</value>
+  </data>
+  <data name="Value.Unsold" xml:space="preserve">
+    <value>Непроданные данные исследований: {credits}</value>
+  </data>
+  <data name="Value.UnsoldLine" xml:space="preserve">
+    <value>Непроданные данные исследований: {credits}.</value>
+  </data>
+  <data name="Value.UnsoldLineFirst" xml:space="preserve">
+    <value>Непроданные данные исследований: {credits}, из них {first} за первенство.</value>
+  </data>
+  <data name="Value.UnsoldLineFirstSold" xml:space="preserve">
+    <value>Непроданные данные исследований: {credits}, из них {first} за первенство; продано: {sold}.</value>
+  </data>
+  <data name="Value.UnsoldLineSold" xml:space="preserve">
+    <value>Непроданные данные исследований: {credits}; продано: {sold}.</value>
+  </data>
+</root>

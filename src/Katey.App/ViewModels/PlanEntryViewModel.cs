@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using Katey.App.Mvvm;
+using Katey.App.Text;
 using Katey.Core;
 using Katey.Core.Planning;
 
@@ -28,7 +29,7 @@ public sealed class RollViewModel : ObservableObject
     public int Grade { get; }
 
     /// <summary>Gets <c>Gn</c>.</summary>
-    public string Label => string.Create(CultureInfo.InvariantCulture, $"G{Grade}");
+    public string Label => Display.Grade(Grade);
 
     /// <summary>Gets or sets the count. Negative values are ignored.</summary>
     public int Count
@@ -86,34 +87,8 @@ public sealed class PlanEntryViewModel : ObservableObject
         Entry = entry;
         RemoveCommand = new RelayCommand(() => _remove(this));
 
-        var moduleType = entry.ModuleType is { } code && catalog.ModuleTypes.TryGetValue(code, out var type) ? type : null;
-        if (entry.Unlock is { } key)
-        {
-            var unlock = catalog.Unlocks[key];
-            ModuleLabel = moduleType?.Name ?? "Fighter";
-            BlueprintLabel = unlock.Name;
-            SourceLabel = Pages.UnlocksPage.BrokerLabel(unlock.Broker);
-            Grades = [];
-            Experimentals = [Choice.None];
-            CommoditiesText = unlock.Commodities.Count == 0
-                ? ""
-                : "Also from a market: " + string.Join(", ", unlock.Commodities.Select(pair => string.Create(CultureInfo.InvariantCulture, $"{pair.Value}× {pair.Key}"))) + ".";
-            Refresh(selected);
-            return;
-        }
-
-        ModuleLabel = moduleType?.Name ?? (entry.Source.Item is { } item ? $"Unknown module ({item})" : "Unknown module");
-        BlueprintLabel = catalog.Blueprints[entry.Blueprint].Name;
-        SourceLabel = entry.Source.IsImported ? $"From {entry.Source.Ship}, {Core.Fleet.SlotNames.Display(entry.Source.Slot ?? "")}" : "";
-        Grades = [0, .. catalog.Blueprints[entry.Blueprint].GradeNumbers];
-        Experimentals = moduleType is null
-            ? [Choice.None]
-            : [Choice.None, .. catalog.ExperimentalsFor(moduleType.Code).Select(effect => new Choice(effect.Key, effect.Name))];
-        if (entry.Experimental is { } experimental && Experimentals.All(choice => choice.Key != experimental))
-        {
-            Experimentals = [.. Experimentals, new Choice(experimental, catalog.Experimentals[experimental].Name)];
-        }
-
+        Grades = entry.Unlock is null ? [0, .. catalog.Blueprints[entry.Blueprint].GradeNumbers] : [];
+        Word();
         Refresh(selected);
     }
 
@@ -121,7 +96,7 @@ public sealed class PlanEntryViewModel : ObservableObject
     public bool IsUnlock => Entry.IsUnlock;
 
     /// <summary>Gets the commodities an unlock also costs, as one sentence, or empty.</summary>
-    public string CommoditiesText { get; } = "";
+    public string CommoditiesText { get; private set; } = "";
 
     /// <summary>Gets whether there are commodities to mention.</summary>
     public bool HasCommodities => CommoditiesText.Length > 0;
@@ -130,16 +105,16 @@ public sealed class PlanEntryViewModel : ObservableObject
     public PlanEntry Entry { get; private set; }
 
     /// <summary>Gets the module type name, or a description of the item when the type is unknown.</summary>
-    public string ModuleLabel { get; }
+    public string ModuleLabel { get; private set; } = "";
 
     /// <summary>Gets the blueprint's display name, or the unlock's name.</summary>
-    public string BlueprintLabel { get; }
+    public string BlueprintLabel { get; private set; } = "";
 
     /// <summary>Gets <c>module: blueprint</c>, or the unlock's name alone.</summary>
-    public string Title => IsUnlock ? BlueprintLabel : $"{ModuleLabel}: {BlueprintLabel}";
+    public string Title => IsUnlock ? BlueprintLabel : Strings.Format(Keys.Plan_Title, ("module", ModuleLabel), ("blueprint", BlueprintLabel));
 
     /// <summary>Gets where the entry came from: the ship and slot of an import, the broker of an unlock, or empty for a manual module entry.</summary>
-    public string SourceLabel { get; }
+    public string SourceLabel { get; private set; } = "";
 
     /// <summary>Gets whether <see cref="SourceLabel"/> has anything to show.</summary>
     public bool HasSource => SourceLabel.Length > 0;
@@ -161,7 +136,7 @@ public sealed class PlanEntryViewModel : ObservableObject
     }
 
     /// <summary>Gets "" while enabled, otherwise a note that the entry is excluded.</summary>
-    public string StateText => Entry.Enabled ? "" : "excluded from totals";
+    public string StateText => Entry.Enabled ? "" : Strings.Get(Keys.Plan_ExcludedFromTotals);
 
     /// <summary>Gets the grades to choose from: 0 for experimental only, then every grade the blueprint has.</summary>
     public IReadOnlyList<int> Grades { get; }
@@ -202,7 +177,7 @@ public sealed class PlanEntryViewModel : ObservableObject
     }
 
     /// <summary>Gets the experimentals the module type allows, "None" first.</summary>
-    public IReadOnlyList<Choice> Experimentals { get; }
+    public IReadOnlyList<Choice> Experimentals { get; private set; } = [Choice.None];
 
     /// <summary>Gets whether there is an experimental to choose: the picker hides when "None" is the only option.</summary>
     public bool HasExperimentals => Experimentals.Count > 1;
@@ -263,6 +238,45 @@ public sealed class PlanEntryViewModel : ObservableObject
         OnPropertyChanged(string.Empty);
     }
 
+    /// <summary>Words the row again in the language in force: its labels, its experimental choices, the engineers and the warnings. Called after a language switch; raises a change for every property.</summary>
+    public void Reword()
+    {
+        Word();
+        Refresh(_selected);
+        OnPropertyChanged(string.Empty);
+    }
+
+    private void Word()
+    {
+        var moduleType = Entry.ModuleType is { } code && _catalog.ModuleTypes.TryGetValue(code, out var type) ? type : null;
+        if (Entry.Unlock is { } key)
+        {
+            var unlock = _catalog.Unlocks[key];
+            ModuleLabel = moduleType is null ? Strings.Get(Keys.Plan_Fighter) : Names.ModuleType(moduleType);
+            BlueprintLabel = Names.Unlock(unlock);
+            SourceLabel = Pages.UnlocksPage.BrokerLabel(unlock.Broker);
+            Experimentals = [Choice.None];
+            CommoditiesText = unlock.Commodities.Count == 0
+                ? ""
+                : Strings.Format(Keys.Plan_AlsoFromMarket, ("items", Display.List(unlock.Commodities.Select(pair => Strings.Format(Keys.Material_CountTimesName, ("count", pair.Value), ("name", pair.Key))))));
+            return;
+        }
+
+        ModuleLabel = moduleType is null
+            ? Entry.Source.Item is { } item ? Strings.Format(Keys.Plan_UnknownModuleItem, ("item", item)) : Strings.Get(Keys.Plan_UnknownModule)
+            : Names.ModuleType(moduleType);
+        BlueprintLabel = Names.Blueprint(_catalog.Blueprints[Entry.Blueprint]);
+        SourceLabel = Entry.Source.IsImported ? Strings.Format(Keys.Plan_FromShipSlot, ("ship", Entry.Source.Ship), ("slot", Core.Fleet.SlotNames.Display(Entry.Source.Slot ?? ""))) : "";
+        CommoditiesText = "";
+        Experimentals = moduleType is null
+            ? [Choice.None]
+            : [Choice.None, .. _catalog.ExperimentalsFor(moduleType.Code).Select(effect => new Choice(effect.Key, Names.Experimental(effect)))];
+        if (Entry.Experimental is { } experimental && Experimentals.All(choice => choice.Key != experimental))
+        {
+            Experimentals = [.. Experimentals, new Choice(experimental, Names.Experimental(_catalog.Experimentals[experimental]))];
+        }
+    }
+
     /// <summary>Recomputes the engineers, warning and materials.</summary>
     /// <param name="selected">The current engineer selection.</param>
     public void Refresh(IReadOnlySet<string> selected)
@@ -273,7 +287,7 @@ public sealed class PlanEntryViewModel : ObservableObject
         var service = EngineerCoverage.ServiceFor(_catalog, Entry, selected);
         if (IsUnlock)
         {
-            CanRollParts = Phrase.Text("Bought once at a " + SourceLabel.ToLowerInvariant() + ", with the materials below" + (HasCommodities ? " and the commodities above." : "."));
+            CanRollParts = Phrase.Text(Strings.Format(HasCommodities ? Keys.Plan_BoughtOnceWithCommodities : Keys.Plan_BoughtOnce, ("source", SourceLabel.ToLower(CultureInfo.CurrentCulture))));
             CanApplyParts = Phrase.Empty;
             Warning = "";
             Rolls = [];
@@ -285,10 +299,10 @@ public sealed class PlanEntryViewModel : ObservableObject
 
         CanRollParts = Entry.IsExperimentalOnly
             ? Entry.Experimental is null
-                ? Phrase.Text("Experimental only, with no effect chosen.")
-                : Phrase.Join("", [Phrase.Text("Experimental only: "), EngineerLink.Names(service.CanRoll.Select(_engineerLink), "no engineer in the data can apply it.")])
-            : EngineerLink.Names(service.CanRoll.Select(_engineerLink), "No engineer in the data offers this grade for this module.");
-        CanApplyParts = EngineerLink.Names(service.CanApplyExperimental.Select(_engineerLink), "No engineer in the data can apply an effect to this module.");
+                ? Phrase.Text(Strings.Get(Keys.Plan_ExperimentalOnlyNoEffect))
+                : Phrase.Format(Keys.Plan_ExperimentalOnlyBy, ("engineers", EngineerLink.Names(service.CanRoll.Select(_engineerLink), Strings.Get(Keys.Plan_NobodyCanApplyIt))))
+            : EngineerLink.Names(service.CanRoll.Select(_engineerLink), Strings.Get(Keys.Plan_NobodyOffersGrade));
+        CanApplyParts = EngineerLink.Names(service.CanApplyExperimental.Select(_engineerLink), Strings.Get(Keys.Plan_NobodyCanApply));
         Warning = WarningFor(service, selected);
         Rolls = [.. Entry.RolledGrades(_catalog).Select(grade => new RollViewModel(grade, Entry.RollsAt(grade), SetRolls))];
         Materials = MaterialChip.From(_catalog, MaterialCalculator.ForEntry(_catalog, Entry));
@@ -308,11 +322,11 @@ public sealed class PlanEntryViewModel : ObservableObject
         var warnings = new List<string>();
         if (Entry.IsExperimentalOnly && Entry.Experimental is null)
         {
-            warnings.Add("Experimental only, but no effect is chosen, so this entry needs nothing.");
+            warnings.Add(Strings.Get(Keys.Plan_WarnNoEffect));
         }
         else if (Entry.ModuleType is null)
         {
-            warnings.Add("The module type is unknown, so engineers cannot be listed.");
+            warnings.Add(Strings.Get(Keys.Plan_WarnUnknownType));
         }
         else if (Entry.IsExperimentalOnly)
         {
@@ -320,16 +334,16 @@ public sealed class PlanEntryViewModel : ObservableObject
         }
         else if (service.CanRoll.Count == 0)
         {
-            warnings.Add("No engineer in the data offers this blueprint on this module type.");
+            warnings.Add(Strings.Get(Keys.Plan_WarnNobodyOffers));
         }
         else if (selected.Count > 0 && service.SelectedCanRoll.Count == 0)
         {
-            warnings.Add(string.Create(CultureInfo.InvariantCulture, $"None of your selected engineers offers grade {Entry.TargetGrade} for this module."));
+            warnings.Add(Strings.Format(Keys.Plan_WarnSelectedGrade, ("grade", Entry.TargetGrade)));
         }
 
         if (Entry.Experimental is not null && service.CanApplyExperimental.Count > 0 && selected.Count > 0 && service.SelectedCanApplyExperimental.Count == 0)
         {
-            warnings.Add("None of your selected engineers can apply this experimental effect.");
+            warnings.Add(Strings.Get(Keys.Plan_WarnSelectedEffect));
         }
 
         return string.Join(" ", warnings);

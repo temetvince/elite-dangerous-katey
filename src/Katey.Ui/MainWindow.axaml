@@ -1,6 +1,7 @@
 ﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ui="clr-namespace:Katey.Ui"
+        xmlns:loc="clr-namespace:Katey.Ui.Text"
         xmlns:pages="clr-namespace:Katey.App.Pages;assembly=Katey.App"
         xmlns:vm="clr-namespace:Katey.App.ViewModels;assembly=Katey.App"
         x:Class="Katey.Ui.MainWindow"
@@ -30,9 +31,9 @@
                       <StackPanel Margin="0,1,0,4">
                         <WrapPanel>
                           <TextBlock Classes="strong" Text="{Binding GiveCount}" Margin="0,0,4,0" />
-                          <Button Classes="link strong" Content="{Binding From.Label}" Command="{Binding From.OpenCommand}" Margin="0,0,6,0" ToolTip.Tip="Open the materials page at this material" />
+                          <Button Classes="link strong" Content="{Binding From.Label}" Command="{Binding From.OpenCommand}" Margin="0,0,6,0" ToolTip.Tip="{loc:T Trade.OpenMaterialTip}" />
                           <TextBlock Classes="body" Text="{Binding GetCount}" Margin="0,0,4,0" />
-                          <Button Classes="link" Content="{Binding To.Label}" Command="{Binding To.OpenCommand}" Margin="0,0,10,0" ToolTip.Tip="Open the materials page at this material" />
+                          <Button Classes="link" Content="{Binding To.Label}" Command="{Binding To.OpenCommand}" Margin="0,0,10,0" ToolTip.Tip="{loc:T Trade.OpenMaterialTip}" />
                           <TextBlock Classes="mono muted" Text="{Binding RateText}" />
                         </WrapPanel>
                         <!-- The families the traders group by, then the surplus the whole batches leave. -->
@@ -50,8 +51,8 @@
                       <StackPanel Margin="0,1">
                         <WrapPanel>
                           <TextBlock Classes="warn" Text="{Binding Prefix}" FontWeight="SemiBold" Margin="0,0,4,0" />
-                          <Button Classes="link strong" Content="{Binding Material.Label}" Command="{Binding Material.OpenCommand}" Margin="0,0,4,0" ToolTip.Tip="Open the materials page at this material" />
-                          <TextBlock Classes="warn" Text="short" FontWeight="SemiBold" />
+                          <Button Classes="link strong" Content="{Binding Material.Label}" Command="{Binding Material.OpenCommand}" Margin="0,0,4,0" ToolTip.Tip="{loc:T Trade.OpenMaterialTip}" />
+                          <TextBlock Classes="warn" Text="{loc:T Trade.Short}" FontWeight="SemiBold" />
                         </WrapPanel>
                         <TextBlock Classes="faint" TextWrapping="Wrap" Text="{Binding Why}" />
                       </StackPanel>
@@ -104,28 +105,28 @@
     <!-- ===================== Top bar ===================== -->
     <Border Grid.Row="0" Classes="topbar" PointerPressed="TopBarPressed" Background="{DynamicResource KSurface}" BorderBrush="{DynamicResource KLine}" BorderThickness="0,0,0,1" Padding="16,0,8,0" Height="52">
       <Grid ColumnDefinitions="Auto,Auto,*,Auto" VerticalAlignment="Center">
-        <Button Classes="link wordmark" Content="KATEY" Command="{Binding HomeLink.OpenCommand}" ToolTip.Tip="Start page" Margin="0,0,18,0" />
+        <Button Classes="link wordmark" Content="KATEY" Command="{Binding HomeLink.OpenCommand}" ToolTip.Tip="{loc:T Chrome.StartPageTip}" Margin="0,0,18,0" />
         <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center" Margin="0,0,18,0">
-          <Button Classes="nav big" Content="← Back" Command="{Binding Navigator.BackCommand}" ToolTip.Tip="Back" />
-          <Button Classes="nav big" Content="→" Command="{Binding Navigator.ForwardCommand}" ToolTip.Tip="Forward" />
+          <Button Classes="nav big" Content="{loc:T Chrome.Back}" Command="{Binding Navigator.BackCommand}" ToolTip.Tip="{loc:T Chrome.BackTip}" />
+          <Button Classes="nav big" Content="→" Command="{Binding Navigator.ForwardCommand}" ToolTip.Tip="{loc:T Chrome.ForwardTip}" />
         </StackPanel>
         <ItemsControl Grid.Column="2" ItemsSource="{Binding Nav}" VerticalAlignment="Center">
           <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
           <ItemsControl.ItemTemplate>
             <DataTemplate>
-              <Button Classes="navlink" Classes.current="{Binding IsCurrent}" Content="{Binding Label}" Command="{Binding Link.OpenCommand}" />
+              <Button Classes="navlink" Classes.current="{Binding IsCurrent}" Content="{Binding Label}" Command="{Binding Command}" />
             </DataTemplate>
           </ItemsControl.ItemTemplate>
         </ItemsControl>
         <!-- Caption buttons: the window has no system title bar, so these stand in for its buttons. -->
         <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="2" Margin="18,0,0,0" VerticalAlignment="Center">
-          <Button Classes="caption" Click="MinimizeWindow" ToolTip.Tip="Minimise">
+          <Button Classes="caption" Click="MinimizeWindow" ToolTip.Tip="{loc:T Chrome.MinimiseTip}">
             <Path Classes="glyph" Data="M0,5 H10" />
           </Button>
-          <Button Classes="caption" Click="ToggleMaximize" ToolTip.Tip="Maximise or restore">
+          <Button Classes="caption" Click="ToggleMaximize" ToolTip.Tip="{loc:T Chrome.MaximiseTip}">
             <Path Classes="glyph" Data="M0.5,0.5 H9.5 V9.5 H0.5 Z" />
           </Button>
-          <Button Classes="caption close" Click="CloseWindow" ToolTip.Tip="Close">
+          <Button Classes="caption close" Click="CloseWindow" ToolTip.Tip="{loc:T Chrome.CloseTip}">
             <Path Classes="glyph" Data="M0,0 L10,10 M10,0 L0,10" />
           </Button>
         </StackPanel>
@@ -143,19 +144,19 @@
               <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center" Margin="0,0,14,0">
                 <Ellipse Classes="pulse" Width="8" Height="8" Fill="{StaticResource RailAccent}" IsVisible="{Binding IsLive}" />
                 <Ellipse Width="8" Height="8" Fill="{StaticResource RailMuted}" IsVisible="{Binding !IsLive}" />
-                <TextBlock Classes="live" Text="LIVE" VerticalAlignment="Center" />
+                <TextBlock Classes="live" Text="{loc:T Rail.Live, Upper=True}" VerticalAlignment="Center" />
               </StackPanel>
               <WrapPanel Grid.Column="1" VerticalAlignment="Center">
-                <Button Classes="link quiet strong" Content="{Binding SystemName}" Command="{Binding SystemLink.OpenCommand}" ToolTip.Tip="Open this system" Margin="0,0,14,0" />
+                <Button Classes="link quiet strong" Content="{Binding SystemName}" Command="{Binding SystemLink.OpenCommand}" ToolTip.Tip="{loc:T Common.OpenSystemTip}" Margin="0,0,14,0" />
                 <TextBlock Classes="sub" Text="{Binding RouteHeading}" Margin="0,0,14,0" VerticalAlignment="Center" />
                 <TextBlock Classes="sub" Text="{Binding FuelText}" Margin="0,0,14,0" VerticalAlignment="Center" />
                 <TextBlock Classes="sub" Text="{Binding ScanText}" IsVisible="{Binding !!ScanText.Length}" Margin="0,0,14,0" VerticalAlignment="Center" />
               </WrapPanel>
               <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
-                <CheckBox Content="Overlay" IsChecked="{Binding IsOverlay, Mode=TwoWay}" ToolTip.Tip="A mostly transparent window with bright text, for sitting over the game. The game must run in a window or borderless; an exclusive full-screen game covers every other window." />
-                <CheckBox Content="Click-through" IsChecked="{Binding IsClickThrough, Mode=TwoWay}" ToolTip.Tip="Clicks pass through the rail window to the game, and the rail's buttons, links and switches hide. Untick here to take clicks again." />
-                <Button Content="Reset position" Command="{Binding ResetWindowCommand}" ToolTip.Tip="Puts the rail window back at its default size, top right of the primary screen." />
-                <Button Content="Bring the rail back" Command="{Binding AttachCommand}" />
+                <CheckBox Content="{loc:T Rail.Overlay}" IsChecked="{Binding IsOverlay, Mode=TwoWay}" ToolTip.Tip="{loc:T Rail.OverlayTip}" />
+                <CheckBox Content="{loc:T Rail.ClickThrough}" IsChecked="{Binding IsClickThrough, Mode=TwoWay}" ToolTip.Tip="{loc:T Rail.ClickThroughTip}" />
+                <Button Content="{loc:T Rail.ResetPosition}" Command="{Binding ResetWindowCommand}" ToolTip.Tip="{loc:T Rail.ResetPositionTip}" />
+                <Button Content="{loc:T Rail.BringBack}" Command="{Binding AttachCommand}" />
               </StackPanel>
             </Grid>
           </Border>
@@ -176,7 +177,7 @@
                 <DataTemplate DataType="pages:HomePage">
                   <StackPanel Spacing="18" MaxWidth="1100" HorizontalAlignment="Left">
                     <ui:PageHeaderView />
-                    <TextBlock Classes="lede" Text="Elite Dangerous companion. Search anything in the box below, or browse. The rail follows the game; the plan is the drawer on the right." />
+                    <TextBlock Classes="lede" Text="{loc:T Home.Intro}" />
                     <ItemsControl ItemsSource="{Binding Stats}">
                       <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                       <ItemsControl.ItemTemplate>
@@ -193,7 +194,7 @@
                         </DataTemplate>
                       </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                    <TextBlock Classes="col" Text="BROWSE" />
+                    <TextBlock Classes="col" Text="{loc:T Home.Browse, Upper=True}" />
                     <ItemsControl ItemsSource="{Binding Browse}">
                       <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                       <ItemsControl.ItemTemplate>
@@ -210,7 +211,7 @@
                     </ItemsControl>
                     <Border Classes="panel">
                       <StackPanel Spacing="6">
-                        <TextBlock Classes="h3" Text="Right now" />
+                        <TextBlock Classes="h3" Text="{loc:T Home.RightNow}" />
                         <TextBlock Classes="body" Text="{Binding PlanText}" />
                         <TextBlock Classes="body" Text="{Binding WatchText}" />
                       </StackPanel>
@@ -234,8 +235,8 @@
                     <ui:PageHeaderView />
                     <Border Classes="panel">
                       <StackPanel Spacing="8">
-                        <TextBlock Classes="col" Text="ONLY MY ENGINEERS" />
-                        <CheckBox Content="Show only items from selected engineers" IsChecked="{Binding OnlyMyEngineers, Mode=TwoWay}" FontWeight="SemiBold" />
+                        <TextBlock Classes="col" Text="{loc:T Engineers.OnlyMine, Upper=True}" />
+                        <CheckBox Content="{loc:T Engineers.OnlyMineSwitch}" IsChecked="{Binding OnlyMyEngineers, Mode=TwoWay}" FontWeight="SemiBold" />
                         <TextBlock Classes="body" TextWrapping="Wrap" Text="{Binding ScopeStatus}" />
                         <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding OnlyMyEngineersText}" />
                       </StackPanel>
@@ -243,9 +244,9 @@
                       <StackPanel Spacing="10">
                         <TextBlock Classes="lede" Text="{Binding SelectionText}" />
                         <StackPanel Orientation="Horizontal" Spacing="8">
-                          <TextBox Text="{Binding Filter, Mode=TwoWay}" PlaceholderText="Find an engineer, system or base" MinWidth="260" />
-                          <Button Classes="small" Content="Select all" Command="{Binding SelectAllCommand}" />
-                          <Button Classes="small" Content="Select none" Command="{Binding SelectNoneCommand}" />
+                          <TextBox Text="{Binding Filter, Mode=TwoWay}" PlaceholderText="{loc:T Engineers.FindPlaceholder}" MinWidth="260" />
+                          <Button Classes="small" Content="{loc:T Engineers.SelectAll}" Command="{Binding SelectAllCommand}" />
+                          <Button Classes="small" Content="{loc:T Engineers.SelectNone}" Command="{Binding SelectNoneCommand}" />
                           <ui:PhraseBlock Classes="muted" Parts="{Binding FromParts}" VerticalAlignment="Center" />
                         </StackPanel>
                         <Border Classes="panel" Padding="16,6,16,4">
@@ -265,7 +266,7 @@
                                 <DataTemplate>
                                   <Border Classes="row">
                                     <Grid ColumnDefinitions="52,2*,*,90,100,110" ColumnSpacing="10">
-                                      <CheckBox IsChecked="{Binding Selected, Mode=TwoWay}" VerticalAlignment="Center" ToolTip.Tip="You will visit this engineer" />
+                                      <CheckBox IsChecked="{Binding Selected, Mode=TwoWay}" VerticalAlignment="Center" ToolTip.Tip="{loc:T Engineers.Visit}" />
                                       <Button Grid.Column="1" Classes="link strong" Classes.quiet="{Binding !Highlighted}" Classes.hud="{Binding Highlighted}" Classes.dim="{Binding Dimmed}" Content="{Binding Link.Label}" Command="{Binding Link.OpenCommand}" />
                                       <ContentControl Grid.Column="2" Content="{Binding Where}" VerticalAlignment="Center" />
                                       <TextBlock Grid.Column="3" Classes="muted" Text="{Binding Region}" VerticalAlignment="Center" />
@@ -291,7 +292,7 @@
                         <ContentControl Content="{Binding Where}" VerticalAlignment="Center" />
                         <ui:PhraseBlock Classes="muted" Parts="{Binding DistanceParts}" VerticalAlignment="Center" />
                       </StackPanel>
-                      <CheckBox Content="You will visit this engineer" IsChecked="{Binding Selected, Mode=TwoWay}" />
+                      <CheckBox Content="{loc:T Engineers.Visit}" IsChecked="{Binding Selected, Mode=TwoWay}" />
                       <TextBlock Classes="muted" Text="{Binding RouteText}" IsVisible="{Binding !!RouteText.Length}" />
                       <ui:PhraseBlock Classes="muted" Parts="{Binding StoredParts}" IsVisible="{Binding !!StoredParts.Count}" />
                     </StackPanel>
@@ -307,8 +308,8 @@
                                 </StackPanel>
                                 <Border Classes="thead">
                                   <Grid ColumnDefinitions="*,90,110" ColumnSpacing="12">
-                                    <TextBlock Classes="col" Text="BLUEPRINT" />
-                                    <TextBlock Grid.Column="1" Classes="col" Text="GRADE" />
+                                    <TextBlock Classes="col" Text="{loc:T Column.Blueprint, Upper=True}" />
+                                    <TextBlock Grid.Column="1" Classes="col" Text="{loc:T Column.Grade, Upper=True}" />
                                   </Grid>
                                 </Border>
                                 <ItemsControl ItemsSource="{Binding Offers}">
@@ -318,7 +319,7 @@
                                         <Grid ColumnDefinitions="*,90,110" ColumnSpacing="12">
                                           <TextBlock Classes="body" Text="{Binding Blueprint}" VerticalAlignment="Center" />
                                           <Border Grid.Column="1" Classes="grade" Classes.reach="{Binding ReachesTop}" HorizontalAlignment="Left"><TextBlock Text="{Binding GradeText}" /></Border>
-                                          <Button Grid.Column="2" Classes="add" Content="Add to plan" Command="{Binding AddCommand}" />
+                                          <Button Grid.Column="2" Classes="add" Content="{loc:T Common.AddToPlan}" Command="{Binding AddCommand}" />
                                         </Grid>
                                       </Border>
                                     </DataTemplate>
@@ -331,8 +332,8 @@
                       </ItemsControl>
                       <Border Grid.Column="1" Classes="panel" VerticalAlignment="Top">
                         <StackPanel Spacing="6">
-                          <TextBlock Classes="h3" Text="Your plan at this workshop" />
-                          <TextBlock Classes="muted" Text="Nothing in the plan uses what this engineer offers." IsVisible="{Binding !HasPlanRows}" />
+                          <TextBlock Classes="h3" Text="{loc:T Engineer.PlanHere}" />
+                          <TextBlock Classes="muted" Text="{loc:T Engineer.PlanEmpty}" IsVisible="{Binding !HasPlanRows}" />
                           <ItemsControl ItemsSource="{Binding PlanRows}">
                             <ItemsControl.ItemTemplate>
                               <DataTemplate>
@@ -355,10 +356,10 @@
                 <DataTemplate DataType="pages:ModulesPage">
                   <StackPanel Spacing="14">
                     <ui:PageHeaderView />
-                    <TextBlock Classes="lede" Text="Every module type the game lets you engineer, by where it fits on a ship. Open a group, then a type for its blueprints, who offers them, the variants, and what you own. Turn Only my engineers on, on the engineers page, to see just the types the engineers you ticked can roll a blueprint on." />
+                    <TextBlock Classes="lede" Text="{loc:T Modules.Intro}" />
                     <StackPanel Orientation="Horizontal" Spacing="8">
-                      <Button Classes="small" Content="Expand all" Command="{Binding ExpandAllCommand}" />
-                      <Button Classes="small" Content="Collapse all" Command="{Binding CollapseAllCommand}" />
+                      <Button Classes="small" Content="{loc:T Common.ExpandAll}" Command="{Binding ExpandAllCommand}" />
+                      <Button Classes="small" Content="{loc:T Common.CollapseAll}" Command="{Binding CollapseAllCommand}" />
                       <TextBlock Classes="muted" Text="{Binding FilterText}" VerticalAlignment="Center" IsVisible="{Binding !!FilterText.Length}" />
                     </StackPanel>
                     <ItemsControl ItemsSource="{Binding Groups}">
@@ -414,9 +415,9 @@
                     <Border Classes="panel" Padding="16,10,16,6" IsVisible="{Binding Sections[blueprints].IsCurrent}">
                       <StackPanel>
                         <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,8">
-                          <TextBlock Classes="muted" Text="Pick a grade per blueprint; 0 plans the experimental effect only. The experimental on the right applies to every entry you add from here." VerticalAlignment="Center" />
+                          <TextBlock Classes="muted" Text="{loc:T ModuleType.PickIntro}" VerticalAlignment="Center" />
                           <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" IsVisible="{Binding HasExperimentals}">
-                            <TextBlock Classes="muted" Text="Experimental" VerticalAlignment="Center" />
+                            <TextBlock Classes="muted" Text="{loc:T Column.Experimental}" VerticalAlignment="Center" />
                             <ComboBox ItemsSource="{Binding Experimentals}" SelectedItem="{Binding SelectedExperimental}" MinWidth="200" />
                           </StackPanel>
                         </Grid>
@@ -433,7 +434,7 @@
                           <Grid ColumnDefinitions="*,90,80,110" ColumnSpacing="12">
                             <ui:SortHeaderView DataContext="{Binding BlueprintSort[name]}" />
                             <ui:SortHeaderView Grid.Column="1" DataContext="{Binding BlueprintSort[reach]}" />
-                            <TextBlock Grid.Column="2" Classes="col" Text="GRADE" />
+                            <TextBlock Grid.Column="2" Classes="col" Text="{loc:T Column.Grade, Upper=True}" />
                           </Grid>
                         </Border>
                         <ItemsControl ItemsSource="{Binding Blueprints}">
@@ -457,8 +458,8 @@
                                     </ItemsControl>
                                   </StackPanel>
                                   <Border Grid.Column="1" Classes="grade" Classes.reach="{Binding ReachesTop}" IsVisible="{Binding !!ReachableText.Length}" HorizontalAlignment="Left" VerticalAlignment="Top"><TextBlock Text="{Binding ReachableText}" /></Border>
-                                  <ComboBox Grid.Column="2" ItemsSource="{Binding Grades}" SelectedItem="{Binding SelectedGrade}" HorizontalAlignment="Stretch" VerticalAlignment="Top" ToolTip.Tip="Target grade. 0 plans the experimental effect only." />
-                                  <Button Grid.Column="3" Classes="add" Content="Add to plan" Command="{Binding AddCommand}" VerticalAlignment="Top" />
+                                  <ComboBox Grid.Column="2" ItemsSource="{Binding Grades}" SelectedItem="{Binding SelectedGrade}" HorizontalAlignment="Stretch" VerticalAlignment="Top" ToolTip.Tip="{loc:T Common.TargetGradeTip}" />
+                                  <Button Grid.Column="3" Classes="add" Content="{loc:T Common.AddToPlan}" Command="{Binding AddCommand}" VerticalAlignment="Top" />
                                 </Grid>
                               </Border>
                             </DataTemplate>
@@ -471,7 +472,7 @@
                     <!-- You own -->
                     <Border Classes="panel" Padding="16,10,16,6" IsVisible="{Binding Sections[owned].IsCurrent}">
                       <StackPanel>
-                        <TextBlock Classes="muted" Text="You own none of this type." IsVisible="{Binding !HasOwned}" />
+                        <TextBlock Classes="muted" Text="{loc:T ModuleType.OwnNone}" IsVisible="{Binding !HasOwned}" />
                         <Border Classes="thead" IsVisible="{Binding HasOwned}">
                           <Grid ColumnDefinitions="2*,2*,*" ColumnSpacing="12">
                             <ui:SortHeaderView DataContext="{Binding OwnedSort[name]}" />
@@ -498,7 +499,7 @@
                     <!-- In your fits -->
                     <Border Classes="panel" Padding="16,10,16,6" IsVisible="{Binding Sections[fits].IsCurrent}">
                       <StackPanel>
-                        <TextBlock Classes="muted" Text="No saved fit asks for this type." IsVisible="{Binding !HasFitWants}" />
+                        <TextBlock Classes="muted" Text="{loc:T ModuleType.NoFitAsks}" IsVisible="{Binding !HasFitWants}" />
                         <Border Classes="thead" IsVisible="{Binding HasFitWants}">
                           <Grid ColumnDefinitions="150,*,170" ColumnSpacing="12">
                             <ui:SortHeaderView DataContext="{Binding FitWantSort[fit]}" />
@@ -525,8 +526,8 @@
                     <!-- Variants -->
                     <Border Classes="panel" IsVisible="{Binding Sections[variants].IsCurrent}">
                       <StackPanel Spacing="6">
-                        <TextBlock Classes="muted" Text="The table lists no variants for this type." IsVisible="{Binding !HasVariants}" />
-                        <TextBlock Classes="muted" Text="Every variant the game sells. Green edge: you own one." IsVisible="{Binding HasVariants}" />
+                        <TextBlock Classes="muted" Text="{loc:T ModuleType.NoVariants}" IsVisible="{Binding !HasVariants}" />
+                        <TextBlock Classes="muted" Text="{loc:T ModuleType.VariantsNote}" IsVisible="{Binding HasVariants}" />
                         <ItemsControl ItemsSource="{Binding Variants}">
                           <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                           <ItemsControl.ItemTemplate>
@@ -547,7 +548,7 @@
                       <ui:PageHeaderView />
                       <TextBlock Classes="faint" Text="{Binding KeyText}" />
                       <StackPanel Orientation="Horizontal" Spacing="6">
-                        <TextBlock Classes="muted" Text="Applies to" VerticalAlignment="Center" />
+                        <TextBlock Classes="muted" Text="{loc:T Blueprint.AppliesTo}" VerticalAlignment="Center" />
                         <ItemsControl ItemsSource="{Binding ModuleTypes}">
                           <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                           <ItemsControl.ItemTemplate>
@@ -558,23 +559,23 @@
                     </StackPanel>
                     <Border Classes="panel">
                       <StackPanel Spacing="8">
-                        <TextBlock Classes="col" Text="ADD TO THE PLAN" />
+                        <TextBlock Classes="col" Text="{loc:T Blueprint.AddHeading, Upper=True}" />
                         <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding ScopeNote}" IsVisible="{Binding !!ScopeNote.Length}" />
                         <Grid ColumnDefinitions="2*,12,110,12,2*,12,Auto">
-                          <StackPanel><TextBlock Classes="col" Text="MODULE TYPE" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding ModuleTypeChoices}" SelectedItem="{Binding SelectedModuleType}" HorizontalAlignment="Stretch" /></StackPanel>
-                          <StackPanel Grid.Column="2"><TextBlock Classes="col" Text="GRADE" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding GradeChoices}" SelectedItem="{Binding SelectedGrade}" HorizontalAlignment="Stretch" ToolTip.Tip="Target grade. 0 plans the experimental effect only." /></StackPanel>
-                          <StackPanel Grid.Column="4" IsVisible="{Binding HasExperimentals}"><TextBlock Classes="col" Text="EXPERIMENTAL" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Experimentals}" SelectedItem="{Binding SelectedExperimental}" HorizontalAlignment="Stretch" /></StackPanel>
-                          <Button Grid.Column="6" Classes="primary" Content="Add" Command="{Binding AddCommand}" VerticalAlignment="Bottom" />
+                          <StackPanel><TextBlock Classes="col" Text="{loc:T Column.ModuleType, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding ModuleTypeChoices}" SelectedItem="{Binding SelectedModuleType}" HorizontalAlignment="Stretch" /></StackPanel>
+                          <StackPanel Grid.Column="2"><TextBlock Classes="col" Text="{loc:T Column.Grade, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding GradeChoices}" SelectedItem="{Binding SelectedGrade}" HorizontalAlignment="Stretch" ToolTip.Tip="{loc:T Common.TargetGradeTip}" /></StackPanel>
+                          <StackPanel Grid.Column="4" IsVisible="{Binding HasExperimentals}"><TextBlock Classes="col" Text="{loc:T Column.Experimental, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Experimentals}" SelectedItem="{Binding SelectedExperimental}" HorizontalAlignment="Stretch" /></StackPanel>
+                          <Button Grid.Column="6" Classes="primary" Content="{loc:T Common.Add}" Command="{Binding AddCommand}" VerticalAlignment="Bottom" />
                         </Grid>
                         <TextBlock Classes="muted" Text="{Binding AddedText}" IsVisible="{Binding !!AddedText.Length}" />
                       </StackPanel>
                     </Border>
                     <Border Classes="thead" Padding="16,0,16,6">
                       <Grid ColumnDefinitions="60,2*,2*,70" ColumnSpacing="14">
-                        <TextBlock Classes="col" Text="GRADE" />
-                        <TextBlock Grid.Column="1" Classes="col" Text="ONE ROLL COSTS" />
-                        <TextBlock Grid.Column="2" Classes="col" Text="OFFERED BY" />
-                        <TextBlock Grid.Column="3" Classes="col" Text="PLAN" />
+                        <TextBlock Classes="col" Text="{loc:T Column.Grade, Upper=True}" />
+                        <TextBlock Grid.Column="1" Classes="col" Text="{loc:T Column.OneRollCosts, Upper=True}" />
+                        <TextBlock Grid.Column="2" Classes="col" Text="{loc:T Column.OfferedBy, Upper=True}" />
+                        <TextBlock Grid.Column="3" Classes="col" Text="{loc:T Column.Plan, Upper=True}" />
                       </Grid>
                     </Border>
                     <ItemsControl ItemsSource="{Binding Grades}">
@@ -583,9 +584,9 @@
                           <Border Classes="panel" Margin="0,0,0,10">
                             <Grid ColumnDefinitions="60,2*,2*,70" ColumnSpacing="14">
                               <TextBlock Classes="h3 mono" Text="{Binding Label}" Foreground="{Binding Grade, Converter={StaticResource SemanticBrush}, ConverterParameter=KG}" />
-                              <Button Grid.Column="3" Classes="small" Content="Add" Command="{Binding AddCommand}" VerticalAlignment="Top" ToolTip.Tip="Add this grade on the module type and experimental chosen above" />
+                              <Button Grid.Column="3" Classes="small" Content="{loc:T Common.Add}" Command="{Binding AddCommand}" VerticalAlignment="Top" ToolTip.Tip="{loc:T Blueprint.AddGradeTip}" />
                               <StackPanel Grid.Column="1">
-                                <TextBlock Classes="muted" Text="Bought, not rolled: no materials." IsVisible="{Binding IsFree}" />
+                                <TextBlock Classes="muted" Text="{loc:T Blueprint.BoughtNotRolled}" IsVisible="{Binding IsFree}" />
                                 <ItemsControl ItemsSource="{Binding Materials}">
                                   <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                                   <ItemsControl.ItemTemplate>
@@ -624,8 +625,8 @@
                           <DataTemplate><CheckBox Content="{Binding Label}" IsChecked="{Binding IsShown, Mode=TwoWay}" /></DataTemplate>
                         </ItemsControl.ItemTemplate>
                       </ItemsControl>
-                      <TextBox Text="{Binding Filter, Mode=TwoWay}" PlaceholderText="Filter by name or family" MinWidth="260" Margin="0,0,14,0" VerticalAlignment="Center" />
-                      <CheckBox Content="Short only" IsChecked="{Binding ShortOnly, Mode=TwoWay}" VerticalAlignment="Center" />
+                      <TextBox Text="{Binding Filter, Mode=TwoWay}" PlaceholderText="{loc:T Materials.FilterPlaceholder}" MinWidth="260" Margin="0,0,14,0" VerticalAlignment="Center" />
+                      <CheckBox Content="{loc:T Materials.ShortOnly}" IsChecked="{Binding ShortOnly, Mode=TwoWay}" VerticalAlignment="Center" />
                     </WrapPanel>
                     <ItemsControl ItemsSource="{Binding Sections}">
                       <ItemsControl.ItemTemplate>
@@ -644,8 +645,8 @@
                                   <ui:SortHeaderView Grid.Column="3" DataContext="{Binding $parent[ItemsControl].DataContext.Sort[have]}" />
                                   <ui:SortHeaderView Grid.Column="4" DataContext="{Binding $parent[ItemsControl].DataContext.Sort[need]}" />
                                   <ui:SortHeaderView Grid.Column="5" DataContext="{Binding $parent[ItemsControl].DataContext.Sort[short]}" />
-                                  <TextBlock Grid.Column="7" Classes="col" Text="KEEP" TextAlignment="Right" VerticalAlignment="Center" ToolTip.Tip="Hold at least this many. The trades never spend below it and bring it back up when it falls short." />
-                                  <TextBlock Grid.Column="8" Classes="col" Text="TRADE" VerticalAlignment="Center" ToolTip.Tip="Ticked: the trades may spend what you hold above the keep figure. Untick to never hand this material over at a trader." />
+                                  <TextBlock Grid.Column="7" Classes="col" Text="{loc:T Column.Keep, Upper=True}" TextAlignment="Right" VerticalAlignment="Center" ToolTip.Tip="{loc:T Materials.KeepTip}" />
+                                  <TextBlock Grid.Column="8" Classes="col" Text="{loc:T Column.Trade, Upper=True}" VerticalAlignment="Center" ToolTip.Tip="{loc:T Materials.TradeTip}" />
                                 </Grid>
                               </Border>
                               <ItemsControl ItemsSource="{Binding Rows}">
@@ -663,7 +664,7 @@
                                         <TextBlock Grid.Column="4" Classes="mono" Text="{Binding NeededText}" TextAlignment="Right" VerticalAlignment="Center" />
                                         <TextBlock Grid.Column="5" Classes="mono bad" Text="{Binding ShortText}" TextAlignment="Right" VerticalAlignment="Center" FontWeight="SemiBold" />
                                         <TextBox Grid.Column="7" Classes="mono" Text="{Binding KeepText, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" PlaceholderText="0" MinHeight="28" Padding="6,3" TextAlignment="Right" VerticalAlignment="Center" />
-                                        <CheckBox Grid.Column="8" IsChecked="{Binding MayTrade, Mode=TwoWay}" VerticalAlignment="Center" ToolTip.Tip="Untick to never hand this material over at a trader." />
+                                        <CheckBox Grid.Column="8" IsChecked="{Binding MayTrade, Mode=TwoWay}" VerticalAlignment="Center" ToolTip.Tip="{loc:T Materials.NeverTradeTip}" />
                                       </Grid>
                                     </Border>
                                   </DataTemplate>
@@ -676,7 +677,7 @@
                     </ItemsControl>
                     <Border Classes="panel" Padding="16,12">
                       <StackPanel Spacing="8">
-                        <TextBlock Classes="h3" Text="At the material traders" />
+                        <TextBlock Classes="h3" Text="{loc:T Common.AtTheTraders}" />
                         <ContentControl Content="{Binding Trades}" />
                       </StackPanel>
                     </Border>
@@ -688,7 +689,7 @@
                   <StackPanel Spacing="14">
                     <StackPanel Spacing="4">
                       <ui:PageHeaderView />
-                      <TextBlock Classes="lede" Text="Everything the technology brokers sell, with what each costs. Tick an unlock and it joins the plan: its materials count in the totals and the trades, and anything the plan has already claimed is not counted twice. An unlock you cannot afford yet is dimmed but still yours to tick." />
+                      <TextBlock Classes="lede" Text="{loc:T Unlocks.Intro}" />
                       <TextBlock Classes="muted" Text="{Binding Summary}" />
                     </StackPanel>
                     <ItemsControl ItemsSource="{Binding Sections.Items}">
@@ -698,8 +699,8 @@
                       </ItemsControl.ItemTemplate>
                     </ItemsControl>
                     <StackPanel Orientation="Horizontal" Spacing="8">
-                      <Button Classes="small" Content="Expand all" Command="{Binding ExpandAllCommand}" />
-                      <Button Classes="small" Content="Collapse all" Command="{Binding CollapseAllCommand}" />
+                      <Button Classes="small" Content="{loc:T Common.ExpandAll}" Command="{Binding ExpandAllCommand}" />
+                      <Button Classes="small" Content="{loc:T Common.CollapseAll}" Command="{Binding CollapseAllCommand}" />
                     </StackPanel>
                     <ItemsControl ItemsSource="{Binding Groups}">
                       <ItemsControl.ItemTemplate>
@@ -714,9 +715,9 @@
                       <StackPanel Margin="0,8,0,0">
                         <Border Classes="thead">
                           <Grid ColumnDefinitions="40,2*,3*,130" ColumnSpacing="12">
-                            <TextBlock Classes="col" Text="PLAN" />
+                            <TextBlock Classes="col" Text="{loc:T Column.Plan, Upper=True}" />
                             <ui:SortHeaderView Grid.Column="1" DataContext="{Binding $parent[ItemsControl].DataContext.Sort[name]}" />
-                            <TextBlock Grid.Column="2" Classes="col" Text="COSTS" />
+                            <TextBlock Grid.Column="2" Classes="col" Text="{loc:T Column.Costs, Upper=True}" />
                             <ui:SortHeaderView Grid.Column="3" DataContext="{Binding $parent[ItemsControl].DataContext.Sort[state]}" />
                           </Grid>
                         </Border>
@@ -725,7 +726,7 @@
                             <DataTemplate>
                               <Border Classes="row" Classes.dim="{Binding IsDim}">
                                 <Grid ColumnDefinitions="40,2*,3*,130" ColumnSpacing="12">
-                                  <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" IsEnabled="{Binding CanSelect}" VerticalAlignment="Top" ToolTip.Tip="Put this unlock in the plan" />
+                                  <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" IsEnabled="{Binding CanSelect}" VerticalAlignment="Top" ToolTip.Tip="{loc:T Unlocks.PutInPlanTip}" />
                                   <StackPanel Grid.Column="1" Spacing="2">
                                     <TextBlock Classes="strong" Text="{Binding Name}" />
                                     <Button Classes="link" Content="{Binding TypeLink.Label}" Command="{Binding TypeLink.OpenCommand}" IsVisible="{Binding HasType}" FontSize="12" />
@@ -760,15 +761,15 @@
                     </ItemsControl>
                     <Border Classes="panel" Padding="16,10,16,8">
                       <StackPanel Spacing="8">
-                        <TextBlock Classes="h3" Text="Materials for your planned unlocks" />
+                        <TextBlock Classes="h3" Text="{loc:T Unlocks.MaterialsHeading}" />
                         <TextBlock Classes="muted" Text="{Binding MaterialsSummary}" />
                         <Border Classes="thead" IsVisible="{Binding HasPlanned}">
                           <Grid ColumnDefinitions="3*,64,70,70,70" ColumnSpacing="10">
-                            <TextBlock Classes="col" Text="MATERIAL" />
-                            <TextBlock Grid.Column="1" Classes="col" Text="GRADE" />
-                            <TextBlock Grid.Column="2" Classes="col" Text="HAVE" TextAlignment="Right" />
-                            <TextBlock Grid.Column="3" Classes="col" Text="NEED" TextAlignment="Right" />
-                            <TextBlock Grid.Column="4" Classes="col" Text="SHORT" TextAlignment="Right" />
+                            <TextBlock Classes="col" Text="{loc:T Column.Material, Upper=True}" />
+                            <TextBlock Grid.Column="1" Classes="col" Text="{loc:T Column.Grade, Upper=True}" />
+                            <TextBlock Grid.Column="2" Classes="col" Text="{loc:T Column.Have, Upper=True}" TextAlignment="Right" />
+                            <TextBlock Grid.Column="3" Classes="col" Text="{loc:T Column.Need, Upper=True}" TextAlignment="Right" />
+                            <TextBlock Grid.Column="4" Classes="col" Text="{loc:T Column.Short, Upper=True}" TextAlignment="Right" />
                           </Grid>
                         </Border>
                         <ItemsControl ItemsSource="{Binding Materials}" IsVisible="{Binding HasPlanned}">
@@ -790,7 +791,7 @@
                           </ItemsControl.ItemTemplate>
                         </ItemsControl>
                         <StackPanel Spacing="2" IsVisible="{Binding HasCommodities}" Margin="0,6,0,0">
-                          <TextBlock Classes="col" Text="BUY AT A MARKET" />
+                          <TextBlock Classes="col" Text="{loc:T Common.BuyAtAMarket, Upper=True}" />
                           <ItemsControl ItemsSource="{Binding Commodities}">
                             <ItemsControl.ItemTemplate>
                               <DataTemplate>
@@ -815,9 +816,9 @@
                       <TextBlock Classes="faint" Text="{Binding SymbolText}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Spacing="10">
-                      <Border Classes="tile" MinWidth="120"><StackPanel><TextBlock Classes="col" Text="HAVE" /><TextBlock Classes="mono" FontSize="24" Text="{Binding HaveText}" /></StackPanel></Border>
-                      <Border Classes="tile" MinWidth="120"><StackPanel><TextBlock Classes="col" Text="PLAN NEEDS" /><TextBlock Classes="mono" FontSize="24" Text="{Binding NeededText}" /></StackPanel></Border>
-                      <Border Classes="tile" MinWidth="120" IsVisible="{Binding IsShort}"><StackPanel><TextBlock Classes="col" Text="SHORT" /><TextBlock Classes="mono warn" FontSize="24" Text="{Binding ShortText}" FontWeight="SemiBold" /></StackPanel></Border>
+                      <Border Classes="tile" MinWidth="120"><StackPanel><TextBlock Classes="col" Text="{loc:T Column.Have, Upper=True}" /><TextBlock Classes="mono" FontSize="24" Text="{Binding HaveText}" /></StackPanel></Border>
+                      <Border Classes="tile" MinWidth="120"><StackPanel><TextBlock Classes="col" Text="{loc:T Column.PlanNeeds, Upper=True}" /><TextBlock Classes="mono" FontSize="24" Text="{Binding NeededText}" /></StackPanel></Border>
+                      <Border Classes="tile" MinWidth="120" IsVisible="{Binding IsShort}"><StackPanel><TextBlock Classes="col" Text="{loc:T Column.Short, Upper=True}" /><TextBlock Classes="mono warn" FontSize="24" Text="{Binding ShortText}" FontWeight="SemiBold" /></StackPanel></Border>
                     </StackPanel>
                     <ItemsControl ItemsSource="{Binding Sections.Items}">
                       <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel Orientation="Horizontal" Spacing="2" /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
@@ -827,7 +828,7 @@
                     </ItemsControl>
                     <Border Classes="panel" Padding="16,10,16,6" IsVisible="{Binding Sections[spends].IsCurrent}">
                       <StackPanel>
-                        <TextBlock Classes="muted" Text="No enabled plan entry uses it." IsVisible="{Binding !HasSpends}" Margin="0,0,0,6" />
+                        <TextBlock Classes="muted" Text="{loc:T Material.NoEntryUses}" IsVisible="{Binding !HasSpends}" Margin="0,0,0,6" />
                         <Border Classes="thead" IsVisible="{Binding HasSpends}">
                           <Grid ColumnDefinitions="*,70" ColumnSpacing="12">
                             <ui:SortHeaderView DataContext="{Binding SpendSort[entry]}" />
@@ -855,7 +856,7 @@
                             <ui:SortHeaderView DataContext="{Binding UseSort[blueprint]}" />
                             <ui:SortHeaderView Grid.Column="1" DataContext="{Binding UseSort[grade]}" />
                             <ui:SortHeaderView Grid.Column="2" DataContext="{Binding UseSort[count]}" />
-                            <TextBlock Grid.Column="3" Classes="col" Text="MODULE TYPES" />
+                            <TextBlock Grid.Column="3" Classes="col" Text="{loc:T Column.ModuleTypes, Upper=True}" />
                           </Grid>
                         </Border>
                         <ItemsControl ItemsSource="{Binding Uses}">
@@ -882,12 +883,12 @@
                     </Border>
                     <Border Classes="panel" IsVisible="{Binding Sections[sources].IsCurrent}">
                       <StackPanel Spacing="4">
-                        <TextBlock Classes="muted" Text="Only raw materials lie on planet surfaces. Manufactured and encoded materials come from ships, settlements, signal sources and traders." IsVisible="{Binding !SourcesParts.Count}" />
+                        <TextBlock Classes="muted" Text="{loc:T Material.SurfacesNote}" IsVisible="{Binding !SourcesParts.Count}" />
                         <ui:PhraseBlock Classes="h3" Parts="{Binding SourcesParts}" IsVisible="{Binding !!SourcesParts.Count}" />
                         <Border Classes="thead" IsVisible="{Binding !!SourcesParts.Count}">
                           <Grid ColumnDefinitions="*,70,80" ColumnSpacing="10">
-                            <TextBlock Classes="col" Text="BODY" />
-                            <TextBlock Grid.Column="1" Classes="col" Text="SHARE" />
+                            <TextBlock Classes="col" Text="{loc:T Column.Body, Upper=True}" />
+                            <TextBlock Grid.Column="1" Classes="col" Text="{loc:T Column.Share, Upper=True}" />
                           </Grid>
                         </Border>
                         <ItemsControl ItemsSource="{Binding Sources}">
@@ -897,7 +898,7 @@
                                 <Grid ColumnDefinitions="*,70,80" ColumnSpacing="10">
                                   <TextBlock Classes="body" Text="{Binding Body}" />
                                   <TextBlock Grid.Column="1" Classes="mono" Text="{Binding Share}" />
-                                  <TextBlock Grid.Column="2" Classes="good" Text="landable" IsVisible="{Binding Landable}" />
+                                  <TextBlock Grid.Column="2" Classes="good" Text="{loc:T Common.Landable}" IsVisible="{Binding Landable}" />
                                 </Grid>
                               </Border>
                             </DataTemplate>
@@ -940,8 +941,8 @@
                                   <StackPanel>
                                     <WrapPanel>
                                       <Button Classes="link strong quiet" Content="{Binding Link.Label}" Command="{Binding Link.OpenCommand}" Margin="0,0,8,0" />
-                                      <Border Classes="badge good" IsVisible="{Binding IsCurrent}" Margin="0,0,8,0"><TextBlock Text="FLYING" /></Border>
-                                      <Border Classes="badge warn" IsVisible="{Binding IsPrebuilt}" ToolTip.Tip="Redeemed from a bundle. Open the ship to see whether it is still as it came."><TextBlock Text="PREBUILT" /></Border>
+                                      <Border Classes="badge good" IsVisible="{Binding IsCurrent}" Margin="0,0,8,0"><TextBlock Text="{loc:T Column.Flying, Upper=True}" /></Border>
+                                      <Border Classes="badge warn" IsVisible="{Binding IsPrebuilt}" ToolTip.Tip="{loc:T Fleet.PrebuiltTip}"><TextBlock Text="{loc:T Column.Prebuilt, Upper=True}" /></Border>
                                     </WrapPanel>
                                     <TextBlock Classes="faint" Text="{Binding FitText}" />
                                   </StackPanel>
@@ -958,7 +959,7 @@
                     <!-- Saved fits -->
                     <Border Classes="panel" Padding="16,10,16,12" IsVisible="{Binding Sections[fits].IsCurrent}">
                       <StackPanel Spacing="6">
-                        <TextBlock Classes="muted" Text="Open a fit to compare it with one of your ships and plan the gap. No fits saved yet: paste an EDSY journal Loadout export below." IsVisible="{Binding !HasFits}" />
+                        <TextBlock Classes="muted" Text="{loc:T Fleet.NoFits}" IsVisible="{Binding !HasFits}" />
                         <Border Classes="thead" IsVisible="{Binding HasFits}">
                           <Grid ColumnDefinitions="2*,*,2*,80" ColumnSpacing="12">
                             <ui:SortHeaderView DataContext="{Binding FitSort[name]}" />
@@ -973,22 +974,22 @@
                                 <Grid ColumnDefinitions="2*,*,2*,80" ColumnSpacing="12">
                                   <StackPanel Orientation="Horizontal" Spacing="8">
                                     <Button Classes="link strong quiet" Content="{Binding Link.Label}" Command="{Binding Link.OpenCommand}" />
-                                    <Border Classes="badge" Classes.good="{Binding AllOwned}" Classes.warn="{Binding IsWarn}" Classes.bad="{Binding IsBad}" ToolTip.Tip="Whether you own every module the fit wants, anywhere in your fleet or storage under the sharing policy. Open the fit to compare it with one ship."><TextBlock Text="{Binding Verdict}" /></Border>
+                                    <Border Classes="badge" Classes.good="{Binding AllOwned}" Classes.warn="{Binding IsWarn}" Classes.bad="{Binding IsBad}" ToolTip.Tip="{loc:T Fleet.CoveredTip}"><TextBlock Text="{Binding Verdict}" /></Border>
                                   </StackPanel>
                                   <TextBlock Grid.Column="1" Classes="muted" Text="{Binding HullName}" VerticalAlignment="Center" />
                                   <TextBlock Grid.Column="2" Classes="muted" Text="{Binding Summary}" VerticalAlignment="Center" />
-                                  <Button Grid.Column="3" Classes="small danger" Content="Remove" Command="{Binding RemoveCommand}" VerticalAlignment="Center" />
+                                  <Button Grid.Column="3" Classes="small danger" Content="{loc:T Common.Remove}" Command="{Binding RemoveCommand}" VerticalAlignment="Center" />
                                 </Grid>
                               </Border>
                             </DataTemplate>
                           </ItemsControl.ItemTemplate>
                         </ItemsControl>
                         <TextBox Text="{Binding PasteText, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="NoWrap" Height="80" FontFamily="{StaticResource MonoFont}" FontSize="12" Margin="0,8,0,0"
-                                 PlaceholderText="Paste an EDSY journal Loadout export and press Save as fit." />
+                                 PlaceholderText="{loc:T Fleet.PastePlaceholder}" />
                         <StackPanel Orientation="Horizontal" Spacing="10">
-                          <Button Classes="primary small" Content="Save as fit" Command="{Binding AddFittingCommand}" IsVisible="{Binding !IsConfirmingReplace}" />
-                          <Button Classes="small danger" Content="Yes, replace it" Command="{Binding AddFittingCommand}" IsVisible="{Binding IsConfirmingReplace}" />
-                          <Button Classes="small" Content="Keep the saved fit" Command="{Binding CancelReplaceCommand}" IsVisible="{Binding IsConfirmingReplace}" />
+                          <Button Classes="primary small" Content="{loc:T Fleet.SaveAsFit}" Command="{Binding AddFittingCommand}" IsVisible="{Binding !IsConfirmingReplace}" />
+                          <Button Classes="small danger" Content="{loc:T Fleet.YesReplace}" Command="{Binding AddFittingCommand}" IsVisible="{Binding IsConfirmingReplace}" />
+                          <Button Classes="small" Content="{loc:T Fleet.KeepSaved}" Command="{Binding CancelReplaceCommand}" IsVisible="{Binding IsConfirmingReplace}" />
                           <TextBlock Classes="warn" Text="{Binding ReplaceText}" IsVisible="{Binding IsConfirmingReplace}" VerticalAlignment="Center" />
                           <TextBlock Classes="bad" Text="{Binding AddError}" IsVisible="{Binding HasAddError}" VerticalAlignment="Center" />
                         </StackPanel>
@@ -1000,10 +1001,10 @@
                       <StackPanel Spacing="8">
                         <TextBlock Classes="h3" Text="{Binding UnusedHeading}" />
                         <Grid ColumnDefinitions="2*,12,*,12,*,12,*">
-                          <StackPanel><TextBlock Classes="col" Text="SHARING" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Policies}" SelectedItem="{Binding SelectedPolicy}" HorizontalAlignment="Stretch" /></StackPanel>
-                          <StackPanel Grid.Column="2"><TextBlock Classes="col" Text="MODULES IN" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedLocation}" HorizontalAlignment="Stretch" /></StackPanel>
-                          <StackPanel Grid.Column="4"><TextBlock Classes="col" Text="PLACE" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Places}" SelectedItem="{Binding SelectedPlace}" HorizontalAlignment="Stretch" /></StackPanel>
-                          <StackPanel Grid.Column="6"><TextBlock Classes="col" Text="ENGINEERING" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Filters}" SelectedItem="{Binding SelectedFilter}" HorizontalAlignment="Stretch" /></StackPanel>
+                          <StackPanel><TextBlock Classes="col" Text="{loc:T Column.Sharing, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Policies}" SelectedItem="{Binding SelectedPolicy}" HorizontalAlignment="Stretch" /></StackPanel>
+                          <StackPanel Grid.Column="2"><TextBlock Classes="col" Text="{loc:T Column.ModulesIn, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedLocation}" HorizontalAlignment="Stretch" /></StackPanel>
+                          <StackPanel Grid.Column="4"><TextBlock Classes="col" Text="{loc:T Column.Place, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Places}" SelectedItem="{Binding SelectedPlace}" HorizontalAlignment="Stretch" /></StackPanel>
+                          <StackPanel Grid.Column="6"><TextBlock Classes="col" Text="{loc:T Column.Engineering, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Filters}" SelectedItem="{Binding SelectedFilter}" HorizontalAlignment="Stretch" /></StackPanel>
                         </Grid>
                         <Border Classes="thead">
                           <Grid ColumnDefinitions="2*,2*,*,170" ColumnSpacing="12">
@@ -1038,8 +1039,8 @@
                     <StackPanel Spacing="4">
                       <ui:PageHeaderView />
                       <StackPanel Orientation="Horizontal" Spacing="12">
-                        <Border Classes="badge good" IsVisible="{Binding IsCurrent}"><TextBlock Text="FLYING NOW" /></Border>
-                        <Border Classes="badge warn" IsVisible="{Binding IsPrebuilt}"><TextBlock Text="PREBUILT" /></Border>
+                        <Border Classes="badge good" IsVisible="{Binding IsCurrent}"><TextBlock Text="{loc:T Column.FlyingNow, Upper=True}" /></Border>
+                        <Border Classes="badge warn" IsVisible="{Binding IsPrebuilt}"><TextBlock Text="{loc:T Column.Prebuilt, Upper=True}" /></Border>
                         <TextBlock Classes="muted" Text="{Binding TypeName}" VerticalAlignment="Center" />
                         <ContentControl Content="{Binding Where}" VerticalAlignment="Center" />
                       </StackPanel>
@@ -1053,9 +1054,9 @@
                           <StackPanel>
                             <Border Classes="thead">
                               <Grid ColumnDefinitions="160,*,*" ColumnSpacing="12">
-                                <TextBlock Classes="col" Text="SLOT" />
-                                <TextBlock Grid.Column="1" Classes="col" Text="CAME WITH" />
-                                <TextBlock Grid.Column="2" Classes="col" Text="NOW" />
+                                <TextBlock Classes="col" Text="{loc:T Column.Slot, Upper=True}" />
+                                <TextBlock Grid.Column="1" Classes="col" Text="{loc:T Column.CameWith, Upper=True}" />
+                                <TextBlock Grid.Column="2" Classes="col" Text="{loc:T Column.Now, Upper=True}" />
                               </Grid>
                             </Border>
                             <ItemsControl ItemsSource="{Binding PrebuiltChanges}">
@@ -1075,11 +1076,11 @@
                         </Border>
                       </Expander>
                       <StackPanel Orientation="Horizontal" Spacing="8">
-                        <Button Classes="small" Content="Copy for EDSY" Click="CopyEdsy" IsEnabled="{Binding CanExport}" ToolTip.Tip="Copies the game's Loadout record for this ship. In EDSY, choose Import and paste." />
+                        <Button Classes="small" Content="{loc:T Common.CopyForEdsy}" Click="CopyEdsy" IsEnabled="{Binding CanExport}" ToolTip.Tip="{loc:T Ship.CopyTip}" />
                         <TextBlock Classes="muted" Text="{Binding ExportStatus}" VerticalAlignment="Center" />
                       </StackPanel>
                       <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding HasFits}">
-                        <TextBlock Classes="muted" Text="Saved fits for this hull:" VerticalAlignment="Center" />
+                        <TextBlock Classes="muted" Text="{loc:T Ship.SavedFits}" VerticalAlignment="Center" />
                         <ItemsControl ItemsSource="{Binding Fits}">
                           <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                           <ItemsControl.ItemTemplate>
@@ -1091,10 +1092,10 @@
                     <Border Classes="panel" Padding="16,10,16,6">
                       <StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,0,0,4">
-                          <TextBlock Classes="h3" Text="Fitted modules" />
+                          <TextBlock Classes="h3" Text="{loc:T Ship.FittedModules}" />
                           <TextBlock Classes="muted" Text="{Binding ModulesText}" VerticalAlignment="Center" />
                         </StackPanel>
-                        <TextBlock Classes="muted" Text="Each engineerable module has a picker: choose a blueprint, a grade and an experimental, then add it to the plan. The picker starts on what the module already carries, else at the top grade, or at the grade your selected engineers reach when Only my engineers is on, and grade 0 plans the experimental effect alone." Margin="0,0,0,6" />
+                        <TextBlock Classes="muted" Text="{loc:T Ship.PickerIntro}" Margin="0,0,0,6" />
                         <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding ScopeNote}" IsVisible="{Binding !!ScopeNote.Length}" Margin="0,0,0,6" />
                         <Border Classes="thead">
                           <Grid ColumnDefinitions="120,2*,2*" ColumnSpacing="10">
@@ -1115,16 +1116,16 @@
                                   <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                     <TextBlock Classes="body" Text="{Binding Name}" />
                                     <Button Classes="link" Content="{Binding Link.Label}" Command="{Binding Link.OpenCommand}" IsVisible="{Binding HasLink}" FontSize="12" />
-                                    <TextBlock Classes="warn" Text="Prebuilt module" IsVisible="{Binding WarnPrebuilt}" FontSize="12" ToolTip.Tip="It came with the ship and cannot be stored, moved or sold, so engineering it stays with this ship." />
+                                    <TextBlock Classes="warn" Text="{loc:T Common.PrebuiltModule}" IsVisible="{Binding WarnPrebuilt}" FontSize="12" ToolTip.Tip="{loc:T Common.PrebuiltModuleTip}" />
                                   </StackPanel>
                                   <TextBlock Grid.Column="2" Classes="muted" Classes.accent="{Binding IsEngineered}" Text="{Binding Engineering}" VerticalAlignment="Center" />
                                   <!-- The picker takes its own line under the module, so the row fits any width the window allows. -->
-                                  <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Classes="faint" TextWrapping="Wrap" Text="None of the engineers you ticked offers a blueprint for this module type." IsVisible="{Binding ShowsNoChoices}" Margin="0,4,0,0" />
+                                  <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Classes="faint" TextWrapping="Wrap" Text="{loc:T Ship.NoTickedEngineer}" IsVisible="{Binding ShowsNoChoices}" Margin="0,4,0,0" />
                                   <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ColumnDefinitions="Auto,3*,64,3*,Auto" ColumnSpacing="8" IsVisible="{Binding ShowsPicker}" Margin="0,6,0,0">
-                                    <TextBlock Classes="col" Text="PLAN" VerticalAlignment="Center" />
-                                    <ComboBox Grid.Column="1" ItemsSource="{Binding Blueprints}" SelectedItem="{Binding SelectedBlueprint}" HorizontalAlignment="Stretch" VerticalAlignment="Center" ToolTip.Tip="Blueprint" />
-                                    <ComboBox Grid.Column="2" ItemsSource="{Binding Grades}" SelectedItem="{Binding SelectedGrade}" HorizontalAlignment="Stretch" VerticalAlignment="Center" ToolTip.Tip="Target grade. 0 plans the experimental effect only." />
-                                    <ComboBox Grid.Column="3" ItemsSource="{Binding Experimentals}" SelectedItem="{Binding SelectedExperimental}" IsVisible="{Binding HasExperimentals}" HorizontalAlignment="Stretch" VerticalAlignment="Center" ToolTip.Tip="Experimental effect" />
+                                    <TextBlock Classes="col" Text="{loc:T Column.Plan, Upper=True}" VerticalAlignment="Center" />
+                                    <ComboBox Grid.Column="1" ItemsSource="{Binding Blueprints}" SelectedItem="{Binding SelectedBlueprint}" HorizontalAlignment="Stretch" VerticalAlignment="Center" ToolTip.Tip="{loc:T Column.Blueprint}" />
+                                    <ComboBox Grid.Column="2" ItemsSource="{Binding Grades}" SelectedItem="{Binding SelectedGrade}" HorizontalAlignment="Stretch" VerticalAlignment="Center" ToolTip.Tip="{loc:T Common.TargetGradeTip}" />
+                                    <ComboBox Grid.Column="3" ItemsSource="{Binding Experimentals}" SelectedItem="{Binding SelectedExperimental}" IsVisible="{Binding HasExperimentals}" HorizontalAlignment="Stretch" VerticalAlignment="Center" ToolTip.Tip="{loc:T Common.ExperimentalEffectTip}" />
                                     <Button Grid.Column="4" Classes="add" Content="{Binding AddText}" Command="{Binding AddCommand}" VerticalAlignment="Center" />
                                   </Grid>
                                 </Grid>
@@ -1148,8 +1149,8 @@
                       </StackPanel>
                       <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,6,0,0">
                         <Button Classes="primary small" Content="{Binding PlanMissingText}" Command="{Binding PlanMissingCommand}" />
-                        <Button Classes="small" Content="Copy for EDSY" Click="CopyEdsy" ToolTip.Tip="Copies this fit as a journal Loadout. In EDSY, choose Import and paste." />
-                        <Button Classes="small danger" Content="Remove this fit" Command="{Binding RemoveCommand}" />
+                        <Button Classes="small" Content="{loc:T Common.CopyForEdsy}" Click="CopyEdsy" ToolTip.Tip="{loc:T Fit.CopyTip}" />
+                        <Button Classes="small danger" Content="{loc:T Fit.RemoveFit}" Command="{Binding RemoveCommand}" />
                         <TextBlock Classes="muted" Text="{Binding ExportStatus}" VerticalAlignment="Center" />
                       </StackPanel>
                     </StackPanel>
@@ -1163,14 +1164,14 @@
                     <!-- Compare with a ship -->
                     <Border Classes="panel" Padding="16,10,16,8" IsVisible="{Binding Sections[compare].IsCurrent}">
                       <StackPanel Spacing="8">
-                        <TextBlock Classes="muted" Text="Slot by slot, what the ship has against what the fit wants. The ship with the most matching modules is chosen first. Engineering differences go into the plan with one button; a slot that only lacks its experimental becomes an experimental-only entry. Modules you already own elsewhere are counted first, within the place and location you choose." />
+                        <TextBlock Classes="muted" Text="{loc:T Fit.Intro}" />
                         <TextBlock Classes="muted" Text="{Binding CompareSummary}" IsVisible="{Binding !HasShips}" />
                         <Grid ColumnDefinitions="3*,12,*,12,*" IsVisible="{Binding HasShips}">
-                          <StackPanel><TextBlock Classes="col" Text="SHIP" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Ships}" SelectedItem="{Binding SelectedShip}" HorizontalAlignment="Stretch" /></StackPanel>
-                          <StackPanel Grid.Column="2"><TextBlock Classes="col" Text="OWNED MODULES IN" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedLocation}" HorizontalAlignment="Stretch" /></StackPanel>
-                          <StackPanel Grid.Column="4"><TextBlock Classes="col" Text="OWNED MODULES THAT ARE" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Places}" SelectedItem="{Binding SelectedPlace}" HorizontalAlignment="Stretch" /></StackPanel>
+                          <StackPanel><TextBlock Classes="col" Text="{loc:T Column.Ship, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Ships}" SelectedItem="{Binding SelectedShip}" HorizontalAlignment="Stretch" /></StackPanel>
+                          <StackPanel Grid.Column="2"><TextBlock Classes="col" Text="{loc:T Column.OwnedModulesIn, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedLocation}" HorizontalAlignment="Stretch" /></StackPanel>
+                          <StackPanel Grid.Column="4"><TextBlock Classes="col" Text="{loc:T Column.OwnedModulesThatAre, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Places}" SelectedItem="{Binding SelectedPlace}" HorizontalAlignment="Stretch" /></StackPanel>
                         </Grid>
-                        <CheckBox Content="Count modules I already own elsewhere before planning engineering" IsChecked="{Binding UseOwned, Mode=TwoWay}" IsVisible="{Binding HasShips}" />
+                        <CheckBox Content="{loc:T Fit.CountOwned}" IsChecked="{Binding UseOwned, Mode=TwoWay}" IsVisible="{Binding HasShips}" />
                         <TextBlock Classes="body" Text="{Binding CompareSummary}" IsVisible="{Binding HasShips}" />
                         <TextBlock Classes="warn" Text="{Binding HullNote}" IsVisible="{Binding !!HullNote.Length}" />
                         <Button Classes="primary small" Content="{Binding PlanDifferencesText}" Command="{Binding PlanDifferencesCommand}" HorizontalAlignment="Left" IsVisible="{Binding HasShips}" />
@@ -1198,12 +1199,12 @@
                                   </StackPanel>
                                   <StackPanel Grid.Column="2" VerticalAlignment="Top">
                                     <TextBlock Classes="muted" Text="{Binding Fitted}" />
-                                    <TextBlock Classes="warn" Text="Prebuilt module" IsVisible="{Binding WarnPrebuilt}" ToolTip.Tip="It came with the ship and cannot be stored, moved or sold, so engineering it stays with this ship." />
+                                    <TextBlock Classes="warn" Text="{loc:T Common.PrebuiltModule}" IsVisible="{Binding WarnPrebuilt}" ToolTip.Tip="{loc:T Common.PrebuiltModuleTip}" />
                                   </StackPanel>
                                   <StackPanel Grid.Column="3" Spacing="3">
                                     <Border Classes="badge" Classes.warn="{Binding NeedsEngineering}" Classes.bad="{Binding NeedsPurchase}"><TextBlock Text="{Binding KindText}" /></Border>
-                                    <TextBlock Classes="faint" Text="buy first" IsVisible="{Binding NeedsPurchase}" />
-                                    <TextBlock Classes="faint" Text="to plan" IsVisible="{Binding NeedsEngineering}" />
+                                    <TextBlock Classes="faint" Text="{loc:T Fit.BuyFirst}" IsVisible="{Binding NeedsPurchase}" />
+                                    <TextBlock Classes="faint" Text="{loc:T Fit.ToPlan}" IsVisible="{Binding NeedsEngineering}" />
                                   </StackPanel>
                                 </Grid>
                               </Border>
@@ -1216,14 +1217,14 @@
                     <!-- Against everything you own -->
                     <Border Classes="panel" Padding="16,10,16,6" IsVisible="{Binding Sections[owned].IsCurrent}">
                       <StackPanel>
-                        <TextBlock Classes="muted" Text="Every module the fit wants, matched against everything you own under the sharing policy on the Fleet page." Margin="0,0,0,6" />
-                        <TextBlock Classes="muted" Text="You do not own this hull, so nothing is matched." IsVisible="{Binding !HullOwned}" Margin="0,0,0,6" />
+                        <TextBlock Classes="muted" Text="{loc:T Fit.MatchNote}" Margin="0,0,0,6" />
+                        <TextBlock Classes="muted" Text="{loc:T Fit.NoHull}" IsVisible="{Binding !HullOwned}" Margin="0,0,0,6" />
                         <Border Classes="thead">
                           <Grid ColumnDefinitions="130,2*,2*,170" ColumnSpacing="12">
                             <ui:SortHeaderView DataContext="{Binding LineSort[slot]}" />
                             <ui:SortHeaderView Grid.Column="1" DataContext="{Binding LineSort[required]}" />
                             <ui:SortHeaderView Grid.Column="2" DataContext="{Binding LineSort[status]}" />
-                            <TextBlock Grid.Column="3" Classes="col" Text="TYPE" />
+                            <TextBlock Grid.Column="3" Classes="col" Text="{loc:T Column.Type, Upper=True}" />
                           </Grid>
                         </Border>
                         <ItemsControl ItemsSource="{Binding Lines}">
@@ -1256,7 +1257,7 @@
                       <ui:PageHeaderView>
                         <ui:PageHeaderView.Beside>
                           <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding HasName}">
-                            <Button Classes="small" Content="Copy name" Click="CopySystemName" ToolTip.Tip="Copies the system's name, for the galaxy map's search box." />
+                            <Button Classes="small" Content="{loc:T System.CopyName}" Click="CopySystemName" ToolTip.Tip="{loc:T System.CopyNameTip}" />
                             <TextBlock Classes="muted" Text="{Binding CopyStatus}" IsVisible="{Binding !!CopyStatus.Length}" VerticalAlignment="Center" />
                           </StackPanel>
                         </ui:PageHeaderView.Beside>
@@ -1268,7 +1269,7 @@
                       <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding DiscoveryText}" IsVisible="{Binding !!DiscoveryText.Length}" />
                       <TextBlock Classes="muted" Text="{Binding FleetText}" IsVisible="{Binding !!FleetText.Length}" />
                       <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding HasEngineers}">
-                        <TextBlock Classes="muted" Text="Engineers here:" VerticalAlignment="Center" />
+                        <TextBlock Classes="muted" Text="{loc:T System.EngineersHere}" VerticalAlignment="Center" />
                         <ItemsControl ItemsSource="{Binding Engineers}">
                           <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                           <ItemsControl.ItemTemplate>
@@ -1279,7 +1280,7 @@
                     </StackPanel>
                     <Border Classes="thead" IsVisible="{Binding IsCurrent}" Padding="16,0,16,6">
                       <StackPanel Orientation="Horizontal" Spacing="18">
-                        <TextBlock Classes="col" Text="SORT BODIES BY" VerticalAlignment="Center" />
+                        <TextBlock Classes="col" Text="{loc:T System.SortBodiesBy, Upper=True}" VerticalAlignment="Center" />
                         <ui:SortHeaderView DataContext="{Binding Sort[distance]}" />
                         <ui:SortHeaderView DataContext="{Binding Sort[name]}" />
                         <ui:SortHeaderView DataContext="{Binding Sort[class]}" />
@@ -1295,11 +1296,11 @@
                               <!-- One wide title line that wraps: name, class, distance, gravity, temperature, atmosphere, surface notes, then the badges. -->
                               <WrapPanel ItemSpacing="10" LineSpacing="4">
                                 <TextBlock Classes="h3" Text="{Binding Name}" VerticalAlignment="Center" />
-                                <Border Classes="badge accent" IsVisible="{Binding IsStar}"><TextBlock Text="star" /></Border>
+                                <Border Classes="badge accent" IsVisible="{Binding IsStar}"><TextBlock Text="{loc:T System.Star}" /></Border>
                                 <Border Classes="badge" IsVisible="{Binding IsEarlierVisit}"><TextBlock Text="{Binding EarlierVisit}" /></Border>
-                                <Border Classes="badge burn" IsVisible="{Binding FromCatalogue}"><TextBlock Text="from Spansh" /></Border>
-                                <Border Classes="badge good" IsVisible="{Binding IsScoopable}"><TextBlock Text="scoopable" /></Border>
-                                <Border Classes="badge warn" IsVisible="{Binding IsUnscoopableStar}"><TextBlock Text="not scoopable" /></Border>
+                                <Border Classes="badge burn" IsVisible="{Binding FromCatalogue}"><TextBlock Text="{loc:T System.FromSpansh}" /></Border>
+                                <Border Classes="badge good" IsVisible="{Binding IsScoopable}"><TextBlock Text="{loc:T System.Scoopable}" /></Border>
+                                <Border Classes="badge warn" IsVisible="{Binding IsUnscoopableStar}"><TextBlock Text="{loc:T System.NotScoopable}" /></Border>
                                 <TextBlock Classes="muted" Text="{Binding Class}" VerticalAlignment="Center" />
                                 <TextBlock Classes="mono muted" Text="{Binding Distance}" VerticalAlignment="Center" />
                                 <TextBlock Classes="mono muted" Classes.warn="{Binding IsHighGravity}" Classes.bad="{Binding IsExtremeGravity}" Text="{Binding GravityText}" IsVisible="{Binding !!GravityText.Length}" VerticalAlignment="Center" />
@@ -1309,7 +1310,7 @@
                                 <TextBlock Classes="muted" Text="{Binding Atmosphere}" IsVisible="{Binding !!Atmosphere.Length}" VerticalAlignment="Center" />
                                 <TextBlock Classes="muted" Text="{Binding Surface}" IsVisible="{Binding !!Surface.Length}" VerticalAlignment="Center" />
                                 <Border Classes="badge accent" IsVisible="{Binding HasBiology}"><TextBlock Text="{Binding BiologyCountText}" /></Border>
-                                <Border Classes="badge good" IsVisible="{Binding Landable}"><TextBlock Text="landable" /></Border>
+                                <Border Classes="badge good" IsVisible="{Binding Landable}"><TextBlock Text="{loc:T Common.Landable}" /></Border>
                                 <!-- Three yes/no slots in a fixed order: discovery, mapping, footfall. Open is solid in the slot's colour; taken is hollow. -->
                                 <Border Classes="badge status discovery" Classes.yours="{Binding DiscoveryYours}"><TextBlock Text="{Binding DiscoveryStatus}" /></Border>
                                 <Border Classes="badge status mapping" Classes.yours="{Binding MappingYours}" Classes.open="{Binding FirstMappingOpen}" IsVisible="{Binding !!MappingStatus.Length}"><TextBlock Text="{Binding MappingStatus}" /></Border>
@@ -1392,7 +1393,7 @@
                       <ui:PhraseBlock Classes="accent" TextWrapping="Wrap" Parts="{Binding RerouteParts}" IsVisible="{Binding !!RerouteParts.Count}" />
                       <TextBlock Classes="muted" Text="{Binding TravelledText}" IsVisible="{Binding !!TravelledText.Length}" />
                       <Grid ColumnDefinitions="Auto,220,Auto" ColumnSpacing="10" IsVisible="{Binding Fuel.HasTank}" Margin="0,4,0,0">
-                        <TextBlock Classes="col" Text="TANK" VerticalAlignment="Center" />
+                        <TextBlock Classes="col" Text="{loc:T Column.Tank, Upper=True}" VerticalAlignment="Center" />
                         <!-- One bar as the HUD draws it: blue to the tank's level under orange to the level after the next jump, so the blue that shows is the jump's burn. -->
                         <Panel Grid.Column="1" VerticalAlignment="Center">
                           <ProgressBar Classes="meter tall burn" Value="{Binding Fuel.TankFraction}" />
@@ -1417,7 +1418,7 @@
                             <ui:SortHeaderView Grid.Column="4" DataContext="{Binding Sort[visited]}" />
                             <ui:SortHeaderView Grid.Column="5" DataContext="{Binding Sort[jump]}" />
                             <ui:SortHeaderView Grid.Column="6" DataContext="{Binding Sort[travelled]}" />
-                            <TextBlock Grid.Column="7" Classes="col" Text="FUEL" />
+                            <TextBlock Grid.Column="7" Classes="col" Text="{loc:T Column.Fuel, Upper=True}" />
                           </Grid>
                         </Border>
                         <ItemsControl ItemsSource="{Binding Stops}">
@@ -1452,26 +1453,26 @@
                     <StackPanel Spacing="16" IsVisible="{Binding Sections[plot].IsCurrent}">
                       <Border Classes="panel" IsVisible="{Binding !PlotEnabled}">
                         <StackPanel Spacing="8">
-                          <TextBlock Classes="body" TextWrapping="Wrap" Text="Katey can ask Spansh's galaxy plotter for a route in your ship, neutron stars and refuelling worked in. That sends Spansh the two system names and your ship's jump numbers, so it stays off until you turn it on." />
-                          <Button Classes="link" HorizontalAlignment="Left" Content="Turn it on in Settings" Command="{Binding SettingsLink.OpenCommand}" />
+                          <TextBlock Classes="body" TextWrapping="Wrap" Text="{loc:T Route.SpanshIntro}" />
+                          <Button Classes="link" HorizontalAlignment="Left" Content="{loc:T Route.TurnOnInSettings}" Command="{Binding SettingsLink.OpenCommand}" />
                         </StackPanel>
                       </Border>
                       <Border Classes="panel" IsVisible="{Binding PlotEnabled}">
                         <StackPanel Spacing="10">
-                          <TextBlock Classes="col" Text="ASK SPANSH" />
+                          <TextBlock Classes="col" Text="{loc:T Route.AskSpansh, Upper=True}" />
                           <Grid ColumnDefinitions="*,12,*" >
-                            <StackPanel><TextBlock Classes="col" Text="FROM" Margin="0,0,0,4" /><TextBox Text="{Binding PlotFrom, Mode=TwoWay}" PlaceholderText="System name" /></StackPanel>
-                            <StackPanel Grid.Column="2"><TextBlock Classes="col" Text="TO" Margin="0,0,0,4" /><TextBox Text="{Binding PlotTo, Mode=TwoWay}" PlaceholderText="System name" /></StackPanel>
+                            <StackPanel><TextBlock Classes="col" Text="{loc:T Column.From, Upper=True}" Margin="0,0,0,4" /><TextBox Text="{Binding PlotFrom, Mode=TwoWay}" PlaceholderText="{loc:T Route.SystemNamePlaceholder}" /></StackPanel>
+                            <StackPanel Grid.Column="2"><TextBlock Classes="col" Text="{loc:T Column.To, Upper=True}" Margin="0,0,0,4" /><TextBox Text="{Binding PlotTo, Mode=TwoWay}" PlaceholderText="{loc:T Route.SystemNamePlaceholder}" /></StackPanel>
                           </Grid>
                           <Grid ColumnDefinitions="2*,12,120,12,2*">
                             <StackPanel Spacing="4">
-                              <TextBlock Classes="col" Text="SHIP OR FIT" />
+                              <TextBlock Classes="col" Text="{loc:T Column.ShipOrFit, Upper=True}" />
                               <!-- The picker: a button showing the choice, which opens a panel with an empty search box and the list, the chosen target first, the ship being flown second, then the chosen hull's fits, the ships and the other fits. Only a click on an entry, or Enter on the first, changes the choice. -->
                               <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="10,6">
                                 <Button.Flyout>
                                   <Flyout Placement="BottomEdgeAlignedLeft" Opened="PlotPickerOpened">
                                     <StackPanel Spacing="6" Width="440">
-                                      <TextBox Text="{Binding PlotFilter, Mode=TwoWay}" PlaceholderText="Type to search by name or hull" KeyDown="PlotPickerKeyDown" />
+                                      <TextBox Text="{Binding PlotFilter, Mode=TwoWay}" PlaceholderText="{loc:T Route.ShipSearchPlaceholder}" KeyDown="PlotPickerKeyDown" />
                                       <ListBox ItemsSource="{Binding PlotTargets}" SelectedItem="{Binding SelectedPlotTarget, Mode=OneWay}" MaxHeight="320" PointerReleased="PlotPickerClicked">
                                         <ListBox.ItemTemplate>
                                           <DataTemplate>
@@ -1488,25 +1489,25 @@
                                 </Button.Flyout>
                                 <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
                                   <Border Classes="badge" Classes.accent="{Binding SelectedPlotTarget.IsFlown, FallbackValue=False}" IsVisible="{Binding SelectedPlotTarget, Converter={x:Static ObjectConverters.IsNotNull}}"><TextBlock Text="{Binding SelectedPlotTarget.Kind}" /></Border>
-                                  <TextBlock Grid.Column="1" Text="{Binding SelectedPlotTarget.Label, FallbackValue=Choose a ship or fit}" Classes.accent="{Binding SelectedPlotTarget.IsFlown, FallbackValue=False}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                                  <TextBlock Grid.Column="1" Text="{Binding PlotTargetLabel}" Classes.accent="{Binding SelectedPlotTarget.IsFlown, FallbackValue=False}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
                                   <TextBlock Grid.Column="2" Classes="muted" Text="▾" VerticalAlignment="Center" />
                                 </Grid>
                               </Button>
                             </StackPanel>
-                            <StackPanel Grid.Column="2"><TextBlock Classes="col" Text="CARGO, T" Margin="0,0,0,4" /><TextBox Text="{Binding PlotCargo, Mode=TwoWay}" PlaceholderText="0" /></StackPanel>
-                            <StackPanel Grid.Column="4"><TextBlock Classes="col" Text="ROUTING" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Algorithms}" SelectedItem="{Binding SelectedAlgorithm}" HorizontalAlignment="Stretch" /></StackPanel>
+                            <StackPanel Grid.Column="2"><TextBlock Classes="col" Text="{loc:T Column.CargoTonnes, Upper=True}" Margin="0,0,0,4" /><TextBox Text="{Binding PlotCargo, Mode=TwoWay}" PlaceholderText="0" /></StackPanel>
+                            <StackPanel Grid.Column="4"><TextBlock Classes="col" Text="{loc:T Column.Routing, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Algorithms}" SelectedItem="{Binding SelectedAlgorithm}" HorizontalAlignment="Stretch" /></StackPanel>
                           </Grid>
                           <WrapPanel>
-                            <CheckBox Content="Use neutron stars" IsChecked="{Binding UseSupercharge, Mode=TwoWay}" Margin="0,0,18,0" />
-                            <CheckBox Content="Count on FSD injections" IsChecked="{Binding UseInjections, Mode=TwoWay}" Margin="0,0,18,0" />
-                            <CheckBox Content="Skip scoops at secondary stars" IsChecked="{Binding ExcludeSecondary, Mode=TwoWay}" Margin="0,0,18,0" />
-                            <CheckBox Content="Refuel at every scoopable star" IsChecked="{Binding RefuelEveryScoopable, Mode=TwoWay}" />
+                            <CheckBox Content="{loc:T Route.UseNeutron}" IsChecked="{Binding UseSupercharge, Mode=TwoWay}" Margin="0,0,18,0" />
+                            <CheckBox Content="{loc:T Route.CountInjections}" IsChecked="{Binding UseInjections, Mode=TwoWay}" Margin="0,0,18,0" />
+                            <CheckBox Content="{loc:T Route.SkipSecondary}" IsChecked="{Binding ExcludeSecondary, Mode=TwoWay}" Margin="0,0,18,0" />
+                            <CheckBox Content="{loc:T Route.RefuelEvery}" IsChecked="{Binding RefuelEveryScoopable, Mode=TwoWay}" />
                           </WrapPanel>
                           <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding PlotRangeText}" />
                           <StackPanel Orientation="Horizontal" Spacing="8">
-                            <Button Classes="primary" Content="Plot" Command="{Binding PlotCommand}" />
-                            <Button Content="Cancel" Command="{Binding CancelPlotCommand}" IsVisible="{Binding IsPlotting}" />
-                            <Button Content="Forget the plot" Command="{Binding ClearPlotCommand}" IsVisible="{Binding HasPlot}" />
+                            <Button Classes="primary" Content="{loc:T Route.Plot}" Command="{Binding PlotCommand}" />
+                            <Button Content="{loc:T Common.Cancel}" Command="{Binding CancelPlotCommand}" IsVisible="{Binding IsPlotting}" />
+                            <Button Content="{loc:T Route.ForgetPlot}" Command="{Binding ClearPlotCommand}" IsVisible="{Binding HasPlot}" />
                           </StackPanel>
                           <TextBlock Classes="body" TextWrapping="Wrap" Text="{Binding PlotStatus}" IsVisible="{Binding !!PlotStatus.Length}" />
                         </StackPanel>
@@ -1515,7 +1516,7 @@
                         <ui:PhraseBlock Classes="lede" TextWrapping="Wrap" Parts="{Binding PlotSummaryParts}" />
                         <StackPanel Orientation="Horizontal" Spacing="10">
                           <ui:PhraseBlock Classes="body" Parts="{Binding PlotProgressParts}" VerticalAlignment="Center" />
-                          <Button Content="Copy next waypoint" Click="CopyNextWaypoint" IsVisible="{Binding HasNextWaypoint}" ToolTip.Tip="Copies the system name to paste into the galaxy map" />
+                          <Button Content="{loc:T Common.CopyNextWaypoint}" Click="CopyNextWaypoint" IsVisible="{Binding HasNextWaypoint}" ToolTip.Tip="{loc:T Common.CopyNextWaypointTip}" />
                           <TextBlock Name="WaypointStatus" Classes="muted" VerticalAlignment="Center" />
                         </StackPanel>
                       </StackPanel>
@@ -1547,7 +1548,7 @@
                                     <TextBlock Grid.Column="4" Classes="mono muted" Text="{Binding RemainingText}" VerticalAlignment="Center" TextAlignment="Right" />
                                     <TextBlock Grid.Column="5" Classes="mono muted" Classes.good="{Binding MustRefuel}" Text="{Binding FuelText}" VerticalAlignment="Center" TextAlignment="Right" />
                                     <TextBlock Grid.Column="6" Classes="muted" Classes.warn="{Binding HasNeutron}" Text="{Binding NotesText}" VerticalAlignment="Center" />
-                                    <Button Grid.Column="7" Classes="nav" Content="Copy" Click="CopyWaypoint" VerticalAlignment="Center" ToolTip.Tip="Copy the system name for the galaxy map" />
+                                    <Button Grid.Column="7" Classes="nav" Content="{loc:T Route.Copy}" Click="CopyWaypoint" VerticalAlignment="Center" ToolTip.Tip="{loc:T Route.CopyTip}" />
                                   </Grid>
                                 </Border>
                               </DataTemplate>
@@ -1571,7 +1572,7 @@
                         </ItemsControl.ItemTemplate>
                       </ItemsControl>
                       <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center" Margin="16,0,0,0" IsVisible="{Binding !Sections[lifetime].IsCurrent}">
-                        <TextBlock Classes="col" Text="PERIOD" VerticalAlignment="Center" />
+                        <TextBlock Classes="col" Text="{loc:T Column.Period, Upper=True}" VerticalAlignment="Center" />
                         <ComboBox ItemsSource="{Binding Periods}" SelectedItem="{Binding SelectedPeriod}" MinWidth="150" />
                       </StackPanel>
                     </Grid>
@@ -1591,7 +1592,7 @@
                                   </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                               </ItemsControl>
-                              <TextBlock Classes="faint" Text="nothing to chart" HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="{Binding !HasSlices}" />
+                              <TextBlock Classes="faint" Text="{loc:T Stats.NothingToChart}" HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="{Binding !HasSlices}" />
                             </Panel>
                             <TextBlock Classes="muted" TextWrapping="Wrap" TextAlignment="Center" Text="{Binding IncomeTotalText}" />
                           </StackPanel>
@@ -1599,7 +1600,7 @@
                             <ItemsControl.ItemTemplate>
                               <DataTemplate>
                                 <Grid ColumnDefinitions="Auto,16,*,130,70,120" ColumnSpacing="8" Margin="0,2">
-                                  <CheckBox IsChecked="{Binding IsShown, Mode=TwoWay}" VerticalAlignment="Center" ToolTip.Tip="Show in the chart" />
+                                  <CheckBox IsChecked="{Binding IsShown, Mode=TwoWay}" VerticalAlignment="Center" ToolTip.Tip="{loc:T Stats.ShowInChartTip}" />
                                   <Border Grid.Column="1" Width="12" Height="12" CornerRadius="3" Background="{Binding Color, Converter={StaticResource BrushFromHex}}" VerticalAlignment="Center" />
                                   <TextBlock Grid.Column="2" Classes="strong" Text="{Binding Label}" VerticalAlignment="Center" />
                                   <TextBlock Grid.Column="3" Classes="mono" Text="{Binding AmountText}" TextAlignment="Right" VerticalAlignment="Center" />
@@ -1713,7 +1714,7 @@
                       </Border>
                       <Border Classes="panel" IsVisible="{Binding HasWingMissions}" Padding="16,10,16,4">
                         <StackPanel>
-                          <TextBlock Classes="h3" Text="Wing missions" />
+                          <TextBlock Classes="h3" Text="{loc:T Stats.WingMissions}" />
                           <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding WingMissionsNote}" Margin="0,2,0,8" />
                           <Border Classes="thead">
                             <Grid ColumnDefinitions="3*,2*,120,120,2*,170" ColumnSpacing="10">
@@ -1721,7 +1722,7 @@
                               <ui:SortHeaderView Grid.Column="1" DataContext="{Binding WingMissionSort[faction]}" />
                               <ui:SortHeaderView Grid.Column="2" DataContext="{Binding WingMissionSort[reward]}" />
                               <ui:SortHeaderView Grid.Column="3" DataContext="{Binding WingMissionSort[accepted]}" />
-                              <TextBlock Grid.Column="4" Classes="col" Text="WITH" VerticalAlignment="Center" />
+                              <TextBlock Grid.Column="4" Classes="col" Text="{loc:T Column.With, Upper=True}" VerticalAlignment="Center" />
                               <ui:SortHeaderView Grid.Column="5" DataContext="{Binding WingMissionSort[status]}" />
                             </Grid>
                           </Border>
@@ -1747,7 +1748,7 @@
                     <StackPanel Spacing="10" IsVisible="{Binding Sections[lifetime].IsCurrent}">
                       <Grid ColumnDefinitions="*,Auto" ColumnSpacing="14">
                         <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding LifetimeNote}" VerticalAlignment="Center" />
-                        <CheckBox Grid.Column="1" Content="Show zero figures" IsChecked="{Binding ShowZeroFigures, Mode=TwoWay}" VerticalAlignment="Center" ToolTip.Tip="The game reports many figures as zero. Tick to list them too." />
+                        <CheckBox Grid.Column="1" Content="{loc:T Stats.ShowZero}" IsChecked="{Binding ShowZeroFigures, Mode=TwoWay}" VerticalAlignment="Center" ToolTip.Tip="{loc:T Stats.ShowZeroTip}" />
                       </Grid>
                       <ItemsControl ItemsSource="{Binding LifetimeGroups}">
                         <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
@@ -1761,17 +1762,17 @@
                   <StackPanel Spacing="16" MaxWidth="900" HorizontalAlignment="Left">
                     <StackPanel Spacing="4">
                       <ui:PageHeaderView />
-                      <TextBlock Classes="lede" Text="Katey reads the game's journal files and follows the newest one while you play. Nothing is sent anywhere unless you turn the Spansh plotter on below." />
+                      <TextBlock Classes="lede" Text="{loc:T Settings.Intro}" />
                     </StackPanel>
                     <Border Classes="panel">
                       <StackPanel Spacing="8">
-                        <TextBlock Classes="col" Text="JOURNAL FOLDER" />
+                        <TextBlock Classes="col" Text="{loc:T Settings.JournalFolder, Upper=True}" />
                         <Grid ColumnDefinitions="*,8,Auto,8,Auto,8,Auto,8,Auto">
                           <TextBox Grid.Column="0" Text="{Binding Folder, Mode=TwoWay}" />
-                          <Button Grid.Column="2" Content="Browse" Click="BrowseFolder" />
-                          <Button Grid.Column="4" Content="Detect" Command="{Binding DetectCommand}" ToolTip.Tip="Look for the game's journal folder in its usual places." />
-                          <Button Grid.Column="6" Classes="primary" Content="Watch" Command="{Binding WatchCommand}" />
-                          <Button Grid.Column="8" Content="Stop" Command="{Binding StopCommand}" />
+                          <Button Grid.Column="2" Content="{loc:T Common.Browse}" Click="BrowseFolder" />
+                          <Button Grid.Column="4" Content="{loc:T Settings.Detect}" Command="{Binding DetectCommand}" ToolTip.Tip="{loc:T Settings.DetectTip}" />
+                          <Button Grid.Column="6" Classes="primary" Content="{loc:T Settings.Watch}" Command="{Binding WatchCommand}" />
+                          <Button Grid.Column="8" Content="{loc:T Settings.Stop}" Command="{Binding StopCommand}" />
                         </Grid>
                         <TextBlock Classes="body" Text="{Binding Status}" />
                         <TextBlock Classes="muted" Text="{Binding InventoryText}" IsVisible="{Binding !!InventoryText.Length}" />
@@ -1779,23 +1780,23 @@
                     </Border>
                     <Border Classes="panel">
                       <StackPanel Spacing="8">
-                        <TextBlock Classes="col" Text="JOURNAL BACKUP" />
+                        <TextBlock Classes="col" Text="{loc:T Settings.JournalBackup, Upper=True}" />
                         <Grid ColumnDefinitions="*,8,Auto,8,Auto">
-                          <TextBox Grid.Column="0" Text="{Binding BackupFolder, Mode=TwoWay}" PlaceholderText="A folder to copy the journal folder into, such as one OneDrive syncs" />
-                          <Button Grid.Column="2" Content="Browse" Click="BrowseBackupFolder" />
-                          <Button Grid.Column="4" Classes="primary" Content="Back up now" Command="{Binding BackupNowCommand}" />
+                          <TextBox Grid.Column="0" Text="{Binding BackupFolder, Mode=TwoWay}" PlaceholderText="{loc:T Settings.BackupPlaceholder}" />
+                          <Button Grid.Column="2" Content="{loc:T Common.Browse}" Click="BrowseBackupFolder" />
+                          <Button Grid.Column="4" Classes="primary" Content="{loc:T Settings.BackUpNow}" Command="{Binding BackupNowCommand}" />
                         </Grid>
-                        <CheckBox Content="Back up when Katey closes" IsChecked="{Binding BackupOnClose, Mode=TwoWay}" />
+                        <CheckBox Content="{loc:T Settings.BackUpOnClose}" IsChecked="{Binding BackupOnClose, Mode=TwoWay}" />
                         <TextBlock Classes="body" TextWrapping="Wrap" Text="{Binding BackupStatus}" IsVisible="{Binding !!BackupStatus.Length}" />
                         <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding BackupText}" />
                       </StackPanel>
                     </Border>
                     <Border Classes="panel">
                       <StackPanel Spacing="8">
-                        <TextBlock Classes="col" Text="SAVED DATA" />
+                        <TextBlock Classes="col" Text="{loc:T Settings.SavedData, Upper=True}" />
                         <Grid ColumnDefinitions="*,8,Auto">
-                          <TextBox Grid.Column="0" Text="{Binding DataFolder, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" PlaceholderText="The folder Katey keeps its saved data in, such as one OneDrive syncs" />
-                          <Button Grid.Column="2" Content="Browse" Click="BrowseDataFolder" />
+                          <TextBox Grid.Column="0" Text="{Binding DataFolder, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" PlaceholderText="{loc:T Settings.SavedDataPlaceholder}" />
+                          <Button Grid.Column="2" Content="{loc:T Common.Browse}" Click="BrowseDataFolder" />
                         </Grid>
                         <TextBlock Classes="body" TextWrapping="Wrap" Text="{Binding DataStatus}" IsVisible="{Binding !!DataStatus.Length}" />
                         <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding DataText}" />
@@ -1803,9 +1804,9 @@
                     </Border>
                     <Border Classes="panel">
                       <StackPanel Spacing="8">
-                        <TextBlock Classes="col" Text="OUTGOING CONNECTIONS" />
-                        <CheckBox Content="Ask Spansh for routes" IsChecked="{Binding AllowSpansh, Mode=TwoWay}" />
-                        <CheckBox Content="Ask Spansh about the bodies of the system you arrive in" IsChecked="{Binding AllowSpanshBodies, Mode=TwoWay}" />
+                        <TextBlock Classes="col" Text="{loc:T Settings.Outgoing, Upper=True}" />
+                        <CheckBox Content="{loc:T Settings.AskRoutes}" IsChecked="{Binding AllowSpansh, Mode=TwoWay}" />
+                        <CheckBox Content="{loc:T Settings.AskBodies}" IsChecked="{Binding AllowSpanshBodies, Mode=TwoWay}" />
                         <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding NetworkText}" />
                       </StackPanel>
                     </Border>
@@ -1845,7 +1846,7 @@
       </Border>
       <Border IsVisible="{Binding Search.IsEmpty}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,6" Width="640"
               Background="{DynamicResource KSurface}" BorderBrush="{DynamicResource KLine}" BorderThickness="1" CornerRadius="8" Padding="12,10">
-        <TextBlock Classes="muted" Text="Nothing matches. Search engineers, module types, blueprints, materials, systems you have visited, your ships and your fits." />
+        <TextBlock Classes="muted" Text="{loc:T Search.NothingMatches}" />
       </Border>
 
       <!-- Plan drawer -->
@@ -1855,7 +1856,7 @@
           <Border Grid.Row="0" BorderBrush="{DynamicResource KLine}" BorderThickness="0,0,0,1" Padding="18,14">
             <Grid ColumnDefinitions="*,Auto">
               <StackPanel Spacing="2">
-                <TextBlock Classes="h3" Text="Plan" FontSize="20" />
+                <TextBlock Classes="h3" Text="{loc:T Bar.Plan}" FontSize="20" />
                 <ui:PhraseBlock Classes="muted" Parts="{Binding SummaryParts}" />
               </StackPanel>
               <Button Grid.Column="1" Classes="nav" Content="✕" Command="{Binding CloseCommand}" VerticalAlignment="Top" />
@@ -1866,16 +1867,16 @@
               <!-- Import -->
               <Border BorderBrush="{DynamicResource KLine}" BorderThickness="0,0,0,1" Padding="18,12" IsVisible="{Binding ShowImport}">
                 <StackPanel Spacing="8" DataContext="{Binding Import}">
-                  <TextBlock Classes="col" Text="IMPORT AN EDSY BUILD" />
-                  <TextBlock Classes="muted" Text="Paste a journal Loadout export. Every engineered module becomes a plan entry at its grade and experimental." />
+                  <TextBlock Classes="col" Text="{loc:T Drawer.ImportHeading, Upper=True}" />
+                  <TextBlock Classes="muted" Text="{loc:T Drawer.ImportNote}" />
                   <TextBox Text="{Binding Text, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="NoWrap" Height="90" FontFamily="{StaticResource MonoFont}" FontSize="12" />
                   <StackPanel Orientation="Horizontal" Spacing="8">
-                    <Button Classes="small" Content="Read export" Command="{Binding ReadCommand}" />
+                    <Button Classes="small" Content="{loc:T Drawer.ReadExport}" Command="{Binding ReadCommand}" />
                     <Button Classes="primary small" Content="{Binding AddLabel}" Command="{Binding AddCommand}" IsVisible="{Binding HasPreview}" />
                   </StackPanel>
                   <TextBlock Classes="bad" Text="{Binding Error}" IsVisible="{Binding HasError}" />
                   <TextBlock Classes="strong" Text="{Binding Heading}" IsVisible="{Binding HasPreview}" />
-                  <TextBlock Classes="muted" Text="This build has no engineered modules." IsVisible="{Binding IsBuildEmpty}" />
+                  <TextBlock Classes="muted" Text="{loc:T Drawer.NoEngineered}" IsVisible="{Binding IsBuildEmpty}" />
                   <ItemsControl ItemsSource="{Binding Modules}">
                     <ItemsControl.ItemTemplate>
                       <DataTemplate>
@@ -1896,30 +1897,30 @@
               </Border>
 
               <!-- Entries -->
-              <TextBlock Classes="muted" Text="The plan is empty. Add a blueprint from any module, engineer or ship page, or import a build." Margin="18,14" IsVisible="{Binding Plan.IsEmpty}" />
+              <TextBlock Classes="muted" Text="{loc:T Drawer.Empty}" Margin="18,14" IsVisible="{Binding Plan.IsEmpty}" />
               <ItemsControl ItemsSource="{Binding Plan.Entries}">
                 <ItemsControl.ItemTemplate>
                   <DataTemplate>
                     <Border BorderBrush="{DynamicResource KLine}" BorderThickness="0,0,0,1" Padding="18,12">
                       <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                        <CheckBox IsChecked="{Binding Enabled, Mode=TwoWay}" VerticalAlignment="Top" ToolTip.Tip="Count this entry in the totals" />
+                        <CheckBox IsChecked="{Binding Enabled, Mode=TwoWay}" VerticalAlignment="Top" ToolTip.Tip="{loc:T Drawer.CountTip}" />
                         <StackPanel Grid.Column="1" Spacing="6">
                           <TextBlock Classes="strong" Text="{Binding Title}" />
                           <TextBlock Classes="faint" Text="{Binding SourceLabel}" IsVisible="{Binding HasSource}" />
                           <TextBlock Classes="faint" Text="{Binding StateText}" IsVisible="{Binding !Enabled}" />
                           <TextBlock Classes="muted" Text="{Binding CommoditiesText}" IsVisible="{Binding HasCommodities}" />
                           <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding !IsUnlock}">
-                            <TextBlock Classes="muted" Text="Grade" VerticalAlignment="Center" />
+                            <TextBlock Classes="muted" Text="{loc:T Column.Grade}" VerticalAlignment="Center" />
                             <ComboBox ItemsSource="{Binding Grades}" SelectedItem="{Binding TargetGrade}" MinWidth="64" IsEnabled="{Binding !ExperimentalOnly}" />
-                            <CheckBox Content="Experimental only" IsChecked="{Binding ExperimentalOnly, Mode=TwoWay}" IsVisible="{Binding HasExperimentals}" ToolTip.Tip="The module already has the blueprint; plan just the effect. Sets the grade to 0." />
+                            <CheckBox Content="{loc:T Drawer.ExperimentalOnly}" IsChecked="{Binding ExperimentalOnly, Mode=TwoWay}" IsVisible="{Binding HasExperimentals}" ToolTip.Tip="{loc:T Drawer.ExperimentalOnlyTip}" />
                           </StackPanel>
                           <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding !IsUnlock}">
-                            <TextBlock Classes="muted" Text="Experimental" VerticalAlignment="Center" IsVisible="{Binding HasExperimentals}" />
+                            <TextBlock Classes="muted" Text="{loc:T Column.Experimental}" VerticalAlignment="Center" IsVisible="{Binding HasExperimentals}" />
                             <ComboBox ItemsSource="{Binding Experimentals}" SelectedItem="{Binding SelectedExperimental}" MinWidth="180" IsVisible="{Binding HasExperimentals}" />
                           </StackPanel>
                           <!-- The roll boxes wrap: the label takes its width and the boxes the rest, so five grades fit the drawer on two lines when they must. -->
                           <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" IsVisible="{Binding !ExperimentalOnly}">
-                            <TextBlock Classes="muted" Text="Rolls" VerticalAlignment="Top" Margin="0,6,0,0" />
+                            <TextBlock Classes="muted" Text="{loc:T Drawer.Rolls}" VerticalAlignment="Top" Margin="0,6,0,0" />
                             <ItemsControl Grid.Column="1" ItemsSource="{Binding Rolls}">
                               <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel ItemSpacing="8" LineSpacing="4" /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                               <ItemsControl.ItemTemplate>
@@ -1943,7 +1944,7 @@
                             </ItemsControl.ItemTemplate>
                           </ItemsControl>
                         </StackPanel>
-                        <Button Grid.Column="2" Classes="nav" Content="✕" Command="{Binding RemoveCommand}" VerticalAlignment="Top" ToolTip.Tip="Remove" />
+                        <Button Grid.Column="2" Classes="nav" Content="✕" Command="{Binding RemoveCommand}" VerticalAlignment="Top" ToolTip.Tip="{loc:T Common.Remove}" />
                       </Grid>
                     </Border>
                   </DataTemplate>
@@ -1953,10 +1954,10 @@
               <!-- Totals -->
               <Border Padding="18,12" IsVisible="{Binding !Totals.IsEmpty}">
                 <StackPanel Spacing="8" DataContext="{Binding Totals}">
-                  <TextBlock Classes="h3" Text="Materials" />
+                  <TextBlock Classes="h3" Text="{loc:T Drawer.Materials}" />
                   <TextBlock Classes="muted" Text="{Binding Summary}" />
                   <StackPanel Spacing="2" Margin="0,0,0,8" IsVisible="{Binding HasCommodities}">
-                    <TextBlock Classes="col" Text="BUY AT A MARKET" />
+                    <TextBlock Classes="col" Text="{loc:T Common.BuyAtAMarket, Upper=True}" />
                     <ItemsControl ItemsSource="{Binding Commodities}">
                       <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -1974,11 +1975,11 @@
                         <StackPanel Spacing="2" Margin="0,0,0,8" IsVisible="{Binding !IsEmpty}">
                           <TextBlock Classes="col" Text="{Binding Heading}" />
                           <Grid ColumnDefinitions="*,46,52,52,52" ColumnSpacing="6">
-                            <TextBlock Classes="faint" Text="material" />
-                            <TextBlock Grid.Column="1" Classes="faint" Text="grade" />
-                            <TextBlock Grid.Column="2" Classes="faint" Text="need" TextAlignment="Right" />
-                            <TextBlock Grid.Column="3" Classes="faint" Text="have" TextAlignment="Right" />
-                            <TextBlock Grid.Column="4" Classes="faint" Text="short" TextAlignment="Right" />
+                            <TextBlock Classes="faint" Text="{loc:T Column.Material, Lower=True}" />
+                            <TextBlock Grid.Column="1" Classes="faint" Text="{loc:T Column.Grade, Lower=True}" />
+                            <TextBlock Grid.Column="2" Classes="faint" Text="{loc:T Column.Need, Lower=True}" TextAlignment="Right" />
+                            <TextBlock Grid.Column="3" Classes="faint" Text="{loc:T Column.Have, Lower=True}" TextAlignment="Right" />
+                            <TextBlock Grid.Column="4" Classes="faint" Text="{loc:T Column.Short, Lower=True}" TextAlignment="Right" />
                           </Grid>
                           <ItemsControl ItemsSource="{Binding Rows}">
                             <ItemsControl.ItemTemplate>
@@ -2006,7 +2007,7 @@
               <!-- Trades -->
               <Border Padding="18,12" IsVisible="{Binding !Totals.IsEmpty}">
                 <StackPanel Spacing="8">
-                  <TextBlock Classes="h3" Text="At the material traders" />
+                  <TextBlock Classes="h3" Text="{loc:T Common.AtTheTraders}" />
                   <ContentControl Content="{Binding Trades}" />
                 </StackPanel>
               </Border>
@@ -2014,27 +2015,47 @@
           </ScrollViewer>
           <Border Grid.Row="2" BorderBrush="{DynamicResource KLine}" BorderThickness="0,1,0,0" Background="{DynamicResource KSurface2}" Padding="18,10">
             <StackPanel Orientation="Horizontal" Spacing="8">
-              <Button Classes="primary small" Content="Copy shopping list" Click="CopyTotals" />
-              <Button Classes="small" Content="Import a build" Command="{Binding ToggleImportCommand}" />
-              <Button Classes="small danger" Content="Clear plan" Command="{Binding Plan.ArmClearCommand}" IsVisible="{Binding !Plan.IsConfirmingClear}" />
-              <Button Classes="small danger" Content="Yes, clear it" Command="{Binding Plan.ConfirmClearCommand}" IsVisible="{Binding Plan.IsConfirmingClear}" />
-              <Button Classes="small" Content="Keep it" Command="{Binding Plan.CancelClearCommand}" IsVisible="{Binding Plan.IsConfirmingClear}" />
+              <Button Classes="primary small" Content="{loc:T Drawer.CopyShoppingList}" Click="CopyTotals" />
+              <Button Classes="small" Content="{loc:T Drawer.ImportBuild}" Command="{Binding ToggleImportCommand}" />
+              <Button Classes="small danger" Content="{loc:T Drawer.ClearPlan}" Command="{Binding Plan.ArmClearCommand}" IsVisible="{Binding !Plan.IsConfirmingClear}" />
+              <Button Classes="small danger" Content="{loc:T Drawer.YesClear}" Command="{Binding Plan.ConfirmClearCommand}" IsVisible="{Binding Plan.IsConfirmingClear}" />
+              <Button Classes="small" Content="{loc:T Drawer.KeepIt}" Command="{Binding Plan.CancelClearCommand}" IsVisible="{Binding Plan.IsConfirmingClear}" />
               <TextBlock Name="CopyStatus" Classes="muted" VerticalAlignment="Center" />
             </StackPanel>
           </Border>
         </Grid>
       </Border>
     </Grid>
-    <!-- ===================== Bottom bar: settings, search, plan ===================== -->
+    <!-- ===================== Bottom bar: language, settings, stats, search, plan ===================== -->
     <Border Grid.Row="2" Classes="bottombar" Background="{DynamicResource KSurface}" BorderBrush="{DynamicResource KLine}" BorderThickness="0,1,0,0" Padding="12,8">
-      <Grid ColumnDefinitions="Auto,*,Auto" VerticalAlignment="Center">
-        <Button Classes="navlink" Classes.current="{Binding SettingsNav.IsCurrent}" Content="{Binding SettingsNav.Label}" Command="{Binding SettingsCommand}" VerticalAlignment="Center" ToolTip.Tip="Settings. Press again to go back to the page you were on." />
-        <TextBox Grid.Column="1" Name="SearchBox" Classes="omni" HorizontalAlignment="Stretch" Margin="16,0"
+      <Grid ColumnDefinitions="Auto,Auto,Auto,*,Auto" VerticalAlignment="Center">
+        <!-- The language picker: a globe and the language's own name for itself, opening the list of languages Katey ships in. No flags: a flag names a country, not a language. -->
+        <Button Name="LanguageButton" Classes="navlink" VerticalAlignment="Center" Margin="0,0,8,0" ToolTip.Tip="{loc:T Bar.LanguageTip}">
+          <StackPanel Orientation="Horizontal" Spacing="6">
+            <Path Data="M8,1 A7,7 0 1,0 8,15 A7,7 0 1,0 8,1 M1,8 H15 M8,1 A3.5,7 0 1,0 8,15 A3.5,7 0 1,0 8,1 M2.5,4.5 H13.5 M2.5,11.5 H13.5" Stroke="{Binding $parent[Button].Foreground}" StrokeThickness="1.2" Width="14" Height="14" Stretch="Uniform" VerticalAlignment="Center" />
+            <TextBlock Text="{Binding LanguageLabel}" VerticalAlignment="Center" />
+          </StackPanel>
+          <Button.Flyout>
+            <Flyout Placement="TopEdgeAlignedLeft">
+              <ItemsControl ItemsSource="{Binding LanguageOptions}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <Button Classes="navlink" Classes.current="{Binding IsCurrent}" Content="{Binding Label}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Click="LanguageChosen" />
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </Flyout>
+          </Button.Flyout>
+        </Button>
+        <Button Grid.Column="1" Classes="navlink" Classes.current="{Binding SettingsNav.IsCurrent}" Content="{Binding SettingsNav.Label}" Command="{Binding SettingsNav.Command}" VerticalAlignment="Center" ToolTip.Tip="{loc:T Bar.SettingsTip}" />
+        <!-- Stats lives here, not in the top bar, so the page links stay on one line in the longest language. -->
+        <Button Grid.Column="2" Classes="navlink" Classes.current="{Binding StatsNav.IsCurrent}" Content="{Binding StatsNav.Label}" Command="{Binding StatsNav.Command}" VerticalAlignment="Center" Margin="8,0,0,0" />
+        <TextBox Grid.Column="3" Name="SearchBox" Classes="omni" HorizontalAlignment="Stretch" Margin="16,0"
                  Text="{Binding Search.Query, Mode=TwoWay}" KeyDown="SearchKeyDown"
-                 PlaceholderText="Search engineers, modules, blueprints, materials, systems, ships, fits   (Ctrl K)" />
-        <Button Grid.Column="2" Classes="primary" Command="{Binding PlanDrawer.ToggleCommand}">
+                 PlaceholderText="{loc:T Bar.SearchPlaceholder}" />
+        <Button Grid.Column="4" Classes="primary" Command="{Binding PlanDrawer.ToggleCommand}">
           <StackPanel Orientation="Horizontal" Spacing="8">
-            <TextBlock Text="Plan" Foreground="{DynamicResource KAccentInk}" FontWeight="SemiBold" />
+            <TextBlock Text="{loc:T Bar.Plan}" Foreground="{DynamicResource KAccentInk}" FontWeight="SemiBold" />
             <Border Background="#33FFFFFF" CornerRadius="4" Padding="6,0">
               <TextBlock Classes="mono" Text="{Binding PlanDrawer.Badge}" Foreground="{DynamicResource KAccentInk}" FontSize="12" />
             </Border>

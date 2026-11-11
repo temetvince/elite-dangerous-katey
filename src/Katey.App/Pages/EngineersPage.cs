@@ -1,5 +1,6 @@
 ﻿using Katey.App.Mvvm;
 using Katey.App.Navigation;
+using Katey.App.Text;
 using Katey.App.ViewModels;
 using Katey.Core;
 
@@ -35,7 +36,7 @@ public sealed class EngineerListRow : ObservableObject
         DistanceLy = distanceLy;
         DistanceText = Display.DistanceOrUnknown(distanceLy);
         OfferCount = offerCount;
-        OffersText = Display.Plural(offerCount, "blueprint");
+        OffersText = Display.Plural(Keys.Plural_Blueprints, offerCount);
         _selection = selection;
         _selected = selection.Contains(profile.Name);
         Narrowed = narrowed;
@@ -104,18 +105,18 @@ public sealed class EngineersPage : Page
     public EngineersPage(Workspace workspace)
         : base(new PageKey(PageKind.Engineers), workspace)
     {
-        Title = "Engineers";
-        Kicker = "Browse";
+        Title = Strings.Get(Keys.Nav_Engineers);
+        Kicker = Strings.Get(Keys.Page_KickerBrowse);
         SelectAllCommand = new RelayCommand(() => workspace.Engineers.SetAll(true));
         SelectNoneCommand = new RelayCommand(() => workspace.Engineers.SetAll(false));
         Sort = new TableSort<EngineerListRow>(
             [
-                new("selected", "Visit", row => row.Selected ? 0 : 1),
-                new("name", "Engineer", row => row.Name),
-                new("place", "Where", row => row.System),
-                new("region", "Region", row => row.Region),
-                new("offers", "Offers", row => row.OfferCount, DescendingFirst: true),
-                new("distance", "Distance", row => row.DistanceLy),
+                new("selected", Strings.Get(Keys.Column_Visit), row => row.Selected ? 0 : 1),
+                new("name", Strings.Get(Keys.Column_Engineer), row => row.Name),
+                new("place", Strings.Get(Keys.Column_Where), row => row.System),
+                new("region", Strings.Get(Keys.Column_Region), row => row.Region),
+                new("offers", Strings.Get(Keys.Column_Offers), row => row.OfferCount, DescendingFirst: true),
+                new("distance", Strings.Get(Keys.Column_Distance), row => row.DistanceLy),
             ],
             "distance",
             workspace.Preferences,
@@ -160,7 +161,7 @@ public sealed class EngineersPage : Page
     }
 
     /// <summary>Gets what the switch does, so it is an informed choice.</summary>
-    public static string OnlyMyEngineersText => "On, the modules page and every blueprint, grade and experimental picker offer only what the engineers you ticked can roll, and grades start at the grade they reach.\nOff, everything is offered and grades start at the top. The plan still warns about entries nobody you ticked can roll.";
+    public static string OnlyMyEngineersText => Strings.Get(Keys.Engineers_OnlyMineText);
 
     /// <summary>Gets one line on what the switch is doing right now.</summary>
     public string ScopeStatus { get; private set => SetProperty(ref field, value); } = "";
@@ -201,14 +202,14 @@ public sealed class EngineersPage : Page
                 Workspace.Engineers,
                 Workspace.Scope.IsNarrowed)));
         SelectionText = Workspace.Engineers.Count == 0
-            ? "Nobody selected. Tick the engineers you are willing to travel to; the plan marks who can roll each entry."
-            : $"{Display.Plural(Workspace.Engineers.Count, "engineer")} selected. The modules page can narrow itself to what they can roll.";
-        FromParts = here is null ? Phrase.Text("Distances appear once the journal reports where you are.") : Phrase.Of("Distances from ", LinkTo(here, PageKind.System, here), ".");
+            ? Strings.Get(Keys.Engineers_NobodySelected)
+            : Strings.Format(Keys.Engineers_Selected, ("engineers", Display.Plural(Keys.Plural_Engineers, Workspace.Engineers.Count)));
+        FromParts = here is null ? Phrase.Text(Strings.Get(Keys.Engineers_DistancesWhenKnown)) : Phrase.Format(Keys.Engineers_DistancesFrom, ("system", LinkTo(here, PageKind.System, here)));
         OnPropertyChanged(nameof(OnlyMyEngineers));
         ScopeStatus = !OnlyMyEngineers
-            ? "Off: every blueprint, grade and experimental is offered, and grade pickers start at the top."
+            ? Strings.Get(Keys.Engineers_ScopeOff)
             : Workspace.Engineers.Count == 0
-                ? "On, but nobody is ticked yet, so nothing is narrowed. Tick the engineers you will visit below."
-                : $"On: narrowed to what your {Display.Plural(Workspace.Engineers.Count, "ticked engineer")} can roll, and grade pickers start at the grade they reach.";
+                ? Strings.Get(Keys.Engineers_ScopeOnNobody)
+                : Strings.Format(Keys.Engineers_ScopeOn, ("engineers", Display.Plural(Keys.Plural_TickedEngineers, Workspace.Engineers.Count)));
     }
 }

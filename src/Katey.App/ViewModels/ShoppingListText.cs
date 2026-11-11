@@ -1,24 +1,16 @@
-﻿using System.Globalization;
-using System.Text;
+﻿using System.Text;
+using Katey.App.Text;
+using Katey.Core.Planning;
 
-namespace Katey.Core.Planning;
+namespace Katey.App.ViewModels;
 
-/// <summary>Formats material lines as plain text, for the clipboard.</summary>
-public static class ShoppingList
+/// <summary>Formats material lines as plain text for the clipboard, in the language in force.</summary>
+public static class ShoppingListText
 {
-    /// <summary>Human labels for the inventories.</summary>
-    public static IReadOnlyDictionary<MaterialCategory, string> CategoryLabels { get; } =
-        new Dictionary<MaterialCategory, string>
-        {
-            [MaterialCategory.Raw] = "Raw",
-            [MaterialCategory.Manufactured] = "Manufactured",
-            [MaterialCategory.Encoded] = "Encoded",
-        };
-
     /// <summary>
-    /// One inventory per section, one material per line as <c>needed × name (Gn, family)</c>, followed
-    /// by <c>have h, short s</c> when an inventory is known. Inventories with nothing in them are omitted.
-    /// Lines end with a line feed on every platform.
+    /// One inventory per section, one material per line as <c>needed × name (Gn, family)</c>, followed by
+    /// <c>have h, short s</c> when an inventory is known. Inventories with nothing in them are omitted. Lines end
+    /// with a line feed on every platform.
     /// </summary>
     /// <param name="lines">Lines in display order.</param>
     /// <returns>The text, or empty when there are no lines.</returns>
@@ -45,10 +37,10 @@ public static class ShoppingList
                 builder.Append("\n\n");
             }
 
-            builder.Append("Buy at a market");
+            builder.Append(Strings.Get(Keys.Shopping_BuyAtAMarket));
             foreach (var good in goods)
             {
-                builder.Append('\n').Append(CultureInfo.InvariantCulture, $"{good.Needed} × {good.Name}");
+                builder.Append('\n').Append(Strings.Format(Keys.Shopping_Commodity, ("needed", good.Needed), ("name", good.Name)));
             }
         }
 
@@ -65,15 +57,19 @@ public static class ShoppingList
                 builder.Append("\n\n");
             }
 
-            builder.Append(CategoryLabels[group.Key]);
+            builder.Append(Display.CategoryLabel(group.Key));
             foreach (var line in group)
             {
                 builder.Append('\n');
-                builder.Append(CultureInfo.InvariantCulture, $"{line.Needed} × {line.Material.Name} (G{line.Material.Grade}, {line.Material.Line})");
-                if (line.Have is { } have)
-                {
-                    builder.Append(CultureInfo.InvariantCulture, $" — have {have}, short {line.Missing}");
-                }
+                var key = line.Have is null ? Keys.Shopping_Line : Keys.Shopping_LineWithInventory;
+                builder.Append(Strings.Format(
+                    key,
+                    ("needed", line.Needed),
+                    ("material", Names.Material(line.Material)),
+                    ("grade", Display.Grade(line.Material.Grade)),
+                    ("family", Names.Family(line.Material.Line)),
+                    ("have", line.Have),
+                    ("short", line.Missing)));
             }
         }
 

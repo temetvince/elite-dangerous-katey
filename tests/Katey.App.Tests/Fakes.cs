@@ -53,7 +53,7 @@ internal sealed class FakeRoutePlotter : IRoutePlotter
     {
         Requests.Add(request);
         return Failure is { } reason
-            ? Task.FromException<PlottedRoute>(new RoutePlotException(reason))
+            ? Task.FromException<PlottedRoute>(new RoutePlotException(PlotFailure.Rejected, reason))
             : Task.FromResult(Route ?? throw new InvalidOperationException("the fake plotter has no route to answer with"));
     }
 }
@@ -65,7 +65,7 @@ internal sealed class FakeSystemCatalog : ISystemCatalog
 
     public List<long> Requests { get; } = [];
 
-    public string? Failure { get; set; }
+    public SystemLookupFailure? Failure { get; set; }
 
     public Task<IReadOnlyList<CataloguedBody>> BodiesAsync(long systemAddress, CancellationToken cancellationToken)
     {

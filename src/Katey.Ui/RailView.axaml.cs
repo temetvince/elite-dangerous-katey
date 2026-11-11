@@ -1,6 +1,7 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Katey.App.Rail;
+using Katey.Ui.Text;
 
 namespace Katey.Ui;
 
@@ -17,6 +18,6 @@ public sealed partial class RailView : UserControl
             return;
         }
 
-        status.Text = await ClipboardText.CopyAsync(this, rail.NextWaypoint) ? $"Copied {rail.NextWaypoint}." : "Clipboard unavailable.";
+        status.Text = await ClipboardText.CopyAsync(this, rail.NextWaypoint) ? UiText.Format(UiKeys.Clipboard_CopiedName, ("name", rail.NextWaypoint)) : UiText.Get(UiKeys.Clipboard_Unavailable);
     }
 }

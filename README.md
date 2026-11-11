@@ -57,21 +57,56 @@ Three limits follow from what the game writes:
 
 ## How it is put together
 
-Four projects, each one layer more specific than the last. Dependencies only ever point from specific to
+Five projects, each one layer more specific than the last. Dependencies only ever point from specific to
 general.
 
 | Project | Role |
 | --- | --- |
+| [`src/Katey.Localization`](src/Katey.Localization/README.md) | The language mechanism with no words of its own: keyed lookups over a text source, templates filled by placeholder name, plural rules per language, and the one language switch. |
 | [`src/Katey.Core`](src/Katey.Core/README.md) | The domain: the data catalogs, a name index, engineering plans and totals, the technology broker unlocks and their budget, engineer coverage, EDSY import, star classes and positions, cartographics and exobiology estimates, the fit matcher, the fuel model and the route plotting types. |
 | [`src/Katey.Journal`](src/Katey.Journal/README.md) | Reading journal files and the live files, the seven trackers, and the folder backup. Knows nothing about engineering. |
-| [`src/Katey.App`](src/Katey.App/README.md) | The pages, the rail, the plan drawer, the search, the Spansh client and the saved state. No UI toolkit dependency, so it is unit-tested as plain objects. |
-| [`src/Katey.Ui`](src/Katey.Ui/README.md) | The Avalonia window and the rail's own window over `Katey.App`. |
+| [`src/Katey.App`](src/Katey.App/README.md) | The pages, the rail, the plan drawer, the search, the Spansh client, the saved state, and the words in six languages. No UI toolkit dependency, so it is unit-tested as plain objects. |
+| [`src/Katey.Ui`](src/Katey.Ui/README.md) | The Avalonia window and the rail's own window over `Katey.App`, with the chrome's words in six languages. |
 
-Core and Journal do not reference each other; `Katey.App` joins them. The data tables, their provenance
+Core and Journal do not reference each other; `Katey.App` joins them. `Katey.Localization` references nothing
+else and is referenced by App and Ui. The data tables, their provenance
 and their licensing are described in the [Core reference](src/Katey.Core/README.md#the-data-tables) and
 in [NOTICE.md](NOTICE.md).
 
-## Releases
+## Languages
+
+Katey runs in English, German, Spanish, French, Portuguese (Brazil) and Russian. It follows the machine's
+language until you pick one from the globe at the left of the bottom bar; the choice is saved, and the whole
+window changes at once. The game's own names change with it: materials, blueprints, experimental effects,
+module types, technology broker items, planet classes, atmospheres and volcanism, and the lifetime figures. The
+manual exists in every language too, as `MANUAL.<culture>.md` beside the English one, each linked from the top
+of the others. The licence notices, `NOTICE.md` and `THIRD-PARTY-NOTICES.txt`, stay in the language their
+authors wrote them in: a licence binds in its published wording, and a translation would be a paraphrase with
+no standing.
+
+### Translating Katey
+
+The words live in three tables per language, plain `.resx` files you edit with any resx editor; Visual Studio
+opens them as a grid, and the free ResX Resource Manager extension shows every language side by side.
+
+| Table | Holds |
+| --- | --- |
+| `src/Katey.App/Text/Strings.<culture>.resx` | Every sentence and label the pages, the rail and the plan produce. |
+| `src/Katey.Ui/Text/UiStrings.<culture>.resx` | The window's headings, buttons, tooltips and notices. |
+| `src/Katey.App/Text/CatalogNames.<culture>.resx` | The game's names, keyed by material symbol, blueprint key, module type code, unlock key, planet class, atmosphere word and so on. |
+
+Each English entry carries a comment saying where the text shows and how long it may run. The rules:
+
+- A placeholder such as `{count}` or `{system}` stays exactly as written; move it wherever the sentence needs
+  it. `{{` and `}}` are literal braces.
+- A counted text is a group of keys ending in `.one` and `.other`; Russian adds `.few` and `.many`. French and
+  Portuguese use `.one` for 0 and 1.
+- The game's names should match the game's own localisation where you know it.
+
+`dotnet test Katey.slnx` reports every gap in plain words: a key missing from a language, an extra key, a
+placeholder that differs from the English, a plural form the language needs, a template that does not parse.
+To see where text clips before a translation exists, start Katey with `--pseudo-loc`: every word comes back
+longer and accented.
 
 `publish.bat` at the root builds one Windows executable, `katey.exe`, into `bin/`: self-contained and
 compressed, so nothing needs installing on the machine it runs on. `bash publish.sh` does the same from a
@@ -104,19 +139,21 @@ Trimming is left off on purpose: the window's bindings use reflection.
 dotnet test Katey.slnx
 ```
 
-The suites are described in [tests/README.md](tests/README.md).
+The suites are described in [tests/README.md](tests/README.md). The docs have their own gate: the markdown lint
+and `dotnet run --project tools/CheckDocLinks`, which fails on a link or heading anchor that no longer resolves.
 
 ## Repository layout
 
 | Path | Contents |
 | --- | --- |
-| `src/` | The four projects above. |
-| `tests/` | Three test projects. |
+| `src/` | The five projects above. |
+| `tests/` | Five test projects. |
+| `tools/` | `StringKeys.cs`, the file-based program that writes the key constants of a `.resx` table, and [`CheckDocLinks`](tools/CheckDocLinks/README.md), which checks every link and anchor across the docs. |
 | `Directory.Build.props` | Repo-wide build settings, including the warnings-as-errors gate. |
 | `.github/workflows/` | The release workflow, triggered by version tags. |
 | `.editorconfig` | Analyzer rules, code style and naming. The source of truth for both. |
 | `AGENTS.md` | The working agreement for changes made here. |
-| `MANUAL.md` | The user manual for players, with a quick start first. Shipped beside the executable. |
+| `MANUAL.md`, `MANUAL.<culture>.md` | The user manual for players, with a quick start first, in English and in every shipped language. All shipped beside the executable. |
 | `NOTICE.md` | Katey's licence, every licence of the software compiled into it, and the credits and terms of the game data. Shipped beside the executable. |
 | `THIRD-PARTY-NOTICES.txt` | The long third-party notices of the .NET runtime and of SkiaSharp and HarfBuzzSharp, as their publishers ship them. Shipped beside the executable. |
 | `NOTICE.md` | Who owns the data and where it came from, and the font licences. |

@@ -1,6 +1,6 @@
-﻿using System.Globalization;
-using Katey.App.Mvvm;
+﻿using Katey.App.Mvvm;
 using Katey.App.Navigation;
+using Katey.App.Text;
 using Katey.App.ViewModels;
 using Katey.Core.Exploration;
 
@@ -21,15 +21,15 @@ public sealed class SystemPage : Page
         : base(new PageKey(PageKind.System, name), workspace)
     {
         _requested = name;
-        Kicker = "System";
+        Kicker = Strings.Get(Keys.System_Kicker);
         Sort = new TableSort<BodyRow>(
             [
-                new("name", "Body", row => row.Name),
-                new("class", "Class", row => row.Class),
-                new("distance", "Distance", row => row.DistanceLs),
-                new("scan", "Cartographics", row => row.ScanCredits, DescendingFirst: true),
+                new("name", Strings.Get(Keys.Column_Body), row => row.Name),
+                new("class", Strings.Get(Keys.Column_Class), row => row.Class),
+                new("distance", Strings.Get(Keys.Column_Distance), row => row.DistanceLs),
+                new("scan", Strings.Get(Keys.Column_Cartographics), row => row.ScanCredits, DescendingFirst: true),
                 // Landable bodies first, then the rail's biology metric: the payout, known from the scanner or predicted from the conditions, then the signal count.
-                new("bio", "Landable", row => (row.Landable, row.ExobiologyRank, row.BiologicalSignals), DescendingFirst: true),
+                new("bio", Strings.Get(Keys.Column_Landable), row => (row.Landable, row.ExobiologyRank, row.BiologicalSignals), DescendingFirst: true),
             ],
             "distance",
             workspace.Preferences,
@@ -104,29 +104,31 @@ public sealed class SystemPage : Page
 
         var undiscovered = rows.Count(row => row.FirstDiscovery);
         var landed = rows.Count(row => row.LandedByYou);
+        var scanned = Display.Plural(Keys.Plural_ScannedBodies, rows.Count);
         var parts = new List<string>
         {
             undiscovered == rows.Count
-                ? $"Nobody had discovered any of the {Display.Plural(rows.Count, "scanned body", "scanned bodies")} before you"
+                ? Strings.Format(Keys.System_NobodyDiscoveredAny, ("bodies", scanned))
                 : undiscovered == 0
-                    ? $"Every one of the {Display.Plural(rows.Count, "scanned body", "scanned bodies")} was discovered before you"
-                    : $"{undiscovered} of the {Display.Plural(rows.Count, "scanned body", "scanned bodies")} had never been discovered before you",
+                    ? Strings.Format(Keys.System_EveryoneDiscoveredAll, ("bodies", scanned))
+                    : Strings.Format(Keys.System_SomeUndiscovered, ("undiscovered", undiscovered), ("bodies", scanned)),
         };
         if (landed > 0)
         {
-            parts.Add($"you have landed on {Display.Plural(landed, "body", "bodies")}");
+            parts.Add(Strings.Format(Keys.System_YouLandedOn, ("bodies", Display.Plural(Keys.Plural_Bodies, landed))));
         }
 
         var landable = rows.Count(row => row.Landable && !row.FromCatalogue);
         var untrodden = rows.Count(row => row.FootfallOpen);
         if (untrodden > 0)
         {
+            var landableBodies = Display.Plural(Keys.Plural_LandableBodies, landable);
             parts.Add(untrodden == landable
-                ? $"nobody has set foot on any of its {Display.Plural(landable, "landable body", "landable bodies")}"
-                : $"nobody has set foot on {untrodden} of its {Display.Plural(landable, "landable body", "landable bodies")}");
+                ? Strings.Format(Keys.System_NoFootfallAny, ("bodies", landableBodies))
+                : Strings.Format(Keys.System_NoFootfallSome, ("untrodden", untrodden), ("bodies", landableBodies)));
         }
 
-        return string.Join("; ", parts) + ".";
+        return string.Join(Strings.Get(Keys.List_Clause), parts) + ".";
     }
 
     /// <inheritdoc/>
@@ -135,14 +137,14 @@ public sealed class SystemPage : Page
         var route = Workspace.Route;
         var snapshot = Workspace.System;
         var name = _requested.Length == 0 ? snapshot.SystemName ?? route.CurrentSystem : _requested;
-        Title = name ?? "No position yet";
+        Title = name ?? Strings.Get(Keys.System_NoPositionYet);
         Name = name ?? "";
         OnPropertyChanged(nameof(HasName));
         IsCurrent = name is not null && string.Equals(name, snapshot.SystemName, StringComparison.OrdinalIgnoreCase);
 
         if (name is null)
         {
-            Progress = "The journal has not reported where you are.";
+            Progress = Strings.Get(Keys.System_NotReported);
             Bodies = [];
             UnsoldSummary = "";
             ValueSummary = "";
@@ -164,7 +166,7 @@ public sealed class SystemPage : Page
             UnsoldSummary = value?.UnsoldLine() ?? "";
             ValueSummary = value?.Line() ?? "";
             DiscoveryText = DiscoveryLine(rows);
-            WhereParts = Phrase.Text($"You are here. {ScanProgress.Sentence(snapshot).TrimEnd('.')}.");
+            WhereParts = Phrase.Text(Strings.Format(Keys.System_YouAreHere, ("scan", ScanProgress.Sentence(snapshot).TrimEnd('.'))));
         }
         else
         {
@@ -181,12 +183,12 @@ public sealed class SystemPage : Page
             var parts = new List<IReadOnlyList<PhrasePart>>();
             if (distance is { } ly && route.CurrentSystem is { } here)
             {
-                parts.Add(Phrase.Of($"{Display.LightYears(ly)} from ", LinkTo(here, PageKind.System, here), "."));
+                parts.Add(Phrase.Format(Keys.System_LightYearsFrom, ("distance", Display.LightYears(ly)), ("system", LinkTo(here, PageKind.System, here))));
             }
 
             parts.Add(Phrase.Text(known is null
-                ? "You have not been here since the journal began."
-                : string.Create(CultureInfo.CurrentCulture, $"Last there {known.LastVisit.ToLocalTime():g}, {Display.Plural(known.Visits, "visit")} in all.")));
+                ? Strings.Get(Keys.System_NotVisited)
+                : Strings.Format(Keys.System_LastThere, ("when", known.LastVisit.ToLocalTime()), ("visits", Display.Plural(Keys.Plural_Visits, known.Visits)))));
             WhereParts = Phrase.Join(" ", parts);
         }
 
@@ -196,6 +198,6 @@ public sealed class SystemPage : Page
         var fleet = Workspace.FleetSnapshot;
         var ships = fleet.Ships.Count(ship => string.Equals(ship.System, name, StringComparison.OrdinalIgnoreCase));
         var stored = fleet.StoredModules.Count(module => string.Equals(module.System, name, StringComparison.OrdinalIgnoreCase));
-        FleetText = ships == 0 && stored == 0 ? "" : $"You have {Display.Plural(ships, "ship")} and {Display.Plural(stored, "stored module")} here.";
+        FleetText = ships == 0 && stored == 0 ? "" : Strings.Format(Keys.System_FleetHere, ("ships", Display.Plural(Keys.Plural_Ships, ships)), ("modules", Display.Plural(Keys.Plural_StoredModules, stored)));
     }
 }

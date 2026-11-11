@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Katey.App.Text;
 using Katey.Core.Edsy;
 using Katey.Core.Fleet;
 using Katey.Core.Routing;
@@ -172,7 +173,7 @@ public sealed class FleetState
                 Convert(module.Engineering),
                 ModulePlace.Stored,
                 module.System,
-                module.InTransit ? "in transit" : module.System ?? "storage",
+                module.InTransit ? Strings.Get(Keys.Fleet_InTransit) : module.System ?? Strings.Get(Keys.Fleet_Storage),
                 null));
         }
 

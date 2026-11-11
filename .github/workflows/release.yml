@@ -51,7 +51,7 @@ jobs:
       - name: Package
         run: |
           mkdir -p dist
-          (cd bin && zip "../dist/katey-${{ github.ref_name }}-win-x64.zip" katey.exe MANUAL.md NOTICE.md THIRD-PARTY-NOTICES.txt)
+          (cd bin && zip "../dist/katey-${{ github.ref_name }}-win-x64.zip" katey.exe MANUAL*.md NOTICE.md THIRD-PARTY-NOTICES.txt)
           ls -la dist
 
       - uses: softprops/action-gh-release@v2

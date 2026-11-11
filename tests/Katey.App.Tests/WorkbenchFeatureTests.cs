@@ -1,4 +1,5 @@
-﻿using Katey.App.Mvvm;
+﻿using Katey.App.Exploration;
+using Katey.App.Mvvm;
 using Katey.App.Navigation;
 using Katey.App.Pages;
 using Katey.App.Persistence;
@@ -1109,11 +1110,11 @@ public sealed class WorkbenchFeatureTests
     [Fact]
     public void SystemBodies_AskOncePerSystem_AndWaitBeforeRetryingAFailedLookup()
     {
-        var systems = new FakeSystemCatalog { Failure = "Spansh could not be reached for the system lookup." };
+        var systems = new FakeSystemCatalog { Failure = SystemLookupFailure.Unreachable };
         var (shell, monitor, _) = Create(PersistedState.Empty with { AllowSpanshBodies = true }, systems: systems);
         monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-08T18:20:00Z","event":"FSDJump","StarSystem":"Koine","SystemAddress":9,"StarPos":[107.40625,-40.59375,-71.5625]}""");
         Assert.Equal([9L], systems.Requests);
-        Assert.Equal(systems.Failure, shell.Workspace.SystemBodies.Status);
+        Assert.Equal("Spansh could not be reached for the system lookup.", shell.Workspace.SystemBodies.Status);
 
         // Every later journal event in the same system asks nothing more: the failure waits, a success is kept.
         monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-08T18:20:05Z","event":"Scan","ScanType":"AutoScan","BodyName":"Koine","BodyID":0,"StarType":"M","DistanceFromArrivalLS":0,"SystemAddress":9}""");
@@ -1393,7 +1394,8 @@ public sealed class WorkbenchFeatureTests
             /*lang=json,strict*/ """{"timestamp":"2026-11-05T10:07:00Z","event":"PowerplayMerits","Power":"Zemina Torval","MeritsGained":150,"TotalMerits":1350}""");
 
         var stats = Open<StatisticsPage>(shell, PageKind.Statistics);
-        Assert.Contains("Stats", shell.Nav.Select(item => item.Label));
+        Assert.DoesNotContain("Stats", shell.Nav.Select(item => item.Label));
+        Assert.True(shell.StatsNav.IsCurrent);
         Assert.Equal(3, stats.Slices.Count);
         Assert.True(stats.HasSlices);
         var exobiology = stats.Activities.Single(activity => activity.Kind == IncomeKind.Exobiology);
@@ -1677,6 +1679,6 @@ public sealed class WorkbenchFeatureTests
         shell.Navigator.ForwardCommand.Execute(null);
         Assert.Equal(0, shell.Navigator.ScrollFraction);
 
-        Assert.Equal(["Engineers", "Modules", "Materials", "Unlocks", "Fleet", "Stats", "Route", "System"], shell.Nav.Select(item => item.Label));
+        Assert.Equal(["Engineers", "Modules", "Materials", "Unlocks", "Fleet", "Route", "System"], shell.Nav.Select(item => item.Label));
     }
 }

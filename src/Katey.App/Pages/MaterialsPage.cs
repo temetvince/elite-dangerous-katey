@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using Katey.App.Mvvm;
 using Katey.App.Navigation;
+using Katey.App.Text;
 using Katey.App.ViewModels;
 using Katey.Core;
 using Katey.Core.Planning;
@@ -136,7 +137,7 @@ public sealed class InventoryMaterialRow : ObservableObject
 public sealed record InventorySectionRow(string Label, IReadOnlyList<InventoryMaterialRow> Rows, int Held, MaterialCategory Category)
 {
     /// <summary>Gets "Label · n held".</summary>
-    public string Heading => $"{Label} · {Held} held";
+    public string Heading => Strings.Format(Keys.Materials_SectionHeading, ("label", Label), ("held", Held));
 }
 
 /// <summary>One of the three inventories as a toggle. Whether it is shown is remembered.</summary>
@@ -153,7 +154,7 @@ public sealed class CategoryToggle : ObservableObject
     {
         ArgumentNullException.ThrowIfNull(toggle);
         Category = category;
-        Label = ShoppingList.CategoryLabels[category];
+        Label = Display.CategoryLabel(category);
         _shown = shown;
         _toggle = toggle;
     }
@@ -194,8 +195,8 @@ public sealed class MaterialsPage : Page
     public MaterialsPage(Workspace workspace, string show = "")
         : base(new PageKey(PageKind.Materials, show), workspace)
     {
-        Title = "Materials";
-        Kicker = "Browse";
+        Title = Strings.Get(Keys.Nav_Materials);
+        Kicker = Strings.Get(Keys.Page_KickerBrowse);
         var landing = workspace.Catalog.Materials.GetValueOrDefault(show);
         HighlightedSymbol = landing?.Symbol ?? "";
         var reveal = landing?.Category ?? (Enum.TryParse<MaterialCategory>(show, ignoreCase: true, out var wanted) ? wanted : null);
@@ -210,12 +211,12 @@ public sealed class MaterialsPage : Page
         Categories = [.. MaterialCalculator.CategoryOrder.Select(category => new CategoryToggle(category, !hidden.Contains(category.ToString()), ToggleCategory))];
         Sort = new TableSort<InventoryMaterialRow>(
             [
-                new("name", "Material", row => row.Name),
-                new("grade", "Grade", row => row.GradeNumber),
-                new("family", "Family", row => row.Family),
-                new("have", "Have", row => row.Have, DescendingFirst: true),
-                new("need", "Need", row => row.Needed, DescendingFirst: true),
-                new("short", "Short", row => row.ShortCount, DescendingFirst: true),
+                new("name", Strings.Get(Keys.Column_Material), row => row.Name),
+                new("grade", Strings.Get(Keys.Column_Grade), row => row.GradeNumber),
+                new("family", Strings.Get(Keys.Column_Family), row => row.Family),
+                new("have", Strings.Get(Keys.Column_Have), row => row.Have, DescendingFirst: true),
+                new("need", Strings.Get(Keys.Column_Need), row => row.Needed, DescendingFirst: true),
+                new("short", Strings.Get(Keys.Column_Short), row => row.ShortCount, DescendingFirst: true),
             ],
             "family",
             workspace.Preferences,
@@ -279,7 +280,7 @@ public sealed class MaterialsPage : Page
         var catalog = Workspace.Catalog;
         var inventory = Workspace.Inventory;
         var counts = Workspace.InventoryCounts;
-        var needs = MaterialCalculator.Totals(catalog, Workspace.Plan.Snapshot()).ToDictionary(total => total.Material.Name, total => total.Needed, StringComparer.Ordinal);
+        var needs = MaterialCalculator.Totals(catalog, Workspace.Plan.Snapshot()).ToDictionary(total => total.Material.Symbol, total => total.Needed, StringComparer.OrdinalIgnoreCase);
         var filter = Filter.Trim();
         var shortOnly = ShortOnly;
 
@@ -293,17 +294,18 @@ public sealed class MaterialsPage : Page
                     .Where(material => filter.Length == 0
                         || string.Equals(material.Symbol, HighlightedSymbol, StringComparison.OrdinalIgnoreCase)
                         || material.Name.Contains(filter, StringComparison.OrdinalIgnoreCase)
-                        || material.Line.Contains(filter, StringComparison.OrdinalIgnoreCase))
-                    .OrderBy(material => material.Line, StringComparer.Ordinal)
+                        || Names.Material(material).Contains(filter, StringComparison.OrdinalIgnoreCase)
+                        || Names.Family(material.Line).Contains(filter, StringComparison.OrdinalIgnoreCase))
+                    .OrderBy(material => Names.Family(material.Line), StringComparer.CurrentCulture)
                     .ThenBy(material => material.Grade)
-                    .ThenBy(material => material.Name, StringComparer.Ordinal)
+                    .ThenBy(Names.Material, StringComparer.CurrentCulture)
                     .Select(material => new InventoryMaterialRow(
-                        LinkTo(material.Name, PageKind.Material, material.Symbol),
+                        LinkTo(Names.Material(material), PageKind.Material, material.Symbol),
                         material.Symbol,
                         material.Grade,
-                        material.Line,
+                        Names.Family(material.Line),
                         counts?.GetValueOrDefault(material.Symbol),
-                        needs.GetValueOrDefault(material.Name),
+                        needs.GetValueOrDefault(material.Symbol),
                         Workspace.Reserves.For(material.Symbol),
                         SetReserve,
                         string.Equals(material.Symbol, HighlightedSymbol, StringComparison.OrdinalIgnoreCase)))
@@ -314,20 +316,20 @@ public sealed class MaterialsPage : Page
         ];
 
         StatusText = !inventory.HasSnapshot
-            ? "No inventory yet. Counts appear once the journal watch has read a Materials snapshot, which the game writes on every load."
-            : $"Inventory of {inventory.Commander ?? "the commander"} as of {inventory.AsOf?.ToLocalTime().ToString("g", CultureInfo.CurrentCulture)}.";
+            ? Strings.Get(Keys.Materials_NoInventory)
+            : Strings.Format(Keys.Materials_InventoryOf, ("commander", inventory.Commander ?? Strings.Get(Keys.Materials_TheCommander)), ("when", inventory.AsOf?.ToLocalTime()));
         var unknown = counts is null ? [] : counts.Keys.Where(symbol => !catalog.Materials.ContainsKey(symbol)).Order(StringComparer.OrdinalIgnoreCase).ToList();
         foreach (var symbol in unknown)
         {
             Workspace.NoteUnknown("material", symbol);
         }
 
-        UnknownText = unknown.Count == 0 ? "" : "Not in the tables: " + string.Join(", ", unknown) + ".";
+        UnknownText = unknown.Count == 0 ? "" : Strings.Format(Keys.Materials_NotInTables, ("symbols", Display.List(unknown)));
         RefreshTrades();
     }
 
     /// <summary>Recomputes the trades alone, so an edited reserve does not rebuild the rows under the cursor.</summary>
-    private void RefreshTrades() => Trades = TradeView.From(Workspace.Trades(), material => LinkTo(material.Name, PageKind.Materials, material.Symbol));
+    private void RefreshTrades() => Trades = TradeView.From(Workspace.Trades(), material => LinkTo(Names.Material(material), PageKind.Materials, material.Symbol));
 
     private void SetReserve(string symbol, int keep, bool neverTrade)
     {

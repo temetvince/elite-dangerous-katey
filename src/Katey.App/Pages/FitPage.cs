@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using Katey.App.Mvvm;
 using Katey.App.Navigation;
+using Katey.App.Text;
 using Katey.App.ViewModels;
 using Katey.Core;
 using Katey.Core.Fleet;
@@ -125,24 +126,24 @@ public sealed class FitPage : Page, IEdsyExportable
         : base(new PageKey(PageKind.Fit, id), workspace)
     {
         _id = id;
-        Kicker = "Saved fit";
-        Breadcrumbs = [LinkTo("Fleet", PageKind.Fleet)];
-        Sections = new SectionSwitch([("compare", "Compare with a ship"), ("owned", "Against everything you own")], "compare", workspace.Preferences, "section.fit");
+        Kicker = Strings.Get(Keys.Fit_Kicker);
+        Breadcrumbs = [LinkTo(Strings.Get(Keys.Nav_Fleet), PageKind.Fleet)];
+        Sections = new SectionSwitch([("compare", Strings.Get(Keys.Section_CompareWithShip)), ("owned", Strings.Get(Keys.Section_AgainstEverythingOwned))], "compare", workspace.Preferences, "section.fit");
         LineSort = new TableSort<FitLineRow>(
             [
-                new("slot", "Slot", row => row.Slot),
-                new("required", "Required", row => row.Required),
-                new("status", "Status", row => row.Status),
+                new("slot", Strings.Get(Keys.Column_Slot), row => row.Slot),
+                new("required", Strings.Get(Keys.Column_Required), row => row.Required),
+                new("status", Strings.Get(Keys.Column_Status), row => row.Status),
             ],
             "slot",
             workspace.Preferences,
             "sort.fitLines");
         DifferenceSort = new TableSort<DifferenceRow>(
             [
-                new("slot", "Slot", row => row.Slot),
-                new("required", "Fit wants", row => row.Required),
-                new("fitted", "Ship has", row => row.Fitted),
-                new("kind", "Difference", row => row.KindText),
+                new("slot", Strings.Get(Keys.Column_Slot), row => row.Slot),
+                new("required", Strings.Get(Keys.Column_FitWants), row => row.Required),
+                new("fitted", Strings.Get(Keys.Column_ShipHas), row => row.Fitted),
+                new("kind", Strings.Get(Keys.Column_Difference), row => row.KindText),
             ],
             "slot",
             workspace.Preferences,
@@ -185,8 +186,8 @@ public sealed class FitPage : Page, IEdsyExportable
 
     /// <summary>Gets the ownership plan button's label: how many gaps in what you own it would plan, or that they are all planned already, or that there are none.</summary>
     public string PlanMissingText => MissingEngineered > 0
-        ? $"Plan the {Display.Plural(MissingEngineered, "gap in what you own", "gaps in what you own")}"
-        : MissingEngineeredInAll > 0 ? "Every gap in what you own is in the plan" : "Nothing missing needs engineering";
+        ? Strings.Plural(Keys.Fit_PlanGaps, MissingEngineered)
+        : MissingEngineeredInAll > 0 ? Strings.Get(Keys.Fit_GapsPlanned) : Strings.Get(Keys.Fit_NoGaps);
 
     /// <summary>Gets the ships to compare with, best match first. Each label carries the match count.</summary>
     public IReadOnlyList<Choice> Ships { get; private set => SetProperty(ref field, value); } = [];
@@ -271,8 +272,8 @@ public sealed class FitPage : Page, IEdsyExportable
 
     /// <summary>Gets the ship plan button's label: how many engineering changes for this ship it would plan, or that they are all planned already, or that there are none.</summary>
     public string PlanDifferencesText => UnplannedDifferences > 0
-        ? $"Plan the {Display.Plural(UnplannedDifferences, "engineering change for this ship", "engineering changes for this ship")}"
-        : EngineeringCount > 0 ? "Every engineering change for this ship is in the plan" : "No engineering to add";
+        ? Strings.Plural(Keys.Fit_PlanChanges, UnplannedDifferences)
+        : EngineeringCount > 0 ? Strings.Get(Keys.Fit_ChangesPlanned) : Strings.Get(Keys.Fit_NoChanges);
 
     /// <inheritdoc/>
     public string EdsyJson { get; private set => SetProperty(ref field, value); } = "";
@@ -295,7 +296,7 @@ public sealed class FitPage : Page, IEdsyExportable
         var fitting = Workspace.Fleet.Find(_id);
         if (fitting is null)
         {
-            Title = "Fit removed";
+            Title = Strings.Get(Keys.Fit_Removed);
             Lines = [];
             Ships = [];
             Differences = [];
@@ -316,8 +317,8 @@ public sealed class FitPage : Page, IEdsyExportable
             var type = code is not null && Workspace.Catalog.ModuleTypes.TryGetValue(code, out var found) ? found : null;
             return new FitLineRow(
                 line.Required.Slot,
-                $"{Workspace.Modules.NameOf(line.Required.Item)}, {FleetPage.EngineeringText(Workspace, line.Required.Engineering)}",
-                type is null ? null : LinkTo(type.Name, PageKind.ModuleType, type.Code),
+                Strings.Format(Keys.Ship_ModuleAndEngineering, ("module", Workspace.ModuleName(line.Required.Item)), ("engineering", FleetPage.EngineeringText(Workspace, line.Required.Engineering))),
+                type is null ? null : LinkTo(Names.ModuleType(type), PageKind.ModuleType, type.Code),
                 FleetPage.StatusText(line),
                 line.Quality,
                 FleetPage.ToneOf(line, fitting.Hull));
@@ -334,16 +335,22 @@ public sealed class FitPage : Page, IEdsyExportable
         RefreshShips(fitting, fleet);
     }
 
+    private string FittedText(FitModule fitted, bool foundElsewhere)
+    {
+        var text = Strings.Format(Keys.Ship_ModuleAndEngineering, ("module", Workspace.ModuleName(fitted.Item)), ("engineering", FleetPage.EngineeringText(Workspace, fitted.Engineering)));
+        return foundElsewhere ? Strings.Format(Keys.Fit_FittedElsewhere, ("module", text), ("slot", SlotNames.Display(fitted.Slot))) : text;
+    }
+
     private static string KindText(DifferenceKind kind) => kind switch
     {
-        DifferenceKind.SlotEmpty => "empty slot",
-        DifferenceKind.DifferentModule => "different module",
-        DifferenceKind.NotEngineered => "not engineered",
-        DifferenceKind.DifferentBlueprint => "different blueprint",
-        DifferenceKind.LowerGrade => "lower grade",
-        DifferenceKind.UnfinishedGrade => "grade unfinished",
-        DifferenceKind.DifferentExperimental => "experimental missing",
-        DifferenceKind.ExperimentalUnknown => "experimental unknown",
+        DifferenceKind.SlotEmpty => Strings.Get(Keys.Fit_KindEmptySlot),
+        DifferenceKind.DifferentModule => Strings.Get(Keys.Fit_KindDifferentModule),
+        DifferenceKind.NotEngineered => Strings.Get(Keys.Fit_KindNotEngineered),
+        DifferenceKind.DifferentBlueprint => Strings.Get(Keys.Fit_KindDifferentBlueprint),
+        DifferenceKind.LowerGrade => Strings.Get(Keys.Fit_KindLowerGrade),
+        DifferenceKind.UnfinishedGrade => Strings.Get(Keys.Fit_KindUnfinishedGrade),
+        DifferenceKind.DifferentExperimental => Strings.Get(Keys.Fit_KindExperimentalMissing),
+        DifferenceKind.ExperimentalUnknown => Strings.Get(Keys.Fit_KindExperimentalUnknown),
         _ => kind.ToString(),
     };
 
@@ -360,7 +367,7 @@ public sealed class FitPage : Page, IEdsyExportable
         [
             .. ranked.Select(pair => new Choice(
                 pair.Ship.ShipId.ToString(CultureInfo.InvariantCulture),
-                $"{FleetPage.ShipTitle(pair.Ship)} · {ShipNames.Prefer(pair.Ship.Type, pair.Ship.TypeName)} · {pair.Comparison.MatchCount} of {fitting.Modules.Count} match")),
+                Strings.Format(Keys.Fit_ShipChoice, ("ship", FleetPage.ShipTitle(pair.Ship)), ("hull", ShipNames.Prefer(pair.Ship.Type, pair.Ship.TypeName)), ("matching", pair.Comparison.MatchCount), ("total", fitting.Modules.Count)))),
         ];
         OnPropertyChanged(nameof(HasShips));
         // Choices compare by value, so a rebuilt list leaves the selection equal to the old one; the
@@ -382,7 +389,7 @@ public sealed class FitPage : Page, IEdsyExportable
             Differences = [];
             EngineeringCount = 0;
             UnplannedDifferences = 0;
-            CompareSummary = fleet.Ships.Count == 0 ? "No ships seen yet. The comparison appears once the journal has read your fleet." : "";
+            CompareSummary = fleet.Ships.Count == 0 ? Strings.Get(Keys.Fit_NoShipsToCompare) : "";
             HullNote = "";
             OnPropertyChanged(nameof(PlanDifferencesText));
             PlanDifferencesCommand.RaiseCanExecuteChanged();
@@ -410,10 +417,8 @@ public sealed class FitPage : Page, IEdsyExportable
                 if (found.Found is { } owned)
                 {
                     ownedCover = found.Quality == MatchQuality.Exact;
-                    var where = owned.Place == ModulePlace.Installed ? $"fitted to {owned.Holder}" : $"stored at {owned.Holder}";
-                    ownedText = ownedCover
-                        ? $"You already own one, {where}. Not planned."
-                        : $"You may already own one, {where}, but its experimental is unknown.";
+                    var where = owned.Place == ModulePlace.Installed ? Strings.Format(Keys.Match_FittedTo, ("ship", owned.Holder)) : Strings.Format(Keys.Match_StoredAt, ("place", owned.Holder));
+                    ownedText = Strings.Format(ownedCover ? Keys.Fit_AlreadyOwned : Keys.Fit_MayAlreadyOwn, ("where", where));
                     if (ownedCover)
                     {
                         _ownedSlots.Add(difference.Required.Slot);
@@ -432,10 +437,10 @@ public sealed class FitPage : Page, IEdsyExportable
                     && (entry.IsExperimentalOnly || service.SelectedCanRoll.Count > 0)
                     && (entry.Experimental is null || service.SelectedCanApplyExperimental.Count > 0);
                 engineersParts = selected.Count == 0
-                    ? EngineerLink.Names(able.Select(Workspace.EngineerLinkFor), "No engineer in the data offers this.")
+                    ? EngineerLink.Names(able.Select(Workspace.EngineerLinkFor), Strings.Get(Keys.Fit_NobodyOffersThis))
                     : coveredBySelection
-                        ? Phrase.Join("", [Phrase.Text("Your engineers: "), EngineerLink.Names(able.Where(selected.Contains).Select(Workspace.EngineerLinkFor), "")])
-                        : Phrase.Join("", [Phrase.Text("None of your engineers. Offered by "), EngineerLink.Names(able.Select(Workspace.EngineerLinkFor), "nobody in the data"), Phrase.Text(".")]);
+                        ? Phrase.Format(Keys.Fit_YourEngineers, ("engineers", EngineerLink.Names(able.Where(selected.Contains).Select(Workspace.EngineerLinkFor), "")))
+                        : Phrase.Format(Keys.Fit_NoneOfYours, ("engineers", EngineerLink.Names(able.Select(Workspace.EngineerLinkFor), Strings.Get(Keys.Fit_NobodyInData))));
                 if (coveredBySelection)
                 {
                     covered++;
@@ -444,10 +449,10 @@ public sealed class FitPage : Page, IEdsyExportable
 
             rows.Add(new DifferenceRow(
                 difference.Required.Slot,
-                $"{Workspace.Modules.NameOf(difference.Required.Item)}, {FleetPage.EngineeringText(Workspace, difference.Required.Engineering)}",
+                Strings.Format(Keys.Ship_ModuleAndEngineering, ("module", Workspace.ModuleName(difference.Required.Item)), ("engineering", FleetPage.EngineeringText(Workspace, difference.Required.Engineering))),
                 difference.Fitted is { } fitted
-                    ? $"{Workspace.Modules.NameOf(fitted.Item)}, {FleetPage.EngineeringText(Workspace, fitted.Engineering)}{(difference.FoundElsewhere ? $" in {SlotNames.Display(fitted.Slot)}" : "")}"
-                    : "empty",
+                    ? FittedText(fitted, difference.FoundElsewhere)
+                    : Strings.Get(Keys.Ship_Empty),
                 KindText(difference.Kind),
                 difference.NeedsEngineering && !ownedCover,
                 difference.NeedsPurchase && !ownedCover,
@@ -464,39 +469,40 @@ public sealed class FitPage : Page, IEdsyExportable
         UnplannedDifferences = DifferenceEntries().Count;
         var purchases = rows.Count(row => row.NeedsPurchase);
         var uncertain = rows.Count(row => row.IsUncertain);
-        var parts = new List<string> { $"{comparison.MatchCount} of {fitting.Modules.Count} modules already match." };
+        var parts = new List<string> { Strings.Format(Keys.Fit_AlreadyMatch, ("matching", comparison.MatchCount), ("total", fitting.Modules.Count)) };
         if (ownedCovers > 0)
         {
-            parts.Add($"{Display.Plural(ownedCovers, "slot")} can be filled from modules you already own.");
+            parts.Add(Strings.Format(Keys.Fit_OwnedCanFill, ("slots", Display.Plural(Keys.Plural_Slots, ownedCovers))));
         }
 
         if (EngineeringCount > 0)
         {
+            var slots = Display.Plural(Keys.Plural_Slots, EngineeringCount);
             parts.Add(selected.Count == 0
-                ? $"{Display.Plural(EngineeringCount, "slot")} need engineering."
-                : $"{Display.Plural(EngineeringCount, "slot")} need engineering, {covered} of them with engineers you will visit.");
+                ? Strings.Format(Keys.Fit_NeedEngineering, ("slots", slots))
+                : Strings.Format(Keys.Fit_NeedEngineeringCovered, ("slots", slots), ("covered", covered)));
         }
 
         if (purchases > 0)
         {
-            parts.Add($"{Display.Plural(purchases, "module")} must be bought first.");
+            parts.Add(Strings.Format(Keys.Fit_MustBuy, ("modules", Display.Plural(Keys.Plural_Modules, purchases))));
         }
 
         if (uncertain > 0)
         {
-            parts.Add($"{Display.Plural(uncertain, "slot")} may already be right; the ship's experimental is unknown.");
+            parts.Add(Strings.Format(Keys.Fit_MayBeRight, ("slots", Display.Plural(Keys.Plural_Slots, uncertain))));
         }
 
         var prebuilt = rows.Count(row => row.WarnPrebuilt);
         if (prebuilt > 0)
         {
-            parts.Add($"{Display.Plural(prebuilt, "slot")} to engineer hold{(prebuilt == 1 ? "s" : "")} a prebuilt module, which cannot leave this ship.");
+            parts.Add(Strings.Plural(Keys.Fit_PrebuiltSlots, prebuilt));
         }
 
         CompareSummary = string.Join(" ", parts);
         HullNote = string.Equals(ship.Type, fitting.Hull, StringComparison.OrdinalIgnoreCase)
             ? ""
-            : $"This ship is a {ShipNames.Prefer(ship.Type, ship.TypeName)}; the fit is for a {HullName}. Modules are matched within slots of the same kind, so the layout may not carry over.";
+            : Strings.Format(Keys.Fit_HullNote, ("ship", ShipNames.Prefer(ship.Type, ship.TypeName)), ("fit", HullName));
         OnPropertyChanged(nameof(PlanDifferencesText));
         PlanDifferencesCommand.RaiseCanExecuteChanged();
     }

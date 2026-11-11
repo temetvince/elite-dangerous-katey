@@ -1,4 +1,5 @@
 ﻿using Katey.App.Navigation;
+using Katey.App.Text;
 
 namespace Katey.App.ViewModels;
 
@@ -22,5 +23,5 @@ public sealed record Place(Link? System, string Detail)
     public bool HasBoth => HasSystem && HasDetail;
 
     /// <summary>Gets the place as one line of text, without the link.</summary>
-    public string Text => System is null ? Detail : Detail.Length == 0 ? System.Label : $"{System.Label} · {Detail}";
+    public string Text => System is null ? Detail : Detail.Length == 0 ? System.Label : Strings.Format(Keys.Place_Text, ("system", System.Label), ("detail", Detail));
 }

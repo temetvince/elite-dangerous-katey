@@ -120,7 +120,8 @@ journal history is listed again with the time it was scanned. The events:
   where footfall cannot be claimed, so the snapshot's `Populated`, from the arrival event's population, says
   when it means nothing.
 - `FSSBodySignals` and `SAASignalsFound` add biological and geological counts and the genus list; counts only
-  ever rise.
+  ever rise. Any other signal type is kept as a `BodySignal`: the game's symbol with the client's words
+  beside it, so the application can name it in its own language.
 - `SAAScanComplete` marks a body mapped by the player.
 - `ApproachBody`, `Touchdown`, `Liftoff` and `LeaveBody` track the current body. Every `Touchdown` across
   history is remembered, so a body shows as landed-on when you return.

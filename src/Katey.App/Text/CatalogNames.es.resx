@@ -1,0 +1,2332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Atmosphere.Gas.ammonia" xml:space="preserve">
+    <value>de amoníaco</value>
+  </data>
+  <data name="Atmosphere.Gas.ammonia_and_oxygen" xml:space="preserve">
+    <value>de amoníaco y oxígeno</value>
+  </data>
+  <data name="Atmosphere.Gas.ammonia_rich" xml:space="preserve">
+    <value>rica en amoníaco</value>
+  </data>
+  <data name="Atmosphere.Gas.argon" xml:space="preserve">
+    <value>de argón</value>
+  </data>
+  <data name="Atmosphere.Gas.argon_rich" xml:space="preserve">
+    <value>rica en argón</value>
+  </data>
+  <data name="Atmosphere.Gas.carbon_dioxide" xml:space="preserve">
+    <value>de dióxido de carbono</value>
+  </data>
+  <data name="Atmosphere.Gas.carbon_dioxide_rich" xml:space="preserve">
+    <value>rica en dióxido de carbono</value>
+  </data>
+  <data name="Atmosphere.Gas.earth_like" xml:space="preserve">
+    <value>similar a la de la Tierra</value>
+  </data>
+  <data name="Atmosphere.Gas.helium" xml:space="preserve">
+    <value>de helio</value>
+  </data>
+  <data name="Atmosphere.Gas.metallic_vapour" xml:space="preserve">
+    <value>de vapor metálico</value>
+  </data>
+  <data name="Atmosphere.Gas.methane" xml:space="preserve">
+    <value>de metano</value>
+  </data>
+  <data name="Atmosphere.Gas.methane_rich" xml:space="preserve">
+    <value>rica en metano</value>
+  </data>
+  <data name="Atmosphere.Gas.neon" xml:space="preserve">
+    <value>de neón</value>
+  </data>
+  <data name="Atmosphere.Gas.neon_rich" xml:space="preserve">
+    <value>rica en neón</value>
+  </data>
+  <data name="Atmosphere.Gas.nitrogen" xml:space="preserve">
+    <value>de nitrógeno</value>
+  </data>
+  <data name="Atmosphere.Gas.oxygen" xml:space="preserve">
+    <value>de oxígeno</value>
+  </data>
+  <data name="Atmosphere.Gas.silicate_vapour" xml:space="preserve">
+    <value>de vapor de silicato</value>
+  </data>
+  <data name="Atmosphere.Gas.sulfur_dioxide" xml:space="preserve">
+    <value>de dióxido de azufre</value>
+  </data>
+  <data name="Atmosphere.Gas.sulphur_dioxide" xml:space="preserve">
+    <value>de dióxido de azufre</value>
+  </data>
+  <data name="Atmosphere.Gas.water" xml:space="preserve">
+    <value>de agua</value>
+  </data>
+  <data name="Atmosphere.Gas.water_rich" xml:space="preserve">
+    <value>rica en agua</value>
+  </data>
+  <data name="Atmosphere.Modifier.hot" xml:space="preserve">
+    <value>caliente</value>
+  </data>
+  <data name="Atmosphere.Modifier.thick" xml:space="preserve">
+    <value>densa</value>
+  </data>
+  <data name="Atmosphere.Modifier.thin" xml:space="preserve">
+    <value>fina</value>
+  </data>
+  <data name="Atmosphere.Template" xml:space="preserve">
+    <value>atmósfera {modifiers}{gas}</value>
+  </data>
+  <data name="Blueprint.AFM_Shielded" xml:space="preserve">
+    <value>Blindado</value>
+  </data>
+  <data name="Blueprint.Armour_Advanced" xml:space="preserve">
+    <value>Ligero</value>
+  </data>
+  <data name="Blueprint.Armour_Explosive" xml:space="preserve">
+    <value>Resistente a explosiones</value>
+  </data>
+  <data name="Blueprint.Armour_HeavyDuty" xml:space="preserve">
+    <value>Alta resistencia</value>
+  </data>
+  <data name="Blueprint.Armour_Kinetic" xml:space="preserve">
+    <value>Resistente a daño cinético</value>
+  </data>
+  <data name="Blueprint.Armour_Thermic" xml:space="preserve">
+    <value>Resistente a daño térmico</value>
+  </data>
+  <data name="Blueprint.CargoRack_IncreasedCapacity" xml:space="preserve">
+    <value>Capacidad ampliada</value>
+  </data>
+  <data name="Blueprint.CollectionLimpet_LightWeight" xml:space="preserve">
+    <value>Ligero</value>
+  </data>
+  <data name="Blueprint.CollectionLimpet_Reinforced" xml:space="preserve">
+    <value>Reforzado</value>
+  </data>
+  <data name="Blueprint.CollectionLimpet_Shielded" xml:space="preserve">
+    <value>Blindado</value>
+  </data>
+  <data name="Blueprint.Engine_Dirty" xml:space="preserve">
+    <value>Sucio</value>
+  </data>
+  <data name="Blueprint.Engine_Reinforced" xml:space="preserve">
+    <value>Reforzado</value>
+  </data>
+  <data name="Blueprint.Engine_Tuned" xml:space="preserve">
+    <value>Limpio</value>
+  </data>
+  <data name="Blueprint.FSD_FastBoot" xml:space="preserve">
+    <value>Secuencia de arranque más rápida</value>
+  </data>
+  <data name="Blueprint.FSD_LongRange" xml:space="preserve">
+    <value>Mayor alcance</value>
+  </data>
+  <data name="Blueprint.FSD_Shielded" xml:space="preserve">
+    <value>Blindado</value>
+  </data>
+  <data name="Blueprint.FSDinterdictor_Expanded" xml:space="preserve">
+    <value>Arco de captura ampliado</value>
+  </data>
+  <data name="Blueprint.FSDinterdictor_LongRange" xml:space="preserve">
+    <value>Largo alcance</value>
+  </data>
+  <data name="Blueprint.FuelScoop_Shielded" xml:space="preserve">
+    <value>Blindado</value>
+  </data>
+  <data name="Blueprint.FuelTransferLimpet_LightWeight" xml:space="preserve">
+    <value>Ligero</value>
+  </data>
+  <data name="Blueprint.FuelTransferLimpet_Reinforced" xml:space="preserve">
+    <value>Reforzado</value>
+  </data>
+  <data name="Blueprint.FuelTransferLimpet_Shielded" xml:space="preserve">
+    <value>Blindado</value>
+  </data>
+  <data name="Blueprint.HatchBreakerLimpet_LightWeight" xml:space="preserve">
+    <value>Ligero</value>
+  </data>
+  <data name="Blueprint.HatchBreakerLimpet_Reinforced" xml:space="preserve">
+    <value>Reforzado</value>
+  </data>
+  <data name="Blueprint.HatchBreakerLimpet_Shielded" xml:space="preserve">
+    <value>Blindado</value>
+  </data>
+  <data name="Blueprint.HullReinforcement_Advanced" xml:space="preserve">
+    <value>Ligero</value>
+  </data>
+  <data name="Blueprint.HullReinforcement_Explosive" xml:space="preserve">
+    <value>Resistente a explosiones</value>
+  </data>
+  <data name="Blueprint.HullReinforcement_HeavyDuty" xml:space="preserve">
+    <value>Alta resistencia</value>
+  </data>
+  <data name="Blueprint.HullReinforcement_Kinetic" xml:space="preserve">
+    <value>Resistente a daño cinético</value>
+  </data>
+  <data name="Blueprint.HullReinforcement_Thermic" xml:space="preserve">
+    <value>Resistente a daño térmico</value>
+  </data>
+  <data name="Blueprint.LifeSupport_LightWeight" xml:space="preserve">
+    <value>Ligero</value>
+  </data>
+  <data name="Blueprint.LifeSupport_Reinforced" xml:space="preserve">
+    <value>Reforzado</value>
+  </data>
+  <data name="Blueprint.LifeSupport_Shielded" xml:space="preserve">
+    <value>Blindado</value>
+  </data>
+  <data name="Blueprint.Misc_ChaffCapacity" xml:space="preserve">
+    <value>Capacidad de munición</value>
+  </data>
+  <data name="Blueprint.Misc_HeatSinkCapacity" xml:space="preserve">
+    <value>Capacidad de munición</value>
+  </data>
+  <data name="Blueprint.Misc_LightWeight" xml:space="preserve">
+    <value>Ligero</value>
+  </data>
+  <data name="Blueprint.Misc_PointDefenseCapacity" xml:space="preserve">
+    <value>Capacidad de munición</value>
+  </data>
+  <data name="Blueprint.Misc_Reinforced" xml:space="preserve">
+    <value>Reforzado</value>
+  </data>
+  <data name="Blueprint.Misc_Shielded" xml:space="preserve">
+    <value>Blindado</value>
+  </data>
+  <data name="Blueprint.PowerDistributor_HighCapacity" xml:space="preserve">
+    <value>Alta capacidad de carga</value>
+  </data>
+  <data name="Blueprint.PowerDistributor_HighFrequency" xml:space="preserve">
+    <value>Carga mejorada</value>
+  </data>
+  <data name="Blueprint.PowerDistributor_PriorityEngines" xml:space="preserve">
+    <value>Centrado en motores</value>
+  </data>
+  <data name="Blueprint.PowerDistributor_PrioritySystems" xml:space="preserve">
+    <value>Centrado en sistemas</value>
+  </data>
+  <data name="Blueprint.PowerDistributor_PriorityWeapons" xml:space="preserve">
+    <value>Centrado en armas</value>
+  </data>
+  <data name="Blueprint.PowerDistributor_Shielded" xml:space="preserve">
+    <value>Blindado</value>
+  </data>
+  <data name="Blueprint.PowerPlant_Armoured" xml:space="preserve">
+    <value>Acorazado</value>
+  </data>
+  <data name="Blueprint.PowerPlant_Boosted" xml:space="preserve">
+    <value>Sobrecargado</value>
+  </data>
+  <data name="Blueprint.PowerPlant_Stealth" xml:space="preserve">
+    <value>Bajas emisiones</value>
+  </data>
+  <data name="Blueprint.ProspectingLimpet_LightWeight" xml:space="preserve">
+    <value>Ligero</value>
+  </data>
+  <data name="Blueprint.ProspectingLimpet_Reinforced" xml:space="preserve">
+    <value>Reforzado</value>
+  </data>
+  <data name="Blueprint.ProspectingLimpet_Shielded" xml:space="preserve">
+    <value>Blindado</value>
+  </data>
+  <data name="Blueprint.Refineries_Shielded" xml:space="preserve">
+    <value>Blindado</value>
+  </data>
+  <data name="Blueprint.Scanner_LongRange" xml:space="preserve">
+    <value>Largo alcance</value>
+  </data>
+  <data name="Blueprint.Scanner_WideAngle" xml:space="preserve">
+    <value>Gran angular</value>
+  </data>
+  <data name="Blueprint.Sensor_Expanded" xml:space="preserve">
+    <value>Radio de escaneo de sondas ampliado</value>
+  </data>
+  <data name="Blueprint.Sensor_FastScan" xml:space="preserve">
+    <value>Escaneo rápido</value>
+  </data>
+  <data name="Blueprint.Sensor_LightWeight" xml:space="preserve">
+    <value>Ligero</value>
+  </data>
+  <data name="Blueprint.Sensor_LongRange" xml:space="preserve">
+    <value>Largo alcance</value>
+  </data>
+  <data name="Blueprint.Sensor_WideAngle" xml:space="preserve">
+    <value>Gran angular</value>
+  </data>
+  <data name="Blueprint.ShieldBooster_Explosive" xml:space="preserve">
+    <value>Resistente a explosiones</value>
+  </data>
+  <data name="Blueprint.ShieldBooster_HeavyDuty" xml:space="preserve">
+    <value>Alta resistencia</value>
+  </data>
+  <data name="Blueprint.ShieldBooster_Kinetic" xml:space="preserve">
+    <value>Resistente a daño cinético</value>
+  </data>
+  <data name="Blueprint.ShieldBooster_Resistive" xml:space="preserve">
+    <value>Resistencia aumentada</value>
+  </data>
+  <data name="Blueprint.ShieldBooster_Thermic" xml:space="preserve">
+    <value>Resistente a daño térmico</value>
+  </data>
+  <data name="Blueprint.ShieldCellBank_Rapid" xml:space="preserve">
+    <value>Carga rápida</value>
+  </data>
+  <data name="Blueprint.ShieldCellBank_Specialised" xml:space="preserve">
+    <value>Especializado</value>
+  </data>
+  <data name="Blueprint.ShieldGenerator_Kinetic" xml:space="preserve">
+    <value>Resistente a daño cinético</value>
+  </data>
+  <data name="Blueprint.ShieldGenerator_Optimised" xml:space="preserve">
+    <value>Bajo consumo mejorado</value>
+  </data>
+  <data name="Blueprint.ShieldGenerator_Reinforced" xml:space="preserve">
+    <value>Reforzado</value>
+  </data>
+  <data name="Blueprint.ShieldGenerator_Thermic" xml:space="preserve">
+    <value>Resistente a daño térmico</value>
+  </data>
+  <data name="Blueprint.Weapon_DoubleShot" xml:space="preserve">
+    <value>Disparo doble</value>
+  </data>
+  <data name="Blueprint.Weapon_Efficient" xml:space="preserve">
+    <value>Eficiente</value>
+  </data>
+  <data name="Blueprint.Weapon_Focused" xml:space="preserve">
+    <value>Enfocado</value>
+  </data>
+  <data name="Blueprint.Weapon_HighCapacity" xml:space="preserve">
+    <value>Alta capacidad</value>
+  </data>
+  <data name="Blueprint.Weapon_LightWeight" xml:space="preserve">
+    <value>Ligero</value>
+  </data>
+  <data name="Blueprint.Weapon_LongRange" xml:space="preserve">
+    <value>Largo alcance</value>
+  </data>
+  <data name="Blueprint.Weapon_Overcharged" xml:space="preserve">
+    <value>Sobrecargado</value>
+  </data>
+  <data name="Blueprint.Weapon_RapidFire" xml:space="preserve">
+    <value>Fuego rápido</value>
+  </data>
+  <data name="Blueprint.Weapon_ShortRange" xml:space="preserve">
+    <value>Corto alcance</value>
+  </data>
+  <data name="Blueprint.Weapon_Sturdy" xml:space="preserve">
+    <value>Robusto</value>
+  </data>
+  <data name="Experimental.special_armour_chunky" xml:space="preserve">
+    <value>Blindaje profundo</value>
+  </data>
+  <data name="Experimental.special_armour_explosive" xml:space="preserve">
+    <value>Blindaje por capas</value>
+  </data>
+  <data name="Experimental.special_armour_kinetic" xml:space="preserve">
+    <value>Blindaje angulado</value>
+  </data>
+  <data name="Experimental.special_armour_thermic" xml:space="preserve">
+    <value>Blindaje reflectante</value>
+  </data>
+  <data name="Experimental.special_auto_loader" xml:space="preserve">
+    <value>Cargador automático</value>
+  </data>
+  <data name="Experimental.special_blinding_shell" xml:space="preserve">
+    <value>Proyectil deslumbrante</value>
+  </data>
+  <data name="Experimental.special_choke_canister" xml:space="preserve">
+    <value>Cartucho asfixiante</value>
+  </data>
+  <data name="Experimental.special_concordant_sequence" xml:space="preserve">
+    <value>Secuencia concordante</value>
+  </data>
+  <data name="Experimental.special_corrosive_shell" xml:space="preserve">
+    <value>Proyectil corrosivo</value>
+  </data>
+  <data name="Experimental.special_deep_cut_payload" xml:space="preserve">
+    <value>Carga perforante</value>
+  </data>
+  <data name="Experimental.special_dispersal_field" xml:space="preserve">
+    <value>Campo de dispersión</value>
+  </data>
+  <data name="Experimental.special_distortion_field" xml:space="preserve">
+    <value>Impacto inercial</value>
+  </data>
+  <data name="Experimental.special_drag_munitions" xml:space="preserve">
+    <value>Munición de arrastre</value>
+  </data>
+  <data name="Experimental.special_emissive_munitions" xml:space="preserve">
+    <value>Munición emisiva</value>
+  </data>
+  <data name="Experimental.special_engine_cooled" xml:space="preserve">
+    <value>Dispersión térmica</value>
+  </data>
+  <data name="Experimental.special_engine_haulage" xml:space="preserve">
+    <value>Distribuidores de propulsión</value>
+  </data>
+  <data name="Experimental.special_engine_lightweight" xml:space="preserve">
+    <value>Aligerado</value>
+  </data>
+  <data name="Experimental.special_engine_overloaded" xml:space="preserve">
+    <value>Propulsores de arrastre</value>
+  </data>
+  <data name="Experimental.special_engine_toughened" xml:space="preserve">
+    <value>Doble refuerzo</value>
+  </data>
+  <data name="Experimental.special_feedback_cascade" xml:space="preserve">
+    <value>Cascada de retroalimentación (antigua)</value>
+  </data>
+  <data name="Experimental.special_feedback_cascade_cooled" xml:space="preserve">
+    <value>Cascada de retroalimentación</value>
+  </data>
+  <data name="Experimental.special_force_shell" xml:space="preserve">
+    <value>Proyectil de fuerza</value>
+  </data>
+  <data name="Experimental.special_fsd_cooled" xml:space="preserve">
+    <value>Dispersión térmica</value>
+  </data>
+  <data name="Experimental.special_fsd_fuelcapacity" xml:space="preserve">
+    <value>Carga profunda</value>
+  </data>
+  <data name="Experimental.special_fsd_heavy" xml:space="preserve">
+    <value>Gestor de masa</value>
+  </data>
+  <data name="Experimental.special_fsd_interrupt" xml:space="preserve">
+    <value>Interrupción de FSD</value>
+  </data>
+  <data name="Experimental.special_fsd_lightweight" xml:space="preserve">
+    <value>Aligerado</value>
+  </data>
+  <data name="Experimental.special_fsd_toughened" xml:space="preserve">
+    <value>Doble refuerzo</value>
+  </data>
+  <data name="Experimental.special_high_yield_shell" xml:space="preserve">
+    <value>Proyectil de alto rendimiento</value>
+  </data>
+  <data name="Experimental.special_hullreinforcement_chunky" xml:space="preserve">
+    <value>Blindaje profundo</value>
+  </data>
+  <data name="Experimental.special_hullreinforcement_explosive" xml:space="preserve">
+    <value>Blindaje por capas</value>
+  </data>
+  <data name="Experimental.special_hullreinforcement_kinetic" xml:space="preserve">
+    <value>Blindaje angulado</value>
+  </data>
+  <data name="Experimental.special_hullreinforcement_thermic" xml:space="preserve">
+    <value>Blindaje reflectante</value>
+  </data>
+  <data name="Experimental.special_incendiary_rounds" xml:space="preserve">
+    <value>Munición incendiaria</value>
+  </data>
+  <data name="Experimental.special_ion_disruptor" xml:space="preserve">
+    <value>Disruptor iónico</value>
+  </data>
+  <data name="Experimental.special_lock_breaker" xml:space="preserve">
+    <value>Rompefijación de objetivo</value>
+  </data>
+  <data name="Experimental.special_mass_lock" xml:space="preserve">
+    <value>Munición de bloqueo de masa</value>
+  </data>
+  <data name="Experimental.special_mass_lock_munition" xml:space="preserve">
+    <value>Munición de bloqueo de masa</value>
+  </data>
+  <data name="Experimental.special_overload_munitions" xml:space="preserve">
+    <value>Munición de sobrecarga</value>
+  </data>
+  <data name="Experimental.special_penetrator_munitions" xml:space="preserve">
+    <value>Munición perforante</value>
+  </data>
+  <data name="Experimental.special_penetrator_payload" xml:space="preserve">
+    <value>Carga perforante</value>
+  </data>
+  <data name="Experimental.special_phasing_sequence" xml:space="preserve">
+    <value>Secuencia de fase</value>
+  </data>
+  <data name="Experimental.special_plasma_slug" xml:space="preserve">
+    <value>Bala de plasma (antigua)</value>
+  </data>
+  <data name="Experimental.special_plasma_slug_cooled" xml:space="preserve">
+    <value>Bala de plasma</value>
+  </data>
+  <data name="Experimental.special_plasma_slug_pa" xml:space="preserve">
+    <value>Bala de plasma</value>
+  </data>
+  <data name="Experimental.special_powerdistributor_capacity" xml:space="preserve">
+    <value>Condensadores agrupados</value>
+  </data>
+  <data name="Experimental.special_powerdistributor_efficient" xml:space="preserve">
+    <value>Control de flujo</value>
+  </data>
+  <data name="Experimental.special_powerdistributor_fast" xml:space="preserve">
+    <value>Superconductos</value>
+  </data>
+  <data name="Experimental.special_powerdistributor_lightweight" xml:space="preserve">
+    <value>Aligerado</value>
+  </data>
+  <data name="Experimental.special_powerdistributor_toughened" xml:space="preserve">
+    <value>Doble refuerzo</value>
+  </data>
+  <data name="Experimental.special_powerplant_cooled" xml:space="preserve">
+    <value>Dispersión térmica</value>
+  </data>
+  <data name="Experimental.special_powerplant_highcharge" xml:space="preserve">
+    <value>Monstruoso</value>
+  </data>
+  <data name="Experimental.special_powerplant_lightweight" xml:space="preserve">
+    <value>Aligerado</value>
+  </data>
+  <data name="Experimental.special_powerplant_toughened" xml:space="preserve">
+    <value>Doble refuerzo</value>
+  </data>
+  <data name="Experimental.special_radiant_canister" xml:space="preserve">
+    <value>Cartucho radiante</value>
+  </data>
+  <data name="Experimental.special_regeneration_sequence" xml:space="preserve">
+    <value>Secuencia de regeneración</value>
+  </data>
+  <data name="Experimental.special_reverberating_cascade" xml:space="preserve">
+    <value>Cascada reverberante</value>
+  </data>
+  <data name="Experimental.special_scramble_spectrum" xml:space="preserve">
+    <value>Espectro codificado</value>
+  </data>
+  <data name="Experimental.special_screening_shell" xml:space="preserve">
+    <value>Proyectil de pantalla</value>
+  </data>
+  <data name="Experimental.special_shield_efficient" xml:space="preserve">
+    <value>Bajo consumo</value>
+  </data>
+  <data name="Experimental.special_shield_health" xml:space="preserve">
+    <value>Alta capacidad</value>
+  </data>
+  <data name="Experimental.special_shield_kinetic" xml:space="preserve">
+    <value>Bloqueo de fuerza</value>
+  </data>
+  <data name="Experimental.special_shield_lightweight" xml:space="preserve">
+    <value>Aligerado</value>
+  </data>
+  <data name="Experimental.special_shield_regenerative" xml:space="preserve">
+    <value>Carga rápida</value>
+  </data>
+  <data name="Experimental.special_shield_resistive" xml:space="preserve">
+    <value>Multitrama</value>
+  </data>
+  <data name="Experimental.special_shield_thermic" xml:space="preserve">
+    <value>Bloqueo térmico</value>
+  </data>
+  <data name="Experimental.special_shield_toughened" xml:space="preserve">
+    <value>Doble refuerzo</value>
+  </data>
+  <data name="Experimental.special_shieldbooster_chunky" xml:space="preserve">
+    <value>Supercondensadores</value>
+  </data>
+  <data name="Experimental.special_shieldbooster_efficient" xml:space="preserve">
+    <value>Control de flujo</value>
+  </data>
+  <data name="Experimental.special_shieldbooster_explosive" xml:space="preserve">
+    <value>Bloqueo de explosiones</value>
+  </data>
+  <data name="Experimental.special_shieldbooster_kinetic" xml:space="preserve">
+    <value>Bloqueo de fuerza</value>
+  </data>
+  <data name="Experimental.special_shieldbooster_thermic" xml:space="preserve">
+    <value>Bloqueo térmico</value>
+  </data>
+  <data name="Experimental.special_shieldbooster_toughened" xml:space="preserve">
+    <value>Doble refuerzo</value>
+  </data>
+  <data name="Experimental.special_shieldcell_efficient" xml:space="preserve">
+    <value>Control de flujo</value>
+  </data>
+  <data name="Experimental.special_shieldcell_gradual" xml:space="preserve">
+    <value>Celda de reciclaje</value>
+  </data>
+  <data name="Experimental.special_shieldcell_lightweight" xml:space="preserve">
+    <value>Aligerado</value>
+  </data>
+  <data name="Experimental.special_shieldcell_oversized" xml:space="preserve">
+    <value>Celdas maestras</value>
+  </data>
+  <data name="Experimental.special_shieldcell_toughened" xml:space="preserve">
+    <value>Doble refuerzo</value>
+  </data>
+  <data name="Experimental.special_shiftlock_canister" xml:space="preserve">
+    <value>Cartucho de bloqueo de distorsión</value>
+  </data>
+  <data name="Experimental.special_smart_rounds" xml:space="preserve">
+    <value>Munición inteligente</value>
+  </data>
+  <data name="Experimental.special_super_penetrator" xml:space="preserve">
+    <value>Superperforador (antiguo)</value>
+  </data>
+  <data name="Experimental.special_super_penetrator_cooled" xml:space="preserve">
+    <value>Superperforador</value>
+  </data>
+  <data name="Experimental.special_thermal_cascade" xml:space="preserve">
+    <value>Cascada térmica</value>
+  </data>
+  <data name="Experimental.special_thermal_conduit" xml:space="preserve">
+    <value>Conducto térmico</value>
+  </data>
+  <data name="Experimental.special_thermal_vent" xml:space="preserve">
+    <value>Ventilación térmica</value>
+  </data>
+  <data name="Experimental.special_thermalshock" xml:space="preserve">
+    <value>Choque térmico</value>
+  </data>
+  <data name="Experimental.special_weapon_damage" xml:space="preserve">
+    <value>Sobredimensionado</value>
+  </data>
+  <data name="Experimental.special_weapon_efficient" xml:space="preserve">
+    <value>Control de flujo</value>
+  </data>
+  <data name="Experimental.special_weapon_lightweight" xml:space="preserve">
+    <value>Aligerado</value>
+  </data>
+  <data name="Experimental.special_weapon_rateoffire" xml:space="preserve">
+    <value>Multiservos</value>
+  </data>
+  <data name="Experimental.special_weapon_toughened" xml:space="preserve">
+    <value>Doble refuerzo</value>
+  </data>
+  <data name="Family.alloys" xml:space="preserve">
+    <value>Aleaciones</value>
+  </data>
+  <data name="Family.capacitors" xml:space="preserve">
+    <value>Condensadores</value>
+  </data>
+  <data name="Family.carbon" xml:space="preserve">
+    <value>Carbono</value>
+  </data>
+  <data name="Family.chemical" xml:space="preserve">
+    <value>Químicos</value>
+  </data>
+  <data name="Family.composite" xml:space="preserve">
+    <value>Compuestos</value>
+  </data>
+  <data name="Family.conductive" xml:space="preserve">
+    <value>Conductores</value>
+  </data>
+  <data name="Family.crystals" xml:space="preserve">
+    <value>Cristales</value>
+  </data>
+  <data name="Family.data_archives" xml:space="preserve">
+    <value>Archivos de datos</value>
+  </data>
+  <data name="Family.emission_data" xml:space="preserve">
+    <value>Datos de emisión</value>
+  </data>
+  <data name="Family.encoded_firmware" xml:space="preserve">
+    <value>Firmware codificado</value>
+  </data>
+  <data name="Family.encryption_files" xml:space="preserve">
+    <value>Archivos de cifrado</value>
+  </data>
+  <data name="Family.guardian" xml:space="preserve">
+    <value>Guardianes</value>
+  </data>
+  <data name="Family.heat" xml:space="preserve">
+    <value>Calor</value>
+  </data>
+  <data name="Family.iron" xml:space="preserve">
+    <value>Hierro</value>
+  </data>
+  <data name="Family.lead" xml:space="preserve">
+    <value>Plomo</value>
+  </data>
+  <data name="Family.mechanical_components" xml:space="preserve">
+    <value>Componentes mecánicos</value>
+  </data>
+  <data name="Family.nickel" xml:space="preserve">
+    <value>Níquel</value>
+  </data>
+  <data name="Family.phosphorus" xml:space="preserve">
+    <value>Fósforo</value>
+  </data>
+  <data name="Family.rhenium" xml:space="preserve">
+    <value>Renio</value>
+  </data>
+  <data name="Family.shield_data" xml:space="preserve">
+    <value>Datos de escudo</value>
+  </data>
+  <data name="Family.shielding" xml:space="preserve">
+    <value>Blindaje</value>
+  </data>
+  <data name="Family.sulphur" xml:space="preserve">
+    <value>Azufre</value>
+  </data>
+  <data name="Family.thargoid" xml:space="preserve">
+    <value>Thargoides</value>
+  </data>
+  <data name="Family.thermic" xml:space="preserve">
+    <value>Térmicos</value>
+  </data>
+  <data name="Family.wake_scans" xml:space="preserve">
+    <value>Escaneos de estela</value>
+  </data>
+  <data name="Figure.Assassination_Profits" xml:space="preserve">
+    <value>Beneficios por asesinatos</value>
+  </data>
+  <data name="Figure.Assassinations" xml:space="preserve">
+    <value>Asesinatos</value>
+  </data>
+  <data name="Figure.Assets_Sold" xml:space="preserve">
+    <value>Activos vendidos</value>
+  </data>
+  <data name="Figure.Assets_Traded_In" xml:space="preserve">
+    <value>Activos entregados</value>
+  </data>
+  <data name="Figure.Assets_Traded_Out" xml:space="preserve">
+    <value>Activos recibidos</value>
+  </data>
+  <data name="Figure.Average_Profit" xml:space="preserve">
+    <value>Beneficio medio</value>
+  </data>
+  <data name="Figure.Black_Markets_Profits" xml:space="preserve">
+    <value>Beneficios en mercados negros</value>
+  </data>
+  <data name="Figure.Black_Markets_Traded_With" xml:space="preserve">
+    <value>Mercados negros con los que se ha comerciado</value>
+  </data>
+  <data name="Figure.Bounties_Claimed" xml:space="preserve">
+    <value>Recompensas reclamadas</value>
+  </data>
+  <data name="Figure.Bounties_Received" xml:space="preserve">
+    <value>Recompensas recibidas</value>
+  </data>
+  <data name="Figure.Bounty_Hunting_Profit" xml:space="preserve">
+    <value>Beneficios por caza de recompensas</value>
+  </data>
+  <data name="Figure.Citizens_Murdered" xml:space="preserve">
+    <value>Ciudadanos asesinados</value>
+  </data>
+  <data name="Figure.Combat_Bond_Profits" xml:space="preserve">
+    <value>Beneficios por bonos de combate</value>
+  </data>
+  <data name="Figure.Combat_Bonds" xml:space="preserve">
+    <value>Bonos de combate</value>
+  </data>
+  <data name="Figure.ConflictZone_High" xml:space="preserve">
+    <value>Zonas de conflicto de alta intensidad</value>
+  </data>
+  <data name="Figure.ConflictZone_High_Wins" xml:space="preserve">
+    <value>Victorias en zonas de conflicto de alta intensidad</value>
+  </data>
+  <data name="Figure.ConflictZone_Low" xml:space="preserve">
+    <value>Zonas de conflicto de baja intensidad</value>
+  </data>
+  <data name="Figure.ConflictZone_Low_Wins" xml:space="preserve">
+    <value>Victorias en zonas de conflicto de baja intensidad</value>
+  </data>
+  <data name="Figure.ConflictZone_Medium" xml:space="preserve">
+    <value>Zonas de conflicto de intensidad media</value>
+  </data>
+  <data name="Figure.ConflictZone_Medium_Wins" xml:space="preserve">
+    <value>Victorias en zonas de conflicto de intensidad media</value>
+  </data>
+  <data name="Figure.ConflictZone_Total" xml:space="preserve">
+    <value>Zonas de conflicto en total</value>
+  </data>
+  <data name="Figure.ConflictZone_Total_Wins" xml:space="preserve">
+    <value>Victorias en zonas de conflicto en total</value>
+  </data>
+  <data name="Figure.Count_Of_Used_Engineers" xml:space="preserve">
+    <value>Ingenieros utilizados</value>
+  </data>
+  <data name="Figure.Current_Wealth" xml:space="preserve">
+    <value>Patrimonio actual</value>
+  </data>
+  <data name="Figure.Data_Sold" xml:space="preserve">
+    <value>Datos vendidos</value>
+  </data>
+  <data name="Figure.Data_Stolen" xml:space="preserve">
+    <value>Datos robados</value>
+  </data>
+  <data name="Figure.Dropships_Booked" xml:space="preserve">
+    <value>Naves de despliegue reservadas</value>
+  </data>
+  <data name="Figure.Dropships_Cancelled" xml:space="preserve">
+    <value>Naves de despliegue canceladas</value>
+  </data>
+  <data name="Figure.Dropships_Taken" xml:space="preserve">
+    <value>Naves de despliegue tomadas</value>
+  </data>
+  <data name="Figure.Efficient_Scans" xml:space="preserve">
+    <value>Escaneos eficientes</value>
+  </data>
+  <data name="Figure.Encoded_Materials_Traded" xml:space="preserve">
+    <value>Materiales codificados intercambiados</value>
+  </data>
+  <data name="Figure.Exploration_Profits" xml:space="preserve">
+    <value>Beneficios por exploración</value>
+  </data>
+  <data name="Figure.Fines" xml:space="preserve">
+    <value>Multas</value>
+  </data>
+  <data name="Figure.First_Footfalls" xml:space="preserve">
+    <value>Primeras pisadas</value>
+  </data>
+  <data name="Figure.First_Logged" xml:space="preserve">
+    <value>Primeros registros</value>
+  </data>
+  <data name="Figure.First_Logged_Profits" xml:space="preserve">
+    <value>Beneficios por primeros registros</value>
+  </data>
+  <data name="Figure.Goods_Sold" xml:space="preserve">
+    <value>Mercancías vendidas</value>
+  </data>
+  <data name="Figure.Goods_Stolen" xml:space="preserve">
+    <value>Mercancías robadas</value>
+  </data>
+  <data name="Figure.Grade_1_Materials_Traded" xml:space="preserve">
+    <value>Materiales de grado 1 intercambiados</value>
+  </data>
+  <data name="Figure.Grade_2_Materials_Traded" xml:space="preserve">
+    <value>Materiales de grado 2 intercambiados</value>
+  </data>
+  <data name="Figure.Grade_3_Materials_Traded" xml:space="preserve">
+    <value>Materiales de grado 3 intercambiados</value>
+  </data>
+  <data name="Figure.Grade_4_Materials_Traded" xml:space="preserve">
+    <value>Materiales de grado 4 intercambiados</value>
+  </data>
+  <data name="Figure.Grade_5_Materials_Traded" xml:space="preserve">
+    <value>Materiales de grado 5 intercambiados</value>
+  </data>
+  <data name="Figure.Greatest_Distance_From_Start" xml:space="preserve">
+    <value>Mayor distancia desde el inicio</value>
+  </data>
+  <data name="Figure.Guards_Murdered" xml:space="preserve">
+    <value>Guardias asesinados</value>
+  </data>
+  <data name="Figure.Highest_Bounty" xml:space="preserve">
+    <value>Mayor recompensa</value>
+  </data>
+  <data name="Figure.Highest_Payout" xml:space="preserve">
+    <value>Mayor pago</value>
+  </data>
+  <data name="Figure.Highest_Single_Reward" xml:space="preserve">
+    <value>Mayor recompensa individual</value>
+  </data>
+  <data name="Figure.Highest_Single_Transaction" xml:space="preserve">
+    <value>Mayor transacción individual</value>
+  </data>
+  <data name="Figure.Insurance_Claims" xml:space="preserve">
+    <value>Reclamaciones al seguro</value>
+  </data>
+  <data name="Figure.Maglocks_Opened" xml:space="preserve">
+    <value>Cierres magnéticos abiertos</value>
+  </data>
+  <data name="Figure.Malware_Uploaded" xml:space="preserve">
+    <value>Malware cargado</value>
+  </data>
+  <data name="Figure.Market_Profits" xml:space="preserve">
+    <value>Beneficios de mercado</value>
+  </data>
+  <data name="Figure.Markets_Traded_With" xml:space="preserve">
+    <value>Mercados con los que se ha comerciado</value>
+  </data>
+  <data name="Figure.Materials_Collected" xml:space="preserve">
+    <value>Materiales recogidos</value>
+  </data>
+  <data name="Figure.Materials_Traded" xml:space="preserve">
+    <value>Materiales intercambiados</value>
+  </data>
+  <data name="Figure.MercCoins_Current" xml:space="preserve">
+    <value>Monedas de mercenario actuales</value>
+  </data>
+  <data name="Figure.MercCoins_Spent_On_Engineering" xml:space="preserve">
+    <value>Monedas de mercenario gastadas en ingeniería</value>
+  </data>
+  <data name="Figure.MercCoins_Spent_On_MercGear" xml:space="preserve">
+    <value>Monedas de mercenario gastadas en equipo</value>
+  </data>
+  <data name="Figure.MercCoins_Total_Earned" xml:space="preserve">
+    <value>Monedas de mercenario ganadas en total</value>
+  </data>
+  <data name="Figure.MercCoins_Total_Spent" xml:space="preserve">
+    <value>Monedas de mercenario gastadas en total</value>
+  </data>
+  <data name="Figure.Mining_Profits" xml:space="preserve">
+    <value>Beneficios por minería</value>
+  </data>
+  <data name="Figure.Multicrew_Credits_Total" xml:space="preserve">
+    <value>Créditos totales en multitripulación</value>
+  </data>
+  <data name="Figure.Multicrew_Fighter_Time_Total" xml:space="preserve">
+    <value>Tiempo total como piloto de caza en multitripulación</value>
+  </data>
+  <data name="Figure.Multicrew_Fines_Total" xml:space="preserve">
+    <value>Multas totales en multitripulación</value>
+  </data>
+  <data name="Figure.Multicrew_Gunner_Time_Total" xml:space="preserve">
+    <value>Tiempo total como artillero en multitripulación</value>
+  </data>
+  <data name="Figure.Multicrew_Time_Total" xml:space="preserve">
+    <value>Tiempo total en multitripulación</value>
+  </data>
+  <data name="Figure.Notoriety" xml:space="preserve">
+    <value>Notoriedad</value>
+  </data>
+  <data name="Figure.NpcCrew_Died" xml:space="preserve">
+    <value>Tripulantes PNJ fallecidos</value>
+  </data>
+  <data name="Figure.NpcCrew_Fired" xml:space="preserve">
+    <value>Tripulantes PNJ despedidos</value>
+  </data>
+  <data name="Figure.NpcCrew_Hired" xml:space="preserve">
+    <value>Tripulantes PNJ contratados</value>
+  </data>
+  <data name="Figure.NpcCrew_TotalWages" xml:space="preserve">
+    <value>Salarios totales de tripulantes PNJ</value>
+  </data>
+  <data name="Figure.Omnipol_Murdered" xml:space="preserve">
+    <value>Agentes de Omnipol asesinados</value>
+  </data>
+  <data name="Figure.OnFoot_Combat_Bonds" xml:space="preserve">
+    <value>Bonos de combate a pie</value>
+  </data>
+  <data name="Figure.OnFoot_Combat_Bonds_Profits" xml:space="preserve">
+    <value>Beneficios por bonos de combate a pie</value>
+  </data>
+  <data name="Figure.OnFoot_Distance_Travelled" xml:space="preserve">
+    <value>Distancia recorrida a pie</value>
+  </data>
+  <data name="Figure.OnFoot_Scavs_Killed" xml:space="preserve">
+    <value>Carroñeros eliminados a pie</value>
+  </data>
+  <data name="Figure.OnFoot_Ships_Destroyed" xml:space="preserve">
+    <value>Naves destruidas a pie</value>
+  </data>
+  <data name="Figure.OnFoot_Skimmers_Killed" xml:space="preserve">
+    <value>Skimmers eliminados a pie</value>
+  </data>
+  <data name="Figure.OnFoot_Vehicles_Destroyed" xml:space="preserve">
+    <value>Vehículos destruidos a pie</value>
+  </data>
+  <data name="Figure.Organic_Data" xml:space="preserve">
+    <value>Datos orgánicos</value>
+  </data>
+  <data name="Figure.Organic_Data_Profits" xml:space="preserve">
+    <value>Beneficios por datos orgánicos</value>
+  </data>
+  <data name="Figure.Organic_Genus" xml:space="preserve">
+    <value>Géneros orgánicos</value>
+  </data>
+  <data name="Figure.Organic_Genus_Encountered" xml:space="preserve">
+    <value>Géneros orgánicos encontrados</value>
+  </data>
+  <data name="Figure.Organic_Planets" xml:space="preserve">
+    <value>Planetas con vida orgánica</value>
+  </data>
+  <data name="Figure.Organic_Species" xml:space="preserve">
+    <value>Especies orgánicas</value>
+  </data>
+  <data name="Figure.Organic_Species_Encountered" xml:space="preserve">
+    <value>Especies orgánicas encontradas</value>
+  </data>
+  <data name="Figure.Organic_Systems" xml:space="preserve">
+    <value>Sistemas con vida orgánica</value>
+  </data>
+  <data name="Figure.Organic_Variant_Encountered" xml:space="preserve">
+    <value>Variantes orgánicas encontradas</value>
+  </data>
+  <data name="Figure.Owned_Ship_Count" xml:space="preserve">
+    <value>Naves en propiedad</value>
+  </data>
+  <data name="Figure.Panels_Opened" xml:space="preserve">
+    <value>Paneles abiertos</value>
+  </data>
+  <data name="Figure.Passengers_Missions_Accepted" xml:space="preserve">
+    <value>Misiones de pasajeros aceptadas</value>
+  </data>
+  <data name="Figure.Passengers_Missions_Bulk" xml:space="preserve">
+    <value>Misiones de pasajeros en grupo</value>
+  </data>
+  <data name="Figure.Passengers_Missions_Delivered" xml:space="preserve">
+    <value>Misiones de pasajeros entregadas</value>
+  </data>
+  <data name="Figure.Passengers_Missions_Ejected" xml:space="preserve">
+    <value>Misiones de pasajeros expulsados</value>
+  </data>
+  <data name="Figure.Passengers_Missions_VIP" xml:space="preserve">
+    <value>Misiones de pasajeros VIP</value>
+  </data>
+  <data name="Figure.Planet_Footfalls" xml:space="preserve">
+    <value>Pisadas en planetas</value>
+  </data>
+  <data name="Figure.Planets_Scanned_To_Level_2" xml:space="preserve">
+    <value>Planetas escaneados a nivel 2</value>
+  </data>
+  <data name="Figure.Planets_Scanned_To_Level_3" xml:space="preserve">
+    <value>Planetas escaneados a nivel 3</value>
+  </data>
+  <data name="Figure.Premium_Stock_Bought" xml:space="preserve">
+    <value>Existencias premium compradas</value>
+  </data>
+  <data name="Figure.Production_Sabotage" xml:space="preserve">
+    <value>Sabotajes de producción</value>
+  </data>
+  <data name="Figure.Production_Theft" xml:space="preserve">
+    <value>Robos de producción</value>
+  </data>
+  <data name="Figure.Profiles_Cloned" xml:space="preserve">
+    <value>Perfiles clonados</value>
+  </data>
+  <data name="Figure.Quantity_Mined" xml:space="preserve">
+    <value>Cantidad extraída</value>
+  </data>
+  <data name="Figure.Raw_Materials_Traded" xml:space="preserve">
+    <value>Materiales en bruto intercambiados</value>
+  </data>
+  <data name="Figure.Recipes_Generated" xml:space="preserve">
+    <value>Modificaciones aplicadas</value>
+  </data>
+  <data name="Figure.Recipes_Generated_Rank_1" xml:space="preserve">
+    <value>Modificaciones aplicadas de grado 1</value>
+  </data>
+  <data name="Figure.Recipes_Generated_Rank_2" xml:space="preserve">
+    <value>Modificaciones aplicadas de grado 2</value>
+  </data>
+  <data name="Figure.Recipes_Generated_Rank_3" xml:space="preserve">
+    <value>Modificaciones aplicadas de grado 3</value>
+  </data>
+  <data name="Figure.Recipes_Generated_Rank_4" xml:space="preserve">
+    <value>Modificaciones aplicadas de grado 4</value>
+  </data>
+  <data name="Figure.Recipes_Generated_Rank_5" xml:space="preserve">
+    <value>Modificaciones aplicadas de grado 5</value>
+  </data>
+  <data name="Figure.Resources_Smuggled" xml:space="preserve">
+    <value>Recursos contrabandeados</value>
+  </data>
+  <data name="Figure.Resources_Traded" xml:space="preserve">
+    <value>Recursos comerciados</value>
+  </data>
+  <data name="Figure.Salvage_Illegal_POI" xml:space="preserve">
+    <value>Salvamento ilegal en puntos de interés</value>
+  </data>
+  <data name="Figure.Salvage_Illegal_Settlements" xml:space="preserve">
+    <value>Salvamento ilegal en asentamientos</value>
+  </data>
+  <data name="Figure.Salvage_Legal_POI" xml:space="preserve">
+    <value>Salvamento legal en puntos de interés</value>
+  </data>
+  <data name="Figure.Salvage_Legal_Settlements" xml:space="preserve">
+    <value>Salvamento legal en asentamientos</value>
+  </data>
+  <data name="Figure.Sample_Stolen" xml:space="preserve">
+    <value>Muestras robadas</value>
+  </data>
+  <data name="Figure.SearchRescue_Count" xml:space="preserve">
+    <value>Operaciones de búsqueda y rescate</value>
+  </data>
+  <data name="Figure.SearchRescue_Profit" xml:space="preserve">
+    <value>Beneficios por búsqueda y rescate</value>
+  </data>
+  <data name="Figure.SearchRescue_Traded" xml:space="preserve">
+    <value>Entregas de búsqueda y rescate</value>
+  </data>
+  <data name="Figure.Settlement_Conquered" xml:space="preserve">
+    <value>Asentamientos conquistados</value>
+  </data>
+  <data name="Figure.Settlement_Defended" xml:space="preserve">
+    <value>Asentamientos defendidos</value>
+  </data>
+  <data name="Figure.Settlements_State_FireOut" xml:space="preserve">
+    <value>Incendios de asentamientos apagados</value>
+  </data>
+  <data name="Figure.Settlements_State_Reboot" xml:space="preserve">
+    <value>Asentamientos reiniciados</value>
+  </data>
+  <data name="Figure.Settlements_State_Shutdown" xml:space="preserve">
+    <value>Asentamientos apagados</value>
+  </data>
+  <data name="Figure.Settlements_Visited" xml:space="preserve">
+    <value>Asentamientos visitados</value>
+  </data>
+  <data name="Figure.Shuttle_Distance_Travelled" xml:space="preserve">
+    <value>Distancia recorrida en lanzadera</value>
+  </data>
+  <data name="Figure.Shuttle_Journeys" xml:space="preserve">
+    <value>Viajes en lanzadera</value>
+  </data>
+  <data name="Figure.Skimmers_Killed" xml:space="preserve">
+    <value>Skimmers eliminados</value>
+  </data>
+  <data name="Figure.Spent_On_Ammo_Consumables" xml:space="preserve">
+    <value>Gastado en munición y consumibles</value>
+  </data>
+  <data name="Figure.Spent_On_Fuel" xml:space="preserve">
+    <value>Gastado en combustible</value>
+  </data>
+  <data name="Figure.Spent_On_Insurance" xml:space="preserve">
+    <value>Gastado en seguros</value>
+  </data>
+  <data name="Figure.Spent_On_Outfitting" xml:space="preserve">
+    <value>Gastado en equipamiento</value>
+  </data>
+  <data name="Figure.Spent_On_Premium_Stock" xml:space="preserve">
+    <value>Gastado en existencias premium</value>
+  </data>
+  <data name="Figure.Spent_On_Repairs" xml:space="preserve">
+    <value>Gastado en reparaciones</value>
+  </data>
+  <data name="Figure.Spent_On_Ships" xml:space="preserve">
+    <value>Gastado en naves</value>
+  </data>
+  <data name="Figure.Spent_On_Shuttles" xml:space="preserve">
+    <value>Gastado en lanzaderas</value>
+  </data>
+  <data name="Figure.Spent_On_Suit_Consumables" xml:space="preserve">
+    <value>Gastado en consumibles de traje</value>
+  </data>
+  <data name="Figure.Spent_On_Suits" xml:space="preserve">
+    <value>Gastado en trajes</value>
+  </data>
+  <data name="Figure.Spent_On_Weapons" xml:space="preserve">
+    <value>Gastado en armas</value>
+  </data>
+  <data name="Figure.Squadron_Bank_Commodities_Deposited_Num" xml:space="preserve">
+    <value>Mercancías depositadas en el banco del escuadrón</value>
+  </data>
+  <data name="Figure.Squadron_Bank_Commodities_Deposited_Value" xml:space="preserve">
+    <value>Valor de las mercancías depositadas en el banco del escuadrón</value>
+  </data>
+  <data name="Figure.Squadron_Bank_Commodities_Withdrawn_Num" xml:space="preserve">
+    <value>Mercancías retiradas del banco del escuadrón</value>
+  </data>
+  <data name="Figure.Squadron_Bank_Commodities_Withdrawn_Value" xml:space="preserve">
+    <value>Valor de las mercancías retiradas del banco del escuadrón</value>
+  </data>
+  <data name="Figure.Squadron_Bank_Credits_Deposited" xml:space="preserve">
+    <value>Créditos depositados en el banco del escuadrón</value>
+  </data>
+  <data name="Figure.Squadron_Bank_Credits_Withdrawn" xml:space="preserve">
+    <value>Créditos retirados del banco del escuadrón</value>
+  </data>
+  <data name="Figure.Squadron_Bank_PersonalAssets_Deposited_Num" xml:space="preserve">
+    <value>Activos personales depositados en el banco del escuadrón</value>
+  </data>
+  <data name="Figure.Squadron_Bank_PersonalAssets_Deposited_Value" xml:space="preserve">
+    <value>Valor de los activos personales depositados en el banco del escuadrón</value>
+  </data>
+  <data name="Figure.Squadron_Bank_PersonalAssets_Withdrawn_Num" xml:space="preserve">
+    <value>Activos personales retirados del banco del escuadrón</value>
+  </data>
+  <data name="Figure.Squadron_Bank_PersonalAssets_Withdrawn_Value" xml:space="preserve">
+    <value>Valor de los activos personales retirados del banco del escuadrón</value>
+  </data>
+  <data name="Figure.Squadron_Bank_Ships_Deposited_Num" xml:space="preserve">
+    <value>Naves depositadas en el banco del escuadrón</value>
+  </data>
+  <data name="Figure.Squadron_Bank_Ships_Deposited_Value" xml:space="preserve">
+    <value>Valor de las naves depositadas en el banco del escuadrón</value>
+  </data>
+  <data name="Figure.Squadron_Leaderboard_aegis_highestcontribution" xml:space="preserve">
+    <value>Mayor contribución al escuadrón: Aegis</value>
+  </data>
+  <data name="Figure.Squadron_Leaderboard_bgs_highestcontribution" xml:space="preserve">
+    <value>Mayor contribución al escuadrón: simulación de fondo</value>
+  </data>
+  <data name="Figure.Squadron_Leaderboard_bounty_highestcontribution" xml:space="preserve">
+    <value>Mayor contribución al escuadrón: recompensas</value>
+  </data>
+  <data name="Figure.Squadron_Leaderboard_colonisation_contribution_highestcontribution" xml:space="preserve">
+    <value>Mayor contribución al escuadrón: colonización</value>
+  </data>
+  <data name="Figure.Squadron_Leaderboard_combat_highestcontribution" xml:space="preserve">
+    <value>Mayor contribución al escuadrón: combate</value>
+  </data>
+  <data name="Figure.Squadron_Leaderboard_cqc_highestcontribution" xml:space="preserve">
+    <value>Mayor contribución al escuadrón: CQC</value>
+  </data>
+  <data name="Figure.Squadron_Leaderboard_exploration_highestcontribution" xml:space="preserve">
+    <value>Mayor contribución al escuadrón: exploración</value>
+  </data>
+  <data name="Figure.Squadron_Leaderboard_mining_highestcontribution" xml:space="preserve">
+    <value>Mayor contribución al escuadrón: minería</value>
+  </data>
+  <data name="Figure.Squadron_Leaderboard_operationscore_highestcontribution" xml:space="preserve">
+    <value>Mayor contribución al escuadrón: puntuación de operaciones</value>
+  </data>
+  <data name="Figure.Squadron_Leaderboard_podiums" xml:space="preserve">
+    <value>Podios en la clasificación del escuadrón</value>
+  </data>
+  <data name="Figure.Squadron_Leaderboard_powerplay_highestcontribution" xml:space="preserve">
+    <value>Mayor contribución al escuadrón: Powerplay</value>
+  </data>
+  <data name="Figure.Squadron_Leaderboard_trade_highestcontribution" xml:space="preserve">
+    <value>Mayor contribución al escuadrón: comercio</value>
+  </data>
+  <data name="Figure.Squadron_Leaderboard_trade_illicit_highestcontribution" xml:space="preserve">
+    <value>Mayor contribución al escuadrón: comercio ilícito</value>
+  </data>
+  <data name="Figure.Suit_Mods_Applied" xml:space="preserve">
+    <value>Modificaciones de traje aplicadas</value>
+  </data>
+  <data name="Figure.Suit_Mods_Applied_Full" xml:space="preserve">
+    <value>Trajes con todas las modificaciones</value>
+  </data>
+  <data name="Figure.Suits_Owned" xml:space="preserve">
+    <value>Trajes en propiedad</value>
+  </data>
+  <data name="Figure.Suits_Upgraded" xml:space="preserve">
+    <value>Trajes mejorados</value>
+  </data>
+  <data name="Figure.Suits_Upgraded_Full" xml:space="preserve">
+    <value>Trajes mejorados al máximo</value>
+  </data>
+  <data name="Figure.Systems_Visited" xml:space="preserve">
+    <value>Sistemas visitados</value>
+  </data>
+  <data name="Figure.Time_Played" xml:space="preserve">
+    <value>Tiempo jugado</value>
+  </data>
+  <data name="Figure.Total_Bounties" xml:space="preserve">
+    <value>Recompensas totales</value>
+  </data>
+  <data name="Figure.Total_Fines" xml:space="preserve">
+    <value>Multas totales</value>
+  </data>
+  <data name="Figure.Total_Hyperspace_Distance" xml:space="preserve">
+    <value>Distancia total en hiperespacio</value>
+  </data>
+  <data name="Figure.Total_Hyperspace_Jumps" xml:space="preserve">
+    <value>Saltos hiperespaciales totales</value>
+  </data>
+  <data name="Figure.Total_Murders" xml:space="preserve">
+    <value>Asesinatos totales</value>
+  </data>
+  <data name="Figure.Total_Stolen" xml:space="preserve">
+    <value>Total robado</value>
+  </data>
+  <data name="Figure.Trades_Completed" xml:space="preserve">
+    <value>Intercambios completados</value>
+  </data>
+  <data name="Figure.Turrets_Destroyed" xml:space="preserve">
+    <value>Torretas destruidas</value>
+  </data>
+  <data name="Figure.Turrets_Overloaded" xml:space="preserve">
+    <value>Torretas sobrecargadas</value>
+  </data>
+  <data name="Figure.Turrets_Total" xml:space="preserve">
+    <value>Torretas en total</value>
+  </data>
+  <data name="Figure.Value_Stolen_StateChange" xml:space="preserve">
+    <value>Valor robado con cambio de estado</value>
+  </data>
+  <data name="Figure.Weapon_Mods_Applied" xml:space="preserve">
+    <value>Modificaciones de arma aplicadas</value>
+  </data>
+  <data name="Figure.Weapon_Mods_Applied_Full" xml:space="preserve">
+    <value>Armas con todas las modificaciones</value>
+  </data>
+  <data name="Figure.Weapons_Owned" xml:space="preserve">
+    <value>Armas en propiedad</value>
+  </data>
+  <data name="Figure.Weapons_Upgraded" xml:space="preserve">
+    <value>Armas mejoradas</value>
+  </data>
+  <data name="Figure.Weapons_Upgraded_Full" xml:space="preserve">
+    <value>Armas mejoradas al máximo</value>
+  </data>
+  <data name="FigureSection.Bank_Account" xml:space="preserve">
+    <value>Cuenta bancaria</value>
+  </data>
+  <data name="FigureSection.Combat" xml:space="preserve">
+    <value>Combate</value>
+  </data>
+  <data name="FigureSection.Crafting" xml:space="preserve">
+    <value>Fabricación</value>
+  </data>
+  <data name="FigureSection.Crew" xml:space="preserve">
+    <value>Tripulación</value>
+  </data>
+  <data name="FigureSection.Crime" xml:space="preserve">
+    <value>Crimen</value>
+  </data>
+  <data name="FigureSection.Exobiology" xml:space="preserve">
+    <value>Exobiología</value>
+  </data>
+  <data name="FigureSection.Exploration" xml:space="preserve">
+    <value>Exploración</value>
+  </data>
+  <data name="FigureSection.Material_Trader_Stats" xml:space="preserve">
+    <value>Comerciantes de materiales</value>
+  </data>
+  <data name="FigureSection.Mining" xml:space="preserve">
+    <value>Minería</value>
+  </data>
+  <data name="FigureSection.Multicrew" xml:space="preserve">
+    <value>Multitripulación</value>
+  </data>
+  <data name="FigureSection.Passengers" xml:space="preserve">
+    <value>Pasajeros</value>
+  </data>
+  <data name="FigureSection.Search_And_Rescue" xml:space="preserve">
+    <value>Búsqueda y rescate</value>
+  </data>
+  <data name="FigureSection.Smuggling" xml:space="preserve">
+    <value>Contrabando</value>
+  </data>
+  <data name="FigureSection.Squadron" xml:space="preserve">
+    <value>Escuadrón</value>
+  </data>
+  <data name="FigureSection.Trading" xml:space="preserve">
+    <value>Comercio</value>
+  </data>
+  <data name="Material.AdaptiveEncryptors" xml:space="preserve">
+    <value>Captura de cifradores adaptativos</value>
+  </data>
+  <data name="Material.AncientBiologicalData" xml:space="preserve">
+    <value>Datos de obelisco de patrón alfa</value>
+  </data>
+  <data name="Material.AncientCulturalData" xml:space="preserve">
+    <value>Datos de obelisco de patrón beta</value>
+  </data>
+  <data name="Material.AncientHistoricalData" xml:space="preserve">
+    <value>Datos de obelisco de patrón gamma</value>
+  </data>
+  <data name="Material.AncientLanguageData" xml:space="preserve">
+    <value>Datos de obelisco de patrón delta</value>
+  </data>
+  <data name="Material.AncientTechnologicalData" xml:space="preserve">
+    <value>Datos de obelisco de patrón épsilon</value>
+  </data>
+  <data name="Material.Antimony" xml:space="preserve">
+    <value>Antimonio</value>
+  </data>
+  <data name="Material.ArchivedEmissionData" xml:space="preserve">
+    <value>Datos de emisión irregulares</value>
+  </data>
+  <data name="Material.Arsenic" xml:space="preserve">
+    <value>Arsénico</value>
+  </data>
+  <data name="Material.BasicConductors" xml:space="preserve">
+    <value>Conductores básicos</value>
+  </data>
+  <data name="Material.BiotechConductors" xml:space="preserve">
+    <value>Conductores biotecnológicos</value>
+  </data>
+  <data name="Material.Boron" xml:space="preserve">
+    <value>Boro</value>
+  </data>
+  <data name="Material.BulkScanData" xml:space="preserve">
+    <value>Datos de escaneo masivo anómalos</value>
+  </data>
+  <data name="Material.Cadmium" xml:space="preserve">
+    <value>Cadmio</value>
+  </data>
+  <data name="Material.Carbon" xml:space="preserve">
+    <value>Carbono</value>
+  </data>
+  <data name="Material.ChemicalDistillery" xml:space="preserve">
+    <value>Destilería química</value>
+  </data>
+  <data name="Material.ChemicalManipulators" xml:space="preserve">
+    <value>Manipuladores químicos</value>
+  </data>
+  <data name="Material.ChemicalProcessors" xml:space="preserve">
+    <value>Procesadores químicos</value>
+  </data>
+  <data name="Material.ChemicalStorageUnits" xml:space="preserve">
+    <value>Unidades de almacenamiento químico</value>
+  </data>
+  <data name="Material.Chromium" xml:space="preserve">
+    <value>Cromo</value>
+  </data>
+  <data name="Material.ClassifiedScanData" xml:space="preserve">
+    <value>Fragmento de escaneo clasificado</value>
+  </data>
+  <data name="Material.CompactComposites" xml:space="preserve">
+    <value>Compuestos compactos</value>
+  </data>
+  <data name="Material.CompactEmissionsData" xml:space="preserve">
+    <value>Datos de emisiones compactas anormales</value>
+  </data>
+  <data name="Material.CompoundShielding" xml:space="preserve">
+    <value>Blindaje compuesto</value>
+  </data>
+  <data name="Material.ConductiveCeramics" xml:space="preserve">
+    <value>Cerámicas conductoras</value>
+  </data>
+  <data name="Material.ConductiveComponents" xml:space="preserve">
+    <value>Componentes conductores</value>
+  </data>
+  <data name="Material.ConductivePolymers" xml:space="preserve">
+    <value>Polímeros conductores</value>
+  </data>
+  <data name="Material.ConfigurableComponents" xml:space="preserve">
+    <value>Componentes configurables</value>
+  </data>
+  <data name="Material.ConsumerFirmware" xml:space="preserve">
+    <value>Firmware de consumo modificado</value>
+  </data>
+  <data name="Material.CrystalShards" xml:space="preserve">
+    <value>Fragmentos de cristal</value>
+  </data>
+  <data name="Material.DataminedWake" xml:space="preserve">
+    <value>Excepciones de estela extraídas de datos</value>
+  </data>
+  <data name="Material.DecodedEmissionData" xml:space="preserve">
+    <value>Datos de emisión descodificados</value>
+  </data>
+  <data name="Material.DisruptedWakeEchoes" xml:space="preserve">
+    <value>Ecos de estela interrumpida atípicos</value>
+  </data>
+  <data name="Material.ElectrochemicalArrays" xml:space="preserve">
+    <value>Matrices electroquímicas</value>
+  </data>
+  <data name="Material.EmbeddedFirmware" xml:space="preserve">
+    <value>Firmware integrado modificado</value>
+  </data>
+  <data name="Material.EmissionData" xml:space="preserve">
+    <value>Datos de emisión inesperados</value>
+  </data>
+  <data name="Material.EncodedScanData" xml:space="preserve">
+    <value>Datos de escaneo divergentes</value>
+  </data>
+  <data name="Material.EncryptedFiles" xml:space="preserve">
+    <value>Archivos cifrados inusuales</value>
+  </data>
+  <data name="Material.EncryptionArchives" xml:space="preserve">
+    <value>Archivos de cifrado atípicos</value>
+  </data>
+  <data name="Material.EncryptionCodes" xml:space="preserve">
+    <value>Códigos de cifrado etiquetados</value>
+  </data>
+  <data name="Material.ExquisiteFocusCrystals" xml:space="preserve">
+    <value>Cristales de enfoque exquisitos</value>
+  </data>
+  <data name="Material.FedCoreComposites" xml:space="preserve">
+    <value>Compuestos de Core Dynamics</value>
+  </data>
+  <data name="Material.FedProprietaryComposites" xml:space="preserve">
+    <value>Compuestos patentados</value>
+  </data>
+  <data name="Material.FilamentComposites" xml:space="preserve">
+    <value>Compuestos de filamento</value>
+  </data>
+  <data name="Material.FocusCrystals" xml:space="preserve">
+    <value>Cristales de enfoque</value>
+  </data>
+  <data name="Material.FSDTelemetry" xml:space="preserve">
+    <value>Telemetría de FSD anómala</value>
+  </data>
+  <data name="Material.GalvanisingAlloys" xml:space="preserve">
+    <value>Aleaciones galvanizantes</value>
+  </data>
+  <data name="Material.Germanium" xml:space="preserve">
+    <value>Germanio</value>
+  </data>
+  <data name="Material.GridResistors" xml:space="preserve">
+    <value>Resistencias de red</value>
+  </data>
+  <data name="Material.Guardian_ModuleBlueprint" xml:space="preserve">
+    <value>Fragmento de plano de módulo guardián</value>
+  </data>
+  <data name="Material.Guardian_PowerCell" xml:space="preserve">
+    <value>Celda de energía guardiana</value>
+  </data>
+  <data name="Material.Guardian_PowerConduit" xml:space="preserve">
+    <value>Conducto de energía guardián</value>
+  </data>
+  <data name="Material.Guardian_Sentinel_WeaponParts" xml:space="preserve">
+    <value>Piezas de arma de centinela guardián</value>
+  </data>
+  <data name="Material.Guardian_Sentinel_WreckageComponents" xml:space="preserve">
+    <value>Componentes de restos guardianes</value>
+  </data>
+  <data name="Material.Guardian_TechComponent" xml:space="preserve">
+    <value>Componente tecnológico guardián</value>
+  </data>
+  <data name="Material.Guardian_VesselBlueprint" xml:space="preserve">
+    <value>Fragmento de plano de nave guardiana</value>
+  </data>
+  <data name="Material.Guardian_WeaponBlueprint" xml:space="preserve">
+    <value>Fragmento de plano de arma guardiana</value>
+  </data>
+  <data name="Material.HeatConductionWiring" xml:space="preserve">
+    <value>Cableado de conducción térmica</value>
+  </data>
+  <data name="Material.HeatDispersionPlate" xml:space="preserve">
+    <value>Placa de dispersión térmica</value>
+  </data>
+  <data name="Material.HeatExchangers" xml:space="preserve">
+    <value>Intercambiadores de calor</value>
+  </data>
+  <data name="Material.HeatResistantCeramics" xml:space="preserve">
+    <value>Cerámicas termorresistentes</value>
+  </data>
+  <data name="Material.HeatVanes" xml:space="preserve">
+    <value>Aletas térmicas</value>
+  </data>
+  <data name="Material.HighDensityComposites" xml:space="preserve">
+    <value>Compuestos de alta densidad</value>
+  </data>
+  <data name="Material.HybridCapacitors" xml:space="preserve">
+    <value>Condensadores híbridos</value>
+  </data>
+  <data name="Material.HyperspaceTrajectories" xml:space="preserve">
+    <value>Trayectorias hiperespaciales excéntricas</value>
+  </data>
+  <data name="Material.ImperialShielding" xml:space="preserve">
+    <value>Blindaje imperial</value>
+  </data>
+  <data name="Material.ImprovisedComponents" xml:space="preserve">
+    <value>Componentes improvisados</value>
+  </data>
+  <data name="Material.IndustrialFirmware" xml:space="preserve">
+    <value>Firmware industrial crackeado</value>
+  </data>
+  <data name="Material.Iron" xml:space="preserve">
+    <value>Hierro</value>
+  </data>
+  <data name="Material.Lead" xml:space="preserve">
+    <value>Plomo</value>
+  </data>
+  <data name="Material.LegacyFirmware" xml:space="preserve">
+    <value>Firmware heredado especializado</value>
+  </data>
+  <data name="Material.Manganese" xml:space="preserve">
+    <value>Manganeso</value>
+  </data>
+  <data name="Material.MechanicalComponents" xml:space="preserve">
+    <value>Componentes mecánicos</value>
+  </data>
+  <data name="Material.MechanicalEquipment" xml:space="preserve">
+    <value>Equipo mecánico</value>
+  </data>
+  <data name="Material.MechanicalScrap" xml:space="preserve">
+    <value>Chatarra mecánica</value>
+  </data>
+  <data name="Material.Mercury" xml:space="preserve">
+    <value>Mercurio</value>
+  </data>
+  <data name="Material.MilitaryGradeAlloys" xml:space="preserve">
+    <value>Aleaciones de grado militar</value>
+  </data>
+  <data name="Material.MilitarySupercapacitors" xml:space="preserve">
+    <value>Supercondensadores militares</value>
+  </data>
+  <data name="Material.Molybdenum" xml:space="preserve">
+    <value>Molibdeno</value>
+  </data>
+  <data name="Material.Nickel" xml:space="preserve">
+    <value>Níquel</value>
+  </data>
+  <data name="Material.Niobium" xml:space="preserve">
+    <value>Niobio</value>
+  </data>
+  <data name="Material.PharmaceuticalIsolators" xml:space="preserve">
+    <value>Aisladores farmacéuticos</value>
+  </data>
+  <data name="Material.PhaseAlloys" xml:space="preserve">
+    <value>Aleaciones de fase</value>
+  </data>
+  <data name="Material.Phosphorus" xml:space="preserve">
+    <value>Fósforo</value>
+  </data>
+  <data name="Material.Polonium" xml:space="preserve">
+    <value>Polonio</value>
+  </data>
+  <data name="Material.PolymerCapacitors" xml:space="preserve">
+    <value>Condensadores de polímero</value>
+  </data>
+  <data name="Material.PrecipitatedAlloys" xml:space="preserve">
+    <value>Aleaciones precipitadas</value>
+  </data>
+  <data name="Material.ProtoHeatRadiators" xml:space="preserve">
+    <value>Protorradiadores térmicos</value>
+  </data>
+  <data name="Material.ProtoLightAlloys" xml:space="preserve">
+    <value>Protoaleaciones ligeras</value>
+  </data>
+  <data name="Material.ProtoRadiolicAlloys" xml:space="preserve">
+    <value>Protoaleaciones radiolíticas</value>
+  </data>
+  <data name="Material.RefinedFocusCrystals" xml:space="preserve">
+    <value>Cristales de enfoque refinados</value>
+  </data>
+  <data name="Material.Rhenium" xml:space="preserve">
+    <value>Renio</value>
+  </data>
+  <data name="Material.Ruthenium" xml:space="preserve">
+    <value>Rutenio</value>
+  </data>
+  <data name="Material.SalvagedAlloys" xml:space="preserve">
+    <value>Aleaciones recuperadas</value>
+  </data>
+  <data name="Material.ScanArchives" xml:space="preserve">
+    <value>Archivos de escaneo no identificados</value>
+  </data>
+  <data name="Material.ScanDatabanks" xml:space="preserve">
+    <value>Bancos de datos de escaneo clasificados</value>
+  </data>
+  <data name="Material.ScrambledEmissionData" xml:space="preserve">
+    <value>Datos de emisión codificados excepcionales</value>
+  </data>
+  <data name="Material.SecurityFirmware" xml:space="preserve">
+    <value>Parche de firmware de seguridad</value>
+  </data>
+  <data name="Material.Selenium" xml:space="preserve">
+    <value>Selenio</value>
+  </data>
+  <data name="Material.ShieldCycleRecordings" xml:space="preserve">
+    <value>Grabaciones de ciclo de escudo distorsionadas</value>
+  </data>
+  <data name="Material.ShieldDensityReports" xml:space="preserve">
+    <value>Escaneos de escudo atípicos</value>
+  </data>
+  <data name="Material.ShieldEmitters" xml:space="preserve">
+    <value>Emisores de escudo</value>
+  </data>
+  <data name="Material.ShieldFrequencyData" xml:space="preserve">
+    <value>Datos de frecuencia de escudo peculiares</value>
+  </data>
+  <data name="Material.ShieldingSensors" xml:space="preserve">
+    <value>Sensores de blindaje</value>
+  </data>
+  <data name="Material.ShieldPatternAnalysis" xml:space="preserve">
+    <value>Análisis de patrón de escudo aberrante</value>
+  </data>
+  <data name="Material.ShieldSoakAnalysis" xml:space="preserve">
+    <value>Análisis de absorción de escudo inconsistente</value>
+  </data>
+  <data name="Material.Sulphur" xml:space="preserve">
+    <value>Azufre</value>
+  </data>
+  <data name="Material.SymmetricKeys" xml:space="preserve">
+    <value>Claves simétricas abiertas</value>
+  </data>
+  <data name="Material.Technetium" xml:space="preserve">
+    <value>Tecnecio</value>
+  </data>
+  <data name="Material.Tellurium" xml:space="preserve">
+    <value>Telurio</value>
+  </data>
+  <data name="Material.TemperedAlloys" xml:space="preserve">
+    <value>Aleaciones templadas</value>
+  </data>
+  <data name="Material.tg_abrasion01" xml:space="preserve">
+    <value>Muestra de exposición al calor</value>
+  </data>
+  <data name="Material.tg_abrasion02" xml:space="preserve">
+    <value>Residuo de membrana de fase</value>
+  </data>
+  <data name="Material.tg_abrasion03" xml:space="preserve">
+    <value>Fragmentos de superficie endurecida</value>
+  </data>
+  <data name="Material.TG_BioMechanicalConduits" xml:space="preserve">
+    <value>Conductos biomecánicos</value>
+  </data>
+  <data name="Material.tg_causticcrystal" xml:space="preserve">
+    <value>Cristal cáustico</value>
+  </data>
+  <data name="Material.tg_causticgeneratorparts" xml:space="preserve">
+    <value>Mecanismos corrosivos</value>
+  </data>
+  <data name="Material.tg_causticshard" xml:space="preserve">
+    <value>Fragmento cáustico</value>
+  </data>
+  <data name="Material.TG_CompositionData" xml:space="preserve">
+    <value>Datos de composición de material thargoide</value>
+  </data>
+  <data name="Material.tg_interdictiondata" xml:space="preserve">
+    <value>Telemetría de interdicción thargoide</value>
+  </data>
+  <data name="Material.TG_PropulsionElement" xml:space="preserve">
+    <value>Elementos de propulsión</value>
+  </data>
+  <data name="Material.TG_ResidueData" xml:space="preserve">
+    <value>Datos de residuos thargoides</value>
+  </data>
+  <data name="Material.TG_ShipFlightData" xml:space="preserve">
+    <value>Datos de vuelo de nave</value>
+  </data>
+  <data name="Material.TG_ShipSystemsData" xml:space="preserve">
+    <value>Datos de sistemas de nave</value>
+  </data>
+  <data name="Material.tg_shutdowndata" xml:space="preserve">
+    <value>Análisis de sobretensión energética masiva</value>
+  </data>
+  <data name="Material.TG_StructuralData" xml:space="preserve">
+    <value>Datos estructurales thargoides</value>
+  </data>
+  <data name="Material.TG_WeaponParts" xml:space="preserve">
+    <value>Piezas de arma</value>
+  </data>
+  <data name="Material.TG_WreckageComponents" xml:space="preserve">
+    <value>Componentes de restos</value>
+  </data>
+  <data name="Material.ThermicAlloys" xml:space="preserve">
+    <value>Aleaciones térmicas</value>
+  </data>
+  <data name="Material.Tin" xml:space="preserve">
+    <value>Estaño</value>
+  </data>
+  <data name="Material.Tungsten" xml:space="preserve">
+    <value>Tungsteno</value>
+  </data>
+  <data name="Material.UncutFocusCrystals" xml:space="preserve">
+    <value>Cristales de enfoque defectuosos</value>
+  </data>
+  <data name="Material.UnknownCarapace" xml:space="preserve">
+    <value>Caparazón thargoide</value>
+  </data>
+  <data name="Material.unknowncorechip" xml:space="preserve">
+    <value>Chip de núcleo táctico</value>
+  </data>
+  <data name="Material.UnknownEnergyCell" xml:space="preserve">
+    <value>Celda de energía thargoide</value>
+  </data>
+  <data name="Material.UnknownEnergySource" xml:space="preserve">
+    <value>Fragmento de sensor</value>
+  </data>
+  <data name="Material.UnknownOrganicCircuitry" xml:space="preserve">
+    <value>Circuitos orgánicos thargoides</value>
+  </data>
+  <data name="Material.UnknownShipSignature" xml:space="preserve">
+    <value>Firma de nave thargoide</value>
+  </data>
+  <data name="Material.UnknownTechnologyComponents" xml:space="preserve">
+    <value>Componentes tecnológicos thargoides</value>
+  </data>
+  <data name="Material.UnknownWakeData" xml:space="preserve">
+    <value>Datos de estela thargoide</value>
+  </data>
+  <data name="Material.Vanadium" xml:space="preserve">
+    <value>Vanadio</value>
+  </data>
+  <data name="Material.WakeSolutions" xml:space="preserve">
+    <value>Soluciones de estela extrañas</value>
+  </data>
+  <data name="Material.WornShieldEmitters" xml:space="preserve">
+    <value>Emisores de escudo desgastados</value>
+  </data>
+  <data name="Material.Yttrium" xml:space="preserve">
+    <value>Itrio</value>
+  </data>
+  <data name="Material.Zinc" xml:space="preserve">
+    <value>Zinc</value>
+  </data>
+  <data name="Material.Zirconium" xml:space="preserve">
+    <value>Circonio</value>
+  </data>
+  <data name="ModuleType.abl" xml:space="preserve">
+    <value>Bláster de abrasión</value>
+  </data>
+  <data name="ModuleType.advmc" xml:space="preserve">
+    <value>Multicañón avanzado</value>
+  </data>
+  <data name="ModuleType.am" xml:space="preserve">
+    <value>Unidad de mantenimiento automático de campo</value>
+  </data>
+  <data name="ModuleType.amr" xml:space="preserve">
+    <value>Lanzamisiles avanzado</value>
+  </data>
+  <data name="ModuleType.axmc" xml:space="preserve">
+    <value>Multicañón AX</value>
+  </data>
+  <data name="ModuleType.axmce" xml:space="preserve">
+    <value>Multicañón AX mejorado</value>
+  </data>
+  <data name="ModuleType.axmr" xml:space="preserve">
+    <value>Lanzamisiles AX</value>
+  </data>
+  <data name="ModuleType.axmre" xml:space="preserve">
+    <value>Lanzamisiles AX mejorado</value>
+  </data>
+  <data name="ModuleType.bh" xml:space="preserve">
+    <value>Mamparos</value>
+  </data>
+  <data name="ModuleType.bl" xml:space="preserve">
+    <value>Láser de haz</value>
+  </data>
+  <data name="ModuleType.bsg" xml:space="preserve">
+    <value>Generador de escudo bitrama</value>
+  </data>
+  <data name="ModuleType.c" xml:space="preserve">
+    <value>Cañón</value>
+  </data>
+  <data name="ModuleType.cc" xml:space="preserve">
+    <value>Controlador de drones recolectores</value>
+  </data>
+  <data name="ModuleType.ch" xml:space="preserve">
+    <value>Lanzador de señuelos</value>
+  </data>
+  <data name="ModuleType.cr" xml:space="preserve">
+    <value>Bodega de carga</value>
+  </data>
+  <data name="ModuleType.crl" xml:space="preserve">
+    <value>Bodega de carga Mk II</value>
+  </data>
+  <data name="ModuleType.cs" xml:space="preserve">
+    <value>Escáner de manifiesto</value>
+  </data>
+  <data name="ModuleType.csl" xml:space="preserve">
+    <value>Lanzador de disipadores cáusticos</value>
+  </data>
+  <data name="ModuleType.dc" xml:space="preserve">
+    <value>Ordenador de atraque</value>
+  </data>
+  <data name="ModuleType.dmr" xml:space="preserve">
+    <value>Lanzamisiles no guiados</value>
+  </data>
+  <data name="ModuleType.dtl" xml:space="preserve">
+    <value>Controlador de drones de descontaminación</value>
+  </data>
+  <data name="ModuleType.ec" xml:space="preserve">
+    <value>Contramedida electrónica</value>
+  </data>
+  <data name="ModuleType.ews" xml:space="preserve">
+    <value>Estabilizador de armas experimental</value>
+  </data>
+  <data name="ModuleType.fc" xml:space="preserve">
+    <value>Cañón de fragmentación</value>
+  </data>
+  <data name="ModuleType.fh" xml:space="preserve">
+    <value>Hangar de cazas</value>
+  </data>
+  <data name="ModuleType.fi" xml:space="preserve">
+    <value>Interdictor de motor de distorsión</value>
+  </data>
+  <data name="ModuleType.fs" xml:space="preserve">
+    <value>Colector de combustible</value>
+  </data>
+  <data name="ModuleType.fsd" xml:space="preserve">
+    <value>Motor de distorsión</value>
+  </data>
+  <data name="ModuleType.ft" xml:space="preserve">
+    <value>Depósito de combustible</value>
+  </data>
+  <data name="ModuleType.fx" xml:space="preserve">
+    <value>Controlador de drones de transferencia de combustible</value>
+  </data>
+  <data name="ModuleType.gfsb" xml:space="preserve">
+    <value>Potenciador de FSD guardián</value>
+  </data>
+  <data name="ModuleType.ggc" xml:space="preserve">
+    <value>Cañón Gauss guardián</value>
+  </data>
+  <data name="ModuleType.ghrp" xml:space="preserve">
+    <value>Paquete de refuerzo de casco guardián</value>
+  </data>
+  <data name="ModuleType.gmrp" xml:space="preserve">
+    <value>Paquete de refuerzo de módulos guardián</value>
+  </data>
+  <data name="ModuleType.gpc" xml:space="preserve">
+    <value>Cargador de plasma guardián</value>
+  </data>
+  <data name="ModuleType.gpl" xml:space="preserve">
+    <value>Distribuidor de energía guardián</value>
+  </data>
+  <data name="ModuleType.gpp" xml:space="preserve">
+    <value>Planta de energía híbrida guardiana</value>
+  </data>
+  <data name="ModuleType.gsc" xml:space="preserve">
+    <value>Cañón de fragmentos guardián</value>
+  </data>
+  <data name="ModuleType.gsrp" xml:space="preserve">
+    <value>Paquete de refuerzo de escudo guardián</value>
+  </data>
+  <data name="ModuleType.hb" xml:space="preserve">
+    <value>Controlador de drones rompecompuertas</value>
+  </data>
+  <data name="ModuleType.hr" xml:space="preserve">
+    <value>Paquete de refuerzo de casco</value>
+  </data>
+  <data name="ModuleType.hs" xml:space="preserve">
+    <value>Lanzador de disipadores térmicos</value>
+  </data>
+  <data name="ModuleType.kw" xml:space="preserve">
+    <value>Escáner de órdenes de busca y captura</value>
+  </data>
+  <data name="ModuleType.ls" xml:space="preserve">
+    <value>Soporte vital</value>
+  </data>
+  <data name="ModuleType.mahr" xml:space="preserve">
+    <value>Paquete de refuerzo de casco de metaaleación</value>
+  </data>
+  <data name="ModuleType.mc" xml:space="preserve">
+    <value>Multicañón</value>
+  </data>
+  <data name="ModuleType.mh" xml:space="preserve">
+    <value>Anclaje o utilidad no reconocido</value>
+  </data>
+  <data name="ModuleType.ml" xml:space="preserve">
+    <value>Láser de minería</value>
+  </data>
+  <data name="ModuleType.mlc" xml:space="preserve">
+    <value>Controlador multidrón</value>
+  </data>
+  <data name="ModuleType.mm" xml:space="preserve">
+    <value>Módulo interno no reconocido</value>
+  </data>
+  <data name="ModuleType.mr" xml:space="preserve">
+    <value>Lanzamisiles guiados</value>
+  </data>
+  <data name="ModuleType.mrp" xml:space="preserve">
+    <value>Paquete de refuerzo de módulos</value>
+  </data>
+  <data name="ModuleType.mvr" xml:space="preserve">
+    <value>Repetidor de salvas de minería</value>
+  </data>
+  <data name="ModuleType.nl" xml:space="preserve">
+    <value>Lanzaminas</value>
+  </data>
+  <data name="ModuleType.ntp" xml:space="preserve">
+    <value>Soporte de torpedos de nanitos</value>
+  </data>
+  <data name="ModuleType.pa" xml:space="preserve">
+    <value>Acelerador de plasma</value>
+  </data>
+  <data name="ModuleType.pas" xml:space="preserve">
+    <value>Sistema de aproximación planetaria</value>
+  </data>
+  <data name="ModuleType.pc" xml:space="preserve">
+    <value>Controlador de drones de prospección</value>
+  </data>
+  <data name="ModuleType.pce" xml:space="preserve">
+    <value>Cabina de pasajeros de clase económica</value>
+  </data>
+  <data name="ModuleType.pci" xml:space="preserve">
+    <value>Cabina de pasajeros de clase ejecutiva</value>
+  </data>
+  <data name="ModuleType.pcm" xml:space="preserve">
+    <value>Cabina de pasajeros de primera clase</value>
+  </data>
+  <data name="ModuleType.pcq" xml:space="preserve">
+    <value>Cabina de pasajeros de lujo</value>
+  </data>
+  <data name="ModuleType.pd" xml:space="preserve">
+    <value>Distribuidor de energía</value>
+  </data>
+  <data name="ModuleType.pl" xml:space="preserve">
+    <value>Láser de pulsos</value>
+  </data>
+  <data name="ModuleType.po" xml:space="preserve">
+    <value>Defensa puntual</value>
+  </data>
+  <data name="ModuleType.pp" xml:space="preserve">
+    <value>Planta de energía</value>
+  </data>
+  <data name="ModuleType.psg" xml:space="preserve">
+    <value>Generador de escudo prismático</value>
+  </data>
+  <data name="ModuleType.pv" xml:space="preserve">
+    <value>Hangar de vehículos planetarios</value>
+  </data>
+  <data name="ModuleType.pwa" xml:space="preserve">
+    <value>Analizador de ondas de pulso</value>
+  </data>
+  <data name="ModuleType.rcpl" xml:space="preserve">
+    <value>Controlador de drones de reconocimiento</value>
+  </data>
+  <data name="ModuleType.rf" xml:space="preserve">
+    <value>Refinería</value>
+  </data>
+  <data name="ModuleType.rfl" xml:space="preserve">
+    <value>Lanzador de metralla de activación remota</value>
+  </data>
+  <data name="ModuleType.rg" xml:space="preserve">
+    <value>Cañón de riel</value>
+  </data>
+  <data name="ModuleType.rpl" xml:space="preserve">
+    <value>Controlador de drones de reparación</value>
+  </data>
+  <data name="ModuleType.rsl" xml:space="preserve">
+    <value>Controlador de drones de investigación</value>
+  </data>
+  <data name="ModuleType.s" xml:space="preserve">
+    <value>Sensores</value>
+  </data>
+  <data name="ModuleType.sb" xml:space="preserve">
+    <value>Potenciador de escudo</value>
+  </data>
+  <data name="ModuleType.sc" xml:space="preserve">
+    <value>Escáner de descubrimiento</value>
+  </data>
+  <data name="ModuleType.scb" xml:space="preserve">
+    <value>Banco de celdas de escudo</value>
+  </data>
+  <data name="ModuleType.scl" xml:space="preserve">
+    <value>Lanzador de cargas sísmicas</value>
+  </data>
+  <data name="ModuleType.sdm" xml:space="preserve">
+    <value>Misil de desplazamiento subterráneo</value>
+  </data>
+  <data name="ModuleType.sfn" xml:space="preserve">
+    <value>Neutralizador de campo de apagado</value>
+  </data>
+  <data name="ModuleType.sg" xml:space="preserve">
+    <value>Generador de escudo</value>
+  </data>
+  <data name="ModuleType.ss" xml:space="preserve">
+    <value>Escáner de superficie detallado</value>
+  </data>
+  <data name="ModuleType.sua" xml:space="preserve">
+    <value>Asistente de supercrucero</value>
+  </data>
+  <data name="ModuleType.t" xml:space="preserve">
+    <value>Propulsores</value>
+  </data>
+  <data name="ModuleType.tbem" xml:space="preserve">
+    <value>Lanzamisiles enzimáticos</value>
+  </data>
+  <data name="ModuleType.tbrfl" xml:space="preserve">
+    <value>Lanzador de flechettes de activación remota</value>
+  </data>
+  <data name="ModuleType.tbsc" xml:space="preserve">
+    <value>Cañón de choque</value>
+  </data>
+  <data name="ModuleType.tp" xml:space="preserve">
+    <value>Soporte de torpedos</value>
+  </data>
+  <data name="ModuleType.ul" xml:space="preserve">
+    <value>Láser de ráfagas</value>
+  </data>
+  <data name="ModuleType.ws" xml:space="preserve">
+    <value>Escáner de estelas de distorsión</value>
+  </data>
+  <data name="ModuleType.xs" xml:space="preserve">
+    <value>Xenoescáner</value>
+  </data>
+  <data name="Mount.Fixed" xml:space="preserve">
+    <value>Fijo</value>
+  </data>
+  <data name="Mount.Gimballed" xml:space="preserve">
+    <value>Cardán</value>
+  </data>
+  <data name="Mount.Turreted" xml:space="preserve">
+    <value>Torreta</value>
+  </data>
+  <data name="PlanetClass.ammonia_world" xml:space="preserve">
+    <value>Mundo de amoníaco</value>
+  </data>
+  <data name="PlanetClass.earthlike_body" xml:space="preserve">
+    <value>Mundo similar a la Tierra</value>
+  </data>
+  <data name="PlanetClass.gas_giant_with_ammonia_based_life" xml:space="preserve">
+    <value>Gigante gaseoso con vida basada en amoníaco</value>
+  </data>
+  <data name="PlanetClass.gas_giant_with_water_based_life" xml:space="preserve">
+    <value>Gigante gaseoso con vida basada en agua</value>
+  </data>
+  <data name="PlanetClass.helium_gas_giant" xml:space="preserve">
+    <value>Gigante gaseoso de helio</value>
+  </data>
+  <data name="PlanetClass.helium_rich_gas_giant" xml:space="preserve">
+    <value>Gigante gaseoso rico en helio</value>
+  </data>
+  <data name="PlanetClass.high_metal_content_body" xml:space="preserve">
+    <value>Cuerpo con alto contenido en metales</value>
+  </data>
+  <data name="PlanetClass.icy_body" xml:space="preserve">
+    <value>Cuerpo helado</value>
+  </data>
+  <data name="PlanetClass.metal_rich_body" xml:space="preserve">
+    <value>Cuerpo rico en metales</value>
+  </data>
+  <data name="PlanetClass.rocky_body" xml:space="preserve">
+    <value>Cuerpo rocoso</value>
+  </data>
+  <data name="PlanetClass.rocky_ice_body" xml:space="preserve">
+    <value>Cuerpo de roca y hielo</value>
+  </data>
+  <data name="PlanetClass.sudarsky_class_i_gas_giant" xml:space="preserve">
+    <value>Gigante gaseoso de clase I de Sudarsky</value>
+  </data>
+  <data name="PlanetClass.sudarsky_class_ii_gas_giant" xml:space="preserve">
+    <value>Gigante gaseoso de clase II de Sudarsky</value>
+  </data>
+  <data name="PlanetClass.sudarsky_class_iii_gas_giant" xml:space="preserve">
+    <value>Gigante gaseoso de clase III de Sudarsky</value>
+  </data>
+  <data name="PlanetClass.sudarsky_class_iv_gas_giant" xml:space="preserve">
+    <value>Gigante gaseoso de clase IV de Sudarsky</value>
+  </data>
+  <data name="PlanetClass.sudarsky_class_v_gas_giant" xml:space="preserve">
+    <value>Gigante gaseoso de clase V de Sudarsky</value>
+  </data>
+  <data name="PlanetClass.water_giant" xml:space="preserve">
+    <value>Gigante acuático</value>
+  </data>
+  <data name="PlanetClass.water_giant_with_life" xml:space="preserve">
+    <value>Gigante acuático con vida</value>
+  </data>
+  <data name="PlanetClass.water_world" xml:space="preserve">
+    <value>Mundo acuático</value>
+  </data>
+  <data name="Signal.planetarymininglocation_name" xml:space="preserve">
+    <value>Lugar de minería planetaria</value>
+  </data>
+  <data name="Signal.saa_signaltype_guardian" xml:space="preserve">
+    <value>Guardianes</value>
+  </data>
+  <data name="Signal.saa_signaltype_human" xml:space="preserve">
+    <value>Humano</value>
+  </data>
+  <data name="Signal.saa_signaltype_other" xml:space="preserve">
+    <value>Otros</value>
+  </data>
+  <data name="Signal.saa_signaltype_planetanomaly" xml:space="preserve">
+    <value>Anomalía planetaria</value>
+  </data>
+  <data name="Signal.saa_signaltype_thargoid" xml:space="preserve">
+    <value>Thargoides</value>
+  </data>
+  <data name="Unlock.corrosion_resistant_cargo_rack" xml:space="preserve">
+    <value>Bodega de carga resistente a la corrosión</value>
+  </data>
+  <data name="Unlock.engineered_detailed_surface_scanner_v1" xml:space="preserve">
+    <value>Escáner de superficie detallado modificado V1</value>
+  </data>
+  <data name="Unlock.engineered_fsd_v1" xml:space="preserve">
+    <value>FSD modificado V1</value>
+  </data>
+  <data name="Unlock.engineered_missile_rack_v1" xml:space="preserve">
+    <value>Lanzamisiles modificado V1</value>
+  </data>
+  <data name="Unlock.enzyme_missile_rack" xml:space="preserve">
+    <value>Lanzamisiles enzimáticos</value>
+  </data>
+  <data name="Unlock.guardian_fsd_booster" xml:space="preserve">
+    <value>Potenciador de FSD guardián</value>
+  </data>
+  <data name="Unlock.guardian_gauss_cannon_fixed_medium" xml:space="preserve">
+    <value>Cañón Gauss guardián (fijo, mediano)</value>
+  </data>
+  <data name="Unlock.guardian_gauss_cannon_fixed_small" xml:space="preserve">
+    <value>Cañón Gauss guardián (fijo, pequeño)</value>
+  </data>
+  <data name="Unlock.guardian_hull_reinforcement" xml:space="preserve">
+    <value>Refuerzo de casco guardián</value>
+  </data>
+  <data name="Unlock.guardian_hybrid_power_plant" xml:space="preserve">
+    <value>Planta de energía híbrida guardiana</value>
+  </data>
+  <data name="Unlock.guardian_module_reinforcement" xml:space="preserve">
+    <value>Refuerzo de módulos guardián</value>
+  </data>
+  <data name="Unlock.guardian_plasma_charger_fixed_large" xml:space="preserve">
+    <value>Cargador de plasma guardián (fijo, grande)</value>
+  </data>
+  <data name="Unlock.guardian_plasma_charger_fixed_medium" xml:space="preserve">
+    <value>Cargador de plasma guardián (fijo, mediano)</value>
+  </data>
+  <data name="Unlock.guardian_plasma_charger_fixed_small" xml:space="preserve">
+    <value>Cargador de plasma guardián (fijo, pequeño)</value>
+  </data>
+  <data name="Unlock.guardian_plasma_charger_turreted_large" xml:space="preserve">
+    <value>Cargador de plasma guardián (torreta, grande)</value>
+  </data>
+  <data name="Unlock.guardian_plasma_charger_turreted_medium" xml:space="preserve">
+    <value>Cargador de plasma guardián (torreta, mediano)</value>
+  </data>
+  <data name="Unlock.guardian_plasma_charger_turreted_small" xml:space="preserve">
+    <value>Cargador de plasma guardián (torreta, pequeño)</value>
+  </data>
+  <data name="Unlock.guardian_power_distributor" xml:space="preserve">
+    <value>Distribuidor de energía guardián</value>
+  </data>
+  <data name="Unlock.guardian_shard_cannon_fixed_large" xml:space="preserve">
+    <value>Cañón de fragmentos guardián (fijo, grande)</value>
+  </data>
+  <data name="Unlock.guardian_shard_cannon_fixed_medium" xml:space="preserve">
+    <value>Cañón de fragmentos guardián (fijo, mediano)</value>
+  </data>
+  <data name="Unlock.guardian_shard_cannon_fixed_small" xml:space="preserve">
+    <value>Cañón de fragmentos guardián (fijo, pequeño)</value>
+  </data>
+  <data name="Unlock.guardian_shard_cannon_turreted_large" xml:space="preserve">
+    <value>Cañón de fragmentos guardián (torreta, grande)</value>
+  </data>
+  <data name="Unlock.guardian_shard_cannon_turreted_medium" xml:space="preserve">
+    <value>Cañón de fragmentos guardián (torreta, mediano)</value>
+  </data>
+  <data name="Unlock.guardian_shard_cannon_turreted_small" xml:space="preserve">
+    <value>Cañón de fragmentos guardián (torreta, pequeño)</value>
+  </data>
+  <data name="Unlock.guardian_shield_reinforcement" xml:space="preserve">
+    <value>Refuerzo de escudo guardián</value>
+  </data>
+  <data name="Unlock.javelin_fighter" xml:space="preserve">
+    <value>Caza Javelin</value>
+  </data>
+  <data name="Unlock.lance_fighter" xml:space="preserve">
+    <value>Caza Lance</value>
+  </data>
+  <data name="Unlock.meta_alloy_hull_reinforcement" xml:space="preserve">
+    <value>Refuerzo de casco de metaaleación</value>
+  </data>
+  <data name="Unlock.modified_gauss_cannon_fixed_medium" xml:space="preserve">
+    <value>Cañón Gauss modificado (fijo, mediano)</value>
+  </data>
+  <data name="Unlock.modified_gauss_cannon_fixed_small" xml:space="preserve">
+    <value>Cañón Gauss modificado (fijo, pequeño)</value>
+  </data>
+  <data name="Unlock.modified_mining_laser" xml:space="preserve">
+    <value>Láser de minería modificado</value>
+  </data>
+  <data name="Unlock.modified_plasma_charger_fixed_medium" xml:space="preserve">
+    <value>Cargador de plasma modificado (fijo, mediano)</value>
+  </data>
+  <data name="Unlock.modified_plasma_charger_fixed_small" xml:space="preserve">
+    <value>Cargador de plasma modificado (fijo, pequeño)</value>
+  </data>
+  <data name="Unlock.modified_shard_cannon_fixed_medium" xml:space="preserve">
+    <value>Cañón de fragmentos modificado (fijo, mediano)</value>
+  </data>
+  <data name="Unlock.modified_shard_cannon_fixed_small" xml:space="preserve">
+    <value>Cañón de fragmentos modificado (fijo, pequeño)</value>
+  </data>
+  <data name="Unlock.remote_release_flechette_launcher_fixed" xml:space="preserve">
+    <value>Lanzador de flechettes de activación remota (fijo)</value>
+  </data>
+  <data name="Unlock.remote_release_flechette_launcher_turreted" xml:space="preserve">
+    <value>Lanzador de flechettes de activación remota (torreta)</value>
+  </data>
+  <data name="Unlock.shock_cannon_fixed_large" xml:space="preserve">
+    <value>Cañón de choque (fijo, grande)</value>
+  </data>
+  <data name="Unlock.shock_cannon_fixed_medium" xml:space="preserve">
+    <value>Cañón de choque (fijo, mediano)</value>
+  </data>
+  <data name="Unlock.shock_cannon_fixed_small" xml:space="preserve">
+    <value>Cañón de choque (fijo, pequeño)</value>
+  </data>
+  <data name="Unlock.shock_cannon_gimballed_large" xml:space="preserve">
+    <value>Cañón de choque (cardán, grande)</value>
+  </data>
+  <data name="Unlock.shock_cannon_gimballed_medium" xml:space="preserve">
+    <value>Cañón de choque (cardán, mediano)</value>
+  </data>
+  <data name="Unlock.shock_cannon_gimballed_small" xml:space="preserve">
+    <value>Cañón de choque (cardán, pequeño)</value>
+  </data>
+  <data name="Unlock.shock_cannon_turreted_large" xml:space="preserve">
+    <value>Cañón de choque (torreta, grande)</value>
+  </data>
+  <data name="Unlock.shock_cannon_turreted_medium" xml:space="preserve">
+    <value>Cañón de choque (torreta, mediano)</value>
+  </data>
+  <data name="Unlock.shock_cannon_turreted_small" xml:space="preserve">
+    <value>Cañón de choque (torreta, pequeño)</value>
+  </data>
+  <data name="Unlock.sirius_modified_ax_missile_rack_large" xml:space="preserve">
+    <value>Lanzamisiles AX modificado por Sirius (grande)</value>
+  </data>
+  <data name="Unlock.sirius_modified_ax_missile_rack_medium" xml:space="preserve">
+    <value>Lanzamisiles AX modificado por Sirius (mediano)</value>
+  </data>
+  <data name="Unlock.sirius_modified_heat_sink_launcher" xml:space="preserve">
+    <value>Lanzador de disipadores térmicos modificado por Sirius</value>
+  </data>
+  <data name="Unlock.trident_fighter" xml:space="preserve">
+    <value>Caza Trident</value>
+  </data>
+  <data name="Volcanism.Kind.ammonia_magma" xml:space="preserve">
+    <value>magma de amoníaco</value>
+  </data>
+  <data name="Volcanism.Kind.carbon_dioxide_geysers" xml:space="preserve">
+    <value>géiseres de dióxido de carbono</value>
+  </data>
+  <data name="Volcanism.Kind.helium_geysers" xml:space="preserve">
+    <value>géiseres de helio</value>
+  </data>
+  <data name="Volcanism.Kind.metallic_magma" xml:space="preserve">
+    <value>magma metálico</value>
+  </data>
+  <data name="Volcanism.Kind.methane_magma" xml:space="preserve">
+    <value>magma de metano</value>
+  </data>
+  <data name="Volcanism.Kind.nitrogen_geysers" xml:space="preserve">
+    <value>géiseres de nitrógeno</value>
+  </data>
+  <data name="Volcanism.Kind.nitrogen_magma" xml:space="preserve">
+    <value>magma de nitrógeno</value>
+  </data>
+  <data name="Volcanism.Kind.rocky_magma" xml:space="preserve">
+    <value>magma rocoso</value>
+  </data>
+  <data name="Volcanism.Kind.silicate_magma" xml:space="preserve">
+    <value>magma de silicato</value>
+  </data>
+  <data name="Volcanism.Kind.silicate_vapour_geysers" xml:space="preserve">
+    <value>géiseres de vapor de silicato</value>
+  </data>
+  <data name="Volcanism.Kind.water_geysers" xml:space="preserve">
+    <value>géiseres de agua</value>
+  </data>
+  <data name="Volcanism.Kind.water_magma" xml:space="preserve">
+    <value>magma de agua</value>
+  </data>
+  <data name="Volcanism.Magnitude.major" xml:space="preserve">
+    <value>mayor</value>
+  </data>
+  <data name="Volcanism.Magnitude.minor" xml:space="preserve">
+    <value>menor</value>
+  </data>
+  <data name="Volcanism.Template" xml:space="preserve">
+    <value>vulcanismo {magnitude}de {kind}</value>
+  </data>
+</root>

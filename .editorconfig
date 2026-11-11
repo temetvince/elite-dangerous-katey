@@ -370,6 +370,51 @@ dotnet_diagnostic.CA1716.severity = none       # C#-only repository; VB keyword 
 # even achievable (CheckDocLinks needs an explicit class for its [GeneratedRegex] partial methods), so an
 # explicit Main is allowed for tool entry points. This is the one style rule we cannot enforce.
 dotnet_diagnostic.IDE0210.severity = none
+# IDE0072 / IDE0010 (add missing cases to a switch expression / statement): their fixer, which dotnet format
+# applies, fills every case it adds with `throw new NotImplementedException()`, turning a quiet fallback
+# arm into a crash. The compiler's CS8509 still fails a switch expression that misses a named enum value
+# when it has no discard arm, which is the check that matters; the fixer is not worth that risk.
+dotnet_diagnostic.IDE0072.severity = none
+dotnet_diagnostic.IDE0010.severity = none
+
+# IDE0130 (namespace does not match folder structure) is excluded from the baseline. Its code fix rewrites
+# document folder metadata, which the workspace `dotnet format` uses does not allow, so any project with a
+# mismatched namespace crashes with "Changing document properties is not supported" and gets no fixes at
+# all. Namespaces here follow the folders today; this keeps a future mismatch from taking the formatter down.
+dotnet_diagnostic.IDE0130.severity = none
+
+# The rules below are also excluded because their fixes fold explicit, block-bodied code into single
+# expressions. Both shapes are allowed here, and which one a member takes is the author's call, not the
+# formatter's. With these off, `dotnet format` leaves both forms alone; the matching preferences further
+# down only drive IDE refactorings. Do not flip those preferences to false instead: for lambdas and
+# properties that makes the formatter expand every expression body.
+
+# 'if' / 'else' -> conditional (?:) expression, for assignments and returns
+dotnet_diagnostic.IDE0045.severity = none
+dotnet_diagnostic.IDE0046.severity = none
+
+# 'switch' statement -> switch expression
+dotnet_diagnostic.IDE0066.severity = none
+
+# Block body -> expression body for properties, indexers, accessors and lambdas
+dotnet_diagnostic.IDE0025.severity = none
+dotnet_diagnostic.IDE0026.severity = none
+dotnet_diagnostic.IDE0027.severity = none
+dotnet_diagnostic.IDE0053.severity = none
+
+# Explicit null checks -> '?.', '??', '??=', 'throw' expressions and '?.Invoke()'
+dotnet_diagnostic.IDE0016.severity = none
+dotnet_diagnostic.IDE0029.severity = none
+dotnet_diagnostic.IDE0030.severity = none
+dotnet_diagnostic.IDE0031.severity = none
+dotnet_diagnostic.IDE0074.severity = none
+dotnet_diagnostic.IDE0270.severity = none
+dotnet_diagnostic.IDE1005.severity = none
+
+# Lambda -> method group. The fix changes behaviour when the receiver is a field or local that is
+# reassigned later: `() => _x.M()` reads `_x` on every call, while `_x.M` binds to the instance held at
+# conversion time.
+dotnet_diagnostic.IDE0200.severity = none
 
 # Generated code — relax style rules
 [*.{Designer.cs,generated.cs,g.cs,g.i.cs}]

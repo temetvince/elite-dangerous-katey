@@ -5,6 +5,7 @@ using Katey.App.Network;
 using Katey.App.Pages;
 using Katey.App.Persistence;
 using Katey.App.Routing;
+using Katey.App.Text;
 using Katey.App.Trading;
 using Katey.App.ViewModels;
 using Katey.Core;
@@ -226,7 +227,7 @@ public sealed class Workspace
     /// <summary>Gets one line on the replay, such as "Reading the journal history, 12 of 40 files.", or empty when not replaying.</summary>
     public string CatchUpText
         => IsCatchingUp
-            ? $"Reading the journal history, {Monitor.Progress.FilesDone} of {Monitor.Progress.FileCount} files. Live figures appear when it finishes."
+            ? Strings.Format(Keys.Shell_CatchingUp, ("done", Monitor.Progress.FilesDone), ("total", Monitor.Progress.FileCount))
             : "";
 
     /// <summary>
@@ -421,9 +422,9 @@ public sealed class Workspace
         switch (Unlocks.Find(unlock.Items)?.Evidence)
         {
             case UnlockEvidence.Broker:
-                return "The journal records the purchase.";
+                return Strings.Get(Keys.Unlock_JournalRecordsPurchase);
             case UnlockEvidence.Outfitting:
-                return "You have bought one at outfitting, so it is unlocked.";
+                return Strings.Get(Keys.Unlock_BoughtAtOutfitting);
             case null:
                 break;
             default:
@@ -433,7 +434,7 @@ public sealed class Workspace
         var fleet = FleetSnapshot;
         var owned = fleet.Ships.SelectMany(ship => ship.Modules.Select(module => module.Item))
             .Concat(fleet.StoredModules.Select(module => module.Item));
-        return owned.Any(unlock.Covers) ? "You own one, so it is unlocked." : null;
+        return owned.Any(unlock.Covers) ? Strings.Get(Keys.Unlock_OwnOne) : null;
     }
 
     /// <summary>Gets journal symbol → count, or <see langword="null"/> before the first Materials snapshot.</summary>
@@ -545,10 +546,15 @@ public sealed class Workspace
         return MaterialTrader.Plan(Catalog, needs, counts, Reserves.All);
     }
 
-    /// <summary>Material display names the plan is short of, given the live inventory. Empty before a snapshot.</summary>
-    /// <returns>A set compared ordinally.</returns>
+    /// <summary>Journal symbols of the materials the plan is short of, given the live inventory. Empty before a snapshot.</summary>
+    /// <returns>A set compared case-insensitively.</returns>
     public IReadOnlySet<string> ShortMaterials()
         => InventoryCounts is null
-            ? new HashSet<string>(StringComparer.Ordinal)
-            : PlanLines().Where(line => !line.IsCovered).Select(line => line.Material.Name).ToHashSet(StringComparer.Ordinal);
+            ? new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+            : PlanLines().Where(line => !line.IsCovered).Select(line => line.Material.Symbol).ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+    /// <summary>A module's name in the language in force; see <see cref="Names.Module"/>.</summary>
+    /// <param name="symbol">The item symbol, any letter case.</param>
+    /// <returns>Never empty for a non-empty symbol.</returns>
+    public string ModuleName(string symbol) => Names.Module(Modules, Catalog, symbol);
 }

@@ -46,7 +46,7 @@ public sealed class SpanshSystemCatalog : ISystemCatalog
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new SystemCatalogException($"Spansh answered {(int)response.StatusCode} for the system lookup.");
+                throw new SystemCatalogException(SystemLookupFailure.Http, (int)response.StatusCode);
             }
 
             var text = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
@@ -56,15 +56,15 @@ public sealed class SpanshSystemCatalog : ISystemCatalog
         }
         catch (HttpRequestException exception)
         {
-            throw new SystemCatalogException("Spansh could not be reached for the system lookup.", exception);
+            throw new SystemCatalogException(SystemLookupFailure.Unreachable, innerException: exception);
         }
         catch (JsonException exception)
         {
-            throw new SystemCatalogException("Spansh's answer to the system lookup could not be read.", exception);
+            throw new SystemCatalogException(SystemLookupFailure.Unreadable, innerException: exception);
         }
         catch (TaskCanceledException exception) when (!cancellationToken.IsCancellationRequested)
         {
-            throw new SystemCatalogException("Spansh took too long to answer the system lookup.", exception);
+            throw new SystemCatalogException(SystemLookupFailure.TimedOut, innerException: exception);
         }
     }
 }

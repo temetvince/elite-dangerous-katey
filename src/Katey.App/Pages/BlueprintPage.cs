@@ -1,5 +1,6 @@
 ﻿using Katey.App.Mvvm;
 using Katey.App.Navigation;
+using Katey.App.Text;
 using Katey.App.ViewModels;
 using Katey.Core;
 using Katey.Core.Planning;
@@ -32,12 +33,12 @@ public sealed class BlueprintPage : Page
         : base(new PageKey(PageKind.Blueprint, key), workspace)
     {
         _blueprint = workspace.Catalog.Blueprints[key];
-        Title = _blueprint.Name;
-        Breadcrumbs = [LinkTo("Modules", PageKind.Modules)];
-        Kicker = "Blueprint";
+        Title = Names.Blueprint(_blueprint);
+        Breadcrumbs = [LinkTo(Strings.Get(Keys.Nav_Modules), PageKind.Modules)];
+        Kicker = Strings.Get(Keys.Blueprint_Kicker);
         GradeChoices = [0, .. _blueprint.GradeNumbers];
         AddCommand = new RelayCommand(() => Add(SelectedGrade), () => CanAdd(SelectedGrade));
-        ModuleTypeChoices = [.. workspace.Scope.ModuleTypes(key).Select(type => new Choice(type.Code, type.Name))];
+        ModuleTypeChoices = [.. workspace.Scope.ModuleTypes(key).Select(type => new Choice(type.Code, Names.ModuleType(type)))];
         SelectedModuleType = ModuleTypeChoices.Count > 0 ? ModuleTypeChoices[0] : null;
         SelectedGrade = SelectedModuleType is { } type
             ? workspace.Scope.StartingGrade(workspace.Catalog.ModuleTypes[type.Key], key)
@@ -52,7 +53,7 @@ public sealed class BlueprintPage : Page
     public IReadOnlyList<BlueprintGradeRow> Grades { get; private set => SetProperty(ref field, value); } = [];
 
     /// <summary>Gets a line on the journal key, for matching against exports.</summary>
-    public string KeyText => $"Journal name {_blueprint.Key}";
+    public string KeyText => Strings.Format(Keys.Blueprint_JournalName, ("key", _blueprint.Key));
 
     /// <summary>Gets the module types an added entry can be for: every type that takes the blueprint, or only those the selected engineers offer it on when narrowed to them.</summary>
     public IReadOnlyList<Choice> ModuleTypeChoices { get; private set => SetProperty(ref field, value); } = [];
@@ -66,7 +67,7 @@ public sealed class BlueprintPage : Page
             if (SetProperty(ref field, value))
             {
                 var type = value is null ? null : Workspace.Catalog.ModuleTypes[value.Key];
-                Experimentals = type is null ? [Choice.None] : [Choice.None, .. Workspace.Scope.Experimentals(type).Select(effect => new Choice(effect.Key, effect.Name))];
+                Experimentals = type is null ? [Choice.None] : [Choice.None, .. Workspace.Scope.Experimentals(type).Select(effect => new Choice(effect.Key, Names.Experimental(effect)))];
                 SelectedExperimental = Choice.None;
                 GradeChoices = type is null ? [0, .. _blueprint.GradeNumbers] : [0, .. Workspace.Scope.Grades(type, _blueprint.Key)];
                 if (type is not null && !GradeChoices.Contains(SelectedGrade))
@@ -145,8 +146,10 @@ public sealed class BlueprintPage : Page
         var experimental = SelectedExperimental.Key.Length == 0 ? null : SelectedExperimental.Key;
         Workspace.Plan.Add([PlanEntry.Create(Workspace.Catalog, type.Key, _blueprint.Key, grade, experimental, PlanSource.Manual)]);
         AddedText = grade == 0
-            ? $"Added {SelectedExperimental.Label} alone on {type.Label} to the plan."
-            : $"Added {_blueprint.Name} {Display.Grade(grade)} on {type.Label}{(experimental is null ? "" : " with " + SelectedExperimental.Label)} to the plan.";
+            ? Strings.Format(Keys.Blueprint_AddedExperimentalAlone, ("experimental", SelectedExperimental.Label), ("type", type.Label))
+            : experimental is null
+                ? Strings.Format(Keys.Blueprint_Added, ("blueprint", Names.Blueprint(_blueprint)), ("grade", Display.Grade(grade)), ("type", type.Label))
+                : Strings.Format(Keys.Blueprint_AddedWithExperimental, ("blueprint", Names.Blueprint(_blueprint)), ("grade", Display.Grade(grade)), ("type", type.Label), ("experimental", SelectedExperimental.Label));
     }
 
     /// <inheritdoc/>
@@ -155,12 +158,12 @@ public sealed class BlueprintPage : Page
         var catalog = Workspace.Catalog;
         var selected = Workspace.Engineers.Selected;
         var types = catalog.ModuleTypesWithBlueprint(_blueprint.Key);
-        ModuleTypes = [.. types.Select(type => LinkTo(type.Name, PageKind.ModuleType, type.Code))];
-        var choices = Workspace.Scope.ModuleTypes(_blueprint.Key).Select(type => new Choice(type.Code, type.Name)).ToList();
+        ModuleTypes = [.. types.Select(type => LinkTo(Names.ModuleType(type), PageKind.ModuleType, type.Code))];
+        var choices = Workspace.Scope.ModuleTypes(_blueprint.Key).Select(type => new Choice(type.Code, Names.ModuleType(type))).ToList();
         ScopeNote = !Workspace.Scope.IsNarrowed
             ? ""
             : choices.Count == 0
-                ? "None of your selected engineers offers this blueprint, so it cannot be added from here. Turn Only my engineers off on the engineers page to plan it anyway; the plan will warn that nobody you ticked can roll it."
+                ? Strings.Get(Keys.Blueprint_ScopeNobodyOffers)
                 : Workspace.Scope.Note;
         if (!choices.SequenceEqual(ModuleTypeChoices))
         {

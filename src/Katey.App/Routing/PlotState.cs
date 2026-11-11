@@ -1,4 +1,6 @@
 ﻿using Katey.App.Network;
+using Katey.App.Text;
+using Katey.App.ViewModels;
 using Katey.Core.Routing;
 using Microsoft.Extensions.Logging;
 
@@ -20,6 +22,7 @@ public sealed class PlotState
     private readonly ILogger _logger;
     private readonly NetworkAccess _access;
     private CancellationTokenSource? _running;
+    private Outcome _outcome = new(OutcomeKind.None);
 
     /// <summary>Creates the state.</summary>
     /// <param name="plotter">Who plots.</param>
@@ -59,7 +62,15 @@ public sealed class PlotState
     public PlottedRoute? Route { get; private set; }
 
     /// <summary>Gets one line on the last plot: what is happening, or why it failed. Empty when nothing has been asked.</summary>
-    public string Status { get; private set; } = "";
+    public string Status => _outcome.Kind switch
+    {
+        OutcomeKind.Asking => Strings.Format(Keys.Plot_Asking, ("from", _outcome.From), ("to", _outcome.To)),
+        OutcomeKind.Plotted => Strings.Format(Keys.Plot_Plotted, ("jumps", Display.Plural(Keys.Plural_Jumps, _outcome.Route!.Jumps)), ("from", _outcome.Route.Source), ("to", _outcome.Route.Destination)),
+        OutcomeKind.Cancelled => Strings.Get(Keys.Plot_Cancelled),
+        OutcomeKind.Failed => Describe(_outcome.Failure!),
+        OutcomeKind.None => "",
+        _ => "",
+    };
 
     /// <summary>Gets whether a plot is running.</summary>
     public bool IsBusy => _running is not null;
@@ -76,7 +87,7 @@ public sealed class PlotState
 
         var cancellation = new CancellationTokenSource();
         _running = cancellation;
-        Status = $"Asking Spansh for a route from {request.Source} to {request.Destination}…";
+        _outcome = new(OutcomeKind.Asking, request.Source, request.Destination);
         Changed?.Invoke(this, EventArgs.Empty);
         _ = RunAsync(request, cancellation);
     }
@@ -96,7 +107,7 @@ public sealed class PlotState
     {
         Cancel();
         Route = route;
-        Status = "";
+        _outcome = new(OutcomeKind.None);
         Changed?.Invoke(this, EventArgs.Empty);
     }
 
@@ -104,10 +115,10 @@ public sealed class PlotState
     public void Clear()
     {
         Cancel();
-        if (Route is not null || Status.Length > 0)
+        if (Route is not null || _outcome.Kind != OutcomeKind.None)
         {
             Route = null;
-            Status = "";
+            _outcome = new(OutcomeKind.None);
             Changed?.Invoke(this, EventArgs.Empty);
         }
     }
@@ -115,20 +126,20 @@ public sealed class PlotState
     private async Task RunAsync(PlotRequest request, CancellationTokenSource cancellation)
     {
         PlottedRoute? route = null;
-        string status;
+        Outcome outcome;
         try
         {
             route = await _plotter.PlotAsync(request, cancellation.Token).ConfigureAwait(false);
-            status = $"Plotted {route.Jumps} jumps from {route.Source} to {route.Destination}.";
+            outcome = new(OutcomeKind.Plotted, Route: route);
         }
         catch (OperationCanceledException)
         {
-            status = "Plot cancelled.";
+            outcome = new(OutcomeKind.Cancelled);
         }
         catch (RoutePlotException exception)
         {
             Log.PlotFailed(_logger, request.Source, request.Destination, exception);
-            status = exception.Message;
+            outcome = new(OutcomeKind.Failed, Failure: exception);
         }
 
         _dispatch(() =>
@@ -145,8 +156,32 @@ public sealed class PlotState
                 Route = route;
             }
 
-            Status = status;
+            _outcome = outcome;
             Changed?.Invoke(this, EventArgs.Empty);
         });
     }
+
+    private static string Describe(RoutePlotException failure)
+        => failure.Failure switch
+        {
+            PlotFailure.Unreachable => Strings.Get(Keys.Spansh_Unreachable),
+            PlotFailure.NoJob => Strings.Get(Keys.Spansh_NoJob),
+            PlotFailure.StillWorking => Strings.Format(Keys.Spansh_StillWorking, ("seconds", failure.Waited?.TotalSeconds ?? 0)),
+            PlotFailure.Rejected => failure.PlotterError is null
+                            ? Strings.Get(Keys.Spansh_CouldNotPlot)
+                            : failure.HttpCode is { } code ? Strings.Format(Keys.Spansh_Http, ("error", failure.PlotterError), ("code", code)) : failure.PlotterError,
+            _ => failure.Message,
+        };
+
+    private enum OutcomeKind
+    {
+        None,
+        Asking,
+        Plotted,
+        Cancelled,
+        Failed,
+    }
+
+    /// <summary>What the last plot did, kept as facts so <see cref="Status"/> can be worded in whatever language is in force when it is read.</summary>
+    private sealed record Outcome(OutcomeKind Kind, string From = "", string To = "", PlottedRoute? Route = null, RoutePlotException? Failure = null);
 }
