@@ -170,11 +170,12 @@ The rail follows the game along the right edge of the window. It shows:
 
 The rail picks the route or the bodies by itself. It shows the bodies from the moment you arrive, with one
 line above them on the route: the next jump, how many jumps are left and where the route ends. It switches to
-the route while the drive is charging to jump and while you are in hyperspace, until the moment you arrive at
-the next star. The game clears a route in the middle of its last jump, and the rail keeps showing that jump
-until it is made. What you have targeted does not move the rail: the game targets the next jump by itself on
-every arrival along a route, so a targeted system says nothing about whether you are exploring here. The
-useful section is up without a click.
+the route when the drive charges to jump and keeps it until the moment you arrive at the next star. In
+supercruise a charge can only be a jump, so the rail switches at once; in normal space the same charge may be
+for supercruise, so the rail waits for the jump's countdown. The game clears a route in the middle of its last
+jump, and the rail keeps showing that jump until it is made. What you have targeted does not move the rail:
+the game targets the next jump by itself on every arrival along a route, so a targeted system says nothing
+about whether you are exploring here. The useful section is up without a click.
 
 Target a system that is not on your plotted route and the game re-plots its route through it, but it does not
 rewrite its route file at once. The rail and the Route page say "Re-routed through" that system, with the

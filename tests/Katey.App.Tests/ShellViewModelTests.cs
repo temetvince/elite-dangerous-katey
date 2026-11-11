@@ -614,8 +614,17 @@ public sealed class ShellViewModelTests
         Assert.Equal("Route · 3 jumps left", rail.RouteHeading);
         Assert.StartsWith("Re-routed through Birpinovit, 3 jumps to Sol.", Phrase.Plain(rail.RouteRestParts), StringComparison.Ordinal);
         Assert.Equal("Next jump Birpinovit, 3 jumps left to Sol.", Phrase.Plain(rail.RouteSummaryParts));
-        // The drive charging shows the route whatever is targeted.
+        // The drive charging in normal space may be for supercruise, so the bodies stay; the journal's countdown to a
+        // hyperspace jump brings the route up, and so does a charge in supercruise, which can only be a jump.
         monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-05T20:00:10Z","event":"FSDTarget","Name":"Sol","StarClass":"G"}""");
+        monitor.Status = new ShipStatus(DateTimeOffset.UtcNow, 0x20000, null, null, 15.0);
+        rail.Refresh();
+        Assert.True(rail.ShowsBodies);
+        monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-05T20:00:10Z","event":"StartJump","JumpType":"Supercruise"}""");
+        Assert.True(rail.ShowsBodies);
+        monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-05T20:00:10Z","event":"StartJump","JumpType":"Hyperspace","StarSystem":"Sol","SystemAddress":1,"StarClass":"G"}""");
+        Assert.True(rail.ShowsRoute);
+        monitor.Feed(/*lang=json,strict*/ """{"timestamp":"2026-11-05T20:00:10Z","event":"FSDJump","StarSystem":"Koine","SystemAddress":9,"StarPos":[107.40625,-40.59375,-71.5625]}""");
         monitor.Status = new ShipStatus(DateTimeOffset.UtcNow, 0x20010, null, null, 15.0);
         rail.Refresh();
         Assert.True(rail.ShowsRoute);

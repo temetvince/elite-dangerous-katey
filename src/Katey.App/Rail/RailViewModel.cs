@@ -310,7 +310,7 @@ public sealed class RailViewModel : ObservableObject
 
     /// <summary>
     /// Gets whether the rail is showing the route rather than this system's bodies: a route is plotted, and
-    /// the drive is charging to jump or the ship is in hyperspace. From arrival until the next charge the
+    /// the drive is charging to jump or the ship is in hyperspace. From arrival until the next jump the
     /// bodies show, with the route kept to <see cref="RouteSummaryParts"/> above them. The rail switches by
     /// itself, so the useful section is up without a click.
     /// </summary>
@@ -500,16 +500,18 @@ public sealed class RailViewModel : ObservableObject
 
     /// <summary>
     /// Picks the route or the bodies. The route while the drive is charging to jump or the ship is in
-    /// hyperspace, by the status file's flags or by the journal's <c>StartJump</c> until its <c>FSDJump</c>;
-    /// the bodies otherwise, from the moment of arrival. What is targeted does not count: the game targets
-    /// the next jump by itself on every arrival along a route, so a targeted system says nothing about
-    /// whether you are exploring here. The route stays in one line above the bodies meanwhile.
+    /// hyperspace; the bodies otherwise, from the moment of arrival. A charge counts only in supercruise,
+    /// where it can be nothing but a jump: in normal space the same flag charges for supercruise, so there
+    /// the rail waits for the journal's <c>StartJump</c> with a hyperspace jump type, written as the
+    /// countdown begins, and that holds until its <c>FSDJump</c>. What is targeted does not count: the game
+    /// targets the next jump by itself on every arrival along a route, so a targeted system says nothing
+    /// about whether you are exploring here. The route stays in one line above the bodies meanwhile.
     /// </summary>
     private void RefreshFocus()
     {
         var progress = _workspace.Route;
         var status = _workspace.Monitor.Status;
-        var charging = status is { IsFsdCharging: true, IsDocked: false, IsLanded: false };
+        var charging = status is { IsFsdCharging: true, IsInSupercruise: true };
         var jumping = status is { IsInHyperspace: true } || progress.InHyperspace;
         var before = ShowsRoute;
         ShowsRoute = HasRoute && (charging || jumping);
