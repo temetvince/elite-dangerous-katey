@@ -2424,12 +2424,20 @@ Off, everything is offered and grades start at the top. The plan still warns abo
     <comment>Small label above the settings page's title.</comment>
   </data>
   <data name="Settings.NetworkText" xml:space="preserve">
-    <value>Nothing leaves this machine unless you tick it here. A route plot sends Spansh the two system names and the ship's jump numbers: masses, tank sizes and the drive's figures. A system lookup sends Spansh the id of the system you have arrived in and brings back the bodies it knows there. Every request names Katey, its version and the project's address.</value>
+    <value>Nothing leaves this machine unless you tick it here. A route plot sends Spansh the two system names and the ship's jump numbers: masses, tank sizes and the drive's figures. A system lookup sends Spansh the id of the system you have arrived in and brings back the bodies it knows there. A release check asks GitHub for the project's latest release and sends nothing but the request. Every request names Katey, its version and the project's address.</value>
     <comment>Settings page: the outgoing connections explanation.</comment>
   </data>
   <data name="Settings.NotWatching" xml:space="preserve">
     <value>Not watching. Press Watch to read the journal.</value>
     <comment>Settings page watch status; 'Watch' names the button Settings.Watch.</comment>
+  </data>
+  <data name="Settings.UpdateText" xml:space="preserve">
+    <value>A check asks GitHub for the project's latest release and compares its version with this one. Nothing is downloaded or installed: the release page opens in your browser, where the new build is.</value>
+    <comment>Settings page: the updates explanation.</comment>
+  </data>
+  <data name="Settings.Version" xml:space="preserve">
+    <value>You are running Katey {version}.</value>
+    <comment>Settings page: the version line; {version} is this build's version, such as 1.4.0.</comment>
   </data>
   <data name="Settings.Watching" xml:space="preserve">
     <value>Watching. Everything updates as the game writes its journal.</value>
@@ -3498,6 +3506,38 @@ Off, everything is offered and grades start at the top. The plan still warns abo
   <data name="Unlocks.Title" xml:space="preserve">
     <value>Technology broker unlocks</value>
     <comment>Unlocks page title.</comment>
+  </data>
+  <data name="Update.Available" xml:space="preserve">
+    <value>Katey {latest} is available.</value>
+    <comment>Settings page: the update status when a newer release exists; {latest} is its version, such as 1.4.0.</comment>
+  </data>
+  <data name="Update.Checking" xml:space="preserve">
+    <value>Asking GitHub for the latest release…</value>
+    <comment>Settings page: the update status while the check runs.</comment>
+  </data>
+  <data name="Update.Http" xml:space="preserve">
+    <value>GitHub answered HTTP {code} to the release check.</value>
+    <comment>Settings page: the update status when the release check fails; {code} is the HTTP status.</comment>
+  </data>
+  <data name="Update.NotAllowed" xml:space="preserve">
+    <value>Katey does not look for newer releases until you tick that switch under Outgoing connections.</value>
+    <comment>Settings page: the update status while the release check switch is off.</comment>
+  </data>
+  <data name="Update.TimedOut" xml:space="preserve">
+    <value>GitHub took too long to answer the release check.</value>
+    <comment>Settings page: the update status when the release check times out.</comment>
+  </data>
+  <data name="Update.Unreachable" xml:space="preserve">
+    <value>GitHub could not be reached for the release check.</value>
+    <comment>Settings page: the update status when the release check cannot connect.</comment>
+  </data>
+  <data name="Update.Unreadable" xml:space="preserve">
+    <value>GitHub's answer to the release check could not be read.</value>
+    <comment>Settings page: the update status when the release check's answer is not a release.</comment>
+  </data>
+  <data name="Update.UpToDate" xml:space="preserve">
+    <value>This is the latest release.</value>
+    <comment>Settings page: the update status when the build running is the latest release or newer.</comment>
   </data>
   <data name="Value.Carto" xml:space="preserve">
     <value>Cartographics about {credits} as scanned</value>

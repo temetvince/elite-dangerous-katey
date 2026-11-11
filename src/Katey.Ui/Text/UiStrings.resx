@@ -782,6 +782,10 @@
     <value>Ask Spansh for routes</value>
     <comment>Settings page: network switch.</comment>
   </data>
+  <data name="Settings.AskUpdates" xml:space="preserve">
+    <value>Ask GitHub for a newer release</value>
+    <comment>Settings page: network switch. While on, Katey checks once at startup and the Check now button works.</comment>
+  </data>
   <data name="Settings.BackUpNow" xml:space="preserve">
     <value>Back up now</value>
     <comment>Settings page: button that runs the backup.</comment>
@@ -793,6 +797,10 @@
   <data name="Settings.BackupPlaceholder" xml:space="preserve">
     <value>A folder to copy the journal folder into, such as one OneDrive syncs</value>
     <comment>Settings page: placeholder of the backup folder box.</comment>
+  </data>
+  <data name="Settings.CheckNow" xml:space="preserve">
+    <value>Check now</value>
+    <comment>Button: asks GitHub for the latest release.</comment>
   </data>
   <data name="Settings.Detect" xml:space="preserve">
     <value>Detect</value>
@@ -814,6 +822,10 @@
     <value>Journal folder</value>
     <comment>Settings page: heading, in capitals.</comment>
   </data>
+  <data name="Settings.OpenRelease" xml:space="preserve">
+    <value>Open the release page</value>
+    <comment>Button: opens the newer release's page in the browser.</comment>
+  </data>
   <data name="Settings.Outgoing" xml:space="preserve">
     <value>Outgoing connections</value>
     <comment>Settings page: heading over the network switches, in capitals.</comment>
@@ -829,6 +841,10 @@
   <data name="Settings.Stop" xml:space="preserve">
     <value>Stop</value>
     <comment>Settings page: button that stops following the journal. One word.</comment>
+  </data>
+  <data name="Settings.Updates" xml:space="preserve">
+    <value>Updates</value>
+    <comment>Settings page: heading over the version line and the release check, in capitals.</comment>
   </data>
   <data name="Settings.Watch" xml:space="preserve">
     <value>Watch</value>

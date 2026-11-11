@@ -601,6 +601,9 @@
   <data name="Settings.AskRoutes" xml:space="preserve">
     <value>Запрашивать маршруты у Spansh</value>
   </data>
+  <data name="Settings.AskUpdates" xml:space="preserve">
+    <value>Запрашивать у GitHub новый выпуск</value>
+  </data>
   <data name="Settings.BackUpNow" xml:space="preserve">
     <value>Создать копию сейчас</value>
   </data>
@@ -609,6 +612,9 @@
   </data>
   <data name="Settings.BackupPlaceholder" xml:space="preserve">
     <value>Папка, куда копировать папку журналов, например синхронизируемая OneDrive</value>
+  </data>
+  <data name="Settings.CheckNow" xml:space="preserve">
+    <value>Проверить сейчас</value>
   </data>
   <data name="Settings.Detect" xml:space="preserve">
     <value>Найти</value>
@@ -625,6 +631,9 @@
   <data name="Settings.JournalFolder" xml:space="preserve">
     <value>Папка журналов</value>
   </data>
+  <data name="Settings.OpenRelease" xml:space="preserve">
+    <value>Открыть страницу выпуска</value>
+  </data>
   <data name="Settings.Outgoing" xml:space="preserve">
     <value>Исходящие соединения</value>
   </data>
@@ -636,6 +645,9 @@
   </data>
   <data name="Settings.Stop" xml:space="preserve">
     <value>Стоп</value>
+  </data>
+  <data name="Settings.Updates" xml:space="preserve">
+    <value>Обновления</value>
   </data>
   <data name="Settings.Watch" xml:space="preserve">
     <value>Следить</value>

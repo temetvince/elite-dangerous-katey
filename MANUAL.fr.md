@@ -7,8 +7,8 @@ Katey est un compagnon de bureau pour Elite Dangerous. Il lit les fichiers journ
 propre machine et vous suit pendant que vous jouez. Il planifie l'ingénierie d'après les matériaux que vous
 détenez réellement. Il compare vos builds de vaisseau enregistrés aux vaisseaux et aux modules que vous
 possédez. Il suit votre itinéraire et le système où vous êtes, et lit votre historique comme un registre. Rien
-ne quitte votre machine tant que vous n'activez pas le traceur d'itinéraire Spansh, et alors seulement quand
-vous appuyez sur Tracer.
+ne quitte votre machine tant que vous ne l'autorisez pas dans les Paramètres, où chaque connexion sortante
+est désactivée au départ.
 
 ## Sommaire
 
@@ -685,9 +685,16 @@ Votre historique de journal lu comme un registre. Ses sections :
   laissées telles quelles. Deux machines pointées vers un même dossier synchronisé partagent un seul plan,
   un seul jeu d'ingénieurs et un seul jeu de configurations.
 - **Connexions sortantes.** Le seul endroit qui décide de ce que Katey peut envoyer sur le réseau, un
-  interrupteur par sorte de requête, chacun désactivé tant que vous ne le cochez pas. Il y a deux sortes,
-  toutes deux vers [Spansh](https://spansh.co.uk/) : demander un itinéraire quand vous appuyez sur
-  **Tracer**, et demander les corps du système où vous venez d'arriver. Les interrupteurs sont mémorisés.
+  interrupteur par sorte de requête, chacun désactivé tant que vous ne le cochez pas. Il y a trois sortes.
+  Deux vont vers [Spansh](https://spansh.co.uk/) : demander un itinéraire quand vous appuyez sur
+  **Tracer**, et demander les corps du système où vous venez d'arriver. La troisième va vers
+  [GitHub](https://github.com/temetvince/elite-dangerous-katey/releases) et demande la dernière version publiée
+  de Katey. Les interrupteurs sont mémorisés.
+- **Mises à jour.** La version que vous utilisez et, l'interrupteur GitHub coché, s'il existe une version plus
+  récente. Katey demande une fois au démarrage et chaque fois que vous appuyez sur **Vérifier maintenant**,
+  en arrière-plan, si bien que le démarrage ne prend pas plus de temps. Quand une version plus récente
+  existe, **Ouvrir la page de la version** l'ouvre dans votre navigateur ; rien n'est téléchargé ni installé
+  pour vous.
 
 ## Travailler avec EDSY
 
@@ -766,12 +773,14 @@ compris. Quand une mise à jour retire ou renomme un paramètre, Katey abandonne
 la valeur par défaut, le fichier ne porte donc jamais de paramètre que rien ne lit.
 
 Katey lit les fichiers journaux localement et n'envoie rien nulle part tant que vous ne l'autorisez pas sous
-**Connexions sortantes** dans les [Paramètres](#paramètres), où tout est désactivé au départ. Deux sortes de
-requête existent, toutes deux vers [Spansh](https://spansh.co.uk/) : quand vous appuyez sur **Tracer**, deux
+**Connexions sortantes** dans les [Paramètres](#paramètres), où tout est désactivé au départ. Trois sortes de
+requête existent. Deux vont vers [Spansh](https://spansh.co.uk/) : quand vous appuyez sur **Tracer**, deux
 noms de système et les chiffres de saut du vaisseau ; et, à l'arrivée dans un système, l'identifiant de ce
-système, qui rapporte les corps que Spansh y connaît. Chaque requête indique Katey, sa version et l'adresse du
-projet, comme Spansh le demande aux outils qui utilisent son service. La sauvegarde des journaux ne copie les
-fichiers que vers le dossier que vous choisissez.
+système, qui rapporte les corps que Spansh y connaît. La troisième va vers GitHub quand Katey démarre et quand
+vous appuyez sur **Vérifier maintenant** : une requête pour la dernière version publiée du projet, qui ne
+porte rien de vous. Chaque requête indique Katey, sa version et l'adresse du projet, comme Spansh le demande
+aux outils qui utilisent son service. La sauvegarde des journaux ne copie les fichiers que vers le dossier que
+vous choisissez.
 
 Katey garde aussi un fichier de log, `katey.log`, à côté du `state.json` par défaut sous votre dossier de
 données d'application local. Il enregistre ce que Katey a fait et ce qui a mal tourné : les démarrages et les

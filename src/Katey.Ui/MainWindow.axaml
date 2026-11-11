@@ -1807,7 +1807,20 @@
                         <TextBlock Classes="col" Text="{loc:T Settings.Outgoing, Upper=True}" />
                         <CheckBox Content="{loc:T Settings.AskRoutes}" IsChecked="{Binding AllowSpansh, Mode=TwoWay}" />
                         <CheckBox Content="{loc:T Settings.AskBodies}" IsChecked="{Binding AllowSpanshBodies, Mode=TwoWay}" />
+                        <CheckBox Content="{loc:T Settings.AskUpdates}" IsChecked="{Binding AllowUpdateCheck, Mode=TwoWay}" />
                         <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding NetworkText}" />
+                      </StackPanel>
+                    </Border>
+                    <Border Classes="panel">
+                      <StackPanel Spacing="8">
+                        <TextBlock Classes="col" Text="{loc:T Settings.Updates, Upper=True}" />
+                        <Grid ColumnDefinitions="*,8,Auto,8,Auto">
+                          <TextBlock Grid.Column="0" Classes="body" Text="{Binding VersionText}" VerticalAlignment="Center" />
+                          <Button Grid.Column="2" Content="{loc:T Settings.CheckNow}" Command="{Binding CheckUpdatesCommand}" />
+                          <Button Grid.Column="4" Classes="primary" Content="{loc:T Settings.OpenRelease}" Click="OpenReleasePage" IsVisible="{Binding IsUpdateAvailable}" />
+                        </Grid>
+                        <TextBlock Classes="body" TextWrapping="Wrap" Text="{Binding UpdateStatus}" IsVisible="{Binding !!UpdateStatus.Length}" />
+                        <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding UpdateText}" />
                       </StackPanel>
                     </Border>
                   </StackPanel>

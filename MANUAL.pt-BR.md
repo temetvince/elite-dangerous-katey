@@ -7,7 +7,7 @@ O Katey é um companheiro de desktop para Elite Dangerous. Ele lê os arquivos d
 própria máquina e acompanha você enquanto joga. Planeja a engenharia contra os materiais que você realmente
 tem. Confere as builds de nave salvas contra as naves e os módulos que você possui. Segue a sua rota e o
 sistema em que você está, e lê o seu histórico como um livro-caixa. Nada sai da sua máquina a menos que você
-ligue o traçador de rotas do Spansh, e mesmo então só quando você pressiona Traçar.
+permita em Ajustes, onde toda conexão de saída começa desligada.
 
 ## Sumário
 
@@ -641,9 +641,14 @@ Seu histórico de diário lido como um livro-caixa. Suas seções:
   máquinas apontadas para uma mesma pasta sincronizada compartilham um só plano, um só conjunto de
   engenheiros e um só conjunto de montagens.
 - **Conexões de saída.** O único lugar que decide o que o Katey pode enviar pela rede, uma chave por tipo de
-  pedido, todas desligadas até você marcá-las. Há dois tipos, ambos para o [Spansh](https://spansh.co.uk/):
+  pedido, todas desligadas até você marcá-las. Há três tipos. Dois vão para o [Spansh](https://spansh.co.uk/):
   pedir uma rota quando você pressiona **Traçar**, e perguntar sobre os corpos do sistema em que você acabou
-  de chegar. As chaves são lembradas.
+  de chegar. O terceiro vai para o [GitHub](https://github.com/temetvince/elite-dangerous-katey/releases) e
+  pede a última versão publicada do Katey. As chaves são lembradas.
+- **Atualizações.** A versão que você está usando e, com a chave do GitHub ligada, se existe uma versão mais
+  nova. O Katey pergunta uma vez ao iniciar e sempre que você pressiona **Verificar agora**, em segundo plano,
+  então iniciar não demora mais. Quando há uma versão mais nova, **Abrir a página da versão** a abre no seu
+  navegador; nada é baixado nem instalado por você.
 
 ## Trabalhando com o EDSY
 
@@ -716,11 +721,13 @@ qualquer lugar, uma pasta sincronizada inclusive. Quando uma atualização apose
 Katey descarta o valor antigo e parte do padrão, para que o arquivo nunca carregue ajustes que nada lê.
 
 O Katey lê os arquivos de diário localmente e não envia nada a lugar nenhum a menos que você permita em
-**Conexões de saída** em [Ajustes](#ajustes), onde tudo começa desligado. Existem dois tipos de pedido, ambos
-para o [Spansh](https://spansh.co.uk/): quando você pressiona **Traçar**, dois nomes de sistema e os números
-de salto da nave; e, ao chegar a um sistema, o id desse sistema, que traz de volta os corpos que o Spansh
-conhece lá. Cada pedido informa o Katey, sua versão e o endereço do projeto, como o Spansh pede às ferramentas
-que usam o serviço dele. O backup do diário copia arquivos só para a pasta que você escolher.
+**Conexões de saída** em [Ajustes](#ajustes), onde tudo começa desligado. Existem três tipos de pedido. Dois
+vão para o [Spansh](https://spansh.co.uk/): quando você pressiona **Traçar**, dois nomes de sistema e os
+números de salto da nave; e, ao chegar a um sistema, o id desse sistema, que traz de volta os corpos que o
+Spansh conhece lá. O terceiro vai para o GitHub quando o Katey inicia e quando você pressiona **Verificar
+agora**: um pedido da última versão publicada do projeto, que não leva nada seu. Cada pedido informa o Katey,
+sua versão e o endereço do projeto, como o Spansh pede às ferramentas que usam o serviço dele. O backup do
+diário copia arquivos só para a pasta que você escolher.
 
 O Katey também guarda um log, `katey.log`, ao lado do `state.json` padrão na sua pasta de dados locais de
 aplicativos. Ele registra o que o Katey fez e o que deu errado: início e parada, a pasta de diários que

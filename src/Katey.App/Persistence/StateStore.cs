@@ -21,6 +21,7 @@ namespace Katey.App.Persistence;
 /// <param name="BackupOnClose">Whether the backup runs when the app closes.</param>
 /// <param name="Reserves">The material reserves: how many of each to keep and which never to trade. <see langword="null"/> reads as none.</param>
 /// <param name="AllowSpanshBodies">Whether Katey may ask Spansh about the bodies of the system the ship is in.</param>
+/// <param name="AllowUpdateCheck">Whether Katey may ask GitHub for its latest release.</param>
 public sealed record PersistedState(
     IReadOnlyList<PlanEntry> Plan,
     IReadOnlyList<long> EngineerIds,
@@ -34,7 +35,8 @@ public sealed record PersistedState(
     string? BackupFolder = null,
     bool BackupOnClose = true,
     IReadOnlyList<MaterialReserve>? Reserves = null,
-    bool AllowSpanshBodies = false)
+    bool AllowSpanshBodies = false,
+    bool AllowUpdateCheck = false)
 {
     /// <summary>Gets a state with nothing planned, nobody selected, no folder chosen and no fits.</summary>
     public static PersistedState Empty { get; } = new([], [], null, [], SharingPolicy.Pooled);

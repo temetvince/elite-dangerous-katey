@@ -1668,6 +1668,12 @@ public static class Keys
     /// <summary><c>Settings.NotWatching</c>.</summary>
     public const string Settings_NotWatching = "Settings.NotWatching";
 
+    /// <summary><c>Settings.UpdateText</c>.</summary>
+    public const string Settings_UpdateText = "Settings.UpdateText";
+
+    /// <summary><c>Settings.Version</c>.</summary>
+    public const string Settings_Version = "Settings.Version";
+
     /// <summary><c>Settings.Watching</c>.</summary>
     public const string Settings_Watching = "Settings.Watching";
 
@@ -2447,6 +2453,30 @@ public static class Keys
 
     /// <summary><c>Unlocks.Title</c>.</summary>
     public const string Unlocks_Title = "Unlocks.Title";
+
+    /// <summary><c>Update.Available</c>.</summary>
+    public const string Update_Available = "Update.Available";
+
+    /// <summary><c>Update.Checking</c>.</summary>
+    public const string Update_Checking = "Update.Checking";
+
+    /// <summary><c>Update.Http</c>.</summary>
+    public const string Update_Http = "Update.Http";
+
+    /// <summary><c>Update.NotAllowed</c>.</summary>
+    public const string Update_NotAllowed = "Update.NotAllowed";
+
+    /// <summary><c>Update.TimedOut</c>.</summary>
+    public const string Update_TimedOut = "Update.TimedOut";
+
+    /// <summary><c>Update.Unreachable</c>.</summary>
+    public const string Update_Unreachable = "Update.Unreachable";
+
+    /// <summary><c>Update.Unreadable</c>.</summary>
+    public const string Update_Unreadable = "Update.Unreadable";
+
+    /// <summary><c>Update.UpToDate</c>.</summary>
+    public const string Update_UpToDate = "Update.UpToDate";
 
     /// <summary><c>Value.Carto</c>.</summary>
     public const string Value_Carto = "Value.Carto";

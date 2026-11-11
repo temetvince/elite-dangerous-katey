@@ -1,4 +1,5 @@
 ﻿using Katey.App.Exploration;
+using Katey.App.Network;
 using Katey.App.Persistence;
 using Katey.App.Routing;
 using Katey.Core.Exploration;
@@ -73,6 +74,26 @@ internal sealed class FakeSystemCatalog : ISystemCatalog
         return Failure is { } reason
             ? Task.FromException<IReadOnlyList<CataloguedBody>>(new SystemCatalogException(reason))
             : Task.FromResult(Bodies.GetValueOrDefault(systemAddress) ?? (IReadOnlyList<CataloguedBody>)[]);
+    }
+}
+
+/// <summary>A release feed that answers with the release the test sets, or fails as told, and counts the asks.</summary>
+internal sealed class FakeReleaseFeed : IReleaseFeed
+{
+    public Release Latest { get; set; } = new(new Version(1, 4, 0), "1.4.0", new Uri("https://github.com/temetvince/elite-dangerous-katey/releases/tag/v1.4.0"));
+
+    public ReleaseLookupFailure? Failure { get; set; }
+
+    public int? HttpCode { get; set; }
+
+    public int Requests { get; private set; }
+
+    public Task<Release> LatestAsync(CancellationToken cancellationToken)
+    {
+        Requests++;
+        return Failure is { } reason
+            ? Task.FromException<Release>(new ReleaseFeedException(reason, HttpCode))
+            : Task.FromResult(Latest);
     }
 }
 

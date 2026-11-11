@@ -29,9 +29,9 @@ public sealed class SpanshPlotterTests
         var request = Assert.Single(handler.Requests);
         Assert.Equal(SpanshPlotter.SubmitUrl, request.Url);
         Assert.StartsWith("Katey/", request.UserAgent, StringComparison.Ordinal);
-        Assert.Contains(SpanshPlotter.ProjectUrl, request.UserAgent, StringComparison.Ordinal);
+        Assert.Contains(AppVersion.ProjectUrl, request.UserAgent, StringComparison.Ordinal);
         Assert.DoesNotContain("Something", request.UserAgent, StringComparison.Ordinal);
-        Assert.Equal(SpanshPlotter.UserAgent, request.UserAgent);
+        Assert.Equal(AppVersion.UserAgent, request.UserAgent);
     }
 
     private sealed record Sent(string Url, string UserAgent);

@@ -275,6 +275,14 @@ public sealed partial class MainWindow : Window
         }
     }
 
+    private async void OpenReleasePage(object? sender, RoutedEventArgs args)
+    {
+        if (Shell?.Navigator.Current is SettingsPage { ReleasePage: { } page })
+        {
+            await Launcher.LaunchUriAsync(page);
+        }
+    }
+
     private async Task<string?> PickFolderAsync(string title)
     {
         var folders = await StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions

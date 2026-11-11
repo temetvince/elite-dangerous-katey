@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using System.Reflection;
 using Katey.Core.Routing;
 using Microsoft.Extensions.Logging;
 
@@ -20,21 +19,11 @@ public sealed class SpanshPlotter : IRoutePlotter
     /// <summary>Where a job's result is read, with the job id appended.</summary>
     public const string ResultsUrl = "https://spansh.co.uk/api/results/";
 
-    /// <summary>Where Spansh, or anyone reading their logs, can find out what Katey is.</summary>
-    public const string ProjectUrl = "https://github.com/temetvince/elite-dangerous-katey";
-
-    /// <summary>
-    /// Gets the user agent every request carries, as Spansh asks of tools that use its API: Katey's name, its
-    /// version and the project's address, such as <c>Katey/1.2.0 (+https://github.com/temetvince/elite-dangerous-katey)</c>.
-    /// The version is the assembly's informational version with any build metadata dropped.
-    /// </summary>
-    public static string UserAgent { get; } = $"Katey/{Version()} (+{ProjectUrl})";
-
     private readonly HttpClient _http;
     private readonly ILogger<SpanshPlotter> _logger;
 
     /// <summary>Creates the plotter over an HTTP client.</summary>
-    /// <param name="http">The client. Not disposed here. Its user agent is replaced by <see cref="UserAgent"/>.</param>
+    /// <param name="http">The client. Not disposed here. Its user agent is replaced by <see cref="AppVersion.UserAgent"/>.</param>
     /// <param name="logger">Where requests and failures go.</param>
     public SpanshPlotter(HttpClient http, ILogger<SpanshPlotter> logger)
     {
@@ -43,14 +32,7 @@ public sealed class SpanshPlotter : IRoutePlotter
         _http = http;
         _logger = logger;
         _http.DefaultRequestHeaders.UserAgent.Clear();
-        _http.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
-    }
-
-    private static string Version()
-    {
-        var informational = typeof(SpanshPlotter).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "1.0.0";
-        var plus = informational.IndexOf('+', StringComparison.Ordinal);
-        return plus > 0 ? informational[..plus] : informational;
+        _http.DefaultRequestHeaders.UserAgent.ParseAdd(AppVersion.UserAgent);
     }
 
     /// <summary>Gets or sets how long to wait between polls of a queued job.</summary>

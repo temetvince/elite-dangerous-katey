@@ -1833,10 +1833,16 @@ Desactivado: se ofrece todo y los grados empiezan en el máximo. El plan sigue a
     <value>Diario</value>
   </data>
   <data name="Settings.NetworkText" xml:space="preserve">
-    <value>Nada sale de esta máquina salvo que lo marques aquí. Un trazado de ruta envía a Spansh los dos nombres de sistema y las cifras de salto de la nave: masas, tamaño del depósito y las cifras del motor. Una consulta de sistema envía a Spansh el identificador del sistema al que has llegado y trae los cuerpos que conoce allí. Cada petición indica Katey, su versión y la dirección del proyecto.</value>
+    <value>Nada sale de esta máquina salvo que lo marques aquí. Un trazado de ruta envía a Spansh los dos nombres de sistema y las cifras de salto de la nave: masas, tamaño del depósito y las cifras del motor. Una consulta de sistema envía a Spansh el identificador del sistema al que has llegado y trae los cuerpos que conoce allí. Una comprobación de versión pide a GitHub la última versión publicada del proyecto y no envía nada más que la propia petición. Cada petición indica Katey, su versión y la dirección del proyecto.</value>
   </data>
   <data name="Settings.NotWatching" xml:space="preserve">
     <value>Sin seguimiento. Pulsa Seguir para leer el diario.</value>
+  </data>
+  <data name="Settings.UpdateText" xml:space="preserve">
+    <value>Una comprobación pide a GitHub la última versión publicada del proyecto y compara su número con este. No se descarga ni se instala nada: la página de la versión se abre en tu navegador, donde está la nueva compilación.</value>
+  </data>
+  <data name="Settings.Version" xml:space="preserve">
+    <value>Estás usando Katey {version}.</value>
   </data>
   <data name="Settings.Watching" xml:space="preserve">
     <value>Siguiendo. Todo se actualiza a medida que el juego escribe su diario.</value>
@@ -2638,6 +2644,30 @@ Desactivado: se ofrece todo y los grados empiezan en el máximo. El plan sigue a
   </data>
   <data name="Unlocks.Title" xml:space="preserve">
     <value>Desbloqueos de intermediario tecnológico</value>
+  </data>
+  <data name="Update.Available" xml:space="preserve">
+    <value>Katey {latest} está disponible.</value>
+  </data>
+  <data name="Update.Checking" xml:space="preserve">
+    <value>Pidiendo a GitHub la última versión publicada…</value>
+  </data>
+  <data name="Update.Http" xml:space="preserve">
+    <value>GitHub respondió HTTP {code} a la comprobación de versión.</value>
+  </data>
+  <data name="Update.NotAllowed" xml:space="preserve">
+    <value>Katey no busca versiones más nuevas hasta que marques ese interruptor en Conexiones salientes.</value>
+  </data>
+  <data name="Update.TimedOut" xml:space="preserve">
+    <value>GitHub tardó demasiado en responder a la comprobación de versión.</value>
+  </data>
+  <data name="Update.Unreachable" xml:space="preserve">
+    <value>No se pudo contactar con GitHub para comprobar la versión.</value>
+  </data>
+  <data name="Update.Unreadable" xml:space="preserve">
+    <value>No se pudo leer la respuesta de GitHub a la comprobación de versión.</value>
+  </data>
+  <data name="Update.UpToDate" xml:space="preserve">
+    <value>Esta es la última versión publicada.</value>
   </data>
   <data name="Value.Carto" xml:space="preserve">
     <value>Cartografía unos {credits} como escaneado</value>

@@ -51,6 +51,7 @@ public sealed class Workspace
     /// <param name="store">Where the saved data lives.</param>
     /// <param name="network">What may leave the machine.</param>
     /// <param name="systemBodies">The bodies a catalogue knows for the systems visited this run.</param>
+    /// <param name="updates">Whether a newer Katey is published.</param>
     /// <param name="logger">Where the view models log decisions and what the tables lack.</param>
     public Workspace(
         Catalog catalog,
@@ -69,6 +70,7 @@ public sealed class Workspace
         IStateStore store,
         NetworkAccess network,
         SystemBodiesState systemBodies,
+        UpdateState updates,
         ILogger logger)
     {
         ArgumentNullException.ThrowIfNull(catalog);
@@ -87,11 +89,13 @@ public sealed class Workspace
         ArgumentNullException.ThrowIfNull(store);
         ArgumentNullException.ThrowIfNull(network);
         ArgumentNullException.ThrowIfNull(systemBodies);
+        ArgumentNullException.ThrowIfNull(updates);
         ArgumentNullException.ThrowIfNull(logger);
         Logger = logger;
 
         Network = network;
         SystemBodies = systemBodies;
+        Updates = updates;
         Catalog = catalog;
         Store = store;
         Reserves = reserves;
@@ -179,6 +183,9 @@ public sealed class Workspace
 
     /// <summary>Gets the bodies a catalogue knows for the systems visited this run.</summary>
     public SystemBodiesState SystemBodies { get; }
+
+    /// <summary>Gets whether a newer Katey is published, and the check for one.</summary>
+    public UpdateState Updates { get; }
 
     /// <summary>Gets the route Katey asked a plotter for, and whether asking is allowed.</summary>
     public PlotState Plot { get; }

@@ -601,6 +601,9 @@
   <data name="Settings.AskRoutes" xml:space="preserve">
     <value>Demander des itinéraires à Spansh</value>
   </data>
+  <data name="Settings.AskUpdates" xml:space="preserve">
+    <value>Demander à GitHub une version plus récente</value>
+  </data>
   <data name="Settings.BackUpNow" xml:space="preserve">
     <value>Sauvegarder maintenant</value>
   </data>
@@ -609,6 +612,9 @@
   </data>
   <data name="Settings.BackupPlaceholder" xml:space="preserve">
     <value>Un dossier où copier le dossier des journaux, par exemple un dossier synchronisé par OneDrive</value>
+  </data>
+  <data name="Settings.CheckNow" xml:space="preserve">
+    <value>Vérifier maintenant</value>
   </data>
   <data name="Settings.Detect" xml:space="preserve">
     <value>Détecter</value>
@@ -625,6 +631,9 @@
   <data name="Settings.JournalFolder" xml:space="preserve">
     <value>Dossier des journaux</value>
   </data>
+  <data name="Settings.OpenRelease" xml:space="preserve">
+    <value>Ouvrir la page de la version</value>
+  </data>
   <data name="Settings.Outgoing" xml:space="preserve">
     <value>Connexions sortantes</value>
   </data>
@@ -636,6 +645,9 @@
   </data>
   <data name="Settings.Stop" xml:space="preserve">
     <value>Arrêter</value>
+  </data>
+  <data name="Settings.Updates" xml:space="preserve">
+    <value>Mises à jour</value>
   </data>
   <data name="Settings.Watch" xml:space="preserve">
     <value>Suivre</value>

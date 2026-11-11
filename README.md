@@ -128,7 +128,8 @@ git tag v1.0.0
 git push origin v1.0.0
 ```
 
-The tag's number becomes the build's version, which Katey reports to Spansh in its requests. The publish
+The tag's number becomes the build's version, which Katey names in every request it makes and compares with
+the latest release when the release check is on. The publish
 scripts take the same number from `KATEY_VERSION` and use 1.0.0 without it.
 
 Trimming is left off on purpose: the window's bindings use reflection.

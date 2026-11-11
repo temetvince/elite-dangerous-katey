@@ -40,6 +40,7 @@ public sealed class ShellViewModel : ObservableObject
     /// <param name="sinks">The trackers the monitor feeds.</param>
     /// <param name="plotter">Who plots routes when the user asks and has allowed it.</param>
     /// <param name="systems">Who knows a system's bodies, asked as the ship arrives when the user has allowed it.</param>
+    /// <param name="releases">Who knows Katey's latest release, asked once at startup and on request when the user has allowed it.</param>
     /// <param name="backup">What copies the journal folder to the backup folder.</param>
     /// <param name="dispatch">Runs an action on the UI thread.</param>
     /// <param name="logger">Where lifecycle messages go.</param>
@@ -52,6 +53,7 @@ public sealed class ShellViewModel : ObservableObject
         JournalSinks sinks,
         IRoutePlotter plotter,
         ISystemCatalog systems,
+        IReleaseFeed releases,
         IJournalBackup backup,
         Action<Action> dispatch,
         ILogger<ShellViewModel> logger)
@@ -64,6 +66,7 @@ public sealed class ShellViewModel : ObservableObject
         ArgumentNullException.ThrowIfNull(sinks);
         ArgumentNullException.ThrowIfNull(plotter);
         ArgumentNullException.ThrowIfNull(systems);
+        ArgumentNullException.ThrowIfNull(releases);
         ArgumentNullException.ThrowIfNull(backup);
         ArgumentNullException.ThrowIfNull(dispatch);
         ArgumentNullException.ThrowIfNull(logger);
@@ -82,9 +85,10 @@ public sealed class ShellViewModel : ObservableObject
         var network = new NetworkAccess(saved, logger);
         var plot = new PlotState(plotter, dispatch, logger, network, saved.Plot);
         var systemBodies = new SystemBodiesState(systems, dispatch, logger, network);
+        var updates = new UpdateState(releases, dispatch, logger, network, AppVersion.Current);
         var backupState = new BackupState(backup, dispatch, logger, saved.BackupFolder ?? "", saved.BackupOnClose);
         var reserves = new ReserveState(saved.Reserves);
-        Workspace = new Workspace(catalog, modules, predictor, monitor, sinks, dispatch, plan, engineers, fleet, preferences, plot, backupState, reserves, store, network, systemBodies, logger)
+        Workspace = new Workspace(catalog, modules, predictor, monitor, sinks, dispatch, plan, engineers, fleet, preferences, plot, backupState, reserves, store, network, systemBodies, updates, logger)
         {
             JournalFolder = saved.JournalFolder ?? "",
         };
@@ -111,6 +115,7 @@ public sealed class ShellViewModel : ObservableObject
         network.Changed += (_, _) =>
         {
             RequestSystemBodies();
+            updates.CheckOnce();
             OnPlotChanged();
         };
         systemBodies.Changed += (_, _) =>
@@ -118,6 +123,7 @@ public sealed class ShellViewModel : ObservableObject
             Navigator.Refresh();
             Rail.Refresh();
         };
+        updates.Changed += (_, _) => Navigator.Refresh();
         backupState.Changed += (_, _) => OnPlotChanged();
         preferences.Changed += (_, _) => Save();
         HomeLink = Navigator.LinkTo("Katey", PageKind.Home);
@@ -133,6 +139,8 @@ public sealed class ShellViewModel : ObservableObject
             Log.PageOpened(logger, Navigator.Current.Key.Kind, Navigator.Current.Key.Id);
         };
         Rail.PropertyChanged += OnRailChanged;
+        // Asked last, once everything that shows the answer exists; the feed answers in the background.
+        updates.CheckOnce();
     }
 
     /// <summary>Gets the window title.</summary>
@@ -400,5 +408,6 @@ public sealed class ShellViewModel : ObservableObject
             Workspace.Backup.Folder.Length == 0 ? null : Workspace.Backup.Folder,
             Workspace.Backup.OnClose,
             Workspace.Reserves.All,
-            Workspace.Network.AllowSystemBodies));
+            Workspace.Network.AllowSystemBodies,
+            Workspace.Network.AllowUpdateCheck));
 }

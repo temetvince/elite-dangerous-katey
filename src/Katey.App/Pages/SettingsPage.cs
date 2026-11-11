@@ -5,7 +5,7 @@ using Katey.Journal;
 
 namespace Katey.App.Pages;
 
-/// <summary>The journal folder and the watch, the journal backup, the Spansh switch, and where Katey keeps its saved data.</summary>
+/// <summary>The journal folder and the watch, the journal backup, the outgoing connection switches, the release check, and where Katey keeps its saved data.</summary>
 public sealed class SettingsPage : Page
 {
     /// <summary>Creates the page.</summary>
@@ -20,6 +20,7 @@ public sealed class SettingsPage : Page
         StopCommand = new RelayCommand(workspace.Monitor.Stop, () => IsWatching);
         DetectCommand = new RelayCommand(Detect);
         BackupNowCommand = new RelayCommand(() => workspace.Backup.BackUpNow(workspace.JournalFolder), () => workspace.Backup.IsConfigured && !workspace.Backup.IsBusy);
+        CheckUpdatesCommand = new RelayCommand(workspace.Updates.Check, () => workspace.Network.AllowUpdateCheck && !workspace.Updates.IsBusy);
         Refresh();
     }
 
@@ -73,13 +74,56 @@ public sealed class SettingsPage : Page
         }
     }
 
+    /// <summary>Gets or sets whether Katey may ask GitHub for its latest release. Saved; off until turned on. Turning it on checks at once.</summary>
+    public bool AllowUpdateCheck
+    {
+        get => Workspace.Network.AllowUpdateCheck;
+        set
+        {
+            if (Workspace.Network.AllowUpdateCheck != value)
+            {
+                Workspace.Network.SetUpdateCheck(value);
+                RefreshNetwork();
+            }
+        }
+    }
+
     /// <summary>Gets what each outgoing request carries.</summary>
     public static string NetworkText => Strings.Get(Keys.Settings_NetworkText);
+
+    /// <summary>Gets one line naming the version running.</summary>
+    public static string VersionText => Strings.Format(Keys.Settings_Version, ("version", AppVersion.Text));
+
+    /// <summary>Gets one line on the release check: off, running, a newer release, none, or why it failed.</summary>
+    public string UpdateStatus { get; private set => SetProperty(ref field, value); } = "";
+
+    /// <summary>Gets whether the release check found a release newer than the one running.</summary>
+    public bool IsUpdateAvailable { get; private set => SetProperty(ref field, value); }
+
+    /// <summary>Gets the page of the newer release, for the view to open in the browser, or <see langword="null"/> while none is known.</summary>
+    public Uri? ReleasePage => IsUpdateAvailable ? Workspace.Updates.Latest?.Page : null;
+
+    /// <summary>Gets the command that asks GitHub for the latest release now. Runs only while the switch is on and no check is running.</summary>
+    public RelayCommand CheckUpdatesCommand { get; }
+
+    /// <summary>Gets what a release check does and does not do, so the switch is an informed choice.</summary>
+    public static string UpdateText => Strings.Get(Keys.Settings_UpdateText);
 
     private void RefreshNetwork()
     {
         OnPropertyChanged(nameof(AllowSpansh));
         OnPropertyChanged(nameof(AllowSpanshBodies));
+        OnPropertyChanged(nameof(AllowUpdateCheck));
+        RefreshUpdates();
+    }
+
+    private void RefreshUpdates()
+    {
+        var updates = Workspace.Updates;
+        UpdateStatus = updates.Status;
+        IsUpdateAvailable = updates.IsUpdateAvailable;
+        OnPropertyChanged(nameof(ReleasePage));
+        CheckUpdatesCommand?.RaiseCanExecuteChanged();
     }
 
     /// <summary>Gets or sets the folder the journal folder is backed up to. Empty for no backup. Saved as typed.</summary>

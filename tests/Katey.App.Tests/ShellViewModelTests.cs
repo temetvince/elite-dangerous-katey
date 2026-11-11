@@ -28,7 +28,7 @@ public sealed class ShellViewModelTests
     {
         var sinks = new JournalSinks();
         var monitor = new FakeJournalMonitor(sinks);
-        var shell = new ShellViewModel(Catalog, Modules, Predictor, store, monitor, sinks, new FakeRoutePlotter(), new FakeSystemCatalog(), new FakeJournalBackup(), action => action(), NullLogger<ShellViewModel>.Instance);
+        var shell = new ShellViewModel(Catalog, Modules, Predictor, store, monitor, sinks, new FakeRoutePlotter(), new FakeSystemCatalog(), new FakeReleaseFeed(), new FakeJournalBackup(), action => action(), NullLogger<ShellViewModel>.Instance);
         return (shell, monitor);
     }
 

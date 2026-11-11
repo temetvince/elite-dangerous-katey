@@ -2067,10 +2067,16 @@
     <value>Журнал</value>
   </data>
   <data name="Settings.NetworkText" xml:space="preserve">
-    <value>Ничего не покидает этот компьютер, пока вы не отметите это здесь. Прокладка маршрута отправляет Spansh названия двух систем и прыжковые характеристики корабля: массы, объём бака и параметры двигателя. Запрос системы отправляет Spansh идентификатор системы, в которую вы прибыли, и получает известные ему тела. Каждый запрос называет Katey, её версию и адрес проекта.</value>
+    <value>Ничего не покидает этот компьютер, пока вы не отметите это здесь. Прокладка маршрута отправляет Spansh названия двух систем и прыжковые характеристики корабля: массы, объём бака и параметры двигателя. Запрос системы отправляет Spansh идентификатор системы, в которую вы прибыли, и получает известные ему тела. Проверка версии запрашивает у GitHub последний выпуск проекта и не отправляет ничего, кроме самого запроса. Каждый запрос называет Katey, её версию и адрес проекта.</value>
   </data>
   <data name="Settings.NotWatching" xml:space="preserve">
     <value>Слежение выключено. Нажмите «Следить», чтобы читать журнал.</value>
+  </data>
+  <data name="Settings.UpdateText" xml:space="preserve">
+    <value>Проверка запрашивает у GitHub последний выпуск проекта и сравнивает его версию с этой. Ничего не загружается и не устанавливается: страница выпуска открывается в вашем браузере, где и находится новая сборка.</value>
+  </data>
+  <data name="Settings.Version" xml:space="preserve">
+    <value>Вы используете Katey {version}.</value>
   </data>
   <data name="Settings.Watching" xml:space="preserve">
     <value>Слежение включено. Всё обновляется по мере записи журнала игрой.</value>
@@ -2914,6 +2920,30 @@
   </data>
   <data name="Unlocks.Title" xml:space="preserve">
     <value>Разблокировки технологических брокеров</value>
+  </data>
+  <data name="Update.Available" xml:space="preserve">
+    <value>Доступна Katey {latest}.</value>
+  </data>
+  <data name="Update.Checking" xml:space="preserve">
+    <value>Запрашиваем у GitHub последний выпуск…</value>
+  </data>
+  <data name="Update.Http" xml:space="preserve">
+    <value>GitHub ответил HTTP {code} на проверку версии.</value>
+  </data>
+  <data name="Update.NotAllowed" xml:space="preserve">
+    <value>Katey не ищет новые выпуски, пока вы не отметите этот переключатель в разделе «Исходящие соединения».</value>
+  </data>
+  <data name="Update.TimedOut" xml:space="preserve">
+    <value>GitHub слишком долго отвечал на проверку версии.</value>
+  </data>
+  <data name="Update.Unreachable" xml:space="preserve">
+    <value>Не удалось связаться с GitHub для проверки версии.</value>
+  </data>
+  <data name="Update.Unreadable" xml:space="preserve">
+    <value>Не удалось прочитать ответ GitHub на проверку версии.</value>
+  </data>
+  <data name="Update.UpToDate" xml:space="preserve">
+    <value>Это последний выпуск.</value>
   </data>
   <data name="Value.Carto" xml:space="preserve">
     <value>Картография около {credits} за скан</value>

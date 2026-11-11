@@ -1,6 +1,7 @@
 ﻿using Katey.App.Exploration;
 using Katey.App.Mvvm;
 using Katey.App.Navigation;
+using Katey.App.Network;
 using Katey.App.Pages;
 using Katey.App.Persistence;
 using Katey.App.Rail;
@@ -34,12 +35,12 @@ public sealed class WorkbenchFeatureTests
         """{"Slot":"ShipCockpit","Item":"anacondamkii_cockpit","On":true,"Priority":1},{"Slot":"PlanetaryApproachSuite","Item":"int_planetapproachsuite_advanced","On":true,"Priority":1},{"Slot":"CargoHatch","Item":"modularcargobaydoorfdl","On":true,"Priority":1},""",
         StringComparison.Ordinal);
 
-    private static (ShellViewModel Shell, FakeJournalMonitor Monitor, FakeStateStore Store) Create(PersistedState? state = null, FakeRoutePlotter? plotter = null, FakeJournalBackup? backup = null, FakeSystemCatalog? systems = null)
+    private static (ShellViewModel Shell, FakeJournalMonitor Monitor, FakeStateStore Store) Create(PersistedState? state = null, FakeRoutePlotter? plotter = null, FakeJournalBackup? backup = null, FakeSystemCatalog? systems = null, FakeReleaseFeed? releases = null)
     {
         var store = new FakeStateStore { State = state ?? PersistedState.Empty };
         var sinks = new JournalSinks();
         var monitor = new FakeJournalMonitor(sinks);
-        var shell = new ShellViewModel(Catalog, Modules, Predictor, store, monitor, sinks, plotter ?? new FakeRoutePlotter(), systems ?? new FakeSystemCatalog(), backup ?? new FakeJournalBackup(), action => action(), NullLogger<ShellViewModel>.Instance);
+        var shell = new ShellViewModel(Catalog, Modules, Predictor, store, monitor, sinks, plotter ?? new FakeRoutePlotter(), systems ?? new FakeSystemCatalog(), releases ?? new FakeReleaseFeed(), backup ?? new FakeJournalBackup(), action => action(), NullLogger<ShellViewModel>.Instance);
         return (shell, monitor, store);
     }
 
@@ -1105,6 +1106,58 @@ public sealed class WorkbenchFeatureTests
         Assert.False(store.State.AllowSpanshBodies);
         Assert.Equal(["Koine"], shell.Workspace.System.Bodies.Select(body => body.Name));
         Assert.Single(systems.Requests);
+    }
+
+    [Fact]
+    public void UpdateCheck_AsksGitHubOnceAtStartup_OnlyWhenAllowed_AndSaysWhatItFound()
+    {
+        // Off by default: nothing is asked, and the settings page says so.
+        var releases = new FakeReleaseFeed();
+        var (shell, _, store) = Create(releases: releases);
+        var settings = Open<SettingsPage>(shell, PageKind.Settings);
+        Assert.False(settings.AllowUpdateCheck);
+        Assert.Equal(0, releases.Requests);
+        Assert.Equal("Katey does not look for newer releases until you tick that switch under Outgoing connections.", settings.UpdateStatus);
+        Assert.False(settings.IsUpdateAvailable);
+        Assert.Null(settings.ReleasePage);
+        Assert.False(settings.CheckUpdatesCommand.CanExecute(null));
+        Assert.StartsWith("You are running Katey ", SettingsPage.VersionText, StringComparison.Ordinal);
+
+        // The switch on: GitHub is asked at once, the answer is worded against the version running, and the switch is saved.
+        settings.AllowUpdateCheck = true;
+        Assert.Equal(1, releases.Requests);
+        Assert.True(store.State.AllowUpdateCheck);
+        Assert.False(store.State.AllowSpansh);
+        settings = Open<SettingsPage>(shell, PageKind.Settings);
+        Assert.Equal("Katey 1.4.0 is available.", settings.UpdateStatus);
+        Assert.True(settings.IsUpdateAvailable);
+        Assert.Equal(releases.Latest.Page, settings.ReleasePage);
+        Assert.True(settings.CheckUpdatesCommand.CanExecute(null));
+
+        // Check now asks again; toggling the switch does not.
+        settings.CheckUpdatesCommand.Execute(null);
+        Assert.Equal(2, releases.Requests);
+        settings.AllowUpdateCheck = false;
+        settings.AllowUpdateCheck = true;
+        Assert.Equal(2, releases.Requests);
+    }
+
+    [Fact]
+    public void UpdateCheck_RunsAtStartupWhenSaved_AndWordsAFailure()
+    {
+        var releases = new FakeReleaseFeed { Failure = ReleaseLookupFailure.Http, HttpCode = 403 };
+        var (shell, _, _) = Create(PersistedState.Empty with { AllowUpdateCheck = true }, releases: releases);
+        Assert.Equal(1, releases.Requests);
+        var settings = Open<SettingsPage>(shell, PageKind.Settings);
+        Assert.Equal("GitHub answered HTTP 403 to the release check.", settings.UpdateStatus);
+        Assert.False(settings.IsUpdateAvailable);
+        Assert.True(settings.CheckUpdatesCommand.CanExecute(null));
+
+        // A later answer replaces the failure.
+        releases.Failure = null;
+        settings.CheckUpdatesCommand.Execute(null);
+        Assert.Equal(2, releases.Requests);
+        Assert.True(shell.Workspace.Updates.IsUpdateAvailable);
     }
 
     [Fact]

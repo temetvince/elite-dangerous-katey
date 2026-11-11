@@ -7,8 +7,8 @@ Katey ist ein Desktop-Begleiter für Elite Dangerous. Es liest die Journal-Datei
 eigenen Rechner schreibt, und bleibt beim Spielen auf dem Laufenden. Es plant Modifikationen gegen die
 Materialien, die du tatsächlich hast. Es prüft deine gespeicherten Schiffs-Builds gegen die Schiffe und
 Module, die du besitzt. Es folgt deiner Route und dem System, in dem du bist, und liest deinen Verlauf als
-Hauptbuch. Nichts verlässt deinen Rechner, solange du den Spansh-Routenplaner nicht einschaltest, und dann
-nur, wenn du Planen drückst.
+Hauptbuch. Nichts verlässt deinen Rechner, solange du es nicht in den Optionen erlaubst, wo jede ausgehende
+Verbindung zu Beginn aus ist.
 
 ## Inhalt
 
@@ -672,9 +672,14 @@ Dein Journalverlauf, als Hauptbuch gelesen. Seine Abschnitte:
   und die Daten am alten Ort bleiben, wie sie waren. Zwei Rechner, die auf einen synchronisierten Ordner
   zeigen, teilen einen Plan, einen Satz Ingenieure und einen Satz Builds.
 - **Ausgehende Verbindungen.** Die eine Stelle, die entscheidet, was Katey über das Netzwerk senden darf, ein
-  Schalter je Art von Anfrage, jeder aus, bis du ihn anhakst. Es gibt zwei Arten, beide an
+  Schalter je Art von Anfrage, jeder aus, bis du ihn anhakst. Es gibt drei Arten. Zwei gehen an
   [Spansh](https://spansh.co.uk/): die Frage nach einer Route, wenn du **Planen** drückst, und die Frage nach
-  den Körpern des Systems, in dem du gerade angekommen bist. Die Schalter werden gemerkt.
+  den Körpern des Systems, in dem du gerade angekommen bist. Die dritte geht an [GitHub](https://github.com/temetvince/elite-dangerous-katey/releases)
+  und fragt nach der neuesten Veröffentlichung von Katey. Die Schalter werden gemerkt.
+- **Aktualisierungen.** Die Version, die du verwendest, und, mit dem GitHub-Schalter an, ob es eine neuere
+  Veröffentlichung gibt. Katey fragt einmal beim Start und wann immer du **Jetzt prüfen** drückst, im
+  Hintergrund, sodass der Start nicht länger dauert. Gibt es eine neuere Veröffentlichung, öffnet **Seite der
+  Veröffentlichung öffnen** sie in deinem Browser; nichts wird für dich heruntergeladen oder installiert.
 
 ## Arbeiten mit EDSY
 
@@ -753,12 +758,13 @@ eingeschlossen. Wenn ein Update eine Einstellung ausmustert oder umbenennt, verw
 beginnt bei der Vorgabe, sodass die Datei nie Einstellungen trägt, die nichts liest.
 
 Katey liest die Journal-Dateien lokal und sendet nirgendwohin etwas, solange du es nicht unter **Ausgehende
-Verbindungen** in den [Optionen](#optionen) erlaubst, wo zu Beginn alles aus ist. Es gibt zwei Arten von
-Anfragen, beide an [Spansh](https://spansh.co.uk/): wenn du **Planen** drückst, zwei Systemnamen und die
+Verbindungen** in den [Optionen](#optionen) erlaubst, wo zu Beginn alles aus ist. Es gibt drei Arten von
+Anfragen. Zwei gehen an [Spansh](https://spansh.co.uk/): wenn du **Planen** drückst, zwei Systemnamen und die
 Sprungwerte des Schiffs; und bei der Ankunft in einem System dessen Kennung, die die Körper zurückbringt, die
-Spansh dort kennt. Jede Anfrage nennt Katey, seine Version und die Adresse des Projekts, wie Spansh es von
-Werkzeugen verlangt, die seinen Dienst nutzen. Die Journal-Sicherung kopiert Dateien nur in den Ordner, den du
-wählst.
+Spansh dort kennt. Die dritte geht an GitHub, wenn Katey startet und wenn du **Jetzt prüfen** drückst: eine
+Anfrage nach der neuesten Veröffentlichung des Projekts, die nichts von dir mitführt. Jede Anfrage nennt
+Katey, seine Version und die Adresse des Projekts, wie Spansh es von Werkzeugen verlangt, die seinen Dienst
+nutzen. Die Journal-Sicherung kopiert Dateien nur in den Ordner, den du wählst.
 
 Katey führt außerdem ein Protokoll, `katey.log`, neben der Standard-`state.json` unter deinem lokalen
 Anwendungsdatenordner. Es hält fest, was Katey getan hat und was schiefging: Starten und Beenden, den

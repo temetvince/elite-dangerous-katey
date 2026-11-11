@@ -6,8 +6,8 @@ Also in [Deutsch](MANUAL.de.md), [Español](MANUAL.es.md), [Français](MANUAL.fr
 Katey is a desktop companion for Elite Dangerous. It reads the journal files the game writes on your own
 machine and keeps up with you as you play. It plans engineering against the materials you actually hold. It
 checks your saved ship builds against the ships and modules you own. It follows your route and the system you
-are in, and reads your history as a ledger. Nothing leaves your machine unless you turn the Spansh route
-plotter on, and then only when you press Plot.
+are in, and reads your history as a ledger. Nothing leaves your machine unless you allow it in Settings, where
+every outgoing connection starts off.
 
 ## Contents
 
@@ -607,9 +607,15 @@ Your journal history read as a ledger. Its sections:
   current data is written there, and the data at the old place is left as it was. Two machines pointed at
   one synced folder share one plan, one set of engineers and one set of fits.
 - **Outgoing connections.** The one place that decides what Katey may send over the network, one switch
-  per kind of request, every one off until you tick it. There are two kinds, both to
+  per kind of request, every one off until you tick it. There are three kinds. Two go to
   [Spansh](https://spansh.co.uk/): asking for a route when you press **Plot**, and asking about the bodies
-  of the system you have just arrived in. The switches are remembered.
+  of the system you have just arrived in. The third goes to
+  [GitHub](https://github.com/temetvince/elite-dangerous-katey/releases) and asks for Katey's latest release.
+  The switches are remembered.
+- **Updates.** The version you are running and, with the GitHub switch on, whether a newer release exists.
+  Katey asks once when it starts and whenever you press **Check now**, in the background, so starting takes
+  no longer. When there is a newer release, **Open the release page** opens it in your browser; nothing is
+  downloaded or installed for you.
 
 ## Working with EDSY
 
@@ -676,11 +682,12 @@ synced folder included. When an update retires or renames a setting, Katey drops
 the default, so the file never carries settings that nothing reads.
 
 Katey reads the journal files locally and sends nothing anywhere unless you allow it under **Outgoing
-connections** in [Settings](#settings), where everything is off to begin with. Two kinds of request exist,
-both to [Spansh](https://spansh.co.uk/): when you press **Plot**, two system names and the ship's jump
+connections** in [Settings](#settings), where everything is off to begin with. Three kinds of request exist.
+Two go to [Spansh](https://spansh.co.uk/): when you press **Plot**, two system names and the ship's jump
 figures; and, on arriving in a system, that system's id, which brings back the bodies Spansh knows there.
-Every request names Katey, its version and the project's address, as Spansh asks of tools that use its
-service. The journal backup copies files only to the folder you choose.
+The third goes to GitHub when Katey starts and when you press **Check now**: a request for the project's
+latest release, carrying nothing of yours. Every request names Katey, its version and the project's address,
+as Spansh asks of tools that use its service. The journal backup copies files only to the folder you choose.
 
 Katey also keeps a log, `katey.log` beside the default `state.json` under your local application data folder.
 It records what Katey did and what went wrong: starting and stopping, the journal folder it watched, requests

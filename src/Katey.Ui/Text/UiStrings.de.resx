@@ -601,6 +601,9 @@
   <data name="Settings.AskRoutes" xml:space="preserve">
     <value>Spansh nach Routen fragen</value>
   </data>
+  <data name="Settings.AskUpdates" xml:space="preserve">
+    <value>GitHub nach einer neueren Veröffentlichung fragen</value>
+  </data>
   <data name="Settings.BackUpNow" xml:space="preserve">
     <value>Jetzt sichern</value>
   </data>
@@ -609,6 +612,9 @@
   </data>
   <data name="Settings.BackupPlaceholder" xml:space="preserve">
     <value>Ein Ordner, in den der Journal-Ordner kopiert wird, etwa einer, den OneDrive synchronisiert</value>
+  </data>
+  <data name="Settings.CheckNow" xml:space="preserve">
+    <value>Jetzt prüfen</value>
   </data>
   <data name="Settings.Detect" xml:space="preserve">
     <value>Erkennen</value>
@@ -625,6 +631,9 @@
   <data name="Settings.JournalFolder" xml:space="preserve">
     <value>Journal-Ordner</value>
   </data>
+  <data name="Settings.OpenRelease" xml:space="preserve">
+    <value>Seite der Veröffentlichung öffnen</value>
+  </data>
   <data name="Settings.Outgoing" xml:space="preserve">
     <value>Ausgehende Verbindungen</value>
   </data>
@@ -636,6 +645,9 @@
   </data>
   <data name="Settings.Stop" xml:space="preserve">
     <value>Stopp</value>
+  </data>
+  <data name="Settings.Updates" xml:space="preserve">
+    <value>Aktualisierungen</value>
   </data>
   <data name="Settings.Watch" xml:space="preserve">
     <value>Beobachten</value>

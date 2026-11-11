@@ -549,6 +549,9 @@ public static class UiKeys
     /// <summary><c>Settings.AskRoutes</c>.</summary>
     public const string Settings_AskRoutes = "Settings.AskRoutes";
 
+    /// <summary><c>Settings.AskUpdates</c>.</summary>
+    public const string Settings_AskUpdates = "Settings.AskUpdates";
+
     /// <summary><c>Settings.BackUpNow</c>.</summary>
     public const string Settings_BackUpNow = "Settings.BackUpNow";
 
@@ -557,6 +560,9 @@ public static class UiKeys
 
     /// <summary><c>Settings.BackupPlaceholder</c>.</summary>
     public const string Settings_BackupPlaceholder = "Settings.BackupPlaceholder";
+
+    /// <summary><c>Settings.CheckNow</c>.</summary>
+    public const string Settings_CheckNow = "Settings.CheckNow";
 
     /// <summary><c>Settings.Detect</c>.</summary>
     public const string Settings_Detect = "Settings.Detect";
@@ -573,6 +579,9 @@ public static class UiKeys
     /// <summary><c>Settings.JournalFolder</c>.</summary>
     public const string Settings_JournalFolder = "Settings.JournalFolder";
 
+    /// <summary><c>Settings.OpenRelease</c>.</summary>
+    public const string Settings_OpenRelease = "Settings.OpenRelease";
+
     /// <summary><c>Settings.Outgoing</c>.</summary>
     public const string Settings_Outgoing = "Settings.Outgoing";
 
@@ -584,6 +593,9 @@ public static class UiKeys
 
     /// <summary><c>Settings.Stop</c>.</summary>
     public const string Settings_Stop = "Settings.Stop";
+
+    /// <summary><c>Settings.Updates</c>.</summary>
+    public const string Settings_Updates = "Settings.Updates";
 
     /// <summary><c>Settings.Watch</c>.</summary>
     public const string Settings_Watch = "Settings.Watch";

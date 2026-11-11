@@ -1833,10 +1833,16 @@ Desligado, tudo é oferecido e os graus começam no máximo. O plano ainda avisa
     <value>Diário</value>
   </data>
   <data name="Settings.NetworkText" xml:space="preserve">
-    <value>Nada sai desta máquina a menos que você marque aqui. Um traçado de rota envia ao Spansh os dois nomes de sistema e os números de salto da nave: massas, tamanhos de tanque e os números do drive. Uma consulta de sistema envia ao Spansh o id do sistema em que você chegou e traz de volta os corpos que ele conhece lá. Cada pedido informa o Katey, sua versão e o endereço do projeto.</value>
+    <value>Nada sai desta máquina a menos que você marque aqui. Um traçado de rota envia ao Spansh os dois nomes de sistema e os números de salto da nave: massas, tamanhos de tanque e os números do drive. Uma consulta de sistema envia ao Spansh o id do sistema em que você chegou e traz de volta os corpos que ele conhece lá. Uma verificação de versão pede ao GitHub a última versão publicada do projeto e não envia nada além do próprio pedido. Cada pedido informa o Katey, sua versão e o endereço do projeto.</value>
   </data>
   <data name="Settings.NotWatching" xml:space="preserve">
     <value>Não está acompanhando. Pressione Acompanhar para ler o diário.</value>
+  </data>
+  <data name="Settings.UpdateText" xml:space="preserve">
+    <value>Uma verificação pede ao GitHub a última versão publicada do projeto e compara seu número com este. Nada é baixado nem instalado: a página da versão abre no seu navegador, onde está a nova compilação.</value>
+  </data>
+  <data name="Settings.Version" xml:space="preserve">
+    <value>Você está usando o Katey {version}.</value>
   </data>
   <data name="Settings.Watching" xml:space="preserve">
     <value>Acompanhando. Tudo é atualizado conforme o jogo grava seu diário.</value>
@@ -2638,6 +2644,30 @@ Desligado, tudo é oferecido e os graus começam no máximo. O plano ainda avisa
   </data>
   <data name="Unlocks.Title" xml:space="preserve">
     <value>Desbloqueios de corretor de tecnologia</value>
+  </data>
+  <data name="Update.Available" xml:space="preserve">
+    <value>O Katey {latest} está disponível.</value>
+  </data>
+  <data name="Update.Checking" xml:space="preserve">
+    <value>Pedindo ao GitHub a última versão publicada…</value>
+  </data>
+  <data name="Update.Http" xml:space="preserve">
+    <value>O GitHub respondeu HTTP {code} à verificação de versão.</value>
+  </data>
+  <data name="Update.NotAllowed" xml:space="preserve">
+    <value>O Katey não procura versões mais novas até que você marque essa opção em Conexões de saída.</value>
+  </data>
+  <data name="Update.TimedOut" xml:space="preserve">
+    <value>O GitHub demorou demais para responder à verificação de versão.</value>
+  </data>
+  <data name="Update.Unreachable" xml:space="preserve">
+    <value>Não foi possível alcançar o GitHub para a verificação de versão.</value>
+  </data>
+  <data name="Update.Unreadable" xml:space="preserve">
+    <value>A resposta do GitHub à verificação de versão não pôde ser lida.</value>
+  </data>
+  <data name="Update.UpToDate" xml:space="preserve">
+    <value>Esta é a última versão publicada.</value>
   </data>
   <data name="Value.Carto" xml:space="preserve">
     <value>Cartografia cerca de {credits} como escaneado</value>

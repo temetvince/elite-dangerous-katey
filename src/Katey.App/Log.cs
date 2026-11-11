@@ -50,8 +50,8 @@ internal static partial class Log
     [LoggerMessage(EventId = 3014, Level = LogLevel.Information, Message = "Saved data moved to another folder; a saved state was already there: {Found}.")]
     internal static partial void StateMoved(ILogger logger, bool found);
 
-    [LoggerMessage(EventId = 3016, Level = LogLevel.Information, Message = "Outgoing connections: routes {Routes}, system bodies {Bodies}.")]
-    internal static partial void NetworkAccessChanged(ILogger logger, bool routes, bool bodies);
+    [LoggerMessage(EventId = 3016, Level = LogLevel.Information, Message = "Outgoing connections: routes {Routes}, system bodies {Bodies}, release check {Updates}.")]
+    internal static partial void NetworkAccessChanged(ILogger logger, bool routes, bool bodies, bool updates);
 
     [LoggerMessage(EventId = 3017, Level = LogLevel.Warning, Message = "Looking up system {SystemAddress} failed.")]
     internal static partial void SystemLookupFailed(ILogger logger, long systemAddress, Exception exception);
@@ -76,4 +76,13 @@ internal static partial class Log
 
     [LoggerMessage(EventId = 3024, Level = LogLevel.Information, Message = "Language changed from {Before} to {After}.")]
     internal static partial void LanguageChanged(ILogger logger, string before, string after);
+
+    [LoggerMessage(EventId = 3025, Level = LogLevel.Debug, Message = "GitHub named release {Release} in {ElapsedMs} ms.")]
+    internal static partial void ReleaseLookedUp(ILogger logger, string release, long elapsedMs);
+
+    [LoggerMessage(EventId = 3026, Level = LogLevel.Information, Message = "Release check: running {Current}, latest {Latest}.")]
+    internal static partial void UpdateChecked(ILogger logger, Version current, Version latest);
+
+    [LoggerMessage(EventId = 3027, Level = LogLevel.Warning, Message = "The release check failed.")]
+    internal static partial void UpdateCheckFailed(ILogger logger, Exception exception);
 }

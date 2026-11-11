@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using Katey.App;
 using Katey.App.Exploration;
+using Katey.App.Network;
 using Katey.App.Persistence;
 using Katey.App.Routing;
 using Katey.Core;
@@ -62,6 +63,7 @@ public sealed partial class App : Application
                 sinks,
                 new SpanshPlotter(http, loggerFactory.CreateLogger<SpanshPlotter>()),
                 new SpanshSystemCatalog(http, loggerFactory.CreateLogger<SpanshSystemCatalog>()),
+                new GitHubReleaseFeed(http, loggerFactory.CreateLogger<GitHubReleaseFeed>()),
                 new JournalBackup(loggerFactory.CreateLogger<JournalBackup>()),
                 action => Dispatcher.UIThread.Post(action),
                 loggerFactory.CreateLogger<ShellViewModel>());

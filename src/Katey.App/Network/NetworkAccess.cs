@@ -21,6 +21,7 @@ public sealed class NetworkAccess
         _logger = logger;
         AllowRoutes = saved.AllowSpansh;
         AllowSystemBodies = saved.AllowSpanshBodies;
+        AllowUpdateCheck = saved.AllowUpdateCheck;
     }
 
     /// <summary>Raised after a switch changed.</summary>
@@ -32,32 +33,40 @@ public sealed class NetworkAccess
     /// <summary>Gets whether a system's bodies may be asked of Spansh.</summary>
     public bool AllowSystemBodies { get; private set; }
 
+    /// <summary>Gets whether GitHub may be asked for the latest release.</summary>
+    public bool AllowUpdateCheck { get; private set; }
+
     /// <summary>Takes the switches from a saved state, for when the saved data is reloaded.</summary>
     /// <param name="saved">The saved state.</param>
     public void Load(PersistedState saved)
     {
         ArgumentNullException.ThrowIfNull(saved);
-        Set(saved.AllowSpansh, saved.AllowSpanshBodies);
+        Set(saved.AllowSpansh, saved.AllowSpanshBodies, saved.AllowUpdateCheck);
     }
 
     /// <summary>Sets the route switch.</summary>
     /// <param name="allowed">Whether routes may be asked.</param>
-    public void SetRoutes(bool allowed) => Set(allowed, AllowSystemBodies);
+    public void SetRoutes(bool allowed) => Set(allowed, AllowSystemBodies, AllowUpdateCheck);
 
     /// <summary>Sets the system bodies switch.</summary>
     /// <param name="allowed">Whether system bodies may be asked.</param>
-    public void SetSystemBodies(bool allowed) => Set(AllowRoutes, allowed);
+    public void SetSystemBodies(bool allowed) => Set(AllowRoutes, allowed, AllowUpdateCheck);
 
-    private void Set(bool routes, bool bodies)
+    /// <summary>Sets the release check switch.</summary>
+    /// <param name="allowed">Whether the latest release may be asked for.</param>
+    public void SetUpdateCheck(bool allowed) => Set(AllowRoutes, AllowSystemBodies, allowed);
+
+    private void Set(bool routes, bool bodies, bool updates)
     {
-        if (routes == AllowRoutes && bodies == AllowSystemBodies)
+        if (routes == AllowRoutes && bodies == AllowSystemBodies && updates == AllowUpdateCheck)
         {
             return;
         }
 
         AllowRoutes = routes;
         AllowSystemBodies = bodies;
-        Log.NetworkAccessChanged(_logger, AllowRoutes, AllowSystemBodies);
+        AllowUpdateCheck = updates;
+        Log.NetworkAccessChanged(_logger, AllowRoutes, AllowSystemBodies, AllowUpdateCheck);
         Changed?.Invoke(this, EventArgs.Empty);
     }
 }

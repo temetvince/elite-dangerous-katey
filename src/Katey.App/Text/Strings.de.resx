@@ -1833,10 +1833,16 @@ Aus: Alles wird angeboten, und Stufen beginnen oben. Der Plan warnt weiterhin vo
     <value>Journal</value>
   </data>
   <data name="Settings.NetworkText" xml:space="preserve">
-    <value>Nichts verlässt diesen Rechner, solange du es hier nicht anhakst. Eine Routenplanung sendet Spansh die beiden Systemnamen und die Sprungwerte des Schiffs: Massen, Tankgrößen und die Werte des Antriebs. Eine Systemabfrage sendet Spansh die Kennung des Systems, in dem du angekommen bist, und holt die dort bekannten Körper. Jede Anfrage nennt Katey, seine Version und die Adresse des Projekts.</value>
+    <value>Nichts verlässt diesen Rechner, solange du es hier nicht anhakst. Eine Routenplanung sendet Spansh die beiden Systemnamen und die Sprungwerte des Schiffs: Massen, Tankgrößen und die Werte des Antriebs. Eine Systemabfrage sendet Spansh die Kennung des Systems, in dem du angekommen bist, und holt die dort bekannten Körper. Eine Versionsprüfung fragt GitHub nach der neuesten Veröffentlichung des Projekts und sendet nichts außer der Anfrage selbst. Jede Anfrage nennt Katey, seine Version und die Adresse des Projekts.</value>
   </data>
   <data name="Settings.NotWatching" xml:space="preserve">
     <value>Nicht beobachtet. Drücke „Beobachten“, um das Journal zu lesen.</value>
+  </data>
+  <data name="Settings.UpdateText" xml:space="preserve">
+    <value>Eine Prüfung fragt GitHub nach der neuesten Veröffentlichung des Projekts und vergleicht deren Version mit dieser. Nichts wird heruntergeladen oder installiert: Die Seite der Veröffentlichung öffnet sich in deinem Browser, wo der neue Build liegt.</value>
+  </data>
+  <data name="Settings.Version" xml:space="preserve">
+    <value>Du verwendest Katey {version}.</value>
   </data>
   <data name="Settings.Watching" xml:space="preserve">
     <value>Beobachtet. Alles aktualisiert sich, während das Spiel sein Journal schreibt.</value>
@@ -2638,6 +2644,30 @@ Aus: Alles wird angeboten, und Stufen beginnen oben. Der Plan warnt weiterhin vo
   </data>
   <data name="Unlocks.Title" xml:space="preserve">
     <value>Technologiehändler-Freischaltungen</value>
+  </data>
+  <data name="Update.Available" xml:space="preserve">
+    <value>Katey {latest} ist verfügbar.</value>
+  </data>
+  <data name="Update.Checking" xml:space="preserve">
+    <value>GitHub wird nach der neuesten Veröffentlichung gefragt…</value>
+  </data>
+  <data name="Update.Http" xml:space="preserve">
+    <value>GitHub antwortete mit HTTP {code} auf die Versionsprüfung.</value>
+  </data>
+  <data name="Update.NotAllowed" xml:space="preserve">
+    <value>Katey sucht nicht nach neueren Veröffentlichungen, solange du diesen Schalter unter Ausgehende Verbindungen nicht anhakst.</value>
+  </data>
+  <data name="Update.TimedOut" xml:space="preserve">
+    <value>GitHub brauchte zu lange für die Antwort auf die Versionsprüfung.</value>
+  </data>
+  <data name="Update.Unreachable" xml:space="preserve">
+    <value>GitHub war für die Versionsprüfung nicht erreichbar.</value>
+  </data>
+  <data name="Update.Unreadable" xml:space="preserve">
+    <value>GitHubs Antwort auf die Versionsprüfung konnte nicht gelesen werden.</value>
+  </data>
+  <data name="Update.UpToDate" xml:space="preserve">
+    <value>Dies ist die neueste Veröffentlichung.</value>
   </data>
   <data name="Value.Carto" xml:space="preserve">
     <value>Kartografie etwa {credits} wie gescannt</value>

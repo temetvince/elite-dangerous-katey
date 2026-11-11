@@ -45,9 +45,14 @@ Three mechanisms keep the pages consistent:
   Breadcrumb links can also set a preference on arrival, which is how "Core internals" above a module type
   opens that group on the modules index.
 
-One thing leaves the machine, and only on request. With the Spansh switch on in settings, the route page's
-plot section asks Spansh's galaxy plotter for a route through `PlotState` and an `IRoutePlotter`.
-`SpanshPlotter` is the only network client in the app; the tests use a fake.
+Nothing leaves the machine unless its switch in `NetworkAccess` is on, and there is one switch per kind of
+request. With the route switch on, the route page's plot section asks Spansh's galaxy plotter for a route
+through `PlotState` and an `IRoutePlotter`. With the bodies switch on, `SystemBodiesState` asks an
+`ISystemCatalog` about each system the ship arrives in. With the release switch on, `UpdateState` asks an
+`IReleaseFeed` for Katey's latest release, once at startup and whenever the settings page asks, and compares
+it with `AppVersion.Current`. The feed answers in the background, so the startup check does not delay the
+window. `SpanshPlotter`, `SpanshSystemCatalog` and `GitHubReleaseFeed` are the network clients; the tests use
+fakes. Every request carries `AppVersion.UserAgent`, which names Katey, its version and the project's address.
 
 ## File map
 
@@ -76,9 +81,13 @@ plot section asks Spansh's galaxy plotter for a route through `PlotState` and an
 | `FleetChoices.cs` | `FleetChoices` | The pick-list options for the fleet's policy and filters, shared by the fleet and fit pages. |
 | `FuelEstimate.cs` | `FuelEstimate`, `StopFuel` | The fuel picture for the route ahead: the game's fuel equation from the current ship's loadout figures, or its model fitted to recent jumps when the loadout lacks them, run from the live tank reading; and the tank against its capacity with what the next jump burns, as the fractions the fuel meter draws. |
 | `Routing/IRoutePlotter.cs` | `IRoutePlotter`, `RoutePlotException` | What a plotter is: a request in, a route out, or a reason fit to show. |
-| `Routing/SpanshPlotter.cs` | `SpanshPlotter` | Asks Spansh's galaxy plotter: one form post, then polls the job once a second. Every request carries a user agent naming Katey, its version and the project's address. |
+| `Routing/SpanshPlotter.cs` | `SpanshPlotter` | Asks Spansh's galaxy plotter: one form post, then polls the job once a second. |
 | `Routing/PlotState.cs` | `PlotState` | The held plot and the plot in progress, allowed by `NetworkAccess`; raises on the UI thread. |
 | `Network/NetworkAccess.cs` | `NetworkAccess` | What may leave the machine: a switch per kind of request, off by default; saved. Everything that calls out consults it. |
+| `Network/IReleaseFeed.cs` | `IReleaseFeed`, `Release`, `ReleaseFeedException`, `ReleaseLookupFailure` | Who knows Katey's latest release, the release as a version, its text and its page, and why a lookup gave no answer. |
+| `Network/GitHubReleaseFeed.cs` | `GitHubReleaseFeed` | Asks GitHub's releases API for the latest release and reads its tag and page; runs the whole lookup on the thread pool. |
+| `Network/UpdateState.cs` | `UpdateState` | The version running against the latest release, allowed by `NetworkAccess`: `CheckOnce` for startup and the switch turning on, `Check` for the button; words the result when read; raises on the UI thread. |
+| `AppVersion.cs` | `AppVersion` | This build's version as text and as a number, the project's address, and the user agent every request carries. |
 | `Exploration/ISystemCatalog.cs` | `ISystemCatalog`, `SystemCatalogException` | What a system catalogue is: a system id in, its bodies out, or a reason fit to show. |
 | `Exploration/SpanshSystemCatalog.cs` | `SpanshSystemCatalog` | Asks Spansh for a system's dump and reads its bodies. |
 | `Exploration/SystemBodiesState.cs` | `SystemBodiesState` | The catalogued bodies of the systems visited this run: one request per system on arrival when allowed, kept for the run, a failed lookup not retried for five minutes; raises on the UI thread. |
@@ -105,7 +114,7 @@ plot section asks Spansh's galaxy plotter for a route through `PlotState` and an
 | `Pages/SystemPage.cs` | `SystemPage` | The current system's bodies in full, or a visited system in brief. |
 | `Pages/StatisticsPage.cs` | `StatisticsPage`, `StatRow`, `StatGroup`, `ChartSlice`, `ActivityToggle`, `SpeciesRow`, `PartnerRow`, `WingMissionRow` | Income by activity as a ring chart with switches and a period, the figures behind each activity, exobiology with and without the bonus, Powerplay, the wings and crews flown with, what was shared with each commander, the wing missions accepted and how each stands, and every lifetime figure, with zero figures hidden until a remembered switch shows them. The lifetime figures do not follow the period. |
 | `Pages/RoutePage.cs` | `RoutePage`, `RouteStopRow`, `PlotStopRow`, `PlotProgressLine`, `StopStage`, `VisitState` | Two sections: the game's route with the stage first, the distance from the start and the fuel on arrival per stop, and the stop rows the rail windows, with `RerouteLine` wording a target off the route file as the game's re-plot through it and `RerouteJumps` giving the game's own count while the file lags; and the Spansh plot with the form that asks for it, the waypoints and the ship's progress along them. `PlotTarget` is one entry of the form's picker, a ship or a saved fit with its range, the ship being flown flagged so the view can colour it; the picker lists the chosen target, the ship being flown, then the chosen hull's fits, the ships and the other fits, narrowed by `PlotFilter`. The form's destination, routing and options are `UiPreferences` entries written as they change; the chosen target and the cargo are entries too, removed when the plot is forgotten, so they hold across pages and restarts while a plot stands and the form then opens on the ship being flown with what it carries. |
-| `Pages/SettingsPage.cs` | `SettingsPage` | The journal folder and the watch, the backup folder, switch and button, the saved data folder, and the Spansh switch. Setting the saved data folder moves the saved data at once. |
+| `Pages/SettingsPage.cs` | `SettingsPage` | The journal folder and the watch, the backup folder, switch and button, the saved data folder, the outgoing connection switches, and the release check: the version running, its status line, the Check now command and the release page for the view to open. Setting the saved data folder moves the saved data at once. |
 | `Rail/RailViewModel.cs` | `RailViewModel`, `RailStopRow`, `RailBodyRow` | The live rail, showing the route while the drive is charging in supercruise, a jump has begun from normal space or the ship is in hyperspace, and the bodies otherwise, from arrival on, with the route kept to one line above them; what is targeted does not count, since the game targets the next jump by itself on arrival. Bodies nearest first or, by a remembered switch, biology first; the remembered overlay, click-through and window-place settings its own window follows. |
 | `Search/SearchViewModel.cs` | `SearchViewModel`, `SearchResult` | The search box over a catalog index and a journal index. |
 | `ViewModels/PlanDrawerViewModel.cs` | `PlanDrawerViewModel` | The drawer: open state, badge, import form, totals, and the trades to make at the traders. |
@@ -125,7 +134,7 @@ plot section asks Spansh's galaxy plotter for a route through `PlotState` and an
 | `ViewModels/Phrase.cs` | `PhrasePart`, `LinkTone`, `Phrase` | A sentence that carries links in its running text, so a system or an engineer named mid-sentence opens its page; a link has a tone: accent, the HUD blue, ink or dim. `Phrase.Format` fills a keyed template whose placeholders may be links, engineer links or other sentences, so a translation can put the links in any order; `Phrase.Of` builds one from parts in order, `Plain` reads the words alone. |
 | `ViewModels/EngineerLink.cs` | `EngineerLink` | An engineer's name as Katey shows it everywhere, made by `Workspace.EngineerLinkFor`: their page, whether you ticked them and whether the engineers switch narrows the lists, from which the name is highlighted, dimmed or plain; `Names` lists several in a sentence. |
 | `ViewModels/TradeRows.cs` | `TradeView`, `TraderGroupRow`, `TradeRow`, `UnmetRow` | A trade plan laid out for a page: a headline, one group per trader with its trades and what stays short, each material a link to the materials page landing on it, each trade naming the two materials' in-game families, and a note on which targets are reserves. Shared by the materials page and the drawer. |
-| `Persistence/StateStore.cs` | `PersistedState`, `IStateStore`, `JsonFileStateStore` | The saved plan, engineer selection, fits, sharing policy, journal folder, bacteria filter, rail placement, view preferences, Spansh switch, last plot, backup folder and switch, and material reserves; where it lives, and moving it. |
+| `Persistence/StateStore.cs` | `PersistedState`, `IStateStore`, `JsonFileStateStore` | The saved plan, engineer selection, fits, sharing policy, journal folder, bacteria filter, rail placement, view preferences, outgoing connection switches, last plot, backup folder and switch, and material reserves; where it lives, and moving it. |
 | `Mvvm/` | `ObservableObject`, `RelayCommand` | The two binding primitives the view models need. |
 | `Log.cs` | `Log` | Source-generated log messages. |
 | `Logging/FileLoggerProvider.cs` | `FileLoggerProvider` | A logger provider that appends to one text file above a floor, rolling the file over past a size, passing every line through a scrubber, and writing a crash at Critical. |
@@ -225,7 +234,8 @@ It holds:
 - the saved fits and the sharing policy;
 - the journal folder, the backup folder and whether the backup runs on close;
 - whether the rail was in its own window, and the view preferences;
-- whether Katey may ask Spansh for routes and for system bodies, and the last plot.
+- whether Katey may ask Spansh for routes and for system bodies, whether it may ask GitHub for its latest
+  release, and the last plot.
 
 Read failures log a warning and start the app empty; write failures log an error and leave the app running. On
 load, entries whose blueprint or experimental the catalog no longer knows are dropped, and a file from before

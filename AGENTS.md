@@ -153,6 +153,12 @@ member's name or its parameter types.
 
 ### 10. Internationalize user-facing strings (when the app is localized)
 
+**Everything a user can see is internationalized, without exception.** A label, a button, a heading, a status
+line, a sentence worded from a background result, a tooltip, a placeholder, an explanation under a switch, a
+manual passage: every one goes through the string tables and ships in every language in the same change.
+A literal in a page template, a view model or code-behind is a defect, not a shortcut, however small or
+temporary it looks, and a change is not done while one language lacks a word of it.
+
 If the application ships or plans to ship in more than one language, keep every user-visible string out of
 code and behind the project's localization mechanism (e.g. `.resx` resources with `IStringLocalizer`, or an
 equivalent lookup), never a hard-coded literal. Resolve by key, and make labels live lookups where a runtime
@@ -430,7 +436,12 @@ fixing the code over adding more.
     `WindowDecorations="Full"` overlaps the content until the first resize, which is why Full is not used.
     `WindowDecorations="None"` with hand-drawn resize grips was tried and dropped: a window with no system
     frame could not be resized through `BeginResizeDrag` or by moving its own bounds from a pointer drag.
-  - Nothing leaves the machine unless `NetworkAccess` allows it: a Spansh plot behind `IRoutePlotter`
-    and a Spansh system lookup behind `ISystemCatalog`, each on its own switch, both off by default. A new
-    kind of request gets its own switch there, its own interface, and a line in the settings text and the
-    manual, and keeps the README's promise true.
+  - Nothing leaves the machine unless `NetworkAccess` allows it: a Spansh plot behind `IRoutePlotter`, a
+    Spansh system lookup behind `ISystemCatalog` and a GitHub release check behind `IReleaseFeed`, each on
+    its own switch, all off by default. A new kind of request gets its own switch there, its own interface,
+    and a line in the settings text and the manual, and keeps the README's promise true. A request made at
+    startup runs on the thread pool from its first instruction and never delays the window; `UpdateState`
+    shows the shape.
+  - A state object that learns something in the background keeps the facts, a record or an exception, and
+    words them only in a property read on the UI thread, so a language switch re-words the line without
+    another request. `BackupState`, `SystemBodiesState` and `UpdateState` all follow this; a new one does too.

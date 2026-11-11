@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using System.Net;
 using System.Text.Json;
-using Katey.App.Routing;
 using Katey.Core.Exploration;
 using Katey.Core.Routing;
 using Microsoft.Extensions.Logging;
@@ -9,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace Katey.App.Exploration;
 
 /// <summary>Asks Spansh for a system's bodies: one GET of its system dump, read by <see cref="SpanshBodiesJson"/>.</summary>
-/// <remarks>The request carries only the system's id, and the user agent <see cref="SpanshPlotter.UserAgent"/> that names Katey.</remarks>
+/// <remarks>The request carries only the system's id, and the user agent <see cref="AppVersion.UserAgent"/> that names Katey.</remarks>
 public sealed class SpanshSystemCatalog : ISystemCatalog
 {
     /// <summary>Where a system's dump is read, with the system id appended.</summary>
@@ -19,7 +18,7 @@ public sealed class SpanshSystemCatalog : ISystemCatalog
     private readonly ILogger<SpanshSystemCatalog> _logger;
 
     /// <summary>Creates the catalog over an HTTP client.</summary>
-    /// <param name="http">The client. Not disposed here. Its user agent is replaced by <see cref="SpanshPlotter.UserAgent"/>.</param>
+    /// <param name="http">The client. Not disposed here. Its user agent is replaced by <see cref="AppVersion.UserAgent"/>.</param>
     /// <param name="logger">Where lookups and failures go.</param>
     public SpanshSystemCatalog(HttpClient http, ILogger<SpanshSystemCatalog> logger)
     {
@@ -28,7 +27,7 @@ public sealed class SpanshSystemCatalog : ISystemCatalog
         _http = http;
         _logger = logger;
         _http.DefaultRequestHeaders.UserAgent.Clear();
-        _http.DefaultRequestHeaders.UserAgent.ParseAdd(SpanshPlotter.UserAgent);
+        _http.DefaultRequestHeaders.UserAgent.ParseAdd(AppVersion.UserAgent);
     }
 
     /// <inheritdoc/>
