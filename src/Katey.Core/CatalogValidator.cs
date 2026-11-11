@@ -17,7 +17,7 @@ public static class CatalogValidator
     private static readonly string[] UnlockCategories = ["modules", "weapons", "modifiedWeapons", "fighters", "preEngineered"];
 
     /// <summary>Checks the tables and lists every problem.</summary>
-    /// <param name="materials">Material display name → row.</param>
+    /// <param name="materials">Material symbol → row.</param>
     /// <param name="blueprints">Blueprint journal name → row.</param>
     /// <param name="experimentals">Experimental journal name → row.</param>
     /// <param name="moduleTypes">Module type code → row.</param>
@@ -81,15 +81,16 @@ public static class CatalogValidator
         foreach (var (key, row) in materials)
         {
             var where = $"materials.json \"{key}\"";
-            Expect(row.Name == key, $"{where}: name must equal its key", problems);
-            Expect(!string.IsNullOrWhiteSpace(row.Symbol), $"{where}: symbol missing", problems);
+            Expect(row.Symbol == key, $"{where}: symbol must equal its key", problems);
+            Expect(!string.IsNullOrWhiteSpace(row.Name), $"{where}: name missing", problems);
             Expect(Categories.Contains(row.Category, StringComparer.Ordinal), $"{where}: category must be raw, manufactured or encoded", problems);
             Expect(row.Grade is >= 1 and <= 5, $"{where}: grade must be 1–5", problems);
             Expect(!string.IsNullOrWhiteSpace(row.Line), $"{where}: line missing", problems);
         }
 
-        var symbols = materials.Values.Select(row => row.Symbol).ToList();
-        Expect(symbols.Distinct(StringComparer.OrdinalIgnoreCase).Count() == symbols.Count, "materials.json: symbols must be unique", problems);
+        Expect(materials.Keys.Distinct(StringComparer.OrdinalIgnoreCase).Count() == materials.Count, "materials.json: symbols must be unique, case-insensitively", problems);
+        var names = materials.Values.Select(row => row.Name).ToList();
+        Expect(names.Distinct(StringComparer.Ordinal).Count() == names.Count, "materials.json: names must be unique", problems);
     }
 
     private static void CheckMaterialCounts(
@@ -142,11 +143,15 @@ public static class CatalogValidator
         {
             var where = $"engineers.json \"{key}\"";
             Expect(row.Name == key, $"{where}: name must equal its key", problems);
+            Expect(row.Id > 0, $"{where}: id must be a positive integer", problems);
             Expect(!string.IsNullOrWhiteSpace(row.System), $"{where}: system missing", problems);
             Expect(!string.IsNullOrWhiteSpace(row.Base), $"{where}: base missing", problems);
             Expect(Regions.Contains(row.Region, StringComparer.Ordinal), $"{where}: region must be bubble or colonia", problems);
             Expect(double.IsFinite(row.X) && double.IsFinite(row.Y) && double.IsFinite(row.Z), $"{where}: x, y and z must be finite numbers", problems);
         }
+
+        var ids = engineers.Values.Select(row => row.Id).ToList();
+        Expect(ids.Distinct().Count() == ids.Count, "engineers.json: ids must be unique", problems);
     }
 
     private static void CheckModuleTypes(

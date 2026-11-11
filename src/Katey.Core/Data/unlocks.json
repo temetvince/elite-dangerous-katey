@@ -8,10 +8,10 @@
       "int_guardianfsdbooster_"
     ],
     "materials": {
-      "Guardian Module Blueprint Fragment": 1,
-      "Guardian Power Cell": 21,
-      "Guardian Technology Component": 21,
-      "Focus Crystals": 24
+      "Guardian_ModuleBlueprint": 1,
+      "Guardian_PowerCell": 21,
+      "Guardian_TechComponent": 21,
+      "FocusCrystals": 24
     },
     "commodities": {
       "HN Shock Mount": 8
@@ -26,9 +26,9 @@
       "hpt_guardian_gausscannon_fixed_medium"
     ],
     "materials": {
-      "Guardian Weapon Blueprint Fragment": 1,
-      "Guardian Power Cell": 18,
-      "Guardian Technology Component": 20,
+      "Guardian_WeaponBlueprint": 1,
+      "Guardian_PowerCell": 18,
+      "Guardian_TechComponent": 20,
       "Manganese": 15
     },
     "commodities": {
@@ -44,10 +44,10 @@
       "hpt_guardian_gausscannon_fixed_small"
     ],
     "materials": {
-      "Guardian Weapon Blueprint Fragment": 1,
-      "Guardian Power Conduit": 12,
-      "Guardian Wreckage Components": 12,
-      "Guardian Sentinel Weapon Parts": 15
+      "Guardian_WeaponBlueprint": 1,
+      "Guardian_PowerConduit": 12,
+      "Guardian_Sentinel_WreckageComponents": 12,
+      "Guardian_Sentinel_WeaponParts": 15
     },
     "commodities": {}
   },
@@ -60,10 +60,10 @@
       "int_guardianhullreinforcement_"
     ],
     "materials": {
-      "Guardian Module Blueprint Fragment": 1,
-      "Guardian Wreckage Components": 21,
-      "Pattern Beta Obelisk Data": 16,
-      "Pattern Gamma Obelisk Data": 16
+      "Guardian_ModuleBlueprint": 1,
+      "Guardian_Sentinel_WreckageComponents": 21,
+      "AncientCulturalData": 16,
+      "AncientHistoricalData": 16
     },
     "commodities": {
       "Reinforced Mounting Plate": 12
@@ -78,10 +78,10 @@
       "int_guardianpowerplant_"
     ],
     "materials": {
-      "Guardian Module Blueprint Fragment": 1,
-      "Guardian Power Conduit": 18,
-      "Pattern Epsilon Obelisk Data": 21,
-      "Heat Resistant Ceramics": 15
+      "Guardian_ModuleBlueprint": 1,
+      "Guardian_PowerConduit": 18,
+      "AncientTechnologicalData": 21,
+      "HeatResistantCeramics": 15
     },
     "commodities": {
       "Energy Grid Assembly": 10
@@ -96,10 +96,10 @@
       "int_guardianmodulereinforcement_"
     ],
     "materials": {
-      "Guardian Module Blueprint Fragment": 1,
-      "Guardian Wreckage Components": 18,
-      "Pattern Epsilon Obelisk Data": 15,
-      "Guardian Power Conduit": 20
+      "Guardian_ModuleBlueprint": 1,
+      "Guardian_Sentinel_WreckageComponents": 18,
+      "AncientTechnologicalData": 15,
+      "Guardian_PowerConduit": 20
     },
     "commodities": {
       "Reinforced Mounting Plate": 9
@@ -114,9 +114,9 @@
       "hpt_guardian_plasmalauncher_fixed_large"
     ],
     "materials": {
-      "Guardian Weapon Blueprint Fragment": 1,
-      "Guardian Power Conduit": 28,
-      "Guardian Sentinel Weapon Parts": 20,
+      "Guardian_WeaponBlueprint": 1,
+      "Guardian_PowerConduit": 28,
+      "Guardian_Sentinel_WeaponParts": 20,
       "Chromium": 28
     },
     "commodities": {
@@ -132,9 +132,9 @@
       "hpt_guardian_plasmalauncher_fixed_medium"
     ],
     "materials": {
-      "Guardian Weapon Blueprint Fragment": 1,
-      "Guardian Power Conduit": 19,
-      "Guardian Sentinel Weapon Parts": 16,
+      "Guardian_WeaponBlueprint": 1,
+      "Guardian_PowerConduit": 19,
+      "Guardian_Sentinel_WeaponParts": 16,
       "Chromium": 14
     },
     "commodities": {
@@ -150,10 +150,10 @@
       "hpt_guardian_plasmalauncher_fixed_small"
     ],
     "materials": {
-      "Guardian Weapon Blueprint Fragment": 1,
-      "Guardian Power Cell": 12,
-      "Guardian Sentinel Weapon Parts": 12,
-      "Guardian Technology Component": 15
+      "Guardian_WeaponBlueprint": 1,
+      "Guardian_PowerCell": 12,
+      "Guardian_Sentinel_WeaponParts": 12,
+      "Guardian_TechComponent": 15
     },
     "commodities": {}
   },
@@ -166,9 +166,9 @@
       "hpt_guardian_plasmalauncher_turret_large"
     ],
     "materials": {
-      "Guardian Weapon Blueprint Fragment": 2,
-      "Guardian Power Conduit": 26,
-      "Guardian Sentinel Weapon Parts": 24,
+      "Guardian_WeaponBlueprint": 2,
+      "Guardian_PowerConduit": 26,
+      "Guardian_Sentinel_WeaponParts": 24,
       "Chromium": 26
     },
     "commodities": {
@@ -184,9 +184,9 @@
       "hpt_guardian_plasmalauncher_turret_medium"
     ],
     "materials": {
-      "Guardian Weapon Blueprint Fragment": 2,
-      "Guardian Power Conduit": 21,
-      "Guardian Sentinel Weapon Parts": 20,
+      "Guardian_WeaponBlueprint": 2,
+      "Guardian_PowerConduit": 21,
+      "Guardian_Sentinel_WeaponParts": 20,
       "Chromium": 16
     },
     "commodities": {
@@ -202,10 +202,10 @@
       "hpt_guardian_plasmalauncher_turret_small"
     ],
     "materials": {
-      "Guardian Weapon Blueprint Fragment": 1,
-      "Guardian Power Cell": 12,
-      "Guardian Technology Component": 12,
-      "Guardian Sentinel Weapon Parts": 15
+      "Guardian_WeaponBlueprint": 1,
+      "Guardian_PowerCell": 12,
+      "Guardian_TechComponent": 12,
+      "Guardian_Sentinel_WeaponParts": 15
     },
     "commodities": {}
   },
@@ -218,10 +218,10 @@
       "int_guardianpowerdistributor_"
     ],
     "materials": {
-      "Guardian Module Blueprint Fragment": 1,
-      "Pattern Alpha Obelisk Data": 20,
-      "Guardian Power Cell": 24,
-      "Phase Alloys": 18
+      "Guardian_ModuleBlueprint": 1,
+      "AncientBiologicalData": 20,
+      "Guardian_PowerCell": 24,
+      "PhaseAlloys": 18
     },
     "commodities": {
       "Heatsink Interlink": 6
@@ -236,9 +236,9 @@
       "hpt_guardian_shardcannon_fixed_large"
     ],
     "materials": {
-      "Guardian Technology Component": 28,
-      "Guardian Weapon Blueprint Fragment": 1,
-      "Guardian Wreckage Components": 20,
+      "Guardian_TechComponent": 28,
+      "Guardian_WeaponBlueprint": 1,
+      "Guardian_Sentinel_WreckageComponents": 20,
       "Carbon": 20
     },
     "commodities": {
@@ -254,9 +254,9 @@
       "hpt_guardian_shardcannon_fixed_medium"
     ],
     "materials": {
-      "Guardian Technology Component": 18,
-      "Guardian Weapon Blueprint Fragment": 1,
-      "Guardian Wreckage Components": 20,
+      "Guardian_TechComponent": 18,
+      "Guardian_WeaponBlueprint": 1,
+      "Guardian_Sentinel_WreckageComponents": 20,
       "Carbon": 14
     },
     "commodities": {
@@ -272,10 +272,10 @@
       "hpt_guardian_shardcannon_fixed_small"
     ],
     "materials": {
-      "Guardian Weapon Blueprint Fragment": 1,
-      "Guardian Power Conduit": 12,
-      "Guardian Technology Component": 12,
-      "Guardian Sentinel Weapon Parts": 15
+      "Guardian_WeaponBlueprint": 1,
+      "Guardian_PowerConduit": 12,
+      "Guardian_TechComponent": 12,
+      "Guardian_Sentinel_WeaponParts": 15
     },
     "commodities": {}
   },
@@ -288,9 +288,9 @@
       "hpt_guardian_shardcannon_turret_large"
     ],
     "materials": {
-      "Guardian Weapon Blueprint Fragment": 2,
-      "Guardian Wreckage Components": 20,
-      "Guardian Technology Component": 26,
+      "Guardian_WeaponBlueprint": 2,
+      "Guardian_Sentinel_WreckageComponents": 20,
+      "Guardian_TechComponent": 26,
       "Carbon": 28
     },
     "commodities": {
@@ -306,9 +306,9 @@
       "hpt_guardian_shardcannon_turret_medium"
     ],
     "materials": {
-      "Guardian Weapon Blueprint Fragment": 2,
-      "Guardian Wreckage Components": 16,
-      "Guardian Technology Component": 20,
+      "Guardian_WeaponBlueprint": 2,
+      "Guardian_Sentinel_WreckageComponents": 16,
+      "Guardian_TechComponent": 20,
       "Carbon": 15
     },
     "commodities": {
@@ -324,10 +324,10 @@
       "hpt_guardian_shardcannon_turret_small"
     ],
     "materials": {
-      "Guardian Weapon Blueprint Fragment": 1,
-      "Guardian Power Conduit": 12,
-      "Guardian Sentinel Weapon Parts": 12,
-      "Guardian Technology Component": 15
+      "Guardian_WeaponBlueprint": 1,
+      "Guardian_PowerConduit": 12,
+      "Guardian_Sentinel_WeaponParts": 12,
+      "Guardian_TechComponent": 15
     },
     "commodities": {}
   },
@@ -340,10 +340,10 @@
       "int_guardianshieldreinforcement_"
     ],
     "materials": {
-      "Guardian Module Blueprint Fragment": 1,
-      "Guardian Power Cell": 17,
-      "Guardian Technology Component": 20,
-      "Pattern Delta Obelisk Data": 24
+      "Guardian_ModuleBlueprint": 1,
+      "Guardian_PowerCell": 17,
+      "Guardian_TechComponent": 20,
+      "AncientLanguageData": 24
     },
     "commodities": {
       "Hardware Diagnostic Sensor": 8
@@ -358,11 +358,11 @@
       "gdn_hybrid_fighter_v2"
     ],
     "materials": {
-      "Guardian Power Cell": 25,
-      "Guardian Wreckage Components": 18,
-      "Guardian Vessel Blueprint Fragment": 1,
-      "Pattern Epsilon Obelisk Data": 26,
-      "Guardian Technology Component": 25
+      "Guardian_PowerCell": 25,
+      "Guardian_Sentinel_WreckageComponents": 18,
+      "Guardian_VesselBlueprint": 1,
+      "AncientTechnologicalData": 26,
+      "Guardian_TechComponent": 25
     },
     "commodities": {}
   },
@@ -375,11 +375,11 @@
       "gdn_hybrid_fighter_v3"
     ],
     "materials": {
-      "Guardian Power Cell": 25,
-      "Guardian Sentinel Weapon Parts": 18,
-      "Guardian Vessel Blueprint Fragment": 1,
-      "Pattern Epsilon Obelisk Data": 26,
-      "Guardian Technology Component": 25
+      "Guardian_PowerCell": 25,
+      "Guardian_Sentinel_WeaponParts": 18,
+      "Guardian_VesselBlueprint": 1,
+      "AncientTechnologicalData": 26,
+      "Guardian_TechComponent": 25
     },
     "commodities": {}
   },
@@ -390,9 +390,9 @@
     "moduleType": "ggc",
     "items": [],
     "materials": {
-      "Guardian Weapon Blueprint Fragment": 1,
-      "Guardian Power Cell": 5,
-      "Guardian Technology Component": 5,
+      "Guardian_WeaponBlueprint": 1,
+      "Guardian_PowerCell": 5,
+      "Guardian_TechComponent": 5,
       "Niobium": 4
     },
     "commodities": {
@@ -406,10 +406,10 @@
     "moduleType": "ggc",
     "items": [],
     "materials": {
-      "Guardian Weapon Blueprint Fragment": 1,
-      "Guardian Power Conduit": 3,
-      "Guardian Wreckage Components": 3,
-      "Guardian Sentinel Weapon Parts": 4,
+      "Guardian_WeaponBlueprint": 1,
+      "Guardian_PowerConduit": 3,
+      "Guardian_Sentinel_WreckageComponents": 3,
+      "Guardian_Sentinel_WeaponParts": 4,
       "Niobium": 2
     },
     "commodities": {}
@@ -421,9 +421,9 @@
     "moduleType": "gpc",
     "items": [],
     "materials": {
-      "Guardian Power Conduit": 5,
-      "Guardian Weapon Blueprint Fragment": 1,
-      "Guardian Sentinel Weapon Parts": 5,
+      "Guardian_PowerConduit": 5,
+      "Guardian_WeaponBlueprint": 1,
+      "Guardian_Sentinel_WeaponParts": 5,
       "Arsenic": 4
     },
     "commodities": {
@@ -437,10 +437,10 @@
     "moduleType": "gpc",
     "items": [],
     "materials": {
-      "Guardian Weapon Blueprint Fragment": 1,
-      "Guardian Power Cell": 3,
-      "Guardian Technology Component": 4,
-      "Guardian Sentinel Weapon Parts": 3,
+      "Guardian_WeaponBlueprint": 1,
+      "Guardian_PowerCell": 3,
+      "Guardian_TechComponent": 4,
+      "Guardian_Sentinel_WeaponParts": 3,
       "Arsenic": 2
     },
     "commodities": {}
@@ -452,9 +452,9 @@
     "moduleType": "gsc",
     "items": [],
     "materials": {
-      "Guardian Technology Component": 5,
-      "Guardian Weapon Blueprint Fragment": 1,
-      "Guardian Wreckage Components": 5,
+      "Guardian_TechComponent": 5,
+      "Guardian_WeaponBlueprint": 1,
+      "Guardian_Sentinel_WreckageComponents": 5,
       "Germanium": 4
     },
     "commodities": {
@@ -468,10 +468,10 @@
     "moduleType": "gsc",
     "items": [],
     "materials": {
-      "Guardian Weapon Blueprint Fragment": 1,
-      "Guardian Power Conduit": 3,
-      "Guardian Wreckage Components": 3,
-      "Guardian Sentinel Weapon Parts": 4,
+      "Guardian_WeaponBlueprint": 1,
+      "Guardian_PowerConduit": 3,
+      "Guardian_Sentinel_WreckageComponents": 3,
+      "Guardian_Sentinel_WeaponParts": 4,
       "Germanium": 2
     },
     "commodities": {}
@@ -485,11 +485,11 @@
       "gdn_hybrid_fighter_v1"
     ],
     "materials": {
-      "Guardian Power Cell": 25,
-      "Guardian Vessel Blueprint Fragment": 1,
-      "Pattern Epsilon Obelisk Data": 26,
-      "Pattern Beta Obelisk Data": 18,
-      "Guardian Technology Component": 25
+      "Guardian_PowerCell": 25,
+      "Guardian_VesselBlueprint": 1,
+      "AncientTechnologicalData": 26,
+      "AncientCulturalData": 18,
+      "Guardian_TechComponent": 25
     },
     "commodities": {}
   },
@@ -503,7 +503,7 @@
     ],
     "materials": {
       "Iron": 26,
-      "Chemical Manipulators": 18
+      "ChemicalManipulators": 18
     },
     "commodities": {
       "Meta-alloys": 16,
@@ -518,9 +518,9 @@
     "moduleType": "ss",
     "items": [],
     "materials": {
-      "Mechanical Scrap": 26,
+      "MechanicalScrap": 26,
       "Germanium": 22,
-      "Mechanical Components": 28,
+      "MechanicalComponents": 28,
       "Niobium": 24
     },
     "commodities": {}
@@ -533,9 +533,9 @@
     "items": [],
     "materials": {
       "Tellurium": 26,
-      "Electrochemical Arrays": 26,
-      "Chemical Processors": 28,
-      "Datamined Wake Exceptions": 18
+      "ElectrochemicalArrays": 26,
+      "ChemicalProcessors": 28,
+      "DataminedWake": 18
     },
     "commodities": {}
   },
@@ -546,10 +546,10 @@
     "moduleType": "mr",
     "items": [],
     "materials": {
-      "Proto Radiolic Alloys": 16,
+      "ProtoRadiolicAlloys": 16,
       "Phosphorus": 28,
-      "Conductive Ceramics": 24,
-      "Hybrid Capacitors": 26
+      "ConductiveCeramics": 24,
+      "HybridCapacitors": 26
     },
     "commodities": {
       "Osmium": 10
@@ -565,8 +565,8 @@
     ],
     "materials": {
       "Tungsten": 15,
-      "Thargoid Energy Cell": 16,
-      "Thargoid Organic Circuitry": 18,
+      "UnknownEnergyCell": 16,
+      "UnknownOrganicCircuitry": 18,
       "Molybdenum": 16
     },
     "commodities": {
@@ -582,9 +582,9 @@
       "int_metaalloyhullreinforcement_"
     ],
     "materials": {
-      "Focus Crystals": 25,
-      "Aberrant Shield Pattern Analysis": 22,
-      "Configurable Components": 20
+      "FocusCrystals": 25,
+      "ShieldPatternAnalysis": 22,
+      "ConfigurableComponents": 20
     },
     "commodities": {
       "Meta-alloys": 16,
@@ -811,10 +811,10 @@
     "moduleType": "axmr",
     "items": [],
     "materials": {
-      "Heat Dispersion Plate": 9,
-      "High Density Composites": 10,
-      "Mechanical Equipment": 20,
-      "Military Supercapacitors": 10,
+      "HeatDispersionPlate": 9,
+      "HighDensityComposites": 10,
+      "MechanicalEquipment": 20,
+      "MilitarySupercapacitors": 10,
       "Technetium": 3,
       "Vanadium": 13
     },
@@ -827,10 +827,10 @@
     "moduleType": "axmr",
     "items": [],
     "materials": {
-      "Heat Dispersion Plate": 6,
-      "High Density Composites": 5,
-      "Mechanical Equipment": 12,
-      "Military Supercapacitors": 5,
+      "HeatDispersionPlate": 6,
+      "HighDensityComposites": 5,
+      "MechanicalEquipment": 12,
+      "MilitarySupercapacitors": 5,
       "Vanadium": 8
     },
     "commodities": {}
@@ -842,8 +842,8 @@
     "moduleType": "hs",
     "items": [],
     "materials": {
-      "Mechanical Components": 5,
-      "Mechanical Scrap": 8,
+      "MechanicalComponents": 5,
+      "MechanicalScrap": 8,
       "Niobium": 6,
       "Vanadium": 6
     },

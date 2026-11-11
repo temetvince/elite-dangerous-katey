@@ -310,7 +310,7 @@ public sealed class WorkbenchFeatureTests
             new FitModule("PowerPlant", "int_powerplant_size7_class5", new Engineering("PowerPlant_Boosted", 3, "special_powerplant_highcharge")),
             new FitModule("Slot01_Size7", "int_cargorack_size7_class1", null),
         ]);
-        var (shell, monitor, _) = Create(PersistedState.Empty with { Fittings = [fitting], Engineers = ["Felicity Farseer"] });
+        var (shell, monitor, _) = Create(PersistedState.Empty with { Fittings = [fitting], EngineerIds = [300100] });
         monitor.Feed(
             /*lang=json,strict*/ """{"timestamp":"2026-11-05T20:00:00Z","event":"Location","StarSystem":"Deciat","SystemAddress":3,"StarPos":[122.625,-0.8125,-47.28125],"Docked":true,"StationName":"Farseer Inc"}""",
             Loadout,
@@ -1506,7 +1506,7 @@ public sealed class WorkbenchFeatureTests
     [Fact]
     public void GradePickers_StartAtTheTop_OrAtTheReach_WhenOnlyMyEngineersIsOn()
     {
-        var (shell, monitor, _) = Create(PersistedState.Empty with { Engineers = ["Felicity Farseer"] });
+        var (shell, monitor, _) = Create(PersistedState.Empty with { EngineerIds = [300100] });
         var selected = shell.Workspace.Engineers.Selected;
         var (type, key, reach) = Catalog.EngineerableModuleTypes()
             .SelectMany(type => Catalog.BlueprintsFor(type.Code).Select(blueprint => (Type: type, blueprint.Key, Reach: EngineerCoverage.Reach(type, blueprint.Key, selected))))
@@ -1604,7 +1604,7 @@ public sealed class WorkbenchFeatureTests
     [Fact]
     public void Modules_OnlyMyEngineers_NarrowsToWhatTheSelectionCanRoll_AndIsRemembered()
     {
-        var (shell, _, store) = Create(PersistedState.Empty with { Engineers = ["Felicity Farseer"] });
+        var (shell, _, store) = Create(PersistedState.Empty with { EngineerIds = [300100] });
         var modules = Open<ModulesPage>(shell, PageKind.Modules);
         var all = modules.Groups.Sum(group => group.Types.Count);
         Assert.Equal("", modules.FilterText);
@@ -1620,7 +1620,7 @@ public sealed class WorkbenchFeatureTests
         var again = Open<ModulesPage>(Create(store.State).Shell, PageKind.Modules);
         Assert.Equal(narrowed, again.Groups.Sum(group => group.Types.Count));
 
-        var nobody = Open<ModulesPage>(Create(store.State with { Engineers = [] }).Shell, PageKind.Modules);
+        var nobody = Open<ModulesPage>(Create(store.State with { EngineerIds = [] }).Shell, PageKind.Modules);
         Assert.Equal(all, nobody.Groups.Sum(group => group.Types.Count));
         Assert.Contains("nobody is ticked", nobody.FilterText, StringComparison.Ordinal);
     }
@@ -1649,7 +1649,7 @@ public sealed class WorkbenchFeatureTests
         Assert.Equal(savesBefore, store.Saves);
 
         var entry = PlanEntry.Create(Catalog, "fsd", "FSD_LongRange", 5, null, PlanSource.Manual);
-        store.AtFolders[@"E:\Other"] = PersistedState.Empty with { Engineers = ["Felicity Farseer"], Plan = [entry], AllowSpansh = true, Preferences = new Dictionary<string, string> { ["rail.bodyFilter"] = "bacteria" } };
+        store.AtFolders[@"E:\Other"] = PersistedState.Empty with { EngineerIds = [300100], Plan = [entry], AllowSpansh = true, Preferences = new Dictionary<string, string> { ["rail.bodyFilter"] = "bacteria" } };
         settings = Assert.IsType<SettingsPage>(shell.Navigator.Current);
         settings.DataFolder = @"E:\Other";
         Assert.StartsWith("Loaded the Katey data already in", settings.DataStatus, StringComparison.Ordinal);
@@ -1657,7 +1657,7 @@ public sealed class WorkbenchFeatureTests
         Assert.Equal("FSD_LongRange", Assert.Single(shell.Workspace.Plan.Entries).Entry.Blueprint);
         Assert.True(shell.Workspace.Plot.Enabled);
         Assert.Equal(BodyFilter.SkipBacteria, shell.Rail.Filter);
-        Assert.Equal(["Felicity Farseer"], store.State.Engineers);
+        Assert.Equal([300100], store.State.EngineerIds);
         Assert.Equal(@"E:\Other", Assert.IsType<SettingsPage>(shell.Navigator.Current).DataFolder);
     }
 

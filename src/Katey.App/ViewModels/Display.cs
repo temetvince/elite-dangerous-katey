@@ -32,7 +32,7 @@ public sealed record MaterialChip(string Name, int Count, int Grade, MaterialCat
 
     /// <summary>Builds chips from a count map, in its order.</summary>
     /// <param name="catalog">The catalog.</param>
-    /// <param name="counts">Material display name → count. Every name must exist.</param>
+    /// <param name="counts">Material symbol → count. Every symbol must exist.</param>
     /// <returns>One chip per entry.</returns>
     public static IReadOnlyList<MaterialChip> From(Catalog catalog, IReadOnlyDictionary<string, int> counts)
     {

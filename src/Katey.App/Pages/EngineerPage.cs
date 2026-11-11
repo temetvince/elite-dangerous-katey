@@ -1,4 +1,5 @@
-﻿using Katey.App.Mvvm;
+﻿using System.Globalization;
+using Katey.App.Mvvm;
 using Katey.App.Navigation;
 using Katey.App.ViewModels;
 using Katey.Core.Planning;
@@ -37,12 +38,12 @@ public sealed class EngineerPage : Page
     private readonly Core.EngineerProfile _profile;
 
     /// <summary>Creates the page.</summary>
-    /// <param name="name">The engineer's name. Must exist in the catalog.</param>
+    /// <param name="profile">The engineer, from the catalog.</param>
     /// <param name="workspace">The shared state.</param>
-    public EngineerPage(string name, Workspace workspace)
-        : base(new PageKey(PageKind.Engineer, name), workspace)
+    public EngineerPage(Core.EngineerProfile profile, Workspace workspace)
+        : base(new PageKey(PageKind.Engineer, KeyOf(profile)), workspace)
     {
-        _profile = workspace.Catalog.Engineers[name];
+        _profile = profile;
         Title = _profile.Name;
         Breadcrumbs = [LinkTo("Engineers", PageKind.Engineers)];
         Kicker = Display.RegionLabel(_profile.Region);
@@ -52,6 +53,26 @@ public sealed class EngineerPage : Page
 
     /// <summary>Gets where they are: the system's link and the base.</summary>
     public Place Where { get; }
+
+    /// <summary>The page id of an engineer: the game's engineer id as decimal text, which <see cref="Find"/> reads back.</summary>
+    /// <param name="profile">The engineer.</param>
+    /// <returns>The id, such as <c>300100</c>.</returns>
+    public static string KeyOf(Core.EngineerProfile profile)
+    {
+        ArgumentNullException.ThrowIfNull(profile);
+        return profile.Id.ToString(CultureInfo.InvariantCulture);
+    }
+
+    /// <summary>The engineer a page id names.</summary>
+    /// <param name="catalog">The catalog.</param>
+    /// <param name="id">A page id from <see cref="KeyOf"/>.</param>
+    /// <returns>The engineer, or <see langword="null"/> when the id is not a number the catalog knows.</returns>
+    public static Core.EngineerProfile? Find(Core.Catalog catalog, string id)
+    {
+        ArgumentNullException.ThrowIfNull(catalog);
+        ArgumentNullException.ThrowIfNull(id);
+        return long.TryParse(id, NumberStyles.None, CultureInfo.InvariantCulture, out var number) && catalog.EngineersById.TryGetValue(number, out var profile) ? profile : null;
+    }
 
     /// <summary>Gets the distance from the ship, with the system you are in as a link; or why the distance is unknown.</summary>
     public IReadOnlyList<PhrasePart> DistanceParts { get; private set => SetProperty(ref field, value); } = Phrase.Empty;

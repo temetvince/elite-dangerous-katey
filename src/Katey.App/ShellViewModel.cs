@@ -69,9 +69,9 @@ public sealed class ShellViewModel : ObservableObject
         _store = store;
         _logger = logger;
         var saved = store.Load();
-        Log.StateLoaded(logger, saved.Plan.Count, saved.Engineers.Count);
+        Log.StateLoaded(logger, saved.Plan.Count, saved.EngineerIds.Count);
 
-        var engineers = new EngineerSelection(catalog, saved.Engineers);
+        var engineers = new EngineerSelection(catalog, saved.EngineerIds);
         // The plan asks for an engineer's link only when it refreshes, by which time the workspace below exists.
         var plan = new PlanViewModel(catalog, () => engineers.Selected, name => Workspace!.EngineerLinkFor(name));
         var preferences = new UiPreferences(saved.Preferences);
@@ -231,7 +231,7 @@ public sealed class ShellViewModel : ObservableObject
     private void Apply(PersistedState saved)
     {
         Workspace.Preferences.Replace(saved.Preferences);
-        Workspace.Engineers.Replace(saved.Engineers);
+        Workspace.Engineers.Replace(saved.EngineerIds);
         Workspace.Fleet.Replace(saved.Fittings, saved.Policy);
         Workspace.Reserves.Replace(saved.Reserves);
         Workspace.Plan.Load(saved.Plan);
@@ -352,7 +352,7 @@ public sealed class ShellViewModel : ObservableObject
     private void Save()
         => _store.Save(new PersistedState(
             Workspace.Plan.Snapshot(),
-            [.. Workspace.Engineers.Selected.Order(StringComparer.Ordinal)],
+            Workspace.Engineers.SelectedIds,
             Workspace.JournalFolder.Length == 0 ? null : Workspace.JournalFolder,
             Workspace.Fleet.Fittings,
             Workspace.Fleet.Policy,

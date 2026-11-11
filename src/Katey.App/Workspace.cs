@@ -2,6 +2,7 @@
 using Katey.App.Exploration;
 using Katey.App.Navigation;
 using Katey.App.Network;
+using Katey.App.Pages;
 using Katey.App.Persistence;
 using Katey.App.Routing;
 using Katey.App.Trading;
@@ -148,12 +149,12 @@ public sealed class Workspace
     public EngineerScope Scope => field ??= new EngineerScope(Catalog, Engineers, Preferences);
 
     /// <summary>An engineer's name as Katey shows it everywhere: their page, whether you ticked them, and whether the engineers switch narrows the lists.</summary>
-    /// <param name="name">The engineer's name, as the catalog spells it.</param>
-    /// <returns>The link; see <see cref="EngineerLink"/>.</returns>
+    /// <param name="name">The engineer's name, as the catalog spells it. Must exist in the catalog.</param>
+    /// <returns>The link, keyed on the engineer's id; see <see cref="EngineerLink"/>.</returns>
     public EngineerLink EngineerLinkFor(string name)
     {
         ArgumentNullException.ThrowIfNull(name);
-        return new EngineerLink(Navigator.LinkTo(name, PageKind.Engineer, name), Engineers.Selected.Contains(name), Scope.IsNarrowed);
+        return new EngineerLink(Navigator.LinkTo(name, PageKind.Engineer, EngineerPage.KeyOf(Catalog.Engineers[name])), Engineers.Selected.Contains(name), Scope.IsNarrowed);
     }
 
     /// <summary>Gets the logger the view models write decisions to.</summary>
@@ -540,7 +541,7 @@ public sealed class Workspace
             return null;
         }
 
-        var needs = MaterialCalculator.Totals(Catalog, Plan.Snapshot()).ToDictionary(total => total.Material.Name, total => total.Needed, StringComparer.Ordinal);
+        var needs = MaterialCalculator.Totals(Catalog, Plan.Snapshot()).ToDictionary(total => total.Material.Symbol, total => total.Needed, StringComparer.OrdinalIgnoreCase);
         return MaterialTrader.Plan(Catalog, needs, counts, Reserves.All);
     }
 

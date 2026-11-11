@@ -141,7 +141,7 @@ public sealed class SearchViewModel : ObservableObject
         foreach (var engineer in catalog.Engineers.Values)
         {
             var profile = engineer;
-            _catalogIndex.Add(profile.Name, () => new SearchResult(Link(profile.Name, PageKind.Engineer, profile.Name), "Engineer", $"{profile.System} · {profile.Base}"), profile.System + " " + profile.Base);
+            _catalogIndex.Add(profile.Name, () => new SearchResult(Link(profile.Name, PageKind.Engineer, EngineerPage.KeyOf(profile)), "Engineer", $"{profile.System} · {profile.Base}"), profile.System + " " + profile.Base);
         }
 
         foreach (var type in catalog.ModuleTypes.Values.Where(type => type.IsEngineerable))
@@ -168,7 +168,7 @@ public sealed class SearchViewModel : ObservableObject
         foreach (var material in catalog.Materials.Values)
         {
             var item = material;
-            _catalogIndex.Add(item.Name, () => new SearchResult(Link(item.Name, PageKind.Material, item.Name), "Material", $"{Display.Grade(item.Grade)} · {Core.Planning.ShoppingList.CategoryLabels[item.Category]} · {item.Line}"), item.Symbol + " " + item.Line);
+            _catalogIndex.Add(item.Name, () => new SearchResult(Link(item.Name, PageKind.Material, item.Symbol), "Material", $"{Display.Grade(item.Grade)} · {Core.Planning.ShoppingList.CategoryLabels[item.Category]} · {item.Line}"), item.Symbol + " " + item.Line);
         }
     }
 

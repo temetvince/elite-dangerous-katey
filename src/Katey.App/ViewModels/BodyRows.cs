@@ -593,7 +593,7 @@ public sealed class BodyRowBuilder
 
         var materials = body.Materials
             .OrderByDescending(pair => pair.Value)
-            .Select(pair => _catalog.MaterialsBySymbol.TryGetValue(pair.Key, out var material)
+            .Select(pair => _catalog.Materials.TryGetValue(pair.Key, out var material)
                 ? (material.Name, Share: pair.Value, material.Grade)
                 : (Name: pair.Key, Share: pair.Value, Grade: 0))
             .ToList();

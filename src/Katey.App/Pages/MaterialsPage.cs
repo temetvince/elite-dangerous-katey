@@ -196,7 +196,7 @@ public sealed class MaterialsPage : Page
     {
         Title = "Materials";
         Kicker = "Browse";
-        var landing = workspace.Catalog.MaterialsBySymbol.GetValueOrDefault(show);
+        var landing = workspace.Catalog.Materials.GetValueOrDefault(show);
         HighlightedSymbol = landing?.Symbol ?? "";
         var reveal = landing?.Category ?? (Enum.TryParse<MaterialCategory>(show, ignoreCase: true, out var wanted) ? wanted : null);
         if (reveal is { } category)
@@ -298,7 +298,7 @@ public sealed class MaterialsPage : Page
                     .ThenBy(material => material.Grade)
                     .ThenBy(material => material.Name, StringComparer.Ordinal)
                     .Select(material => new InventoryMaterialRow(
-                        LinkTo(material.Name, PageKind.Material, material.Name),
+                        LinkTo(material.Name, PageKind.Material, material.Symbol),
                         material.Symbol,
                         material.Grade,
                         material.Line,
@@ -316,7 +316,7 @@ public sealed class MaterialsPage : Page
         StatusText = !inventory.HasSnapshot
             ? "No inventory yet. Counts appear once the journal watch has read a Materials snapshot, which the game writes on every load."
             : $"Inventory of {inventory.Commander ?? "the commander"} as of {inventory.AsOf?.ToLocalTime().ToString("g", CultureInfo.CurrentCulture)}.";
-        var unknown = counts is null ? [] : counts.Keys.Where(symbol => !catalog.MaterialsBySymbol.ContainsKey(symbol)).Order(StringComparer.OrdinalIgnoreCase).ToList();
+        var unknown = counts is null ? [] : counts.Keys.Where(symbol => !catalog.Materials.ContainsKey(symbol)).Order(StringComparer.OrdinalIgnoreCase).ToList();
         foreach (var symbol in unknown)
         {
             Workspace.NoteUnknown("material", symbol);

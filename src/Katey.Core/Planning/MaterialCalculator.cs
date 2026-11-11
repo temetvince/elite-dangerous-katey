@@ -38,7 +38,7 @@ public static class MaterialCalculator
     /// </summary>
     /// <param name="catalog">The catalog.</param>
     /// <param name="entry">The entry. Its blueprint and experimental, or its unlock, must exist in <paramref name="catalog"/>.</param>
-    /// <returns>Material display name → count, in first-seen order. Only positive counts.</returns>
+    /// <returns>Material symbol → count, in first-seen order. Only positive counts.</returns>
     public static IReadOnlyDictionary<string, int> ForEntry(Catalog catalog, PlanEntry entry)
     {
         ArgumentNullException.ThrowIfNull(catalog);

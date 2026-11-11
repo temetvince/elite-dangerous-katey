@@ -7,13 +7,13 @@ public sealed class TradingTests
 {
     private static readonly Catalog Catalog = Catalog.LoadEmbedded();
 
-    private static Material M(string name) => Catalog.Materials[name];
+    private static Material M(string name) => Catalog.Materials.Values.Single(material => material.Name == name);
 
     private static Dictionary<string, int> Inventory(params (string Name, int Count)[] held)
         => held.ToDictionary(pair => M(pair.Name).Symbol, pair => pair.Count, StringComparer.OrdinalIgnoreCase);
 
     private static Dictionary<string, int> Needs(params (string Name, int Count)[] needs)
-        => needs.ToDictionary(pair => pair.Name, pair => pair.Count, StringComparer.Ordinal);
+        => needs.ToDictionary(pair => M(pair.Name).Symbol, pair => pair.Count, StringComparer.OrdinalIgnoreCase);
 
     [Theory]
     [InlineData("Carbon", "Vanadium", 6, 1)]

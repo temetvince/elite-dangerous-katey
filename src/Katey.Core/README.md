@@ -9,7 +9,7 @@ embedded in the assembly, so everything in it is tested as plain objects.
 | Area | Types | Purpose |
 | --- | --- | --- |
 | `Model.cs` | `Material`, `Blueprint`, `Experimental`, `ModuleType`, `EngineerProfile`, `Unlock`, `BrokerKind`, `MaterialUse`, `EngineerOffer`, the enums | The engineering records, and the technology broker unlocks with their material and commodity costs; `Unlock.Covers` says whether an item symbol is one the unlock makes available. `Blueprint.ClampGrade` picks the nearest grade a blueprint has. An engineer carries the position of their system. |
-| `Catalog.cs` | `Catalog`, `CatalogException` | Loads the engineering tables, validates them, and answers lookups: blueprints and experimentals per module type, engineers per grade, materials by name or by journal symbol, the module types a blueprint applies to, the blueprint grades and experimentals that use a material, everything one engineer offers, and the unlocks of one module type or using one material. |
+| `Catalog.cs` | `Catalog`, `CatalogException` | Loads the engineering tables, validates them, and answers lookups: blueprints and experimentals per module type, engineers per grade, materials by journal symbol, engineers by name or by the game's engineer id, the module types a blueprint applies to, the blueprint grades and experimentals that use a material, everything one engineer offers, and the unlocks of one module type or using one material. |
 | `CatalogValidator.cs` | `CatalogValidator` | The rules the engineering tables must satisfy, one sentence per broken rule. |
 | `Data/` | `MaterialRow`, `BlueprintRow`, `ExperimentalRow`, `ModuleTypeRow`, `EngineerRow`, the seven JSON files | The tables as the files spell them. |
 | `ItemResolver.cs` | `ItemResolver` | Maps an EDSY or journal item symbol to a module type code. |
@@ -307,13 +307,13 @@ tables use to refer to it, and only fields the app uses are kept.
 
 | File | Keyed by | Record |
 | --- | --- | --- |
-| `materials.json` | display name, as blueprints spell it | `symbol`, `name`, `category` (raw, manufactured, encoded), `grade` 1–5, `line` (in-game family) |
-| `blueprints.json` | journal name such as `FSD_LongRange` | `name`, `grades`: grade key → material name → count, only the grades that exist |
-| `experimentals.json` | journal name such as `special_fsd_heavy` | `name`, `components`: material name → count (empty for the three Legacy effects) |
+| `materials.json` | journal symbol, as every recipe spells it | `symbol`, `name` (display name, unique), `category` (raw, manufactured, encoded), `grade` 1–5, `line` (in-game family) |
+| `blueprints.json` | journal name such as `FSD_LongRange` | `name`, `grades`: grade key → material symbol → count, only the grades that exist |
+| `experimentals.json` | journal name such as `special_fsd_heavy` | `name`, `components`: material symbol → count (empty for the three Legacy effects) |
 | `moduleTypes.json` | short code such as `fsd` | `name`, `group` (core, optional, hardpoint, utility), `itemPatterns`, `blueprints`: blueprint key → grade key → engineer names, `experimentals` |
-| `engineers.json` | engineer name | `name`, `system`, `base`, `region` (bubble, colonia), `x`, `y`, `z` (the system's galactic coordinates, light years) |
+| `engineers.json` | engineer name, as the module tables spell it | `name`, `id` (the game's engineer id, as the journal reports it), `system`, `base`, `region` (bubble, colonia), `x`, `y`, `z` (the system's galactic coordinates, light years) |
 | `modules.json` | item symbol, lower case | `symbol`, `name` with size and rating, `group` (module type code), `class`, `rating`, `mount` |
-| `unlocks.json` | stable key such as `guardian_fsd_booster` | `name`, `broker` (guardian, human), `category` (modules, weapons, modifiedWeapons, fighters, preEngineered), `moduleType` (code, or null for a fighter), `items` (lower-case item symbol prefixes the purchase makes available, for the journal's `TechnologyBroker` event; empty when unknown), `materials`: material name → count, `commodities`: commodity name → count |
+| `unlocks.json` | stable key such as `guardian_fsd_booster` | `name`, `broker` (guardian, human), `category` (modules, weapons, modifiedWeapons, fighters, preEngineered), `moduleType` (code, or null for a fighter), `items` (lower-case item symbol prefixes the purchase makes available, for the journal's `TechnologyBroker` event; empty when unknown), `materials`: material symbol → count, `commodities`: commodity name → count |
 | `drives.json` | item symbol, lower case | `symbol`, `size`, `rating`, `optimalMass`, `maxFuelPerJump`, `fuelMultiplier`, `fuelPower`, `superchargeMultiplier`: every frame shift drive, standard, SCO and the size 8 Mk II |
 | `exobiology.json` | species variant symbol | `name`, `species`, `speciesName`, `genus`, `reward`, `count`, histograms `atmospheres`, `bodies`, `volcanism` (category → finds) and `gravity`, `temperature`, `pressure` (bins of min, max, finds) |
 
@@ -391,12 +391,13 @@ The conversion from upstream applies these rules:
 
 - every grade is 1–5;
 - every category, group and region is one of its allowed values;
-- every material a blueprint or experimental names exists;
+- every material a blueprint, an experimental or an unlock names exists, by symbol;
 - every blueprint and experimental a module type names exists;
 - every grade a module type lists exists on that blueprint;
 - every engineer named in a grade list exists and offers at least one blueprint;
 - every `itemPattern` compiles and is unique;
-- material symbols are unique.
+- material symbols are unique, case-insensitively, and material names are unique;
+- every engineer has a positive id, and the ids are unique.
 
 `ModuleCatalog` and `ExobiologyPredictor` throw `CatalogException` when their tables are missing or malformed.
 The `CatalogTests`, `FleetTests` and `ExplorationTests` suites load all three, so a data typo fails the test

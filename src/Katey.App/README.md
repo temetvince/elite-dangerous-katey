@@ -176,7 +176,7 @@ thread, so it finishes before the process ends.
 `JsonFileStateStore` keeps one JSON file at `Katey/state.json` under the user's local application data folder.
 It holds:
 
-- the plan entries and the selected engineer names;
+- the plan entries and the selected engineers, by the game's engineer id;
 - the saved fits and the sharing policy;
 - the journal folder, the backup folder and whether the backup runs on close;
 - whether the rail was in its own window, and the view preferences;

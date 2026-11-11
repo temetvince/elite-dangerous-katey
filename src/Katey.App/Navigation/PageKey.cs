@@ -9,7 +9,7 @@ public enum PageKind
     /// <summary>Every engineer. Id is empty.</summary>
     Engineers,
 
-    /// <summary>One engineer. Id is the engineer's name.</summary>
+    /// <summary>One engineer. Id is the game's engineer id as decimal text, <see cref="Pages.EngineerPage.KeyOf"/>.</summary>
     Engineer,
 
     /// <summary>Every module type, by group. Id is empty.</summary>
@@ -27,7 +27,7 @@ public enum PageKind
     /// <summary>The technology broker unlocks, Guardian and human. Id is empty, or the section key.</summary>
     Unlocks,
 
-    /// <summary>One material. Id is the material display name.</summary>
+    /// <summary>One material. Id is the material's journal symbol.</summary>
     Material,
 
     /// <summary>Ships, stored modules and saved fits. Id is empty.</summary>

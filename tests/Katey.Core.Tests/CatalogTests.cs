@@ -39,7 +39,7 @@ public sealed class CatalogTests
         Assert.Equal(4, scb.MaxGrade);
         Assert.Equal(4, scb.ClampGrade(5));
         Assert.Equal(5, fsd.MaxGrade);
-        Assert.Equal(new Dictionary<string, int> { ["Arsenic"] = 1, ["Chemical Manipulators"] = 1, ["Datamined Wake Exceptions"] = 1 }, fsd.Grades[5]);
+        Assert.Equal(new Dictionary<string, int> { ["Arsenic"] = 1, ["ChemicalManipulators"] = 1, ["DataminedWake"] = 1 }, fsd.Grades[5]);
     }
 
     [Fact]
@@ -51,10 +51,20 @@ public sealed class CatalogTests
     }
 
     [Fact]
-    public void MaterialsBySymbol_IsCaseInsensitive()
+    public void Materials_AreKeyedBySymbol_CaseInsensitively()
     {
-        Assert.Equal("Datamined Wake Exceptions", Catalog.MaterialsBySymbol["DATAMINEDWAKE"].Name);
-        Assert.Equal("Iron", Catalog.MaterialsBySymbol["iron"].Name);
+        Assert.Equal("Datamined Wake Exceptions", Catalog.Materials["DATAMINEDWAKE"].Name);
+        Assert.Equal("Iron", Catalog.Materials["iron"].Name);
+        Assert.False(Catalog.Materials.ContainsKey("Datamined Wake Exceptions"));
+    }
+
+    [Fact]
+    public void Engineers_AreFoundByNameAndById()
+    {
+        var farseer = Catalog.Engineers["Felicity Farseer"];
+        Assert.Equal(300100, farseer.Id);
+        Assert.Same(farseer, Catalog.EngineersById[300100]);
+        Assert.Equal(Catalog.Engineers.Count, Catalog.EngineersById.Count);
     }
 
     [Fact]
@@ -68,13 +78,13 @@ public sealed class CatalogTests
         Assert.Equal(UnlockCategory.PreEngineered, Catalog.Unlocks["sirius_modified_heat_sink_launcher"].Category);
         Assert.Equal(UnlockCategory.Weapons, Catalog.Unlocks["enzyme_missile_rack"].Category);
         Assert.Equal("gfsb", booster.ModuleType);
-        Assert.Equal(21, booster.Materials["Guardian Power Cell"]);
+        Assert.Equal(21, booster.Materials["Guardian_PowerCell"]);
         Assert.Equal(8, booster.Commodities["HN Shock Mount"]);
         Assert.True(booster.IsDetectable);
         Assert.True(booster.Covers("Int_GuardianFSDBooster_Size5"));
         Assert.False(booster.Covers("int_guardianpowerplant_size5_class1"));
         Assert.Equal([booster], Catalog.UnlocksFor("gfsb"));
-        Assert.Contains(booster, Catalog.UnlocksUsing("Focus Crystals"));
+        Assert.Contains(booster, Catalog.UnlocksUsing("FocusCrystals"));
         Assert.False(Catalog.Unlocks["engineered_fsd_v1"].IsDetectable);
         Assert.Equal(BrokerKind.Human, Catalog.Unlocks["shock_cannon_fixed_small"].Broker);
     }
@@ -85,12 +95,12 @@ public sealed class CatalogTests
         var tables = Snapshot();
         var unlocks = new Dictionary<string, UnlockRow>(StringComparer.Ordinal)
         {
-            ["bad"] = new("Bad", "thargoid", "toys", "nope", ["Hpt_Upper"], new Dictionary<string, int> { ["Guardian Power Cel"] = 1 }, new Dictionary<string, int>()),
+            ["bad"] = new("Bad", "thargoid", "toys", "nope", ["Hpt_Upper"], new Dictionary<string, int> { ["Guardian_PowerCel"] = 1 }, new Dictionary<string, int>()),
         };
 
         var exception = Assert.Throws<CatalogException>(() => Catalog.FromRows(tables.Materials, tables.Blueprints, tables.Experimentals, tables.ModuleTypes, tables.Engineers, unlocks));
 
-        Assert.Contains(exception.Problems, problem => problem.Contains("Guardian Power Cel", StringComparison.Ordinal));
+        Assert.Contains(exception.Problems, problem => problem.Contains("Guardian_PowerCel", StringComparison.Ordinal));
         Assert.Contains(exception.Problems, problem => problem.Contains("guardian or human", StringComparison.Ordinal));
         Assert.Contains(exception.Problems, problem => problem.Contains("category must be", StringComparison.Ordinal));
         Assert.Contains(exception.Problems, problem => problem.Contains("unknown module type", StringComparison.Ordinal));
@@ -109,7 +119,7 @@ public sealed class CatalogTests
 
         var exception = Assert.Throws<CatalogException>(() => Catalog.FromRows(tables.Materials, tables.Blueprints, tables.Experimentals, tables.ModuleTypes, tables.Engineers));
 
-        Assert.Contains(exception.Problems, problem => problem.Contains("Adaptive Encyptors Capture", StringComparison.Ordinal));
+        Assert.Contains(exception.Problems, problem => problem.Contains("AdaptiveEncyptors", StringComparison.Ordinal));
     }
 
     [Fact]
@@ -123,7 +133,7 @@ public sealed class CatalogTests
         {
             Blueprints = fsd.Blueprints.ToDictionary(pair => pair.Key, pair => pair.Key == "FSD_LongRange" ? grades : pair.Value),
         };
-        tables.Engineers["Nobody"] = new EngineerRow("Nobody", "Sol", "Nowhere", "bubble", 0, 0, 0);
+        tables.Engineers["Nobody"] = new EngineerRow("Nobody", 999999, "Sol", "Nowhere", "bubble", 0, 0, 0);
 
         var exception = Assert.Throws<CatalogException>(() => Catalog.FromRows(tables.Materials, tables.Blueprints, tables.Experimentals, tables.ModuleTypes, tables.Engineers));
 
@@ -142,6 +152,23 @@ public sealed class CatalogTests
 
         Assert.Contains(exception.Problems, problem => problem.Contains("grade must be 1–5", StringComparison.Ordinal));
         Assert.Contains(exception.Problems, problem => problem.Contains("region must be bubble or colonia", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void FromRows_RejectsBrokenIdentity()
+    {
+        var tables = Snapshot();
+        tables.Materials["Iron"] = tables.Materials["Iron"] with { Symbol = "Fe" };
+        tables.Materials["Zinc"] = tables.Materials["Zinc"] with { Name = "Carbon" };
+        tables.Engineers["Felicity Farseer"] = tables.Engineers["Felicity Farseer"] with { Id = tables.Engineers["Elvira Martuuk"].Id };
+        tables.Engineers["The Dweller"] = tables.Engineers["The Dweller"] with { Id = 0 };
+
+        var exception = Assert.Throws<CatalogException>(() => Catalog.FromRows(tables.Materials, tables.Blueprints, tables.Experimentals, tables.ModuleTypes, tables.Engineers));
+
+        Assert.Contains(exception.Problems, problem => problem.Contains("\"Iron\": symbol must equal its key", StringComparison.Ordinal));
+        Assert.Contains(exception.Problems, problem => problem.Contains("names must be unique", StringComparison.Ordinal));
+        Assert.Contains(exception.Problems, problem => problem.Contains("ids must be unique", StringComparison.Ordinal));
+        Assert.Contains(exception.Problems, problem => problem.Contains("\"The Dweller\": id must be a positive integer", StringComparison.Ordinal));
     }
 
     private sealed class Tables
@@ -189,7 +216,7 @@ public sealed class CatalogTests
                 pair.Value.Experimentals));
         var engineers = Catalog.Engineers.ToDictionary(
             pair => pair.Key,
-            pair => new EngineerRow(pair.Value.Name, pair.Value.System, pair.Value.Base, pair.Value.Region == Region.Bubble ? "bubble" : "colonia", pair.Value.Position.X, pair.Value.Position.Y, pair.Value.Position.Z));
+            pair => new EngineerRow(pair.Value.Name, pair.Value.Id, pair.Value.System, pair.Value.Base, pair.Value.Region == Region.Bubble ? "bubble" : "colonia", pair.Value.Position.X, pair.Value.Position.Y, pair.Value.Position.Z));
         return new Tables
         {
             Materials = materials,

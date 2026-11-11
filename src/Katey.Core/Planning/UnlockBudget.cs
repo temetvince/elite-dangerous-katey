@@ -11,7 +11,7 @@ public static class UnlockBudget
     /// <param name="catalog">The catalog.</param>
     /// <param name="entries">The plan. Disabled entries claim nothing.</param>
     /// <param name="inventory">Journal symbol → count, compared case-insensitively, or <see langword="null"/> when no inventory is known.</param>
-    /// <returns>Material display name → count left, never negative, for every material in the catalog; or <see langword="null"/> when no inventory is known.</returns>
+    /// <returns>Material symbol → count left, never negative, for every material in the catalog; or <see langword="null"/> when no inventory is known.</returns>
     public static IReadOnlyDictionary<string, int>? Remaining(Catalog catalog, IEnumerable<PlanEntry> entries, IReadOnlyDictionary<string, int>? inventory)
     {
         ArgumentNullException.ThrowIfNull(catalog);
@@ -21,12 +21,12 @@ public static class UnlockBudget
             return null;
         }
 
-        var needed = MaterialCalculator.Totals(catalog, entries).ToDictionary(total => total.Material.Name, total => total.Needed, StringComparer.Ordinal);
-        var remaining = new Dictionary<string, int>(StringComparer.Ordinal);
+        var needed = MaterialCalculator.Totals(catalog, entries).ToDictionary(total => total.Material.Symbol, total => total.Needed, StringComparer.OrdinalIgnoreCase);
+        var remaining = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
         foreach (var material in catalog.Materials.Values)
         {
             var have = inventory.GetValueOrDefault(material.Symbol, 0);
-            remaining[material.Name] = Math.Max(0, have - needed.GetValueOrDefault(material.Name, 0));
+            remaining[material.Symbol] = Math.Max(0, have - needed.GetValueOrDefault(material.Symbol, 0));
         }
 
         return remaining;
@@ -35,7 +35,7 @@ public static class UnlockBudget
     /// <summary>An unlock's materials laid against what is left.</summary>
     /// <param name="catalog">The catalog.</param>
     /// <param name="unlock">The unlock. Its materials must exist in <paramref name="catalog"/>.</param>
-    /// <param name="remaining">Material display name → count left, from <see cref="Remaining"/>, or <see langword="null"/> when no inventory is known.</param>
+    /// <param name="remaining">Material symbol → count left, from <see cref="Remaining"/>, or <see langword="null"/> when no inventory is known.</param>
     /// <returns>One line per material the unlock costs, in the unlock's order. Commodities are not materials and are not here.</returns>
     public static IReadOnlyList<MaterialLine> Lines(Catalog catalog, Unlock unlock, IReadOnlyDictionary<string, int>? remaining)
     {
@@ -53,7 +53,7 @@ public static class UnlockBudget
     /// <summary>Whether what is left covers every material an unlock costs. False when no inventory is known.</summary>
     /// <param name="catalog">The catalog.</param>
     /// <param name="unlock">The unlock.</param>
-    /// <param name="remaining">Material display name → count left, or <see langword="null"/>.</param>
+    /// <param name="remaining">Material symbol → count left, or <see langword="null"/>.</param>
     /// <returns><see langword="true"/> when every line is covered.</returns>
     public static bool CanAfford(Catalog catalog, Unlock unlock, IReadOnlyDictionary<string, int>? remaining)
         => remaining is not null && Lines(catalog, unlock, remaining).All(line => line.IsCovered);

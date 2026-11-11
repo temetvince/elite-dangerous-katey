@@ -73,12 +73,12 @@ public sealed class SearchTests
         Assert.Contains(types, type => type.Code == "mc");
         Assert.Empty(catalog.ModuleTypesWithBlueprint("Nope"));
 
-        var uses = catalog.MaterialUses("Datamined Wake Exceptions");
+        var uses = catalog.MaterialUses("DataminedWake");
         Assert.Contains(uses, use => use.Blueprint == "FSD_LongRange" && use.Grade == 5 && use.Count == 1);
         Assert.Equal(uses.Select(use => catalog.Blueprints[use.Blueprint].Name).Order(StringComparer.Ordinal), uses.Select(use => catalog.Blueprints[use.Blueprint].Name));
         Assert.Empty(catalog.MaterialUses("Nothing"));
 
-        Assert.Contains(catalog.ExperimentalsUsing("Atypical Disrupted Wake Echoes"), effect => effect.Key == "special_fsd_heavy");
+        Assert.Contains(catalog.ExperimentalsUsing("DisruptedWakeEchoes"), effect => effect.Key == "special_fsd_heavy");
 
         var offers = catalog.OffersOf("Felicity Farseer");
         Assert.Contains(offers, offer => offer.ModuleType == "fsd" && offer.Blueprint == "FSD_LongRange" && offer.MaxGrade == 5);

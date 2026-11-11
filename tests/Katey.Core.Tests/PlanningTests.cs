@@ -126,8 +126,8 @@ public sealed class PlanningTests
         }
 
         Assert.Equal(expected.OrderBy(pair => pair.Key, StringComparer.Ordinal), materials.OrderBy(pair => pair.Key, StringComparer.Ordinal));
-        Assert.Equal(5, materials["Datamined Wake Exceptions"]);
-        Assert.Equal(5 + 1 + 2, materials["Atypical Disrupted Wake Echoes"]);
+        Assert.Equal(5, materials["DataminedWake"]);
+        Assert.Equal(5 + 1 + 2, materials["DisruptedWakeEchoes"]);
     }
 
     [Fact]
@@ -151,14 +151,14 @@ public sealed class PlanningTests
     public void ForEntry_MultipliesByRolls_AndLowerTargetDropsGrades()
     {
         var sevenRolls = Fsd().WithRolls(5, 7);
-        Assert.Equal(7, MaterialCalculator.ForEntry(Catalog, sevenRolls)["Datamined Wake Exceptions"]);
+        Assert.Equal(7, MaterialCalculator.ForEntry(Catalog, sevenRolls)["DataminedWake"]);
 
         var zeroRolls = Fsd(experimental: null).WithRolls(5, 0);
-        Assert.False(MaterialCalculator.ForEntry(Catalog, zeroRolls).ContainsKey("Datamined Wake Exceptions"));
+        Assert.False(MaterialCalculator.ForEntry(Catalog, zeroRolls).ContainsKey("DataminedWake"));
 
         var lower = Fsd(experimental: null).WithTargetGrade(Catalog, 2);
         Assert.Equal(2, lower.TargetGrade);
-        Assert.False(MaterialCalculator.ForEntry(Catalog, lower).ContainsKey("Datamined Wake Exceptions"));
+        Assert.False(MaterialCalculator.ForEntry(Catalog, lower).ContainsKey("DataminedWake"));
     }
 
     [Fact]
@@ -174,7 +174,7 @@ public sealed class PlanningTests
         Assert.Equal("gfsb", booster.ModuleType);
         Assert.Empty(booster.RolledGrades(Catalog));
         Assert.Same(booster, booster.WithTargetGrade(Catalog, 5));
-        Assert.Equal(21, MaterialCalculator.ForEntry(Catalog, booster)["Guardian Power Cell"]);
+        Assert.Equal(21, MaterialCalculator.ForEntry(Catalog, booster)["Guardian_PowerCell"]);
         Assert.Empty(EngineerCoverage.ServiceFor(Catalog, booster, new HashSet<string>(StringComparer.Ordinal) { "Felicity Farseer" }).CanRoll);
 
         var distributor = PlanEntry.ForUnlock(Catalog, "guardian_power_distributor");
@@ -197,7 +197,7 @@ public sealed class PlanningTests
         Assert.True(UnlockBudget.CanAfford(Catalog, Catalog.Unlocks["guardian_fsd_booster"], alone));
         Assert.True(UnlockBudget.CanAfford(Catalog, Catalog.Unlocks["guardian_power_distributor"], alone));
         var afterBooster = UnlockBudget.Remaining(Catalog, [booster], inventory);
-        Assert.Equal(9, afterBooster!["Guardian Power Cell"]);
+        Assert.Equal(9, afterBooster!["Guardian_PowerCell"]);
         Assert.False(UnlockBudget.CanAfford(Catalog, Catalog.Unlocks["guardian_power_distributor"], afterBooster));
         var line = UnlockBudget.Lines(Catalog, Catalog.Unlocks["guardian_power_distributor"], afterBooster).Single(line => line.Material.Name == "Guardian Power Cell");
         Assert.Equal(15, line.Missing);

@@ -9,7 +9,7 @@ namespace Katey.App.Persistence;
 
 /// <summary>Everything the app remembers between runs.</summary>
 /// <param name="Plan">Plan entries in order.</param>
-/// <param name="Engineers">Selected engineer names.</param>
+/// <param name="EngineerIds">The selected engineers, by the game's engineer id.</param>
 /// <param name="JournalFolder">The journal folder to watch, or <see langword="null"/> to detect it.</param>
 /// <param name="Fittings">Saved fits in priority order.</param>
 /// <param name="Policy">How fits share owned modules.</param>
@@ -23,7 +23,7 @@ namespace Katey.App.Persistence;
 /// <param name="AllowSpanshBodies">Whether Katey may ask Spansh about the bodies of the system the ship is in.</param>
 public sealed record PersistedState(
     IReadOnlyList<PlanEntry> Plan,
-    IReadOnlyList<string> Engineers,
+    IReadOnlyList<long> EngineerIds,
     string? JournalFolder,
     IReadOnlyList<Fitting> Fittings,
     SharingPolicy Policy,
@@ -152,7 +152,7 @@ public sealed class JsonFileStateStore : IStateStore
                 : state with
                 {
                     Plan = state.Plan ?? [],
-                    Engineers = state.Engineers ?? [],
+                    EngineerIds = state.EngineerIds ?? [],
                     Fittings = state.Fittings ?? [],
                 };
         }

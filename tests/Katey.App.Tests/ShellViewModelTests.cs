@@ -67,7 +67,7 @@ public sealed class ShellViewModelTests
         var dropped = kept with { Id = "x", Blueprint = "Gone_Blueprint" };
         var store = new FakeStateStore
         {
-            State = new PersistedState([kept, dropped], ["Felicity Farseer", "Nobody"], @"C:\journals", [], SharingPolicy.SameHull, RailDetached: true, Preferences: new Dictionary<string, string> { ["rail.bodyFilter"] = "bacteria" }),
+            State = new PersistedState([kept, dropped], [300100, 1], @"C:\journals", [], SharingPolicy.SameHull, RailDetached: true, Preferences: new Dictionary<string, string> { ["rail.bodyFilter"] = "bacteria" }),
         };
 
         var (shell, _) = Create(store);
@@ -126,7 +126,7 @@ public sealed class ShellViewModelTests
 
         Assert.True(entry.HasWarning);
         Assert.Contains("None of your selected engineers offers grade 3", entry.Warning, StringComparison.Ordinal);
-        Assert.Equal(["Felicity Farseer"], store.State.Engineers);
+        Assert.Equal([300100], store.State.EngineerIds);
         shell.Workspace.Scope.OnlyMyEngineers = true;
         var modules = Open<ModulesPage>(shell, PageKind.Modules);
         Assert.True(modules.HasSelection);
@@ -134,7 +134,7 @@ public sealed class ShellViewModelTests
         var fsd = modules.Groups.Single(group => group.Label == "Core internals").Types.Single(type => type.Link.Label == "Frame Shift Drive");
         Assert.True(fsd.Reachable > 0);
 
-        var felicity = Open<EngineerPage>(shell, PageKind.Engineer, "Felicity Farseer");
+        var felicity = Open<EngineerPage>(shell, PageKind.Engineer, "300100");
         Assert.True(felicity.Selected);
         Assert.Contains(felicity.Offers, group => group.ModuleType.Label == "Frame Shift Drive");
         felicity.Selected = false;
@@ -194,7 +194,7 @@ public sealed class ShellViewModelTests
         Assert.Equal("3", datamined.Have);
         Assert.Equal("2", datamined.Missing);
 
-        var material = Open<MaterialPage>(shell, PageKind.Material, "Datamined Wake Exceptions");
+        var material = Open<MaterialPage>(shell, PageKind.Material, "DataminedWake");
         Assert.Equal("3", material.HaveText);
         Assert.Equal("5", material.NeededText);
         Assert.Equal("2", material.ShortText);
@@ -739,7 +739,7 @@ public sealed class ShellViewModelTests
         Assert.False(deciat.IsCurrent);
         Assert.StartsWith("49.0 ly from Koine.", Phrase.Plain(deciat.WhereParts), StringComparison.Ordinal);
         Assert.Equal("Koine", deciat.WhereParts.Single(part => part.IsLink).Link!.Label);
-        var farseerPage = Open<EngineerPage>(shell, PageKind.Engineer, "Felicity Farseer");
+        var farseerPage = Open<EngineerPage>(shell, PageKind.Engineer, "300100");
         Assert.Equal("49.0 ly from Koine", Phrase.Plain(farseerPage.DistanceParts));
         Assert.True(farseerPage.DistanceParts[^1].IsLink);
         Assert.Single(deciat.Engineers);
@@ -775,11 +775,11 @@ public sealed class ShellViewModelTests
             Assert.False(store.Relocate(moved));
             Assert.Equal(Path.Combine(moved, JsonFileStateStore.FileName), store.Location);
             Assert.Equal(store.Location, File.ReadAllText(pointer));
-            store.Save(PersistedState.Empty with { Engineers = ["Felicity Farseer"] });
+            store.Save(PersistedState.Empty with { EngineerIds = [300100] });
 
             var again = JsonFileStateStore.Configured(NullLogger<JsonFileStateStore>.Instance, defaultPath, pointer);
             Assert.Equal(store.Location, again.Location);
-            Assert.Equal(["Felicity Farseer"], again.Load().Engineers);
+            Assert.Equal([300100], again.Load().EngineerIds);
             Assert.True(again.Relocate(moved));
             Assert.False(again.Relocate(Path.Combine(root, "empty")));
         }
@@ -803,13 +803,13 @@ public sealed class ShellViewModelTests
 
             var entry = PlanEntry.Create(Catalog, "fsd", "FSD_LongRange", 5, "special_fsd_heavy", new PlanSource("Ship", "FrameShiftDrive", "int_hyperdrive_size5_class5")).WithRolls(3, 2);
             var fitting = new Fitting("fit-1", "mandalay", "Dream", [new FitModule("FrameShiftDrive", "int_hyperdrive_size5_class5", new Engineering("FSD_LongRange", 5, "special_fsd_heavy"))]);
-            store.Save(new PersistedState([entry], ["Felicity Farseer"], @"C:\journals", [fitting], SharingPolicy.None, RailDetached: true, Preferences: new Dictionary<string, string> { ["rail.bodyFilter"] = "bacteria" }));
+            store.Save(new PersistedState([entry], [300100], @"C:\journals", [fitting], SharingPolicy.None, RailDetached: true, Preferences: new Dictionary<string, string> { ["rail.bodyFilter"] = "bacteria" }));
 
             var loaded = new JsonFileStateStore(path, NullLogger<JsonFileStateStore>.Instance).Load();
             var restored = Assert.Single(loaded.Plan);
             Assert.Equal(entry.Blueprint, restored.Blueprint);
             Assert.Equal(2, restored.RollsAt(3));
-            Assert.Equal(["Felicity Farseer"], loaded.Engineers);
+            Assert.Equal([300100], loaded.EngineerIds);
             Assert.Equal(SharingPolicy.None, loaded.Policy);
             Assert.Equal("fit-1", Assert.Single(loaded.Fittings).Id);
             Assert.Equal("bacteria", loaded.Preferences!["rail.bodyFilter"]);

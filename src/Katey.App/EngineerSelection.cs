@@ -3,25 +3,26 @@
 namespace Katey.App;
 
 /// <summary>The engineers the commander is willing to visit.</summary>
-/// <remarks>Names are compared ordinally, exactly as the tables spell them. Not thread-safe.</remarks>
+/// <remarks>
+/// In memory the selection is a set of names, compared ordinally, exactly as the module tables spell them,
+/// since that is how the tables name who offers a grade. It is saved and restored as the game's engineer
+/// ids, <see cref="SelectedIds"/>, which do not depend on a spelling. Not thread-safe.
+/// </remarks>
 public sealed class EngineerSelection
 {
     private readonly Catalog _catalog;
     private readonly HashSet<string> _selected = new(StringComparer.Ordinal);
 
     /// <summary>Creates the selection.</summary>
-    /// <param name="catalog">The catalog; names it does not know are ignored.</param>
-    /// <param name="selected">Names to start with.</param>
-    public EngineerSelection(Catalog catalog, IEnumerable<string> selected)
+    /// <param name="catalog">The catalog; ids it does not know are ignored.</param>
+    /// <param name="selected">Engineer ids to start with.</param>
+    public EngineerSelection(Catalog catalog, IEnumerable<long> selected)
     {
         ArgumentNullException.ThrowIfNull(catalog);
         ArgumentNullException.ThrowIfNull(selected);
 
         _catalog = catalog;
-        foreach (var name in selected.Where(catalog.Engineers.ContainsKey))
-        {
-            _selected.Add(name);
-        }
+        _selected.UnionWith(Names(selected));
     }
 
     /// <summary>Raised after the selection changes.</summary>
@@ -29,6 +30,9 @@ public sealed class EngineerSelection
 
     /// <summary>Gets the selected names. The set is live; copy it to keep it.</summary>
     public IReadOnlySet<string> Selected => _selected;
+
+    /// <summary>Gets the selected engineers' ids, ascending: the form the selection is saved in.</summary>
+    public IReadOnlyList<long> SelectedIds => [.. _selected.Select(name => _catalog.Engineers[name].Id).Order()];
 
     /// <summary>Gets how many are selected.</summary>
     public int Count => _selected.Count;
@@ -57,12 +61,12 @@ public sealed class EngineerSelection
     }
 
     /// <summary>Replaces the whole selection.</summary>
-    /// <param name="names">The engineers to select. Names the catalog does not know are ignored.</param>
-    public void Replace(IEnumerable<string> names)
+    /// <param name="ids">The engineers to select, by id. Ids the catalog does not know are ignored.</param>
+    public void Replace(IEnumerable<long> ids)
     {
-        ArgumentNullException.ThrowIfNull(names);
+        ArgumentNullException.ThrowIfNull(ids);
         _selected.Clear();
-        _selected.UnionWith(names.Where(_catalog.Engineers.ContainsKey));
+        _selected.UnionWith(Names(ids));
         Changed?.Invoke(this, EventArgs.Empty);
     }
 
@@ -78,4 +82,7 @@ public sealed class EngineerSelection
 
         Changed?.Invoke(this, EventArgs.Empty);
     }
+
+    private IEnumerable<string> Names(IEnumerable<long> ids)
+        => ids.Select(id => _catalog.EngineersById.GetValueOrDefault(id)?.Name).OfType<string>();
 }

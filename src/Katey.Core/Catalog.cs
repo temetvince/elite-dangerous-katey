@@ -12,10 +12,10 @@ namespace Katey.Core;
 /// every grade is 1–5, and every enumerated field holds one of its allowed values.
 /// </summary>
 /// <remarks>
-/// Lookups by material name, blueprint key, experimental key, module type code and engineer name are
-/// ordinal and case-sensitive, matching the keys the tables use. Lookups by material symbol are
-/// case-insensitive, matching how the game journal spells symbols. Instances are immutable and safe to
-/// share between threads.
+/// Lookups by blueprint key, experimental key, module type code and engineer name are ordinal and
+/// case-sensitive, matching the keys the tables use. Lookups by material symbol are case-insensitive,
+/// matching how the game journal spells symbols. Instances are immutable and safe to share between
+/// threads.
 /// </remarks>
 public sealed class Catalog
 {
@@ -26,7 +26,6 @@ public sealed class Catalog
 
     private Catalog(
         FrozenDictionary<string, Material> materials,
-        FrozenDictionary<string, Material> materialsBySymbol,
         FrozenDictionary<string, Blueprint> blueprints,
         FrozenDictionary<string, Experimental> experimentals,
         FrozenDictionary<string, ModuleType> moduleTypes,
@@ -34,19 +33,16 @@ public sealed class Catalog
         FrozenDictionary<string, Unlock> unlocks)
     {
         Materials = materials;
-        MaterialsBySymbol = materialsBySymbol;
         Blueprints = blueprints;
         Experimentals = experimentals;
         ModuleTypes = moduleTypes;
         Engineers = engineers;
+        EngineersById = engineers.Values.ToFrozenDictionary(engineer => engineer.Id, engineer => engineer);
         Unlocks = unlocks;
     }
 
-    /// <summary>Gets every material by display name.</summary>
-    public IReadOnlyDictionary<string, Material> Materials { get; }
-
     /// <summary>Gets every material by journal symbol, case-insensitively.</summary>
-    public IReadOnlyDictionary<string, Material> MaterialsBySymbol { get; }
+    public IReadOnlyDictionary<string, Material> Materials { get; }
 
     /// <summary>Gets every blueprint by journal name.</summary>
     public IReadOnlyDictionary<string, Blueprint> Blueprints { get; }
@@ -57,8 +53,11 @@ public sealed class Catalog
     /// <summary>Gets every module type by code, in table order.</summary>
     public IReadOnlyDictionary<string, ModuleType> ModuleTypes { get; }
 
-    /// <summary>Gets every engineer by name.</summary>
+    /// <summary>Gets every engineer by name, as the module tables spell it.</summary>
     public IReadOnlyDictionary<string, EngineerProfile> Engineers { get; }
+
+    /// <summary>Gets every engineer by the game's engineer id.</summary>
+    public IReadOnlyDictionary<long, EngineerProfile> EngineersById { get; }
 
     /// <summary>Gets every technology broker unlock by key, in table order: Guardian first, then human.</summary>
     public IReadOnlyDictionary<string, Unlock> Unlocks { get; }
@@ -79,7 +78,7 @@ public sealed class Catalog
     }
 
     /// <summary>Builds and validates a catalog from table rows, each keyed as the JSON files key them.</summary>
-    /// <param name="materials">Material display name → row.</param>
+    /// <param name="materials">Material symbol → row.</param>
     /// <param name="blueprints">Blueprint journal name → row.</param>
     /// <param name="experimentals">Experimental journal name → row.</param>
     /// <param name="moduleTypes">Module type code → row, in display order.</param>
@@ -95,7 +94,7 @@ public sealed class Catalog
         => FromRows(materials, blueprints, experimentals, moduleTypes, engineers, new Dictionary<string, UnlockRow>(StringComparer.Ordinal));
 
     /// <summary>Builds and validates a catalog from table rows, each keyed as the JSON files key them.</summary>
-    /// <param name="materials">Material display name → row.</param>
+    /// <param name="materials">Material symbol → row.</param>
     /// <param name="blueprints">Blueprint journal name → row.</param>
     /// <param name="experimentals">Experimental journal name → row.</param>
     /// <param name="moduleTypes">Module type code → row, in display order.</param>
@@ -132,11 +131,10 @@ public sealed class Catalog
                 Enum.Parse<MaterialCategory>(pair.Value.Category, ignoreCase: true),
                 pair.Value.Grade,
                 pair.Value.Line),
-            StringComparer.Ordinal);
+            StringComparer.OrdinalIgnoreCase);
 
         return new Catalog(
             materialTable,
-            materialTable.Values.ToFrozenDictionary(m => m.Symbol, m => m, StringComparer.OrdinalIgnoreCase),
             blueprints.ToFrozenDictionary(
                 pair => pair.Key,
                 pair => new Blueprint(pair.Key, pair.Value.Name, ToGradeMap(pair.Value.Grades, counts => counts)),
@@ -162,6 +160,7 @@ public sealed class Catalog
                 pair => pair.Key,
                 pair => new EngineerProfile(
                     pair.Value.Name,
+                    pair.Value.Id,
                     pair.Value.System,
                     pair.Value.Base,
                     Enum.Parse<Region>(pair.Value.Region, ignoreCase: true),
@@ -191,7 +190,7 @@ public sealed class Catalog
     }
 
     /// <summary>Technology broker unlocks whose recipe lists a material, in table order.</summary>
-    /// <param name="material">Material display name. Need not exist.</param>
+    /// <param name="material">Material symbol, spelt as the tables spell it. Need not exist.</param>
     /// <returns>Empty for an unused or unknown material.</returns>
     public IReadOnlyList<Unlock> UnlocksUsing(string material)
     {
@@ -268,7 +267,7 @@ public sealed class Catalog
     }
 
     /// <summary>Every blueprint grade whose recipe lists a material.</summary>
-    /// <param name="material">Material display name. Need not exist.</param>
+    /// <param name="material">Material symbol, spelt as the tables spell it. Need not exist.</param>
     /// <returns>Ordered by blueprint display name, then grade. Empty for an unused or unknown material.</returns>
     public IReadOnlyList<MaterialUse> MaterialUses(string material)
     {
@@ -285,7 +284,7 @@ public sealed class Catalog
     }
 
     /// <summary>Experimental effects whose recipe lists a material.</summary>
-    /// <param name="material">Material display name. Need not exist.</param>
+    /// <param name="material">Material symbol, spelt as the tables spell it. Need not exist.</param>
     /// <returns>Ordered by display name. Empty for an unused or unknown material.</returns>
     public IReadOnlyList<Experimental> ExperimentalsUsing(string material)
     {

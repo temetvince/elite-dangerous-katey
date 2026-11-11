@@ -42,8 +42,8 @@ public enum Region
 }
 
 /// <summary>One engineering material.</summary>
-/// <param name="Symbol">Frontier's internal id, as the journal reports it. Unique within the catalog, case-insensitively.</param>
-/// <param name="Name">Display name. Unique within the catalog; blueprints refer to materials by it.</param>
+/// <param name="Symbol">Frontier's internal id, as the journal reports it. Unique within the catalog, case-insensitively; the catalog's key, and what every recipe refers to a material by.</param>
+/// <param name="Name">Display name. Unique within the catalog. Shown, never used as a key.</param>
 /// <param name="Category">Which inventory holds it.</param>
 /// <param name="Grade">Rarity, 1–5. Raw materials stop at 4.</param>
 /// <param name="Line">The in-game family, such as "Wake Scans".</param>
@@ -55,7 +55,7 @@ public sealed record Material(string Symbol, string Name, MaterialCategory Categ
 /// </summary>
 /// <param name="Key">Frontier journal name, such as <c>FSD_LongRange</c>. This is what EDSY exports.</param>
 /// <param name="Name">Display name, such as "Increased range".</param>
-/// <param name="Grades">Grade → material display name → count, for every grade the blueprint has. Never empty.</param>
+/// <param name="Grades">Grade → material symbol → count, for every grade the blueprint has. Never empty.</param>
 public sealed record Blueprint(
     string Key,
     string Name,
@@ -80,7 +80,7 @@ public sealed record Blueprint(
 /// <summary>One experimental effect.</summary>
 /// <param name="Key">Frontier journal name, such as <c>special_fsd_heavy</c>.</param>
 /// <param name="Name">Display name, such as "Mass Manager".</param>
-/// <param name="Components">Material display name → count. Empty for the three Legacy effects the game no longer applies.</param>
+/// <param name="Components">Material symbol → count. Empty for the three Legacy effects the game no longer applies.</param>
 public sealed record Experimental(string Key, string Name, IReadOnlyDictionary<string, int> Components);
 
 /// <summary>
@@ -109,12 +109,13 @@ public sealed record ModuleType(
 }
 
 /// <summary>One engineer and where to find them.</summary>
-/// <param name="Name">Display name, exactly as the module tables spell it.</param>
+/// <param name="Name">Display name, exactly as the module tables spell it. The tables cross-reference engineers by it.</param>
+/// <param name="Id">The game's engineer id, as the journal reports it. Unique within the catalog; what a page key and the saved selection name an engineer by, since the journal's spelling of a name can differ from the tables'.</param>
 /// <param name="System">Star system.</param>
 /// <param name="Base">Workshop name.</param>
 /// <param name="Region">Bubble or Colonia.</param>
 /// <param name="Position">Where <paramref name="System"/> is, for distances.</param>
-public sealed record EngineerProfile(string Name, string System, string Base, Region Region, GalacticPosition Position);
+public sealed record EngineerProfile(string Name, long Id, string System, string Base, Region Region, GalacticPosition Position);
 
 /// <summary>Which technology broker sells an unlock.</summary>
 public enum BrokerKind
@@ -155,7 +156,7 @@ public enum UnlockCategory
 /// <param name="Category">What kind of thing it is, for grouping.</param>
 /// <param name="ModuleType">The module type code of what it unlocks, or <see langword="null"/> for a fighter.</param>
 /// <param name="Items">Lower-case item symbol prefixes the purchase makes available. Empty when the game's symbol is not known, in which case the journal cannot say whether it has been bought.</param>
-/// <param name="Materials">Material display name → count. Never empty.</param>
+/// <param name="Materials">Material symbol → count. Never empty.</param>
 /// <param name="Commodities">Commodity name → count, bought at a market rather than collected. May be empty.</param>
 public sealed record Unlock(
     string Key,

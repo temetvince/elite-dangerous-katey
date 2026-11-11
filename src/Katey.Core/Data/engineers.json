@@ -1,6 +1,7 @@
 {
   "Felicity Farseer": {
     "name": "Felicity Farseer",
+    "id": 300100,
     "system": "Deciat",
     "base": "Farseer Inc",
     "region": "bubble",
@@ -10,6 +11,7 @@
   },
   "Elvira Martuuk": {
     "name": "Elvira Martuuk",
+    "id": 300160,
     "system": "Khun",
     "base": "Long Sight Base",
     "region": "bubble",
@@ -19,6 +21,7 @@
   },
   "The Dweller": {
     "name": "The Dweller",
+    "id": 300180,
     "system": "Wyrd",
     "base": "Black Hide",
     "region": "bubble",
@@ -28,6 +31,7 @@
   },
   "Liz Ryder": {
     "name": "Liz Ryder",
+    "id": 300080,
     "system": "Eurybia",
     "base": "Demolition Unlimited",
     "region": "bubble",
@@ -37,6 +41,7 @@
   },
   "Tod \"The Blaster\" McQuinn": {
     "name": "Tod \"The Blaster\" McQuinn",
+    "id": 300260,
     "system": "Wolf 397",
     "base": "Trophy Camp",
     "region": "bubble",
@@ -46,6 +51,7 @@
   },
   "Lei Cheung": {
     "name": "Lei Cheung",
+    "id": 300120,
     "system": "Laksak",
     "base": "Trader's Rest",
     "region": "bubble",
@@ -55,6 +61,7 @@
   },
   "Selene Jean": {
     "name": "Selene Jean",
+    "id": 300210,
     "system": "Kuk",
     "base": "Prospector's Rest",
     "region": "bubble",
@@ -64,6 +71,7 @@
   },
   "Hera Tani": {
     "name": "Hera Tani",
+    "id": 300090,
     "system": "Kuwemaki",
     "base": "The Jet's Hole",
     "region": "bubble",
@@ -73,6 +81,7 @@
   },
   "Broo Tarquin": {
     "name": "Broo Tarquin",
+    "id": 300030,
     "system": "Muang",
     "base": "Broo's Legacy",
     "region": "bubble",
@@ -82,6 +91,7 @@
   },
   "Marco Qwent": {
     "name": "Marco Qwent",
+    "id": 300200,
     "system": "Sirius",
     "base": "Qwent Research Base",
     "region": "bubble",
@@ -91,6 +101,7 @@
   },
   "Zacariah Nemo": {
     "name": "Zacariah Nemo",
+    "id": 300050,
     "system": "Yoru",
     "base": "Nemo Cyber Party Base",
     "region": "bubble",
@@ -100,6 +111,7 @@
   },
   "Didi Vatermann": {
     "name": "Didi Vatermann",
+    "id": 300000,
     "system": "Leesti",
     "base": "Vatermann LLC",
     "region": "bubble",
@@ -109,6 +121,7 @@
   },
   "Colonel Bris Dekker": {
     "name": "Colonel Bris Dekker",
+    "id": 300140,
     "system": "Sol",
     "base": "Dekker's Yard",
     "region": "bubble",
@@ -118,6 +131,7 @@
   },
   "Juri Ishmaak": {
     "name": "Juri Ishmaak",
+    "id": 300250,
     "system": "Giryak",
     "base": "Pater's Memorial",
     "region": "bubble",
@@ -127,6 +141,7 @@
   },
   "Professor Palin": {
     "name": "Professor Palin",
+    "id": 300220,
     "system": "Arque",
     "base": "Abel Laboratory",
     "region": "bubble",
@@ -136,6 +151,7 @@
   },
   "Bill Turner": {
     "name": "Bill Turner",
+    "id": 300010,
     "system": "Alioth",
     "base": "Turner Metallics Inc",
     "region": "bubble",
@@ -145,6 +161,7 @@
   },
   "Lori Jameson": {
     "name": "Lori Jameson",
+    "id": 300230,
     "system": "Shinrarta Dezhra",
     "base": "Jameson Base",
     "region": "bubble",
@@ -154,6 +171,7 @@
   },
   "Ram Tah": {
     "name": "Ram Tah",
+    "id": 300110,
     "system": "Meene",
     "base": "Phoenix Base",
     "region": "bubble",
@@ -163,6 +181,7 @@
   },
   "Tiana Fortune": {
     "name": "Tiana Fortune",
+    "id": 300270,
     "system": "Achenar",
     "base": "Fortune's Loss",
     "region": "bubble",
@@ -172,6 +191,7 @@
   },
   "The Sarge": {
     "name": "The Sarge",
+    "id": 300040,
     "system": "Beta-3 Tucani",
     "base": "The Beach",
     "region": "bubble",
@@ -181,6 +201,7 @@
   },
   "Chloe Sedesi": {
     "name": "Chloe Sedesi",
+    "id": 300300,
     "system": "Shenve",
     "base": "Cinder Dock",
     "region": "bubble",
@@ -190,6 +211,7 @@
   },
   "Marsha Hicks": {
     "name": "Marsha Hicks",
+    "id": 300150,
     "system": "Tir",
     "base": "The Watchtower",
     "region": "colonia",
@@ -199,6 +221,7 @@
   },
   "Mel Brandon": {
     "name": "Mel Brandon",
+    "id": 300280,
     "system": "Luchtaine",
     "base": "The Brig",
     "region": "colonia",
@@ -208,6 +231,7 @@
   },
   "Etienne Dorn": {
     "name": "Etienne Dorn",
+    "id": 300290,
     "system": "Los",
     "base": "Kraken's Retreat",
     "region": "colonia",
@@ -217,6 +241,7 @@
   },
   "Petra Olmanova": {
     "name": "Petra Olmanova",
+    "id": 300130,
     "system": "Asura",
     "base": "Sanctuary",
     "region": "colonia",

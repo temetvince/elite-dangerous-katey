@@ -351,6 +351,12 @@ fixing the code over adding more.
     `ModuleSymbolNames.Canonical`: the game writes `_free` on a bundled module and a hull code on some
     cargo hatches (`modularcargobaydoorfdl`), EDSY writes neither. A new spelling the game invents belongs
     there, not in a page.
+  - Identity is never a display name. Materials are keyed by their journal symbol in every table,
+    lookup, page key and saved value, and engineers by the game's engineer id in page keys and the
+    saved selection, since the journal spells a name differently from the tables (`Tod 'The Blaster'
+    McQuinn`). `Catalog.Engineers` stays keyed by name because the module tables name who offers a
+    grade; `EngineerPage.KeyOf` and `Find` turn an id into a page key and back. A display name is
+    shown, never looked up.
   - `ExobiologyPredictor` canonicalises the journal's and Bioforge's spellings of atmospheres, body types
     and volcanism to one key before comparing; a new category name that slips past that shows up as a
     uniformly low score, not an error.

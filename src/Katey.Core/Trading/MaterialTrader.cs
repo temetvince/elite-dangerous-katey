@@ -166,7 +166,7 @@ public static class MaterialTrader
 
     /// <summary>Plans the trades.</summary>
     /// <param name="catalog">The catalog.</param>
-    /// <param name="needs">Material display name → how many the plan needs. Names not in the catalog are ignored.</param>
+    /// <param name="needs">Material symbol → how many the plan needs, compared as the dictionary compares. Symbols not in the catalog are ignored.</param>
     /// <param name="inventory">Journal symbol → how many are held. Symbols not in the catalog are ignored.</param>
     /// <param name="reserves">What the player keeps. One per symbol; a later entry for the same symbol replaces an earlier one.</param>
     /// <returns>The plan. <see cref="TradePlan.Empty"/> when nothing is short.</returns>
@@ -194,7 +194,7 @@ public static class MaterialTrader
             stocks.Add(new Stock(
                 material,
                 inventory.GetValueOrDefault(material.Symbol, 0),
-                needs.GetValueOrDefault(material.Name, 0),
+                needs.GetValueOrDefault(material.Symbol, 0),
                 reserve?.Keep ?? 0,
                 reserve?.NeverTrade ?? false));
         }

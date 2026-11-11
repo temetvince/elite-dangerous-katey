@@ -194,7 +194,7 @@ public sealed class EngineersPage : Page
             .OrderBy(profile => profile.Name, StringComparer.Ordinal)
             .Select(profile => new EngineerListRow(
                 profile,
-                LinkTo(profile.Name, PageKind.Engineer, profile.Name),
+                LinkTo(profile.Name, PageKind.Engineer, EngineerPage.KeyOf(profile)),
                 LinkTo(profile.System, PageKind.System, profile.System),
                 Workspace.DistanceFromHere(Workspace.PositionOf(profile)),
                 catalog.OffersOf(profile.Name).Count,

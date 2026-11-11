@@ -18,7 +18,7 @@ public static class PageFactory
         {
             PageKind.Home => new HomePage(workspace),
             PageKind.Engineers => new EngineersPage(workspace),
-            PageKind.Engineer when catalog.Engineers.ContainsKey(key.Id) => new EngineerPage(key.Id, workspace),
+            PageKind.Engineer when EngineerPage.Find(catalog, key.Id) is { } engineer => new EngineerPage(engineer, workspace),
             PageKind.Modules => new ModulesPage(workspace, key.Id),
             PageKind.ModuleType when catalog.ModuleTypes.ContainsKey(key.Id) => new ModuleTypePage(key.Id, workspace),
             PageKind.Blueprint when catalog.Blueprints.ContainsKey(key.Id) => new BlueprintPage(key.Id, workspace),

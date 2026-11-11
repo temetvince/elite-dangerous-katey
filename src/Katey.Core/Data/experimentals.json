@@ -2,9 +2,9 @@
   "special_auto_loader": {
     "name": "Auto loader",
     "components": {
-      "Mechanical Equipment": 4,
-      "Mechanical Components": 3,
-      "High Density Composites": 3
+      "MechanicalEquipment": 4,
+      "MechanicalComponents": 3,
+      "HighDensityComposites": 3
     }
   },
   "special_choke_canister": {
@@ -14,59 +14,59 @@
   "special_concordant_sequence": {
     "name": "Concordant sequence",
     "components": {
-      "Focus Crystals": 5,
-      "Modified Embedded Firmware": 3,
+      "FocusCrystals": 5,
+      "EmbeddedFirmware": 3,
       "Zirconium": 1
     }
   },
   "special_corrosive_shell": {
     "name": "Corrosive shell",
     "components": {
-      "Chemical Storage Units": 5,
-      "Precipitated Alloys": 4,
+      "ChemicalStorageUnits": 5,
+      "PrecipitatedAlloys": 4,
       "Arsenic": 3
     }
   },
   "special_blinding_shell": {
     "name": "Dazzle shell",
     "components": {
-      "Mechanical Scrap": 5,
+      "MechanicalScrap": 5,
       "Manganese": 4,
-      "Hybrid Capacitors": 5
+      "HybridCapacitors": 5
     }
   },
   "special_dispersal_field": {
     "name": "Dispersal field",
     "components": {
-      "Conductive Components": 5,
-      "Hybrid Capacitors": 5,
-      "Irregular Emission Data": 5,
-      "Worn Shield Emitters": 5
+      "ConductiveComponents": 5,
+      "HybridCapacitors": 5,
+      "ArchivedEmissionData": 5,
+      "WornShieldEmitters": 5
     }
   },
   "special_distortion_field": {
     "name": "Inertial impact",
     "components": {
-      "Flawed Focus Crystals": 5,
-      "Distorted Shield Cycle Recordings": 5,
-      "Atypical Disrupted Wake Echoes": 5
+      "UncutFocusCrystals": 5,
+      "ShieldCycleRecordings": 5,
+      "DisruptedWakeEchoes": 5
     }
   },
   "special_drag_munitions": {
     "name": "Drag munitions",
     "components": {
       "Carbon": 5,
-      "Grid Resistors": 5,
+      "GridResistors": 5,
       "Molybdenum": 5
     }
   },
   "special_emissive_munitions": {
     "name": "Emissive munitions",
     "components": {
-      "Mechanical Equipment": 4,
+      "MechanicalEquipment": 4,
       "Manganese": 3,
-      "Heat Exchangers": 3,
-      "Unexpected Emission Data": 3
+      "HeatExchangers": 3,
+      "EmissionData": 3
     }
   },
   "special_feedback_cascade": {
@@ -76,81 +76,81 @@
   "special_force_shell": {
     "name": "Force shell",
     "components": {
-      "Mechanical Scrap": 5,
+      "MechanicalScrap": 5,
       "Zinc": 5,
-      "Heat Conduction Wiring": 3,
-      "Phase Alloys": 3
+      "HeatConductionWiring": 3,
+      "PhaseAlloys": 3
     }
   },
   "special_fsd_interrupt": {
     "name": "FSD interrupt",
     "components": {
-      "Strange Wake Solutions": 3,
-      "Anomalous FSD Telemetry": 5,
-      "Mechanical Equipment": 5,
-      "Configurable Components": 3
+      "WakeSolutions": 3,
+      "FSDTelemetry": 5,
+      "MechanicalEquipment": 5,
+      "ConfigurableComponents": 3
     }
   },
   "special_high_yield_shell": {
     "name": "High yield shell",
     "components": {
-      "Mechanical Scrap": 5,
+      "MechanicalScrap": 5,
       "Nickel": 5,
-      "Chemical Manipulators": 3,
-      "Proto Light Alloys": 3
+      "ChemicalManipulators": 3,
+      "ProtoLightAlloys": 3
     }
   },
   "special_incendiary_rounds": {
     "name": "Incendiary rounds",
     "components": {
-      "Heat Conduction Wiring": 5,
+      "HeatConductionWiring": 5,
       "Phosphorus": 5,
       "Sulphur": 5,
-      "Phase Alloys": 3
+      "PhaseAlloys": 3
     }
   },
   "special_ion_disruptor": {
     "name": "Ion disruptor",
     "components": {
-      "Chemical Distillery": 3,
+      "ChemicalDistillery": 3,
       "Phosphorus": 5,
       "Sulphur": 5,
-      "Electrochemical Arrays": 3
+      "ElectrochemicalArrays": 3
     }
   },
   "special_mass_lock_munition": {
     "name": "Mass lock munition",
     "components": {
-      "High Density Composites": 3,
-      "Mechanical Equipment": 5,
-      "Aberrant Shield Pattern Analysis": 3
+      "HighDensityComposites": 3,
+      "MechanicalEquipment": 5,
+      "ShieldPatternAnalysis": 3
     }
   },
   "special_overload_munitions": {
     "name": "Overload munitions",
     "components": {
       "Germanium": 3,
-      "Filament Composites": 5,
-      "Tagged Encryption Codes": 4,
-      "Aberrant Shield Pattern Analysis": 2
+      "FilamentComposites": 5,
+      "EncryptionCodes": 4,
+      "ShieldPatternAnalysis": 2
     }
   },
   "special_penetrator_payload": {
     "name": "Penetrator payload",
     "components": {
       "Selenium": 3,
-      "Anomalous Bulk Scan Data": 5,
-      "Mechanical Components": 3,
+      "BulkScanData": 5,
+      "MechanicalComponents": 3,
       "Tungsten": 3
     }
   },
   "special_phasing_sequence": {
     "name": "Phasing sequence",
     "components": {
-      "Configurable Components": 3,
-      "Focus Crystals": 5,
+      "ConfigurableComponents": 3,
+      "FocusCrystals": 5,
       "Niobium": 3,
-      "Aberrant Shield Pattern Analysis": 3
+      "ShieldPatternAnalysis": 3
     }
   },
   "special_plasma_slug": {
@@ -160,60 +160,60 @@
   "special_radiant_canister": {
     "name": "Radiant Canister",
     "components": {
-      "Heat Dispersion Plate": 4,
-      "Phase Alloys": 3,
+      "HeatDispersionPlate": 4,
+      "PhaseAlloys": 3,
       "Polonium": 1
     }
   },
   "special_regeneration_sequence": {
     "name": "Regeneration sequence",
     "components": {
-      "Shielding Sensors": 4,
-      "Refined Focus Crystals": 3,
-      "Peculiar Shield Frequency Data": 1
+      "ShieldingSensors": 4,
+      "RefinedFocusCrystals": 3,
+      "ShieldFrequencyData": 1
     }
   },
   "special_reverberating_cascade": {
     "name": "Reverberating cascade",
     "components": {
-      "Configurable Components": 2,
-      "Classified Scan Databanks": 3,
-      "Filament Composites": 4,
+      "ConfigurableComponents": 2,
+      "ScanDatabanks": 3,
+      "FilamentComposites": 4,
       "Chromium": 4
     }
   },
   "special_scramble_spectrum": {
     "name": "Scramble spectrum",
     "components": {
-      "Exceptional Scrambled Emission Data": 5,
-      "Untypical Shield Scans": 3,
-      "Crystal Shards": 5
+      "ScrambledEmissionData": 5,
+      "ShieldDensityReports": 3,
+      "CrystalShards": 5
     }
   },
   "special_screening_shell": {
     "name": "Screening shell",
     "components": {
       "Niobium": 2,
-      "Modified Consumer Firmware": 5,
-      "Mechanical Scrap": 5,
-      "Distorted Shield Cycle Recordings": 5
+      "ConsumerFirmware": 5,
+      "MechanicalScrap": 5,
+      "ShieldCycleRecordings": 5
     }
   },
   "special_shiftlock_canister": {
     "name": "Shift-lock canister",
     "components": {
-      "Tempered Alloys": 5,
-      "Strange Wake Solutions": 3,
-      "Salvaged Alloys": 5
+      "TemperedAlloys": 5,
+      "WakeSolutions": 3,
+      "SalvagedAlloys": 5
     }
   },
   "special_smart_rounds": {
     "name": "Smart rounds",
     "components": {
-      "Mechanical Scrap": 5,
-      "Security Firmware Patch": 3,
-      "Decoded Emission Data": 3,
-      "Classified Scan Databanks": 3
+      "MechanicalScrap": 5,
+      "SecurityFirmware": 3,
+      "DecodedEmissionData": 3,
+      "ScanDatabanks": 3
     }
   },
   "special_super_penetrator": {
@@ -224,84 +224,84 @@
     "name": "Target lock breaker",
     "components": {
       "Selenium": 5,
-      "Security Firmware Patch": 3,
-      "Adaptive Encryptors Capture": 1
+      "SecurityFirmware": 3,
+      "AdaptiveEncryptors": 1
     }
   },
   "special_thermal_cascade": {
     "name": "Thermal cascade",
     "components": {
       "Phosphorus": 5,
-      "Heat Conduction Wiring": 5,
-      "Hybrid Capacitors": 4,
-      "High Density Composites": 3
+      "HeatConductionWiring": 5,
+      "HybridCapacitors": 4,
+      "HighDensityComposites": 3
     }
   },
   "special_thermal_conduit": {
     "name": "Thermal conduit",
     "components": {
-      "Heat Dispersion Plate": 5,
+      "HeatDispersionPlate": 5,
       "Sulphur": 5,
-      "Tempered Alloys": 5
+      "TemperedAlloys": 5
     }
   },
   "special_thermal_vent": {
     "name": "Thermal vent",
     "components": {
-      "Flawed Focus Crystals": 5,
-      "Conductive Components": 3,
-      "Precipitated Alloys": 3
+      "UncutFocusCrystals": 5,
+      "ConductiveComponents": 3,
+      "PrecipitatedAlloys": 3
     }
   },
   "special_thermalshock": {
     "name": "Thermal shock",
     "components": {
-      "Flawed Focus Crystals": 5,
-      "Heat Resistant Ceramics": 3,
-      "Conductive Components": 3,
+      "UncutFocusCrystals": 5,
+      "HeatResistantCeramics": 3,
+      "ConductiveComponents": 3,
       "Tungsten": 3
     }
   },
   "special_feedback_cascade_cooled": {
     "name": "Feedback Cascade",
     "components": {
-      "Open Symmetric Keys": 5,
-      "Shield Emitters": 5,
-      "Filament Composites": 5
+      "SymmetricKeys": 5,
+      "ShieldEmitters": 5,
+      "FilamentComposites": 5
     }
   },
   "special_super_penetrator_cooled": {
     "name": "Super Penetrator",
     "components": {
-      "Proto Light Alloys": 3,
-      "Refined Focus Crystals": 3,
+      "ProtoLightAlloys": 3,
+      "RefinedFocusCrystals": 3,
       "Zirconium": 3,
-      "Untypical Shield Scans": 5
+      "ShieldDensityReports": 5
     }
   },
   "special_plasma_slug_cooled": {
     "name": "Plasma Slug",
     "components": {
-      "Heat Exchangers": 3,
-      "Modified Embedded Firmware": 2,
-      "Refined Focus Crystals": 2,
+      "HeatExchangers": 3,
+      "EmbeddedFirmware": 2,
+      "RefinedFocusCrystals": 2,
       "Mercury": 4
     }
   },
   "special_plasma_slug_pa": {
     "name": "Plasma Slug",
     "components": {
-      "Heat Exchangers": 3,
-      "Modified Embedded Firmware": 2,
-      "Refined Focus Crystals": 2,
+      "HeatExchangers": 3,
+      "EmbeddedFirmware": 2,
+      "RefinedFocusCrystals": 2,
       "Mercury": 4
     }
   },
   "special_penetrator_munitions": {
     "name": "Penetrator Munitions",
     "components": {
-      "Galvanising Alloys": 5,
-      "Electrochemical Arrays": 3,
+      "GalvanisingAlloys": 5,
+      "ElectrochemicalArrays": 3,
       "Zirconium": 3
     }
   },
@@ -309,201 +309,201 @@
     "name": "Penetrator Payload",
     "components": {
       "Selenium": 3,
-      "Anomalous Bulk Scan Data": 5,
-      "Mechanical Components": 3,
+      "BulkScanData": 5,
+      "MechanicalComponents": 3,
       "Tungsten": 3
     }
   },
   "special_mass_lock": {
     "name": "Mass Lock Munition",
     "components": {
-      "Mechanical Equipment": 5,
-      "High Density Composites": 3,
-      "Aberrant Shield Pattern Analysis": 3
+      "MechanicalEquipment": 5,
+      "HighDensityComposites": 3,
+      "ShieldPatternAnalysis": 3
     }
   },
   "special_shield_regenerative": {
     "name": "Fast Charge",
     "components": {
-      "Flawed Focus Crystals": 3,
-      "Worn Shield Emitters": 5,
-      "Compound Shielding": 3
+      "UncutFocusCrystals": 3,
+      "WornShieldEmitters": 5,
+      "CompoundShielding": 3
     }
   },
   "special_shield_resistive": {
     "name": "Multi-weave",
     "components": {
-      "Flawed Focus Crystals": 3,
-      "Worn Shield Emitters": 5,
-      "Aberrant Shield Pattern Analysis": 1
+      "UncutFocusCrystals": 3,
+      "WornShieldEmitters": 5,
+      "ShieldPatternAnalysis": 1
     }
   },
   "special_shield_health": {
     "name": "Hi-Cap",
     "components": {
-      "Flawed Focus Crystals": 3,
-      "Worn Shield Emitters": 5,
-      "Conductive Polymers": 1
+      "UncutFocusCrystals": 3,
+      "WornShieldEmitters": 5,
+      "ConductivePolymers": 1
     }
   },
   "special_shield_efficient": {
     "name": "Lo-draw",
     "components": {
-      "Flawed Focus Crystals": 3,
-      "Worn Shield Emitters": 5,
-      "Conductive Polymers": 1
+      "UncutFocusCrystals": 3,
+      "WornShieldEmitters": 5,
+      "ConductivePolymers": 1
     }
   },
   "special_shield_thermic": {
     "name": "Thermo Block",
     "components": {
-      "Conductive Ceramics": 3,
-      "Anomalous Bulk Scan Data": 5,
-      "Heat Vanes": 3
+      "ConductiveCeramics": 3,
+      "BulkScanData": 5,
+      "HeatVanes": 3
     }
   },
   "special_shield_kinetic": {
     "name": "Force Block",
     "components": {
-      "Worn Shield Emitters": 5,
-      "Flawed Focus Crystals": 5,
-      "Decoded Emission Data": 1
+      "WornShieldEmitters": 5,
+      "UncutFocusCrystals": 5,
+      "DecodedEmissionData": 1
     }
   },
   "special_shield_toughened": {
     "name": "Double Braced",
     "components": {
-      "Mechanical Scrap": 5,
-      "Compact Composites": 5,
+      "MechanicalScrap": 5,
+      "CompactComposites": 5,
       "Vanadium": 3
     }
   },
   "special_shield_lightweight": {
     "name": "Stripped Down",
     "components": {
-      "Worn Shield Emitters": 5,
-      "Flawed Focus Crystals": 3,
-      "Proto Light Alloys": 1
+      "WornShieldEmitters": 5,
+      "UncutFocusCrystals": 3,
+      "ProtoLightAlloys": 1
     }
   },
   "special_engine_cooled": {
     "name": "Thermal Spread",
     "components": {
       "Iron": 5,
-      "Hybrid Capacitors": 3,
-      "Heat Vanes": 1
+      "HybridCapacitors": 3,
+      "HeatVanes": 1
     }
   },
   "special_engine_haulage": {
     "name": "Drive Distributors",
     "components": {
       "Iron": 5,
-      "Hybrid Capacitors": 3,
-      "Security Firmware Patch": 1
+      "HybridCapacitors": 3,
+      "SecurityFirmware": 1
     }
   },
   "special_engine_overloaded": {
     "name": "Drag Drives",
     "components": {
       "Iron": 5,
-      "Hybrid Capacitors": 3,
-      "Security Firmware Patch": 1
+      "HybridCapacitors": 3,
+      "SecurityFirmware": 1
     }
   },
   "special_engine_toughened": {
     "name": "Double Braced",
     "components": {
       "Iron": 5,
-      "Hybrid Capacitors": 3,
-      "Proprietary Composites": 1
+      "HybridCapacitors": 3,
+      "FedProprietaryComposites": 1
     }
   },
   "special_engine_lightweight": {
     "name": "Stripped Down",
     "components": {
       "Iron": 5,
-      "Hybrid Capacitors": 3,
-      "Proto Light Alloys": 1
+      "HybridCapacitors": 3,
+      "ProtoLightAlloys": 1
     }
   },
   "special_fsd_fuelcapacity": {
     "name": "Deep Charge",
     "components": {
-      "Atypical Disrupted Wake Echoes": 5,
-      "Galvanising Alloys": 3,
-      "Eccentric Hyperspace Trajectories": 1
+      "DisruptedWakeEchoes": 5,
+      "GalvanisingAlloys": 3,
+      "HyperspaceTrajectories": 1
     }
   },
   "special_fsd_heavy": {
     "name": "Mass Manager",
     "components": {
-      "Atypical Disrupted Wake Echoes": 5,
-      "Galvanising Alloys": 3,
-      "Eccentric Hyperspace Trajectories": 1
+      "DisruptedWakeEchoes": 5,
+      "GalvanisingAlloys": 3,
+      "HyperspaceTrajectories": 1
     }
   },
   "special_fsd_toughened": {
     "name": "Double Braced",
     "components": {
-      "Atypical Disrupted Wake Echoes": 5,
-      "Galvanising Alloys": 3,
-      "Configurable Components": 1
+      "DisruptedWakeEchoes": 5,
+      "GalvanisingAlloys": 3,
+      "ConfigurableComponents": 1
     }
   },
   "special_fsd_lightweight": {
     "name": "Stripped Down",
     "components": {
-      "Atypical Disrupted Wake Echoes": 5,
-      "Galvanising Alloys": 3,
-      "Proto Light Alloys": 1
+      "DisruptedWakeEchoes": 5,
+      "GalvanisingAlloys": 3,
+      "ProtoLightAlloys": 1
     }
   },
   "special_fsd_cooled": {
     "name": "Thermal Spread",
     "components": {
-      "Atypical Disrupted Wake Echoes": 5,
-      "Galvanising Alloys": 3,
-      "Grid Resistors": 3,
-      "Heat Vanes": 1
+      "DisruptedWakeEchoes": 5,
+      "GalvanisingAlloys": 3,
+      "GridResistors": 3,
+      "HeatVanes": 1
     }
   },
   "special_powerplant_highcharge": {
     "name": "Monstered",
     "components": {
-      "Grid Resistors": 5,
+      "GridResistors": 5,
       "Vanadium": 3,
-      "Polymer Capacitors": 1
+      "PolymerCapacitors": 1
     }
   },
   "special_powerplant_cooled": {
     "name": "Thermal Spread",
     "components": {
-      "Grid Resistors": 5,
+      "GridResistors": 5,
       "Vanadium": 3,
-      "Heat Vanes": 1
+      "HeatVanes": 1
     }
   },
   "special_powerplant_toughened": {
     "name": "Double Braced",
     "components": {
-      "Grid Resistors": 5,
+      "GridResistors": 5,
       "Vanadium": 3,
-      "Proprietary Composites": 1
+      "FedProprietaryComposites": 1
     }
   },
   "special_powerplant_lightweight": {
     "name": "Stripped Down",
     "components": {
-      "Grid Resistors": 5,
+      "GridResistors": 5,
       "Vanadium": 3,
-      "Proto Light Alloys": 1
+      "ProtoLightAlloys": 1
     }
   },
   "special_powerdistributor_capacity": {
     "name": "Cluster Capacitors",
     "components": {
       "Phosphorus": 5,
-      "Heat Resistant Ceramics": 3,
+      "HeatResistantCeramics": 3,
       "Cadmium": 1
     }
   },
@@ -511,62 +511,62 @@
     "name": "Super Conduits",
     "components": {
       "Phosphorus": 5,
-      "Heat Resistant Ceramics": 3,
-      "Security Firmware Patch": 1
+      "HeatResistantCeramics": 3,
+      "SecurityFirmware": 1
     }
   },
   "special_powerdistributor_efficient": {
     "name": "Flow Control",
     "components": {
       "Phosphorus": 5,
-      "Heat Resistant Ceramics": 3,
-      "Conductive Polymers": 1
+      "HeatResistantCeramics": 3,
+      "ConductivePolymers": 1
     }
   },
   "special_powerdistributor_toughened": {
     "name": "Double Braced",
     "components": {
       "Phosphorus": 5,
-      "Heat Resistant Ceramics": 3,
-      "Proprietary Composites": 1
+      "HeatResistantCeramics": 3,
+      "FedProprietaryComposites": 1
     }
   },
   "special_powerdistributor_lightweight": {
     "name": "Stripped Down",
     "components": {
       "Phosphorus": 5,
-      "Heat Resistant Ceramics": 3,
-      "Proto Light Alloys": 1
+      "HeatResistantCeramics": 3,
+      "ProtoLightAlloys": 1
     }
   },
   "special_shieldcell_gradual": {
     "name": "Recycling Cell",
     "components": {
-      "Chemical Storage Units": 5,
+      "ChemicalStorageUnits": 5,
       "Chromium": 3,
-      "Configurable Components": 1
+      "ConfigurableComponents": 1
     }
   },
   "special_shieldcell_oversized": {
     "name": "Boss Cells",
     "components": {
-      "Chemical Storage Units": 5,
+      "ChemicalStorageUnits": 5,
       "Chromium": 3,
-      "Polymer Capacitors": 1
+      "PolymerCapacitors": 1
     }
   },
   "special_shieldcell_efficient": {
     "name": "Flow Control",
     "components": {
-      "Chemical Storage Units": 5,
+      "ChemicalStorageUnits": 5,
       "Chromium": 3,
-      "Conductive Polymers": 1
+      "ConductivePolymers": 1
     }
   },
   "special_shieldcell_toughened": {
     "name": "Double Braced",
     "components": {
-      "Chemical Storage Units": 5,
+      "ChemicalStorageUnits": 5,
       "Chromium": 3,
       "Yttrium": 1
     }
@@ -574,48 +574,48 @@
   "special_shieldcell_lightweight": {
     "name": "Stripped Down",
     "components": {
-      "Chemical Storage Units": 5,
+      "ChemicalStorageUnits": 5,
       "Chromium": 3,
-      "Proto Light Alloys": 1
+      "ProtoLightAlloys": 1
     }
   },
   "special_weapon_damage": {
     "name": "Oversized",
     "components": {
-      "Mechanical Scrap": 5,
-      "Mechanical Components": 3,
+      "MechanicalScrap": 5,
+      "MechanicalComponents": 3,
       "Ruthenium": 1
     }
   },
   "special_weapon_rateoffire": {
     "name": "Multi-servos",
     "components": {
-      "Mechanical Scrap": 5,
-      "Focus Crystals": 4,
-      "Conductive Polymers": 2,
-      "Configurable Components": 2
+      "MechanicalScrap": 5,
+      "FocusCrystals": 4,
+      "ConductivePolymers": 2,
+      "ConfigurableComponents": 2
     }
   },
   "special_weapon_efficient": {
     "name": "Flow Control",
     "components": {
-      "Mechanical Scrap": 5,
-      "Hybrid Capacitors": 3,
-      "Modified Embedded Firmware": 1
+      "MechanicalScrap": 5,
+      "HybridCapacitors": 3,
+      "EmbeddedFirmware": 1
     }
   },
   "special_weapon_toughened": {
     "name": "Double Braced",
     "components": {
-      "Mechanical Scrap": 5,
-      "Compact Composites": 5,
+      "MechanicalScrap": 5,
+      "CompactComposites": 5,
       "Vanadium": 3
     }
   },
   "special_weapon_lightweight": {
     "name": "Stripped Down",
     "components": {
-      "Salvaged Alloys": 5,
+      "SalvagedAlloys": 5,
       "Carbon": 3,
       "Tin": 1
     }
@@ -623,64 +623,64 @@
   "special_armour_thermic": {
     "name": "Reflective Plating",
     "components": {
-      "Compact Composites": 5,
-      "Heat Dispersion Plate": 3,
-      "Thermic Alloys": 2
+      "CompactComposites": 5,
+      "HeatDispersionPlate": 3,
+      "ThermicAlloys": 2
     }
   },
   "special_armour_kinetic": {
     "name": "Angled Plating",
     "components": {
-      "Compact Composites": 5,
-      "High Density Composites": 3,
+      "CompactComposites": 5,
+      "HighDensityComposites": 3,
       "Zirconium": 3
     }
   },
   "special_armour_explosive": {
     "name": "Layered Plating",
     "components": {
-      "Heat Conduction Wiring": 5,
-      "High Density Composites": 3,
+      "HeatConductionWiring": 5,
+      "HighDensityComposites": 3,
       "Niobium": 3
     }
   },
   "special_armour_chunky": {
     "name": "Deep Plating",
     "components": {
-      "Compact Composites": 5,
-      "Mechanical Equipment": 3,
+      "CompactComposites": 5,
+      "MechanicalEquipment": 3,
       "Molybdenum": 2
     }
   },
   "special_hullreinforcement_thermic": {
     "name": "Reflective Plating",
     "components": {
-      "Compact Composites": 5,
-      "Heat Dispersion Plate": 3,
-      "Thermic Alloys": 2
+      "CompactComposites": 5,
+      "HeatDispersionPlate": 3,
+      "ThermicAlloys": 2
     }
   },
   "special_hullreinforcement_kinetic": {
     "name": "Angled Plating",
     "components": {
-      "Tempered Alloys": 5,
+      "TemperedAlloys": 5,
       "Carbon": 5,
       "Zirconium": 3,
-      "High Density Composites": 3
+      "HighDensityComposites": 3
     }
   },
   "special_hullreinforcement_explosive": {
     "name": "Layered Plating",
     "components": {
-      "Heat Conduction Wiring": 5,
-      "Shielding Sensors": 3,
+      "HeatConductionWiring": 5,
+      "ShieldingSensors": 3,
       "Tungsten": 3
     }
   },
   "special_hullreinforcement_chunky": {
     "name": "Deep Plating",
     "components": {
-      "Compact Composites": 5,
+      "CompactComposites": 5,
       "Molybdenum": 3,
       "Ruthenium": 2
     }
@@ -688,50 +688,50 @@
   "special_shieldbooster_thermic": {
     "name": "Thermo Block",
     "components": {
-      "Anomalous Bulk Scan Data": 5,
-      "Conductive Ceramics": 3,
-      "Heat Vanes": 3
+      "BulkScanData": 5,
+      "ConductiveCeramics": 3,
+      "HeatVanes": 3
     }
   },
   "special_shieldbooster_kinetic": {
     "name": "Force Block",
     "components": {
-      "Unidentified Scan Archives": 5,
-      "Shielding Sensors": 3,
-      "Aberrant Shield Pattern Analysis": 2
+      "ScanArchives": 5,
+      "ShieldingSensors": 3,
+      "ShieldPatternAnalysis": 2
     }
   },
   "special_shieldbooster_explosive": {
     "name": "Blast Block",
     "components": {
-      "Inconsistent Shield Soak Analysis": 5,
-      "Heat Resistant Ceramics": 3,
-      "Heat Dispersion Plate": 3,
+      "ShieldSoakAnalysis": 5,
+      "HeatResistantCeramics": 3,
+      "HeatDispersionPlate": 3,
       "Selenium": 2
     }
   },
   "special_shieldbooster_efficient": {
     "name": "Flow Control",
     "components": {
-      "Inconsistent Shield Soak Analysis": 5,
-      "Security Firmware Patch": 3,
-      "Focus Crystals": 3,
+      "ShieldSoakAnalysis": 5,
+      "SecurityFirmware": 3,
+      "FocusCrystals": 3,
       "Niobium": 3
     }
   },
   "special_shieldbooster_toughened": {
     "name": "Double Braced",
     "components": {
-      "Distorted Shield Cycle Recordings": 5,
-      "Galvanising Alloys": 3,
-      "Shield Emitters": 3
+      "ShieldCycleRecordings": 5,
+      "GalvanisingAlloys": 3,
+      "ShieldEmitters": 3
     }
   },
   "special_shieldbooster_chunky": {
     "name": "Super Capacitors",
     "components": {
-      "Untypical Shield Scans": 3,
-      "Compact Composites": 5,
+      "ShieldDensityReports": 3,
+      "CompactComposites": 5,
       "Cadmium": 2
     }
   }

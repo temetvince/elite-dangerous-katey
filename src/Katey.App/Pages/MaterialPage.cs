@@ -38,12 +38,12 @@ public sealed class MaterialPage : Page
     private readonly Material _material;
 
     /// <summary>Creates the page.</summary>
-    /// <param name="name">Material display name. Must exist in the catalog.</param>
+    /// <param name="symbol">The material's journal symbol. Must exist in the catalog.</param>
     /// <param name="workspace">The shared state.</param>
-    public MaterialPage(string name, Workspace workspace)
-        : base(new PageKey(PageKind.Material, name), workspace)
+    public MaterialPage(string symbol, Workspace workspace)
+        : base(new PageKey(PageKind.Material, symbol), workspace)
     {
-        _material = workspace.Catalog.Materials[name];
+        _material = workspace.Catalog.Materials[symbol];
         Title = _material.Name;
         Breadcrumbs = [LinkTo("Materials", PageKind.Materials), LinkTo(Core.Planning.ShoppingList.CategoryLabels[_material.Category], PageKind.Materials, _material.Category.ToString())];
         Kicker = $"{Display.Grade(_material.Grade)} · {_material.Line}";
@@ -129,14 +129,14 @@ public sealed class MaterialPage : Page
             var total = 0;
             foreach (var grade in entry.RolledGrades(catalog))
             {
-                if (blueprint.Grades[grade].TryGetValue(_material.Name, out var perRoll) && entry.RollsAt(grade) > 0)
+                if (blueprint.Grades[grade].TryGetValue(_material.Symbol, out var perRoll) && entry.RollsAt(grade) > 0)
                 {
                     parts.Add($"{Display.Grade(grade)} ×{entry.RollsAt(grade)}");
                     total += perRoll * entry.RollsAt(grade);
                 }
             }
 
-            if (entry.Experimental is { } effect && catalog.Experimentals[effect].Components.TryGetValue(_material.Name, out var forEffect))
+            if (entry.Experimental is { } effect && catalog.Experimentals[effect].Components.TryGetValue(_material.Symbol, out var forEffect))
             {
                 parts.Add(catalog.Experimentals[effect].Name);
                 total += forEffect;
@@ -157,12 +157,12 @@ public sealed class MaterialPage : Page
         IsShort = have is { } h && needed > h;
         ShortText = IsShort ? (needed - have!.Value).ToString(CultureInfo.InvariantCulture) : "";
 
-        Uses = UseSort.Apply(catalog.MaterialUses(_material.Name).Select(use => new MaterialUseRow(
+        Uses = UseSort.Apply(catalog.MaterialUses(_material.Symbol).Select(use => new MaterialUseRow(
             LinkTo(catalog.Blueprints[use.Blueprint].Name, PageKind.Blueprint, use.Blueprint),
             use.Grade,
             use.Count,
             [.. catalog.ModuleTypesWithBlueprint(use.Blueprint).Select(type => LinkTo(type.Name, PageKind.ModuleType, type.Code))])));
-        var effects = catalog.ExperimentalsUsing(_material.Name);
+        var effects = catalog.ExperimentalsUsing(_material.Symbol);
         ExperimentalsText = effects.Count == 0 ? "" : "Also in the experimental effects " + string.Join(", ", effects.Select(effect => effect.Name)) + ".";
 
         var system = Workspace.System;
