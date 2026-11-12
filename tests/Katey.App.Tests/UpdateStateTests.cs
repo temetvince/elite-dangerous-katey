@@ -50,6 +50,7 @@ public sealed class UpdateStateTests
         updates.Check();
         Assert.False(updates.IsBusy);
         Assert.Equal(newer, updates.IsUpdateAvailable);
+        Assert.Equal(!newer, updates.IsUpToDate);
         Assert.Equal(status, updates.Status);
         Assert.Equal("1.4.0", updates.Latest!.Text);
     }

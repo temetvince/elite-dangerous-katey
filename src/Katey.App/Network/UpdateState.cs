@@ -54,6 +54,9 @@ public sealed class UpdateState
     /// <summary>Gets whether <see cref="Latest"/> is newer than <see cref="Current"/>.</summary>
     public bool IsUpdateAvailable => Latest is { } latest && latest.Version > Current;
 
+    /// <summary>Gets whether the last check answered and found nothing newer than <see cref="Current"/>: the release running is the latest.</summary>
+    public bool IsUpToDate => _failure is null && Latest is { } latest && latest.Version <= Current;
+
     /// <summary>Gets one line on the check: that it is off, running, found a newer release, found none, or failed and why. Empty only while allowed and never run.</summary>
     public string Status
     {

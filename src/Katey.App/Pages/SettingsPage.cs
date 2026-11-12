@@ -140,11 +140,17 @@ public sealed class SettingsPage : Page
     /// <summary>Gets whether a check is running now.</summary>
     public bool IsChecking { get; private set => SetProperty(ref field, value); }
 
-    /// <summary>Gets whether <see cref="UpdateStatus"/> names a newer release and is shown as a badge: the release is known and no check is running.</summary>
+    /// <summary>Gets whether the last check found the release running to be the latest.</summary>
+    public bool IsUpToDate { get; private set => SetProperty(ref field, value); }
+
+    /// <summary>Gets whether <see cref="UpdateStatus"/> names a newer release and is shown as a badge beside the version: the release is known and no check is running.</summary>
     public bool ShowsUpdateBadge => IsUpdateAvailable && !IsChecking;
 
-    /// <summary>Gets whether <see cref="UpdateStatus"/> is shown as a plain line: anything it says other than a newer release, a running check included.</summary>
-    public bool ShowsUpdateNotice => UpdateStatus.Length > 0 && !ShowsUpdateBadge;
+    /// <summary>Gets whether <see cref="UpdateStatus"/> says the release running is the latest, shown as a badge beside the version while no check is running.</summary>
+    public bool ShowsUpToDateBadge => IsUpToDate && !IsChecking;
+
+    /// <summary>Gets whether <see cref="UpdateStatus"/> is shown as a plain line beside the version: a running check, a failure, or the switch being off.</summary>
+    public bool ShowsUpdateNotice => UpdateStatus.Length > 0 && !ShowsUpdateBadge && !ShowsUpToDateBadge;
 
     /// <summary>Gets the page of the newer release, for the view to open in the browser, or <see langword="null"/> while none is known.</summary>
     public Uri? ReleasePage => IsUpdateAvailable ? Workspace.Updates.Latest?.Page : null;
@@ -168,8 +174,10 @@ public sealed class SettingsPage : Page
         var updates = Workspace.Updates;
         UpdateStatus = updates.Status;
         IsUpdateAvailable = updates.IsUpdateAvailable;
+        IsUpToDate = updates.IsUpToDate;
         IsChecking = updates.IsBusy;
         OnPropertyChanged(nameof(ShowsUpdateBadge));
+        OnPropertyChanged(nameof(ShowsUpToDateBadge));
         OnPropertyChanged(nameof(ShowsUpdateNotice));
         OnPropertyChanged(nameof(ReleasePage));
         CheckUpdatesCommand?.RaiseCanExecuteChanged();

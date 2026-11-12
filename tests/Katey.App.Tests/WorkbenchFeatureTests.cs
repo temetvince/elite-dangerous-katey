@@ -1204,6 +1204,7 @@ public sealed class WorkbenchFeatureTests
         Assert.Equal("Katey 1.4.0 is available.", settings.UpdateStatus);
         Assert.True(settings.IsUpdateAvailable);
         Assert.True(settings.ShowsUpdateBadge);
+        Assert.False(settings.ShowsUpToDateBadge);
         Assert.False(settings.ShowsUpdateNotice);
         Assert.Equal(releases.Latest.Page, settings.ReleasePage);
         Assert.True(settings.CheckUpdatesCommand.CanExecute(null));

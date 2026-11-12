@@ -1785,14 +1785,15 @@
                     <Border Classes="panel">
                       <StackPanel Spacing="8">
                         <TextBlock Classes="col" Text="{loc:T Settings.Updates, Upper=True}" />
-                        <!-- A newer release is the one verdict here, so it gets the accent badge beside the version; every other outcome is a plain line below. -->
+                        <!-- Every outcome of the check sits beside the version: a newer release as the accent badge, the latest as the green one, anything else as a plain line. -->
                         <Grid ColumnDefinitions="Auto,10,*,8,Auto,8,Auto">
                           <TextBlock Grid.Column="0" Classes="body" Text="{Binding VersionText}" VerticalAlignment="Center" />
                           <Border Grid.Column="2" Classes="badge accent" HorizontalAlignment="Left" IsVisible="{Binding ShowsUpdateBadge}"><TextBlock Text="{Binding UpdateStatus}" /></Border>
+                          <Border Grid.Column="2" Classes="badge good" HorizontalAlignment="Left" IsVisible="{Binding ShowsUpToDateBadge}"><TextBlock Text="{Binding UpdateStatus}" /></Border>
+                          <TextBlock Grid.Column="2" Classes="muted" TextWrapping="Wrap" Text="{Binding UpdateStatus}" IsVisible="{Binding ShowsUpdateNotice}" VerticalAlignment="Center" />
                           <Button Grid.Column="4" Content="{loc:T Settings.CheckNow}" Command="{Binding CheckUpdatesCommand}" />
                           <Button Grid.Column="6" Classes="primary" Content="{loc:T Settings.OpenRelease}" Click="OpenReleasePage" IsVisible="{Binding IsUpdateAvailable}" />
                         </Grid>
-                        <TextBlock Classes="body" TextWrapping="Wrap" Text="{Binding UpdateStatus}" IsVisible="{Binding ShowsUpdateNotice}" />
                         <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding UpdateText}" />
                       </StackPanel>
                     </Border>
