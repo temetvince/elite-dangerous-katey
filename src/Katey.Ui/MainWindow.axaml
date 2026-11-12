@@ -31,9 +31,9 @@
                       <StackPanel Margin="0,1,0,4">
                         <WrapPanel>
                           <TextBlock Classes="strong" Text="{Binding GiveCount}" Margin="0,0,4,0" />
-                          <Button Classes="link strong" Content="{Binding From.Label}" Command="{Binding From.OpenCommand}" Margin="0,0,6,0" ToolTip.Tip="{loc:T Trade.OpenMaterialTip}" />
+                          <Button Classes="link strong" Content="{Binding From.Label}" Command="{Binding From.OpenCommand}" Margin="0,0,6,0" />
                           <TextBlock Classes="body" Text="{Binding GetCount}" Margin="0,0,4,0" />
-                          <Button Classes="link" Content="{Binding To.Label}" Command="{Binding To.OpenCommand}" Margin="0,0,10,0" ToolTip.Tip="{loc:T Trade.OpenMaterialTip}" />
+                          <Button Classes="link" Content="{Binding To.Label}" Command="{Binding To.OpenCommand}" Margin="0,0,10,0" />
                           <TextBlock Classes="mono muted" Text="{Binding RateText}" />
                         </WrapPanel>
                         <!-- The families the traders group by, then the surplus the whole batches leave. -->
@@ -51,7 +51,7 @@
                       <StackPanel Margin="0,1">
                         <WrapPanel>
                           <TextBlock Classes="warn" Text="{Binding Prefix}" FontWeight="SemiBold" Margin="0,0,4,0" />
-                          <Button Classes="link strong" Content="{Binding Material.Label}" Command="{Binding Material.OpenCommand}" Margin="0,0,4,0" ToolTip.Tip="{loc:T Trade.OpenMaterialTip}" />
+                          <Button Classes="link strong" Content="{Binding Material.Label}" Command="{Binding Material.OpenCommand}" Margin="0,0,4,0" />
                           <TextBlock Classes="warn" Text="{loc:T Trade.Short}" FontWeight="SemiBold" />
                         </WrapPanel>
                         <TextBlock Classes="faint" TextWrapping="Wrap" Text="{Binding Why}" />
@@ -105,10 +105,10 @@
     <!-- ===================== Top bar ===================== -->
     <Border Grid.Row="0" Classes="topbar" PointerPressed="TopBarPressed" Background="{DynamicResource KSurface}" BorderBrush="{DynamicResource KLine}" BorderThickness="0,0,0,1" Padding="16,0,8,0" Height="52">
       <Grid ColumnDefinitions="Auto,Auto,*,Auto" VerticalAlignment="Center">
-        <Button Classes="link wordmark" Content="KATEY" Command="{Binding HomeLink.OpenCommand}" ToolTip.Tip="{loc:T Chrome.StartPageTip}" Margin="0,0,18,0" />
+        <Button Classes="link wordmark" Content="KATEY" Command="{Binding HomeLink.OpenCommand}" Margin="0,0,18,0" />
         <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center" Margin="0,0,18,0">
-          <Button Classes="nav big" Content="{loc:T Chrome.Back}" Command="{Binding Navigator.BackCommand}" ToolTip.Tip="{loc:T Chrome.BackTip}" />
-          <Button Classes="nav big" Content="→" Command="{Binding Navigator.ForwardCommand}" ToolTip.Tip="{loc:T Chrome.ForwardTip}" />
+          <Button Classes="nav big" Content="{loc:T Chrome.Back}" Command="{Binding Navigator.BackCommand}" />
+          <Button Classes="nav big" Content="→" Command="{Binding Navigator.ForwardCommand}" />
         </StackPanel>
         <ItemsControl Grid.Column="2" ItemsSource="{Binding Nav}" VerticalAlignment="Center">
           <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
@@ -120,13 +120,13 @@
         </ItemsControl>
         <!-- Caption buttons: the window has no system title bar, so these stand in for its buttons. -->
         <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="2" Margin="18,0,0,0" VerticalAlignment="Center">
-          <Button Classes="caption" Click="MinimizeWindow" ToolTip.Tip="{loc:T Chrome.MinimiseTip}">
+          <Button Classes="caption" Click="MinimizeWindow">
             <Path Classes="glyph" Data="M0,5 H10" />
           </Button>
-          <Button Classes="caption" Click="ToggleMaximize" ToolTip.Tip="{loc:T Chrome.MaximiseTip}">
+          <Button Classes="caption" Click="ToggleMaximize">
             <Path Classes="glyph" Data="M0.5,0.5 H9.5 V9.5 H0.5 Z" />
           </Button>
-          <Button Classes="caption close" Click="CloseWindow" ToolTip.Tip="{loc:T Chrome.CloseTip}">
+          <Button Classes="caption close" Click="CloseWindow">
             <Path Classes="glyph" Data="M0,0 L10,10 M10,0 L0,10" />
           </Button>
         </StackPanel>
@@ -147,15 +147,15 @@
                 <TextBlock Classes="live" Text="{loc:T Rail.Live, Upper=True}" VerticalAlignment="Center" />
               </StackPanel>
               <WrapPanel Grid.Column="1" VerticalAlignment="Center">
-                <Button Classes="link quiet strong" Content="{Binding SystemName}" Command="{Binding SystemLink.OpenCommand}" ToolTip.Tip="{loc:T Common.OpenSystemTip}" Margin="0,0,14,0" />
+                <Button Classes="link quiet strong" Content="{Binding SystemName}" Command="{Binding SystemLink.OpenCommand}" Margin="0,0,14,0" />
                 <TextBlock Classes="sub" Text="{Binding RouteHeading}" Margin="0,0,14,0" VerticalAlignment="Center" />
                 <TextBlock Classes="sub" Text="{Binding FuelText}" Margin="0,0,14,0" VerticalAlignment="Center" />
                 <TextBlock Classes="sub" Text="{Binding ScanText}" IsVisible="{Binding !!ScanText.Length}" Margin="0,0,14,0" VerticalAlignment="Center" />
               </WrapPanel>
               <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
-                <CheckBox Content="{loc:T Rail.Overlay}" IsChecked="{Binding IsOverlay, Mode=TwoWay}" ToolTip.Tip="{loc:T Rail.OverlayTip}" />
-                <CheckBox Content="{loc:T Rail.ClickThrough}" IsChecked="{Binding IsClickThrough, Mode=TwoWay}" ToolTip.Tip="{loc:T Rail.ClickThroughTip}" />
-                <Button Content="{loc:T Rail.ResetPosition}" Command="{Binding ResetWindowCommand}" ToolTip.Tip="{loc:T Rail.ResetPositionTip}" />
+                <CheckBox Content="{loc:T Rail.Overlay}" IsChecked="{Binding IsOverlay, Mode=TwoWay}" />
+                <CheckBox Content="{loc:T Rail.ClickThrough}" IsChecked="{Binding IsClickThrough, Mode=TwoWay}" />
+                <Button Content="{loc:T Rail.ResetPosition}" Command="{Binding ResetWindowCommand}" />
                 <Button Content="{loc:T Rail.BringBack}" Command="{Binding AttachCommand}" />
               </StackPanel>
             </Grid>
@@ -266,7 +266,7 @@
                                 <DataTemplate>
                                   <Border Classes="row">
                                     <Grid ColumnDefinitions="52,2*,*,90,100,110" ColumnSpacing="10">
-                                      <CheckBox IsChecked="{Binding Selected, Mode=TwoWay}" VerticalAlignment="Center" ToolTip.Tip="{loc:T Engineers.Visit}" />
+                                      <CheckBox IsChecked="{Binding Selected, Mode=TwoWay}" VerticalAlignment="Center" />
                                       <Button Grid.Column="1" Classes="link strong" Classes.quiet="{Binding !Highlighted}" Classes.hud="{Binding Highlighted}" Classes.dim="{Binding Dimmed}" Content="{Binding Link.Label}" Command="{Binding Link.OpenCommand}" />
                                       <ContentControl Grid.Column="2" Content="{Binding Where}" VerticalAlignment="Center" />
                                       <TextBlock Grid.Column="3" Classes="muted" Text="{Binding Region}" VerticalAlignment="Center" />
@@ -458,7 +458,7 @@
                                     </ItemsControl>
                                   </StackPanel>
                                   <Border Grid.Column="1" Classes="grade" Classes.reach="{Binding ReachesTop}" IsVisible="{Binding !!ReachableText.Length}" HorizontalAlignment="Left" VerticalAlignment="Top"><TextBlock Text="{Binding ReachableText}" /></Border>
-                                  <ComboBox Grid.Column="2" ItemsSource="{Binding Grades}" SelectedItem="{Binding SelectedGrade}" HorizontalAlignment="Stretch" VerticalAlignment="Top" ToolTip.Tip="{loc:T Common.TargetGradeTip}" />
+                                  <ComboBox Grid.Column="2" ItemsSource="{Binding Grades}" SelectedItem="{Binding SelectedGrade}" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
                                   <Button Grid.Column="3" Classes="add" Content="{loc:T Common.AddToPlan}" Command="{Binding AddCommand}" VerticalAlignment="Top" />
                                 </Grid>
                               </Border>
@@ -563,7 +563,7 @@
                         <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding ScopeNote}" IsVisible="{Binding !!ScopeNote.Length}" />
                         <Grid ColumnDefinitions="2*,12,110,12,2*,12,Auto">
                           <StackPanel><TextBlock Classes="col" Text="{loc:T Column.ModuleType, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding ModuleTypeChoices}" SelectedItem="{Binding SelectedModuleType}" HorizontalAlignment="Stretch" /></StackPanel>
-                          <StackPanel Grid.Column="2"><TextBlock Classes="col" Text="{loc:T Column.Grade, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding GradeChoices}" SelectedItem="{Binding SelectedGrade}" HorizontalAlignment="Stretch" ToolTip.Tip="{loc:T Common.TargetGradeTip}" /></StackPanel>
+                          <StackPanel Grid.Column="2"><TextBlock Classes="col" Text="{loc:T Column.Grade, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding GradeChoices}" SelectedItem="{Binding SelectedGrade}" HorizontalAlignment="Stretch" /></StackPanel>
                           <StackPanel Grid.Column="4" IsVisible="{Binding HasExperimentals}"><TextBlock Classes="col" Text="{loc:T Column.Experimental, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Experimentals}" SelectedItem="{Binding SelectedExperimental}" HorizontalAlignment="Stretch" /></StackPanel>
                           <Button Grid.Column="6" Classes="primary" Content="{loc:T Common.Add}" Command="{Binding AddCommand}" VerticalAlignment="Bottom" />
                         </Grid>
@@ -584,7 +584,7 @@
                           <Border Classes="panel" Margin="0,0,0,10">
                             <Grid ColumnDefinitions="60,2*,2*,70" ColumnSpacing="14">
                               <TextBlock Classes="h3 mono" Text="{Binding Label}" Foreground="{Binding Grade, Converter={StaticResource SemanticBrush}, ConverterParameter=KG}" />
-                              <Button Grid.Column="3" Classes="small" Content="{loc:T Common.Add}" Command="{Binding AddCommand}" VerticalAlignment="Top" ToolTip.Tip="{loc:T Blueprint.AddGradeTip}" />
+                              <Button Grid.Column="3" Classes="small" Content="{loc:T Common.Add}" Command="{Binding AddCommand}" VerticalAlignment="Top" />
                               <StackPanel Grid.Column="1">
                                 <TextBlock Classes="muted" Text="{loc:T Blueprint.BoughtNotRolled}" IsVisible="{Binding IsFree}" />
                                 <ItemsControl ItemsSource="{Binding Materials}">
@@ -645,8 +645,8 @@
                                   <ui:SortHeaderView Grid.Column="3" DataContext="{Binding $parent[ItemsControl].DataContext.Sort[have]}" />
                                   <ui:SortHeaderView Grid.Column="4" DataContext="{Binding $parent[ItemsControl].DataContext.Sort[need]}" />
                                   <ui:SortHeaderView Grid.Column="5" DataContext="{Binding $parent[ItemsControl].DataContext.Sort[short]}" />
-                                  <TextBlock Grid.Column="7" Classes="col" Text="{loc:T Column.Keep, Upper=True}" TextAlignment="Right" VerticalAlignment="Center" ToolTip.Tip="{loc:T Materials.KeepTip}" />
-                                  <TextBlock Grid.Column="8" Classes="col" Text="{loc:T Column.Trade, Upper=True}" VerticalAlignment="Center" ToolTip.Tip="{loc:T Materials.TradeTip}" />
+                                  <TextBlock Grid.Column="7" Classes="col" Text="{loc:T Column.Keep, Upper=True}" TextAlignment="Right" VerticalAlignment="Center" />
+                                  <TextBlock Grid.Column="8" Classes="col" Text="{loc:T Column.Trade, Upper=True}" VerticalAlignment="Center" />
                                 </Grid>
                               </Border>
                               <ItemsControl ItemsSource="{Binding Rows}">
@@ -664,7 +664,7 @@
                                         <TextBlock Grid.Column="4" Classes="mono" Text="{Binding NeededText}" TextAlignment="Right" VerticalAlignment="Center" />
                                         <TextBlock Grid.Column="5" Classes="mono bad" Text="{Binding ShortText}" TextAlignment="Right" VerticalAlignment="Center" FontWeight="SemiBold" />
                                         <TextBox Grid.Column="7" Classes="mono" Text="{Binding KeepText, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" PlaceholderText="0" MinHeight="28" Padding="6,3" TextAlignment="Right" VerticalAlignment="Center" />
-                                        <CheckBox Grid.Column="8" IsChecked="{Binding MayTrade, Mode=TwoWay}" VerticalAlignment="Center" ToolTip.Tip="{loc:T Materials.NeverTradeTip}" />
+                                        <CheckBox Grid.Column="8" IsChecked="{Binding MayTrade, Mode=TwoWay}" VerticalAlignment="Center" />
                                       </Grid>
                                     </Border>
                                   </DataTemplate>
@@ -726,7 +726,7 @@
                             <DataTemplate>
                               <Border Classes="row" Classes.dim="{Binding IsDim}">
                                 <Grid ColumnDefinitions="40,2*,3*,130" ColumnSpacing="12">
-                                  <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" IsEnabled="{Binding CanSelect}" VerticalAlignment="Top" ToolTip.Tip="{loc:T Unlocks.PutInPlanTip}" />
+                                  <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" IsEnabled="{Binding CanSelect}" VerticalAlignment="Top" />
                                   <StackPanel Grid.Column="1" Spacing="2">
                                     <TextBlock Classes="strong" Text="{Binding Name}" />
                                     <Button Classes="link" Content="{Binding TypeLink.Label}" Command="{Binding TypeLink.OpenCommand}" IsVisible="{Binding HasType}" FontSize="12" />
@@ -942,7 +942,7 @@
                                     <WrapPanel>
                                       <Button Classes="link strong quiet" Content="{Binding Link.Label}" Command="{Binding Link.OpenCommand}" Margin="0,0,8,0" />
                                       <Border Classes="badge good" IsVisible="{Binding IsCurrent}" Margin="0,0,8,0"><TextBlock Text="{loc:T Column.Flying, Upper=True}" /></Border>
-                                      <Border Classes="badge warn" IsVisible="{Binding IsPrebuilt}" ToolTip.Tip="{loc:T Fleet.PrebuiltTip}"><TextBlock Text="{loc:T Column.Prebuilt, Upper=True}" /></Border>
+                                      <Border Classes="badge warn" IsVisible="{Binding IsPrebuilt}"><TextBlock Text="{loc:T Column.Prebuilt, Upper=True}" /></Border>
                                     </WrapPanel>
                                     <TextBlock Classes="faint" Text="{Binding FitText}" />
                                   </StackPanel>
@@ -974,7 +974,7 @@
                                 <Grid ColumnDefinitions="2*,*,2*,80" ColumnSpacing="12">
                                   <StackPanel Orientation="Horizontal" Spacing="8">
                                     <Button Classes="link strong quiet" Content="{Binding Link.Label}" Command="{Binding Link.OpenCommand}" />
-                                    <Border Classes="badge" Classes.good="{Binding AllOwned}" Classes.warn="{Binding IsWarn}" Classes.bad="{Binding IsBad}" ToolTip.Tip="{loc:T Fleet.CoveredTip}"><TextBlock Text="{Binding Verdict}" /></Border>
+                                    <Border Classes="badge" Classes.good="{Binding AllOwned}" Classes.warn="{Binding IsWarn}" Classes.bad="{Binding IsBad}"><TextBlock Text="{Binding Verdict}" /></Border>
                                   </StackPanel>
                                   <TextBlock Grid.Column="1" Classes="muted" Text="{Binding HullName}" VerticalAlignment="Center" />
                                   <TextBlock Grid.Column="2" Classes="muted" Text="{Binding Summary}" VerticalAlignment="Center" />
@@ -1076,7 +1076,7 @@
                         </Border>
                       </Expander>
                       <StackPanel Orientation="Horizontal" Spacing="8">
-                        <Button Classes="small" Content="{loc:T Common.CopyForEdsy}" Click="CopyEdsy" IsEnabled="{Binding CanExport}" ToolTip.Tip="{loc:T Ship.CopyTip}" />
+                        <Button Classes="small" Content="{loc:T Common.CopyForEdsy}" Click="CopyEdsy" IsEnabled="{Binding CanExport}" />
                         <TextBlock Classes="muted" Text="{Binding ExportStatus}" VerticalAlignment="Center" />
                       </StackPanel>
                       <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding HasFits}">
@@ -1116,16 +1116,16 @@
                                   <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                     <TextBlock Classes="body" Text="{Binding Name}" />
                                     <Button Classes="link" Content="{Binding Link.Label}" Command="{Binding Link.OpenCommand}" IsVisible="{Binding HasLink}" FontSize="12" />
-                                    <TextBlock Classes="warn" Text="{loc:T Common.PrebuiltModule}" IsVisible="{Binding WarnPrebuilt}" FontSize="12" ToolTip.Tip="{loc:T Common.PrebuiltModuleTip}" />
+                                    <TextBlock Classes="warn" Text="{loc:T Common.PrebuiltModule}" IsVisible="{Binding WarnPrebuilt}" FontSize="12" />
                                   </StackPanel>
                                   <TextBlock Grid.Column="2" Classes="muted" Classes.accent="{Binding IsEngineered}" Text="{Binding Engineering}" VerticalAlignment="Center" />
                                   <!-- The picker takes its own line under the module, so the row fits any width the window allows. -->
                                   <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Classes="faint" TextWrapping="Wrap" Text="{loc:T Ship.NoTickedEngineer}" IsVisible="{Binding ShowsNoChoices}" Margin="0,4,0,0" />
                                   <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ColumnDefinitions="Auto,3*,64,3*,Auto" ColumnSpacing="8" IsVisible="{Binding ShowsPicker}" Margin="0,6,0,0">
                                     <TextBlock Classes="col" Text="{loc:T Column.Plan, Upper=True}" VerticalAlignment="Center" />
-                                    <ComboBox Grid.Column="1" ItemsSource="{Binding Blueprints}" SelectedItem="{Binding SelectedBlueprint}" HorizontalAlignment="Stretch" VerticalAlignment="Center" ToolTip.Tip="{loc:T Column.Blueprint}" />
-                                    <ComboBox Grid.Column="2" ItemsSource="{Binding Grades}" SelectedItem="{Binding SelectedGrade}" HorizontalAlignment="Stretch" VerticalAlignment="Center" ToolTip.Tip="{loc:T Common.TargetGradeTip}" />
-                                    <ComboBox Grid.Column="3" ItemsSource="{Binding Experimentals}" SelectedItem="{Binding SelectedExperimental}" IsVisible="{Binding HasExperimentals}" HorizontalAlignment="Stretch" VerticalAlignment="Center" ToolTip.Tip="{loc:T Common.ExperimentalEffectTip}" />
+                                    <ComboBox Grid.Column="1" ItemsSource="{Binding Blueprints}" SelectedItem="{Binding SelectedBlueprint}" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                                    <ComboBox Grid.Column="2" ItemsSource="{Binding Grades}" SelectedItem="{Binding SelectedGrade}" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                                    <ComboBox Grid.Column="3" ItemsSource="{Binding Experimentals}" SelectedItem="{Binding SelectedExperimental}" IsVisible="{Binding HasExperimentals}" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
                                     <Button Grid.Column="4" Classes="add" Content="{Binding AddText}" Command="{Binding AddCommand}" VerticalAlignment="Center" />
                                   </Grid>
                                 </Grid>
@@ -1149,7 +1149,7 @@
                       </StackPanel>
                       <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,6,0,0">
                         <Button Classes="primary small" Content="{Binding PlanMissingText}" Command="{Binding PlanMissingCommand}" />
-                        <Button Classes="small" Content="{loc:T Common.CopyForEdsy}" Click="CopyEdsy" ToolTip.Tip="{loc:T Fit.CopyTip}" />
+                        <Button Classes="small" Content="{loc:T Common.CopyForEdsy}" Click="CopyEdsy" />
                         <Button Classes="small danger" Content="{loc:T Fit.RemoveFit}" Command="{Binding RemoveCommand}" />
                         <TextBlock Classes="muted" Text="{Binding ExportStatus}" VerticalAlignment="Center" />
                       </StackPanel>
@@ -1199,7 +1199,7 @@
                                   </StackPanel>
                                   <StackPanel Grid.Column="2" VerticalAlignment="Top">
                                     <TextBlock Classes="muted" Text="{Binding Fitted}" />
-                                    <TextBlock Classes="warn" Text="{loc:T Common.PrebuiltModule}" IsVisible="{Binding WarnPrebuilt}" ToolTip.Tip="{loc:T Common.PrebuiltModuleTip}" />
+                                    <TextBlock Classes="warn" Text="{loc:T Common.PrebuiltModule}" IsVisible="{Binding WarnPrebuilt}" />
                                   </StackPanel>
                                   <StackPanel Grid.Column="3" Spacing="3">
                                     <Border Classes="badge" Classes.warn="{Binding NeedsEngineering}" Classes.bad="{Binding NeedsPurchase}"><TextBlock Text="{Binding KindText}" /></Border>
@@ -1257,7 +1257,7 @@
                       <ui:PageHeaderView>
                         <ui:PageHeaderView.Beside>
                           <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding HasName}">
-                            <Button Classes="small" Content="{loc:T System.CopyName}" Click="CopySystemName" ToolTip.Tip="{loc:T System.CopyNameTip}" />
+                            <Button Classes="small" Content="{loc:T System.CopyName}" Click="CopySystemName" />
                             <TextBlock Classes="muted" Text="{Binding CopyStatus}" IsVisible="{Binding !!CopyStatus.Length}" VerticalAlignment="Center" />
                           </StackPanel>
                         </ui:PageHeaderView.Beside>
@@ -1516,7 +1516,7 @@
                         <ui:PhraseBlock Classes="lede" TextWrapping="Wrap" Parts="{Binding PlotSummaryParts}" />
                         <StackPanel Orientation="Horizontal" Spacing="10">
                           <ui:PhraseBlock Classes="body" Parts="{Binding PlotProgressParts}" VerticalAlignment="Center" />
-                          <Button Content="{loc:T Common.CopyNextWaypoint}" Click="CopyNextWaypoint" IsVisible="{Binding HasNextWaypoint}" ToolTip.Tip="{loc:T Common.CopyNextWaypointTip}" />
+                          <Button Content="{loc:T Common.CopyNextWaypoint}" Click="CopyNextWaypoint" IsVisible="{Binding HasNextWaypoint}" />
                           <TextBlock Name="WaypointStatus" Classes="muted" VerticalAlignment="Center" />
                         </StackPanel>
                       </StackPanel>
@@ -1548,7 +1548,7 @@
                                     <TextBlock Grid.Column="4" Classes="mono muted" Text="{Binding RemainingText}" VerticalAlignment="Center" TextAlignment="Right" />
                                     <TextBlock Grid.Column="5" Classes="mono muted" Classes.good="{Binding MustRefuel}" Text="{Binding FuelText}" VerticalAlignment="Center" TextAlignment="Right" />
                                     <TextBlock Grid.Column="6" Classes="muted" Classes.warn="{Binding HasNeutron}" Text="{Binding NotesText}" VerticalAlignment="Center" />
-                                    <Button Grid.Column="7" Classes="nav" Content="{loc:T Route.Copy}" Click="CopyWaypoint" VerticalAlignment="Center" ToolTip.Tip="{loc:T Route.CopyTip}" />
+                                    <Button Grid.Column="7" Classes="nav" Content="{loc:T Route.Copy}" Click="CopyWaypoint" VerticalAlignment="Center" />
                                   </Grid>
                                 </Border>
                               </DataTemplate>
@@ -1588,7 +1588,7 @@
                                 <ItemsControl.ItemsPanel><ItemsPanelTemplate><Canvas Width="220" Height="220" /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                   <DataTemplate>
-                                    <Path Data="{Binding PathData, Converter={StaticResource GeometryFromPath}}" Fill="{Binding Color, Converter={StaticResource BrushFromHex}}" ToolTip.Tip="{Binding Tip}" />
+                                    <Path Data="{Binding PathData, Converter={StaticResource GeometryFromPath}}" Fill="{Binding Color, Converter={StaticResource BrushFromHex}}" />
                                   </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                               </ItemsControl>
@@ -1600,7 +1600,7 @@
                             <ItemsControl.ItemTemplate>
                               <DataTemplate>
                                 <Grid ColumnDefinitions="Auto,16,*,130,70,120" ColumnSpacing="8" Margin="0,2">
-                                  <CheckBox IsChecked="{Binding IsShown, Mode=TwoWay}" VerticalAlignment="Center" ToolTip.Tip="{loc:T Stats.ShowInChartTip}" />
+                                  <CheckBox IsChecked="{Binding IsShown, Mode=TwoWay}" VerticalAlignment="Center" />
                                   <Border Grid.Column="1" Width="12" Height="12" CornerRadius="3" Background="{Binding Color, Converter={StaticResource BrushFromHex}}" VerticalAlignment="Center" />
                                   <TextBlock Grid.Column="2" Classes="strong" Text="{Binding Label}" VerticalAlignment="Center" />
                                   <TextBlock Grid.Column="3" Classes="mono" Text="{Binding AmountText}" TextAlignment="Right" VerticalAlignment="Center" />
@@ -1748,7 +1748,7 @@
                     <StackPanel Spacing="10" IsVisible="{Binding Sections[lifetime].IsCurrent}">
                       <Grid ColumnDefinitions="*,Auto" ColumnSpacing="14">
                         <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding LifetimeNote}" VerticalAlignment="Center" />
-                        <CheckBox Grid.Column="1" Content="{loc:T Stats.ShowZero}" IsChecked="{Binding ShowZeroFigures, Mode=TwoWay}" VerticalAlignment="Center" ToolTip.Tip="{loc:T Stats.ShowZeroTip}" />
+                        <CheckBox Grid.Column="1" Content="{loc:T Stats.ShowZero}" IsChecked="{Binding ShowZeroFigures, Mode=TwoWay}" VerticalAlignment="Center" />
                       </Grid>
                       <ItemsControl ItemsSource="{Binding LifetimeGroups}">
                         <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
@@ -1770,7 +1770,7 @@
                         <Grid ColumnDefinitions="*,8,Auto,8,Auto,8,Auto,8,Auto">
                           <TextBox Grid.Column="0" Text="{Binding Folder, Mode=TwoWay}" />
                           <Button Grid.Column="2" Content="{loc:T Common.Browse}" Click="BrowseFolder" />
-                          <Button Grid.Column="4" Content="{loc:T Settings.Detect}" Command="{Binding DetectCommand}" ToolTip.Tip="{loc:T Settings.DetectTip}" />
+                          <Button Grid.Column="4" Content="{loc:T Settings.Detect}" Command="{Binding DetectCommand}" />
                           <Button Grid.Column="6" Classes="primary" Content="{loc:T Settings.Watch}" Command="{Binding WatchCommand}" />
                           <Button Grid.Column="8" Content="{loc:T Settings.Stop}" Command="{Binding StopCommand}" />
                         </Grid>
@@ -1916,7 +1916,7 @@
                   <DataTemplate>
                     <Border BorderBrush="{DynamicResource KLine}" BorderThickness="0,0,0,1" Padding="18,12">
                       <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                        <CheckBox IsChecked="{Binding Enabled, Mode=TwoWay}" VerticalAlignment="Top" ToolTip.Tip="{loc:T Drawer.CountTip}" />
+                        <CheckBox IsChecked="{Binding Enabled, Mode=TwoWay}" VerticalAlignment="Top" />
                         <StackPanel Grid.Column="1" Spacing="6">
                           <TextBlock Classes="strong" Text="{Binding Title}" />
                           <TextBlock Classes="faint" Text="{Binding SourceLabel}" IsVisible="{Binding HasSource}" />
@@ -1925,7 +1925,7 @@
                           <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding !IsUnlock}">
                             <TextBlock Classes="muted" Text="{loc:T Column.Grade}" VerticalAlignment="Center" />
                             <ComboBox ItemsSource="{Binding Grades}" SelectedItem="{Binding TargetGrade}" MinWidth="64" IsEnabled="{Binding !ExperimentalOnly}" />
-                            <CheckBox Content="{loc:T Drawer.ExperimentalOnly}" IsChecked="{Binding ExperimentalOnly, Mode=TwoWay}" IsVisible="{Binding HasExperimentals}" ToolTip.Tip="{loc:T Drawer.ExperimentalOnlyTip}" />
+                            <CheckBox Content="{loc:T Drawer.ExperimentalOnly}" IsChecked="{Binding ExperimentalOnly, Mode=TwoWay}" IsVisible="{Binding HasExperimentals}" />
                           </StackPanel>
                           <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding !IsUnlock}">
                             <TextBlock Classes="muted" Text="{loc:T Column.Experimental}" VerticalAlignment="Center" IsVisible="{Binding HasExperimentals}" />
@@ -1957,7 +1957,7 @@
                             </ItemsControl.ItemTemplate>
                           </ItemsControl>
                         </StackPanel>
-                        <Button Grid.Column="2" Classes="nav" Content="✕" Command="{Binding RemoveCommand}" VerticalAlignment="Top" ToolTip.Tip="{loc:T Common.Remove}" />
+                        <Button Grid.Column="2" Classes="nav" Content="✕" Command="{Binding RemoveCommand}" VerticalAlignment="Top" />
                       </Grid>
                     </Border>
                   </DataTemplate>
@@ -2043,7 +2043,7 @@
     <Border Grid.Row="2" Classes="bottombar" Background="{DynamicResource KSurface}" BorderBrush="{DynamicResource KLine}" BorderThickness="0,1,0,0" Padding="12,8">
       <Grid ColumnDefinitions="Auto,Auto,Auto,*,Auto" VerticalAlignment="Center">
         <!-- The language picker: a globe and the language's own name for itself, opening the list of languages Katey ships in. No flags: a flag names a country, not a language. -->
-        <Button Name="LanguageButton" Classes="navlink" VerticalAlignment="Center" Margin="0,0,8,0" ToolTip.Tip="{loc:T Bar.LanguageTip}">
+        <Button Name="LanguageButton" Classes="navlink" VerticalAlignment="Center" Margin="0,0,8,0">
           <StackPanel Orientation="Horizontal" Spacing="6">
             <Path Data="M8,1 A7,7 0 1,0 8,15 A7,7 0 1,0 8,1 M1,8 H15 M8,1 A3.5,7 0 1,0 8,15 A3.5,7 0 1,0 8,1 M2.5,4.5 H13.5 M2.5,11.5 H13.5" Stroke="{Binding $parent[Button].Foreground}" StrokeThickness="1.2" Width="14" Height="14" Stretch="Uniform" VerticalAlignment="Center" />
             <TextBlock Text="{Binding LanguageLabel}" VerticalAlignment="Center" />
@@ -2060,7 +2060,7 @@
             </Flyout>
           </Button.Flyout>
         </Button>
-        <Button Grid.Column="1" Classes="navlink" Classes.current="{Binding SettingsNav.IsCurrent}" Content="{Binding SettingsNav.Label}" Command="{Binding SettingsNav.Command}" VerticalAlignment="Center" ToolTip.Tip="{loc:T Bar.SettingsTip}" />
+        <Button Grid.Column="1" Classes="navlink" Classes.current="{Binding SettingsNav.IsCurrent}" Content="{Binding SettingsNav.Label}" Command="{Binding SettingsNav.Command}" VerticalAlignment="Center" />
         <!-- Stats lives here, not in the top bar, so the page links stay on one line in the longest language. -->
         <Button Grid.Column="2" Classes="navlink" Classes.current="{Binding StatsNav.IsCurrent}" Content="{Binding StatsNav.Label}" Command="{Binding StatsNav.Command}" VerticalAlignment="Center" Margin="8,0,0,0" />
         <TextBox Grid.Column="3" Name="SearchBox" Classes="omni" HorizontalAlignment="Stretch" Margin="16,0"

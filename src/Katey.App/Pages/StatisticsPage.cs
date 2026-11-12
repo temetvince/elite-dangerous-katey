@@ -22,8 +22,7 @@ public sealed record StatGroup(string Title, IReadOnlyList<StatRow> Rows);
 /// <param name="Label">The activity.</param>
 /// <param name="Color">Its colour as a hex string such as <c>#4E79A7</c>.</param>
 /// <param name="PathData">Its outline in SVG path syntax, in a 220 by 220 square.</param>
-/// <param name="Tip">Activity, amount and share, for a tooltip.</param>
-public sealed record ChartSlice(string Label, string Color, string PathData, string Tip);
+public sealed record ChartSlice(string Label, string Color, string PathData);
 
 /// <summary>One species of organic data sold.</summary>
 /// <param name="Species">The species as the journal names it.</param>
@@ -507,7 +506,7 @@ public sealed class StatisticsPage : Page
             .. slices.Select(slice =>
             {
                 var activity = Activities.First(candidate => candidate.Kind.ToString() == slice.Key);
-                return new ChartSlice(activity.Label, activity.Color, slice.PathData, Strings.Format(Keys.Stats_ChartSlice, ("activity", activity.Label), ("amount", activity.AmountText), ("percent", slice.Fraction * 100)));
+                return new ChartSlice(activity.Label, activity.Color, slice.PathData);
             }),
         ];
         OnPropertyChanged(nameof(HasSlices));

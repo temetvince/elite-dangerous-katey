@@ -64,20 +64,11 @@
   <data name="AlreadyRunning.Notice" xml:space="preserve">
     <value>O Katey já está em execução. Use a janela que está aberta; uma segunda cópia sobrescreveria os dados salvos dela.</value>
   </data>
-  <data name="Bar.LanguageTip" xml:space="preserve">
-    <value>Idioma. A interface muda na hora; o manual tem uma cópia em cada idioma.</value>
-  </data>
   <data name="Bar.Plan" xml:space="preserve">
     <value>Plano</value>
   </data>
   <data name="Bar.SearchPlaceholder" xml:space="preserve">
     <value>Buscar engenheiros, módulos, projetos, materiais, sistemas, naves, montagens   (Ctrl K)</value>
-  </data>
-  <data name="Bar.SettingsTip" xml:space="preserve">
-    <value>Ajustes. Pressione de novo para voltar à página em que você estava.</value>
-  </data>
-  <data name="Blueprint.AddGradeTip" xml:space="preserve">
-    <value>Adicionar este grau no tipo de módulo e no experimental escolhidos acima</value>
   </data>
   <data name="Blueprint.AddHeading" xml:space="preserve">
     <value>Adicionar ao plano</value>
@@ -90,24 +81,6 @@
   </data>
   <data name="Chrome.Back" xml:space="preserve">
     <value>← Voltar</value>
-  </data>
-  <data name="Chrome.BackTip" xml:space="preserve">
-    <value>Voltar</value>
-  </data>
-  <data name="Chrome.CloseTip" xml:space="preserve">
-    <value>Fechar</value>
-  </data>
-  <data name="Chrome.ForwardTip" xml:space="preserve">
-    <value>Avançar</value>
-  </data>
-  <data name="Chrome.MaximiseTip" xml:space="preserve">
-    <value>Maximizar ou restaurar</value>
-  </data>
-  <data name="Chrome.MinimiseTip" xml:space="preserve">
-    <value>Minimizar</value>
-  </data>
-  <data name="Chrome.StartPageTip" xml:space="preserve">
-    <value>Página inicial</value>
   </data>
   <data name="Clipboard.Copied" xml:space="preserve">
     <value>Copiado.</value>
@@ -274,32 +247,17 @@
   <data name="Common.CopyNextWaypoint" xml:space="preserve">
     <value>Copiar próximo ponto de rota</value>
   </data>
-  <data name="Common.CopyNextWaypointTip" xml:space="preserve">
-    <value>Copia o nome do sistema para colar no mapa da galáxia</value>
-  </data>
   <data name="Common.ExpandAll" xml:space="preserve">
     <value>Expandir tudo</value>
-  </data>
-  <data name="Common.ExperimentalEffectTip" xml:space="preserve">
-    <value>Efeito experimental</value>
   </data>
   <data name="Common.Landable" xml:space="preserve">
     <value>pousável</value>
   </data>
-  <data name="Common.OpenSystemTip" xml:space="preserve">
-    <value>Abrir este sistema</value>
-  </data>
   <data name="Common.PrebuiltModule" xml:space="preserve">
     <value>Módulo pré-montado</value>
   </data>
-  <data name="Common.PrebuiltModuleTip" xml:space="preserve">
-    <value>Veio com a nave e não pode ser armazenado, movido ou vendido, então a engenharia feita nele fica com esta nave.</value>
-  </data>
   <data name="Common.Remove" xml:space="preserve">
     <value>Remover</value>
-  </data>
-  <data name="Common.TargetGradeTip" xml:space="preserve">
-    <value>Grau alvo. 0 planeja só o efeito experimental.</value>
   </data>
   <data name="Drawer.ClearPlan" xml:space="preserve">
     <value>Limpar plano</value>
@@ -307,17 +265,11 @@
   <data name="Drawer.CopyShoppingList" xml:space="preserve">
     <value>Copiar lista de compras</value>
   </data>
-  <data name="Drawer.CountTip" xml:space="preserve">
-    <value>Contar esta entrada nos totais</value>
-  </data>
   <data name="Drawer.Empty" xml:space="preserve">
     <value>O plano está vazio. Adicione um projeto a partir de qualquer página de módulo, engenheiro ou nave, ou importe uma build.</value>
   </data>
   <data name="Drawer.ExperimentalOnly" xml:space="preserve">
     <value>Só o experimental</value>
-  </data>
-  <data name="Drawer.ExperimentalOnlyTip" xml:space="preserve">
-    <value>O módulo já tem o projeto; planeje só o efeito. Define o grau como 0.</value>
   </data>
   <data name="Drawer.ImportBuild" xml:space="preserve">
     <value>Importar uma build</value>
@@ -373,9 +325,6 @@
   <data name="Fit.BuyFirst" xml:space="preserve">
     <value>comprar primeiro</value>
   </data>
-  <data name="Fit.CopyTip" xml:space="preserve">
-    <value>Copia esta montagem como um Loadout de diário. No EDSY, escolha Import e cole.</value>
-  </data>
   <data name="Fit.CountOwned" xml:space="preserve">
     <value>Contar módulos que já tenho em outro lugar antes de planejar a engenharia</value>
   </data>
@@ -394,9 +343,6 @@
   <data name="Fit.ToPlan" xml:space="preserve">
     <value>para o plano</value>
   </data>
-  <data name="Fleet.CoveredTip" xml:space="preserve">
-    <value>Se você tem todos os módulos que a montagem pede, em qualquer lugar da sua frota ou do armazenamento sob a política de compartilhamento. Abra a montagem para compará-la com uma nave.</value>
-  </data>
   <data name="Fleet.KeepSaved" xml:space="preserve">
     <value>Manter a montagem salva</value>
   </data>
@@ -405,9 +351,6 @@
   </data>
   <data name="Fleet.PastePlaceholder" xml:space="preserve">
     <value>Cole uma exportação Loadout de diário do EDSY e pressione Salvar como montagem.</value>
-  </data>
-  <data name="Fleet.PrebuiltTip" xml:space="preserve">
-    <value>Resgatada de um pacote. Abra a nave para ver se ainda está como veio.</value>
   </data>
   <data name="Fleet.SaveAsFit" xml:space="preserve">
     <value>Salvar como montagem</value>
@@ -433,17 +376,8 @@
   <data name="Materials.FilterPlaceholder" xml:space="preserve">
     <value>Filtrar por nome ou família</value>
   </data>
-  <data name="Materials.KeepTip" xml:space="preserve">
-    <value>Manter pelo menos esta quantidade. As trocas nunca gastam abaixo dela e a repõem quando ela falta.</value>
-  </data>
-  <data name="Materials.NeverTradeTip" xml:space="preserve">
-    <value>Desmarque para nunca entregar este material em um comerciante.</value>
-  </data>
   <data name="Materials.ShortOnly" xml:space="preserve">
     <value>Só em falta</value>
-  </data>
-  <data name="Materials.TradeTip" xml:space="preserve">
-    <value>Marcado: as trocas podem gastar o que você tem acima da quantidade a manter. Desmarque para nunca entregar este material em um comerciante.</value>
   </data>
   <data name="Modules.Intro" xml:space="preserve">
     <value>Cada tipo de módulo que o jogo deixa você modificar, por onde ele se encaixa na nave. Abra um grupo e depois um tipo para ver seus projetos, quem os oferece, as variantes e o que você tem. Ligue Só meus engenheiros, na página de engenheiros, para ver só os tipos em que os engenheiros marcados podem rolar um projeto.</value>
@@ -475,14 +409,8 @@
   <data name="Rail.AllLife" xml:space="preserve">
     <value>Toda a vida</value>
   </data>
-  <data name="Rail.AllLifeTip" xml:space="preserve">
-    <value>Todo corpo com vida.</value>
-  </data>
   <data name="Rail.Biology" xml:space="preserve">
     <value>Biologia</value>
-  </data>
-  <data name="Rail.BiologyTip" xml:space="preserve">
-    <value>Corpos com vida, do mais próximo ao mais distante, só a vida deles.</value>
   </data>
   <data name="Rail.BringBack" xml:space="preserve">
     <value>Trazer o painel de volta</value>
@@ -490,14 +418,8 @@
   <data name="Rail.BringBackShort" xml:space="preserve">
     <value>Reacoplar</value>
   </data>
-  <data name="Rail.BringBackTip" xml:space="preserve">
-    <value>Trazer o painel de volta para a janela principal</value>
-  </data>
   <data name="Rail.ClickThrough" xml:space="preserve">
     <value>Cliques atravessam</value>
-  </data>
-  <data name="Rail.ClickThroughTip" xml:space="preserve">
-    <value>Os cliques atravessam a janela do painel até o jogo, e os botões, links e chaves do painel se escondem. Desmarque aqui para receber cliques de novo.</value>
   </data>
   <data name="Rail.DetachedHeading" xml:space="preserve">
     <value>Katey ao vivo</value>
@@ -508,9 +430,6 @@
   <data name="Rail.Landable" xml:space="preserve">
     <value>Pousáveis</value>
   </data>
-  <data name="Rail.LandableTip" xml:space="preserve">
-    <value>Todo corpo pousável, do mais próximo ao mais distante, com sua vida e seus materiais.</value>
-  </data>
   <data name="Rail.Landed" xml:space="preserve">
     <value>pousou</value>
   </data>
@@ -520,17 +439,11 @@
   <data name="Rail.Minerals" xml:space="preserve">
     <value>Minerais</value>
   </data>
-  <data name="Rail.MineralsTip" xml:space="preserve">
-    <value>Corpos com materiais na superfície, do mais próximo ao mais distante, só os materiais deles.</value>
-  </data>
   <data name="Rail.Needed" xml:space="preserve">
     <value>necessário</value>
   </data>
   <data name="Rail.Overlay" xml:space="preserve">
     <value>Sobreposição</value>
-  </data>
-  <data name="Rail.OverlayTip" xml:space="preserve">
-    <value>Uma janela quase transparente com texto claro, para ficar sobre o jogo. O jogo precisa rodar em janela ou sem bordas; um jogo em tela cheia exclusiva cobre todas as outras janelas.</value>
   </data>
   <data name="Rail.PopOut" xml:space="preserve">
     <value>Destacar</value>
@@ -538,17 +451,11 @@
   <data name="Rail.ResetPosition" xml:space="preserve">
     <value>Redefinir posição</value>
   </data>
-  <data name="Rail.ResetPositionTip" xml:space="preserve">
-    <value>Coloca a janela do painel de volta no tamanho padrão, no canto superior direito da tela principal.</value>
-  </data>
   <data name="Rail.Scoop" xml:space="preserve">
     <value>coleta</value>
   </data>
   <data name="Rail.SkipBacteria" xml:space="preserve">
     <value>Pular bactérias</value>
-  </data>
-  <data name="Rail.SkipBacteriaTip" xml:space="preserve">
-    <value>Deixa de fora os corpos cuja vida é só de bactérias: pelos gêneros do scanner depois de mapeados, ou um único sinal com quatro em cinco chances de ser bactéria antes disso.</value>
   </data>
   <data name="Rail.SpanshPlot" xml:space="preserve">
     <value>Rota do Spansh</value>
@@ -558,9 +465,6 @@
   </data>
   <data name="Route.Copy" xml:space="preserve">
     <value>Copiar</value>
-  </data>
-  <data name="Route.CopyTip" xml:space="preserve">
-    <value>Copiar o nome do sistema para o mapa da galáxia</value>
   </data>
   <data name="Route.CountInjections" xml:space="preserve">
     <value>Contar com injeções de FSD</value>
@@ -619,9 +523,6 @@
   <data name="Settings.Detect" xml:space="preserve">
     <value>Detectar</value>
   </data>
-  <data name="Settings.DetectTip" xml:space="preserve">
-    <value>Procurar a pasta de diários do jogo nos lugares habituais.</value>
-  </data>
   <data name="Settings.Intro" xml:space="preserve">
     <value>O Katey lê os arquivos de diário do jogo e acompanha o mais novo enquanto você joga. Nada é enviado a lugar nenhum a menos que você ligue o traçador do Spansh abaixo.</value>
   </data>
@@ -652,9 +553,6 @@
   <data name="Settings.Watch" xml:space="preserve">
     <value>Acompanhar</value>
   </data>
-  <data name="Ship.CopyTip" xml:space="preserve">
-    <value>Copia o registro Loadout do jogo para esta nave. No EDSY, escolha Import e cole.</value>
-  </data>
   <data name="Ship.FittedModules" xml:space="preserve">
     <value>Módulos instalados</value>
   </data>
@@ -670,23 +568,14 @@
   <data name="Stats.NothingToChart" xml:space="preserve">
     <value>nada para o gráfico</value>
   </data>
-  <data name="Stats.ShowInChartTip" xml:space="preserve">
-    <value>Mostrar no gráfico</value>
-  </data>
   <data name="Stats.ShowZero" xml:space="preserve">
     <value>Mostrar valores zerados</value>
-  </data>
-  <data name="Stats.ShowZeroTip" xml:space="preserve">
-    <value>O jogo informa muitos valores como zero. Marque para listá-los também.</value>
   </data>
   <data name="Stats.WingMissions" xml:space="preserve">
     <value>Missões de ala</value>
   </data>
   <data name="System.CopyName" xml:space="preserve">
     <value>Copiar nome</value>
-  </data>
-  <data name="System.CopyNameTip" xml:space="preserve">
-    <value>Copia o nome do sistema, para a caixa de busca do mapa da galáxia.</value>
   </data>
   <data name="System.EngineersHere" xml:space="preserve">
     <value>Engenheiros aqui:</value>
@@ -706,9 +595,6 @@
   <data name="System.Star" xml:space="preserve">
     <value>estrela</value>
   </data>
-  <data name="Trade.OpenMaterialTip" xml:space="preserve">
-    <value>Abrir a página de materiais neste material</value>
-  </data>
   <data name="Trade.Short" xml:space="preserve">
     <value>em falta</value>
   </data>
@@ -717,8 +603,5 @@
   </data>
   <data name="Unlocks.MaterialsHeading" xml:space="preserve">
     <value>Materiais para os desbloqueios planejados</value>
-  </data>
-  <data name="Unlocks.PutInPlanTip" xml:space="preserve">
-    <value>Colocar este desbloqueio no plano</value>
   </data>
 </root>

@@ -2054,9 +2054,6 @@ Desligado, tudo é oferecido e os graus começam no máximo. O plano ainda avisa
   <data name="Stats.CartographicsSold" xml:space="preserve">
     <value>Dados cartográficos vendidos no período</value>
   </data>
-  <data name="Stats.ChartSlice" xml:space="preserve">
-    <value>{activity}: {amount}, {percent:0.0}%</value>
-  </data>
   <data name="Stats.CombatBondsInCrew" xml:space="preserve">
     <value>Títulos de combate ganhos em tripulação</value>
   </data>

@@ -12,20 +12,11 @@ public static class UiKeys
     /// <summary><c>AlreadyRunning.Notice</c>.</summary>
     public const string AlreadyRunning_Notice = "AlreadyRunning.Notice";
 
-    /// <summary><c>Bar.LanguageTip</c>.</summary>
-    public const string Bar_LanguageTip = "Bar.LanguageTip";
-
     /// <summary><c>Bar.Plan</c>.</summary>
     public const string Bar_Plan = "Bar.Plan";
 
     /// <summary><c>Bar.SearchPlaceholder</c>.</summary>
     public const string Bar_SearchPlaceholder = "Bar.SearchPlaceholder";
-
-    /// <summary><c>Bar.SettingsTip</c>.</summary>
-    public const string Bar_SettingsTip = "Bar.SettingsTip";
-
-    /// <summary><c>Blueprint.AddGradeTip</c>.</summary>
-    public const string Blueprint_AddGradeTip = "Blueprint.AddGradeTip";
 
     /// <summary><c>Blueprint.AddHeading</c>.</summary>
     public const string Blueprint_AddHeading = "Blueprint.AddHeading";
@@ -38,24 +29,6 @@ public static class UiKeys
 
     /// <summary><c>Chrome.Back</c>.</summary>
     public const string Chrome_Back = "Chrome.Back";
-
-    /// <summary><c>Chrome.BackTip</c>.</summary>
-    public const string Chrome_BackTip = "Chrome.BackTip";
-
-    /// <summary><c>Chrome.CloseTip</c>.</summary>
-    public const string Chrome_CloseTip = "Chrome.CloseTip";
-
-    /// <summary><c>Chrome.ForwardTip</c>.</summary>
-    public const string Chrome_ForwardTip = "Chrome.ForwardTip";
-
-    /// <summary><c>Chrome.MaximiseTip</c>.</summary>
-    public const string Chrome_MaximiseTip = "Chrome.MaximiseTip";
-
-    /// <summary><c>Chrome.MinimiseTip</c>.</summary>
-    public const string Chrome_MinimiseTip = "Chrome.MinimiseTip";
-
-    /// <summary><c>Chrome.StartPageTip</c>.</summary>
-    public const string Chrome_StartPageTip = "Chrome.StartPageTip";
 
     /// <summary><c>Clipboard.Copied</c>.</summary>
     public const string Clipboard_Copied = "Clipboard.Copied";
@@ -222,32 +195,17 @@ public static class UiKeys
     /// <summary><c>Common.CopyNextWaypoint</c>.</summary>
     public const string Common_CopyNextWaypoint = "Common.CopyNextWaypoint";
 
-    /// <summary><c>Common.CopyNextWaypointTip</c>.</summary>
-    public const string Common_CopyNextWaypointTip = "Common.CopyNextWaypointTip";
-
     /// <summary><c>Common.ExpandAll</c>.</summary>
     public const string Common_ExpandAll = "Common.ExpandAll";
-
-    /// <summary><c>Common.ExperimentalEffectTip</c>.</summary>
-    public const string Common_ExperimentalEffectTip = "Common.ExperimentalEffectTip";
 
     /// <summary><c>Common.Landable</c>.</summary>
     public const string Common_Landable = "Common.Landable";
 
-    /// <summary><c>Common.OpenSystemTip</c>.</summary>
-    public const string Common_OpenSystemTip = "Common.OpenSystemTip";
-
     /// <summary><c>Common.PrebuiltModule</c>.</summary>
     public const string Common_PrebuiltModule = "Common.PrebuiltModule";
 
-    /// <summary><c>Common.PrebuiltModuleTip</c>.</summary>
-    public const string Common_PrebuiltModuleTip = "Common.PrebuiltModuleTip";
-
     /// <summary><c>Common.Remove</c>.</summary>
     public const string Common_Remove = "Common.Remove";
-
-    /// <summary><c>Common.TargetGradeTip</c>.</summary>
-    public const string Common_TargetGradeTip = "Common.TargetGradeTip";
 
     /// <summary><c>Drawer.ClearPlan</c>.</summary>
     public const string Drawer_ClearPlan = "Drawer.ClearPlan";
@@ -255,17 +213,11 @@ public static class UiKeys
     /// <summary><c>Drawer.CopyShoppingList</c>.</summary>
     public const string Drawer_CopyShoppingList = "Drawer.CopyShoppingList";
 
-    /// <summary><c>Drawer.CountTip</c>.</summary>
-    public const string Drawer_CountTip = "Drawer.CountTip";
-
     /// <summary><c>Drawer.Empty</c>.</summary>
     public const string Drawer_Empty = "Drawer.Empty";
 
     /// <summary><c>Drawer.ExperimentalOnly</c>.</summary>
     public const string Drawer_ExperimentalOnly = "Drawer.ExperimentalOnly";
-
-    /// <summary><c>Drawer.ExperimentalOnlyTip</c>.</summary>
-    public const string Drawer_ExperimentalOnlyTip = "Drawer.ExperimentalOnlyTip";
 
     /// <summary><c>Drawer.ImportBuild</c>.</summary>
     public const string Drawer_ImportBuild = "Drawer.ImportBuild";
@@ -321,9 +273,6 @@ public static class UiKeys
     /// <summary><c>Fit.BuyFirst</c>.</summary>
     public const string Fit_BuyFirst = "Fit.BuyFirst";
 
-    /// <summary><c>Fit.CopyTip</c>.</summary>
-    public const string Fit_CopyTip = "Fit.CopyTip";
-
     /// <summary><c>Fit.CountOwned</c>.</summary>
     public const string Fit_CountOwned = "Fit.CountOwned";
 
@@ -342,9 +291,6 @@ public static class UiKeys
     /// <summary><c>Fit.ToPlan</c>.</summary>
     public const string Fit_ToPlan = "Fit.ToPlan";
 
-    /// <summary><c>Fleet.CoveredTip</c>.</summary>
-    public const string Fleet_CoveredTip = "Fleet.CoveredTip";
-
     /// <summary><c>Fleet.KeepSaved</c>.</summary>
     public const string Fleet_KeepSaved = "Fleet.KeepSaved";
 
@@ -353,9 +299,6 @@ public static class UiKeys
 
     /// <summary><c>Fleet.PastePlaceholder</c>.</summary>
     public const string Fleet_PastePlaceholder = "Fleet.PastePlaceholder";
-
-    /// <summary><c>Fleet.PrebuiltTip</c>.</summary>
-    public const string Fleet_PrebuiltTip = "Fleet.PrebuiltTip";
 
     /// <summary><c>Fleet.SaveAsFit</c>.</summary>
     public const string Fleet_SaveAsFit = "Fleet.SaveAsFit";
@@ -381,17 +324,8 @@ public static class UiKeys
     /// <summary><c>Materials.FilterPlaceholder</c>.</summary>
     public const string Materials_FilterPlaceholder = "Materials.FilterPlaceholder";
 
-    /// <summary><c>Materials.KeepTip</c>.</summary>
-    public const string Materials_KeepTip = "Materials.KeepTip";
-
-    /// <summary><c>Materials.NeverTradeTip</c>.</summary>
-    public const string Materials_NeverTradeTip = "Materials.NeverTradeTip";
-
     /// <summary><c>Materials.ShortOnly</c>.</summary>
     public const string Materials_ShortOnly = "Materials.ShortOnly";
-
-    /// <summary><c>Materials.TradeTip</c>.</summary>
-    public const string Materials_TradeTip = "Materials.TradeTip";
 
     /// <summary><c>ModuleType.NoFitAsks</c>.</summary>
     public const string ModuleType_NoFitAsks = "ModuleType.NoFitAsks";
@@ -423,14 +357,8 @@ public static class UiKeys
     /// <summary><c>Rail.AllLife</c>.</summary>
     public const string Rail_AllLife = "Rail.AllLife";
 
-    /// <summary><c>Rail.AllLifeTip</c>.</summary>
-    public const string Rail_AllLifeTip = "Rail.AllLifeTip";
-
     /// <summary><c>Rail.Biology</c>.</summary>
     public const string Rail_Biology = "Rail.Biology";
-
-    /// <summary><c>Rail.BiologyTip</c>.</summary>
-    public const string Rail_BiologyTip = "Rail.BiologyTip";
 
     /// <summary><c>Rail.BringBack</c>.</summary>
     public const string Rail_BringBack = "Rail.BringBack";
@@ -438,14 +366,8 @@ public static class UiKeys
     /// <summary><c>Rail.BringBackShort</c>.</summary>
     public const string Rail_BringBackShort = "Rail.BringBackShort";
 
-    /// <summary><c>Rail.BringBackTip</c>.</summary>
-    public const string Rail_BringBackTip = "Rail.BringBackTip";
-
     /// <summary><c>Rail.ClickThrough</c>.</summary>
     public const string Rail_ClickThrough = "Rail.ClickThrough";
-
-    /// <summary><c>Rail.ClickThroughTip</c>.</summary>
-    public const string Rail_ClickThroughTip = "Rail.ClickThroughTip";
 
     /// <summary><c>Rail.DetachedHeading</c>.</summary>
     public const string Rail_DetachedHeading = "Rail.DetachedHeading";
@@ -456,9 +378,6 @@ public static class UiKeys
     /// <summary><c>Rail.Landable</c>.</summary>
     public const string Rail_Landable = "Rail.Landable";
 
-    /// <summary><c>Rail.LandableTip</c>.</summary>
-    public const string Rail_LandableTip = "Rail.LandableTip";
-
     /// <summary><c>Rail.Landed</c>.</summary>
     public const string Rail_Landed = "Rail.Landed";
 
@@ -468,17 +387,11 @@ public static class UiKeys
     /// <summary><c>Rail.Minerals</c>.</summary>
     public const string Rail_Minerals = "Rail.Minerals";
 
-    /// <summary><c>Rail.MineralsTip</c>.</summary>
-    public const string Rail_MineralsTip = "Rail.MineralsTip";
-
     /// <summary><c>Rail.Needed</c>.</summary>
     public const string Rail_Needed = "Rail.Needed";
 
     /// <summary><c>Rail.Overlay</c>.</summary>
     public const string Rail_Overlay = "Rail.Overlay";
-
-    /// <summary><c>Rail.OverlayTip</c>.</summary>
-    public const string Rail_OverlayTip = "Rail.OverlayTip";
 
     /// <summary><c>Rail.PopOut</c>.</summary>
     public const string Rail_PopOut = "Rail.PopOut";
@@ -486,17 +399,11 @@ public static class UiKeys
     /// <summary><c>Rail.ResetPosition</c>.</summary>
     public const string Rail_ResetPosition = "Rail.ResetPosition";
 
-    /// <summary><c>Rail.ResetPositionTip</c>.</summary>
-    public const string Rail_ResetPositionTip = "Rail.ResetPositionTip";
-
     /// <summary><c>Rail.Scoop</c>.</summary>
     public const string Rail_Scoop = "Rail.Scoop";
 
     /// <summary><c>Rail.SkipBacteria</c>.</summary>
     public const string Rail_SkipBacteria = "Rail.SkipBacteria";
-
-    /// <summary><c>Rail.SkipBacteriaTip</c>.</summary>
-    public const string Rail_SkipBacteriaTip = "Rail.SkipBacteriaTip";
 
     /// <summary><c>Rail.SpanshPlot</c>.</summary>
     public const string Rail_SpanshPlot = "Rail.SpanshPlot";
@@ -506,9 +413,6 @@ public static class UiKeys
 
     /// <summary><c>Route.Copy</c>.</summary>
     public const string Route_Copy = "Route.Copy";
-
-    /// <summary><c>Route.CopyTip</c>.</summary>
-    public const string Route_CopyTip = "Route.CopyTip";
 
     /// <summary><c>Route.CountInjections</c>.</summary>
     public const string Route_CountInjections = "Route.CountInjections";
@@ -567,9 +471,6 @@ public static class UiKeys
     /// <summary><c>Settings.Detect</c>.</summary>
     public const string Settings_Detect = "Settings.Detect";
 
-    /// <summary><c>Settings.DetectTip</c>.</summary>
-    public const string Settings_DetectTip = "Settings.DetectTip";
-
     /// <summary><c>Settings.Intro</c>.</summary>
     public const string Settings_Intro = "Settings.Intro";
 
@@ -600,9 +501,6 @@ public static class UiKeys
     /// <summary><c>Settings.Watch</c>.</summary>
     public const string Settings_Watch = "Settings.Watch";
 
-    /// <summary><c>Ship.CopyTip</c>.</summary>
-    public const string Ship_CopyTip = "Ship.CopyTip";
-
     /// <summary><c>Ship.FittedModules</c>.</summary>
     public const string Ship_FittedModules = "Ship.FittedModules";
 
@@ -618,23 +516,14 @@ public static class UiKeys
     /// <summary><c>Stats.NothingToChart</c>.</summary>
     public const string Stats_NothingToChart = "Stats.NothingToChart";
 
-    /// <summary><c>Stats.ShowInChartTip</c>.</summary>
-    public const string Stats_ShowInChartTip = "Stats.ShowInChartTip";
-
     /// <summary><c>Stats.ShowZero</c>.</summary>
     public const string Stats_ShowZero = "Stats.ShowZero";
-
-    /// <summary><c>Stats.ShowZeroTip</c>.</summary>
-    public const string Stats_ShowZeroTip = "Stats.ShowZeroTip";
 
     /// <summary><c>Stats.WingMissions</c>.</summary>
     public const string Stats_WingMissions = "Stats.WingMissions";
 
     /// <summary><c>System.CopyName</c>.</summary>
     public const string System_CopyName = "System.CopyName";
-
-    /// <summary><c>System.CopyNameTip</c>.</summary>
-    public const string System_CopyNameTip = "System.CopyNameTip";
 
     /// <summary><c>System.EngineersHere</c>.</summary>
     public const string System_EngineersHere = "System.EngineersHere";
@@ -654,9 +543,6 @@ public static class UiKeys
     /// <summary><c>System.Star</c>.</summary>
     public const string System_Star = "System.Star";
 
-    /// <summary><c>Trade.OpenMaterialTip</c>.</summary>
-    public const string Trade_OpenMaterialTip = "Trade.OpenMaterialTip";
-
     /// <summary><c>Trade.Short</c>.</summary>
     public const string Trade_Short = "Trade.Short";
 
@@ -665,7 +551,4 @@ public static class UiKeys
 
     /// <summary><c>Unlocks.MaterialsHeading</c>.</summary>
     public const string Unlocks_MaterialsHeading = "Unlocks.MaterialsHeading";
-
-    /// <summary><c>Unlocks.PutInPlanTip</c>.</summary>
-    public const string Unlocks_PutInPlanTip = "Unlocks.PutInPlanTip";
 }

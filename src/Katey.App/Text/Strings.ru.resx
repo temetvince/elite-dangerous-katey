@@ -2294,9 +2294,6 @@
   <data name="Stats.CartographicsSold" xml:space="preserve">
     <value>Картографические данные, проданные за период</value>
   </data>
-  <data name="Stats.ChartSlice" xml:space="preserve">
-    <value>{activity}: {amount}, {percent:0.0}%</value>
-  </data>
   <data name="Stats.CombatBondsInCrew" xml:space="preserve">
     <value>Боевые облигации в экипаже</value>
   </data>

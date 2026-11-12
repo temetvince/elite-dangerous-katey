@@ -1881,9 +1881,6 @@ public static class Keys
     /// <summary><c>Stats.CartographicsSold</c>.</summary>
     public const string Stats_CartographicsSold = "Stats.CartographicsSold";
 
-    /// <summary><c>Stats.ChartSlice</c>.</summary>
-    public const string Stats_ChartSlice = "Stats.ChartSlice";
-
     /// <summary><c>Stats.CombatBondsInCrew</c>.</summary>
     public const string Stats_CombatBondsInCrew = "Stats.CombatBondsInCrew";
 

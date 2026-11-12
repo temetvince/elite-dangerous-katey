@@ -2054,9 +2054,6 @@ Desactivado: se ofrece todo y los grados empiezan en el máximo. El plan sigue a
   <data name="Stats.CartographicsSold" xml:space="preserve">
     <value>Datos cartográficos vendidos en el periodo</value>
   </data>
-  <data name="Stats.ChartSlice" xml:space="preserve">
-    <value>{activity}: {amount}, {percent:0.0}%</value>
-  </data>
   <data name="Stats.CombatBondsInCrew" xml:space="preserve">
     <value>Bonos de combate ganados en una tripulación</value>
   </data>

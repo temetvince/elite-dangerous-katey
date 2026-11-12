@@ -2054,9 +2054,6 @@ Désactivé, tout est proposé et les grades démarrent au maximum. Le plan aver
   <data name="Stats.CartographicsSold" xml:space="preserve">
     <value>Données cartographiques vendues sur la période</value>
   </data>
-  <data name="Stats.ChartSlice" xml:space="preserve">
-    <value>{activity} : {amount}, {percent:0.0} %</value>
-  </data>
   <data name="Stats.CombatBondsInCrew" xml:space="preserve">
     <value>Bons de combat gagnés en équipage</value>
   </data>

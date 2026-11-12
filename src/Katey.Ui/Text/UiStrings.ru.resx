@@ -64,20 +64,11 @@
   <data name="AlreadyRunning.Notice" xml:space="preserve">
     <value>Katey уже запущена. Используйте открытое окно: вторая копия перезаписала бы его сохранённые данные.</value>
   </data>
-  <data name="Bar.LanguageTip" xml:space="preserve">
-    <value>Язык. Интерфейс переключается сразу; руководство есть на каждом языке.</value>
-  </data>
   <data name="Bar.Plan" xml:space="preserve">
     <value>План</value>
   </data>
   <data name="Bar.SearchPlaceholder" xml:space="preserve">
     <value>Поиск инженеров, модулей, чертежей, материалов, систем, кораблей, сборок   (Ctrl K)</value>
-  </data>
-  <data name="Bar.SettingsTip" xml:space="preserve">
-    <value>Настройки. Нажмите ещё раз, чтобы вернуться на прежнюю страницу.</value>
-  </data>
-  <data name="Blueprint.AddGradeTip" xml:space="preserve">
-    <value>Добавить этот уровень для выбранных выше типа модуля и экспериментального эффекта</value>
   </data>
   <data name="Blueprint.AddHeading" xml:space="preserve">
     <value>Добавить в план</value>
@@ -90,24 +81,6 @@
   </data>
   <data name="Chrome.Back" xml:space="preserve">
     <value>← Назад</value>
-  </data>
-  <data name="Chrome.BackTip" xml:space="preserve">
-    <value>Назад</value>
-  </data>
-  <data name="Chrome.CloseTip" xml:space="preserve">
-    <value>Закрыть</value>
-  </data>
-  <data name="Chrome.ForwardTip" xml:space="preserve">
-    <value>Вперёд</value>
-  </data>
-  <data name="Chrome.MaximiseTip" xml:space="preserve">
-    <value>Развернуть или восстановить</value>
-  </data>
-  <data name="Chrome.MinimiseTip" xml:space="preserve">
-    <value>Свернуть</value>
-  </data>
-  <data name="Chrome.StartPageTip" xml:space="preserve">
-    <value>Начальная страница</value>
   </data>
   <data name="Clipboard.Copied" xml:space="preserve">
     <value>Скопировано.</value>
@@ -274,32 +247,17 @@
   <data name="Common.CopyNextWaypoint" xml:space="preserve">
     <value>Копировать следующую точку</value>
   </data>
-  <data name="Common.CopyNextWaypointTip" xml:space="preserve">
-    <value>Копирует название системы для вставки в карту галактики</value>
-  </data>
   <data name="Common.ExpandAll" xml:space="preserve">
     <value>Развернуть все</value>
-  </data>
-  <data name="Common.ExperimentalEffectTip" xml:space="preserve">
-    <value>Экспериментальный эффект</value>
   </data>
   <data name="Common.Landable" xml:space="preserve">
     <value>посадка</value>
   </data>
-  <data name="Common.OpenSystemTip" xml:space="preserve">
-    <value>Открыть эту систему</value>
-  </data>
   <data name="Common.PrebuiltModule" xml:space="preserve">
     <value>Предустановленный модуль</value>
   </data>
-  <data name="Common.PrebuiltModuleTip" xml:space="preserve">
-    <value>Он поставлялся с кораблём, и его нельзя убрать в хранилище, перенести или продать, поэтому его инженерия остаётся на этом корабле.</value>
-  </data>
   <data name="Common.Remove" xml:space="preserve">
     <value>Удалить</value>
-  </data>
-  <data name="Common.TargetGradeTip" xml:space="preserve">
-    <value>Целевой уровень. 0 планирует только экспериментальный эффект.</value>
   </data>
   <data name="Drawer.ClearPlan" xml:space="preserve">
     <value>Очистить план</value>
@@ -307,17 +265,11 @@
   <data name="Drawer.CopyShoppingList" xml:space="preserve">
     <value>Копировать список покупок</value>
   </data>
-  <data name="Drawer.CountTip" xml:space="preserve">
-    <value>Учитывать эту запись в итогах</value>
-  </data>
   <data name="Drawer.Empty" xml:space="preserve">
     <value>План пуст. Добавьте чертёж со страницы любого модуля, инженера или корабля либо импортируйте сборку.</value>
   </data>
   <data name="Drawer.ExperimentalOnly" xml:space="preserve">
     <value>Только эффект</value>
-  </data>
-  <data name="Drawer.ExperimentalOnlyTip" xml:space="preserve">
-    <value>Чертёж на модуле уже есть; планируется только эффект. Устанавливает уровень 0.</value>
   </data>
   <data name="Drawer.ImportBuild" xml:space="preserve">
     <value>Импортировать сборку</value>
@@ -373,9 +325,6 @@
   <data name="Fit.BuyFirst" xml:space="preserve">
     <value>сначала купить</value>
   </data>
-  <data name="Fit.CopyTip" xml:space="preserve">
-    <value>Копирует эту сборку как Loadout журнала. В EDSY выберите Import и вставьте.</value>
-  </data>
   <data name="Fit.CountOwned" xml:space="preserve">
     <value>Учитывать модули, которые у меня уже есть в другом месте, прежде чем планировать инженерию</value>
   </data>
@@ -394,9 +343,6 @@
   <data name="Fit.ToPlan" xml:space="preserve">
     <value>в план</value>
   </data>
-  <data name="Fleet.CoveredTip" xml:space="preserve">
-    <value>Есть ли у вас все модули, нужные по сборке, где угодно во флоте или в хранилище по политике общих модулей. Откройте сборку, чтобы сравнить её с одним кораблём.</value>
-  </data>
   <data name="Fleet.KeepSaved" xml:space="preserve">
     <value>Оставить сохранённую сборку</value>
   </data>
@@ -405,9 +351,6 @@
   </data>
   <data name="Fleet.PastePlaceholder" xml:space="preserve">
     <value>Вставьте экспорт Loadout журнала из EDSY и нажмите «Сохранить как сборку».</value>
-  </data>
-  <data name="Fleet.PrebuiltTip" xml:space="preserve">
-    <value>Получен из набора. Откройте корабль, чтобы узнать, остался ли он в исходном виде.</value>
   </data>
   <data name="Fleet.SaveAsFit" xml:space="preserve">
     <value>Сохранить как сборку</value>
@@ -433,17 +376,8 @@
   <data name="Materials.FilterPlaceholder" xml:space="preserve">
     <value>Фильтр по названию или семейству</value>
   </data>
-  <data name="Materials.KeepTip" xml:space="preserve">
-    <value>Держать не меньше этого количества. Обмены никогда не тратят ниже этой отметки и восполняют её при нехватке.</value>
-  </data>
-  <data name="Materials.NeverTradeTip" xml:space="preserve">
-    <value>Снимите отметку, чтобы никогда не отдавать этот материал торговцу.</value>
-  </data>
   <data name="Materials.ShortOnly" xml:space="preserve">
     <value>Только нехватка</value>
-  </data>
-  <data name="Materials.TradeTip" xml:space="preserve">
-    <value>Отмечено: обмены могут тратить то, что у вас сверх резерва. Снимите отметку, чтобы никогда не отдавать этот материал торговцу.</value>
   </data>
   <data name="Modules.Intro" xml:space="preserve">
     <value>Все типы модулей, которые игра позволяет модифицировать, по месту установки на корабле. Откройте группу, затем тип: чертежи, кто их предлагает, варианты и что у вас есть. Включите «Только мои инженеры» на странице инженеров, чтобы видеть лишь типы, для которых отмеченные вами инженеры могут прокрутить чертёж.</value>
@@ -475,14 +409,8 @@
   <data name="Rail.AllLife" xml:space="preserve">
     <value>Вся жизнь</value>
   </data>
-  <data name="Rail.AllLifeTip" xml:space="preserve">
-    <value>Все тела с жизнью.</value>
-  </data>
   <data name="Rail.Biology" xml:space="preserve">
     <value>Биология</value>
-  </data>
-  <data name="Rail.BiologyTip" xml:space="preserve">
-    <value>Тела с жизнью, ближайшие первыми, только их жизнь.</value>
   </data>
   <data name="Rail.BringBack" xml:space="preserve">
     <value>Вернуть панель</value>
@@ -490,14 +418,8 @@
   <data name="Rail.BringBackShort" xml:space="preserve">
     <value>Вернуть</value>
   </data>
-  <data name="Rail.BringBackTip" xml:space="preserve">
-    <value>Вернуть панель в главное окно</value>
-  </data>
   <data name="Rail.ClickThrough" xml:space="preserve">
     <value>Сквозные клики</value>
-  </data>
-  <data name="Rail.ClickThroughTip" xml:space="preserve">
-    <value>Клики проходят сквозь окно панели в игру, а кнопки, ссылки и переключатели панели скрываются. Снимите отметку здесь, чтобы снова принимать клики.</value>
   </data>
   <data name="Rail.DetachedHeading" xml:space="preserve">
     <value>Katey сейчас</value>
@@ -508,9 +430,6 @@
   <data name="Rail.Landable" xml:space="preserve">
     <value>Посадка</value>
   </data>
-  <data name="Rail.LandableTip" xml:space="preserve">
-    <value>Все тела с возможностью посадки, ближайшие первыми, с их жизнью и материалами.</value>
-  </data>
   <data name="Rail.Landed" xml:space="preserve">
     <value>садились</value>
   </data>
@@ -520,17 +439,11 @@
   <data name="Rail.Minerals" xml:space="preserve">
     <value>Минералы</value>
   </data>
-  <data name="Rail.MineralsTip" xml:space="preserve">
-    <value>Тела с материалами на поверхности, ближайшие первыми, только их материалы.</value>
-  </data>
   <data name="Rail.Needed" xml:space="preserve">
     <value>нужен</value>
   </data>
   <data name="Rail.Overlay" xml:space="preserve">
     <value>Оверлей</value>
-  </data>
-  <data name="Rail.OverlayTip" xml:space="preserve">
-    <value>Почти прозрачное окно с ярким текстом, чтобы держать его поверх игры. Игра должна работать в окне или без рамки; игра в эксклюзивном полноэкранном режиме закрывает все остальные окна.</value>
   </data>
   <data name="Rail.PopOut" xml:space="preserve">
     <value>Отделить</value>
@@ -538,17 +451,11 @@
   <data name="Rail.ResetPosition" xml:space="preserve">
     <value>Сбросить положение</value>
   </data>
-  <data name="Rail.ResetPositionTip" xml:space="preserve">
-    <value>Возвращает окно панели к размеру по умолчанию в правом верхнем углу основного экрана.</value>
-  </data>
   <data name="Rail.Scoop" xml:space="preserve">
     <value>заправка</value>
   </data>
   <data name="Rail.SkipBacteria" xml:space="preserve">
     <value>Без бактерий</value>
-  </data>
-  <data name="Rail.SkipBacteriaTip" xml:space="preserve">
-    <value>Скрывает тела, где жизнь — одни бактерии: по родам со сканера после картографирования, а до этого — при единственном сигнале с вероятностью бактерий четыре из пяти.</value>
   </data>
   <data name="Rail.SpanshPlot" xml:space="preserve">
     <value>Маршрут Spansh</value>
@@ -558,9 +465,6 @@
   </data>
   <data name="Route.Copy" xml:space="preserve">
     <value>Копировать</value>
-  </data>
-  <data name="Route.CopyTip" xml:space="preserve">
-    <value>Копировать название системы для карты галактики</value>
   </data>
   <data name="Route.CountInjections" xml:space="preserve">
     <value>Рассчитывать на форсаж РСД</value>
@@ -619,9 +523,6 @@
   <data name="Settings.Detect" xml:space="preserve">
     <value>Найти</value>
   </data>
-  <data name="Settings.DetectTip" xml:space="preserve">
-    <value>Искать папку журналов игры в обычных местах.</value>
-  </data>
   <data name="Settings.Intro" xml:space="preserve">
     <value>Katey читает файлы журнала игры и следит за новейшим, пока вы играете. Ничего никуда не отправляется, пока вы не включите планировщик Spansh ниже.</value>
   </data>
@@ -652,9 +553,6 @@
   <data name="Settings.Watch" xml:space="preserve">
     <value>Следить</value>
   </data>
-  <data name="Ship.CopyTip" xml:space="preserve">
-    <value>Копирует запись Loadout игры для этого корабля. В EDSY выберите Import и вставьте.</value>
-  </data>
   <data name="Ship.FittedModules" xml:space="preserve">
     <value>Установленные модули</value>
   </data>
@@ -670,23 +568,14 @@
   <data name="Stats.NothingToChart" xml:space="preserve">
     <value>нет данных для графика</value>
   </data>
-  <data name="Stats.ShowInChartTip" xml:space="preserve">
-    <value>Показать на графике</value>
-  </data>
   <data name="Stats.ShowZero" xml:space="preserve">
     <value>Показывать нулевые значения</value>
-  </data>
-  <data name="Stats.ShowZeroTip" xml:space="preserve">
-    <value>Игра сообщает многие значения как ноль. Отметьте, чтобы показать и их.</value>
   </data>
   <data name="Stats.WingMissions" xml:space="preserve">
     <value>Миссии крыла</value>
   </data>
   <data name="System.CopyName" xml:space="preserve">
     <value>Копировать название</value>
-  </data>
-  <data name="System.CopyNameTip" xml:space="preserve">
-    <value>Копирует название системы для поиска в карте галактики.</value>
   </data>
   <data name="System.EngineersHere" xml:space="preserve">
     <value>Инженеры здесь:</value>
@@ -706,9 +595,6 @@
   <data name="System.Star" xml:space="preserve">
     <value>звезда</value>
   </data>
-  <data name="Trade.OpenMaterialTip" xml:space="preserve">
-    <value>Открыть страницу материалов на этом материале</value>
-  </data>
   <data name="Trade.Short" xml:space="preserve">
     <value>нехватка</value>
   </data>
@@ -717,8 +603,5 @@
   </data>
   <data name="Unlocks.MaterialsHeading" xml:space="preserve">
     <value>Материалы для запланированных разблокировок</value>
-  </data>
-  <data name="Unlocks.PutInPlanTip" xml:space="preserve">
-    <value>Добавить эту разблокировку в план</value>
   </data>
 </root>

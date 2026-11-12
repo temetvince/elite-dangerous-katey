@@ -154,8 +154,8 @@ member's name or its parameter types.
 ### 10. Internationalize user-facing strings (when the app is localized)
 
 **Everything a user can see is internationalized, without exception.** A label, a button, a heading, a status
-line, a sentence worded from a background result, a tooltip, a placeholder, an explanation under a switch, a
-manual passage: every one goes through the string tables and ships in every language in the same change.
+line, a sentence worded from a background result, a placeholder, an explanation under a switch, a manual
+passage: every one goes through the string tables and ships in every language in the same change.
 A literal in a page template, a view model or code-behind is a defect, not a shortcut, however small or
 temporary it looks, and a change is not done while one language lacks a word of it.
 
@@ -422,6 +422,9 @@ fixing the code over adding more.
     rather than correct it: folding blocks into expressions, null checks into `?.` and `??`, lambdas into
     method groups, and IDE0130, whose fix crashes the formatter. Both shapes of a member are allowed; the
     author chooses, the formatter leaves it.
+  - Katey has no tooltips. Avalonia's tooltip is a popup window of its own, and on Windows that window takes
+    the click meant for the control under it, however the tip is placed. A hint goes in visible text: a
+    muted line under the control, a status line, or the manual. `ToolTip.Tip` does not appear in the XAML.
   - The main window's minimum width is the pages' minimum, 960, plus the docked rail's 340 while the rail
     is docked; `MainWindow` applies it when the rail docks or pops out. Fit a narrower screen by popping
     the rail out, not by shrinking the pages.

@@ -92,7 +92,7 @@ opens them as a grid, and the free ResX Resource Manager extension shows every l
 | Table | Holds |
 | --- | --- |
 | `src/Katey.App/Text/Strings.<culture>.resx` | Every sentence and label the pages, the rail and the plan produce. |
-| `src/Katey.Ui/Text/UiStrings.<culture>.resx` | The window's headings, buttons, tooltips and notices. |
+| `src/Katey.Ui/Text/UiStrings.<culture>.resx` | The window's headings, buttons and notices. |
 | `src/Katey.App/Text/CatalogNames.<culture>.resx` | The game's names, keyed by material symbol, blueprint key, module type code, unlock key, planet class, atmosphere word and so on. |
 
 Each English entry carries a comment saying where the text shows and how long it may run. The rules:

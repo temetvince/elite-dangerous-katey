@@ -64,20 +64,11 @@
   <data name="AlreadyRunning.Notice" xml:space="preserve">
     <value>Katey est déjà en cours d'exécution. Utilisez la fenêtre ouverte ; une seconde copie écraserait ses données enregistrées.</value>
   </data>
-  <data name="Bar.LanguageTip" xml:space="preserve">
-    <value>Langue. L'interface change aussitôt ; le manuel existe dans chaque langue.</value>
-  </data>
   <data name="Bar.Plan" xml:space="preserve">
     <value>Plan</value>
   </data>
   <data name="Bar.SearchPlaceholder" xml:space="preserve">
     <value>Rechercher ingénieurs, modules, modifications, matériaux, systèmes, vaisseaux, configurations   (Ctrl K)</value>
-  </data>
-  <data name="Bar.SettingsTip" xml:space="preserve">
-    <value>Paramètres. Appuyez de nouveau pour revenir à la page où vous étiez.</value>
-  </data>
-  <data name="Blueprint.AddGradeTip" xml:space="preserve">
-    <value>Ajouter ce grade sur le type de module et l'effet expérimental choisis ci-dessus</value>
   </data>
   <data name="Blueprint.AddHeading" xml:space="preserve">
     <value>Ajouter au plan</value>
@@ -90,24 +81,6 @@
   </data>
   <data name="Chrome.Back" xml:space="preserve">
     <value>← Retour</value>
-  </data>
-  <data name="Chrome.BackTip" xml:space="preserve">
-    <value>Retour</value>
-  </data>
-  <data name="Chrome.CloseTip" xml:space="preserve">
-    <value>Fermer</value>
-  </data>
-  <data name="Chrome.ForwardTip" xml:space="preserve">
-    <value>Suivant</value>
-  </data>
-  <data name="Chrome.MaximiseTip" xml:space="preserve">
-    <value>Agrandir ou restaurer</value>
-  </data>
-  <data name="Chrome.MinimiseTip" xml:space="preserve">
-    <value>Réduire</value>
-  </data>
-  <data name="Chrome.StartPageTip" xml:space="preserve">
-    <value>Page d'accueil</value>
   </data>
   <data name="Clipboard.Copied" xml:space="preserve">
     <value>Copié.</value>
@@ -274,32 +247,17 @@
   <data name="Common.CopyNextWaypoint" xml:space="preserve">
     <value>Copier le prochain point de passage</value>
   </data>
-  <data name="Common.CopyNextWaypointTip" xml:space="preserve">
-    <value>Copie le nom du système à coller dans la carte de la galaxie</value>
-  </data>
   <data name="Common.ExpandAll" xml:space="preserve">
     <value>Tout déplier</value>
-  </data>
-  <data name="Common.ExperimentalEffectTip" xml:space="preserve">
-    <value>Effet expérimental</value>
   </data>
   <data name="Common.Landable" xml:space="preserve">
     <value>atterrissable</value>
   </data>
-  <data name="Common.OpenSystemTip" xml:space="preserve">
-    <value>Ouvrir ce système</value>
-  </data>
   <data name="Common.PrebuiltModule" xml:space="preserve">
     <value>Module pré-équipé</value>
   </data>
-  <data name="Common.PrebuiltModuleTip" xml:space="preserve">
-    <value>Il est venu avec le vaisseau et ne peut être ni stocké, ni déplacé, ni vendu : son ingénierie reste donc sur ce vaisseau.</value>
-  </data>
   <data name="Common.Remove" xml:space="preserve">
     <value>Retirer</value>
-  </data>
-  <data name="Common.TargetGradeTip" xml:space="preserve">
-    <value>Grade cible. 0 planifie l'effet expérimental seul.</value>
   </data>
   <data name="Drawer.ClearPlan" xml:space="preserve">
     <value>Vider le plan</value>
@@ -307,17 +265,11 @@
   <data name="Drawer.CopyShoppingList" xml:space="preserve">
     <value>Copier la liste de courses</value>
   </data>
-  <data name="Drawer.CountTip" xml:space="preserve">
-    <value>Compter cette entrée dans les totaux</value>
-  </data>
   <data name="Drawer.Empty" xml:space="preserve">
     <value>Le plan est vide. Ajoutez une modification depuis une page de module, d'ingénieur ou de vaisseau, ou importez un build.</value>
   </data>
   <data name="Drawer.ExperimentalOnly" xml:space="preserve">
     <value>Expérimental seul</value>
-  </data>
-  <data name="Drawer.ExperimentalOnlyTip" xml:space="preserve">
-    <value>Le module a déjà la modification ; ne planifier que l'effet. Met le grade à 0.</value>
   </data>
   <data name="Drawer.ImportBuild" xml:space="preserve">
     <value>Importer un build</value>
@@ -373,9 +325,6 @@
   <data name="Fit.BuyFirst" xml:space="preserve">
     <value>à acheter d'abord</value>
   </data>
-  <data name="Fit.CopyTip" xml:space="preserve">
-    <value>Copie cette configuration comme Loadout du journal. Dans EDSY, choisissez Import et collez.</value>
-  </data>
   <data name="Fit.CountOwned" xml:space="preserve">
     <value>Compter les modules que je possède déjà ailleurs avant de planifier l'ingénierie</value>
   </data>
@@ -394,9 +343,6 @@
   <data name="Fit.ToPlan" xml:space="preserve">
     <value>à planifier</value>
   </data>
-  <data name="Fleet.CoveredTip" xml:space="preserve">
-    <value>Si vous possédez chaque module que veut la configuration, n'importe où dans votre flotte ou votre stockage, selon la règle de partage. Ouvrez la configuration pour la comparer à un vaisseau.</value>
-  </data>
   <data name="Fleet.KeepSaved" xml:space="preserve">
     <value>Garder la configuration enregistrée</value>
   </data>
@@ -405,9 +351,6 @@
   </data>
   <data name="Fleet.PastePlaceholder" xml:space="preserve">
     <value>Collez un export Loadout de journal EDSY et appuyez sur Enregistrer comme configuration.</value>
-  </data>
-  <data name="Fleet.PrebuiltTip" xml:space="preserve">
-    <value>Obtenu d'un pack. Ouvrez le vaisseau pour voir s'il est encore tel qu'il est arrivé.</value>
   </data>
   <data name="Fleet.SaveAsFit" xml:space="preserve">
     <value>Enregistrer comme configuration</value>
@@ -433,17 +376,8 @@
   <data name="Materials.FilterPlaceholder" xml:space="preserve">
     <value>Filtrer par nom ou famille</value>
   </data>
-  <data name="Materials.KeepTip" xml:space="preserve">
-    <value>En garder au moins autant. Les échanges ne descendent jamais en dessous et le reconstituent quand il manque.</value>
-  </data>
-  <data name="Materials.NeverTradeTip" xml:space="preserve">
-    <value>Décochez pour ne jamais céder ce matériau chez un négociant.</value>
-  </data>
   <data name="Materials.ShortOnly" xml:space="preserve">
     <value>Manques seulement</value>
-  </data>
-  <data name="Materials.TradeTip" xml:space="preserve">
-    <value>Coché : les échanges peuvent dépenser ce que vous détenez au-delà de la réserve. Décochez pour ne jamais céder ce matériau chez un négociant.</value>
   </data>
   <data name="Modules.Intro" xml:space="preserve">
     <value>Chaque type de module que le jeu vous laisse modifier, selon sa place sur un vaisseau. Ouvrez un groupe, puis un type pour ses modifications, qui les propose, les variantes et ce que vous possédez. Activez Mes ingénieurs seulement, sur la page des ingénieurs, pour ne voir que les types sur lesquels les ingénieurs cochés peuvent appliquer une modification.</value>
@@ -475,14 +409,8 @@
   <data name="Rail.AllLife" xml:space="preserve">
     <value>Toute vie</value>
   </data>
-  <data name="Rail.AllLifeTip" xml:space="preserve">
-    <value>Chaque corps abritant de la vie.</value>
-  </data>
   <data name="Rail.Biology" xml:space="preserve">
     <value>Biologie</value>
-  </data>
-  <data name="Rail.BiologyTip" xml:space="preserve">
-    <value>Les corps abritant de la vie, les plus proches d'abord, leur vie seulement.</value>
   </data>
   <data name="Rail.BringBack" xml:space="preserve">
     <value>Ramener le panneau</value>
@@ -490,14 +418,8 @@
   <data name="Rail.BringBackShort" xml:space="preserve">
     <value>Ramener</value>
   </data>
-  <data name="Rail.BringBackTip" xml:space="preserve">
-    <value>Ramener le panneau dans la fenêtre principale</value>
-  </data>
   <data name="Rail.ClickThrough" xml:space="preserve">
     <value>Clics traversants</value>
-  </data>
-  <data name="Rail.ClickThroughTip" xml:space="preserve">
-    <value>Les clics traversent la fenêtre du panneau jusqu'au jeu, et les boutons, liens et interrupteurs du panneau se cachent. Décochez ici pour reprendre les clics.</value>
   </data>
   <data name="Rail.DetachedHeading" xml:space="preserve">
     <value>Katey en direct</value>
@@ -508,9 +430,6 @@
   <data name="Rail.Landable" xml:space="preserve">
     <value>Atterrissable</value>
   </data>
-  <data name="Rail.LandableTip" xml:space="preserve">
-    <value>Chaque corps atterrissable, les plus proches d'abord, avec sa vie et ses matériaux.</value>
-  </data>
   <data name="Rail.Landed" xml:space="preserve">
     <value>posé</value>
   </data>
@@ -520,17 +439,11 @@
   <data name="Rail.Minerals" xml:space="preserve">
     <value>Minéraux</value>
   </data>
-  <data name="Rail.MineralsTip" xml:space="preserve">
-    <value>Les corps avec des matériaux de surface, les plus proches d'abord, leurs matériaux seulement.</value>
-  </data>
   <data name="Rail.Needed" xml:space="preserve">
     <value>requis</value>
   </data>
   <data name="Rail.Overlay" xml:space="preserve">
     <value>Superposition</value>
-  </data>
-  <data name="Rail.OverlayTip" xml:space="preserve">
-    <value>Une fenêtre presque transparente au texte lumineux, à poser sur le jeu. Le jeu doit tourner en fenêtre ou en fenêtre sans bordure ; un jeu en plein écran exclusif couvre toute autre fenêtre.</value>
   </data>
   <data name="Rail.PopOut" xml:space="preserve">
     <value>Détacher</value>
@@ -538,17 +451,11 @@
   <data name="Rail.ResetPosition" xml:space="preserve">
     <value>Réinitialiser la position</value>
   </data>
-  <data name="Rail.ResetPositionTip" xml:space="preserve">
-    <value>Remet la fenêtre du panneau à sa taille par défaut, en haut à droite de l'écran principal.</value>
-  </data>
   <data name="Rail.Scoop" xml:space="preserve">
     <value>ravitaillement</value>
   </data>
   <data name="Rail.SkipBacteria" xml:space="preserve">
     <value>Ignorer les bactéries</value>
-  </data>
-  <data name="Rail.SkipBacteriaTip" xml:space="preserve">
-    <value>Laisse de côté les corps dont la seule vie est bactérienne : d'après les genres du scanner une fois cartographiés, ou avant cela un signal unique qui a quatre chances sur cinq d'être une bactérie.</value>
   </data>
   <data name="Rail.SpanshPlot" xml:space="preserve">
     <value>Tracé Spansh</value>
@@ -558,9 +465,6 @@
   </data>
   <data name="Route.Copy" xml:space="preserve">
     <value>Copier</value>
-  </data>
-  <data name="Route.CopyTip" xml:space="preserve">
-    <value>Copier le nom du système pour la carte de la galaxie</value>
   </data>
   <data name="Route.CountInjections" xml:space="preserve">
     <value>Compter sur les injections de FSD</value>
@@ -619,9 +523,6 @@
   <data name="Settings.Detect" xml:space="preserve">
     <value>Détecter</value>
   </data>
-  <data name="Settings.DetectTip" xml:space="preserve">
-    <value>Cherche le dossier des journaux du jeu à ses emplacements habituels.</value>
-  </data>
   <data name="Settings.Intro" xml:space="preserve">
     <value>Katey lit les fichiers journaux du jeu et suit le plus récent pendant que vous jouez. Rien n'est envoyé nulle part tant que vous n'activez pas le traceur Spansh ci-dessous.</value>
   </data>
@@ -652,9 +553,6 @@
   <data name="Settings.Watch" xml:space="preserve">
     <value>Suivre</value>
   </data>
-  <data name="Ship.CopyTip" xml:space="preserve">
-    <value>Copie l'enregistrement Loadout du jeu pour ce vaisseau. Dans EDSY, choisissez Import et collez.</value>
-  </data>
   <data name="Ship.FittedModules" xml:space="preserve">
     <value>Modules installés</value>
   </data>
@@ -670,23 +568,14 @@
   <data name="Stats.NothingToChart" xml:space="preserve">
     <value>rien à tracer</value>
   </data>
-  <data name="Stats.ShowInChartTip" xml:space="preserve">
-    <value>Afficher dans le graphique</value>
-  </data>
   <data name="Stats.ShowZero" xml:space="preserve">
     <value>Afficher les chiffres à zéro</value>
-  </data>
-  <data name="Stats.ShowZeroTip" xml:space="preserve">
-    <value>Le jeu rapporte beaucoup de chiffres à zéro. Cochez pour les lister aussi.</value>
   </data>
   <data name="Stats.WingMissions" xml:space="preserve">
     <value>Missions d'aile</value>
   </data>
   <data name="System.CopyName" xml:space="preserve">
     <value>Copier le nom</value>
-  </data>
-  <data name="System.CopyNameTip" xml:space="preserve">
-    <value>Copie le nom du système, pour la recherche de la carte de la galaxie.</value>
   </data>
   <data name="System.EngineersHere" xml:space="preserve">
     <value>Ingénieurs ici :</value>
@@ -706,9 +595,6 @@
   <data name="System.Star" xml:space="preserve">
     <value>étoile</value>
   </data>
-  <data name="Trade.OpenMaterialTip" xml:space="preserve">
-    <value>Ouvrir la page des matériaux sur ce matériau</value>
-  </data>
   <data name="Trade.Short" xml:space="preserve">
     <value>manque</value>
   </data>
@@ -717,8 +603,5 @@
   </data>
   <data name="Unlocks.MaterialsHeading" xml:space="preserve">
     <value>Matériaux pour vos déblocages planifiés</value>
-  </data>
-  <data name="Unlocks.PutInPlanTip" xml:space="preserve">
-    <value>Mettre ce déblocage dans le plan</value>
   </data>
 </root>

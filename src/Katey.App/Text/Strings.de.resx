@@ -2054,9 +2054,6 @@ Aus: Alles wird angeboten, und Stufen beginnen oben. Der Plan warnt weiterhin vo
   <data name="Stats.CartographicsSold" xml:space="preserve">
     <value>Im Zeitraum verkaufte Kartografiedaten</value>
   </data>
-  <data name="Stats.ChartSlice" xml:space="preserve">
-    <value>{activity}: {amount}, {percent:0.0}%</value>
-  </data>
   <data name="Stats.CombatBondsInCrew" xml:space="preserve">
     <value>In einer Crew verdiente Kampfprämien</value>
   </data>

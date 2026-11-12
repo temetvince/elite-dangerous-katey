@@ -66,10 +66,6 @@
     <value>Katey is already running. Use the window that is open; a second copy would overwrite its saved data.</value>
     <comment>Second-instance notice: the text.</comment>
   </data>
-  <data name="Bar.LanguageTip" xml:space="preserve">
-    <value>Language. The interface switches at once; the manual has a copy in each language.</value>
-    <comment>Bottom bar: tooltip of the language picker.</comment>
-  </data>
   <data name="Bar.Plan" xml:space="preserve">
     <value>Plan</value>
     <comment>Bottom bar: the button that opens the plan drawer. One word.</comment>
@@ -77,14 +73,6 @@
   <data name="Bar.SearchPlaceholder" xml:space="preserve">
     <value>Search engineers, modules, blueprints, materials, systems, ships, fits   (Ctrl K)</value>
     <comment>Bottom bar: the search box's placeholder. Keep the Ctrl K shortcut at the end.</comment>
-  </data>
-  <data name="Bar.SettingsTip" xml:space="preserve">
-    <value>Settings. Press again to go back to the page you were on.</value>
-    <comment>Bottom bar: tooltip of the settings link.</comment>
-  </data>
-  <data name="Blueprint.AddGradeTip" xml:space="preserve">
-    <value>Add this grade on the module type and experimental chosen above</value>
-    <comment>Blueprint page: tooltip of a grade row's Add button.</comment>
   </data>
   <data name="Blueprint.AddHeading" xml:space="preserve">
     <value>Add to the plan</value>
@@ -101,30 +89,6 @@
   <data name="Chrome.Back" xml:space="preserve">
     <value>← Back</value>
     <comment>Top bar: the back button. Keep the arrow.</comment>
-  </data>
-  <data name="Chrome.BackTip" xml:space="preserve">
-    <value>Back</value>
-    <comment>Top bar: tooltip of the back button.</comment>
-  </data>
-  <data name="Chrome.CloseTip" xml:space="preserve">
-    <value>Close</value>
-    <comment>Title bar: tooltip of the close caption button.</comment>
-  </data>
-  <data name="Chrome.ForwardTip" xml:space="preserve">
-    <value>Forward</value>
-    <comment>Top bar: tooltip of the forward button.</comment>
-  </data>
-  <data name="Chrome.MaximiseTip" xml:space="preserve">
-    <value>Maximise or restore</value>
-    <comment>Title bar: tooltip of the maximise caption button.</comment>
-  </data>
-  <data name="Chrome.MinimiseTip" xml:space="preserve">
-    <value>Minimise</value>
-    <comment>Title bar: tooltip of the minimise caption button.</comment>
-  </data>
-  <data name="Chrome.StartPageTip" xml:space="preserve">
-    <value>Start page</value>
-    <comment>Top bar: tooltip of the wordmark, which opens the start page.</comment>
   </data>
   <data name="Clipboard.Copied" xml:space="preserve">
     <value>Copied.</value>
@@ -346,41 +310,21 @@
     <value>Copy next waypoint</value>
     <comment>Button: copies the next system name of the plot.</comment>
   </data>
-  <data name="Common.CopyNextWaypointTip" xml:space="preserve">
-    <value>Copies the system name to paste into the galaxy map</value>
-    <comment>Tooltip of Copy next waypoint.</comment>
-  </data>
   <data name="Common.ExpandAll" xml:space="preserve">
     <value>Expand all</value>
     <comment>Button: opens every collapsible group on the page.</comment>
-  </data>
-  <data name="Common.ExperimentalEffectTip" xml:space="preserve">
-    <value>Experimental effect</value>
-    <comment>Tooltip of an experimental effect picker.</comment>
   </data>
   <data name="Common.Landable" xml:space="preserve">
     <value>landable</value>
     <comment>Badge on a body a ship can land on. Lower case, one word.</comment>
   </data>
-  <data name="Common.OpenSystemTip" xml:space="preserve">
-    <value>Open this system</value>
-    <comment>Tooltip on the name of the system the ship is in.</comment>
-  </data>
   <data name="Common.PrebuiltModule" xml:space="preserve">
     <value>Prebuilt module</value>
     <comment>Badge on a module that came with a prebuilt ship.</comment>
   </data>
-  <data name="Common.PrebuiltModuleTip" xml:space="preserve">
-    <value>It came with the ship and cannot be stored, moved or sold, so engineering it stays with this ship.</value>
-    <comment>Tooltip of the Prebuilt module badge.</comment>
-  </data>
   <data name="Common.Remove" xml:space="preserve">
     <value>Remove</value>
     <comment>Button or tooltip: removes the item. One word.</comment>
-  </data>
-  <data name="Common.TargetGradeTip" xml:space="preserve">
-    <value>Target grade. 0 plans the experimental effect only.</value>
-    <comment>Tooltip of a grade picker.</comment>
   </data>
   <data name="Drawer.ClearPlan" xml:space="preserve">
     <value>Clear plan</value>
@@ -390,10 +334,6 @@
     <value>Copy shopping list</value>
     <comment>Plan drawer: button that copies the totals as text.</comment>
   </data>
-  <data name="Drawer.CountTip" xml:space="preserve">
-    <value>Count this entry in the totals</value>
-    <comment>Plan drawer: tooltip of an entry's enabled tick.</comment>
-  </data>
   <data name="Drawer.Empty" xml:space="preserve">
     <value>The plan is empty. Add a blueprint from any module, engineer or ship page, or import a build.</value>
     <comment>Plan drawer: shown while the plan has no entries.</comment>
@@ -401,10 +341,6 @@
   <data name="Drawer.ExperimentalOnly" xml:space="preserve">
     <value>Experimental only</value>
     <comment>Plan drawer: switch that plans only the experimental effect.</comment>
-  </data>
-  <data name="Drawer.ExperimentalOnlyTip" xml:space="preserve">
-    <value>The module already has the blueprint; plan just the effect. Sets the grade to 0.</value>
-    <comment>Tooltip of Experimental only.</comment>
   </data>
   <data name="Drawer.ImportBuild" xml:space="preserve">
     <value>Import a build</value>
@@ -478,10 +414,6 @@
     <value>buy first</value>
     <comment>Fit page: badge on a slot whose module must be bought. Lower case.</comment>
   </data>
-  <data name="Fit.CopyTip" xml:space="preserve">
-    <value>Copies this fit as a journal Loadout. In EDSY, choose Import and paste.</value>
-    <comment>Fit page: tooltip of Copy for EDSY.</comment>
-  </data>
   <data name="Fit.CountOwned" xml:space="preserve">
     <value>Count modules I already own elsewhere before planning engineering</value>
     <comment>Fit page: switch label.</comment>
@@ -506,10 +438,6 @@
     <value>to plan</value>
     <comment>Fit page: badge on a slot whose engineering goes into the plan. Lower case.</comment>
   </data>
-  <data name="Fleet.CoveredTip" xml:space="preserve">
-    <value>Whether you own every module the fit wants, anywhere in your fleet or storage under the sharing policy. Open the fit to compare it with one ship.</value>
-    <comment>Fleet page: tooltip of a fit's coverage badge.</comment>
-  </data>
   <data name="Fleet.KeepSaved" xml:space="preserve">
     <value>Keep the saved fit</value>
     <comment>Fleet page: declines replacing a fit of the same name.</comment>
@@ -521,10 +449,6 @@
   <data name="Fleet.PastePlaceholder" xml:space="preserve">
     <value>Paste an EDSY journal Loadout export and press Save as fit.</value>
     <comment>Fleet page: placeholder of the paste box. 'Save as fit' names the button below.</comment>
-  </data>
-  <data name="Fleet.PrebuiltTip" xml:space="preserve">
-    <value>Redeemed from a bundle. Open the ship to see whether it is still as it came.</value>
-    <comment>Fleet page: tooltip of the Prebuilt badge.</comment>
   </data>
   <data name="Fleet.SaveAsFit" xml:space="preserve">
     <value>Save as fit</value>
@@ -558,21 +482,9 @@
     <value>Filter by name or family</value>
     <comment>Materials page: the filter box's placeholder.</comment>
   </data>
-  <data name="Materials.KeepTip" xml:space="preserve">
-    <value>Hold at least this many. The trades never spend below it and bring it back up when it falls short.</value>
-    <comment>Tooltip of the Keep column.</comment>
-  </data>
-  <data name="Materials.NeverTradeTip" xml:space="preserve">
-    <value>Untick to never hand this material over at a trader.</value>
-    <comment>Tooltip of a row's Trade tick.</comment>
-  </data>
   <data name="Materials.ShortOnly" xml:space="preserve">
     <value>Short only</value>
     <comment>Materials page: switch that hides materials the plan is not short of.</comment>
-  </data>
-  <data name="Materials.TradeTip" xml:space="preserve">
-    <value>Ticked: the trades may spend what you hold above the keep figure. Untick to never hand this material over at a trader.</value>
-    <comment>Tooltip of the Trade column.</comment>
   </data>
   <data name="Modules.Intro" xml:space="preserve">
     <value>Every module type the game lets you engineer, by where it fits on a ship. Open a group, then a type for its blueprints, who offers them, the variants, and what you own. Turn Only my engineers on, on the engineers page, to see just the types the engineers you ticked can roll a blueprint on.</value>
@@ -614,17 +526,9 @@
     <value>All life</value>
     <comment>Rail: biology filter choice.</comment>
   </data>
-  <data name="Rail.AllLifeTip" xml:space="preserve">
-    <value>Every body with life.</value>
-    <comment>Tooltip of All life.</comment>
-  </data>
   <data name="Rail.Biology" xml:space="preserve">
     <value>Biology</value>
     <comment>Rail: body view choice. One word.</comment>
-  </data>
-  <data name="Rail.BiologyTip" xml:space="preserve">
-    <value>Bodies with life, nearest first, their life only.</value>
-    <comment>Tooltip of the Biology view.</comment>
   </data>
   <data name="Rail.BringBack" xml:space="preserve">
     <value>Bring the rail back</value>
@@ -634,17 +538,9 @@
     <value>Bring back</value>
     <comment>Rail: button that docks the rail again. Two words at most.</comment>
   </data>
-  <data name="Rail.BringBackTip" xml:space="preserve">
-    <value>Bring the rail back into the main window</value>
-    <comment>Rail window: tooltip of the dock button.</comment>
-  </data>
   <data name="Rail.ClickThrough" xml:space="preserve">
     <value>Click-through</value>
     <comment>Rail window switch: clicks pass through to the game.</comment>
-  </data>
-  <data name="Rail.ClickThroughTip" xml:space="preserve">
-    <value>Clicks pass through the rail window to the game, and the rail's buttons, links and switches hide. Untick here to take clicks again.</value>
-    <comment>Tooltip of the Click-through switch.</comment>
   </data>
   <data name="Rail.DetachedHeading" xml:space="preserve">
     <value>Katey Live</value>
@@ -658,10 +554,6 @@
     <value>Landable</value>
     <comment>Rail: body view choice. One word.</comment>
   </data>
-  <data name="Rail.LandableTip" xml:space="preserve">
-    <value>Every landable body, nearest first, with its life and its materials.</value>
-    <comment>Tooltip of the Landable view.</comment>
-  </data>
   <data name="Rail.Landed" xml:space="preserve">
     <value>landed</value>
     <comment>Rail: badge on a body you have landed on. Lower case, one word.</comment>
@@ -674,10 +566,6 @@
     <value>Minerals</value>
     <comment>Rail: body view choice. One word.</comment>
   </data>
-  <data name="Rail.MineralsTip" xml:space="preserve">
-    <value>Bodies with surface materials, nearest first, their materials only.</value>
-    <comment>Tooltip of the Minerals view.</comment>
-  </data>
   <data name="Rail.Needed" xml:space="preserve">
     <value>needed</value>
     <comment>Rail: badge on a material the plan is short of. Lower case, one word.</comment>
@@ -685,10 +573,6 @@
   <data name="Rail.Overlay" xml:space="preserve">
     <value>Overlay</value>
     <comment>Rail window switch: a mostly transparent window.</comment>
-  </data>
-  <data name="Rail.OverlayTip" xml:space="preserve">
-    <value>A mostly transparent window with bright text, for sitting over the game. The game must run in a window or borderless; an exclusive full-screen game covers every other window.</value>
-    <comment>Tooltip of the Overlay switch.</comment>
   </data>
   <data name="Rail.PopOut" xml:space="preserve">
     <value>Pop out</value>
@@ -698,10 +582,6 @@
     <value>Reset position</value>
     <comment>Rail window button: back to the default size and place.</comment>
   </data>
-  <data name="Rail.ResetPositionTip" xml:space="preserve">
-    <value>Puts the rail window back at its default size, top right of the primary screen.</value>
-    <comment>Tooltip of Reset position.</comment>
-  </data>
   <data name="Rail.Scoop" xml:space="preserve">
     <value>scoop</value>
     <comment>Rail: badge on a route stop where the ship refuels. Lower case, one word.</comment>
@@ -709,10 +589,6 @@
   <data name="Rail.SkipBacteria" xml:space="preserve">
     <value>Skip bacteria</value>
     <comment>Rail: biology filter choice.</comment>
-  </data>
-  <data name="Rail.SkipBacteriaTip" xml:space="preserve">
-    <value>Leaves out bodies whose life is bacteria alone: by the scanner's genera once mapped, or a single signal four in five likely to be bacteria before that.</value>
-    <comment>Tooltip of Skip bacteria.</comment>
   </data>
   <data name="Rail.SpanshPlot" xml:space="preserve">
     <value>Spansh plot</value>
@@ -725,10 +601,6 @@
   <data name="Route.Copy" xml:space="preserve">
     <value>Copy</value>
     <comment>Route page: button on a stop that copies its name. One word.</comment>
-  </data>
-  <data name="Route.CopyTip" xml:space="preserve">
-    <value>Copy the system name for the galaxy map</value>
-    <comment>Route page: tooltip of a stop's Copy button.</comment>
   </data>
   <data name="Route.CountInjections" xml:space="preserve">
     <value>Count on FSD injections</value>
@@ -806,10 +678,6 @@
     <value>Detect</value>
     <comment>Settings page: button that looks for the journal folder. One word.</comment>
   </data>
-  <data name="Settings.DetectTip" xml:space="preserve">
-    <value>Look for the game's journal folder in its usual places.</value>
-    <comment>Tooltip of Detect.</comment>
-  </data>
   <data name="Settings.Intro" xml:space="preserve">
     <value>Katey reads the game's journal files and follows the newest one while you play. Nothing is sent anywhere unless you turn the Spansh plotter on below.</value>
     <comment>Settings page: the introduction.</comment>
@@ -850,10 +718,6 @@
     <value>Watch</value>
     <comment>Settings page: button that starts following the journal. One word.</comment>
   </data>
-  <data name="Ship.CopyTip" xml:space="preserve">
-    <value>Copies the game's Loadout record for this ship. In EDSY, choose Import and paste.</value>
-    <comment>Ship page: tooltip of Copy for EDSY.</comment>
-  </data>
   <data name="Ship.FittedModules" xml:space="preserve">
     <value>Fitted modules</value>
     <comment>Ship page: heading over the module list.</comment>
@@ -874,17 +738,9 @@
     <value>nothing to chart</value>
     <comment>Statistics page: shown where the chart would be when it has no data. Lower case.</comment>
   </data>
-  <data name="Stats.ShowInChartTip" xml:space="preserve">
-    <value>Show in the chart</value>
-    <comment>Statistics page: tooltip of a series tick.</comment>
-  </data>
   <data name="Stats.ShowZero" xml:space="preserve">
     <value>Show zero figures</value>
     <comment>Statistics page: switch that lists figures the game reports as zero.</comment>
-  </data>
-  <data name="Stats.ShowZeroTip" xml:space="preserve">
-    <value>The game reports many figures as zero. Tick to list them too.</value>
-    <comment>Tooltip of Show zero figures.</comment>
   </data>
   <data name="Stats.WingMissions" xml:space="preserve">
     <value>Wing missions</value>
@@ -893,10 +749,6 @@
   <data name="System.CopyName" xml:space="preserve">
     <value>Copy name</value>
     <comment>System page: button that copies the system name.</comment>
-  </data>
-  <data name="System.CopyNameTip" xml:space="preserve">
-    <value>Copies the system's name, for the galaxy map's search box.</value>
-    <comment>System page: tooltip of Copy name.</comment>
   </data>
   <data name="System.EngineersHere" xml:space="preserve">
     <value>Engineers here:</value>
@@ -922,10 +774,6 @@
     <value>star</value>
     <comment>System page: badge on a star. Lower case, one word.</comment>
   </data>
-  <data name="Trade.OpenMaterialTip" xml:space="preserve">
-    <value>Open the materials page at this material</value>
-    <comment>Trades table: tooltip on a material name.</comment>
-  </data>
   <data name="Trade.Short" xml:space="preserve">
     <value>short</value>
     <comment>Trades table: badge on a material the plan is short of. Lower case, one word.</comment>
@@ -937,9 +785,5 @@
   <data name="Unlocks.MaterialsHeading" xml:space="preserve">
     <value>Materials for your planned unlocks</value>
     <comment>Unlocks page: heading over the material totals of the ticked unlocks.</comment>
-  </data>
-  <data name="Unlocks.PutInPlanTip" xml:space="preserve">
-    <value>Put this unlock in the plan</value>
-    <comment>Unlocks page: tooltip of an unlock's tick.</comment>
   </data>
 </root>

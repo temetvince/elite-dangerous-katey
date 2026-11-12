@@ -2719,10 +2719,6 @@ Off, everything is offered and grades start at the top. The plan still warns abo
     <value>Cartographic data sold in the period</value>
     <comment>Statistics group title.</comment>
   </data>
-  <data name="Stats.ChartSlice" xml:space="preserve">
-    <value>{activity}: {amount}, {percent:0.0}%</value>
-    <comment>Income chart tooltip.</comment>
-  </data>
   <data name="Stats.CombatBondsInCrew" xml:space="preserve">
     <value>Combat bonds earned in a crew</value>
     <comment>Statistics figure label.</comment>
