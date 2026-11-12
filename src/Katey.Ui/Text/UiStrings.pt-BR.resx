@@ -455,7 +455,7 @@
     <value>coleta</value>
   </data>
   <data name="Rail.SkipBacteria" xml:space="preserve">
-    <value>Pular bactérias</value>
+    <value>Pular só bactérias</value>
   </data>
   <data name="Rail.SpanshPlot" xml:space="preserve">
     <value>Rota do Spansh</value>
@@ -524,7 +524,7 @@
     <value>Detectar</value>
   </data>
   <data name="Settings.Intro" xml:space="preserve">
-    <value>O Katey lê os arquivos de diário do jogo e acompanha o mais novo enquanto você joga. Nada é enviado a lugar nenhum a menos que você ligue o traçador do Spansh abaixo.</value>
+    <value>O Katey lê os arquivos de diário do jogo e acompanha o mais novo enquanto você joga. Nada é enviado a lugar nenhum a menos que você ligue algo na seção Conexões de saída.</value>
   </data>
   <data name="Settings.JournalBackup" xml:space="preserve">
     <value>Backup do diário</value>
@@ -544,14 +544,11 @@
   <data name="Settings.SavedDataPlaceholder" xml:space="preserve">
     <value>A pasta em que o Katey guarda seus dados salvos, como uma que o OneDrive sincroniza</value>
   </data>
-  <data name="Settings.Stop" xml:space="preserve">
-    <value>Parar</value>
+  <data name="Settings.TextSize" xml:space="preserve">
+    <value>Tamanho do texto</value>
   </data>
   <data name="Settings.Updates" xml:space="preserve">
     <value>Atualizações</value>
-  </data>
-  <data name="Settings.Watch" xml:space="preserve">
-    <value>Acompanhar</value>
   </data>
   <data name="Ship.FittedModules" xml:space="preserve">
     <value>Módulos instalados</value>

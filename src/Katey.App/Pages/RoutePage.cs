@@ -5,7 +5,6 @@ using Katey.App.Routing;
 using Katey.App.Text;
 using Katey.App.ViewModels;
 using Katey.Core.Exploration;
-using Katey.Core.Fleet;
 using Katey.Core.Routing;
 using Katey.Journal;
 
@@ -252,8 +251,8 @@ public sealed class RoutePage : Page
                 new("system", Strings.Get(Keys.Column_System), row => row.System),
                 new("star", Strings.Get(Keys.Column_Star), row => row.StarText),
                 new("visited", Strings.Get(Keys.Column_Visited), row => -(int)row.Visit),
-                new("jump", Strings.Get(Keys.Column_Jump), row => row.JumpLy, DescendingFirst: true),
-                new("travelled", Strings.Get(Keys.Column_FromStart), row => row.CumulativeLy),
+                new("jump", Strings.Get(Keys.Column_Jump), row => row.JumpLy, DescendingFirst: true, AlignRight: true),
+                new("travelled", Strings.Get(Keys.Column_FromStart), row => row.CumulativeLy, AlignRight: true),
             ],
             "index",
             workspace.Preferences,
@@ -263,9 +262,9 @@ public sealed class RoutePage : Page
                 new("stage", Strings.Get(Keys.Column_Stage), row => row.Index),
                 new("index", Strings.Get(Keys.Column_Stop), row => row.Index),
                 new("system", Strings.Get(Keys.Column_System), row => row.System),
-                new("jump", Strings.Get(Keys.Column_Jump), row => row.JumpLy, DescendingFirst: true),
-                new("left", Strings.Get(Keys.Column_ToGo), row => row.RemainingLy),
-                new("fuel", Strings.Get(Keys.Column_Fuel), row => row.FuelInTank),
+                new("jump", Strings.Get(Keys.Column_Jump), row => row.JumpLy, DescendingFirst: true, AlignRight: true),
+                new("left", Strings.Get(Keys.Column_ToGo), row => row.RemainingLy, AlignRight: true),
+                new("fuel", Strings.Get(Keys.Column_Fuel), row => row.FuelInTank, AlignRight: true),
                 new("notes", Strings.Get(Keys.Column_Notes), row => row.NotesText),
             ],
             "index",
@@ -966,7 +965,7 @@ public sealed class RoutePage : Page
                 PlotTarget.ShipKind,
                 FleetPage.ShipTitle(pair.Ship),
                 pair.Ship.Type,
-                ShipNames.Prefer(pair.Ship.Type, pair.Ship.TypeName),
+                Names.Hull(pair.Ship.Type, pair.Ship.TypeName),
                 pair.Profile!.Range(),
                 pair.Ship.IsCurrent));
         var fits = Workspace.Fleet.Fittings

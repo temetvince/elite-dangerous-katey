@@ -22,6 +22,9 @@ public sealed class FleetTests
         Assert.Equal("Frame Shift Drive (SCO) 5A", Modules.Find("INT_HYPERDRIVE_OVERCHARGE_SIZE5_CLASS5")!.Name);
         Assert.Equal("Multi-cannon 4A Gimballed", Modules.NameOf("hpt_multicannon_gimbal_huge"));
         Assert.Equal("mc", Modules.Find("hpt_multicannon_gimbal_huge")!.Group);
+        // A module that came with the ship carries a suffix the table does not; it is the same module.
+        Assert.Equal("pv", Modules.Find("int_mkiilargebuggybay_size4_class3_free")!.Group);
+        Assert.Equal("MkII Large Planetary Vehicle Hangar 4F", Modules.Find("Int_MkIILargeBuggyBay_Size4_Class3_default")!.Name);
     }
 
     [Fact]
@@ -52,6 +55,21 @@ public sealed class FleetTests
         Assert.Equal(["cargo", "rack"], ModuleSymbolNames.Segment("cargorack", new HashSet<string>(StringComparer.Ordinal) { "cargo", "rack", "car", "go" }));
         Assert.Null(ModuleSymbolNames.Segment("cargoracks", lexicon));
         Assert.Null(ModuleSymbolNames.ArmourName("int_cargorack_size1_class1"));
+        Assert.Null(ModuleSymbolNames.ArmourKind("int_cargorack_size1_class1"));
+        Assert.Equal("grade3", ModuleSymbolNames.ArmourKind("Anaconda_Armour_Grade3"));
+        Assert.Equal("Reactive Surface Composite", ModuleSymbolNames.ArmourName("python_armour_reactive_default"));
+        Assert.Equal(["grade1", "grade2", "grade3", "mirrored", "reactive"], ModuleSymbolNames.ArmourKinds);
+        // Variants: the words in front of a type's name, a name of a variant's own, and neither.
+        Assert.Equal(["mkii", "large"], ModuleSymbolNames.Qualifiers("Int_MkIILargeBuggyBay_Size4_Class3_free"));
+        Assert.Equal(["mkii", "sco"], ModuleSymbolNames.Qualifiers("int_hyperdrive_overcharge_size8_class5_overchargebooster_mkii"));
+        Assert.Equal(["sco"], ModuleSymbolNames.Qualifiers("int_hyperdrive_overcharge_size5_class5"));
+        Assert.Empty(ModuleSymbolNames.Qualifiers("int_hyperdrive_size5_class5"));
+        Assert.Empty(ModuleSymbolNames.Qualifiers("hpt_beamlaser_fixed_small_heat"));
+        Assert.True(ModuleSymbolNames.IsNamedVariant("hpt_beamlaser_fixed_small_heat"));
+        Assert.False(ModuleSymbolNames.IsNamedVariant("hpt_beamlaser_fixed_small"));
+        Assert.Equal("Retributor", ModuleSymbolNames.BareName("Retributor 1E Fixed"));
+        Assert.Equal("Pulse Wave Analyser", ModuleSymbolNames.BareName("Pulse Wave Analyser 0E"));
+        Assert.All(ModuleSymbolNames.QualifierWords, word => Assert.Equal(word, word.ToLowerInvariant()));
         Assert.Equal("int_fighterbay_size5_class1", ModuleSymbolNames.WithoutSuffix("int_fighterbay_size5_class1_free"));
     }
 

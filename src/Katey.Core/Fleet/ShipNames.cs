@@ -58,6 +58,10 @@ public static partial class ShipNames
         ["vulture"] = "Vulture",
     }.ToFrozenDictionary(StringComparer.OrdinalIgnoreCase);
 
+    /// <summary>Gets every hull symbol with a known name, lower case, in alphabetical order.</summary>
+    /// <value>The symbols <see cref="Display"/> knows, so a names table can hold one entry per hull.</value>
+    public static IReadOnlyList<string> Symbols { get; } = [.. Known.Keys.Order(StringComparer.Ordinal)];
+
     /// <summary>A display name for a hull symbol.</summary>
     /// <param name="symbol">The hull symbol, any letter case, such as <c>anacondamkii</c>.</param>
     /// <returns>

@@ -1,4 +1,5 @@
 ﻿using Katey.Core;
+using Katey.Core.Fleet;
 
 namespace Katey.App.Text;
 
@@ -68,8 +69,8 @@ public static class CatalogNameKeys
     /// <summary>Gets the sections of the game's lifetime statistics.</summary>
     public static IReadOnlyList<string> FigureSections { get; } =
     [
-        "Bank_Account", "Combat", "Crafting", "Crew", "Crime", "Exobiology", "Exploration", "Material_Trader_Stats", "Mining",
-        "Multicrew", "Passengers", "Search_And_Rescue", "Smuggling", "Squadron", "Trading",
+        "Bank_Account", "Combat", "Crafting", "Crew", "Crime", "Exobiology", "Exploration", "FLEETCARRIER", "Material_Trader_Stats",
+        "Mining", "Multicrew", "Passengers", "Search_And_Rescue", "Smuggling", "Squadron", "TG_ENCOUNTERS", "Trading",
     ];
 
     /// <summary>Gets the lifetime figures the game reports, by their journal keys.</summary>
@@ -118,7 +119,33 @@ public static class CatalogNameKeys
         "Squadron_Leaderboard_operationscore_highestcontribution", "Squadron_Leaderboard_podiums", "Squadron_Leaderboard_powerplay_highestcontribution",
         "Squadron_Leaderboard_trade_highestcontribution", "Squadron_Leaderboard_trade_illicit_highestcontribution",
         "Assets_Sold", "Data_Sold", "Goods_Sold", "Market_Profits", "Markets_Traded_With", "Resources_Traded",
+        "FLEETCARRIER_DISTANCE_TRAVELLED", "FLEETCARRIER_EXPORT_TOTAL", "FLEETCARRIER_IMPORT_TOTAL", "FLEETCARRIER_OUTFITTING_PROFIT",
+        "FLEETCARRIER_OUTFITTING_SOLD", "FLEETCARRIER_REARM_TOTAL", "FLEETCARRIER_REFUEL_PROFIT", "FLEETCARRIER_REFUEL_TOTAL",
+        "FLEETCARRIER_REPAIRS_TOTAL", "FLEETCARRIER_SHIPYARD_PROFIT", "FLEETCARRIER_SHIPYARD_SOLD", "FLEETCARRIER_STOLENPROFIT_TOTAL",
+        "FLEETCARRIER_STOLENSPEND_TOTAL", "FLEETCARRIER_TOTAL_JUMPS", "FLEETCARRIER_TRADEPROFIT_TOTAL", "FLEETCARRIER_TRADESPEND_TOTAL",
+        "FLEETCARRIER_VOUCHERS_PROFIT", "FLEETCARRIER_VOUCHERS_REDEEMED",
+        "TG_ENCOUNTER_IMPRINT", "TG_ENCOUNTER_KILLED", "TG_ENCOUNTER_TOTAL", "TG_ENCOUNTER_WAKES", "TG_SCOUT_COUNT",
+        "Passengers_Missions_Disgruntled",
     ];
+
+    /// <summary>
+    /// Gets the passenger types the game counts missions by, as its <c>Passengers_Missions_&lt;type&gt;_&lt;class&gt;_&lt;outcome&gt;</c>
+    /// keys spell them.
+    /// </summary>
+    public static IReadOnlyList<string> PassengerTypes { get; } =
+    [
+        "AidWorker", "Businessmen", "Celebrities", "Criminal", "Explorers", "FreedomFighters", "Medical", "Politicians",
+        "PoliticalPrisoner", "POW", "Protestors", "Refugee", "ScienceTeams", "SecurityForces", "Tourist",
+    ];
+
+    /// <summary>Gets the passenger classes those keys name: <c>bulk</c> and <c>vip</c>.</summary>
+    public static IReadOnlyList<string> PassengerClasses { get; } = ["bulk", "vip"];
+
+    /// <summary>Gets the mission outcomes those keys name: <c>delivered</c> and <c>ejected</c>.</summary>
+    public static IReadOnlyList<string> PassengerOutcomes { get; } = ["delivered", "ejected"];
+
+    /// <summary>The key of the template a passenger figure's label is composed through, with <c>{type}</c>, <c>{class}</c> and <c>{outcome}</c> placeholders.</summary>
+    public const string PassengerFigureTemplate = "Figure.Passengers.Template";
 
     /// <summary>The key of a material's name.</summary>
     /// <param name="symbol">The journal symbol.</param>
@@ -195,6 +222,39 @@ public static class CatalogNameKeys
     /// <returns>The key.</returns>
     public static string FigureSection(string section) => "FigureSection." + section;
 
+    /// <summary>The key of a passenger type's name, plural, as a figure's label uses it.</summary>
+    /// <param name="type">The type as the journal key spells it, such as <c>SecurityForces</c>.</param>
+    /// <returns>The key.</returns>
+    public static string PassengerType(string type) => "Passengers.Type." + type;
+
+    /// <summary>The key of a passenger class's word.</summary>
+    /// <param name="passengerClass">One of <see cref="PassengerClasses"/>.</param>
+    /// <returns>The key.</returns>
+    public static string PassengerClass(string passengerClass) => "Passengers.Class." + passengerClass;
+
+    /// <summary>The key of a passenger mission outcome's word.</summary>
+    /// <param name="outcome">One of <see cref="PassengerOutcomes"/>.</param>
+    /// <returns>The key.</returns>
+    public static string PassengerOutcome(string outcome) => "Passengers.Outcome." + outcome;
+
+    /// <summary>The key of a module variant's qualifier word, the words a variant puts in front of its type's name.</summary>
+    /// <param name="word">One of <see cref="ModuleSymbolNames.QualifierWords"/>.</param>
+    /// <returns>The key.</returns>
+    public static string ModuleQualifier(string word) => "ModuleQualifier." + word;
+
+    /// <summary>The key of the template a qualified module's name is composed through, with <c>{qualifier}</c> and <c>{type}</c> placeholders, so each language puts the qualifier where it goes.</summary>
+    public const string ModuleQualifiedTemplate = "Module.Qualified";
+
+    /// <summary>The key of a hull armour's name.</summary>
+    /// <param name="kind">One of <see cref="ModuleSymbolNames.ArmourKinds"/>.</param>
+    /// <returns>The key.</returns>
+    public static string Armour(string kind) => "Armour." + kind;
+
+    /// <summary>The key of a hull's name.</summary>
+    /// <param name="symbol">The hull symbol, any letter case, such as <c>anacondamkii</c>.</param>
+    /// <returns>The key, the symbol in lower case.</returns>
+    public static string Hull(string symbol) => "Hull." + symbol.Trim().ToLowerInvariant();
+
     /// <summary>Every key a complete translation holds, for a catalog.</summary>
     /// <param name="catalog">The engineering catalog, whose tables name the materials, blueprints, effects, types and unlocks.</param>
     /// <returns>The keys, in a stable order.</returns>
@@ -220,6 +280,14 @@ public static class CatalogNameKeys
             .. VolcanismKinds.Select(VolcanismKind),
             .. FigureSections.Select(FigureSection),
             .. Figures.Select(Figure),
+            PassengerFigureTemplate,
+            .. PassengerTypes.Select(PassengerType),
+            .. PassengerClasses.Select(PassengerClass),
+            .. PassengerOutcomes.Select(PassengerOutcome),
+            .. ModuleSymbolNames.ArmourKinds.Select(Armour),
+            ModuleQualifiedTemplate,
+            .. ModuleSymbolNames.QualifierWords.Select(ModuleQualifier),
+            .. ShipNames.Symbols.Select(Hull),
         ];
     }
 

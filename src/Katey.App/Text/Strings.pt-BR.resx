@@ -777,7 +777,7 @@ Desligado, tudo é oferecido e os graus começam no máximo. O plano ainda avisa
     <value>nenhuma nave vista ainda</value>
   </data>
   <data name="Home.NotWatching" xml:space="preserve">
-    <value>Não está acompanhando o diário. Inicie em Ajustes.</value>
+    <value>O diário não está sendo acompanhado. Escolha a pasta dele em Ajustes.</value>
   </data>
   <data name="Home.PlanCovered" xml:space="preserve">
     <value>{entries} planejadas e todos os materiais cobertos.</value>
@@ -1806,7 +1806,7 @@ Desligado, tudo é oferecido e os graus começam no máximo. O plano ainda avisa
     <value>Você tem</value>
   </data>
   <data name="Settings.BackupText" xml:space="preserve">
-    <value>Copia cada arquivo da pasta de diários, inclusive os arquivos ao vivo, para a pasta que você escolher, e só o que é novo ou mudou. Aponte para uma pasta que sua nuvem sincroniza e os diários saem da máquina.</value>
+    <value>Copia cada arquivo da pasta de diários, inclusive os arquivos ao vivo, para a pasta que você escolher, e só o que é novo ou mudou. Considere apontar para uma pasta que sua nuvem sincroniza.</value>
   </data>
   <data name="Settings.CatchingUp" xml:space="preserve">
     <value>Lendo o histórico do diário: {done} de {total} arquivos.</value>
@@ -1836,7 +1836,10 @@ Desligado, tudo é oferecido e os graus começam no máximo. O plano ainda avisa
     <value>Nada sai desta máquina a menos que você marque aqui. Um traçado de rota envia ao Spansh os dois nomes de sistema e os números de salto da nave: massas, tamanhos de tanque e os números do drive. Uma consulta de sistema envia ao Spansh o id do sistema em que você chegou e traz de volta os corpos que ele conhece lá. Uma verificação de versão pede ao GitHub a última versão publicada do projeto e não envia nada além do próprio pedido. Cada pedido informa o Katey, sua versão e o endereço do projeto.</value>
   </data>
   <data name="Settings.NotWatching" xml:space="preserve">
-    <value>Não está acompanhando. Pressione Acompanhar para ler o diário.</value>
+    <value>Sem acompanhamento. Escolha acima a pasta de diários para começar a lê-la.</value>
+  </data>
+  <data name="Settings.TextSizeText" xml:space="preserve">
+    <value>Um texto maior faz as janelas desenharem tudo maior, espaçamento incluído, em qualquer idioma em uso. Se uma página não couber mais, destaque o painel ou alargue a janela.</value>
   </data>
   <data name="Settings.UpdateText" xml:space="preserve">
     <value>Uma verificação pede ao GitHub a última versão publicada do projeto e compara seu número com este. Nada é baixado nem instalado: a página da versão abre no seu navegador, onde está a nova compilação.</value>
@@ -2392,6 +2395,9 @@ Desligado, tudo é oferecido e os graus começam no máximo. O plano ainda avisa
   </data>
   <data name="System.YouLandedOn" xml:space="preserve">
     <value>você pousou em {bodies}</value>
+  </data>
+  <data name="TextSize.Percent" xml:space="preserve">
+    <value>{percent}%</value>
   </data>
   <data name="Totals.AllHeld.one" xml:space="preserve">
     <value>Totais para {count} entrada. Você já tem tudo.</value>

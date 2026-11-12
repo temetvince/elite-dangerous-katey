@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Resources;
+using System.Text.RegularExpressions;
 using Katey.Core;
 using Katey.Core.Fleet;
 using Katey.Localization;
@@ -13,7 +14,7 @@ namespace Katey.App.Text;
 /// so a gap in a translation shows the game's word rather than a key.
 /// </summary>
 /// <remarks>The table is <c>CatalogNames.resx</c>, whose neutral file is empty by design: English is the data's. <see cref="CatalogNameKeys"/> lists what a translation must hold.</remarks>
-public static class Names
+public static partial class Names
 {
     private static readonly char[] AtmosphereSeparator = [' '];
 
@@ -67,7 +68,9 @@ public static class Names
 
     /// <summary>
     /// A module's name. In a language with a name for the module's type, the name is composed from that, the
-    /// module's class and rating, and its mount; otherwise it is the module catalog's own.
+    /// module's class and rating, and its mount; a qualified variant puts its translated qualifier words with the
+    /// type's name through the language's template, and a variant that goes by a name of its own keeps that
+    /// name. Otherwise it is the module catalog's own.
     /// </summary>
     /// <param name="modules">The module catalog.</param>
     /// <param name="catalog">The engineering catalog, for the module type.</param>
@@ -78,20 +81,41 @@ public static class Names
         ArgumentNullException.ThrowIfNull(modules);
         ArgumentNullException.ThrowIfNull(catalog);
         ArgumentNullException.ThrowIfNull(symbol);
+        if (ModuleSymbolNames.ArmourKind(symbol) is { } armour)
+        {
+            return Or(CatalogNameKeys.Armour(armour), modules.NameOf(symbol));
+        }
+
         var info = modules.Find(symbol);
         if (info is null || !catalog.ModuleTypes.TryGetValue(info.Group, out var type) || !Localizer.TryGet(CatalogNameKeys.ModuleType(type.Code), out var typeName))
         {
             return modules.NameOf(symbol);
         }
 
+        var head = typeName;
+        if (ModuleSymbolNames.IsNamedVariant(symbol))
+        {
+            head = ModuleSymbolNames.BareName(info.Name);
+        }
+        else if (ModuleSymbolNames.Qualifiers(symbol) is { Count: > 0 } words && Localizer.TryGet(CatalogNameKeys.ModuleQualifiedTemplate, out var qualified))
+        {
+            var qualifier = string.Join(' ', words.Select(word => Or(CatalogNameKeys.ModuleQualifier(word), word)));
+            head = Template.Fill(qualified, (name, _) => name switch
+            {
+                "qualifier" => qualifier,
+                "type" => typeName,
+                _ => null,
+            });
+        }
+
         var size = info.Class is { } cls && info.Rating is { } rating ? string.Create(CultureInfo.CurrentCulture, $"{cls}{rating}") : "";
         var mount = info.Mount is { Length: > 0 } kind ? Or(CatalogNameKeys.Mount(kind), kind) : "";
         return (size.Length > 0, mount.Length > 0) switch
         {
-            (true, true) => Strings.Format(Keys.Module_WithSizeAndMount, ("type", typeName), ("size", size), ("mount", mount)),
-            (true, false) => Strings.Format(Keys.Module_WithSize, ("type", typeName), ("size", size)),
-            (false, true) => Strings.Format(Keys.Module_WithMount, ("type", typeName), ("mount", mount)),
-            (false, false) => typeName,
+            (true, true) => Strings.Format(Keys.Module_WithSizeAndMount, ("type", head), ("size", size), ("mount", mount)),
+            (true, false) => Strings.Format(Keys.Module_WithSize, ("type", head), ("size", size)),
+            (false, true) => Strings.Format(Keys.Module_WithMount, ("type", head), ("mount", mount)),
+            (false, false) => head,
         };
     }
 
@@ -207,15 +231,51 @@ public static class Names
         });
     }
 
-    /// <summary>A lifetime figure's label.</summary>
+    /// <summary>
+    /// A hull's name: the names table's in the language in force, else the journal's own localised name when
+    /// it offers one, else <see cref="ShipNames.Display"/> of the symbol.
+    /// </summary>
+    /// <param name="symbol">The hull symbol, any letter case, such as <c>anacondamkii</c>.</param>
+    /// <param name="journalName">The journal's localised name, or <see langword="null"/> or the symbol itself when it offers none.</param>
+    /// <returns>Never empty for a non-empty symbol.</returns>
+    public static string Hull(string symbol, string? journalName)
+    {
+        ArgumentNullException.ThrowIfNull(symbol);
+        return Or(CatalogNameKeys.Hull(symbol), ShipNames.Prefer(symbol, journalName));
+    }
+
+    /// <summary>
+    /// A lifetime figure's label. A passenger figure the game counts by type, class and outcome, such as
+    /// <c>Passengers_Missions_Refugee_bulk_delivered</c>, is composed through the language's template when it
+    /// names every part.
+    /// </summary>
     /// <param name="key">The journal key, such as <c>Bounty_Hunting_Profit</c>.</param>
     /// <param name="fallback">The label when the language has none, read off the key.</param>
     /// <returns>The label.</returns>
     public static string Figure(string key, string fallback)
     {
         ArgumentNullException.ThrowIfNull(key);
+        if (PassengerFigurePattern().Match(key) is { Success: true } match
+            && Localizer.TryGet(CatalogNameKeys.PassengerFigureTemplate, out var template)
+            && Localizer.TryGet(CatalogNameKeys.PassengerType(match.Groups[1].Value), out var type)
+            && Localizer.TryGet(CatalogNameKeys.PassengerClass(match.Groups[2].Value.ToLowerInvariant()), out var passengerClass)
+            && Localizer.TryGet(CatalogNameKeys.PassengerOutcome(match.Groups[3].Value.ToLowerInvariant()), out var outcome))
+        {
+            return Template.Fill(template, (name, _) => name switch
+            {
+                "type" => type,
+                "class" => passengerClass,
+                "outcome" => outcome,
+                _ => null,
+            });
+        }
+
         return Or(CatalogNameKeys.Figure(key), fallback);
     }
+
+    /// <summary>The shape of a passenger figure's key: the type, then the class, then the outcome.</summary>
+    [GeneratedRegex("^Passengers_Missions_([A-Za-z]+)_(bulk|vip)_(delivered|ejected)$", RegexOptions.CultureInvariant)]
+    private static partial Regex PassengerFigurePattern();
 
     /// <summary>A lifetime section's label.</summary>
     /// <param name="section">The journal section, such as <c>Bank_Account</c>.</param>

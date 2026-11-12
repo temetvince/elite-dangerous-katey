@@ -3,6 +3,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -29,6 +30,9 @@ public sealed partial class MainWindow : Window
     /// <summary>The docked rail's width, as the window's markup fixes it.</summary>
     private const double DockedRailWidth = 340;
 
+    /// <summary>The shortest the window is at the design text size.</summary>
+    private const double PagesMinHeight = 640;
+
     private RailWindow? _railWindow;
     private bool _wired;
 
@@ -38,11 +42,12 @@ public sealed partial class MainWindow : Window
         InitializeComponent();
         Opened += (_, _) =>
         {
-            ApplyMinWidth();
+            ApplyTextScale();
             PlaceOnPrimaryScreen();
             if (Shell is { } shell && !_wired)
             {
                 _wired = true;
+                shell.PropertyChanged += OnShellChanged;
                 shell.Rail.PropertyChanged += OnRailChanged;
                 shell.Navigator.Navigating += (_, _) => RecordScroll();
                 shell.Navigator.Navigated += (_, _) => RestoreScroll();
@@ -52,18 +57,76 @@ public sealed partial class MainWindow : Window
         };
         Closing += (_, _) => _railWindow?.CloseForAttach();
         KeyDown += OnWindowKeyDown;
+        WorkbenchScroll.PropertyChanged += (_, args) =>
+        {
+            if (args.Property == ScrollViewer.ViewportProperty)
+            {
+                FitWorkbench();
+            }
+        };
+    }
+
+    /// <summary>
+    /// Keeps the pages at least <see cref="PagesMinWidth"/> wide inside the workbench. The content fills the viewport
+    /// when the viewport is wide enough, as a stretched panel would; when a large text size on a small screen leaves it
+    /// narrower, the content keeps the design width and the workbench scrolls sideways instead of squeezing the pages.
+    /// </summary>
+    private void FitWorkbench()
+    {
+        var viewport = WorkbenchScroll.Viewport.Width;
+        if (viewport > 0)
+        {
+            WorkbenchContent.Width = Math.Max(PagesMinWidth, viewport);
+        }
     }
 
     private ShellViewModel? Shell => DataContext as ShellViewModel;
 
-    /// <summary>Keeps the pages at least <see cref="PagesMinWidth"/> wide: the window's minimum grows by the rail's width while the rail is docked, and shrinks again when it pops out.</summary>
+    /// <summary>
+    /// Keeps the pages at least <see cref="PagesMinWidth"/> wide at the text size in force: the window's minimum
+    /// grows by the rail's width while the rail is docked, shrinks again when it pops out, and scales with the text.
+    /// </summary>
     private void ApplyMinWidth()
     {
-        var min = Shell?.Rail.IsDetached == true ? PagesMinWidth : PagesMinWidth + DockedRailWidth;
+        var scale = Shell?.TextScale ?? 1;
+        var area = WorkingArea();
+        // The minimum never exceeds the screen: past that the window stops at the screen's edge and the workbench scrolls sideways.
+        var min = Math.Min((Shell?.Rail.IsDetached == true ? PagesMinWidth : PagesMinWidth + DockedRailWidth) * scale, area.Width);
         MinWidth = min;
-        if (WindowState == WindowState.Normal && Width < min)
+        MinHeight = Math.Min(PagesMinHeight * scale, area.Height);
+        if (WindowState == WindowState.Normal)
         {
-            Width = min;
+            Width = Math.Clamp(Width, min, Math.Max(min, area.Width));
+            Height = Math.Clamp(Height, MinHeight, Math.Max(MinHeight, area.Height));
+        }
+    }
+
+    /// <summary>The working area of the screen the window is on, in the window's own units, or no limit when no screen is known.</summary>
+    private Size WorkingArea()
+    {
+        var screen = Screens.ScreenFromWindow(this) ?? Screens.Primary;
+        return screen is null
+            ? new Size(double.PositiveInfinity, double.PositiveInfinity)
+            : new Size(Math.Floor(screen.WorkingArea.Width / screen.Scaling), Math.Floor(screen.WorkingArea.Height / screen.Scaling));
+    }
+
+    /// <summary>Draws the content at the text size in force, resizes the minimum to match, and tells the rail's window, which draws the same rail.</summary>
+    private void ApplyTextScale()
+    {
+        var scale = Shell?.TextScale ?? 1;
+        Zoom.LayoutTransform = scale == 1 ? null : new ScaleTransform(scale, scale);
+        ApplyMinWidth();
+        if (_railWindow is { } rail)
+        {
+            rail.TextScale = scale;
+        }
+    }
+
+    private void OnShellChanged(object? sender, PropertyChangedEventArgs args)
+    {
+        if (args.PropertyName == nameof(ShellViewModel.TextScale))
+        {
+            ApplyTextScale();
         }
     }
 
@@ -148,7 +211,7 @@ public sealed partial class MainWindow : Window
 
         if (shell.Rail.IsDetached && _railWindow is null)
         {
-            _railWindow = new RailWindow { DataContext = shell.Rail };
+            _railWindow = new RailWindow { DataContext = shell.Rail, TextScale = shell.TextScale };
             _railWindow.Closed += (_, _) => _railWindow = null;
             _railWindow.Show();
         }

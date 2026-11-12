@@ -144,7 +144,7 @@ public sealed class FleetState
         var owned = new List<OwnedModule>();
         foreach (var ship in fleet.Ships)
         {
-            var holder = ship.Name.Length > 0 ? ship.Name : ShipNames.Prefer(ship.Type, ship.TypeName);
+            var holder = ship.Name.Length > 0 ? ship.Name : Names.Hull(ship.Type, ship.TypeName);
             foreach (var module in ship.Modules.Where(module => !ModuleCatalog.IsCosmetic(module.Item)))
             {
                 owned.Add(new OwnedModule(

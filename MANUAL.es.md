@@ -194,9 +194,9 @@ El panel sigue al juego a lo largo del borde derecho de la ventana. Muestra:
   - En la vista Biología, una segunda elección entre dos dice qué cuerpos con vida dejar fuera. La elección
     se recuerda. Las condiciones de las que Katey no tiene registro nunca se ocultan.
   - **Toda la vida** los lista todos.
-  - **Omitir bacterias** deja fuera los cuerpos cuya única vida son bacterias: por los géneros del escáner
-    una vez cartografiados, o antes de eso por una sola señal con al menos cuatro de cinco probabilidades de
-    ser bacterias.
+  - **Omitir solo bacterias** deja fuera los cuerpos cuya única vida son bacterias: por los géneros del
+    escáner una vez cartografiados, o antes de eso por una sola señal con al menos cuatro de cinco
+    probabilidades de ser bacterias.
 
 El panel elige por sí mismo la ruta o los cuerpos. Muestra los cuerpos desde el momento en que llegas, con
 una línea sobre ellos acerca de la ruta: el siguiente salto, cuántos saltos quedan y dónde termina la ruta.
@@ -652,9 +652,18 @@ Tu historial de diario leído como un libro de cuentas. Sus secciones:
 
 ### Ajustes
 
+- **Actualizaciones.** La versión que estás usando y, con el interruptor de GitHub activado, si existe una
+  versión más nueva. Katey pregunta una vez al arrancar y cada vez que pulsas **Comprobar ahora**, en segundo
+  plano, así que arrancar no tarda más. Cuando hay una versión más nueva, **Abrir la página de la versión** la
+  abre en tu navegador; no se descarga ni se instala nada por ti.
+- **Tamaño del texto.** Cuán grande dibujan todo las ventanas, como porcentaje del tamaño estándar, para
+  quienes necesitan letra más grande. El texto y los espacios crecen juntos, así que las páginas conservan su
+  forma; separa el panel o ensancha la ventana si una página ya no cabe. La elección se recuerda. Si la
+  pantalla es demasiado pequeña para las páginas ampliadas, la ventana se detiene en el borde de la pantalla y
+  las páginas se desplazan de lado.
 - **Carpeta de diarios.** La carpeta que Katey sigue. **Detectar** busca en los sitios habituales,
-  **Examinar** elige una, **Seguir** empieza a leerla y **Detener** se detiene. La línea de estado dice qué
-  está haciendo el seguimiento.
+  **Examinar** elige una, o escribe una ruta; el seguimiento pasa a la carpeta al instante y reproduce su
+  historial. La línea de estado dice qué está haciendo el seguimiento.
 - **Copia de seguridad del diario.** Una carpeta a la que se copia toda la carpeta de diarios, solo lo nuevo o
   modificado, cuando Katey se cierra y cada vez que pulsas **Copiar ahora**. Apúntala a una carpeta que
   sincronice OneDrive u otra nube y tus diarios saldrán de la máquina con ella.
@@ -669,10 +678,6 @@ Tu historial de diario leído como un libro de cuentas. Sus secciones:
   sistema al que acabas de llegar. El tercero va a
   [GitHub](https://github.com/temetvince/elite-dangerous-katey/releases) y pide la última versión publicada
   de Katey. Los interruptores se recuerdan.
-- **Actualizaciones.** La versión que estás usando y, con el interruptor de GitHub activado, si existe una
-  versión más nueva. Katey pregunta una vez al arrancar y cada vez que pulsas **Comprobar ahora**, en segundo
-  plano, así que arrancar no tarda más. Cuando hay una versión más nueva, **Abrir la página de la versión** la
-  abre en tu navegador; no se descarga ni se instala nada por ti.
 
 ## Trabajar con EDSY
 

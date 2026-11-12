@@ -28,7 +28,8 @@ Three mechanisms keep the pages consistent:
 - **Sorting.** Every table has a `TableSort<T>`: its columns, the active one and the direction, and a
   `SortHeader` per column the view binds a heading to. Clicking the active heading flips the direction;
   clicking another sorts by it in the direction it was last in, so coming back to a column finds it as you
-  left it. Every column's direction is remembered with the active one.
+  left it. Every column's direction is remembered with the active one. A column of figures is declared
+  `AlignRight`, and its heading sits at the column's right edge, over the figures.
 - **Sections.** A page with several tables shows one at a time through a `SectionSwitch`: tabs the view
   binds to, and an `IsCurrent` per section that drives visibility.
 - **Groups.** A page whose content rolls up by place on the ship, the modules index, builds one
@@ -75,9 +76,10 @@ fakes. Every request carries `AppVersion.UserAgent`, which names Katey, its vers
 | `Text/Keys.cs` | `Keys` | One constant per key of `Strings.resx`, a plural group folded to its base key. Generated: `dotnet run tools/StringKeys.cs -- src/Katey.App/Text/Strings.resx src/Katey.App/Text/Keys.cs Katey.App.Text Keys`. |
 | `Text/Strings.cs` | `Strings` | The localizer over `Strings.resx`: `Get`, `Format` and `Plural` by a key from `Keys`. |
 | `Text/Languages.cs` | `Languages`, `LanguageOption` | The cultures Katey ships in, English first; the `app.language` preference; the picker's options, each language under its own name; `Apply`, which resolves the saved choice against the machine and makes it the language in force. |
-| `Text/CatalogNames.resx`, `Text/CatalogNames.<culture>.resx` | | The game's own names per language: materials and their families, blueprints, effects, module types, unlocks, mounts, surface signal types, planet classes, atmosphere and volcanism words, lifetime figure labels. The neutral file is empty by design: English is the data's. |
+| `Text/CatalogNames.resx`, `Text/CatalogNames.<culture>.resx` | | The game's own names per language: materials and their families, blueprints, effects, module types, module variant qualifiers, unlocks, mounts, hull armour, hulls, surface signal types, planet classes, atmosphere and volcanism words, lifetime figure labels and the words a passenger figure is composed from. The neutral file is empty by design: English is the data's. |
 | `Text/CatalogNameKeys.cs` | `CatalogNameKeys` | How each game name is addressed in `CatalogNames.resx`, and `All`, the full key set a translation must hold. |
-| `Text/Names.cs` | `Names` | Every game name in the language in force, falling back to the data: `Material`, `Blueprint`, `Experimental`, `ModuleType`, `Unlock`; `Module`, composed from the type's translated name, the class and rating and the mount; `PlanetClass`, `Atmosphere` and `Volcanism`, which read the journal's phrase into its words and write it back through the language's template; `Figure` and `FigureSection` for the lifetime statistics. |
+| `Text/TextSize.cs` | `TextSize`, `TextSizeOption` | The text size: the factors the picker offers as percentages of the design size, the `app.textScale` preference that remembers one, and `Read`, which takes the design size for anything but an offered factor. |
+| `Text/Names.cs` | `Names` | Every game name in the language in force, falling back to the data: `Material`, `Blueprint`, `Experimental`, `ModuleType`, `Unlock`; `Module`, composed from the type's translated name, the class and rating and the mount, with a variant's translated qualifier words placed by the language's template and a named variant keeping its own name; `Hull`, the table's name for a hull before the journal's own localised name and `ShipNames`; `PlanetClass`, `Atmosphere` and `Volcanism`, which read the journal's phrase into its words and write it back through the language's template; `Figure` and `FigureSection` for the lifetime statistics, a passenger figure counted by type, class and outcome composed through the language's template. |
 | `FleetChoices.cs` | `FleetChoices` | The pick-list options for the fleet's policy and filters, shared by the fleet and fit pages. |
 | `FuelEstimate.cs` | `FuelEstimate`, `StopFuel` | The fuel picture for the route ahead: the game's fuel equation from the current ship's loadout figures, or its model fitted to recent jumps when the loadout lacks them, run from the live tank reading; and the tank against its capacity with what the next jump burns, as the fractions the fuel meter draws. |
 | `Routing/IRoutePlotter.cs` | `IRoutePlotter`, `RoutePlotException` | What a plotter is: a request in, a route out, or a reason fit to show. |
@@ -92,7 +94,7 @@ fakes. Every request carries `AppVersion.UserAgent`, which names Katey, its vers
 | `Exploration/SpanshSystemCatalog.cs` | `SpanshSystemCatalog` | Asks Spansh for a system's dump and reads its bodies. |
 | `Exploration/SystemBodiesState.cs` | `SystemBodiesState` | The catalogued bodies of the systems visited this run: one request per system on arrival when allowed, kept for the run, a failed lookup not retried for five minutes; raises on the UI thread. |
 | `Routing/JumpProfiles.cs` | `JumpProfiles` | A ship's jump numbers from its journal loadout, through `JumpProfile.Build`. |
-| `Mvvm/TableSort.cs` | `TableSort<T>`, `SortColumn<T>`, `SortHeader` | A table's sort state and the headings a view binds to. |
+| `Mvvm/TableSort.cs` | `TableSort<T>`, `SortColumn<T>`, `SortHeader` | A table's sort state and the headings a view binds to; a column of figures is declared `AlignRight` and its heading says so. |
 | `PreferenceKeys.cs` | `PreferenceKeys` | The preference keys Katey writes today; the saved preferences are pruned to them on load. |
 | `Mvvm/SectionSwitch.cs` | `SectionSwitch`, `SectionItem` | A page's sections, one showing at a time. |
 | `Mvvm/GroupExpansion.cs` | `GroupExpansion`, `ExpandableGroup` | A page's collapsible groups: which are open, remembered, with expand-all and collapse-all. |
@@ -157,9 +159,12 @@ holds the words.
   `PhraseBlock` shows it. Fragments are never concatenated: when a sentence has two shapes, it has two keys.
 - **Figures.** Numbers and dates inside a template take the formatting culture, the machine's regional setting.
   Keys, ids, URLs, journal text and preference values stay invariant.
-- **Game names.** `Names` wraps every catalog name, journal body descriptor and lifetime figure label. Its
-  table's neutral file is empty, so English is always the data's own word and a language with no entry shows
-  the same. The completeness test checks every shipped language against `CatalogNameKeys.All`.
+- **Game names.** `Names` wraps every catalog name, hull and armour name, journal body descriptor and
+  lifetime figure label. Its table's neutral file is empty, so English is always the data's own word and a
+  language with no entry shows the same. The completeness test checks every shipped language against
+  `CatalogNameKeys.All`. A hull's name comes from the table before the journal's own localised name, so a hull
+  reads in Katey's language rather than the game client's. The four Latin-script languages hold the game's own
+  names, which their clients do not translate; the Russian table holds Cyrillic transliterations.
 - **The switch.** `Languages.Apply` runs in the shell's constructor before any page is built, from the
   `app.language` preference or the machine's culture, so the first page is already in the right language.
   `ShellViewModel.SetLanguageCommand` saves the choice, calls `Language.Set`, rebuilds the nav links, rebuilds

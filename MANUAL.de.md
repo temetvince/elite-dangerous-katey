@@ -197,7 +197,7 @@ Die Leiste folgt dem Spiel am rechten Rand des Fensters. Sie zeigt:
   - In der Ansicht Biologie sagt eine zweite Wahl aus zwei, welche Körper mit Leben ausgelassen werden. Die
     Wahl wird gemerkt. Bedingungen, zu denen Katey keine Aufzeichnung hat, werden nie ausgeblendet.
   - **Alles Leben** listet jeden.
-  - **Bakterien überspringen** lässt Körper aus, deren Leben allein Bakterien sind: nach den Gattungen des
+  - **Nur-Bakterien überspringen** lässt Körper aus, deren Leben allein Bakterien sind: nach den Gattungen des
     Scanners, sobald kartiert, davor bei einem einzelnen Signal, das zu mindestens vier Fünfteln
     wahrscheinlich Bakterien ist.
 
@@ -660,9 +660,18 @@ Dein Journalverlauf, als Hauptbuch gelesen. Seine Abschnitte:
 
 ### Optionen
 
+- **Aktualisierungen.** Die Version, die du verwendest, und, mit dem GitHub-Schalter an, ob es eine neuere
+  Veröffentlichung gibt. Katey fragt einmal beim Start und wann immer du **Jetzt prüfen** drückst, im
+  Hintergrund, sodass der Start nicht länger dauert. Gibt es eine neuere Veröffentlichung, öffnet **Seite der
+  Veröffentlichung öffnen** sie in deinem Browser; nichts wird für dich heruntergeladen oder installiert.
+- **Textgröße.** Wie groß die Fenster alles zeichnen, als Prozentsatz der Standardgröße, für Leser, die
+  größere Schrift brauchen. Text und Abstände wachsen zusammen, sodass die Seiten ihre Form behalten; löse die
+  Leiste ab oder verbreitere das Fenster, wenn eine Seite nicht mehr passt. Die Wahl wird gemerkt. Ist der
+  Bildschirm zu klein für die vergrößerten Seiten, bleibt das Fenster am Bildschirmrand stehen und die Seiten
+  rollen seitwärts.
 - **Journal-Ordner.** Der Ordner, den Katey beobachtet. **Erkennen** sucht an den üblichen Orten,
-  **Durchsuchen** wählt einen, **Beobachten** beginnt ihn zu lesen und **Stopp** hört auf. Die Statuszeile
-  sagt, was die Beobachtung tut.
+  **Durchsuchen** wählt einen, oder tippe einen Pfad; die Beobachtung folgt dem Ordner sofort und spielt seine
+  Geschichte ab. Die Statuszeile sagt, was die Beobachtung tut.
 - **Journal-Sicherung.** Ein Ordner, in den der ganze Journal-Ordner kopiert wird, nur was neu oder geändert
   ist, wenn Katey schließt und wann immer du **Jetzt sichern** drückst. Richte ihn auf einen Ordner, den
   OneDrive oder ein anderes Cloud-Laufwerk synchronisiert, und deine Journale verlassen damit den Rechner.
@@ -676,10 +685,6 @@ Dein Journalverlauf, als Hauptbuch gelesen. Seine Abschnitte:
   [Spansh](https://spansh.co.uk/): die Frage nach einer Route, wenn du **Planen** drückst, und die Frage nach
   den Körpern des Systems, in dem du gerade angekommen bist. Die dritte geht an [GitHub](https://github.com/temetvince/elite-dangerous-katey/releases)
   und fragt nach der neuesten Veröffentlichung von Katey. Die Schalter werden gemerkt.
-- **Aktualisierungen.** Die Version, die du verwendest, und, mit dem GitHub-Schalter an, ob es eine neuere
-  Veröffentlichung gibt. Katey fragt einmal beim Start und wann immer du **Jetzt prüfen** drückst, im
-  Hintergrund, sodass der Start nicht länger dauert. Gibt es eine neuere Veröffentlichung, öffnet **Seite der
-  Veröffentlichung öffnen** sie in deinem Browser; nichts wird für dich heruntergeladen oder installiert.
 
 ## Arbeiten mit EDSY
 

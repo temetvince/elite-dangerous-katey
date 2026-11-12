@@ -177,7 +177,7 @@ public sealed class FleetPage : Page
     public bool IsConfirmingReplace => _pendingReplacement is not null;
 
     /// <summary>Gets the question put while a replacement awaits confirmation, such as "Replace the saved fit Combat for the Anaconda Mk II?", or empty.</summary>
-    public string ReplaceText => _pendingReplacement is { } pending ? Strings.Format(Keys.Fleet_ReplaceQuestion, ("name", pending.Existing.Name), ("hull", ShipNames.Display(pending.Existing.Hull))) : "";
+    public string ReplaceText => _pendingReplacement is { } pending ? Strings.Format(Keys.Fleet_ReplaceQuestion, ("name", pending.Existing.Name), ("hull", Names.Hull(pending.Existing.Hull, null))) : "";
 
     /// <summary>Gets the command that withdraws the replacement and keeps the saved fit.</summary>
     public RelayCommand CancelReplaceCommand { get; }
@@ -360,7 +360,7 @@ public sealed class FleetPage : Page
         ArgumentNullException.ThrowIfNull(fleet);
         ArgumentNullException.ThrowIfNull(hull);
         var ship = fleet.Ships.FirstOrDefault(ship => string.Equals(ship.Type, hull, StringComparison.OrdinalIgnoreCase));
-        return ShipNames.Prefer(hull, ship?.TypeName);
+        return Names.Hull(hull, ship?.TypeName);
     }
 
     /// <summary>A ship's title: name and ident when named, else its hull.</summary>
@@ -369,7 +369,7 @@ public sealed class FleetPage : Page
     public static string ShipTitle(OwnedShip ship)
     {
         ArgumentNullException.ThrowIfNull(ship);
-        return ship.Name.Length > 0 ? (ship.Ident.Length > 0 ? Strings.Format(Keys.Fleet_ShipTitle, ("name", ship.Name), ("ident", ship.Ident)) : ship.Name) : ShipNames.Prefer(ship.Type, ship.TypeName);
+        return ship.Name.Length > 0 ? (ship.Ident.Length > 0 ? Strings.Format(Keys.Fleet_ShipTitle, ("name", ship.Name), ("ident", ship.Ident)) : ship.Name) : Names.Hull(ship.Type, ship.TypeName);
     }
 
     /// <summary>Where a ship is: its system's link and the station, or a state when the system is unknown.</summary>
@@ -403,7 +403,7 @@ public sealed class FleetPage : Page
         var fleet = Workspace.FleetSnapshot;
         Ships = ShipSort.Apply(fleet.Ships.Select(ship => new ShipListRow(
             LinkTo(ShipTitle(ship), PageKind.Ship, ship.ShipId.ToString(CultureInfo.InvariantCulture)),
-            ShipNames.Prefer(ship.Type, ship.TypeName),
+            Names.Hull(ship.Type, ship.TypeName),
             WhereShip(ship),
             ship.FitAsOf is { } asOf ? Strings.Format(Keys.Fleet_FitAsOf, ("when", asOf.ToLocalTime())) : Strings.Get(Keys.Fleet_FitUnknown),
             ship.IsCurrent,

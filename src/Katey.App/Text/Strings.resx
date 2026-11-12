@@ -1016,7 +1016,7 @@ Off, everything is offered and grades start at the top. The plan still warns abo
     <comment>Start page tile detail. Lower case.</comment>
   </data>
   <data name="Home.NotWatching" xml:space="preserve">
-    <value>Not watching the journal. Start it in Settings.</value>
+    <value>Not watching the journal. Choose its folder in Settings.</value>
     <comment>Start page watch line.</comment>
   </data>
   <data name="Home.PlanCovered" xml:space="preserve">
@@ -2388,7 +2388,7 @@ Off, everything is offered and grades start at the top. The plan still warns abo
     <comment>Module type page section.</comment>
   </data>
   <data name="Settings.BackupText" xml:space="preserve">
-    <value>Copies every file in the journal folder, the live files included, into the folder you choose, and only what is new or changed. Point it at a folder your cloud drive syncs and the journals leave the machine.</value>
+    <value>Copies every file in the journal folder, the live files included, into the folder you choose, and only what is new or changed. Consider pointing it at a folder your cloud drive syncs.</value>
     <comment>Settings page: the backup explanation.</comment>
   </data>
   <data name="Settings.CatchingUp" xml:space="preserve">
@@ -2428,8 +2428,12 @@ Off, everything is offered and grades start at the top. The plan still warns abo
     <comment>Settings page: the outgoing connections explanation.</comment>
   </data>
   <data name="Settings.NotWatching" xml:space="preserve">
-    <value>Not watching. Press Watch to read the journal.</value>
+    <value>Not watching. Choose the journal folder above to start reading it.</value>
     <comment>Settings page watch status; 'Watch' names the button Settings.Watch.</comment>
+  </data>
+  <data name="Settings.TextSizeText" xml:space="preserve">
+    <value>Larger text makes the windows draw everything larger, spacing included, in whichever language is in force. If a page no longer fits, pop the rail out or widen the window.</value>
+    <comment>Settings page: the text size explanation.</comment>
   </data>
   <data name="Settings.UpdateText" xml:space="preserve">
     <value>A check asks GitHub for the project's latest release and compares its version with this one. Nothing is downloaded or installed: the release page opens in your browser, where the new build is.</value>
@@ -3170,6 +3174,10 @@ Off, everything is offered and grades start at the top. The plan still warns abo
   <data name="System.YouLandedOn" xml:space="preserve">
     <value>you have landed on {bodies}</value>
     <comment>System page discovery clause; {bodies} is a count of bodies. Lower case.</comment>
+  </data>
+  <data name="TextSize.Percent" xml:space="preserve">
+    <value>{percent}%</value>
+    <comment>Settings page: one text size in the picker, as a percentage of the design size. {percent} is a whole number.</comment>
   </data>
   <data name="Totals.AllHeld.one" xml:space="preserve">
     <value>Totals for {count} entry. You already hold everything.</value>

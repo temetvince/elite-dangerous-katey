@@ -455,7 +455,7 @@
     <value>tanken</value>
   </data>
   <data name="Rail.SkipBacteria" xml:space="preserve">
-    <value>Bakterien überspringen</value>
+    <value>Nur-Bakterien überspringen</value>
   </data>
   <data name="Rail.SpanshPlot" xml:space="preserve">
     <value>Spansh-Route</value>
@@ -524,7 +524,7 @@
     <value>Erkennen</value>
   </data>
   <data name="Settings.Intro" xml:space="preserve">
-    <value>Katey liest die Journal-Dateien des Spiels und folgt der neuesten, während du spielst. Nichts wird irgendwohin gesendet, solange du den Spansh-Routenplaner unten nicht einschaltest.</value>
+    <value>Katey liest die Journal-Dateien des Spiels und folgt der neuesten, während du spielst. Nichts wird irgendwohin gesendet, solange du nichts im Abschnitt „Ausgehende Verbindungen“ einschaltest.</value>
   </data>
   <data name="Settings.JournalBackup" xml:space="preserve">
     <value>Journal-Sicherung</value>
@@ -544,14 +544,11 @@
   <data name="Settings.SavedDataPlaceholder" xml:space="preserve">
     <value>Der Ordner, in dem Katey seine Daten speichert, etwa einer, den OneDrive synchronisiert</value>
   </data>
-  <data name="Settings.Stop" xml:space="preserve">
-    <value>Stopp</value>
+  <data name="Settings.TextSize" xml:space="preserve">
+    <value>Textgröße</value>
   </data>
   <data name="Settings.Updates" xml:space="preserve">
     <value>Aktualisierungen</value>
-  </data>
-  <data name="Settings.Watch" xml:space="preserve">
-    <value>Beobachten</value>
   </data>
   <data name="Ship.FittedModules" xml:space="preserve">
     <value>Verbaute Module</value>

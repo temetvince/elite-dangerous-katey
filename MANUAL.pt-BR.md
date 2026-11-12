@@ -190,8 +190,9 @@ O painel segue o jogo ao longo da borda direita da janela. Ele mostra:
   - Na vista Biologia, uma segunda escolha entre duas diz quais corpos com vida deixar de fora. A escolha é
     lembrada. Condições de que o Katey não tem registro nunca são ocultadas.
   - **Toda a vida** lista todos.
-  - **Pular bactérias** deixa de fora os corpos cuja vida é só de bactérias: pelos gêneros do scanner depois
-    de mapeados, ou, antes disso, um único sinal com pelo menos quatro em cinco chances de ser bactéria.
+  - **Pular só bactérias** deixa de fora os corpos cuja vida é só de bactérias: pelos gêneros do scanner
+    depois de mapeados, ou, antes disso, um único sinal com pelo menos quatro em cinco chances de ser
+    bactéria.
 
 O painel escolhe sozinho entre a rota e os corpos. Ele mostra os corpos desde o momento em que você chega, com
 uma linha acima deles sobre a rota: o próximo salto, quantos saltos restam e onde a rota termina. Ele muda
@@ -629,9 +630,17 @@ Seu histórico de diário lido como um livro-caixa. Suas seções:
 
 ### Ajustes
 
+- **Atualizações.** A versão que você está usando e, com a chave do GitHub ligada, se existe uma versão mais
+  nova. O Katey pergunta uma vez ao iniciar e sempre que você pressiona **Verificar agora**, em segundo plano,
+  então iniciar não demora mais. Quando há uma versão mais nova, **Abrir a página da versão** a abre no seu
+  navegador; nada é baixado nem instalado por você.
+- **Tamanho do texto.** Quão grande as janelas desenham tudo, como porcentagem do tamanho padrão, para quem
+  precisa de letras maiores. Texto e espaçamento crescem juntos, então as páginas mantêm a forma; destaque o
+  painel ou alargue a janela se uma página não couber mais. A escolha é lembrada. Se a tela for pequena demais
+  para as páginas ampliadas, a janela para na borda da tela e as páginas rolam para os lados.
 - **Pasta de diários.** A pasta que o Katey acompanha. **Detectar** procura nos lugares habituais,
-  **Procurar** escolhe uma, **Acompanhar** começa a lê-la e **Parar** para. A linha de status diz o que o
-  acompanhamento está fazendo.
+  **Procurar** escolhe uma, ou digite um caminho; o acompanhamento passa para a pasta na hora e reproduz seu
+  histórico. A linha de status diz o que o acompanhamento está fazendo.
 - **Backup do diário.** Uma pasta para a qual toda a pasta de diários é copiada, só o que é novo ou mudou,
   quando o Katey fecha e sempre que você pressiona **Fazer backup agora**. Aponte para uma pasta que o
   OneDrive ou outra nuvem sincroniza e os seus diários saem da máquina com ela.
@@ -645,10 +654,6 @@ Seu histórico de diário lido como um livro-caixa. Suas seções:
   pedir uma rota quando você pressiona **Traçar**, e perguntar sobre os corpos do sistema em que você acabou
   de chegar. O terceiro vai para o [GitHub](https://github.com/temetvince/elite-dangerous-katey/releases) e
   pede a última versão publicada do Katey. As chaves são lembradas.
-- **Atualizações.** A versão que você está usando e, com a chave do GitHub ligada, se existe uma versão mais
-  nova. O Katey pergunta uma vez ao iniciar e sempre que você pressiona **Verificar agora**, em segundo plano,
-  então iniciar não demora mais. Quando há uma versão mais nova, **Abrir a página da versão** a abre no seu
-  navegador; nada é baixado nem instalado por você.
 
 ## Trabalhando com o EDSY
 

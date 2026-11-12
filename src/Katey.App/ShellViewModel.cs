@@ -81,6 +81,7 @@ public sealed class ShellViewModel : ObservableObject
         var plan = new PlanViewModel(catalog, () => engineers.Selected, name => Workspace!.EngineerLinkFor(name));
         var preferences = new UiPreferences(saved.Preferences);
         LanguageLabel = Languages.NativeName(Languages.Apply(preferences));
+        TextScale = TextSize.Read(preferences);
         var fleet = new FleetState(saved.Fittings, saved.Policy, preferences);
         var network = new NetworkAccess(saved, logger);
         var plot = new PlotState(plotter, dispatch, logger, network, saved.Plot);
@@ -125,7 +126,11 @@ public sealed class ShellViewModel : ObservableObject
         };
         updates.Changed += (_, _) => Navigator.Refresh();
         backupState.Changed += (_, _) => OnPlotChanged();
-        preferences.Changed += (_, _) => Save();
+        preferences.Changed += (_, _) =>
+        {
+            Save();
+            TextScale = TextSize.Read(preferences);
+        };
         HomeLink = Navigator.LinkTo("Katey", PageKind.Home);
         Nav = BuildNav();
         SettingsNav = BuildSettingsNav();
@@ -166,6 +171,9 @@ public sealed class ShellViewModel : ObservableObject
 
     /// <summary>Gets the name the language in force gives itself, for the picker's button: "English", "Deutsch".</summary>
     public string LanguageLabel { get; private set => SetProperty(ref field, value); } = "";
+
+    /// <summary>Gets the factor the windows draw their content at, from the text size setting. 1 is the design size.</summary>
+    public double TextScale { get; private set => SetProperty(ref field, value); } = 1;
 
     /// <summary>Gets the command that switches to a <see cref="LanguageOption"/>: every page, the rail, the drawer, the search and the chrome change at once, and the choice is saved.</summary>
     public RelayCommand<LanguageOption> SetLanguageCommand { get; }

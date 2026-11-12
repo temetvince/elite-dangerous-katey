@@ -609,28 +609,28 @@
     <value>Можно заполнить вашими модулями: {slots}.</value>
   </data>
   <data name="Fit.PlanChanges.few" xml:space="preserve">
-    <value>Запланировать {count} изменения инженерии для этого корабля</value>
+    <value>Запланировать {count} инженерных изменения для этого корабля</value>
   </data>
   <data name="Fit.PlanChanges.many" xml:space="preserve">
-    <value>Запланировать {count} изменений инженерии для этого корабля</value>
+    <value>Запланировать {count} инженерных изменений для этого корабля</value>
   </data>
   <data name="Fit.PlanChanges.one" xml:space="preserve">
-    <value>Запланировать {count} изменение инженерии для этого корабля</value>
+    <value>Запланировать {count} инженерное изменение для этого корабля</value>
   </data>
   <data name="Fit.PlanChanges.other" xml:space="preserve">
-    <value>Запланировать {count} изменений инженерии для этого корабля</value>
+    <value>Запланировать {count} инженерных изменений для этого корабля</value>
   </data>
   <data name="Fit.PlanGaps.few" xml:space="preserve">
-    <value>Запланировать {count} пробела в том, что у вас есть</value>
+    <value>Запланировать {count} недостающих улучшения для имеющихся модулей</value>
   </data>
   <data name="Fit.PlanGaps.many" xml:space="preserve">
-    <value>Запланировать {count} пробелов в том, что у вас есть</value>
+    <value>Запланировать {count} недостающих улучшений для имеющихся модулей</value>
   </data>
   <data name="Fit.PlanGaps.one" xml:space="preserve">
-    <value>Запланировать {count} пробел в том, что у вас есть</value>
+    <value>Запланировать {count} недостающее улучшение для имеющихся модулей</value>
   </data>
   <data name="Fit.PlanGaps.other" xml:space="preserve">
-    <value>Запланировать {count} пробелов в том, что у вас есть</value>
+    <value>Запланировать {count} недостающих улучшений для имеющихся модулей</value>
   </data>
   <data name="Fit.PrebuiltSlots.few" xml:space="preserve">
     <value>{count} слота для инженерии заняты предустановленными модулями, которые нельзя снять с этого корабля.</value>
@@ -708,7 +708,7 @@
     <value>Свои модули, не нужные ни одной сборке ({count})</value>
   </data>
   <data name="Fleet.VerdictAllOwned" xml:space="preserve">
-    <value>Всё есть</value>
+    <value>В наличии</value>
   </data>
   <data name="Fleet.VerdictHullNotOwned" xml:space="preserve">
     <value>Нет корпуса</value>
@@ -795,7 +795,7 @@
     <value>кораблей пока не видно</value>
   </data>
   <data name="Home.NotWatching" xml:space="preserve">
-    <value>Слежение за журналом выключено. Включите в настройках.</value>
+    <value>Журнал не отслеживается. Выберите его папку в настройках.</value>
   </data>
   <data name="Home.PlanCovered" xml:space="preserve">
     <value>Запланировано: {entries}, все материалы есть.</value>
@@ -1965,7 +1965,7 @@
     <value>без имени</value>
   </data>
   <data name="Section.AgainstEverythingOwned" xml:space="preserve">
-    <value>Против всего, что у вас есть</value>
+    <value>Сравнить со всеми модулями</value>
   </data>
   <data name="Section.Blueprints" xml:space="preserve">
     <value>Чертежи</value>
@@ -1992,7 +1992,7 @@
     <value>Люди</value>
   </data>
   <data name="Section.Income" xml:space="preserve">
-    <value>Доход</value>
+    <value>Доходы</value>
   </data>
   <data name="Section.InYourFits" xml:space="preserve">
     <value>В ваших сборках</value>
@@ -2022,7 +2022,7 @@
     <value>Торговля и добыча</value>
   </data>
   <data name="Section.UnusedModules" xml:space="preserve">
-    <value>Свои модули, не нужные ни одной сборке</value>
+    <value>Неиспользуемые модули</value>
   </data>
   <data name="Section.UsedBy" xml:space="preserve">
     <value>Где используется</value>
@@ -2040,7 +2040,7 @@
     <value>У вас есть</value>
   </data>
   <data name="Settings.BackupText" xml:space="preserve">
-    <value>Копирует каждый файл папки журналов, включая живые файлы, в выбранную вами папку — только новое или изменённое. Укажите папку, которую синхронизирует облачный диск, и журналы будут покидать компьютер.</value>
+    <value>Копирует каждый файл папки журналов, включая живые файлы, в выбранную вами папку — только новое или изменённое. Можно указать папку, которую синхронизирует ваш облачный диск.</value>
   </data>
   <data name="Settings.CatchingUp" xml:space="preserve">
     <value>Чтение истории журнала: {done} из {total} файлов.</value>
@@ -2070,7 +2070,10 @@
     <value>Ничего не покидает этот компьютер, пока вы не отметите это здесь. Прокладка маршрута отправляет Spansh названия двух систем и прыжковые характеристики корабля: массы, объём бака и параметры двигателя. Запрос системы отправляет Spansh идентификатор системы, в которую вы прибыли, и получает известные ему тела. Проверка версии запрашивает у GitHub последний выпуск проекта и не отправляет ничего, кроме самого запроса. Каждый запрос называет Katey, её версию и адрес проекта.</value>
   </data>
   <data name="Settings.NotWatching" xml:space="preserve">
-    <value>Слежение выключено. Нажмите «Следить», чтобы читать журнал.</value>
+    <value>Слежение выключено. Выберите выше папку журналов, чтобы начать её читать.</value>
+  </data>
+  <data name="Settings.TextSizeText" xml:space="preserve">
+    <value>Крупный текст заставляет окна рисовать всё крупнее, включая отступы, на любом выбранном языке. Если страница перестала помещаться, отделите панель или расширьте окно.</value>
   </data>
   <data name="Settings.UpdateText" xml:space="preserve">
     <value>Проверка запрашивает у GitHub последний выпуск проекта и сравнивает его версию с этой. Ничего не загружается и не устанавливается: страница выпуска открывается в вашем браузере, где и находится новая сборка.</value>
@@ -2633,6 +2636,9 @@
   <data name="System.YouLandedOn" xml:space="preserve">
     <value>вы садились на {bodies}</value>
   </data>
+  <data name="TextSize.Percent" xml:space="preserve">
+    <value>{percent} %</value>
+  </data>
   <data name="Totals.AllHeld.few" xml:space="preserve">
     <value>Итого по {count} записям. У вас уже есть всё.</value>
   </data>
@@ -2895,13 +2901,13 @@
     <value>Не хватает: {items}.</value>
   </data>
   <data name="Unlocks.StateAffordable" xml:space="preserve">
-    <value>По карману</value>
+    <value>Доступно</value>
   </data>
   <data name="Unlocks.StatePlanned" xml:space="preserve">
     <value>В плане</value>
   </data>
   <data name="Unlocks.StateShort" xml:space="preserve">
-    <value>Нехватка</value>
+    <value>Не хватает</value>
   </data>
   <data name="Unlocks.StateUnlocked" xml:space="preserve">
     <value>Разблокировано</value>

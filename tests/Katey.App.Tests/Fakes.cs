@@ -88,10 +88,15 @@ internal sealed class FakeReleaseFeed : IReleaseFeed
 
     public int Requests { get; private set; }
 
+    /// <summary>When set, a lookup stays open until the test completes it, so a check can be observed in flight.</summary>
+    public TaskCompletionSource<Release>? Hold { get; set; }
+
     public Task<Release> LatestAsync(CancellationToken cancellationToken)
     {
         Requests++;
-        return Failure is { } reason
+        return Hold is { } hold
+            ? hold.Task
+            : Failure is { } reason
             ? Task.FromException<Release>(new ReleaseFeedException(reason, HttpCode))
             : Task.FromResult(Latest);
     }

@@ -114,7 +114,7 @@ public sealed class ModuleCatalog
     public ModuleInfo? Find(string symbol)
     {
         ArgumentNullException.ThrowIfNull(symbol);
-        return _modules.GetValueOrDefault(symbol);
+        return _modules.GetValueOrDefault(symbol) ?? _modules.GetValueOrDefault(ModuleSymbolNames.WithoutSuffix(symbol));
     }
 
     /// <summary>The modules the game sells of one module type.</summary>

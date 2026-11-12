@@ -1668,6 +1668,9 @@ public static class Keys
     /// <summary><c>Settings.NotWatching</c>.</summary>
     public const string Settings_NotWatching = "Settings.NotWatching";
 
+    /// <summary><c>Settings.TextSizeText</c>.</summary>
+    public const string Settings_TextSizeText = "Settings.TextSizeText";
+
     /// <summary><c>Settings.UpdateText</c>.</summary>
     public const string Settings_UpdateText = "Settings.UpdateText";
 
@@ -2219,6 +2222,9 @@ public static class Keys
 
     /// <summary><c>System.YouLandedOn</c>.</summary>
     public const string System_YouLandedOn = "System.YouLandedOn";
+
+    /// <summary><c>TextSize.Percent</c>.</summary>
+    public const string TextSize_Percent = "TextSize.Percent";
 
     /// <summary><c>Totals.AllHeld</c>.</summary>
     public const string Totals_AllHeld = "Totals.AllHeld";

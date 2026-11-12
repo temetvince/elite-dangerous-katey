@@ -58,6 +58,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Armour.grade1" xml:space="preserve">
+    <value>Alliage léger</value>
+  </data>
+  <data name="Armour.grade2" xml:space="preserve">
+    <value>Alliage renforcé</value>
+  </data>
+  <data name="Armour.grade3" xml:space="preserve">
+    <value>Composite de qualité militaire</value>
+  </data>
+  <data name="Armour.mirrored" xml:space="preserve">
+    <value>Composite à surface réfléchissante</value>
+  </data>
+  <data name="Armour.reactive" xml:space="preserve">
+    <value>Composite à surface réactive</value>
+  </data>
   <data name="Atmosphere.Gas.ammonia" xml:space="preserve">
     <value>d'ammoniac</value>
   </data>
@@ -817,6 +832,60 @@
   <data name="Figure.Exploration_Profits" xml:space="preserve">
     <value>Profits d'exploration</value>
   </data>
+  <data name="Figure.FLEETCARRIER_DISTANCE_TRAVELLED" xml:space="preserve">
+    <value>Distance parcourue</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_EXPORT_TOTAL" xml:space="preserve">
+    <value>Marchandises exportées</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_IMPORT_TOTAL" xml:space="preserve">
+    <value>Marchandises importées</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_OUTFITTING_PROFIT" xml:space="preserve">
+    <value>Bénéfice de l'équipement</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_OUTFITTING_SOLD" xml:space="preserve">
+    <value>Modules vendus</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_REARM_TOTAL" xml:space="preserve">
+    <value>Réarmements</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_REFUEL_PROFIT" xml:space="preserve">
+    <value>Bénéfice du ravitaillement</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_REFUEL_TOTAL" xml:space="preserve">
+    <value>Ravitaillements en carburant</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_REPAIRS_TOTAL" xml:space="preserve">
+    <value>Réparations</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_SHIPYARD_PROFIT" xml:space="preserve">
+    <value>Bénéfice du chantier naval</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_SHIPYARD_SOLD" xml:space="preserve">
+    <value>Vaisseaux vendus</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_STOLENPROFIT_TOTAL" xml:space="preserve">
+    <value>Bénéfice sur biens volés</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_STOLENSPEND_TOTAL" xml:space="preserve">
+    <value>Dépenses en biens volés</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_TOTAL_JUMPS" xml:space="preserve">
+    <value>Sauts au total</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_TRADEPROFIT_TOTAL" xml:space="preserve">
+    <value>Bénéfice commercial</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_TRADESPEND_TOTAL" xml:space="preserve">
+    <value>Dépenses commerciales</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_VOUCHERS_PROFIT" xml:space="preserve">
+    <value>Bénéfice des bons</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_VOUCHERS_REDEEMED" xml:space="preserve">
+    <value>Bons encaissés</value>
+  </data>
   <data name="Figure.Fines" xml:space="preserve">
     <value>Amendes</value>
   </data>
@@ -994,6 +1063,9 @@
   <data name="Figure.Panels_Opened" xml:space="preserve">
     <value>Panneaux ouverts</value>
   </data>
+  <data name="Figure.Passengers.Template" xml:space="preserve">
+    <value>{type} ({class}) {outcome}</value>
+  </data>
   <data name="Figure.Passengers_Missions_Accepted" xml:space="preserve">
     <value>Missions de passagers acceptées</value>
   </data>
@@ -1002,6 +1074,9 @@
   </data>
   <data name="Figure.Passengers_Missions_Delivered" xml:space="preserve">
     <value>Missions de passagers livrées</value>
+  </data>
+  <data name="Figure.Passengers_Missions_Disgruntled" xml:space="preserve">
+    <value>Passagers mécontents</value>
   </data>
   <data name="Figure.Passengers_Missions_Ejected" xml:space="preserve">
     <value>Missions de passagers éjectés</value>
@@ -1237,6 +1312,21 @@
   <data name="Figure.Systems_Visited" xml:space="preserve">
     <value>Systèmes visités</value>
   </data>
+  <data name="Figure.TG_ENCOUNTER_IMPRINT" xml:space="preserve">
+    <value>Empreintes thargoïdes</value>
+  </data>
+  <data name="Figure.TG_ENCOUNTER_KILLED" xml:space="preserve">
+    <value>Thargoïdes détruits</value>
+  </data>
+  <data name="Figure.TG_ENCOUNTER_TOTAL" xml:space="preserve">
+    <value>Rencontres au total</value>
+  </data>
+  <data name="Figure.TG_ENCOUNTER_WAKES" xml:space="preserve">
+    <value>Sillages thargoïdes</value>
+  </data>
+  <data name="Figure.TG_SCOUT_COUNT" xml:space="preserve">
+    <value>Éclaireurs thargoïdes</value>
+  </data>
   <data name="Figure.Time_Played" xml:space="preserve">
     <value>Temps de jeu</value>
   </data>
@@ -1309,6 +1399,9 @@
   <data name="FigureSection.Exploration" xml:space="preserve">
     <value>Exploration</value>
   </data>
+  <data name="FigureSection.FLEETCARRIER" xml:space="preserve">
+    <value>Vaisseau-mère</value>
+  </data>
   <data name="FigureSection.Material_Trader_Stats" xml:space="preserve">
     <value>Négociants en matériaux</value>
   </data>
@@ -1330,8 +1423,152 @@
   <data name="FigureSection.Squadron" xml:space="preserve">
     <value>Escadron</value>
   </data>
+  <data name="FigureSection.TG_ENCOUNTERS" xml:space="preserve">
+    <value>Rencontres thargoïdes</value>
+  </data>
   <data name="FigureSection.Trading" xml:space="preserve">
     <value>Commerce</value>
+  </data>
+  <data name="Hull.adder" xml:space="preserve">
+    <value>Adder</value>
+  </data>
+  <data name="Hull.anaconda" xml:space="preserve">
+    <value>Anaconda</value>
+  </data>
+  <data name="Hull.anacondamkii" xml:space="preserve">
+    <value>Anaconda Mk II</value>
+  </data>
+  <data name="Hull.asp" xml:space="preserve">
+    <value>Asp Explorer</value>
+  </data>
+  <data name="Hull.asp_scout" xml:space="preserve">
+    <value>Asp Scout</value>
+  </data>
+  <data name="Hull.belugaliner" xml:space="preserve">
+    <value>Beluga Liner</value>
+  </data>
+  <data name="Hull.cobramkiii" xml:space="preserve">
+    <value>Cobra Mk III</value>
+  </data>
+  <data name="Hull.cobramkiv" xml:space="preserve">
+    <value>Cobra Mk IV</value>
+  </data>
+  <data name="Hull.cobramkv" xml:space="preserve">
+    <value>Cobra Mk V</value>
+  </data>
+  <data name="Hull.corsair" xml:space="preserve">
+    <value>Corsair</value>
+  </data>
+  <data name="Hull.cutter" xml:space="preserve">
+    <value>Imperial Cutter</value>
+  </data>
+  <data name="Hull.diamondback" xml:space="preserve">
+    <value>Diamondback Scout</value>
+  </data>
+  <data name="Hull.diamondbackxl" xml:space="preserve">
+    <value>Diamondback Explorer</value>
+  </data>
+  <data name="Hull.dolphin" xml:space="preserve">
+    <value>Dolphin</value>
+  </data>
+  <data name="Hull.eagle" xml:space="preserve">
+    <value>Eagle</value>
+  </data>
+  <data name="Hull.empire_courier" xml:space="preserve">
+    <value>Imperial Courier</value>
+  </data>
+  <data name="Hull.empire_eagle" xml:space="preserve">
+    <value>Imperial Eagle</value>
+  </data>
+  <data name="Hull.empire_trader" xml:space="preserve">
+    <value>Imperial Clipper</value>
+  </data>
+  <data name="Hull.explorer_nx" xml:space="preserve">
+    <value>Caspian Explorer</value>
+  </data>
+  <data name="Hull.federation_corvette" xml:space="preserve">
+    <value>Federal Corvette</value>
+  </data>
+  <data name="Hull.federation_dropship" xml:space="preserve">
+    <value>Federal Dropship</value>
+  </data>
+  <data name="Hull.federation_dropship_mkii" xml:space="preserve">
+    <value>Federal Assault Ship</value>
+  </data>
+  <data name="Hull.federation_gunship" xml:space="preserve">
+    <value>Federal Gunship</value>
+  </data>
+  <data name="Hull.ferdelance" xml:space="preserve">
+    <value>Fer-de-Lance</value>
+  </data>
+  <data name="Hull.hauler" xml:space="preserve">
+    <value>Hauler</value>
+  </data>
+  <data name="Hull.independant_trader" xml:space="preserve">
+    <value>Keelback</value>
+  </data>
+  <data name="Hull.krait_light" xml:space="preserve">
+    <value>Krait Phantom</value>
+  </data>
+  <data name="Hull.krait_mkii" xml:space="preserve">
+    <value>Krait Mk II</value>
+  </data>
+  <data name="Hull.mamba" xml:space="preserve">
+    <value>Mamba</value>
+  </data>
+  <data name="Hull.mandalay" xml:space="preserve">
+    <value>Mandalay</value>
+  </data>
+  <data name="Hull.mediumtransport01" xml:space="preserve">
+    <value>Lynx Highliner</value>
+  </data>
+  <data name="Hull.orca" xml:space="preserve">
+    <value>Orca</value>
+  </data>
+  <data name="Hull.panthermkii" xml:space="preserve">
+    <value>Panther Clipper Mk II</value>
+  </data>
+  <data name="Hull.python" xml:space="preserve">
+    <value>Python</value>
+  </data>
+  <data name="Hull.python_nx" xml:space="preserve">
+    <value>Python Mk II</value>
+  </data>
+  <data name="Hull.sidewinder" xml:space="preserve">
+    <value>Sidewinder</value>
+  </data>
+  <data name="Hull.type6" xml:space="preserve">
+    <value>Type-6 Transporter</value>
+  </data>
+  <data name="Hull.type7" xml:space="preserve">
+    <value>Type-7 Transporter</value>
+  </data>
+  <data name="Hull.type8" xml:space="preserve">
+    <value>Type-8 Transporter</value>
+  </data>
+  <data name="Hull.type9" xml:space="preserve">
+    <value>Type-9 Heavy</value>
+  </data>
+  <data name="Hull.type9_military" xml:space="preserve">
+    <value>Type-10 Defender</value>
+  </data>
+  <data name="Hull.typex" xml:space="preserve">
+    <value>Alliance Chieftain</value>
+  </data>
+  <data name="Hull.typex_2" xml:space="preserve">
+    <value>Alliance Crusader</value>
+  </data>
+  <data name="Hull.typex_3" xml:space="preserve">
+    <value>Alliance Challenger</value>
+  </data>
+  <data name="Hull.viper" xml:space="preserve">
+    <value>Viper Mk III</value>
+  </data>
+  <data name="Hull.viper_mkiv" xml:space="preserve">
+    <value>Viper Mk IV</value>
+  </data>
+  <data name="Hull.vulture" xml:space="preserve">
+    <value>Vulture</value>
   </data>
   <data name="Material.AdaptiveEncryptors" xml:space="preserve">
     <value>Capture d'encrypteurs adaptatifs</value>
@@ -1771,6 +2008,75 @@
   <data name="Material.Zirconium" xml:space="preserve">
     <value>Zirconium</value>
   </data>
+  <data name="Module.Qualified" xml:space="preserve">
+    <value>{type} {qualifier}</value>
+  </data>
+  <data name="ModuleQualifier.advanced" xml:space="preserve">
+    <value>avancé</value>
+  </data>
+  <data name="ModuleQualifier.agile-boost" xml:space="preserve">
+    <value>Agile Boost</value>
+  </data>
+  <data name="ModuleQualifier.concord" xml:space="preserve">
+    <value>Concord</value>
+  </data>
+  <data name="ModuleQualifier.corrosion-resistant" xml:space="preserve">
+    <value>anticorrosion</value>
+  </data>
+  <data name="ModuleQualifier.enhanced" xml:space="preserve">
+    <value>amélioré</value>
+  </data>
+  <data name="ModuleQualifier.enhanced-performance" xml:space="preserve">
+    <value>haute performance</value>
+  </data>
+  <data name="ModuleQualifier.gravity-optimised" xml:space="preserve">
+    <value>optimisé gravité</value>
+  </data>
+  <data name="ModuleQualifier.guardian" xml:space="preserve">
+    <value>Guardian</value>
+  </data>
+  <data name="ModuleQualifier.horizons" xml:space="preserve">
+    <value>Horizons</value>
+  </data>
+  <data name="ModuleQualifier.hybrid" xml:space="preserve">
+    <value>hybride</value>
+  </data>
+  <data name="ModuleQualifier.large" xml:space="preserve">
+    <value>grand</value>
+  </data>
+  <data name="ModuleQualifier.mining" xml:space="preserve">
+    <value>de minage</value>
+  </data>
+  <data name="ModuleQualifier.mkii" xml:space="preserve">
+    <value>Mk II</value>
+  </data>
+  <data name="ModuleQualifier.odyssey" xml:space="preserve">
+    <value>Odyssey</value>
+  </data>
+  <data name="ModuleQualifier.operations" xml:space="preserve">
+    <value>d'opérations</value>
+  </data>
+  <data name="ModuleQualifier.pulse-wave" xml:space="preserve">
+    <value>à onde pulsée</value>
+  </data>
+  <data name="ModuleQualifier.rescue" xml:space="preserve">
+    <value>de sauvetage</value>
+  </data>
+  <data name="ModuleQualifier.sco" xml:space="preserve">
+    <value>SCO</value>
+  </data>
+  <data name="ModuleQualifier.shock" xml:space="preserve">
+    <value>à choc</value>
+  </data>
+  <data name="ModuleQualifier.standard" xml:space="preserve">
+    <value>standard</value>
+  </data>
+  <data name="ModuleQualifier.universal" xml:space="preserve">
+    <value>universel</value>
+  </data>
+  <data name="ModuleQualifier.xeno" xml:space="preserve">
+    <value>xéno</value>
+  </data>
   <data name="ModuleType.abl" xml:space="preserve">
     <value>Blaster d'abrasion</value>
   </data>
@@ -2058,6 +2364,63 @@
   </data>
   <data name="Mount.Turreted" xml:space="preserve">
     <value>Tourelle</value>
+  </data>
+  <data name="Passengers.Class.bulk" xml:space="preserve">
+    <value>groupe</value>
+  </data>
+  <data name="Passengers.Class.vip" xml:space="preserve">
+    <value>VIP</value>
+  </data>
+  <data name="Passengers.Outcome.delivered" xml:space="preserve">
+    <value>livrés</value>
+  </data>
+  <data name="Passengers.Outcome.ejected" xml:space="preserve">
+    <value>éjectés</value>
+  </data>
+  <data name="Passengers.Type.AidWorker" xml:space="preserve">
+    <value>Humanitaires</value>
+  </data>
+  <data name="Passengers.Type.Businessmen" xml:space="preserve">
+    <value>Hommes d'affaires</value>
+  </data>
+  <data name="Passengers.Type.Celebrities" xml:space="preserve">
+    <value>Célébrités</value>
+  </data>
+  <data name="Passengers.Type.Criminal" xml:space="preserve">
+    <value>Criminels</value>
+  </data>
+  <data name="Passengers.Type.Explorers" xml:space="preserve">
+    <value>Explorateurs</value>
+  </data>
+  <data name="Passengers.Type.FreedomFighters" xml:space="preserve">
+    <value>Combattants de la liberté</value>
+  </data>
+  <data name="Passengers.Type.Medical" xml:space="preserve">
+    <value>Personnel médical</value>
+  </data>
+  <data name="Passengers.Type.POW" xml:space="preserve">
+    <value>Prisonniers de guerre</value>
+  </data>
+  <data name="Passengers.Type.PoliticalPrisoner" xml:space="preserve">
+    <value>Prisonniers politiques</value>
+  </data>
+  <data name="Passengers.Type.Politicians" xml:space="preserve">
+    <value>Politiciens</value>
+  </data>
+  <data name="Passengers.Type.Protestors" xml:space="preserve">
+    <value>Manifestants</value>
+  </data>
+  <data name="Passengers.Type.Refugee" xml:space="preserve">
+    <value>Réfugiés</value>
+  </data>
+  <data name="Passengers.Type.ScienceTeams" xml:space="preserve">
+    <value>Équipes scientifiques</value>
+  </data>
+  <data name="Passengers.Type.SecurityForces" xml:space="preserve">
+    <value>Forces de sécurité</value>
+  </data>
+  <data name="Passengers.Type.Tourist" xml:space="preserve">
+    <value>Touristes</value>
   </data>
   <data name="PlanetClass.ammonia_world" xml:space="preserve">
     <value>Monde ammoniacal</value>

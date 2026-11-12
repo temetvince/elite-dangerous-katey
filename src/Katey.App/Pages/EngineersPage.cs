@@ -116,7 +116,7 @@ public sealed class EngineersPage : Page
                 new("place", Strings.Get(Keys.Column_Where), row => row.System),
                 new("region", Strings.Get(Keys.Column_Region), row => row.Region),
                 new("offers", Strings.Get(Keys.Column_Offers), row => row.OfferCount, DescendingFirst: true),
-                new("distance", Strings.Get(Keys.Column_Distance), row => row.DistanceLy),
+                new("distance", Strings.Get(Keys.Column_Distance), row => row.DistanceLy, AlignRight: true),
             ],
             "distance",
             workspace.Preferences,

@@ -484,7 +484,7 @@ public sealed class ShipPage : Page, IEdsyExportable
         var fitNames = Workspace.Fleet.Fittings.Where(fit => string.Equals(fit.Hull, ship.Type, StringComparison.OrdinalIgnoreCase)).Select(fit => fit.Name).ToList();
         bool IsPlanned(PlanEntry entry) => Workspace.Plan.Contains(entry) || fitNames.Any(name => Workspace.Plan.Contains(entry with { Source = entry.Source with { Ship = name } }));
         Title = title;
-        TypeName = ShipNames.Prefer(ship.Type, ship.TypeName);
+        TypeName = Names.Hull(ship.Type, ship.TypeName);
         IsCurrent = ship.IsCurrent;
         IsPrebuilt = ship.IsPrebuilt;
         Where = ship.InTransit

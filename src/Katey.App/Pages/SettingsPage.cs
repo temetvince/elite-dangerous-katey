@@ -5,7 +5,7 @@ using Katey.Journal;
 
 namespace Katey.App.Pages;
 
-/// <summary>The journal folder and the watch, the journal backup, the outgoing connection switches, the release check, and where Katey keeps its saved data.</summary>
+/// <summary>The journal folder and the watch, the journal backup, the outgoing connection switches, the release check, the text size, and where Katey keeps its saved data.</summary>
 public sealed class SettingsPage : Page
 {
     /// <summary>Creates the page.</summary>
@@ -15,27 +15,64 @@ public sealed class SettingsPage : Page
     {
         Title = Strings.Get(Keys.Nav_Settings);
         Kicker = Strings.Get(Keys.Settings_Kicker);
-        Folder = workspace.JournalFolder;
-        WatchCommand = new RelayCommand(Watch, () => Folder.Trim().Length > 0);
-        StopCommand = new RelayCommand(workspace.Monitor.Stop, () => IsWatching);
+        _folder = workspace.JournalFolder;
         DetectCommand = new RelayCommand(Detect);
         BackupNowCommand = new RelayCommand(() => workspace.Backup.BackUpNow(workspace.JournalFolder), () => workspace.Backup.IsConfigured && !workspace.Backup.IsBusy);
         CheckUpdatesCommand = new RelayCommand(workspace.Updates.Check, () => workspace.Network.AllowUpdateCheck && !workspace.Updates.IsBusy);
+        TextSizes = TextSize.Options();
+        SelectedTextSize = TextSizes.First(option => option.Scale == TextSize.Read(workspace.Preferences));
         Refresh();
     }
 
-    /// <summary>Gets or sets the journal folder to watch. Saved when the watch starts.</summary>
-    public string Folder
+    /// <summary>Gets the text sizes on offer, smallest first. Fixed for the page's life, so the picker never loses its selection to a rebuilt list.</summary>
+    public IReadOnlyList<TextSizeOption> TextSizes { get; }
+
+    /// <summary>Gets or sets the text size in force. Setting one of <see cref="TextSizes"/> remembers it and the windows redraw at once; <see langword="null"/>, which a picker writes while its list resets, is ignored.</summary>
+    public TextSizeOption? SelectedTextSize
     {
         get;
         set
         {
-            if (SetProperty(ref field, value ?? ""))
+            if (value is not null && SetProperty(ref field, value))
             {
-                WatchCommand?.RaiseCanExecuteChanged();
+                TextSize.Save(Workspace.Preferences, value.Scale);
             }
         }
-    } = "";
+    }
+
+    /// <summary>Gets what the text size changes, so the picker is an informed choice.</summary>
+    public static string TextSizeText => Strings.Get(Keys.Settings_TextSizeText);
+
+    private string _folder;
+
+    /// <summary>
+    /// Gets or sets the journal folder. The watch follows it: a new folder is saved and watched at once, its
+    /// history replayed; an empty one stops the watch. The same folder again changes nothing.
+    /// </summary>
+    public string Folder
+    {
+        get => _folder;
+        set
+        {
+            var folder = (value ?? "").Trim();
+            if (!SetProperty(ref _folder, folder))
+            {
+                return;
+            }
+
+            Workspace.JournalFolder = folder;
+            if (folder.Length == 0)
+            {
+                Workspace.Monitor.Stop();
+            }
+            else
+            {
+                Workspace.Monitor.Start(folder);
+            }
+
+            Refresh();
+        }
+    }
 
     /// <summary>Gets whether the monitor is reading the folder, catching up or following.</summary>
     public bool IsWatching => Workspace.Monitor.State is MonitorState.Watching or MonitorState.CatchingUp;
@@ -100,6 +137,15 @@ public sealed class SettingsPage : Page
     /// <summary>Gets whether the release check found a release newer than the one running.</summary>
     public bool IsUpdateAvailable { get; private set => SetProperty(ref field, value); }
 
+    /// <summary>Gets whether a check is running now.</summary>
+    public bool IsChecking { get; private set => SetProperty(ref field, value); }
+
+    /// <summary>Gets whether <see cref="UpdateStatus"/> names a newer release and is shown as a badge: the release is known and no check is running.</summary>
+    public bool ShowsUpdateBadge => IsUpdateAvailable && !IsChecking;
+
+    /// <summary>Gets whether <see cref="UpdateStatus"/> is shown as a plain line: anything it says other than a newer release, a running check included.</summary>
+    public bool ShowsUpdateNotice => UpdateStatus.Length > 0 && !ShowsUpdateBadge;
+
     /// <summary>Gets the page of the newer release, for the view to open in the browser, or <see langword="null"/> while none is known.</summary>
     public Uri? ReleasePage => IsUpdateAvailable ? Workspace.Updates.Latest?.Page : null;
 
@@ -122,6 +168,9 @@ public sealed class SettingsPage : Page
         var updates = Workspace.Updates;
         UpdateStatus = updates.Status;
         IsUpdateAvailable = updates.IsUpdateAvailable;
+        IsChecking = updates.IsBusy;
+        OnPropertyChanged(nameof(ShowsUpdateBadge));
+        OnPropertyChanged(nameof(ShowsUpdateNotice));
         OnPropertyChanged(nameof(ReleasePage));
         CheckUpdatesCommand?.RaiseCanExecuteChanged();
     }
@@ -190,13 +239,7 @@ public sealed class SettingsPage : Page
     /// <summary>Gets what the saved data folder holds and what choosing another does, so the folder is an informed choice.</summary>
     public static string DataText => Strings.Get(Keys.Settings_DataText);
 
-    /// <summary>Gets the command that starts watching <see cref="Folder"/>.</summary>
-    public RelayCommand WatchCommand { get; }
-
-    /// <summary>Gets the command that stops watching.</summary>
-    public RelayCommand StopCommand { get; }
-
-    /// <summary>Gets the command that replaces <see cref="Folder"/> with the detected default, when one exists.</summary>
+    /// <summary>Gets the command that replaces <see cref="Folder"/> with the detected default, when one exists, which starts the watch on it.</summary>
     public RelayCommand DetectCommand { get; }
 
     /// <inheritdoc/>
@@ -208,7 +251,6 @@ public sealed class SettingsPage : Page
         OnPropertyChanged(nameof(BackupOnClose));
         BackupStatus = Workspace.Backup.Status;
         BackupNowCommand.RaiseCanExecuteChanged();
-        StopCommand.RaiseCanExecuteChanged();
         OnPropertyChanged(nameof(DataFolder));
         var progress = Workspace.Monitor.Progress;
         var inventory = Workspace.Inventory;
@@ -224,19 +266,6 @@ public sealed class SettingsPage : Page
         InventoryText = inventory.HasSnapshot
             ? Strings.Format(Keys.Settings_InventoryOf, ("commander", inventory.Commander), ("when", inventory.AsOf?.ToLocalTime()))
             : "";
-    }
-
-    private void Watch()
-    {
-        var folder = Folder.Trim();
-        if (folder.Length == 0)
-        {
-            return;
-        }
-
-        Workspace.JournalFolder = folder;
-        Workspace.Monitor.Start(folder);
-        Refresh();
     }
 
     private void Detect()

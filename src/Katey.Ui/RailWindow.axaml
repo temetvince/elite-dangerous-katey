@@ -12,6 +12,8 @@
         WindowDecorations="BorderOnly"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaTitleBarHeightHint="36">
+  <!-- The text size setting scales everything inside this control; the window's minimum and default size follow it from the code-behind. -->
+  <LayoutTransformControl Name="Zoom">
   <Grid RowDefinitions="Auto,*">
     <!-- The drag strip stands in for the title bar; closing docks the rail again. With click-through on, nothing here can be pressed, so the close button hides. -->
     <Border Classes="rail" PointerPressed="StripPressed" Height="36" Padding="14,0,4,0" BorderBrush="{StaticResource RailLine}" BorderThickness="0,0,0,1">
@@ -28,4 +30,5 @@
     </Border>
     <ui:RailView Grid.Row="1" />
   </Grid>
+  </LayoutTransformControl>
 </Window>

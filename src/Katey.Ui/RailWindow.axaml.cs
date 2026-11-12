@@ -27,6 +27,8 @@ public sealed partial class RailWindow : Window
     private const int DefaultWidth = 380;
     private const int DefaultHeight = 720;
     private const int DefaultMargin = 24;
+    private const double BaseMinWidth = 300;
+    private const double BaseMinHeight = 400;
 
     private readonly DispatcherTimer _boundsTimer = new() { Interval = TimeSpan.FromMilliseconds(400) };
     private bool _closingForAttach;
@@ -48,6 +50,7 @@ public sealed partial class RailWindow : Window
             // a remembered size set before it was applied.
             ApplyOverlay();
             ApplyClickThrough();
+            ApplyTextScale();
             PlaceFromMemory();
             _opened = true;
         };
@@ -76,6 +79,24 @@ public sealed partial class RailWindow : Window
     }
 
     private RailViewModel? Rail => DataContext as RailViewModel;
+
+    /// <summary>Gets or sets the factor the content is drawn at, from the text size setting; 1 is the design size. The minimum and default sizes follow it. The main window sets it.</summary>
+    public double TextScale
+    {
+        get;
+        set
+        {
+            field = value;
+            ApplyTextScale();
+        }
+    } = 1;
+
+    private void ApplyTextScale()
+    {
+        Zoom.LayoutTransform = TextScale == 1 ? null : new ScaleTransform(TextScale, TextScale);
+        MinWidth = BaseMinWidth * TextScale;
+        MinHeight = BaseMinHeight * TextScale;
+    }
 
     /// <summary>Closes the window because the rail is being docked again, without changing the view model.</summary>
     public void CloseForAttach()
@@ -125,13 +146,13 @@ public sealed partial class RailWindow : Window
     /// <summary>Puts the window at its default size in the top right of the primary screen's working area.</summary>
     private void PlaceAtDefault()
     {
-        Width = DefaultWidth;
-        Height = DefaultHeight;
+        Width = DefaultWidth * TextScale;
+        Height = DefaultHeight * TextScale;
         if (Screens.Primary is { } screen)
         {
             var area = screen.WorkingArea;
             var scale = screen.Scaling;
-            var x = area.Right - (int)Math.Round(DefaultWidth * scale) - DefaultMargin;
+            var x = area.Right - (int)Math.Round(Width * scale) - DefaultMargin;
             var y = area.Y + DefaultMargin;
             Position = new PixelPoint(Math.Max(area.X, x), y);
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Frozen;
+﻿using System.Collections.Concurrent;
+using System.Collections.Frozen;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
@@ -50,20 +51,29 @@ public sealed record GenusLikelihood(string Genus, double Probability, GenusPred
 /// the geometric mean of its frequency in each of those dimensions on the body in question, weighted by
 /// how often the variant has been seen at all; scores are normalised within the genus and candidates
 /// under one percent are dropped. A dimension the body lacks data for is skipped. Values are Vista
-/// Genomics' base payouts; the first-discovery bonus is not included.
+/// Genomics' base payouts; the first-discovery bonus is not included. The predictor is immutable and
+/// thread-safe, and memoises every lookup by its <see cref="BodyConditions"/>, since a page rebuilds the
+/// same bodies on every refresh; the memo is bounded and emptied when it fills.
 /// </remarks>
 public sealed partial class ExobiologyPredictor
 {
     private const double StandardPressurePa = 101325.0;
     private const double MinimumShare = 0.01;
 
+    private const int MemoLimit = 4096;
+
     private readonly FrozenDictionary<string, IReadOnlyList<Variant>> _byGenus;
+    private readonly FrozenDictionary<string, int> _genusCounts;
     private readonly FrozenDictionary<string, string> _speciesNames;
     private readonly FrozenDictionary<string, long> _speciesRewards;
+    private readonly ConcurrentDictionary<BodyConditions, IReadOnlyList<string>> _possible = new();
+    private readonly ConcurrentDictionary<BodyConditions, IReadOnlyList<GenusLikelihood>> _likely = new();
+    private readonly ConcurrentDictionary<(string Genus, BodyConditions Body), GenusPrediction> _predictions = new();
 
     private ExobiologyPredictor(FrozenDictionary<string, IReadOnlyList<Variant>> byGenus, FrozenDictionary<string, string> speciesNames, FrozenDictionary<string, long> speciesRewards)
     {
         _byGenus = byGenus;
+        _genusCounts = byGenus.ToFrozenDictionary(pair => pair.Key, pair => pair.Value.Sum(variant => variant.Count), byGenus.Comparer);
         _speciesNames = speciesNames;
         _speciesRewards = speciesRewards;
     }
@@ -120,14 +130,17 @@ public sealed partial class ExobiologyPredictor
     {
         ArgumentNullException.ThrowIfNull(genus);
         ArgumentNullException.ThrowIfNull(body);
+        return Remember(_predictions, (Genus: genus, Body: body), key => PredictNow(key.Genus, Conditions.Of(key.Body)));
+    }
 
+    private GenusPrediction PredictNow(string genus, Conditions body)
+    {
         if (!_byGenus.TryGetValue(genus, out var variants))
         {
             return new GenusPrediction(genus, []);
         }
 
-        var totalCount = variants.Sum(variant => variant.Count);
-
+        var totalCount = _genusCounts[genus];
         var scored = new Dictionary<string, (double Score, long Reward, string Name)>(StringComparer.Ordinal);
         foreach (var variant in variants)
         {
@@ -169,22 +182,18 @@ public sealed partial class ExobiologyPredictor
     {
         ArgumentNullException.ThrowIfNull(genus);
         ArgumentNullException.ThrowIfNull(body);
-        if (!_byGenus.TryGetValue(genus, out var variants))
-        {
-            return false;
-        }
+        return CanLiveNow(genus, Conditions.Of(body));
+    }
 
-        var atmosphere = Canonical.Atmosphere(body.Atmosphere);
-        var bodyType = Canonical.BodyType(body.PlanetClass);
-        var volcanism = Canonical.Volcanism(body.PlanetClass, body.Volcanism);
-        var pressureAtm = body.PressurePa is { } pa ? pa / StandardPressurePa : (double?)null;
-        return variants.Any(variant =>
-            Seen(variant.Atmospheres, atmosphere)
-            && Seen(variant.Bodies, bodyType)
-            && Seen(variant.Volcanism, volcanism)
+    private bool CanLiveNow(string genus, Conditions body)
+    {
+        return _byGenus.TryGetValue(genus, out var variants) && variants.Any(variant =>
+            Seen(variant.Atmospheres, body.Atmosphere)
+            && Seen(variant.Bodies, body.BodyType)
+            && Seen(variant.Volcanism, body.Volcanism)
             && Within(variant.Gravity, body.GravityG)
             && Within(variant.Temperature, body.TemperatureK)
-            && (pressureAtm is not { } pressure || Within(variant.Pressure, pressure)));
+            && (body.PressureAtm is not { } pressure || Within(variant.Pressure, pressure)));
     }
 
     /// <summary>The genera that have been found under a body's conditions, by <see cref="CanLive"/>.</summary>
@@ -193,7 +202,11 @@ public sealed partial class ExobiologyPredictor
     public IReadOnlyList<string> PossibleGenera(BodyConditions body)
     {
         ArgumentNullException.ThrowIfNull(body);
-        return [.. Genera.Where(genus => CanLive(genus, body))];
+        return Remember(_possible, body, key =>
+        {
+            var conditions = Conditions.Of(key);
+            return [.. Genera.Where(genus => CanLiveNow(genus, conditions))];
+        });
     }
 
     /// <summary>
@@ -207,8 +220,14 @@ public sealed partial class ExobiologyPredictor
     public IReadOnlyList<GenusLikelihood> LikelyGenera(BodyConditions body)
     {
         ArgumentNullException.ThrowIfNull(body);
+        return Remember(_likely, body, LikelyGeneraNow);
+    }
+
+    private IReadOnlyList<GenusLikelihood> LikelyGeneraNow(BodyConditions body)
+    {
+        var conditions = Conditions.Of(body);
         var weighed = PossibleGenera(body)
-            .Select(genus => (Genus: genus, Weight: _byGenus[genus].Sum(variant => Fit(variant, body) * variant.Count), Prediction: Predict(genus, body)))
+            .Select(genus => (Genus: genus, Weight: _byGenus[genus].Sum(variant => Fit(variant, conditions) * variant.Count), Prediction: Predict(genus, body)))
             .Where(entry => entry.Weight > 0 && entry.Prediction.Candidates.Count > 0)
             .ToList();
         var total = weighed.Sum(entry => entry.Weight);
@@ -217,23 +236,39 @@ public sealed partial class ExobiologyPredictor
             : [.. weighed.Select(entry => new GenusLikelihood(entry.Genus, entry.Weight / total, entry.Prediction)).OrderByDescending(likelihood => likelihood.Probability)];
     }
 
-    /// <summary>How well a variant fits a body: the geometric mean of its frequency in each dimension the body has data for.</summary>
-    private static double Fit(Variant variant, BodyConditions body)
+    /// <summary>A memoised lookup: the cached answer, or the computed one, with the memo emptied first when it is full.</summary>
+    private static TValue Remember<TKey, TValue>(ConcurrentDictionary<TKey, TValue> memo, TKey key, Func<TKey, TValue> compute)
+        where TKey : notnull
     {
-        var factors = new List<double>
+        if (memo.TryGetValue(key, out var known))
         {
-            Share(variant.Atmospheres, Canonical.Atmosphere(body.Atmosphere)),
-            Share(variant.Bodies, Canonical.BodyType(body.PlanetClass)),
-            Share(variant.Volcanism, Canonical.Volcanism(body.PlanetClass, body.Volcanism)),
-            BinShare(variant.Gravity, body.GravityG),
-            BinShare(variant.Temperature, body.TemperatureK),
-        };
-        if (body.PressurePa is { } pa)
-        {
-            factors.Add(BinShare(variant.Pressure, pa / StandardPressurePa));
+            return known;
         }
 
-        return Math.Exp(factors.Sum(Math.Log) / factors.Count);
+        if (memo.Count >= MemoLimit)
+        {
+            memo.Clear();
+        }
+
+        return memo.GetOrAdd(key, compute);
+    }
+
+    /// <summary>How well a variant fits a body: the geometric mean of its frequency in each dimension the body has data for.</summary>
+    private static double Fit(Variant variant, Conditions body)
+    {
+        var logs = Math.Log(Share(variant.Atmospheres, variant.AtmosphereTotal, body.Atmosphere))
+            + Math.Log(Share(variant.Bodies, variant.BodyTotal, body.BodyType))
+            + Math.Log(Share(variant.Volcanism, variant.VolcanismTotal, body.Volcanism))
+            + Math.Log(BinShare(variant.Gravity, variant.GravityTotal, body.GravityG))
+            + Math.Log(BinShare(variant.Temperature, variant.TemperatureTotal, body.TemperatureK));
+        var factors = 5;
+        if (body.PressureAtm is { } pressure)
+        {
+            logs += Math.Log(BinShare(variant.Pressure, variant.PressureTotal, pressure));
+            factors++;
+        }
+
+        return Math.Exp(logs / factors);
     }
 
     /// <summary>Whether a category has been recorded at all. A histogram with nothing in it constrains nothing.</summary>
@@ -245,15 +280,14 @@ public sealed partial class ExobiologyPredictor
         => bins.Count == 0 || bins.Any(bin => bin.Count > 0 && value >= bin.Min && value <= bin.Max);
 
     /// <summary>Frequency of a category, smoothed so an unseen category is unlikely rather than impossible.</summary>
-    private static double Share(IReadOnlyDictionary<string, int> histogram, string key)
-    {
-        var total = histogram.Values.Sum();
-        return total == 0 ? 1 : histogram.TryGetValue(key, out var count) && count > 0 ? (double)count / total : 0.5 / (total + 1);
-    }
+    /// <param name="histogram">The category counts.</param>
+    /// <param name="total">The sum of the counts, kept on the variant.</param>
+    /// <param name="key">The body's category.</param>
+    private static double Share(IReadOnlyDictionary<string, int> histogram, int total, string key)
+        => total == 0 ? 1 : histogram.TryGetValue(key, out var count) && count > 0 ? (double)count / total : 0.5 / (total + 1);
 
-    private static double BinShare(IReadOnlyList<Bin> bins, double value)
+    private static double BinShare(IReadOnlyList<Bin> bins, int total, double value)
     {
-        var total = bins.Sum(bin => bin.Count);
         if (total == 0)
         {
             return 1;
@@ -264,6 +298,18 @@ public sealed partial class ExobiologyPredictor
     }
 
     private sealed record Bin(double Min, double Max, int Count);
+
+    /// <summary>A body's conditions in the table's own keys, computed once per lookup rather than once per variant.</summary>
+    private readonly record struct Conditions(string Atmosphere, string BodyType, string Volcanism, double GravityG, double TemperatureK, double? PressureAtm)
+    {
+        public static Conditions Of(BodyConditions body) => new(
+            Canonical.Atmosphere(body.Atmosphere),
+            Canonical.BodyType(body.PlanetClass),
+            Canonical.Volcanism(body.PlanetClass, body.Volcanism),
+            body.GravityG,
+            body.TemperatureK,
+            body.PressurePa is { } pa ? pa / StandardPressurePa : null);
+    }
 
     private sealed record Variant(
         string Symbol,
@@ -279,6 +325,18 @@ public sealed partial class ExobiologyPredictor
         IReadOnlyList<Bin> Temperature,
         IReadOnlyList<Bin> Pressure)
     {
+        public int AtmosphereTotal { get; } = Atmospheres.Values.Sum();
+
+        public int BodyTotal { get; } = Bodies.Values.Sum();
+
+        public int VolcanismTotal { get; } = Volcanism.Values.Sum();
+
+        public int GravityTotal { get; } = Gravity.Sum(bin => bin.Count);
+
+        public int TemperatureTotal { get; } = Temperature.Sum(bin => bin.Count);
+
+        public int PressureTotal { get; } = Pressure.Sum(bin => bin.Count);
+
         public static Variant Read(string symbol, JsonElement element)
         {
             return new Variant(

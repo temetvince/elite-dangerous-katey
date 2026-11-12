@@ -302,7 +302,9 @@
     <Setter Property="StrokeThickness" Value="1" />
     <Setter Property="VerticalAlignment" Value="Center" />
   </Style>
-  <!-- A thin bar under a figure: have against need, or fuel against the tank. -->
+  <!-- A thin bar under a figure: have against need, or fuel against the tank. Its template is the track and the
+       indicator alone; the theme's template carries an indeterminate animation and costs five times as much to
+       build, which a table with a meter on every row cannot afford. -->
   <Style Selector="ProgressBar.meter">
     <Setter Property="MinHeight" Value="4" />
     <Setter Property="Height" Value="4" />
@@ -311,6 +313,16 @@
     <Setter Property="Foreground" Value="{DynamicResource KAccent}" />
     <Setter Property="Minimum" Value="0" />
     <Setter Property="Maximum" Value="1" />
+  </Style>
+  <!-- The catch-up bar keeps the theme's template: it animates while the file count is still unknown, which the slim one cannot. -->
+  <Style Selector="ProgressBar.meter:not(.catchup)">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}">
+          <Border Name="PART_Indicator" Background="{TemplateBinding Foreground}" CornerRadius="{TemplateBinding CornerRadius}" HorizontalAlignment="Left" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
   </Style>
   <Style Selector="ProgressBar.meter.good">
     <Setter Property="Foreground" Value="{DynamicResource KGood}" />
@@ -513,6 +525,10 @@
     <Setter Property="Padding" Value="0,2" />
     <Setter Property="CornerRadius" Value="0" />
     <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+  </Style>
+  <Style Selector="Button.col.right">
+    <Setter Property="HorizontalContentAlignment" Value="Right" />
   </Style>
   <Style Selector="Button.col:pointerover /template/ ContentPresenter#PART_ContentPresenter">
     <Setter Property="Background" Value="Transparent" />
@@ -578,8 +594,51 @@
     <Setter Property="MinHeight" Value="36" />
     <Setter Property="FontSize" Value="14" />
   </Style>
+  <!-- A one-line box with a slim template: a border, the placeholder and the text, no scroll viewer and no buttons.
+       A table with a box on every row cannot afford the full template; this one costs a fifth of it to build. -->
+  <Style Selector="TextBox.slim">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}" Padding="{TemplateBinding Padding}">
+          <Panel>
+            <TextBlock Text="{TemplateBinding PlaceholderText}" Foreground="{DynamicResource KMuted}" TextAlignment="{TemplateBinding TextAlignment}" VerticalAlignment="Center" IsVisible="{TemplateBinding Text, Converter={x:Static StringConverters.IsNullOrEmpty}}" />
+            <TextPresenter Name="PART_TextPresenter" Text="{TemplateBinding Text, Mode=TwoWay}" CaretIndex="{TemplateBinding CaretIndex}" SelectionStart="{TemplateBinding SelectionStart}" SelectionEnd="{TemplateBinding SelectionEnd}" TextAlignment="{TemplateBinding TextAlignment}" TextWrapping="NoWrap" SelectionBrush="{TemplateBinding SelectionBrush}" SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}" CaretBrush="{TemplateBinding CaretBrush}" VerticalAlignment="Center" />
+          </Panel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="TextBox.slim:focus /template/ Border#PART_Border">
+    <Setter Property="BorderBrush" Value="{DynamicResource KAccent}" />
+  </Style>
   <Style Selector="CheckBox">
     <Setter Property="Foreground" Value="{DynamicResource KInk}" />
+  </Style>
+  <!-- A bare tick box for a table row: the box, the tick and the content, none of the theme's state layers. -->
+  <Style Selector="CheckBox.slim">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid ColumnDefinitions="Auto,*" Background="Transparent">
+          <Border Name="PART_Box" Width="18" Height="18" CornerRadius="4" BorderThickness="1" BorderBrush="{DynamicResource KLine}" Background="{DynamicResource KSurface2}" VerticalAlignment="Center">
+            <Path Name="PART_Tick" Data="M4,9 L7.5,12.5 L14,5" Stroke="{DynamicResource KAccentInk}" StrokeThickness="2" IsVisible="False" />
+          </Border>
+          <ContentPresenter Grid.Column="1" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="8,0,0,0" VerticalAlignment="Center" IsVisible="{TemplateBinding Content, Converter={x:Static ObjectConverters.IsNotNull}}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="CheckBox.slim:checked /template/ Border#PART_Box">
+    <Setter Property="Background" Value="{DynamicResource KAccent}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource KAccent}" />
+  </Style>
+  <Style Selector="CheckBox.slim:checked /template/ Path#PART_Tick">
+    <Setter Property="IsVisible" Value="True" />
+  </Style>
+  <Style Selector="CheckBox.slim:pointerover /template/ Border#PART_Box">
+    <Setter Property="BorderBrush" Value="{DynamicResource KAccent}" />
+  </Style>
+  <Style Selector="CheckBox.slim:disabled">
+    <Setter Property="Opacity" Value="0.45" />
   </Style>
   <Style Selector="ToggleSwitch">
     <Setter Property="Foreground" Value="{DynamicResource KInk}" />

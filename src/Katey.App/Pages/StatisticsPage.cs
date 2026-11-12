@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Text.RegularExpressions;
 using Katey.App.Mvvm;
 using Katey.App.Navigation;
 using Katey.App.Text;
@@ -156,7 +157,7 @@ public sealed class ActivityToggle : ObservableObject
 /// game reports.
 /// </summary>
 /// <remarks>The lifetime figures are the game's own and do not follow the period.</remarks>
-public sealed class StatisticsPage : Page
+public sealed partial class StatisticsPage : Page
 {
     private const string HiddenKey = "stats.hidden";
     private const string ZerosKey = "stats.zeros";
@@ -205,10 +206,10 @@ public sealed class StatisticsPage : Page
         PartnerSort = new TableSort<PartnerRow>(
             [
                 new("name", Strings.Get(Keys.Column_Commander), row => row.Name),
-                new("sessions", Strings.Get(Keys.Column_Sessions), row => row.Sessions, DescendingFirst: true),
-                new("together", Strings.Get(Keys.Column_TimeTogether), row => row.Together, DescendingFirst: true),
-                new("shared", Strings.Get(Keys.Column_Shared), row => row.Shared, DescendingFirst: true),
-                new("seen", Strings.Get(Keys.Column_LastFlown), row => row.LastSeen, DescendingFirst: true),
+                new("sessions", Strings.Get(Keys.Column_Sessions), row => row.Sessions, DescendingFirst: true, AlignRight: true),
+                new("together", Strings.Get(Keys.Column_TimeTogether), row => row.Together, DescendingFirst: true, AlignRight: true),
+                new("shared", Strings.Get(Keys.Column_Shared), row => row.Shared, DescendingFirst: true, AlignRight: true),
+                new("seen", Strings.Get(Keys.Column_LastFlown), row => row.LastSeen, DescendingFirst: true, AlignRight: true),
             ],
             "shared",
             workspace.Preferences,
@@ -218,7 +219,7 @@ public sealed class StatisticsPage : Page
             [
                 new("mission", Strings.Get(Keys.Column_Mission), row => row.Name),
                 new("faction", Strings.Get(Keys.Column_Faction), row => row.Faction),
-                new("reward", Strings.Get(Keys.Column_Reward), row => row.Reward, DescendingFirst: true),
+                new("reward", Strings.Get(Keys.Column_Reward), row => row.Reward, DescendingFirst: true, AlignRight: true),
                 new("accepted", Strings.Get(Keys.Column_Accepted), row => row.AcceptedAt, DescendingFirst: true),
                 new("status", Strings.Get(Keys.Column_Status), row => row.Outcome),
             ],
@@ -229,10 +230,10 @@ public sealed class StatisticsPage : Page
         SpeciesSort = new TableSort<SpeciesRow>(
             [
                 new("species", Strings.Get(Keys.Column_Species), row => row.Species),
-                new("samples", Strings.Get(Keys.Column_Samples), row => row.Samples, DescendingFirst: true),
-                new("total", Strings.Get(Keys.Column_WithBonus), row => row.Total, DescendingFirst: true),
-                new("base", Strings.Get(Keys.Column_WithoutBonus), row => row.Total - row.Bonus, DescendingFirst: true),
-                new("bonus", Strings.Get(Keys.Column_Bonus), row => row.Bonus, DescendingFirst: true),
+                new("samples", Strings.Get(Keys.Column_Samples), row => row.Samples, DescendingFirst: true, AlignRight: true),
+                new("total", Strings.Get(Keys.Column_WithBonus), row => row.Total, DescendingFirst: true, AlignRight: true),
+                new("base", Strings.Get(Keys.Column_WithoutBonus), row => row.Total - row.Bonus, DescendingFirst: true, AlignRight: true),
+                new("bonus", Strings.Get(Keys.Column_Bonus), row => row.Bonus, DescendingFirst: true, AlignRight: true),
             ],
             "total",
             workspace.Preferences,
@@ -367,16 +368,49 @@ public sealed class StatisticsPage : Page
     /// <summary>Gets when the game last wrote its figures, or why there are none.</summary>
     public string LifetimeNote { get; private set => SetProperty(ref field, value); } = "";
 
-    /// <summary>A lifetime figure's key as a label: <c>Bounty_Hunting_Profit</c> reads "Bounty hunting profit".</summary>
+    /// <summary>The words the game runs together in a key, each with its spaced form.</summary>
+    private static readonly (string Joined, string Spaced)[] JoinedWords =
+    [
+        ("FLEETCARRIER", "Fleet_carrier"), ("TRADEPROFIT", "trade_profit"), ("TRADESPEND", "trade_spend"),
+        ("STOLENPROFIT", "stolen_profit"), ("STOLENSPEND", "stolen_spend"), ("TG_", "Thargoid_"),
+    ];
+
+    /// <summary>
+    /// A lifetime figure's key as a label: <c>Bounty_Hunting_Profit</c> reads "Bounty hunting profit", a
+    /// carrier key's run-together words are spaced, and a passenger figure counted by type, class and outcome
+    /// reads "Security forces passengers (bulk) delivered".
+    /// </summary>
     /// <param name="key">The journal key.</param>
     /// <returns>The label.</returns>
     public static string LabelOf(string key)
     {
         ArgumentNullException.ThrowIfNull(key);
-        var words = key.Replace("TG_", "Thargoid_", StringComparison.Ordinal).Split('_', StringSplitOptions.RemoveEmptyEntries);
-        var text = string.Join(' ', words.Select(word => word.Length <= 3 && word.All(char.IsUpper) ? word : word.ToLowerInvariant()));
-        return text.Length == 0 ? key : char.ToUpperInvariant(text[0]) + text[1..];
+        if (PassengerFigurePattern().Match(key) is { Success: true } passengers)
+        {
+            var type = CamelPattern().Replace(passengers.Groups[1].Value, " $1").ToLowerInvariant();
+            var passengerClass = passengers.Groups[2].Value.Equals("vip", StringComparison.OrdinalIgnoreCase) ? "VIP" : passengers.Groups[2].Value.ToLowerInvariant();
+            var text = $"{type} passengers ({passengerClass}) {passengers.Groups[3].Value.ToLowerInvariant()}";
+            return char.ToUpperInvariant(text[0]) + text[1..];
+        }
+
+        var spaced = key;
+        foreach (var (joined, replacement) in JoinedWords)
+        {
+            spaced = spaced.Replace(joined, replacement, StringComparison.Ordinal);
+        }
+
+        var words = spaced.Split('_', StringSplitOptions.RemoveEmptyEntries);
+        var label = string.Join(' ', words.Select(word => word.Length <= 3 && word.All(char.IsUpper) ? word : word.ToLowerInvariant()));
+        return label.Length == 0 ? key : char.ToUpperInvariant(label[0]) + label[1..];
     }
+
+    /// <summary>The shape of a passenger figure's key: the type, then the class, then the outcome.</summary>
+    [GeneratedRegex("^Passengers_Missions_([A-Za-z]+)_(bulk|vip)_(delivered|ejected)$", RegexOptions.CultureInvariant)]
+    private static partial Regex PassengerFigurePattern();
+
+    /// <summary>A capital that starts a word inside a run-together name, such as the F of <c>SecurityForces</c>.</summary>
+    [GeneratedRegex("(?<=[a-z])([A-Z])", RegexOptions.CultureInvariant)]
+    private static partial Regex CamelPattern();
 
     /// <summary>A lifetime figure as text, by what its key says it measures.</summary>
     /// <param name="key">The journal key.</param>
@@ -402,6 +436,8 @@ public sealed class StatisticsPage : Page
 
         var credits = key.Contains("Profit", StringComparison.OrdinalIgnoreCase)
             || key.Contains("Spent", StringComparison.OrdinalIgnoreCase)
+            || key.Contains("Spend", StringComparison.OrdinalIgnoreCase)
+            || key.Contains("Credits", StringComparison.OrdinalIgnoreCase)
             || key.Contains("Wealth", StringComparison.OrdinalIgnoreCase)
             || key.Contains("Highest", StringComparison.OrdinalIgnoreCase)
             || key.Contains("Payout", StringComparison.OrdinalIgnoreCase)

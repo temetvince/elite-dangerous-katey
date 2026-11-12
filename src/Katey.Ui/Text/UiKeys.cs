@@ -492,14 +492,11 @@ public static class UiKeys
     /// <summary><c>Settings.SavedDataPlaceholder</c>.</summary>
     public const string Settings_SavedDataPlaceholder = "Settings.SavedDataPlaceholder";
 
-    /// <summary><c>Settings.Stop</c>.</summary>
-    public const string Settings_Stop = "Settings.Stop";
+    /// <summary><c>Settings.TextSize</c>.</summary>
+    public const string Settings_TextSize = "Settings.TextSize";
 
     /// <summary><c>Settings.Updates</c>.</summary>
     public const string Settings_Updates = "Settings.Updates";
-
-    /// <summary><c>Settings.Watch</c>.</summary>
-    public const string Settings_Watch = "Settings.Watch";
 
     /// <summary><c>Ship.FittedModules</c>.</summary>
     public const string Ship_FittedModules = "Ship.FittedModules";

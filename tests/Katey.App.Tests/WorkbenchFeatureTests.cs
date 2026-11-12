@@ -5,6 +5,7 @@ using Katey.App.Network;
 using Katey.App.Pages;
 using Katey.App.Persistence;
 using Katey.App.Rail;
+using Katey.App.Text;
 using Katey.App.ViewModels;
 using Katey.Core;
 using Katey.Core.Exploration;
@@ -917,17 +918,47 @@ public sealed class WorkbenchFeatureTests
     }
 
     [Fact]
+    public void TextSize_IsAPercentageOfTheDesignSize_RememberedAndAppliedToTheShell()
+    {
+        var (shell, _, store) = Create();
+        Assert.Equal(1, shell.TextScale);
+        var settings = Open<SettingsPage>(shell, PageKind.Settings);
+        Assert.Equal(["100%", "115%", "130%", "150%", "175%", "200%"], settings.TextSizes.Select(option => option.Label));
+        Assert.Equal(1, settings.SelectedTextSize!.Scale);
+
+        settings.SelectedTextSize = settings.TextSizes.Single(option => option.Scale == 1.5);
+        Assert.Equal(1.5, shell.TextScale);
+        Assert.Equal("1.5", store.State.Preferences!["app.textScale"]);
+        Assert.Equal(1.5, settings.SelectedTextSize!.Scale);
+        Assert.True(PreferenceKeys.IsCurrent(TextSize.PreferenceKey));
+
+        // A reopened page starts on the saved size, and a picker handing back an equal option from another list changes nothing.
+        settings = Open<SettingsPage>(shell, PageKind.Settings);
+        Assert.Equal(1.5, settings.SelectedTextSize!.Scale);
+        settings.SelectedTextSize = TextSize.Options().Single(option => option.Scale == 1.5);
+        Assert.Equal(1.5, shell.TextScale);
+
+        // The design size forgets the key, and a saved size the picker no longer offers reads as the design size.
+        settings.SelectedTextSize = settings.TextSizes[0];
+        Assert.Equal(1, shell.TextScale);
+        Assert.False(store.State.Preferences!.ContainsKey("app.textScale"));
+        Assert.Equal(1, TextSize.Read(new UiPreferences(new Dictionary<string, string> { ["app.textScale"] = "9" })));
+    }
+
+    [Fact]
     public void TableSort_RemembersEachColumnsDirection_AcrossColumnsAndRestarts()
     {
         var preferences = new UiPreferences(null);
         var columns = new List<SortColumn<int>>
         {
-            new("value", "Value", row => row, DescendingFirst: true),
+            new("value", "Value", row => row, DescendingFirst: true, AlignRight: true),
             new("name", "Name", row => row),
         };
         var sort = new TableSort<int>(columns, "name", preferences, "sort.test");
         Assert.Equal("name", sort.ActiveKey);
         Assert.False(sort.Descending);
+        Assert.True(sort["value"].AlignsRight);
+        Assert.False(sort["name"].AlignsRight);
 
         // Flip name to descending, go to value, come back: name is still descending.
         sort.SortBy("name");
@@ -1119,6 +1150,7 @@ public sealed class WorkbenchFeatureTests
         Assert.Equal(0, releases.Requests);
         Assert.Equal("Katey does not look for newer releases until you tick that switch under Outgoing connections.", settings.UpdateStatus);
         Assert.False(settings.IsUpdateAvailable);
+        Assert.True(settings.ShowsUpdateNotice);
         Assert.Null(settings.ReleasePage);
         Assert.False(settings.CheckUpdatesCommand.CanExecute(null));
         Assert.StartsWith("You are running Katey ", SettingsPage.VersionText, StringComparison.Ordinal);
@@ -1131,12 +1163,24 @@ public sealed class WorkbenchFeatureTests
         settings = Open<SettingsPage>(shell, PageKind.Settings);
         Assert.Equal("Katey 1.4.0 is available.", settings.UpdateStatus);
         Assert.True(settings.IsUpdateAvailable);
+        Assert.True(settings.ShowsUpdateBadge);
+        Assert.False(settings.ShowsUpdateNotice);
         Assert.Equal(releases.Latest.Page, settings.ReleasePage);
         Assert.True(settings.CheckUpdatesCommand.CanExecute(null));
 
-        // Check now asks again; toggling the switch does not.
+        // Check now asks again; while the answer is pending the badge gives way to a plain line. Toggling the switch does not ask.
+        releases.Hold = new TaskCompletionSource<Release>();
         settings.CheckUpdatesCommand.Execute(null);
         Assert.Equal(2, releases.Requests);
+        Assert.True(settings.IsChecking);
+        Assert.False(settings.ShowsUpdateBadge);
+        Assert.True(settings.ShowsUpdateNotice);
+        Assert.Equal("Asking GitHub for the latest release…", settings.UpdateStatus);
+        releases.Hold.SetResult(releases.Latest);
+        releases.Hold = null;
+        // The answer lands on the thread that completed the task, so wait for it to be dispatched.
+        Assert.True(SpinWait.SpinUntil(() => !settings.IsChecking, TimeSpan.FromSeconds(5)));
+        Assert.True(settings.ShowsUpdateBadge);
         settings.AllowUpdateCheck = false;
         settings.AllowUpdateCheck = true;
         Assert.Equal(2, releases.Requests);
@@ -1490,6 +1534,12 @@ public sealed class WorkbenchFeatureTests
         stats.ShowZeroFigures = false;
         Assert.Equal("Bounty hunting profit", StatisticsPage.LabelOf("Bounty_Hunting_Profit"));
         Assert.Equal("Thargoid encounter wakes", StatisticsPage.LabelOf("TG_ENCOUNTER_WAKES"));
+        Assert.Equal("Fleet carrier trade profit total", StatisticsPage.LabelOf("FLEETCARRIER_TRADEPROFIT_TOTAL"));
+        Assert.Equal("Fleet carrier", StatisticsPage.LabelOf("FLEETCARRIER"));
+        Assert.Equal("Security forces passengers (bulk) delivered", StatisticsPage.LabelOf("Passengers_Missions_SecurityForces_bulk_delivered"));
+        Assert.Equal("Tourist passengers (VIP) ejected", StatisticsPage.LabelOf("Passengers_Missions_Tourist_vip_ejected"));
+        Assert.Equal("1,500 Cr", StatisticsPage.FormatFigure("FLEETCARRIER_TRADESPEND_TOTAL", 1500));
+        Assert.Equal("12", StatisticsPage.FormatFigure("FLEETCARRIER_EXPORT_TOTAL", 12));
 
         stats.SelectedPeriod = stats.Periods.Single(choice => choice.Key == "365");
         Assert.Equal("365", store.State.Preferences!["stats.period"]);

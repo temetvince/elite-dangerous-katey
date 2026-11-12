@@ -52,7 +52,7 @@ public sealed class MaterialPage : Page
         SpendSort = new TableSort<MaterialSpendRow>(
             [
                 new("entry", Strings.Get(Keys.Column_Entry), row => row.Title),
-                new("needed", Strings.Get(Keys.Column_Needs), row => row.Needed, DescendingFirst: true),
+                new("needed", Strings.Get(Keys.Column_Needs), row => row.Needed, DescendingFirst: true, AlignRight: true),
             ],
             "entry",
             workspace.Preferences,

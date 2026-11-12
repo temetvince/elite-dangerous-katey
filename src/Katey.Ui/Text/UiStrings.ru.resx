@@ -419,7 +419,7 @@
     <value>Вернуть</value>
   </data>
   <data name="Rail.ClickThrough" xml:space="preserve">
-    <value>Сквозные клики</value>
+    <value>Пропускать клики</value>
   </data>
   <data name="Rail.DetachedHeading" xml:space="preserve">
     <value>Katey сейчас</value>
@@ -455,7 +455,7 @@
     <value>заправка</value>
   </data>
   <data name="Rail.SkipBacteria" xml:space="preserve">
-    <value>Без бактерий</value>
+    <value>Пропускать одни бактерии</value>
   </data>
   <data name="Rail.SpanshPlot" xml:space="preserve">
     <value>Маршрут Spansh</value>
@@ -524,7 +524,7 @@
     <value>Найти</value>
   </data>
   <data name="Settings.Intro" xml:space="preserve">
-    <value>Katey читает файлы журнала игры и следит за новейшим, пока вы играете. Ничего никуда не отправляется, пока вы не включите планировщик Spansh ниже.</value>
+    <value>Katey читает файлы журнала игры и следит за новейшим, пока вы играете. Ничего никуда не отправляется, пока вы не включите что-нибудь в разделе «Исходящие соединения».</value>
   </data>
   <data name="Settings.JournalBackup" xml:space="preserve">
     <value>Резервная копия журналов</value>
@@ -544,14 +544,11 @@
   <data name="Settings.SavedDataPlaceholder" xml:space="preserve">
     <value>Папка, где Katey хранит сохранённые данные, например синхронизируемая OneDrive</value>
   </data>
-  <data name="Settings.Stop" xml:space="preserve">
-    <value>Стоп</value>
+  <data name="Settings.TextSize" xml:space="preserve">
+    <value>Размер текста</value>
   </data>
   <data name="Settings.Updates" xml:space="preserve">
     <value>Обновления</value>
-  </data>
-  <data name="Settings.Watch" xml:space="preserve">
-    <value>Следить</value>
   </data>
   <data name="Ship.FittedModules" xml:space="preserve">
     <value>Установленные модули</value>

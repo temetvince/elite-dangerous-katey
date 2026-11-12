@@ -777,7 +777,7 @@ Desactivado: se ofrece todo y los grados empiezan en el máximo. El plan sigue a
     <value>aún no se ha visto ninguna nave</value>
   </data>
   <data name="Home.NotWatching" xml:space="preserve">
-    <value>No se está siguiendo el diario. Inícialo en Ajustes.</value>
+    <value>No se sigue el diario. Elige su carpeta en Ajustes.</value>
   </data>
   <data name="Home.PlanCovered" xml:space="preserve">
     <value>{entries} planificadas y todos los materiales cubiertos.</value>
@@ -1806,7 +1806,7 @@ Desactivado: se ofrece todo y los grados empiezan en el máximo. El plan sigue a
     <value>Tienes</value>
   </data>
   <data name="Settings.BackupText" xml:space="preserve">
-    <value>Copia todos los archivos de la carpeta de diarios, incluidos los archivos en vivo, a la carpeta que elijas, y solo lo nuevo o modificado. Apúntala a una carpeta que sincronice tu nube y los diarios saldrán de la máquina.</value>
+    <value>Copia todos los archivos de la carpeta de diarios, incluidos los archivos en vivo, a la carpeta que elijas, y solo lo nuevo o modificado. Considera elegir una carpeta que sincronice tu nube.</value>
   </data>
   <data name="Settings.CatchingUp" xml:space="preserve">
     <value>Leyendo el historial del diario: {done} de {total} archivos.</value>
@@ -1836,7 +1836,10 @@ Desactivado: se ofrece todo y los grados empiezan en el máximo. El plan sigue a
     <value>Nada sale de esta máquina salvo que lo marques aquí. Un trazado de ruta envía a Spansh los dos nombres de sistema y las cifras de salto de la nave: masas, tamaño del depósito y las cifras del motor. Una consulta de sistema envía a Spansh el identificador del sistema al que has llegado y trae los cuerpos que conoce allí. Una comprobación de versión pide a GitHub la última versión publicada del proyecto y no envía nada más que la propia petición. Cada petición indica Katey, su versión y la dirección del proyecto.</value>
   </data>
   <data name="Settings.NotWatching" xml:space="preserve">
-    <value>Sin seguimiento. Pulsa Seguir para leer el diario.</value>
+    <value>Sin seguimiento. Elige arriba la carpeta de diarios para empezar a leerla.</value>
+  </data>
+  <data name="Settings.TextSizeText" xml:space="preserve">
+    <value>Un texto más grande hace que las ventanas dibujen todo más grande, espacios incluidos, en el idioma que esté en uso. Si una página ya no cabe, separe el panel o ensanche la ventana.</value>
   </data>
   <data name="Settings.UpdateText" xml:space="preserve">
     <value>Una comprobación pide a GitHub la última versión publicada del proyecto y compara su número con este. No se descarga ni se instala nada: la página de la versión se abre en tu navegador, donde está la nueva compilación.</value>
@@ -2392,6 +2395,9 @@ Desactivado: se ofrece todo y los grados empiezan en el máximo. El plan sigue a
   </data>
   <data name="System.YouLandedOn" xml:space="preserve">
     <value>has aterrizado en {bodies}</value>
+  </data>
+  <data name="TextSize.Percent" xml:space="preserve">
+    <value>{percent} %</value>
   </data>
   <data name="Totals.AllHeld.one" xml:space="preserve">
     <value>Totales para {count} entrada. Ya tienes todo.</value>

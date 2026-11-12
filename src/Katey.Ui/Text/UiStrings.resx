@@ -587,7 +587,7 @@
     <comment>Rail: badge on a route stop where the ship refuels. Lower case, one word.</comment>
   </data>
   <data name="Rail.SkipBacteria" xml:space="preserve">
-    <value>Skip bacteria</value>
+    <value>Skip bacteria only</value>
     <comment>Rail: biology filter choice.</comment>
   </data>
   <data name="Rail.SpanshPlot" xml:space="preserve">
@@ -679,7 +679,7 @@
     <comment>Settings page: button that looks for the journal folder. One word.</comment>
   </data>
   <data name="Settings.Intro" xml:space="preserve">
-    <value>Katey reads the game's journal files and follows the newest one while you play. Nothing is sent anywhere unless you turn the Spansh plotter on below.</value>
+    <value>Katey reads the game's journal files and follows the newest one while you play. Nothing is sent anywhere unless you turn something on in the Outgoing connections section.</value>
     <comment>Settings page: the introduction.</comment>
   </data>
   <data name="Settings.JournalBackup" xml:space="preserve">
@@ -706,17 +706,13 @@
     <value>The folder Katey keeps its saved data in, such as one OneDrive syncs</value>
     <comment>Settings page: placeholder of the saved data folder box.</comment>
   </data>
-  <data name="Settings.Stop" xml:space="preserve">
-    <value>Stop</value>
-    <comment>Settings page: button that stops following the journal. One word.</comment>
+  <data name="Settings.TextSize" xml:space="preserve">
+    <value>Text size</value>
+    <comment>Settings page: heading of the text size panel.</comment>
   </data>
   <data name="Settings.Updates" xml:space="preserve">
     <value>Updates</value>
     <comment>Settings page: heading over the version line and the release check, in capitals.</comment>
-  </data>
-  <data name="Settings.Watch" xml:space="preserve">
-    <value>Watch</value>
-    <comment>Settings page: button that starts following the journal. One word.</comment>
   </data>
   <data name="Ship.FittedModules" xml:space="preserve">
     <value>Fitted modules</value>

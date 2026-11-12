@@ -546,7 +546,7 @@ public sealed class RailViewModel : ObservableObject
         var ship = fleet.Ships.FirstOrDefault(ship => ship.IsCurrent);
         if (ship is not null)
         {
-            var hull = Core.Fleet.ShipNames.Prefer(ship.Type, ship.TypeName);
+            var hull = Names.Hull(ship.Type, ship.TypeName);
             parts.Add(ship.Name.Length > 0 ? ship.Name : hull);
             if (ship.Name.Length > 0)
             {

@@ -455,7 +455,7 @@
     <value>ravitaillement</value>
   </data>
   <data name="Rail.SkipBacteria" xml:space="preserve">
-    <value>Ignorer les bactéries</value>
+    <value>Ignorer bactéries seules</value>
   </data>
   <data name="Rail.SpanshPlot" xml:space="preserve">
     <value>Tracé Spansh</value>
@@ -524,7 +524,7 @@
     <value>Détecter</value>
   </data>
   <data name="Settings.Intro" xml:space="preserve">
-    <value>Katey lit les fichiers journaux du jeu et suit le plus récent pendant que vous jouez. Rien n'est envoyé nulle part tant que vous n'activez pas le traceur Spansh ci-dessous.</value>
+    <value>Katey lit les fichiers journaux du jeu et suit le plus récent pendant que vous jouez. Rien n'est envoyé nulle part tant que vous n'activez rien dans la section Connexions sortantes.</value>
   </data>
   <data name="Settings.JournalBackup" xml:space="preserve">
     <value>Sauvegarde des journaux</value>
@@ -544,14 +544,11 @@
   <data name="Settings.SavedDataPlaceholder" xml:space="preserve">
     <value>Le dossier où Katey garde ses données enregistrées, par exemple un dossier synchronisé par OneDrive</value>
   </data>
-  <data name="Settings.Stop" xml:space="preserve">
-    <value>Arrêter</value>
+  <data name="Settings.TextSize" xml:space="preserve">
+    <value>Taille du texte</value>
   </data>
   <data name="Settings.Updates" xml:space="preserve">
     <value>Mises à jour</value>
-  </data>
-  <data name="Settings.Watch" xml:space="preserve">
-    <value>Suivre</value>
   </data>
   <data name="Ship.FittedModules" xml:space="preserve">
     <value>Modules installés</value>

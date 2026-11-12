@@ -258,6 +258,9 @@ fixing the code over adding more.
     class, atmosphere or volcanism word, or lifetime figure lands in all five `CatalogNames.<culture>.resx`;
   - a change to `MANUAL.md` is made in the five `MANUAL.<culture>.md` in the same change, with the same
     structure and the UI's own words from the string tables;
+  - `MANUAL.ru.md` was reviewed and approved by a native translator in November 2026. A change to it
+    carries only what the English change requires and keeps the translator's phrasing, the em dash and ё.
+    Rewording a passage the change does not touch undoes that review;
   - English is the source of truth. `Strings.resx`, `UiStrings.resx`, `MANUAL.md` and the READMEs are written
     first and the translations follow them; where a translation and the English disagree, the English is right
     and the translation is corrected to it.
@@ -357,7 +360,9 @@ fixing the code over adding more.
   - Tables sort through `TableSort<T>`, long pages switch sections through `SectionSwitch`, collapsible
     groups open through `GroupExpansion`, and all three remember themselves through `UiPreferences`,
     which is saved with the state. A new table gets a sort with a preference key; a new multi-section
-    page gets a switch; a new grouped page gets an expansion.
+    page gets a switch; a new grouped page gets an expansion. A column whose cells are right-aligned
+    figures is declared `AlignRight: true`, so its heading sits over them; a plain `TextBlock.col`
+    heading over such a column carries `TextAlignment="Right"` itself.
   - The saved data file can be moved: `Katey/location.txt` beside the default `state.json` holds the
     path of a moved file, and `JsonFileStateStore.Configured` reads it on start. Moving saves to the old
     place first, then loads a file already in the new folder or writes the current data there.
@@ -402,14 +407,24 @@ fixing the code over adding more.
     the data's own word, so `Names` falls back to the catalog, the journal or `LabelOf` and never shows a
     key. A translation must hold every key `CatalogNameKeys.All` lists. A module's name in a translated
     language is composed from its type's name, class, rating and mount; in English it is the module
-    catalog's. Core and Journal stay language-agnostic: a reason or a kind leaves them as an enum
+    catalog's. A variant of a type is one of two things in `ModuleSymbolNames`: a qualified one, whose
+    qualifier words (`mkii`, `guardian`, `sco`) are translated and placed by the language's template, or a
+    named one such as the Retributor, which keeps its name. A new variant the game adds goes into one of
+    those two lists, else it reads as its plain type. A hull is named through `Names.Hull`, never
+    `ShipNames` from a page: the table's name comes before the journal's own localised name, so a hull
+    reads in Katey's language, not the game client's. A lifetime figure the game spells as a pattern, such
+    as a passenger count by type, class and outcome, is composed through a template and its word keys
+    rather than listed key by key. Core and
+    Journal stay language-agnostic: a reason or a kind leaves them as an enum
     (`ShortfallReason`, `EdsyParseError`, `StarFamily`) and the application words it.
   - `tests/Katey.App.Tests` pins the UI culture to English and the formatting culture to invariant in a
     module initializer, which is why its sentence asserts hold on any machine. Numbers and dates in
     templates use `CultureInfo.CurrentCulture`; keys, ids, URLs and preference values stay invariant.
   - `ExobiologyPredictor` canonicalises the journal's and Bioforge's spellings of atmospheres, body types
     and volcanism to one key before comparing; a new category name that slips past that shows up as a
-    uniformly low score, not an error.
+    uniformly low score, not an error. It canonicalises a body once per lookup and memoises every answer by
+    its `BodyConditions`, because the system page rebuilds every body on every refresh; keep its hot path
+    free of per-variant string work.
   - `.editorconfig` is the template's, unchanged in substance: every analyzer reports at warning, and
     `TreatWarningsAsErrors` turns each into a build failure locally. `Directory.Build.props` sets it only when
     nothing else has, and the release workflow sets it to false in its environment, so the runner's SDK, which
@@ -422,12 +437,21 @@ fixing the code over adding more.
     rather than correct it: folding blocks into expressions, null checks into `?.` and `??`, lambdas into
     method groups, and IDE0130, whose fix crashes the formatter. Both shapes of a member are allowed; the
     author chooses, the formatter leaves it.
+  - A control that a table repeats on every row takes a slim template: `TextBox.slim`, `CheckBox.slim` and
+    the meter's own, all in `Workbench.axaml`. The theme's templates cost about a second to build for the
+    materials page's 146 rows and the slim ones half that; a new per-row control gets a slim template too.
+    Nothing in a page is virtualized, since every page scrolls as one, so a row's cost is paid in full.
   - Katey has no tooltips. Avalonia's tooltip is a popup window of its own, and on Windows that window takes
     the click meant for the control under it, however the tip is placed. A hint goes in visible text: a
     muted line under the control, a status line, or the manual. `ToolTip.Tip` does not appear in the XAML.
   - The main window's minimum width is the pages' minimum, 960, plus the docked rail's 340 while the rail
     is docked; `MainWindow` applies it when the rail docks or pops out. Fit a narrower screen by popping
-    the rail out, not by shrinking the pages.
+    the rail out, not by shrinking the pages. Both windows draw their content inside a
+    `LayoutTransformControl` that the text size setting scales, and every minimum and default size is
+    multiplied by that scale, but never past the screen's working area: beyond that the window stops at the
+    screen's edge and the workbench scrolls sideways, its content held at the pages' design width by
+    `FitWorkbench`. Popups, flyouts and drop-downs included, draw outside the transform at the design size.
+    A size in markup is a design-size figure; never multiply it by the scale by hand.
   - The main window has two bars: the top one carries the wordmark, back and forward, the page links and
     the caption buttons and is the drag strip; the bottom one carries the language picker, the settings
     link, the Stats link, the search box and the plan button, with the search results rising above the

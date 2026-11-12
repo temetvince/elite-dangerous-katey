@@ -100,10 +100,13 @@
     </DataTemplate>
   </Window.DataTemplates>
 
+  <!-- The text size setting scales everything inside this control, text and spacing alike; the window's minimum size follows it from the code-behind. -->
+  <LayoutTransformControl Name="Zoom">
   <Grid RowDefinitions="Auto,*,Auto">
 
     <!-- ===================== Top bar ===================== -->
-    <Border Grid.Row="0" Classes="topbar" PointerPressed="TopBarPressed" Background="{DynamicResource KSurface}" BorderBrush="{DynamicResource KLine}" BorderThickness="0,0,0,1" Padding="16,0,8,0" Height="52">
+    <Border Grid.Row="0" Classes="topbar" PointerPressed="TopBarPressed" Background="{DynamicResource KSurface}" BorderBrush="{DynamicResource KLine}" BorderThickness="0,0,0,1" Padding="16,0,8,0" MinHeight="52">
+      <!-- A minimum, not a height: when the page links wrap to a second row, in a long language or at a large text size, the bar grows to show it. -->
       <Grid ColumnDefinitions="Auto,Auto,*,Auto" VerticalAlignment="Center">
         <Button Classes="link wordmark" Content="KATEY" Command="{Binding HomeLink.OpenCommand}" Margin="0,0,18,0" />
         <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center" Margin="0,0,18,0">
@@ -162,8 +165,10 @@
           </Border>
 
           <!-- Workbench -->
-          <ScrollViewer Grid.Row="1" Name="WorkbenchScroll" HorizontalScrollBarVisibility="Disabled">
-            <StackPanel>
+          <!-- The pages fill the viewport, but never shrink below their design width: when a large text size leaves the viewport
+               narrower than that, the code-behind holds the content at the design width and the workbench scrolls sideways. -->
+          <ScrollViewer Grid.Row="1" Name="WorkbenchScroll" HorizontalScrollBarVisibility="Auto">
+            <StackPanel Name="WorkbenchContent">
             <Border Background="{DynamicResource KAccentSoft}" Padding="28,10" IsVisible="{Binding IsCatchingUp}">
               <StackPanel Spacing="8">
                 <TextBlock Classes="body" Text="{Binding CatchUpText}" TextWrapping="Wrap" />
@@ -266,7 +271,7 @@
                                 <DataTemplate>
                                   <Border Classes="row">
                                     <Grid ColumnDefinitions="52,2*,*,90,100,110" ColumnSpacing="10">
-                                      <CheckBox IsChecked="{Binding Selected, Mode=TwoWay}" VerticalAlignment="Center" />
+                                      <CheckBox Classes="slim" IsChecked="{Binding Selected, Mode=TwoWay}" VerticalAlignment="Center" />
                                       <Button Grid.Column="1" Classes="link strong" Classes.quiet="{Binding !Highlighted}" Classes.hud="{Binding Highlighted}" Classes.dim="{Binding Dimmed}" Content="{Binding Link.Label}" Command="{Binding Link.OpenCommand}" />
                                       <ContentControl Grid.Column="2" Content="{Binding Where}" VerticalAlignment="Center" />
                                       <TextBlock Grid.Column="3" Classes="muted" Text="{Binding Region}" VerticalAlignment="Center" />
@@ -307,7 +312,7 @@
                                   <TextBlock Classes="faint" Text="{Binding Group}" VerticalAlignment="Center" />
                                 </StackPanel>
                                 <Border Classes="thead">
-                                  <Grid ColumnDefinitions="*,90,110" ColumnSpacing="12">
+                                  <Grid ColumnDefinitions="*,90,150" ColumnSpacing="12">
                                     <TextBlock Classes="col" Text="{loc:T Column.Blueprint, Upper=True}" />
                                     <TextBlock Grid.Column="1" Classes="col" Text="{loc:T Column.Grade, Upper=True}" />
                                   </Grid>
@@ -316,7 +321,7 @@
                                   <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                       <Border Classes="row">
-                                        <Grid ColumnDefinitions="*,90,110" ColumnSpacing="12">
+                                        <Grid ColumnDefinitions="*,90,150" ColumnSpacing="12">
                                           <TextBlock Classes="body" Text="{Binding Blueprint}" VerticalAlignment="Center" />
                                           <Border Grid.Column="1" Classes="grade" Classes.reach="{Binding ReachesTop}" HorizontalAlignment="Left"><TextBlock Text="{Binding GradeText}" /></Border>
                                           <Button Grid.Column="2" Classes="add" Content="{loc:T Common.AddToPlan}" Command="{Binding AddCommand}" />
@@ -431,7 +436,7 @@
                         </ItemsControl>
                         <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding ScopeNote}" IsVisible="{Binding !!ScopeNote.Length}" Margin="0,0,0,6" />
                         <Border Classes="thead">
-                          <Grid ColumnDefinitions="*,90,80,110" ColumnSpacing="12">
+                          <Grid ColumnDefinitions="*,90,80,150" ColumnSpacing="12">
                             <ui:SortHeaderView DataContext="{Binding BlueprintSort[name]}" />
                             <ui:SortHeaderView Grid.Column="1" DataContext="{Binding BlueprintSort[reach]}" />
                             <TextBlock Grid.Column="2" Classes="col" Text="{loc:T Column.Grade, Upper=True}" />
@@ -441,7 +446,7 @@
                           <ItemsControl.ItemTemplate>
                             <DataTemplate>
                               <Border Classes="row">
-                                <Grid ColumnDefinitions="*,90,80,110" ColumnSpacing="12">
+                                <Grid ColumnDefinitions="*,90,80,150" ColumnSpacing="12">
                                   <StackPanel>
                                     <Button Classes="link strong" Content="{Binding Name}" Command="{Binding Link.OpenCommand}" />
                                     <ItemsControl ItemsSource="{Binding Engineers}">
@@ -571,7 +576,7 @@
                       </StackPanel>
                     </Border>
                     <Border Classes="thead" Padding="16,0,16,6">
-                      <Grid ColumnDefinitions="60,2*,2*,70" ColumnSpacing="14">
+                      <Grid ColumnDefinitions="60,2*,2*,100" ColumnSpacing="14">
                         <TextBlock Classes="col" Text="{loc:T Column.Grade, Upper=True}" />
                         <TextBlock Grid.Column="1" Classes="col" Text="{loc:T Column.OneRollCosts, Upper=True}" />
                         <TextBlock Grid.Column="2" Classes="col" Text="{loc:T Column.OfferedBy, Upper=True}" />
@@ -582,7 +587,7 @@
                       <ItemsControl.ItemTemplate>
                         <DataTemplate>
                           <Border Classes="panel" Margin="0,0,0,10">
-                            <Grid ColumnDefinitions="60,2*,2*,70" ColumnSpacing="14">
+                            <Grid ColumnDefinitions="60,2*,2*,100" ColumnSpacing="14">
                               <TextBlock Classes="h3 mono" Text="{Binding Label}" Foreground="{Binding Grade, Converter={StaticResource SemanticBrush}, ConverterParameter=KG}" />
                               <Button Grid.Column="3" Classes="small" Content="{loc:T Common.Add}" Command="{Binding AddCommand}" VerticalAlignment="Top" />
                               <StackPanel Grid.Column="1">
@@ -663,8 +668,8 @@
                                         <TextBlock Grid.Column="3" Classes="mono" Text="{Binding HaveText}" TextAlignment="Right" VerticalAlignment="Center" />
                                         <TextBlock Grid.Column="4" Classes="mono" Text="{Binding NeededText}" TextAlignment="Right" VerticalAlignment="Center" />
                                         <TextBlock Grid.Column="5" Classes="mono bad" Text="{Binding ShortText}" TextAlignment="Right" VerticalAlignment="Center" FontWeight="SemiBold" />
-                                        <TextBox Grid.Column="7" Classes="mono" Text="{Binding KeepText, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" PlaceholderText="0" MinHeight="28" Padding="6,3" TextAlignment="Right" VerticalAlignment="Center" />
-                                        <CheckBox Grid.Column="8" IsChecked="{Binding MayTrade, Mode=TwoWay}" VerticalAlignment="Center" />
+                                        <TextBox Grid.Column="7" Classes="mono slim" Text="{Binding KeepText, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" PlaceholderText="0" MinHeight="28" Padding="6,3" TextAlignment="Right" VerticalAlignment="Center" />
+                                        <CheckBox Grid.Column="8" Classes="slim" IsChecked="{Binding MayTrade, Mode=TwoWay}" VerticalAlignment="Center" />
                                       </Grid>
                                     </Border>
                                   </DataTemplate>
@@ -726,7 +731,7 @@
                             <DataTemplate>
                               <Border Classes="row" Classes.dim="{Binding IsDim}">
                                 <Grid ColumnDefinitions="40,2*,3*,130" ColumnSpacing="12">
-                                  <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" IsEnabled="{Binding CanSelect}" VerticalAlignment="Top" />
+                                  <CheckBox Classes="slim" IsChecked="{Binding IsSelected, Mode=TwoWay}" IsEnabled="{Binding CanSelect}" VerticalAlignment="Top" />
                                   <StackPanel Grid.Column="1" Spacing="2">
                                     <TextBlock Classes="strong" Text="{Binding Name}" />
                                     <Button Classes="link" Content="{Binding TypeLink.Label}" Command="{Binding TypeLink.OpenCommand}" IsVisible="{Binding HasType}" FontSize="12" />
@@ -961,7 +966,7 @@
                       <StackPanel Spacing="6">
                         <TextBlock Classes="muted" Text="{loc:T Fleet.NoFits}" IsVisible="{Binding !HasFits}" />
                         <Border Classes="thead" IsVisible="{Binding HasFits}">
-                          <Grid ColumnDefinitions="2*,*,2*,80" ColumnSpacing="12">
+                          <Grid ColumnDefinitions="2*,*,2*,100" ColumnSpacing="12">
                             <ui:SortHeaderView DataContext="{Binding FitSort[name]}" />
                             <ui:SortHeaderView Grid.Column="1" DataContext="{Binding FitSort[hull]}" />
                             <ui:SortHeaderView Grid.Column="2" DataContext="{Binding FitSort[missing]}" />
@@ -971,7 +976,7 @@
                           <ItemsControl.ItemTemplate>
                             <DataTemplate>
                               <Border Classes="row">
-                                <Grid ColumnDefinitions="2*,*,2*,80" ColumnSpacing="12">
+                                <Grid ColumnDefinitions="2*,*,2*,100" ColumnSpacing="12">
                                   <StackPanel Orientation="Horizontal" Spacing="8">
                                     <Button Classes="link strong quiet" Content="{Binding Link.Label}" Command="{Binding Link.OpenCommand}" />
                                     <Border Classes="badge" Classes.good="{Binding AllOwned}" Classes.warn="{Binding IsWarn}" Classes.bad="{Binding IsBad}"><TextBlock Text="{Binding Verdict}" /></Border>
@@ -1297,7 +1302,6 @@
                               <WrapPanel ItemSpacing="10" LineSpacing="4">
                                 <TextBlock Classes="h3" Text="{Binding Name}" VerticalAlignment="Center" />
                                 <Border Classes="badge accent" IsVisible="{Binding IsStar}"><TextBlock Text="{loc:T System.Star}" /></Border>
-                                <Border Classes="badge" IsVisible="{Binding IsEarlierVisit}"><TextBlock Text="{Binding EarlierVisit}" /></Border>
                                 <Border Classes="badge burn" IsVisible="{Binding FromCatalogue}"><TextBlock Text="{loc:T System.FromSpansh}" /></Border>
                                 <Border Classes="badge good" IsVisible="{Binding IsScoopable}"><TextBlock Text="{loc:T System.Scoopable}" /></Border>
                                 <Border Classes="badge warn" IsVisible="{Binding IsUnscoopableStar}"><TextBlock Text="{loc:T System.NotScoopable}" /></Border>
@@ -1319,7 +1323,8 @@
                               <TextBlock Classes="muted" Text="{Binding Volcanism}" IsVisible="{Binding !!Volcanism.Length}" />
                               <StackPanel Orientation="Horizontal" Spacing="10">
                                 <TextBlock Classes="muted" Text="{Binding StatusDetail}" IsVisible="{Binding !!StatusDetail.Length}" />
-                                <TextBlock Classes="mono muted" Text="{Binding ScanValue}" />
+                                <TextBlock Classes="mono muted" Text="{Binding ScanValue}" IsVisible="{Binding !!ScanValue.Length}" />
+                                <Border Classes="badge" IsVisible="{Binding IsEarlierVisit}" VerticalAlignment="Center"><TextBlock Text="{Binding EarlierVisit}" /></Border>
                               </StackPanel>
                               <TextBlock Classes="body" Text="{Binding Signals}" IsVisible="{Binding !!Signals.Length}" />
                               <!-- The species and value columns share their widths across the card's rows, so the figures sit just past the longest species text rather than at the card's far edge. -->
@@ -1418,7 +1423,7 @@
                             <ui:SortHeaderView Grid.Column="4" DataContext="{Binding Sort[visited]}" />
                             <ui:SortHeaderView Grid.Column="5" DataContext="{Binding Sort[jump]}" />
                             <ui:SortHeaderView Grid.Column="6" DataContext="{Binding Sort[travelled]}" />
-                            <TextBlock Grid.Column="7" Classes="col" Text="{loc:T Column.Fuel, Upper=True}" />
+                            <TextBlock Grid.Column="7" Classes="col" Text="{loc:T Column.Fuel, Upper=True}" TextAlignment="Right" />
                           </Grid>
                         </Border>
                         <ItemsControl ItemsSource="{Binding Stops}">
@@ -1523,7 +1528,7 @@
                       <Border Classes="panel" IsVisible="{Binding HasPlot}" Padding="16,6,16,4">
                         <StackPanel>
                           <Border Classes="thead">
-                            <Grid ColumnDefinitions="84,44,2*,90,100,80,*,60" ColumnSpacing="10">
+                            <Grid ColumnDefinitions="84,44,2*,90,100,80,*,80" ColumnSpacing="10">
                               <ui:SortHeaderView DataContext="{Binding PlotSort[stage]}" />
                               <ui:SortHeaderView Grid.Column="1" DataContext="{Binding PlotSort[index]}" />
                               <ui:SortHeaderView Grid.Column="2" DataContext="{Binding PlotSort[system]}" />
@@ -1537,7 +1542,7 @@
                             <ItemsControl.ItemTemplate>
                               <DataTemplate>
                                 <Border Classes="row">
-                                  <Grid ColumnDefinitions="84,44,2*,90,100,80,*,60" ColumnSpacing="10">
+                                  <Grid ColumnDefinitions="84,44,2*,90,100,80,*,80" ColumnSpacing="10">
                                     <TextBlock Classes="accent" Text="{Binding StageText}" VerticalAlignment="Center" />
                                     <TextBlock Grid.Column="1" Classes="mono muted" Text="{Binding Index}" VerticalAlignment="Center" />
                                     <StackPanel Grid.Column="2" VerticalAlignment="Center">
@@ -1600,7 +1605,7 @@
                             <ItemsControl.ItemTemplate>
                               <DataTemplate>
                                 <Grid ColumnDefinitions="Auto,16,*,130,70,120" ColumnSpacing="8" Margin="0,2">
-                                  <CheckBox IsChecked="{Binding IsShown, Mode=TwoWay}" VerticalAlignment="Center" />
+                                  <CheckBox Classes="slim" IsChecked="{Binding IsShown, Mode=TwoWay}" VerticalAlignment="Center" />
                                   <Border Grid.Column="1" Width="12" Height="12" CornerRadius="3" Background="{Binding Color, Converter={StaticResource BrushFromHex}}" VerticalAlignment="Center" />
                                   <TextBlock Grid.Column="2" Classes="strong" Text="{Binding Label}" VerticalAlignment="Center" />
                                   <TextBlock Grid.Column="3" Classes="mono" Text="{Binding AmountText}" TextAlignment="Right" VerticalAlignment="Center" />
@@ -1766,13 +1771,33 @@
                     </StackPanel>
                     <Border Classes="panel">
                       <StackPanel Spacing="8">
+                        <TextBlock Classes="col" Text="{loc:T Settings.Updates, Upper=True}" />
+                        <!-- A newer release is the one verdict here, so it gets the accent badge beside the version; every other outcome is a plain line below. -->
+                        <Grid ColumnDefinitions="Auto,10,*,8,Auto,8,Auto">
+                          <TextBlock Grid.Column="0" Classes="body" Text="{Binding VersionText}" VerticalAlignment="Center" />
+                          <Border Grid.Column="2" Classes="badge accent" HorizontalAlignment="Left" IsVisible="{Binding ShowsUpdateBadge}"><TextBlock Text="{Binding UpdateStatus}" /></Border>
+                          <Button Grid.Column="4" Content="{loc:T Settings.CheckNow}" Command="{Binding CheckUpdatesCommand}" />
+                          <Button Grid.Column="6" Classes="primary" Content="{loc:T Settings.OpenRelease}" Click="OpenReleasePage" IsVisible="{Binding IsUpdateAvailable}" />
+                        </Grid>
+                        <TextBlock Classes="body" TextWrapping="Wrap" Text="{Binding UpdateStatus}" IsVisible="{Binding ShowsUpdateNotice}" />
+                        <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding UpdateText}" />
+                      </StackPanel>
+                    </Border>
+                    <Border Classes="panel">
+                      <StackPanel Spacing="8">
+                        <TextBlock Classes="col" Text="{loc:T Settings.TextSize, Upper=True}" />
+                        <ComboBox ItemsSource="{Binding TextSizes}" SelectedItem="{Binding SelectedTextSize}" MinWidth="160" HorizontalAlignment="Left" />
+                        <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding TextSizeText}" />
+                      </StackPanel>
+                    </Border>
+                    <Border Classes="panel">
+                      <StackPanel Spacing="8">
                         <TextBlock Classes="col" Text="{loc:T Settings.JournalFolder, Upper=True}" />
-                        <Grid ColumnDefinitions="*,8,Auto,8,Auto,8,Auto,8,Auto">
+                        <!-- The watch follows the folder: typing a path, Browse and Detect each start it at once. -->
+                        <Grid ColumnDefinitions="*,8,Auto,8,Auto">
                           <TextBox Grid.Column="0" Text="{Binding Folder, Mode=TwoWay}" />
                           <Button Grid.Column="2" Content="{loc:T Common.Browse}" Click="BrowseFolder" />
                           <Button Grid.Column="4" Content="{loc:T Settings.Detect}" Command="{Binding DetectCommand}" />
-                          <Button Grid.Column="6" Classes="primary" Content="{loc:T Settings.Watch}" Command="{Binding WatchCommand}" />
-                          <Button Grid.Column="8" Content="{loc:T Settings.Stop}" Command="{Binding StopCommand}" />
                         </Grid>
                         <TextBlock Classes="body" Text="{Binding Status}" />
                         <TextBlock Classes="muted" Text="{Binding InventoryText}" IsVisible="{Binding !!InventoryText.Length}" />
@@ -1809,18 +1834,6 @@
                         <CheckBox Content="{loc:T Settings.AskBodies}" IsChecked="{Binding AllowSpanshBodies, Mode=TwoWay}" />
                         <CheckBox Content="{loc:T Settings.AskUpdates}" IsChecked="{Binding AllowUpdateCheck, Mode=TwoWay}" />
                         <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding NetworkText}" />
-                      </StackPanel>
-                    </Border>
-                    <Border Classes="panel">
-                      <StackPanel Spacing="8">
-                        <TextBlock Classes="col" Text="{loc:T Settings.Updates, Upper=True}" />
-                        <Grid ColumnDefinitions="*,8,Auto,8,Auto">
-                          <TextBlock Grid.Column="0" Classes="body" Text="{Binding VersionText}" VerticalAlignment="Center" />
-                          <Button Grid.Column="2" Content="{loc:T Settings.CheckNow}" Command="{Binding CheckUpdatesCommand}" />
-                          <Button Grid.Column="4" Classes="primary" Content="{loc:T Settings.OpenRelease}" Click="OpenReleasePage" IsVisible="{Binding IsUpdateAvailable}" />
-                        </Grid>
-                        <TextBlock Classes="body" TextWrapping="Wrap" Text="{Binding UpdateStatus}" IsVisible="{Binding !!UpdateStatus.Length}" />
-                        <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding UpdateText}" />
                       </StackPanel>
                     </Border>
                   </StackPanel>
@@ -1916,7 +1929,7 @@
                   <DataTemplate>
                     <Border BorderBrush="{DynamicResource KLine}" BorderThickness="0,0,0,1" Padding="18,12">
                       <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                        <CheckBox IsChecked="{Binding Enabled, Mode=TwoWay}" VerticalAlignment="Top" />
+                        <CheckBox Classes="slim" IsChecked="{Binding Enabled, Mode=TwoWay}" VerticalAlignment="Top" />
                         <StackPanel Grid.Column="1" Spacing="6">
                           <TextBlock Classes="strong" Text="{Binding Title}" />
                           <TextBlock Classes="faint" Text="{Binding SourceLabel}" IsVisible="{Binding HasSource}" />
@@ -2077,4 +2090,5 @@
       </Grid>
     </Border>
   </Grid>
+  </LayoutTransformControl>
 </Window>

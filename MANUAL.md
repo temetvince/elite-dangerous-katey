@@ -179,8 +179,8 @@ The rail follows the game along the right edge of the window. It shows:
   - In the Biology view, a second choice of two says which bodies with life to leave out. The choice is
     remembered. Conditions Katey has no record of are never hidden.
   - **All life** lists every one.
-  - **Skip bacteria** leaves out bodies whose life is bacteria alone: by the scanner's genera once mapped, or
-    before that a single signal at least four in five likely to be bacteria.
+  - **Skip bacteria only** leaves out bodies whose life is bacteria alone: by the scanner's genera once
+    mapped, or before that a single signal at least four in five likely to be bacteria.
 
 The rail picks the route or the bodies by itself. It shows the bodies from the moment you arrive, with one
 line above them on the route: the next jump, how many jumps are left and where the route ends. It switches to
@@ -597,8 +597,17 @@ Your journal history read as a ledger. Its sections:
 
 ### Settings
 
-- **Journal folder.** The folder Katey watches. **Detect** looks in the usual places, **Browse** picks one,
-  **Watch** starts reading it and **Stop** stops. The status line says what the watch is doing.
+- **Updates.** The version you are running and, with the GitHub switch on, whether a newer release exists.
+  Katey asks once when it starts and whenever you press **Check now**, in the background, so starting takes
+  no longer. When there is a newer release, **Open the release page** opens it in your browser; nothing is
+  downloaded or installed for you.
+- **Text size.** How large the windows draw everything, as a percentage of the standard size, for readers who
+  need larger type. Text and spacing grow together, so the pages keep their shape; pop the rail out or widen
+  the window if a page no longer fits. The choice is remembered. On a screen too small for the enlarged pages,
+  the window stops at the screen's edge and the pages scroll sideways.
+- **Journal folder.** The folder Katey watches. **Detect** looks in the usual places, **Browse** picks one, or
+  type a path; the watch follows the folder at once and replays its history. The status line says what the
+  watch is doing.
 - **Journal backup.** A folder the whole journal folder is copied into, only what is new or changed, when
   Katey closes and whenever you press **Back up now**. Point it at a folder OneDrive or another cloud
   drive syncs and your journals leave the machine with it.
@@ -612,10 +621,6 @@ Your journal history read as a ledger. Its sections:
   of the system you have just arrived in. The third goes to
   [GitHub](https://github.com/temetvince/elite-dangerous-katey/releases) and asks for Katey's latest release.
   The switches are remembered.
-- **Updates.** The version you are running and, with the GitHub switch on, whether a newer release exists.
-  Katey asks once when it starts and whenever you press **Check now**, in the background, so starting takes
-  no longer. When there is a newer release, **Open the release page** opens it in your browser; nothing is
-  downloaded or installed for you.
 
 ## Working with EDSY
 

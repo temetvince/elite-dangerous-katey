@@ -7,13 +7,15 @@ public sealed class SortHeader : ObservableObject
     /// <param name="key">The column key.</param>
     /// <param name="label">The text shown.</param>
     /// <param name="sort">Sorts by the key, or flips the direction when it is already the active key.</param>
-    public SortHeader(string key, string label, Action<string> sort)
+    /// <param name="alignRight">Whether the heading sits at the column's right edge, over figures aligned there.</param>
+    public SortHeader(string key, string label, Action<string> sort, bool alignRight = false)
     {
         ArgumentNullException.ThrowIfNull(key);
         ArgumentNullException.ThrowIfNull(label);
         ArgumentNullException.ThrowIfNull(sort);
         Key = key;
         Label = label;
+        AlignsRight = alignRight;
         Command = new RelayCommand(() => sort(key));
     }
 
@@ -22,6 +24,9 @@ public sealed class SortHeader : ObservableObject
 
     /// <summary>Gets the text shown.</summary>
     public string Label { get; }
+
+    /// <summary>Gets whether the heading sits at the column's right edge, as a heading over figures does so it lines up with them.</summary>
+    public bool AlignsRight { get; }
 
     /// <summary>Gets the command that sorts by this column.</summary>
     public RelayCommand Command { get; }
@@ -48,7 +53,8 @@ public sealed class SortHeader : ObservableObject
 /// <param name="Label">The header text.</param>
 /// <param name="By">Picks the value a row sorts by. Values must be mutually comparable; <see langword="null"/> sorts last.</param>
 /// <param name="DescendingFirst">Whether the first click sorts descending, as a count or a value usually should.</param>
-public sealed record SortColumn<T>(string Key, string Label, Func<T, IComparable?> By, bool DescendingFirst = false);
+/// <param name="AlignRight">Whether the column's cells are aligned to the right, as figures are, so the heading goes there too.</param>
+public sealed record SortColumn<T>(string Key, string Label, Func<T, IComparable?> By, bool DescendingFirst = false, bool AlignRight = false);
 
 /// <summary>
 /// The sort state of one table: which column, which direction, and the headers a view binds to. Clicking
@@ -79,7 +85,7 @@ public sealed class TableSort<T> : ObservableObject
         _columns = columns;
         _preferences = preferences;
         _preferenceKey = preferenceKey;
-        _headers = columns.ToDictionary(column => column.Key, column => new SortHeader(column.Key, column.Label, SortBy), StringComparer.Ordinal);
+        _headers = columns.ToDictionary(column => column.Key, column => new SortHeader(column.Key, column.Label, SortBy, column.AlignRight), StringComparer.Ordinal);
         _descendingByKey = columns.ToDictionary(column => column.Key, column => column.DescendingFirst, StringComparer.Ordinal);
         Headers = [.. columns.Select(column => _headers[column.Key])];
 

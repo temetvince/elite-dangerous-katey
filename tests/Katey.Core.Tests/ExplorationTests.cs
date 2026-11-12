@@ -89,6 +89,18 @@ public sealed class ExplorationTests
     }
 
     [Fact]
+    public void Predictor_AnswersTheSameBodyFromItsMemo()
+    {
+        var body = new BodyConditions("Rocky body", "thin carbon dioxide atmosphere", "", 0.4, 210, 900);
+        var again = new BodyConditions("Rocky body", "thin carbon dioxide atmosphere", "", 0.4, 210, 900);
+
+        Assert.Same(Predictor.LikelyGenera(body), Predictor.LikelyGenera(again));
+        Assert.Same(Predictor.PossibleGenera(body), Predictor.PossibleGenera(again));
+        Assert.Same(Predictor.Predict("$Codex_Ent_Bacterial_Genus_Name;", body), Predictor.Predict("$Codex_Ent_Bacterial_Genus_Name;", again));
+        Assert.NotSame(Predictor.LikelyGenera(body), Predictor.LikelyGenera(body with { GravityG = 0.5 }));
+    }
+
+    [Fact]
     public void Predictor_FavoursSpeciesSeenUnderTheBodysConditions()
     {
         // A thin carbon dioxide rocky body is classic Bacterium Aurasus territory.

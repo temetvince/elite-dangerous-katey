@@ -2,7 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="Katey.Ui.SortHeaderView">
   <!-- DataContext is a SortHeader: a column heading that sorts the table when clicked. -->
-  <Button Classes="col" Classes.active="{Binding IsActive}" Command="{Binding Command}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
+  <!-- A heading over right-aligned figures sits at the right edge too, so it lines up with them. -->
+  <Button Classes="col" Classes.active="{Binding IsActive}" Classes.right="{Binding AlignsRight}" Command="{Binding Command}" HorizontalAlignment="Stretch">
     <StackPanel Orientation="Horizontal" Spacing="4">
       <TextBlock Classes="col" Text="{Binding Label}" />
       <TextBlock Classes="col" Text="{Binding Indicator}" />

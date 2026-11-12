@@ -777,7 +777,7 @@ Aus: Alles wird angeboten, und Stufen beginnen oben. Der Plan warnt weiterhin vo
     <value>noch keine Schiffe gesehen</value>
   </data>
   <data name="Home.NotWatching" xml:space="preserve">
-    <value>Journal wird nicht beobachtet. Starte es in den Einstellungen.</value>
+    <value>Das Journal wird nicht beobachtet. Wähle seinen Ordner in den Einstellungen.</value>
   </data>
   <data name="Home.PlanCovered" xml:space="preserve">
     <value>{entries} geplant und jedes Material gedeckt.</value>
@@ -1806,7 +1806,7 @@ Aus: Alles wird angeboten, und Stufen beginnen oben. Der Plan warnt weiterhin vo
     <value>Du besitzt</value>
   </data>
   <data name="Settings.BackupText" xml:space="preserve">
-    <value>Kopiert jede Datei im Journal-Ordner, die Live-Dateien eingeschlossen, in den gewählten Ordner, und nur, was neu oder geändert ist. Zeigt er auf einen Ordner, den dein Cloud-Laufwerk synchronisiert, verlassen die Journale den Rechner.</value>
+    <value>Kopiert jede Datei im Journal-Ordner, die Live-Dateien eingeschlossen, in den gewählten Ordner, und nur, was neu oder geändert ist. Erwäge einen Ordner, den dein Cloud-Laufwerk synchronisiert.</value>
   </data>
   <data name="Settings.CatchingUp" xml:space="preserve">
     <value>Journalverlauf wird gelesen: {done} von {total} Dateien.</value>
@@ -1836,7 +1836,10 @@ Aus: Alles wird angeboten, und Stufen beginnen oben. Der Plan warnt weiterhin vo
     <value>Nichts verlässt diesen Rechner, solange du es hier nicht anhakst. Eine Routenplanung sendet Spansh die beiden Systemnamen und die Sprungwerte des Schiffs: Massen, Tankgrößen und die Werte des Antriebs. Eine Systemabfrage sendet Spansh die Kennung des Systems, in dem du angekommen bist, und holt die dort bekannten Körper. Eine Versionsprüfung fragt GitHub nach der neuesten Veröffentlichung des Projekts und sendet nichts außer der Anfrage selbst. Jede Anfrage nennt Katey, seine Version und die Adresse des Projekts.</value>
   </data>
   <data name="Settings.NotWatching" xml:space="preserve">
-    <value>Nicht beobachtet. Drücke „Beobachten“, um das Journal zu lesen.</value>
+    <value>Keine Beobachtung. Wähle oben den Journal-Ordner, um ihn zu lesen.</value>
+  </data>
+  <data name="Settings.TextSizeText" xml:space="preserve">
+    <value>Größerer Text lässt die Fenster alles größer zeichnen, Abstände eingeschlossen, in jeder eingestellten Sprache. Passt eine Seite nicht mehr, löse die Leiste ab oder verbreitere das Fenster.</value>
   </data>
   <data name="Settings.UpdateText" xml:space="preserve">
     <value>Eine Prüfung fragt GitHub nach der neuesten Veröffentlichung des Projekts und vergleicht deren Version mit dieser. Nichts wird heruntergeladen oder installiert: Die Seite der Veröffentlichung öffnet sich in deinem Browser, wo der neue Build liegt.</value>
@@ -2392,6 +2395,9 @@ Aus: Alles wird angeboten, und Stufen beginnen oben. Der Plan warnt weiterhin vo
   </data>
   <data name="System.YouLandedOn" xml:space="preserve">
     <value>du bist auf {bodies} gelandet</value>
+  </data>
+  <data name="TextSize.Percent" xml:space="preserve">
+    <value>{percent} %</value>
   </data>
   <data name="Totals.AllHeld.one" xml:space="preserve">
     <value>Summen für {count} Eintrag. Du hast bereits alles.</value>

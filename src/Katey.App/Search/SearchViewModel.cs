@@ -112,7 +112,7 @@ public sealed class SearchViewModel : ObservableObject
 
         foreach (var ship in fleet.Ships)
         {
-            var hull = Core.Fleet.ShipNames.Prefer(ship.Type, ship.TypeName);
+            var hull = Names.Hull(ship.Type, ship.TypeName);
             var title = ship.Name.Length > 0 ? ship.Name : hull;
             var id = ship.ShipId.ToString(CultureInfo.InvariantCulture);
             var subtitle = ship.Name.Length > 0 ? (ship.Ident.Length > 0 ? Strings.Format(Keys.Search_ShipIdent, ("hull", hull), ("ident", ship.Ident)) : hull) : Strings.Get(Keys.Search_Unnamed);
@@ -127,7 +127,7 @@ public sealed class SearchViewModel : ObservableObject
         foreach (var fit in _workspace.Fleet.Fittings)
         {
             var fitting = fit;
-            var hullName = Core.Fleet.ShipNames.Display(fitting.Hull);
+            var hullName = Names.Hull(fitting.Hull, null);
             if (string.IsNullOrWhiteSpace(fitting.Name))
             {
                 continue;

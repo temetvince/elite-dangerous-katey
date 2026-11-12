@@ -42,6 +42,11 @@ public sealed class StringTableTests
         Assert.Equal("thin carbon dioxide atmosphere", Names.Atmosphere("thin carbon dioxide atmosphere"));
         Assert.Equal("minor water magma volcanism", Names.Volcanism("minor water magma volcanism"));
         Assert.Equal("Bounty hunting profit", Names.Figure("Bounty_Hunting_Profit", "Bounty hunting profit"));
+        Assert.Equal("Lightweight Alloy", Names.Module(modules, catalog, "anaconda_armour_grade1"));
+        Assert.Equal("MkII Large Planetary Vehicle Hangar 4F", Names.Module(modules, catalog, "int_mkiilargebuggybay_size4_class3_free"));
+        Assert.Equal("Anaconda Mk II", Names.Hull("anacondamkii", null));
+        Assert.Equal("Borrowed Name", Names.Hull("anacondamkii", "Borrowed Name"));
+        Assert.Equal("Security forces passengers (bulk) delivered", Names.Figure("Passengers_Missions_SecurityForces_bulk_delivered", "Security forces passengers (bulk) delivered"));
     }
 
     [Fact]

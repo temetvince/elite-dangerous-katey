@@ -201,9 +201,9 @@ Le panneau suit le jeu le long du bord droit de la fenêtre. Il montre :
   - Dans la vue Biologie, un second choix à deux dit quels corps abritant de la vie laisser de côté. Le
     choix est mémorisé. Les conditions dont Katey n'a aucune trace ne sont jamais masquées.
   - **Toute vie** les liste tous.
-  - **Ignorer les bactéries** laisse de côté les corps dont la seule vie est bactérienne : d'après les genres
-    du scanner une fois cartographiés, ou avant cela un signal unique qui a au moins quatre chances sur cinq
-    d'être une bactérie.
+  - **Ignorer bactéries seules** laisse de côté les corps dont la seule vie est bactérienne : d'après les
+    genres du scanner une fois cartographiés, ou avant cela un signal unique qui a au moins quatre chances sur
+    cinq d'être une bactérie.
 
 Le panneau choisit tout seul entre l'itinéraire et les corps. Il montre les corps dès votre arrivée, avec une
 ligne au-dessus sur l'itinéraire : le prochain saut, combien de sauts restent et où l'itinéraire finit. Il
@@ -672,9 +672,19 @@ Votre historique de journal lu comme un registre. Ses sections :
 
 ### Paramètres
 
+- **Mises à jour.** La version que vous utilisez et, l'interrupteur GitHub coché, s'il existe une version plus
+  récente. Katey demande une fois au démarrage et chaque fois que vous appuyez sur **Vérifier maintenant**,
+  en arrière-plan, si bien que le démarrage ne prend pas plus de temps. Quand une version plus récente
+  existe, **Ouvrir la page de la version** l'ouvre dans votre navigateur ; rien n'est téléchargé ni installé
+  pour vous.
+- **Taille du texte.** La taille à laquelle les fenêtres dessinent tout, en pourcentage de la taille standard,
+  pour les lecteurs qui ont besoin de caractères plus grands. Le texte et les espacements grandissent
+  ensemble, si bien que les pages gardent leur forme ; détachez le panneau ou élargissez la fenêtre si une
+  page ne tient plus. Le choix est mémorisé. Si l'écran est trop petit pour les pages agrandies, la fenêtre
+  s'arrête au bord de l'écran et les pages défilent latéralement.
 - **Dossier des journaux.** Le dossier que Katey suit. **Détecter** cherche aux emplacements habituels,
-  **Parcourir** en choisit un, **Suivre** commence à le lire et **Arrêter** arrête. La ligne de statut dit ce
-  que fait le suivi.
+  **Parcourir** en choisit un, ou saisissez un chemin ; le suivi passe au dossier aussitôt et rejoue son
+  historique. La ligne de statut dit ce que fait le suivi.
 - **Sauvegarde des journaux.** Un dossier dans lequel tout le dossier des journaux est copié, seulement ce
   qui est nouveau ou modifié, quand Katey se ferme et chaque fois que vous appuyez sur **Sauvegarder
   maintenant**. Pointez-le vers un dossier que OneDrive ou un autre espace de stockage en ligne synchronise
@@ -690,11 +700,6 @@ Votre historique de journal lu comme un registre. Ses sections :
   **Tracer**, et demander les corps du système où vous venez d'arriver. La troisième va vers
   [GitHub](https://github.com/temetvince/elite-dangerous-katey/releases) et demande la dernière version publiée
   de Katey. Les interrupteurs sont mémorisés.
-- **Mises à jour.** La version que vous utilisez et, l'interrupteur GitHub coché, s'il existe une version plus
-  récente. Katey demande une fois au démarrage et chaque fois que vous appuyez sur **Vérifier maintenant**,
-  en arrière-plan, si bien que le démarrage ne prend pas plus de temps. Quand une version plus récente
-  existe, **Ouvrir la page de la version** l'ouvre dans votre navigateur ; rien n'est téléchargé ni installé
-  pour vous.
 
 ## Travailler avec EDSY
 

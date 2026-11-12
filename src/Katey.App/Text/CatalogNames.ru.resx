@@ -58,6 +58,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Armour.grade1" xml:space="preserve">
+    <value>Лёгкий сплав</value>
+  </data>
+  <data name="Armour.grade2" xml:space="preserve">
+    <value>Усиленный сплав</value>
+  </data>
+  <data name="Armour.grade3" xml:space="preserve">
+    <value>Композит военного класса</value>
+  </data>
+  <data name="Armour.mirrored" xml:space="preserve">
+    <value>Зеркальный поверхностный композит</value>
+  </data>
+  <data name="Armour.reactive" xml:space="preserve">
+    <value>Реактивный поверхностный композит</value>
+  </data>
   <data name="Atmosphere.Gas.ammonia" xml:space="preserve">
     <value>аммиак</value>
   </data>
@@ -817,6 +832,60 @@
   <data name="Figure.Exploration_Profits" xml:space="preserve">
     <value>Доход от исследований</value>
   </data>
+  <data name="Figure.FLEETCARRIER_DISTANCE_TRAVELLED" xml:space="preserve">
+    <value>Пройденное расстояние</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_EXPORT_TOTAL" xml:space="preserve">
+    <value>Экспортировано товаров</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_IMPORT_TOTAL" xml:space="preserve">
+    <value>Импортировано товаров</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_OUTFITTING_PROFIT" xml:space="preserve">
+    <value>Прибыль от снаряжения</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_OUTFITTING_SOLD" xml:space="preserve">
+    <value>Продано модулей</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_REARM_TOTAL" xml:space="preserve">
+    <value>Пополнений боезапаса</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_REFUEL_PROFIT" xml:space="preserve">
+    <value>Прибыль от заправки</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_REFUEL_TOTAL" xml:space="preserve">
+    <value>Заправок</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_REPAIRS_TOTAL" xml:space="preserve">
+    <value>Ремонтов</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_SHIPYARD_PROFIT" xml:space="preserve">
+    <value>Прибыль верфи</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_SHIPYARD_SOLD" xml:space="preserve">
+    <value>Продано кораблей</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_STOLENPROFIT_TOTAL" xml:space="preserve">
+    <value>Прибыль от краденого</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_STOLENSPEND_TOTAL" xml:space="preserve">
+    <value>Расходы на краденое</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_TOTAL_JUMPS" xml:space="preserve">
+    <value>Всего прыжков</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_TRADEPROFIT_TOTAL" xml:space="preserve">
+    <value>Торговая прибыль</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_TRADESPEND_TOTAL" xml:space="preserve">
+    <value>Торговые расходы</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_VOUCHERS_PROFIT" xml:space="preserve">
+    <value>Прибыль от ваучеров</value>
+  </data>
+  <data name="Figure.FLEETCARRIER_VOUCHERS_REDEEMED" xml:space="preserve">
+    <value>Погашено ваучеров</value>
+  </data>
   <data name="Figure.Fines" xml:space="preserve">
     <value>Штрафы</value>
   </data>
@@ -994,6 +1063,9 @@
   <data name="Figure.Panels_Opened" xml:space="preserve">
     <value>Панелей открыто</value>
   </data>
+  <data name="Figure.Passengers.Template" xml:space="preserve">
+    <value>{type} ({class}) {outcome}</value>
+  </data>
   <data name="Figure.Passengers_Missions_Accepted" xml:space="preserve">
     <value>Пассажирских миссий принято</value>
   </data>
@@ -1002,6 +1074,9 @@
   </data>
   <data name="Figure.Passengers_Missions_Delivered" xml:space="preserve">
     <value>Пассажиров доставлено</value>
+  </data>
+  <data name="Figure.Passengers_Missions_Disgruntled" xml:space="preserve">
+    <value>Недовольных пассажиров</value>
   </data>
   <data name="Figure.Passengers_Missions_Ejected" xml:space="preserve">
     <value>Пассажиров выброшено</value>
@@ -1237,6 +1312,21 @@
   <data name="Figure.Systems_Visited" xml:space="preserve">
     <value>Систем посещено</value>
   </data>
+  <data name="Figure.TG_ENCOUNTER_IMPRINT" xml:space="preserve">
+    <value>Таргоидских отпечатков</value>
+  </data>
+  <data name="Figure.TG_ENCOUNTER_KILLED" xml:space="preserve">
+    <value>Таргоидов уничтожено</value>
+  </data>
+  <data name="Figure.TG_ENCOUNTER_TOTAL" xml:space="preserve">
+    <value>Всего встреч</value>
+  </data>
+  <data name="Figure.TG_ENCOUNTER_WAKES" xml:space="preserve">
+    <value>Таргоидских следов</value>
+  </data>
+  <data name="Figure.TG_SCOUT_COUNT" xml:space="preserve">
+    <value>Таргоидских разведчиков</value>
+  </data>
   <data name="Figure.Time_Played" xml:space="preserve">
     <value>Время в игре</value>
   </data>
@@ -1309,6 +1399,9 @@
   <data name="FigureSection.Exploration" xml:space="preserve">
     <value>Исследование</value>
   </data>
+  <data name="FigureSection.FLEETCARRIER" xml:space="preserve">
+    <value>Флотоносец</value>
+  </data>
   <data name="FigureSection.Material_Trader_Stats" xml:space="preserve">
     <value>Торговцы материалами</value>
   </data>
@@ -1330,8 +1423,152 @@
   <data name="FigureSection.Squadron" xml:space="preserve">
     <value>Эскадрилья</value>
   </data>
+  <data name="FigureSection.TG_ENCOUNTERS" xml:space="preserve">
+    <value>Встречи с таргоидами</value>
+  </data>
   <data name="FigureSection.Trading" xml:space="preserve">
     <value>Торговля</value>
+  </data>
+  <data name="Hull.adder" xml:space="preserve">
+    <value>Аддер</value>
+  </data>
+  <data name="Hull.anaconda" xml:space="preserve">
+    <value>Анаконда</value>
+  </data>
+  <data name="Hull.anacondamkii" xml:space="preserve">
+    <value>Анаконда Mk II</value>
+  </data>
+  <data name="Hull.asp" xml:space="preserve">
+    <value>Асп Эксплорер</value>
+  </data>
+  <data name="Hull.asp_scout" xml:space="preserve">
+    <value>Асп Скаут</value>
+  </data>
+  <data name="Hull.belugaliner" xml:space="preserve">
+    <value>Белуга Лайнер</value>
+  </data>
+  <data name="Hull.cobramkiii" xml:space="preserve">
+    <value>Кобра Mk III</value>
+  </data>
+  <data name="Hull.cobramkiv" xml:space="preserve">
+    <value>Кобра Mk IV</value>
+  </data>
+  <data name="Hull.cobramkv" xml:space="preserve">
+    <value>Кобра Mk V</value>
+  </data>
+  <data name="Hull.corsair" xml:space="preserve">
+    <value>Корсар</value>
+  </data>
+  <data name="Hull.cutter" xml:space="preserve">
+    <value>Имперский Каттер</value>
+  </data>
+  <data name="Hull.diamondback" xml:space="preserve">
+    <value>Даймондбэк Скаут</value>
+  </data>
+  <data name="Hull.diamondbackxl" xml:space="preserve">
+    <value>Даймондбэк Эксплорер</value>
+  </data>
+  <data name="Hull.dolphin" xml:space="preserve">
+    <value>Долфин</value>
+  </data>
+  <data name="Hull.eagle" xml:space="preserve">
+    <value>Игл</value>
+  </data>
+  <data name="Hull.empire_courier" xml:space="preserve">
+    <value>Имперский Курьер</value>
+  </data>
+  <data name="Hull.empire_eagle" xml:space="preserve">
+    <value>Имперский Игл</value>
+  </data>
+  <data name="Hull.empire_trader" xml:space="preserve">
+    <value>Имперский Клиппер</value>
+  </data>
+  <data name="Hull.explorer_nx" xml:space="preserve">
+    <value>Каспиан Эксплорер</value>
+  </data>
+  <data name="Hull.federation_corvette" xml:space="preserve">
+    <value>Федеральный Корвет</value>
+  </data>
+  <data name="Hull.federation_dropship" xml:space="preserve">
+    <value>Федеральный Дропшип</value>
+  </data>
+  <data name="Hull.federation_dropship_mkii" xml:space="preserve">
+    <value>Федеральный Штурмовик</value>
+  </data>
+  <data name="Hull.federation_gunship" xml:space="preserve">
+    <value>Федеральный Ганшип</value>
+  </data>
+  <data name="Hull.ferdelance" xml:space="preserve">
+    <value>Фер-де-Ланс</value>
+  </data>
+  <data name="Hull.hauler" xml:space="preserve">
+    <value>Хаулер</value>
+  </data>
+  <data name="Hull.independant_trader" xml:space="preserve">
+    <value>Килбэк</value>
+  </data>
+  <data name="Hull.krait_light" xml:space="preserve">
+    <value>Крайт Фантом</value>
+  </data>
+  <data name="Hull.krait_mkii" xml:space="preserve">
+    <value>Крайт Mk II</value>
+  </data>
+  <data name="Hull.mamba" xml:space="preserve">
+    <value>Мамба</value>
+  </data>
+  <data name="Hull.mandalay" xml:space="preserve">
+    <value>Мандалай</value>
+  </data>
+  <data name="Hull.mediumtransport01" xml:space="preserve">
+    <value>Линкс Хайлайнер</value>
+  </data>
+  <data name="Hull.orca" xml:space="preserve">
+    <value>Орка</value>
+  </data>
+  <data name="Hull.panthermkii" xml:space="preserve">
+    <value>Пантера Клиппер Mk II</value>
+  </data>
+  <data name="Hull.python" xml:space="preserve">
+    <value>Питон</value>
+  </data>
+  <data name="Hull.python_nx" xml:space="preserve">
+    <value>Питон Mk II</value>
+  </data>
+  <data name="Hull.sidewinder" xml:space="preserve">
+    <value>Сайдвиндер</value>
+  </data>
+  <data name="Hull.type6" xml:space="preserve">
+    <value>Type-6 Транспортёр</value>
+  </data>
+  <data name="Hull.type7" xml:space="preserve">
+    <value>Type-7 Транспортёр</value>
+  </data>
+  <data name="Hull.type8" xml:space="preserve">
+    <value>Type-8 Транспортёр</value>
+  </data>
+  <data name="Hull.type9" xml:space="preserve">
+    <value>Type-9 Хеви</value>
+  </data>
+  <data name="Hull.type9_military" xml:space="preserve">
+    <value>Type-10 Дефендер</value>
+  </data>
+  <data name="Hull.typex" xml:space="preserve">
+    <value>Альянс Чифтен</value>
+  </data>
+  <data name="Hull.typex_2" xml:space="preserve">
+    <value>Альянс Крусейдер</value>
+  </data>
+  <data name="Hull.typex_3" xml:space="preserve">
+    <value>Альянс Челленджер</value>
+  </data>
+  <data name="Hull.viper" xml:space="preserve">
+    <value>Вайпер Mk III</value>
+  </data>
+  <data name="Hull.viper_mkiv" xml:space="preserve">
+    <value>Вайпер Mk IV</value>
+  </data>
+  <data name="Hull.vulture" xml:space="preserve">
+    <value>Валчер</value>
   </data>
   <data name="Material.AdaptiveEncryptors" xml:space="preserve">
     <value>Захват адаптивных шифраторов</value>
@@ -1771,6 +2008,75 @@
   <data name="Material.Zirconium" xml:space="preserve">
     <value>Цирконий</value>
   </data>
+  <data name="Module.Qualified" xml:space="preserve">
+    <value>{qualifier} {type}</value>
+  </data>
+  <data name="ModuleQualifier.advanced" xml:space="preserve">
+    <value>Улучшенный</value>
+  </data>
+  <data name="ModuleQualifier.agile-boost" xml:space="preserve">
+    <value>Agile Boost</value>
+  </data>
+  <data name="ModuleQualifier.concord" xml:space="preserve">
+    <value>Concord</value>
+  </data>
+  <data name="ModuleQualifier.corrosion-resistant" xml:space="preserve">
+    <value>Антикоррозийный</value>
+  </data>
+  <data name="ModuleQualifier.enhanced" xml:space="preserve">
+    <value>Усовершенствованный</value>
+  </data>
+  <data name="ModuleQualifier.enhanced-performance" xml:space="preserve">
+    <value>Повышенной мощности</value>
+  </data>
+  <data name="ModuleQualifier.gravity-optimised" xml:space="preserve">
+    <value>Гравитационно-оптимизированный</value>
+  </data>
+  <data name="ModuleQualifier.guardian" xml:space="preserve">
+    <value>Стражей</value>
+  </data>
+  <data name="ModuleQualifier.horizons" xml:space="preserve">
+    <value>Horizons</value>
+  </data>
+  <data name="ModuleQualifier.hybrid" xml:space="preserve">
+    <value>гибридная</value>
+  </data>
+  <data name="ModuleQualifier.large" xml:space="preserve">
+    <value>Большой</value>
+  </data>
+  <data name="ModuleQualifier.mining" xml:space="preserve">
+    <value>Добывающий</value>
+  </data>
+  <data name="ModuleQualifier.mkii" xml:space="preserve">
+    <value>Mk II</value>
+  </data>
+  <data name="ModuleQualifier.odyssey" xml:space="preserve">
+    <value>Odyssey</value>
+  </data>
+  <data name="ModuleQualifier.operations" xml:space="preserve">
+    <value>Операционный</value>
+  </data>
+  <data name="ModuleQualifier.pulse-wave" xml:space="preserve">
+    <value>Импульсно-волновой</value>
+  </data>
+  <data name="ModuleQualifier.rescue" xml:space="preserve">
+    <value>Спасательный</value>
+  </data>
+  <data name="ModuleQualifier.sco" xml:space="preserve">
+    <value>SCO</value>
+  </data>
+  <data name="ModuleQualifier.shock" xml:space="preserve">
+    <value>Шоковый</value>
+  </data>
+  <data name="ModuleQualifier.standard" xml:space="preserve">
+    <value>Стандартный</value>
+  </data>
+  <data name="ModuleQualifier.universal" xml:space="preserve">
+    <value>Универсальный</value>
+  </data>
+  <data name="ModuleQualifier.xeno" xml:space="preserve">
+    <value>Ксено</value>
+  </data>
   <data name="ModuleType.abl" xml:space="preserve">
     <value>Абразивный бластер</value>
   </data>
@@ -2058,6 +2364,63 @@
   </data>
   <data name="Mount.Turreted" xml:space="preserve">
     <value>Турельный</value>
+  </data>
+  <data name="Passengers.Class.bulk" xml:space="preserve">
+    <value>групповые</value>
+  </data>
+  <data name="Passengers.Class.vip" xml:space="preserve">
+    <value>VIP</value>
+  </data>
+  <data name="Passengers.Outcome.delivered" xml:space="preserve">
+    <value>доставлены</value>
+  </data>
+  <data name="Passengers.Outcome.ejected" xml:space="preserve">
+    <value>выброшены</value>
+  </data>
+  <data name="Passengers.Type.AidWorker" xml:space="preserve">
+    <value>Гуманитарные работники</value>
+  </data>
+  <data name="Passengers.Type.Businessmen" xml:space="preserve">
+    <value>Бизнесмены</value>
+  </data>
+  <data name="Passengers.Type.Celebrities" xml:space="preserve">
+    <value>Знаменитости</value>
+  </data>
+  <data name="Passengers.Type.Criminal" xml:space="preserve">
+    <value>Преступники</value>
+  </data>
+  <data name="Passengers.Type.Explorers" xml:space="preserve">
+    <value>Исследователи</value>
+  </data>
+  <data name="Passengers.Type.FreedomFighters" xml:space="preserve">
+    <value>Борцы за свободу</value>
+  </data>
+  <data name="Passengers.Type.Medical" xml:space="preserve">
+    <value>Медики</value>
+  </data>
+  <data name="Passengers.Type.POW" xml:space="preserve">
+    <value>Военнопленные</value>
+  </data>
+  <data name="Passengers.Type.PoliticalPrisoner" xml:space="preserve">
+    <value>Политзаключённые</value>
+  </data>
+  <data name="Passengers.Type.Politicians" xml:space="preserve">
+    <value>Политики</value>
+  </data>
+  <data name="Passengers.Type.Protestors" xml:space="preserve">
+    <value>Протестующие</value>
+  </data>
+  <data name="Passengers.Type.Refugee" xml:space="preserve">
+    <value>Беженцы</value>
+  </data>
+  <data name="Passengers.Type.ScienceTeams" xml:space="preserve">
+    <value>Научные группы</value>
+  </data>
+  <data name="Passengers.Type.SecurityForces" xml:space="preserve">
+    <value>Силы безопасности</value>
+  </data>
+  <data name="Passengers.Type.Tourist" xml:space="preserve">
+    <value>Туристы</value>
   </data>
   <data name="PlanetClass.ammonia_world" xml:space="preserve">
     <value>Аммиачный мир</value>

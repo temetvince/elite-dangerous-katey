@@ -777,7 +777,7 @@ Désactivé, tout est proposé et les grades démarrent au maximum. Le plan aver
     <value>aucun vaisseau vu pour l'instant</value>
   </data>
   <data name="Home.NotWatching" xml:space="preserve">
-    <value>Le journal n'est pas suivi. Lancez le suivi dans les Paramètres.</value>
+    <value>Le journal n'est pas suivi. Choisissez son dossier dans les Paramètres.</value>
   </data>
   <data name="Home.PlanCovered" xml:space="preserve">
     <value>{entries} planifiées et chaque matériau couvert.</value>
@@ -1806,7 +1806,7 @@ Désactivé, tout est proposé et les grades démarrent au maximum. Le plan aver
     <value>Vous possédez</value>
   </data>
   <data name="Settings.BackupText" xml:space="preserve">
-    <value>Copie chaque fichier du dossier des journaux, fichiers en direct compris, dans le dossier que vous choisissez, et seulement ce qui est nouveau ou modifié. Pointez-le vers un dossier synchronisé par votre espace de stockage en ligne et les journaux quittent la machine.</value>
+    <value>Copie chaque fichier du dossier des journaux, fichiers en direct compris, dans le dossier que vous choisissez, et seulement ce qui est nouveau ou modifié. Pensez à choisir un dossier synchronisé par votre espace de stockage en ligne.</value>
   </data>
   <data name="Settings.CatchingUp" xml:space="preserve">
     <value>Lecture de l'historique du journal : {done} fichiers sur {total}.</value>
@@ -1836,7 +1836,10 @@ Désactivé, tout est proposé et les grades démarrent au maximum. Le plan aver
     <value>Rien ne quitte cette machine tant que vous ne le cochez pas ici. Un tracé d'itinéraire envoie à Spansh les deux noms de système et les chiffres de saut du vaisseau : masses, tailles de réservoir et valeurs du FSD. Une recherche de système envoie à Spansh l'identifiant du système où vous venez d'arriver et rapporte les corps qu'il y connaît. Une vérification de version demande à GitHub la dernière version publiée du projet et n'envoie rien d'autre que la requête elle-même. Chaque requête indique Katey, sa version et l'adresse du projet.</value>
   </data>
   <data name="Settings.NotWatching" xml:space="preserve">
-    <value>Pas de suivi. Appuyez sur Suivre pour lire le journal.</value>
+    <value>Aucun suivi. Choisissez le dossier des journaux ci-dessus pour commencer à le lire.</value>
+  </data>
+  <data name="Settings.TextSizeText" xml:space="preserve">
+    <value>Un texte plus grand fait dessiner tout plus grand par les fenêtres, espacements compris, quelle que soit la langue en vigueur. Si une page ne tient plus, détachez le panneau ou élargissez la fenêtre.</value>
   </data>
   <data name="Settings.UpdateText" xml:space="preserve">
     <value>Une vérification demande à GitHub la dernière version publiée du projet et compare son numéro à celui-ci. Rien n'est téléchargé ni installé : la page de la version s'ouvre dans votre navigateur, où se trouve la nouvelle build.</value>
@@ -2392,6 +2395,9 @@ Désactivé, tout est proposé et les grades démarrent au maximum. Le plan aver
   </data>
   <data name="System.YouLandedOn" xml:space="preserve">
     <value>vous vous êtes posé sur {bodies}</value>
+  </data>
+  <data name="TextSize.Percent" xml:space="preserve">
+    <value>{percent} %</value>
   </data>
   <data name="Totals.AllHeld.one" xml:space="preserve">
     <value>Totaux pour {count} entrée. Vous détenez déjà tout.</value>

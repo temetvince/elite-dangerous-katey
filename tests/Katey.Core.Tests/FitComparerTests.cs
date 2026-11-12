@@ -171,6 +171,9 @@ public sealed class FitComparerTests
         Assert.Equal("Anaconda Mk II", ShipNames.Prefer("anacondamkii", "anacondamkii"));
         Assert.Equal("Anaconda Mk II", ShipNames.Prefer("anacondamkii", null));
         Assert.Equal("Borrowed Name", ShipNames.Prefer("anacondamkii", "Borrowed Name"));
+        Assert.Contains("anacondamkii", ShipNames.Symbols);
+        Assert.Equal(ShipNames.Symbols.Order(StringComparer.Ordinal), ShipNames.Symbols);
+        Assert.All(ShipNames.Symbols, symbol => Assert.Equal(symbol, symbol.ToLowerInvariant()));
     }
 
     [Fact]

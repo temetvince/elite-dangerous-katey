@@ -225,12 +225,16 @@ public sealed class ShellViewModelTests
 
         var settings = Open<SettingsPage>(shell, PageKind.Settings);
         Assert.True(settings.IsWatching);
+        // The watch follows the folder: a new one is saved and watched at once, the same one again changes nothing, an empty one stops it.
         settings.Folder = @"D:\other";
-        settings.WatchCommand.Execute(null);
         Assert.Equal(2, monitor.Starts);
+        Assert.Equal(@"D:\other", monitor.Folder);
         Assert.Equal(@"D:\other", store.State.JournalFolder);
-        settings.StopCommand.Execute(null);
+        settings.Folder = @" D:\other ";
+        Assert.Equal(2, monitor.Starts);
+        settings.Folder = "";
         Assert.False(settings.IsWatching);
+        Assert.True(string.IsNullOrEmpty(store.State.JournalFolder));
     }
 
     [Fact]

@@ -53,6 +53,93 @@ public static partial class ModuleSymbolNames
         ["huge"] = 4,
     }.ToFrozenDictionary(StringComparer.Ordinal);
 
+    /// <summary>
+    /// The variants whose name is their type's name with words in front: each symbol family, as a lower-case
+    /// prefix or fragment of the canonical symbol, with the qualifier words in the order the game says them.
+    /// Longer fragments come first so that a Mk II variant is not read as its plain sibling.
+    /// </summary>
+    private static readonly (string Fragment, string[] Words)[] QualifiedFamilies =
+    [
+        ("int_hyperdrive_overcharge_size8_class5_overchargebooster_mkii", ["mkii", "sco"]),
+        ("int_hyperdrive_overcharge", ["sco"]),
+        ("int_mkiilargebuggybay", ["mkii", "large"]),
+        ("int_largebuggybay", ["large"]),
+        ("int_guardianpowerplant", ["guardian", "hybrid"]),
+        ("int_guardianpowerdistributor", ["guardian"]),
+        ("int_multidronecontrol_miningv2", ["mkii", "mining"]),
+        ("int_multidronecontrol_mining", ["mining"]),
+        ("int_multidronecontrol_operations", ["operations"]),
+        ("int_multidronecontrol_rescue", ["rescue"]),
+        ("int_multidronecontrol_universal", ["universal"]),
+        ("int_multidronecontrol_xeno", ["xeno"]),
+        ("int_dockingcomputer_advanced", ["advanced"]),
+        ("int_dockingcomputer_standard", ["standard"]),
+        ("int_planetapproachsuite_advanced", ["advanced", "odyssey"]),
+        ("int_planetapproachsuite", ["horizons"]),
+        ("int_mkiiagileboost_engine", ["mkii", "agile-boost"]),
+        ("gravityoptimised_mkii", ["mkii", "gravity-optimised"]),
+        ("int_engine_size2_class5_fast", ["enhanced-performance"]),
+        ("int_engine_size3_class5_fast", ["enhanced-performance"]),
+        ("int_fighterbaymk2", ["mkii"]),
+        ("int_mkii_passengercabin", ["mkii"]),
+        ("int_corrosionproofcargorack", ["corrosion-resistant"]),
+        ("hpt_xenoscanner_advanced", ["pulse-wave"]),
+        ("hpt_xenoscannermk2", ["enhanced"]),
+        ("hpt_plasmaaccelerator_fixed_large_advanced", ["advanced"]),
+        ("hpt_cannon_gimbal_medium_burst", ["concord"]),
+        ("hpt_minelauncher_fixed_small_impulse", ["shock"]),
+    ];
+
+    /// <summary>The variants that go by a name of their own in place of their type's: the powerplay and other special weapons.</summary>
+    private static readonly string[] NamedFamilies =
+    [
+        "hpt_beamlaser_fixed_small_heat", "hpt_drunkmissilerack", "hpt_dumbfiremissilerack_fixed_medium_lasso", "hpt_human_extraction",
+        "hpt_mininglaser_fixed_small_advanced", "hpt_mkiiplasmashockautocannon", "hpt_multicannon_fixed_small_strong",
+        "hpt_pulselaser_fixed_medium_disruptor", "hpt_pulselaserburst_fixed_small_scatter", "hpt_railgun_fixed_medium_burst",
+        "hpt_slugshot_fixed_large_range",
+    ];
+
+    /// <summary>Gets every qualifier word a variant can carry, as the keys a names table holds them under.</summary>
+    /// <value>Lower-case words such as <c>mkii</c>, <c>large</c> and <c>gravity-optimised</c>, in alphabetical order, each once.</value>
+    public static IReadOnlyList<string> QualifierWords { get; } = [.. QualifiedFamilies.SelectMany(family => family.Words).Distinct(StringComparer.Ordinal).Order(StringComparer.Ordinal)];
+
+    /// <summary>The words a variant adds in front of its type's name.</summary>
+    /// <param name="symbol">An item symbol, any letter case, with or without a <c>_free</c> or <c>_default</c> suffix.</param>
+    /// <returns>Qualifier words from <see cref="QualifierWords"/>, in the order the game says them; empty for a plain module or a named variant.</returns>
+    public static IReadOnlyList<string> Qualifiers(string symbol)
+    {
+        ArgumentNullException.ThrowIfNull(symbol);
+        var canonical = Canonical(symbol);
+        foreach (var (fragment, words) in QualifiedFamilies)
+        {
+            if (canonical.Contains(fragment, StringComparison.Ordinal))
+            {
+                return words;
+            }
+        }
+
+        return [];
+    }
+
+    /// <summary>Whether a symbol is a variant that goes by a name of its own, such as the Retributor, which stands in for its type's name in every language.</summary>
+    /// <param name="symbol">An item symbol, any letter case, with or without a <c>_free</c> or <c>_default</c> suffix.</param>
+    /// <returns><see langword="true"/> for the named variants.</returns>
+    public static bool IsNamedVariant(string symbol)
+    {
+        ArgumentNullException.ThrowIfNull(symbol);
+        var canonical = Canonical(symbol);
+        return NamedFamilies.Any(family => canonical.StartsWith(family, StringComparison.Ordinal));
+    }
+
+    /// <summary>A module table name without its class, rating and mount: "Retributor 1E Fixed" reads "Retributor".</summary>
+    /// <param name="name">A display name from the module table.</param>
+    /// <returns>The name alone, trimmed. The whole name when it carries neither.</returns>
+    public static string BareName(string name)
+    {
+        ArgumentNullException.ThrowIfNull(name);
+        return TailPattern().Replace(name, "").Trim();
+    }
+
     /// <summary>Gets the words the module table's names never contain but its missing symbols are built from.</summary>
     /// <value>Lower-case words, compared ordinally. Every lexicon handed to <see cref="Describe"/> should include them.</value>
     public static IReadOnlySet<string> ExtraWords { get; } = new HashSet<string>(StringComparer.Ordinal)
@@ -71,15 +158,24 @@ public static partial class ModuleSymbolNames
         return WordPattern().Matches(name).Select(match => match.Value.ToLowerInvariant());
     }
 
-    /// <summary>The armour a symbol stands for.</summary>
+    /// <summary>Gets the armour kinds, as the symbols spell them: <c>grade1</c> to <c>grade3</c>, <c>mirrored</c> and <c>reactive</c>.</summary>
+    /// <value>Lower case, in the order the outfitting screen lists them.</value>
+    public static IReadOnlyList<string> ArmourKinds { get; } = ["grade1", "grade2", "grade3", "mirrored", "reactive"];
+
+    /// <summary>The kind of armour a symbol stands for.</summary>
     /// <param name="symbol">An item symbol, any letter case, such as <c>anacondamkii_armour_grade3</c>.</param>
-    /// <returns>The armour's name as the outfitting screen shows it, or <see langword="null"/> when the symbol is not hull armour.</returns>
-    public static string? ArmourName(string symbol)
+    /// <returns>One of <see cref="ArmourKinds"/>, or <see langword="null"/> when the symbol is not hull armour.</returns>
+    public static string? ArmourKind(string symbol)
     {
         ArgumentNullException.ThrowIfNull(symbol);
         var match = ArmourPattern().Match(symbol.Trim());
-        return match.Success ? Armour[match.Groups[1].Value.ToLowerInvariant()] : null;
+        return match.Success ? match.Groups[1].Value.ToLowerInvariant() : null;
     }
+
+    /// <summary>The armour a symbol stands for.</summary>
+    /// <param name="symbol">An item symbol, any letter case, such as <c>anacondamkii_armour_grade3</c>.</param>
+    /// <returns>The armour's name as the outfitting screen shows it, or <see langword="null"/> when the symbol is not hull armour.</returns>
+    public static string? ArmourName(string symbol) => ArmourKind(symbol) is { } kind ? Armour[kind] : null;
 
     /// <summary>A symbol without the suffix the game adds to a module that came free with a ship or as a hull's default.</summary>
     /// <param name="symbol">An item symbol, any letter case.</param>
@@ -228,4 +324,7 @@ public static partial class ModuleSymbolNames
 
     [GeneratedRegex("^class([0-9])$", RegexOptions.CultureInvariant)]
     private static partial Regex ClassPattern();
+
+    [GeneratedRegex(@"\s+(?:[0-9][A-I]|Fixed|Gimballed|Turreted)(?=\s|$)", RegexOptions.CultureInvariant)]
+    private static partial Regex TailPattern();
 }

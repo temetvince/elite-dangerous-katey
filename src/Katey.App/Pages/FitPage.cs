@@ -367,7 +367,7 @@ public sealed class FitPage : Page, IEdsyExportable
         [
             .. ranked.Select(pair => new Choice(
                 pair.Ship.ShipId.ToString(CultureInfo.InvariantCulture),
-                Strings.Format(Keys.Fit_ShipChoice, ("ship", FleetPage.ShipTitle(pair.Ship)), ("hull", ShipNames.Prefer(pair.Ship.Type, pair.Ship.TypeName)), ("matching", pair.Comparison.MatchCount), ("total", fitting.Modules.Count)))),
+                Strings.Format(Keys.Fit_ShipChoice, ("ship", FleetPage.ShipTitle(pair.Ship)), ("hull", Names.Hull(pair.Ship.Type, pair.Ship.TypeName)), ("matching", pair.Comparison.MatchCount), ("total", fitting.Modules.Count)))),
         ];
         OnPropertyChanged(nameof(HasShips));
         // Choices compare by value, so a rebuilt list leaves the selection equal to the old one; the
@@ -502,7 +502,7 @@ public sealed class FitPage : Page, IEdsyExportable
         CompareSummary = string.Join(" ", parts);
         HullNote = string.Equals(ship.Type, fitting.Hull, StringComparison.OrdinalIgnoreCase)
             ? ""
-            : Strings.Format(Keys.Fit_HullNote, ("ship", ShipNames.Prefer(ship.Type, ship.TypeName)), ("fit", HullName));
+            : Strings.Format(Keys.Fit_HullNote, ("ship", Names.Hull(ship.Type, ship.TypeName)), ("fit", HullName));
         OnPropertyChanged(nameof(PlanDifferencesText));
         PlanDifferencesCommand.RaiseCanExecuteChanged();
     }
