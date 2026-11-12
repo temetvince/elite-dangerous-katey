@@ -380,9 +380,11 @@ secciones:
 - **Naves.** Cada nave que posees, dónde está y si se canjeó de un paquete; consulta
   [Naves preconstruidas](#naves-preconstruidas). Los artículos cosméticos como las pinturas y los kits de
   nave se dejan fuera en todo Katey.
-- **Configuraciones guardadas.** Tus configuraciones guardadas, cada una con un veredicto frente a todo lo
-  que posees según la política de compartir. Eso es propiedad, no la configuración de una nave; abre la
-  configuración para compararla con una nave ranura por ranura.
+- **Configuraciones guardadas.** Tus configuraciones guardadas, cada una con un veredicto frente a todo lo que
+  posees según la política de compartir. Eso es propiedad, no la configuración de una nave; abre la
+  configuración para compararla con una nave ranura por ranura. La **política de compartir** y los dos filtros
+  de módulos están en lo alto de la página, sobre las secciones, y de nuevo en lo alto de la página de cada
+  configuración; una sola elección, mostrada en ambos sitios.
   - **Todo en propiedad**: cada módulo que pide la configuración está en algún sitio de tu flota o almacén.
   - **Parcial**: algunos están en propiedad pero no modificados hasta el final.
   - **Faltan**, con cuántos.
@@ -397,8 +399,8 @@ secciones:
   en vez de ponerse a su lado: el botón pregunta primero, y una segunda pulsación la reemplaza en su sitio.
   El mismo nombre en otro casco es una configuración nueva.
 - **Módulos propios que ninguna configuración usa.** Los módulos en propiedad que ninguna configuración
-  reclama, bajo una **política de compartir** que dice si los módulos pueden moverse entre naves, solo entre
-  naves del mismo casco o en absoluto, y filtros por ubicación, lugar en la nave y estado de ingeniería.
+  reclama bajo la política de compartir y los filtros de módulos de lo alto de la página, acotados además por
+  estado de ingeniería.
 
 El juego reescribe la lista de la flota y la lista de módulos almacenados cuando atracas en algún sitio con
 astillero o equipamiento, así que están tan al día como tu última visita de ese tipo.
@@ -447,7 +449,9 @@ Una configuración guardada comparada con lo que tienes. Sus secciones:
   efecto experimental, es **parcial** en vez de faltar. También lo es un módulo en el grado correcto al que
   aún no se le han aplicado todas las tiradas hasta su efecto completo; su texto de ingeniería dice cuánto
   lleva, como "Reforzado G3, 25%", y planificar la carencia pide solo las tiradas que aún se deben en ese
-  grado. Un módulo modificado antes de que el juego guardara esa cifra se lee como completo.
+  grado. Un módulo modificado antes de que el juego guardara esa cifra se lee como completo. Un módulo que
+  solo tienes una vez y que una configuración anterior reclama según esa política falta aquí, y la línea
+  nombra la configuración.
 
   El estado se colorea según dónde está el módulo:
 

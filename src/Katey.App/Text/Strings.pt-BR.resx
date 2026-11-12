@@ -665,6 +665,9 @@ Desligado, tudo é oferecido e os graus começam no máximo. O plano ainda avisa
   <data name="Fleet.ReplaceQuestion" xml:space="preserve">
     <value>Substituir a montagem salva {name} para a {hull}?</value>
   </data>
+  <data name="Fleet.SharingHint" xml:space="preserve">
+    <value>Quais montagens podem usar um módulo que você tem. Montagens de uma mesma nave o compartilham pela regra do mesmo casco; uma montagem que precisa da própria cópia mostra «faltando» onde uma montagem anterior segura a única que você tem.</value>
+  </data>
   <data name="Fleet.ShipsNotSeen" xml:space="preserve">
     <value>ainda não vistas: atraque em um estaleiro</value>
   </data>
@@ -943,6 +946,9 @@ Desligado, tudo é oferecido e os graus começam no máximo. O plano ainda avisa
   </data>
   <data name="Lookup.Unreadable" xml:space="preserve">
     <value>Não foi possível ler a resposta do Spansh à consulta do sistema.</value>
+  </data>
+  <data name="Match.ClaimedBy" xml:space="preserve">
+    <value>faltando: sua montagem {fit} reivindica o único que você tem</value>
   </data>
   <data name="Match.ExperimentalUnknown" xml:space="preserve">
     <value>{place}, experimental desconhecido</value>

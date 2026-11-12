@@ -918,6 +918,46 @@ public sealed class WorkbenchFeatureTests
     }
 
     [Fact]
+    public void FleetFilters_SurviveARefreshWithAnEmptyFleet_AndChangeOnlyWhenChosen()
+    {
+        // A saved system stays on offer and in force while the fleet is empty, as it is during a replay: nothing resets the filter but a choice.
+        var state = PersistedState.Empty with { Preferences = new Dictionary<string, string> { ["fleet.location"] = "Deciat" } };
+        var (shell, monitor, store) = Create(state);
+        var fleet = Open<FleetPage>(shell, PageKind.Fleet);
+        Assert.Equal("Deciat", fleet.SelectedLocation.Key);
+        Assert.Equal("Deciat", shell.Workspace.Fleet.Location);
+        monitor.CatchUp(1, 3);
+        fleet = Open<FleetPage>(shell, PageKind.Fleet);
+        Assert.Equal("Deciat", fleet.SelectedLocation.Key);
+        Assert.Equal("Deciat", shell.Workspace.Fleet.Location);
+        Assert.Equal("Deciat", store.State.Preferences!["fleet.location"]);
+
+        // A choice made in the picker is what changes it.
+        fleet.SelectedLocation = FleetChoices.Everywhere;
+        Assert.Null(shell.Workspace.Fleet.Location);
+        Assert.Equal("", store.State.Preferences!["fleet.location"]);
+    }
+
+    [Fact]
+    public void SharingPolicy_IsOneChoice_SetFromTheFleetPageOrAFitPage_AndSaved()
+    {
+        var (shell, _, store) = Create();
+        var fleet = Open<FleetPage>(shell, PageKind.Fleet);
+        Assert.Equal(nameof(SharingPolicy.Pooled), fleet.SelectedPolicy.Key);
+        fleet.SelectedPolicy = fleet.Policies.Single(choice => choice.Key == nameof(SharingPolicy.None));
+        Assert.Equal(SharingPolicy.None, shell.Workspace.Fleet.Policy);
+        Assert.Equal(SharingPolicy.None, store.State.Policy);
+
+        shell.Workspace.Fleet.Add(new Fitting("fit-1", "anaconda", "Hauler", [new FitModule("Slot01_Size8", "int_cargorack_size8_class1", null)]));
+        var fit = Open<FitPage>(shell, PageKind.Fit, "fit-1");
+        Assert.Equal(nameof(SharingPolicy.None), fit.SelectedPolicy.Key);
+        fit.SelectedPolicy = fit.Policies.Single(choice => choice.Key == nameof(SharingPolicy.SameHull));
+        Assert.Equal(SharingPolicy.SameHull, shell.Workspace.Fleet.Policy);
+        Assert.Equal(nameof(SharingPolicy.SameHull), Open<FleetPage>(shell, PageKind.Fleet).SelectedPolicy.Key);
+        Assert.StartsWith("Which fits may use one module you own.", FleetPage.SharingText, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void TextSize_IsAPercentageOfTheDesignSize_RememberedAndAppliedToTheShell()
     {
         var (shell, _, store) = Create();

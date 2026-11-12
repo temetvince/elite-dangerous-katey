@@ -394,7 +394,9 @@ n'utilise. Ses sections :
   vaisseau sont laissés de côté partout dans Katey.
 - **Configurations enregistrées.** Vos builds enregistrés, chacun avec un verdict face à tout ce que vous
   possédez selon la règle de partage. C'est de la possession, pas l'équipement d'un vaisseau ; ouvrez la
-  configuration pour la comparer à un vaisseau emplacement par emplacement.
+  configuration pour la comparer à un vaisseau emplacement par emplacement. La **règle de partage** et les
+  deux filtres de modules se trouvent en haut de la page, au-dessus des sections, et de nouveau en haut de la
+  page de chaque configuration ; un seul choix, montré aux deux endroits.
   - **Tout possédé** : chaque module que veut la configuration est quelque part dans votre flotte ou votre
     stockage.
   - **Partiel** : certains sont possédés mais pas modifiés jusqu'au bout.
@@ -410,9 +412,8 @@ n'utilise. Ses sections :
   configuration au lieu de se placer à côté : le bouton demande d'abord, et une seconde pression la remplace
   sur place. Le même nom sur une autre coque est une nouvelle configuration.
 - **Modules possédés qu'aucune configuration n'utilise.** Les modules possédés qu'aucune configuration ne
-  réclame, sous une **règle de partage** qui dit si les modules peuvent passer d'un vaisseau à l'autre,
-  seulement entre vaisseaux d'une même coque, ou pas du tout, et des filtres par lieu, emplacement sur le
-  vaisseau et état d'ingénierie.
+  réclame sous la règle de partage et les filtres de modules du haut de la page, restreints encore par état
+  d'ingénierie.
 
 La liste de la flotte et la liste des modules stockés sont réécrites par le jeu quand vous vous amarrez
 quelque part avec un chantier naval ou un équipement, elles sont donc aussi fraîches que votre dernière
@@ -458,12 +459,13 @@ Un build enregistré comparé à ce que vous avez. Ses sections :
   reconnaissent leurs entrées l'un l'autre : l'ingénierie d'un emplacement planifiée comme un manque dans ce
   que vous possédez est le même travail que le changement pour ce vaisseau, et la page du vaisseau compte de
   la même façon l'entrée d'une configuration pour sa coque.
-- **Face à tout ce que vous possédez.** Chaque module que veut la configuration face à chaque module que
-  vous possédez, selon la règle de partage de la flotte. Un module avec la bonne modification à un grade
-  inférieur, ou sans l'effet expérimental, est **partiel** plutôt que manquant. De même un module au bon
-  grade qui n'est pas encore poussé jusqu'à son plein effet ; son texte d'ingénierie dit où il en est, comme
-  « Renforcé G3, 25 % », et planifier le manque ne demande que les jets encore dus à ce grade. Un module
-  modifié avant que le jeu ne garde ce chiffre se lit comme achevé.
+- **Face à tout ce que vous possédez.** Chaque module que veut la configuration face à chaque module que vous
+  possédez, selon la règle de partage de la flotte. Un module avec la bonne modification à un grade inférieur,
+  ou sans l'effet expérimental, est **partiel** plutôt que manquant. De même un module au bon grade qui n'est
+  pas encore poussé jusqu'à son plein effet ; son texte d'ingénierie dit où il en est, comme « Renforcé G3, 25
+  % », et planifier le manque ne demande que les jets encore dus à ce grade. Un module modifié avant que le
+  jeu ne garde ce chiffre se lit comme achevé. Un module que vous ne possédez qu'une fois et qu'une
+  configuration antérieure réclame selon cette règle manque ici, et la ligne nomme la configuration.
 
   Le statut est coloré selon l'endroit où est le module :
 

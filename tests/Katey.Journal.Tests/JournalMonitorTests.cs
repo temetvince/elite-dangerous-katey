@@ -36,7 +36,7 @@ public sealed class JournalMonitorTests : IDisposable
         var updates = new Queue<TaskCompletionSource>();
         for (var index = 0; index < 3; index++)
         {
-            updates.Enqueue(new TaskCompletionSource());
+            updates.Enqueue(new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously));
         }
 
         var pending = updates.ToArray();
@@ -82,7 +82,7 @@ public sealed class JournalMonitorTests : IDisposable
         File.WriteAllText(Path.Combine(_folder, "NavRoute.json"), /*lang=json,strict*/ """{"timestamp":"2026-11-05T10:00:00Z","event":"NavRoute","Route":[{"StarSystem":"Sol","SystemAddress":1,"StarPos":[0,0,0],"StarClass":"G"},{"StarSystem":"Deciat","SystemAddress":2,"StarPos":[3,4,0],"StarClass":"K"}]}""");
         File.WriteAllText(Path.Combine(_folder, "Status.json"), /*lang=json,strict*/ """{"timestamp":"2026-11-05T10:00:00Z","event":"Status","Flags":16777240,"Fuel":{"FuelMain":12.5,"FuelReservoir":0.4},"Cargo":12,"BodyName":"Sol","Destination":{"System":2,"Body":0,"Name":"Deciat"}}""");
         using var monitor = new JournalMonitor(NullLogger<JournalMonitor>.Instance, [new MaterialInventory()], Poll);
-        var updated = new TaskCompletionSource();
+        var updated = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         monitor.Updated += (_, _) => updated.TrySetResult();
 
         monitor.Start(_folder);
@@ -107,7 +107,7 @@ public sealed class JournalMonitorTests : IDisposable
             /*lang=json,strict*/ """{"timestamp":"2026-11-08T15:40:00Z","event":"MaterialCollected","Name":"iron","Count":2}""");
         var materials = new MaterialInventory();
         using var monitor = new JournalMonitor(NullLogger<JournalMonitor>.Instance, [materials], Poll);
-        var updates = new Queue<TaskCompletionSource>([new(), new()]);
+        var updates = new Queue<TaskCompletionSource>([new(TaskCreationOptions.RunContinuationsAsynchronously), new(TaskCreationOptions.RunContinuationsAsynchronously)]);
         var pending = updates.ToArray();
         var seen = 0;
         monitor.Updated += (_, _) =>
@@ -145,7 +145,7 @@ public sealed class JournalMonitorTests : IDisposable
         WriteLines("Journal.2026-11-05T100000.01.log", /*lang=json,strict*/ """{"timestamp":"2026-11-05T10:00:00Z","event":"Fileheader","part":1}""");
         var materials = new MaterialInventory();
         using var monitor = new JournalMonitor(NullLogger<JournalMonitor>.Instance, [materials], Poll);
-        var changed = new TaskCompletionSource();
+        var changed = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         monitor.Updated += (_, _) => changed.TrySetResult();
 
         monitor.Start(_folder);
@@ -187,6 +187,48 @@ public sealed class JournalMonitorTests : IDisposable
         Assert.NotEmpty(candidates);
         Assert.Contains("Saved Games", candidates[0], StringComparison.Ordinal);
         Assert.Contains(candidates, path => path.Contains("compatdata", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void Stop_EndsAReplayMidFile_BeforeItReturns()
+    {
+        // Ten thousand lines through a sink that takes a millisecond each: the file alone would take ten seconds.
+        var line = /*lang=json,strict*/ """{"timestamp":"2026-11-05T10:00:00Z","event":"Materials","Raw":[{"Name":"iron","Count":1}],"Manufactured":[],"Encoded":[]}""";
+        WriteLines("Journal.2026-11-05T100000.01.log", [.. Enumerable.Repeat(line, 10_000)]);
+        var slow = new SlowSink();
+        using var monitor = new JournalMonitor(NullLogger<JournalMonitor>.Instance, [slow], Poll);
+
+        monitor.Start(_folder);
+        SpinWait.SpinUntil(() => slow.Applied > 5, Wait);
+        var watch = System.Diagnostics.Stopwatch.StartNew();
+        monitor.Stop();
+        watch.Stop();
+        var atStop = slow.Applied;
+        Thread.Sleep(200);
+
+        Assert.Equal(MonitorState.Stopped, monitor.State);
+        Assert.True(watch.Elapsed < TimeSpan.FromSeconds(2), $"Stop took {watch.Elapsed}.");
+        Assert.Equal(atStop, slow.Applied);
+        Assert.True(atStop < 10_000);
+    }
+
+    /// <summary>A sink that takes a millisecond per event and counts them.</summary>
+    private sealed class SlowSink : IJournalSink
+    {
+        private int _applied;
+
+        public int Applied => Volatile.Read(ref _applied);
+
+        public IReadOnlySet<string>? InterestedEvents => null;
+
+        public void Reset() => Volatile.Write(ref _applied, 0);
+
+        public bool Apply(JournalEvent journalEvent)
+        {
+            Thread.Sleep(1);
+            Interlocked.Increment(ref _applied);
+            return true;
+        }
     }
 
     private void WriteLines(string file, params string[] lines)

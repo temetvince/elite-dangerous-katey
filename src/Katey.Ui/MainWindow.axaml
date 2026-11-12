@@ -921,6 +921,15 @@
                       <ui:PageHeaderView />
                       <TextBlock Classes="lede" Text="{Binding FleetStatus}" />
                     </StackPanel>
+                    <!-- The fleet-wide choices sit above the sections, as the engineers' switch does: the sharing policy and the two module filters shape every section below. -->
+                    <StackPanel Spacing="6">
+                      <Grid ColumnDefinitions="2*,12,*,12,*">
+                        <StackPanel><TextBlock Classes="col" Text="{loc:T Column.Sharing, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Policies}" SelectedItem="{Binding SelectedPolicy}" HorizontalAlignment="Stretch" /></StackPanel>
+                        <StackPanel Grid.Column="2"><TextBlock Classes="col" Text="{loc:T Column.ModulesIn, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedLocation}" HorizontalAlignment="Stretch" /></StackPanel>
+                        <StackPanel Grid.Column="4"><TextBlock Classes="col" Text="{loc:T Column.Place, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Places}" SelectedItem="{Binding SelectedPlace}" HorizontalAlignment="Stretch" /></StackPanel>
+                      </Grid>
+                      <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding SharingText}" />
+                    </StackPanel>
                     <ItemsControl ItemsSource="{Binding Sections.Items}">
                       <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel Orientation="Horizontal" Spacing="2" /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                       <ItemsControl.ItemTemplate>
@@ -1005,11 +1014,8 @@
                     <Border Classes="panel" Padding="16,10,16,6" IsVisible="{Binding Sections[unused].IsCurrent}">
                       <StackPanel Spacing="8">
                         <TextBlock Classes="h3" Text="{Binding UnusedHeading}" />
-                        <Grid ColumnDefinitions="2*,12,*,12,*,12,*">
-                          <StackPanel><TextBlock Classes="col" Text="{loc:T Column.Sharing, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Policies}" SelectedItem="{Binding SelectedPolicy}" HorizontalAlignment="Stretch" /></StackPanel>
-                          <StackPanel Grid.Column="2"><TextBlock Classes="col" Text="{loc:T Column.ModulesIn, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedLocation}" HorizontalAlignment="Stretch" /></StackPanel>
-                          <StackPanel Grid.Column="4"><TextBlock Classes="col" Text="{loc:T Column.Place, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Places}" SelectedItem="{Binding SelectedPlace}" HorizontalAlignment="Stretch" /></StackPanel>
-                          <StackPanel Grid.Column="6"><TextBlock Classes="col" Text="{loc:T Column.Engineering, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Filters}" SelectedItem="{Binding SelectedFilter}" HorizontalAlignment="Stretch" /></StackPanel>
+                        <Grid ColumnDefinitions="*,12,3*">
+                          <StackPanel><TextBlock Classes="col" Text="{loc:T Column.Engineering, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Filters}" SelectedItem="{Binding SelectedFilter}" HorizontalAlignment="Stretch" /></StackPanel>
                         </Grid>
                         <Border Classes="thead">
                           <Grid ColumnDefinitions="2*,2*,*,170" ColumnSpacing="12">
@@ -1159,6 +1165,15 @@
                         <TextBlock Classes="muted" Text="{Binding ExportStatus}" VerticalAlignment="Center" />
                       </StackPanel>
                     </StackPanel>
+                    <!-- The same fleet-wide choices as on the Fleet page, above the sections: one choice, shown in both places. -->
+                    <StackPanel Spacing="6">
+                      <Grid ColumnDefinitions="2*,12,*,12,*">
+                        <StackPanel><TextBlock Classes="col" Text="{loc:T Column.Sharing, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Policies}" SelectedItem="{Binding SelectedPolicy}" HorizontalAlignment="Stretch" /></StackPanel>
+                        <StackPanel Grid.Column="2"><TextBlock Classes="col" Text="{loc:T Column.OwnedModulesIn, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedLocation}" HorizontalAlignment="Stretch" /></StackPanel>
+                        <StackPanel Grid.Column="4"><TextBlock Classes="col" Text="{loc:T Column.OwnedModulesThatAre, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Places}" SelectedItem="{Binding SelectedPlace}" HorizontalAlignment="Stretch" /></StackPanel>
+                      </Grid>
+                      <TextBlock Classes="muted" TextWrapping="Wrap" Text="{Binding SharingText}" />
+                    </StackPanel>
                     <ItemsControl ItemsSource="{Binding Sections.Items}">
                       <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel Orientation="Horizontal" Spacing="2" /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                       <ItemsControl.ItemTemplate>
@@ -1171,10 +1186,8 @@
                       <StackPanel Spacing="8">
                         <TextBlock Classes="muted" Text="{loc:T Fit.Intro}" />
                         <TextBlock Classes="muted" Text="{Binding CompareSummary}" IsVisible="{Binding !HasShips}" />
-                        <Grid ColumnDefinitions="3*,12,*,12,*" IsVisible="{Binding HasShips}">
+                        <Grid ColumnDefinitions="3*,12,2*" IsVisible="{Binding HasShips}">
                           <StackPanel><TextBlock Classes="col" Text="{loc:T Column.Ship, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Ships}" SelectedItem="{Binding SelectedShip}" HorizontalAlignment="Stretch" /></StackPanel>
-                          <StackPanel Grid.Column="2"><TextBlock Classes="col" Text="{loc:T Column.OwnedModulesIn, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedLocation}" HorizontalAlignment="Stretch" /></StackPanel>
-                          <StackPanel Grid.Column="4"><TextBlock Classes="col" Text="{loc:T Column.OwnedModulesThatAre, Upper=True}" Margin="0,0,0,4" /><ComboBox ItemsSource="{Binding Places}" SelectedItem="{Binding SelectedPlace}" HorizontalAlignment="Stretch" /></StackPanel>
                         </Grid>
                         <CheckBox Content="{loc:T Fit.CountOwned}" IsChecked="{Binding UseOwned, Mode=TwoWay}" IsVisible="{Binding HasShips}" />
                         <TextBlock Classes="body" Text="{Binding CompareSummary}" IsVisible="{Binding HasShips}" />

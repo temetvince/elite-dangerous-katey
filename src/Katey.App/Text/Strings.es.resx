@@ -665,6 +665,9 @@ Desactivado: se ofrece todo y los grados empiezan en el máximo. El plan sigue a
   <data name="Fleet.ReplaceQuestion" xml:space="preserve">
     <value>¿Reemplazar la configuración guardada {name} para la {hull}?</value>
   </data>
+  <data name="Fleet.SharingHint" xml:space="preserve">
+    <value>Qué configuraciones pueden usar un módulo que posees. Las configuraciones de una misma nave lo comparten con la regla del mismo casco; una configuración que necesita su propia copia marca «falta» allí donde una configuración anterior retiene la única que tienes.</value>
+  </data>
   <data name="Fleet.ShipsNotSeen" xml:space="preserve">
     <value>aún no vistas: atraca y entra en el astillero</value>
   </data>
@@ -943,6 +946,9 @@ Desactivado: se ofrece todo y los grados empiezan en el máximo. El plan sigue a
   </data>
   <data name="Lookup.Unreadable" xml:space="preserve">
     <value>No se pudo leer la respuesta de Spansh a la consulta del sistema.</value>
+  </data>
+  <data name="Match.ClaimedBy" xml:space="preserve">
+    <value>falta: tu configuración {fit} reclama el único que tienes</value>
   </data>
   <data name="Match.ExperimentalUnknown" xml:space="preserve">
     <value>{place}, efecto experimental desconocido</value>

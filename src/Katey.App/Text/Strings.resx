@@ -867,6 +867,10 @@ Off, everything is offered and grades start at the top. The plan still warns abo
     <value>Replace the saved fit {name} for the {hull}?</value>
     <comment>Fleet page: confirmation before replacing a fit of the same name.</comment>
   </data>
+  <data name="Fleet.SharingHint" xml:space="preserve">
+    <value>Which fits may use one module you own. Fits for one ship share it under the same-hull rule; a fit that must have its own copy reads missing wherever an earlier fit holds the one you have.</value>
+    <comment>Fleet and fit pages: the line under the sharing policy picker, explaining what the choice decides.</comment>
+  </data>
   <data name="Fleet.ShipsNotSeen" xml:space="preserve">
     <value>not yet seen: dock at a shipyard</value>
     <comment>Fleet page status part. Lower case.</comment>
@@ -1238,6 +1242,10 @@ Off, everything is offered and grades start at the top. The plan still warns abo
   <data name="Lookup.Unreadable" xml:space="preserve">
     <value>Spansh's answer to the system lookup could not be read.</value>
     <comment>System page status when the Spansh system lookup's answer is not valid JSON.</comment>
+  </data>
+  <data name="Match.ClaimedBy" xml:space="preserve">
+    <value>missing: your {fit} fit claims the one you own</value>
+    <comment>Fit line status: the one copy owned is held by an earlier fit under the sharing policy. {fit} is that fit's name. Lower case.</comment>
   </data>
   <data name="Match.ExperimentalUnknown" xml:space="preserve">
     <value>{place}, experimental unknown</value>

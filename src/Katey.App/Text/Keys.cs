@@ -603,6 +603,9 @@ public static class Keys
     /// <summary><c>Fleet.ReplaceQuestion</c>.</summary>
     public const string Fleet_ReplaceQuestion = "Fleet.ReplaceQuestion";
 
+    /// <summary><c>Fleet.SharingHint</c>.</summary>
+    public const string Fleet_SharingHint = "Fleet.SharingHint";
+
     /// <summary><c>Fleet.ShipTitle</c>.</summary>
     public const string Fleet_ShipTitle = "Fleet.ShipTitle";
 
@@ -881,6 +884,9 @@ public static class Keys
 
     /// <summary><c>Lookup.Unreadable</c>.</summary>
     public const string Lookup_Unreadable = "Lookup.Unreadable";
+
+    /// <summary><c>Match.ClaimedBy</c>.</summary>
+    public const string Match_ClaimedBy = "Match.ClaimedBy";
 
     /// <summary><c>Match.ExperimentalUnknown</c>.</summary>
     public const string Match_ExperimentalUnknown = "Match.ExperimentalUnknown";

@@ -665,6 +665,9 @@ Désactivé, tout est proposé et les grades démarrent au maximum. Le plan aver
   <data name="Fleet.ReplaceQuestion" xml:space="preserve">
     <value>Remplacer la configuration enregistrée {name} pour le {hull} ?</value>
   </data>
+  <data name="Fleet.SharingHint" xml:space="preserve">
+    <value>Quelles configurations peuvent utiliser un module que vous possédez. Les configurations d'un même vaisseau le partagent avec la règle « même coque » ; une configuration qui exige sa propre copie affiche « manquant » là où une configuration antérieure retient la seule que vous avez.</value>
+  </data>
   <data name="Fleet.ShipsNotSeen" xml:space="preserve">
     <value>pas encore vus : amarrez-vous à un chantier naval</value>
   </data>
@@ -943,6 +946,9 @@ Désactivé, tout est proposé et les grades démarrent au maximum. Le plan aver
   </data>
   <data name="Lookup.Unreadable" xml:space="preserve">
     <value>La réponse de Spansh à la recherche du système n'a pas pu être lue.</value>
+  </data>
+  <data name="Match.ClaimedBy" xml:space="preserve">
+    <value>manquant : votre configuration {fit} réclame le seul que vous possédez</value>
   </data>
   <data name="Match.ExperimentalUnknown" xml:space="preserve">
     <value>{place}, expérimental inconnu</value>

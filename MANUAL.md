@@ -353,7 +353,9 @@ Your ships, your saved fits, and the modules you own that no fit uses. Its secti
   [Prebuilt ships](#prebuilt-ships). Cosmetic items such as paint jobs and ship kits are left out
   everywhere in Katey.
 - **Fits.** Your saved builds, each with a verdict against everything you own under the sharing policy. That
-  is ownership, not one ship's fit; open the fit to compare it with a ship slot by slot.
+  is ownership, not one ship's fit; open the fit to compare it with a ship slot by slot. The **sharing
+  policy** and the two module filters sit at the top of the page, above the sections, and again at the top of
+  each fit's page; one choice, shown in both places.
   - **All owned**: every module the fit wants is somewhere in your fleet or storage.
   - **Partial**: some are owned but not engineered all the way.
   - **Missing**, with how many.
@@ -366,9 +368,8 @@ Your ships, your saved fits, and the modules you own that no fit uses. Its secti
   A paste box takes a new fit from EDSY, and a fit can be removed here. A pasted build with the same name as a
   saved fit for the same hull replaces that fit rather than sitting beside it: the button asks first, and a
   second press replaces it in place. The same name on a different hull is a new fit.
-- **Unused modules.** The owned modules no fit claims, under a **sharing policy** that says whether modules
-  may move between ships, between ships of the same hull only, or not at all, and filters by location,
-  place on the ship and engineering state.
+- **Unused modules.** The owned modules no fit claims under the sharing policy and the module filters at the
+  top of the page, narrowed further by engineering state.
 
 The fleet list and the stored-module list are rewritten by the game when you dock somewhere with a shipyard
 or outfitting, so they are as fresh as your last such visit.
@@ -413,7 +414,8 @@ One saved build compared with what you have. Its sections:
   **partial** rather than missing. So is a module at the right grade that is not yet rolled to its full
   effect; its engineering text says how far along it is, such as "Reinforced G3, 25%", and planning the gap
   asks only for the rolls still owed at that grade. A module engineered before the game kept that figure reads
-  as complete.
+  as complete. A module you own only once that an earlier fit claims under that policy is missing here, and
+  the line names the fit.
 
   The status is coloured by where the module is:
 

@@ -20,6 +20,9 @@ internal static partial class Log
     [LoggerMessage(EventId = 1005, Level = LogLevel.Information, Message = "Replayed {FileCount} journal file(s): {Lines} line(s) in {Seconds} s, {Skipped} unreadable.")]
     internal static partial void CaughtUp(ILogger logger, int fileCount, int lines, int skipped, double seconds);
 
+    [LoggerMessage(EventId = 1014, Level = LogLevel.Warning, Message = "The previous journal replay did not stop within 30 seconds; its last lines may have reached the trackers after the new folder's replay.")]
+    internal static partial void StopTimedOut(ILogger logger);
+
     [LoggerMessage(EventId = 1013, Level = LogLevel.Warning, Message = "The game wrote {File} in a form that could not be read; {Count} such write(s) so far.")]
     internal static partial void LiveFileUnreadable(ILogger logger, string file, int count);
 

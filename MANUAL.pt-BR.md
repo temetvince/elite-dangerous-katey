@@ -369,9 +369,11 @@ Suas naves, suas montagens salvas e os módulos que você tem e que nenhuma mont
 - **Naves.** Cada nave que você tem, onde está e se foi resgatada de um pacote; veja
   [Naves pré-montadas](#naves-pré-montadas). Itens cosméticos, como pinturas e kits de nave, ficam de fora em
   todo o Katey.
-- **Montagens salvas.** Suas builds salvas, cada uma com um veredito contra tudo o que você tem sob a
-  política de compartilhamento. Isso é posse, não a montagem de uma nave; abra a montagem para compará-la com
-  uma nave encaixe por encaixe.
+- **Montagens salvas.** Suas builds salvas, cada uma com um veredito contra tudo o que você tem sob a política
+  de compartilhamento. Isso é posse, não a montagem de uma nave; abra a montagem para compará-la com uma nave
+  encaixe por encaixe. A **política de compartilhamento** e os dois filtros de módulos ficam no topo da
+  página, acima das seções, e de novo no topo da página de cada montagem; uma só escolha, mostrada nos dois
+  lugares.
   - **Tem todos**: cada módulo que a montagem pede está em algum lugar da sua frota ou do armazenamento.
   - **Parcial**: alguns você tem, mas sem a engenharia completa.
   - **Faltando**, com quantos.
@@ -385,9 +387,9 @@ Suas naves, suas montagens salvas e os módulos que você tem e que nenhuma mont
   colada com o mesmo nome de uma montagem salva para o mesmo casco substitui essa montagem em vez de ficar ao
   lado dela: o botão pergunta primeiro, e um segundo toque a substitui no lugar. O mesmo nome em outro casco
   é uma montagem nova.
-- **Módulos próprios que nenhuma montagem usa.** Os módulos que você tem e que nenhuma montagem reivindica,
-  sob uma **política de compartilhamento** que diz se os módulos podem passar entre naves, só entre naves do
-  mesmo casco, ou nunca, e filtros por localização, local na nave e estado de engenharia.
+- **Módulos próprios que nenhuma montagem usa.** Os módulos que você tem e que nenhuma montagem reivindica sob
+  a política de compartilhamento e os filtros de módulos do topo da página, estreitados ainda por estado de
+  engenharia.
 
 A lista da frota e a lista de módulos armazenados são reescritas pelo jogo quando você atraca em algum lugar
 com estaleiro ou Equipamentos, então elas são tão recentes quanto a sua última visita a um.
@@ -434,7 +436,8 @@ Uma build salva comparada com o que você tem. Suas seções:
   experimental, é **parcial** em vez de faltando. O mesmo vale para um módulo no grau certo que ainda não foi
   rolado até o efeito completo; o texto de engenharia dele diz até onde foi, como "Reforçado G3, 25%", e
   planejar a lacuna pede só as rolagens ainda devidas nesse grau. Um módulo com engenharia feita antes de o
-  jogo guardar esse número é lido como completo.
+  jogo guardar esse número é lido como completo. Um módulo que você tem só uma vez e que uma montagem anterior
+  reivindica sob essa política falta aqui, e a linha diz qual montagem.
 
   O status é colorido pelo lugar em que o módulo está:
 

@@ -55,9 +55,11 @@ ship was redeemed from a bundle. A file whose name is in neither format sorts by
    file, and a changed write time on either live file. `Updated` is raised at most once per poll, after
    everything changed in it has been applied.
 
-Partial trailing lines wait for the next poll. If the folder does not exist, `State` is `FolderMissing`
-and nothing is read. `Stop` ends the loop and leaves the sinks as they are. Polling is deliberate: the
-game appends without signalling, so a file-system notification would still have to be followed by a read.
+Partial trailing lines wait for the next poll. If the folder does not exist, `State` is `FolderMissing` and
+nothing is read. `Stop` ends the loop and leaves the sinks as they are; the reader checks for cancellation
+before every line, and `Stop` waits for the loop to end, so a `Start` on another folder never leaves the
+previous replay feeding its last lines into the sinks after the new one has reset them. Polling is deliberate:
+the game appends without signalling, so a file-system notification would still have to be followed by a read.
 
 Sinks are called on the monitor's thread, one call at a time. Each tracker locks internally and hands out
 immutable snapshots, so a UI thread can read them at any time. The monitor's events are raised on its

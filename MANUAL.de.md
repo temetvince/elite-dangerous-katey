@@ -390,7 +390,9 @@ Abschnitte:
   werden überall in Katey ausgelassen.
 - **Gespeicherte Builds.** Deine gespeicherten Builds, jeder mit einem Urteil gegen alles, was du besitzt,
   gemäß der Teilungsregel. Das ist Besitz, nicht die Ausrüstung eines Schiffs; öffne den Build, um ihn Slot
-  für Slot mit einem Schiff zu vergleichen.
+  für Slot mit einem Schiff zu vergleichen. Die **Teilungsregel** und die beiden Modulfilter stehen oben auf
+  der Seite, über den Abschnitten, und noch einmal oben auf der Seite jedes Builds; eine Wahl, an beiden
+  Stellen gezeigt.
   - **Alles vorhanden**: Jedes Modul, das der Build will, ist irgendwo in deiner Flotte oder im Lager.
   - **Teilweise**: Einige sind vorhanden, aber nicht ganz durchmodifiziert.
   - **Fehlend**, mit der Anzahl.
@@ -404,9 +406,8 @@ Abschnitte:
   eingefügter Build mit demselben Namen wie ein gespeicherter Build für denselben Schiffstyp ersetzt diesen
   Build, statt neben ihm zu stehen: Der Knopf fragt zuerst, und ein zweiter Druck ersetzt ihn an Ort und
   Stelle. Derselbe Name auf einem anderen Schiffstyp ist ein neuer Build.
-- **Eigene Module, die kein Build nutzt.** Die eigenen Module, die kein Build beansprucht, unter einer
-  **Teilungsregel**, die sagt, ob Module zwischen Schiffen wandern dürfen, nur zwischen Schiffen desselben
-  Schiffstyps oder gar nicht, und mit Filtern nach Standort, Platz am Schiff und Modifikationszustand.
+- **Eigene Module, die kein Build nutzt.** Die eigenen Module, die kein Build beansprucht, unter der
+  Teilungsregel und den Modulfiltern oben auf der Seite, weiter eingegrenzt nach Modifikationszustand.
 
 Die Flottenliste und die Liste der gelagerten Module werden vom Spiel neu geschrieben, wenn du irgendwo mit
 Werft oder Ausrüstung andockst, sie sind also so frisch wie dein letzter solcher Besuch.
@@ -454,7 +455,8 @@ Ein gespeicherter Build, verglichen mit dem, was du hast. Seine Abschnitte:
   Experimentaleffekt ist **teilweise** statt fehlend. Ebenso ein Modul auf der richtigen Stufe, das noch nicht
   zu seiner vollen Wirkung gerollt ist; sein Modifikationstext sagt, wie weit es ist, etwa „Verstärkt G3,
   25%“, und das Planen der Lücke verlangt nur die auf dieser Stufe noch ausstehenden Rolls. Ein Modul, das
-  modifiziert wurde, bevor das Spiel diese Zahl festhielt, gilt als vollständig.
+  modifiziert wurde, bevor das Spiel diese Zahl festhielt, gilt als vollständig. Ein Modul, das du nur einmal
+  besitzt und das ein früherer Build nach dieser Regel beansprucht, fehlt hier, und die Zeile nennt den Build.
 
   Der Status ist danach eingefärbt, wo das Modul ist:
 

@@ -34,14 +34,19 @@ public static class FleetChoices
     /// <summary>Gets the option that stands for every system.</summary>
     public static Choice Everywhere => new("", Strings.Get(Keys.Filter_Everywhere));
 
-    /// <summary>"Everywhere" plus every system holding a ship or a stored module, alphabetical.</summary>
+    /// <summary>
+    /// "Everywhere" plus every system holding a ship or a stored module, alphabetical, and the saved system when
+    /// nothing is there right now, so the filter in force is always on offer and never silently shown as another.
+    /// </summary>
     /// <param name="fleet">The fleet.</param>
+    /// <param name="saved">The saved system, or <see langword="null"/>.</param>
     /// <returns>The options.</returns>
-    public static IReadOnlyList<Choice> Locations(Journal.FleetSnapshot fleet)
+    public static IReadOnlyList<Choice> Locations(Journal.FleetSnapshot fleet, string? saved)
     {
         ArgumentNullException.ThrowIfNull(fleet);
         var systems = fleet.Ships.Select(ship => ship.System)
             .Concat(fleet.StoredModules.Select(module => module.System))
+            .Append(saved)
             .Where(system => !string.IsNullOrEmpty(system))
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .OrderBy(system => system, StringComparer.OrdinalIgnoreCase)

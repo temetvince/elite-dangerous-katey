@@ -683,6 +683,9 @@
   <data name="Fleet.ReplaceQuestion" xml:space="preserve">
     <value>Заменить сохранённую сборку {name} для {hull}?</value>
   </data>
+  <data name="Fleet.SharingHint" xml:space="preserve">
+    <value>Какие сборки могут пользоваться одним вашим модулем. Сборки одного корабля делят его по правилу «только между сборками для того же корпуса»; сборка, которой нужен собственный экземпляр, показывает «отсутствует» там, где единственный ваш модуль занят более ранней сборкой.</value>
+  </data>
   <data name="Fleet.ShipsNotSeen" xml:space="preserve">
     <value>ещё не видно: зайдите на верфь</value>
   </data>
@@ -961,6 +964,9 @@
   </data>
   <data name="Lookup.Unreadable" xml:space="preserve">
     <value>Не удалось прочитать ответ Spansh на запрос системы.</value>
+  </data>
+  <data name="Match.ClaimedBy" xml:space="preserve">
+    <value>отсутствует: его занимает ваша сборка {fit}</value>
   </data>
   <data name="Match.ExperimentalUnknown" xml:space="preserve">
     <value>{place}, эффект неизвестен</value>

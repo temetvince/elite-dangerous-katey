@@ -665,6 +665,9 @@ Aus: Alles wird angeboten, und Stufen beginnen oben. Der Plan warnt weiterhin vo
   <data name="Fleet.ReplaceQuestion" xml:space="preserve">
     <value>Gespeicherten Build {name} für den Schiffstyp {hull} ersetzen?</value>
   </data>
+  <data name="Fleet.SharingHint" xml:space="preserve">
+    <value>Welche Builds ein Modul, das du besitzt, gemeinsam nutzen dürfen. Builds für ein Schiff teilen es nach der Regel „gleicher Rumpf“; ein Build, der sein eigenes Exemplar braucht, zeigt „fehlt“, wo ein früherer Build dein einziges hält.</value>
+  </data>
   <data name="Fleet.ShipsNotSeen" xml:space="preserve">
     <value>noch nicht gesehen: an einer Werft andocken</value>
   </data>
@@ -943,6 +946,9 @@ Aus: Alles wird angeboten, und Stufen beginnen oben. Der Plan warnt weiterhin vo
   </data>
   <data name="Lookup.Unreadable" xml:space="preserve">
     <value>Die Antwort von Spansh auf die Systemabfrage konnte nicht gelesen werden.</value>
+  </data>
+  <data name="Match.ClaimedBy" xml:space="preserve">
+    <value>fehlt: dein Build {fit} beansprucht dein einziges Exemplar</value>
   </data>
   <data name="Match.ExperimentalUnknown" xml:space="preserve">
     <value>{place}, Experimentaleffekt unbekannt</value>

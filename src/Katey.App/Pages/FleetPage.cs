@@ -200,12 +200,15 @@ public sealed class FleetPage : Page
         get;
         set
         {
-            if (value is not null && SetProperty(ref field, value))
+            if (value is not null && SetProperty(ref field, value) && !_showingFilters)
             {
                 Workspace.Fleet.Policy = Enum.Parse<SharingPolicy>(value.Key);
             }
         }
     } = FleetChoices.Policies[0];
+
+    /// <summary>Gets what the sharing policy decides, shown beside its picker so a fit that reads missing under one policy is understood.</summary>
+    public static string SharingText => Strings.Get(Keys.Fleet_SharingHint);
 
     /// <summary>Gets "Everywhere" plus every system holding a ship or a stored module.</summary>
     public IReadOnlyList<Choice> Locations { get; private set => SetProperty(ref field, value); } = [FleetChoices.Everywhere];
@@ -216,12 +219,18 @@ public sealed class FleetPage : Page
         get;
         set
         {
-            if (value is not null && SetProperty(ref field, value))
+            if (value is not null && SetProperty(ref field, value) && !_showingFilters)
             {
                 Workspace.Fleet.Location = value.Key.Length == 0 ? null : value.Key;
             }
         }
     } = FleetChoices.Everywhere;
+
+    /// <summary>
+    /// Set while a refresh shows the saved filters in the pickers, so that showing them never writes them back:
+    /// a fleet that is empty during a replay offers no systems, and the saved one must survive until it returns.
+    /// </summary>
+    private bool _showingFilters;
 
     /// <summary>Gets the ways the unused list can be narrowed by engineering.</summary>
     public IReadOnlyList<Choice> Filters { get; } = FleetChoices.Filters;
@@ -248,7 +257,7 @@ public sealed class FleetPage : Page
         get;
         set
         {
-            if (value is not null && SetProperty(ref field, value))
+            if (value is not null && SetProperty(ref field, value) && !_showingFilters)
             {
                 Workspace.Fleet.Place = Enum.Parse<PlaceFilter>(value.Key);
             }
@@ -315,7 +324,7 @@ public sealed class FleetPage : Page
         ArgumentNullException.ThrowIfNull(line);
         if (line.Found is null)
         {
-            return Strings.Get(Keys.Match_Missing);
+            return line.ClaimedBy is { } fit ? Strings.Format(Keys.Match_ClaimedBy, ("fit", fit)) : Strings.Get(Keys.Match_Missing);
         }
 
         var place = line.Found.Place == ModulePlace.Installed
@@ -417,8 +426,18 @@ public sealed class FleetPage : Page
                 ("shipsAsOf", fleet.ShipsAsOf is { } s ? Strings.Format(Keys.Fleet_AsOf, ("when", s.ToLocalTime())) : Strings.Get(Keys.Fleet_ShipsNotSeen)),
                 ("modulesAsOf", fleet.ModulesAsOf is { } m ? Strings.Format(Keys.Fleet_AsOf, ("when", m.ToLocalTime())) : Strings.Get(Keys.Fleet_ModulesNotSeen)));
 
-        Locations = FleetChoices.Locations(fleet);
-        SelectedLocation = FleetChoices.LocationChoice(Locations, Workspace.Fleet.Location);
+        _showingFilters = true;
+        try
+        {
+            Locations = FleetChoices.Locations(fleet, Workspace.Fleet.Location);
+            SelectedLocation = FleetChoices.LocationChoice(Locations, Workspace.Fleet.Location);
+            SelectedPlace = FleetChoices.Places.First(choice => choice.Key == Workspace.Fleet.Place.ToString());
+            SelectedPolicy = FleetChoices.Policies.First(choice => choice.Key == Workspace.Fleet.Policy.ToString());
+        }
+        finally
+        {
+            _showingFilters = false;
+        }
 
         var report = Workspace.Fleet.Match(fleet, Workspace.Farness);
         Fits = FitSort.Apply(report.Fits.Select(fit => new FitListRow(

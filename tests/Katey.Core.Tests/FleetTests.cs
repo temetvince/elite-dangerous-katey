@@ -127,6 +127,14 @@ public sealed class FleetTests
         var none = FitMatcher.Match([conda1, conda2, cutter], owned, hulls, SharingPolicy.None, null);
         Assert.Equal([0, 1, 1], none.Fits.Select(fit => fit.MissingCount).ToList());
 
+        // A line missing only because an earlier fit holds the one copy names that fit; a line missing outright names nothing.
+        Assert.Null(none.Fits[0].Lines[0].ClaimedBy);
+        Assert.Equal("conda-1", none.Fits[1].Lines[0].ClaimedBy);
+        Assert.Equal("conda-1", sameHull.Fits[2].Lines[0].ClaimedBy);
+        Assert.Null(pooled.Fits[2].Lines[0].ClaimedBy);
+        var unowned = FitMatcher.Match([cutter], [], hulls, SharingPolicy.None, null);
+        Assert.Null(unowned.Fits[0].Lines[0].ClaimedBy);
+
         var twoInOneFit = FitMatcher.Match([Fit("twin", "anaconda", fsd, fsd)], owned, hulls, SharingPolicy.Pooled, null);
         Assert.Equal(1, twoInOneFit.Fits[0].MissingCount);
     }

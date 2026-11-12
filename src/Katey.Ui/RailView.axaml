@@ -10,7 +10,7 @@
     <Border Classes="rail" VerticalAlignment="Top">
       <StackPanel>
         <!-- Docked only: the rail's own window carries the live mark in its drag strip instead. -->
-        <Border Classes="rsec" Padding="14,10,140,10" IsVisible="{Binding !IsDetached}">
+        <Border Classes="rsec" Padding="14,10,14,10" IsVisible="{Binding !IsDetached}">
           <Grid ColumnDefinitions="*,Auto">
             <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
               <Ellipse Classes="pulse" Width="8" Height="8" Fill="{StaticResource RailAccent}" IsVisible="{Binding IsLive}" />

@@ -90,7 +90,8 @@ public enum MatchQuality
 /// <param name="Required">The requirement.</param>
 /// <param name="Found">The owned module assigned, or <see langword="null"/>.</param>
 /// <param name="Quality">How well it fits.</param>
-public sealed record FitLine(FitModule Required, OwnedModule? Found, MatchQuality Quality)
+/// <param name="ClaimedBy">The name of the earlier fit whose claim, under the sharing policy, keeps this fit from a module it would otherwise have matched; <see langword="null"/> when the module is found or when none is owned at all.</param>
+public sealed record FitLine(FitModule Required, OwnedModule? Found, MatchQuality Quality, string? ClaimedBy = null)
 {
     /// <summary>Gets whether the module found lacks only the experimental effect: it carries the blueprint at the required grade or higher.</summary>
     public bool NeedsOnlyExperimental => Quality == MatchQuality.Partial && Found?.Engineering is { } have && Required.Engineering is { } want && have.Level >= want.Level && (have.Level > want.Level || have.IsComplete);
@@ -148,7 +149,7 @@ public static class FitMatcher
         var available = owned
             .Where(module => system is null || string.Equals(module.System, system, StringComparison.OrdinalIgnoreCase))
             .ToList();
-        var claimedBy = new Dictionary<string, string>(StringComparer.Ordinal);
+        var claimedBy = new Dictionary<string, (string Hull, string Fit)>(StringComparer.Ordinal);
         var reports = new List<FitReport>();
 
         foreach (var fitting in fittings)
@@ -164,13 +165,20 @@ public static class FitMatcher
             foreach (var required in fitting.Modules)
             {
                 var (found, quality) = Pick(required, fitting.Hull, available, module => usedInFit.Contains(module.Id) || IsReserved(policy, claimedBy, module.Id, fitting.Hull), farness);
+                string? claimant = null;
                 if (found is not null)
                 {
                     usedInFit.Add(found.Id);
-                    claimedBy.TryAdd(found.Id, fitting.Hull);
+                    claimedBy.TryAdd(found.Id, (fitting.Hull, fitting.Name));
+                }
+                else
+                {
+                    // Nothing free: say whether an earlier fit's claim is the reason, so the line can name it.
+                    var (taken, takenQuality) = Pick(required, fitting.Hull, available, module => usedInFit.Contains(module.Id), farness);
+                    claimant = taken is not null && takenQuality != MatchQuality.Missing && claimedBy.TryGetValue(taken.Id, out var claim) ? claim.Fit : null;
                 }
 
-                lines.Add(new FitLine(required, found, quality));
+                lines.Add(new FitLine(required, found, quality, claimant));
             }
 
             reports.Add(new FitReport(fitting, HullOwned: true, lines));
@@ -193,10 +201,10 @@ public static class FitMatcher
     }
 
     /// <summary>Whether an earlier fit's claim on a module keeps this fit from using it.</summary>
-    private static bool IsReserved(SharingPolicy policy, Dictionary<string, string> claimedBy, string moduleId, string hull)
+    private static bool IsReserved(SharingPolicy policy, Dictionary<string, (string Hull, string Fit)> claimedBy, string moduleId, string hull)
     {
-        var claimed = claimedBy.TryGetValue(moduleId, out var claimingHull);
-        return claimed && Reserves(policy, claimingHull, hull);
+        var claimed = claimedBy.TryGetValue(moduleId, out var claim);
+        return claimed && Reserves(policy, claim.Hull, hull);
     }
 
     private static bool Reserves(SharingPolicy policy, string? claimingHull, string hull) => policy switch

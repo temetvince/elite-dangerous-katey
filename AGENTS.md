@@ -309,7 +309,9 @@ fixing the code over adding more.
   - `JournalMonitor` polls rather than using `FileSystemWatcher`: the game appends to its journal without
     signalling, and a notification would still have to be followed by a read. It replays the whole history
     into every `IJournalSink`, parsing a line only when a sink wants its event, which is what keeps a
-    multi-year history to seconds.
+    multi-year history to seconds. `Start` stops the previous loop and waits for it, and the reader checks
+    for cancellation before every line, never only between files: a 12 MB journal is one file, and a loop
+    that outlived its stop once fed another journal's stored modules into a freshly replayed fleet.
   - Logs go to `katey.log` beside the default `state.json` through `FileLoggerProvider`, Information and
     above unless the command line's `--log-level <level>` names another floor, or `--verbose` asks for
     debug, and to the Debug output only while a debugger is attached. Log messages never carry a folder: a
@@ -383,7 +385,9 @@ fixing the code over adding more.
     policy across fits: pooled never reserves, same-hull reserves against other hulls, none reserves
     against everyone. Among equal matches it takes a module fitted to the fit's own hull, then a stored
     one, then one on another hull, so a fit is met by its own ship before it borrows; match quality
-    decides before place, and wasted engineering after it. It and `FitComparer` compare items through
+    decides before place, and wasted engineering after it. A line missing only because an earlier fit
+    claimed the one copy carries that fit's name in `ClaimedBy`, and the status line says so: a user who
+    owns a module and reads "missing" otherwise suspects the data. It and `FitComparer` compare items through
     `ModuleSymbolNames.Canonical`: the game writes `_free` on a bundled module and a hull code on some
     cargo hatches (`modularcargobaydoorfdl`), EDSY writes neither. A new spelling the game invents belongs
     there, not in a page.

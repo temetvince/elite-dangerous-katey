@@ -180,7 +180,12 @@ public sealed class JournalMonitor : IJournalMonitor
         cancellation.Cancel();
         try
         {
-            _loop?.Wait(TimeSpan.FromSeconds(5));
+            // The reader checks for cancellation before every line, so the loop is out within one line's work;
+            // the wait is generous only so that a stall shows up in the log instead of a corrupted replay.
+            if (_loop?.Wait(TimeSpan.FromSeconds(30)) == false)
+            {
+                Log.StopTimedOut(_logger);
+            }
         }
         catch (AggregateException exception) when (exception.InnerExceptions.All(inner => inner is OperationCanceledException))
         {
@@ -240,7 +245,7 @@ public sealed class JournalMonitor : IJournalMonitor
             using var timer = new PeriodicTimer(_pollInterval);
             while (await timer.WaitForNextTickAsync(cancellationToken).ConfigureAwait(false))
             {
-                Poll(folder);
+                Poll(folder, cancellationToken);
             }
         }
         catch (OperationCanceledException)
@@ -281,7 +286,7 @@ public sealed class JournalMonitor : IJournalMonitor
             cancellationToken.ThrowIfCancellationRequested();
             _currentFile = files[index];
             _offset = 0;
-            changed |= ReadNewLines();
+            changed |= ReadNewLines(cancellationToken);
             SetState(MonitorState.CatchingUp, new CatchUpProgress(index + 1, files.Count));
         }
 
@@ -294,7 +299,7 @@ public sealed class JournalMonitor : IJournalMonitor
         }
     }
 
-    private void Poll(string folder)
+    private void Poll(string folder, CancellationToken cancellationToken)
     {
         var files = JournalFolder.JournalFiles(folder);
         var newest = files.Count > 0 ? files[^1] : null;
@@ -302,7 +307,7 @@ public sealed class JournalMonitor : IJournalMonitor
 
         if (_currentFile is not null && newest is not null && !string.Equals(newest, _currentFile, StringComparison.OrdinalIgnoreCase))
         {
-            changed |= ReadNewLines();
+            changed |= ReadNewLines(cancellationToken);
             var currentIndex = IndexOf(files, _currentFile);
             foreach (var file in files.Skip(currentIndex + 1))
             {
@@ -310,7 +315,7 @@ public sealed class JournalMonitor : IJournalMonitor
                 Log.SwitchedJournal(_logger, switchedTo);
                 _currentFile = file;
                 _offset = 0;
-                changed |= ReadNewLines();
+                changed |= ReadNewLines(cancellationToken);
             }
         }
         else if (_currentFile is null && newest is not null)
@@ -319,11 +324,11 @@ public sealed class JournalMonitor : IJournalMonitor
             Log.SwitchedJournal(_logger, newestName);
             _currentFile = newest;
             _offset = 0;
-            changed |= ReadNewLines();
+            changed |= ReadNewLines(cancellationToken);
         }
         else if (_currentFile is not null)
         {
-            changed |= ReadNewLines();
+            changed |= ReadNewLines(cancellationToken);
         }
 
         changed |= ReadLiveFiles(folder);
@@ -406,7 +411,8 @@ public sealed class JournalMonitor : IJournalMonitor
         return text.Length == 0 ? null : text;
     }
 
-    private bool ReadNewLines()
+    /// <summary>Reads what the current file holds past the offset and applies it, checking for cancellation before every line so a stop never leaves an old replay feeding the sinks.</summary>
+    private bool ReadNewLines(CancellationToken cancellationToken)
     {
         if (_currentFile is null || !File.Exists(_currentFile))
         {
@@ -442,6 +448,7 @@ public sealed class JournalMonitor : IJournalMonitor
         var changed = false;
         foreach (var line in text.Split('\n', StringSplitOptions.RemoveEmptyEntries))
         {
+            cancellationToken.ThrowIfCancellationRequested();
             if (string.IsNullOrWhiteSpace(line))
             {
                 continue;

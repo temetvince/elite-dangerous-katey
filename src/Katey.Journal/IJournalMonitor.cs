@@ -67,6 +67,7 @@ public interface IJournalMonitor : IDisposable
     /// <param name="folder">The journal folder. May not exist yet; the state then says so.</param>
     void Start(string folder);
 
-    /// <summary>Stops following. The sinks keep their last state.</summary>
+    /// <summary>Stops following and waits for the loop to end, so no event of this watch reaches a sink after the call returns. The sinks keep their last state.</summary>
+    /// <remarks>Not from an <see cref="Updated"/> or <see cref="StateChanged"/> handler: they are raised on the loop's thread, which the call would wait for.</remarks>
     void Stop();
 }

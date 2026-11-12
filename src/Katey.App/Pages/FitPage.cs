@@ -226,13 +226,32 @@ public sealed class FitPage : Page, IEdsyExportable
     /// <summary>Gets where an owned module may be to count: the fleet's place filter.</summary>
     public IReadOnlyList<Choice> Places { get; } = FleetChoices.Places;
 
+    /// <summary>Gets the sharing policies.</summary>
+    public IReadOnlyList<Choice> Policies { get; } = FleetChoices.Policies;
+
+    /// <summary>Gets or sets the sharing policy. Must be one of <see cref="Policies"/>. Shared with the fleet page and saved.</summary>
+    public Choice SelectedPolicy
+    {
+        get;
+        set
+        {
+            if (value is not null && SetProperty(ref field, value) && !_showingFilters)
+            {
+                Workspace.Fleet.Policy = Enum.Parse<SharingPolicy>(value.Key);
+            }
+        }
+    } = FleetChoices.Policies[0];
+
+    /// <summary>Gets what the sharing policy decides, shown beside its picker.</summary>
+    public static string SharingText => FleetPage.SharingText;
+
     /// <summary>Gets or sets the place filter. Must be one of <see cref="Places"/>. Shared with the fleet page and remembered.</summary>
     public Choice SelectedPlace
     {
         get;
         set
         {
-            if (value is not null && SetProperty(ref field, value))
+            if (value is not null && SetProperty(ref field, value) && !_showingFilters)
             {
                 Workspace.Fleet.Place = Enum.Parse<PlaceFilter>(value.Key);
             }
@@ -248,12 +267,18 @@ public sealed class FitPage : Page, IEdsyExportable
         get;
         set
         {
-            if (value is not null && SetProperty(ref field, value))
+            if (value is not null && SetProperty(ref field, value) && !_showingFilters)
             {
                 Workspace.Fleet.Location = value.Key.Length == 0 ? null : value.Key;
             }
         }
     } = FleetChoices.Everywhere;
+
+    /// <summary>
+    /// Set while a refresh shows the saved filters in the pickers, so that showing them never writes them back:
+    /// a fleet that is empty during a replay offers no systems, and the saved one must survive until it returns.
+    /// </summary>
+    private bool _showingFilters;
 
     /// <summary>Gets a line on the comparison: matches, engineering, purchases, and how much your engineers cover.</summary>
     public string CompareSummary { get; private set => SetProperty(ref field, value); } = "";
@@ -329,9 +354,19 @@ public sealed class FitPage : Page, IEdsyExportable
         OnPropertyChanged(nameof(PlanMissingText));
         PlanMissingCommand.RaiseCanExecuteChanged();
 
-        Locations = FleetChoices.Locations(fleet);
-        SelectedLocation = FleetChoices.LocationChoice(Locations, Workspace.Fleet.Location);
-        SelectedPlace = FleetChoices.Places.First(choice => choice.Key == Workspace.Fleet.Place.ToString());
+        _showingFilters = true;
+        try
+        {
+            Locations = FleetChoices.Locations(fleet, Workspace.Fleet.Location);
+            SelectedLocation = FleetChoices.LocationChoice(Locations, Workspace.Fleet.Location);
+            SelectedPlace = FleetChoices.Places.First(choice => choice.Key == Workspace.Fleet.Place.ToString());
+            SelectedPolicy = FleetChoices.Policies.First(choice => choice.Key == Workspace.Fleet.Policy.ToString());
+        }
+        finally
+        {
+            _showingFilters = false;
+        }
+
         RefreshShips(fitting, fleet);
     }
 
