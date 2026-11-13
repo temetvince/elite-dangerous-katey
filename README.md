@@ -157,4 +157,8 @@ and `dotnet run --project tools/CheckDocLinks`, which fails on a link or heading
 | `MANUAL.md`, `MANUAL.<culture>.md` | The user manual for players, with a quick start first, in English and in every shipped language. All shipped beside the executable. |
 | `NOTICE.md` | Katey's licence, every licence of the software compiled into it, and the credits and terms of the game data. Shipped beside the executable. |
 | `THIRD-PARTY-NOTICES.txt` | The long third-party notices of the .NET runtime and of SkiaSharp and HarfBuzzSharp, as their publishers ship them. Shipped beside the executable. |
-| `NOTICE.md` | Who owns the data and where it came from, and the font licences. |
+
+## Thanks
+
+Special thanks to [alexalsp](https://github.com/alexalsp) for the feedback and bug reports that improved
+Katey, and for improving its Russian translation.
